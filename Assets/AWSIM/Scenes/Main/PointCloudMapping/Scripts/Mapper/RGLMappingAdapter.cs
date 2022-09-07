@@ -38,32 +38,34 @@ namespace AWSIM.PointCloudMapping
 
         public PointCloudOfXYZI Capture_XYZI_ROS(Vector3 worldOriginROS)
         {
-            var outputData = lidarSensor.RequestCapture();
-            var pcl = new PointCloudOfXYZI();
-
-            for (int i = 0; i < outputData.hitCount; ++i)
-            {
-                var rosPoint = ROS2Utility.UnityToRosPosition(outputData.hits[i]) + worldOriginROS;
-                pcl.Add(new PointXYZI
-                {
-                    X = rosPoint.x,
-                    Y = rosPoint.y,
-                    Z = rosPoint.z,
-                    Intensity = 100.0f
-                });
-            }
-
-            if (leafSize == 0.0f)
-            {
-                return pcl;
-            }
-
-            var filteredPCL = new PointCloudOfXYZI();
-            var voxelGrid = new PclSharp.Filters.VoxelGridOfXYZI();
-            voxelGrid.SetInputCloud(pcl);
-            voxelGrid.LeafSize = new PointXYZ { V = new System.Numerics.Vector3(leafSize, leafSize, leafSize) };
-            voxelGrid.filter(filteredPCL);
-            return filteredPCL;
+            // TODO
+            return new PointCloudOfXYZI();
+            // var outputData = lidarSensor.Capture();
+            // var pcl = new PointCloudOfXYZI();
+            //
+            // for (int i = 0; i < outputData.hitCount; ++i)
+            // {
+            //     var rosPoint = ROS2Utility.UnityToRosPosition(outputData.hits[i]) + worldOriginROS;
+            //     pcl.Add(new PointXYZI
+            //     {
+            //         X = rosPoint.x,
+            //         Y = rosPoint.y,
+            //         Z = rosPoint.z,
+            //         Intensity = 100.0f
+            //     });
+            // }
+            //
+            // if (leafSize == 0.0f)
+            // {
+            //     return pcl;
+            // }
+            //
+            // var filteredPCL = new PointCloudOfXYZI();
+            // var voxelGrid = new PclSharp.Filters.VoxelGridOfXYZI();
+            // voxelGrid.SetInputCloud(pcl);
+            // voxelGrid.LeafSize = new PointXYZ { V = new System.Numerics.Vector3(leafSize, leafSize, leafSize) };
+            // voxelGrid.filter(filteredPCL);
+            // return filteredPCL;
         }
     }
 }

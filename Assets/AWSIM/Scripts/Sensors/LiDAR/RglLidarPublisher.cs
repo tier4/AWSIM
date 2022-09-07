@@ -15,6 +15,8 @@
 
 using UnityEngine;
 using AWSIM;
+using AWSIM.PointCloudFormats;
+using rcl_interfaces.msg;
 using RGLUnityPlugin;
 using ROS2;
 using UnityEngine.Profiling;
@@ -41,32 +43,60 @@ namespace AWSIM
             Depth = 1000,
         };
 
-        private Publisher<sensor_msgs.msg.PointCloud2> _publisherPCL24;
-        private Publisher<sensor_msgs.msg.PointCloud2> _publisherPCL48;
-        private sensor_msgs.msg.PointCloud2 pcl24;
-        private sensor_msgs.msg.PointCloud2 pcl48;
+        private Publisher<sensor_msgs.msg.PointCloud2> pcl24Publisher;
+        private Publisher<sensor_msgs.msg.PointCloud2> pcl48Publisher;
+        private sensor_msgs.msg.PointCloud2 pcl24SensorMsg;
+        private sensor_msgs.msg.PointCloud2 pcl48SensorMsg;
+        private RGLOutputHandle pcl24RglHandle;
+        private RGLOutputHandle pcl48RglHandle;
+        private byte[] pcl24Data;
+        private byte[] pcl48Data;
         private LidarSensor lidarSensor;
+
 
         private void Start()
         {
+            if (!publishPCL24 && !publishPCL48)
+            {
+                Debug.LogWarning("All lidar message formats are disabled. Nothing to publish!");
+            }
+
             lidarSensor = GetComponent<LidarSensor>();
-            lidarSensor.OnOutputData += Publish;
+            lidarSensor.onNewData += OnNewLidarData;
 
-            if (publishPCL24) _publisherPCL24 = SimulatorROS2Node.CreatePublisher<sensor_msgs.msg.PointCloud2>(pcl24Topic, qosSettings.GetQoSProfile());
-            if (publishPCL48) _publisherPCL48 = SimulatorROS2Node.CreatePublisher<sensor_msgs.msg.PointCloud2>(pcl48Topic, qosSettings.GetQoSProfile());
+            if (publishPCL24)
+            {
+                pcl24Data = new byte[1];
+                pcl24Publisher = SimulatorROS2Node.CreatePublisher<sensor_msgs.msg.PointCloud2>(pcl24Topic, qosSettings.GetQoSProfile());
+                pcl24RglHandle = lidarSensor.AddFormat(FormatPCL24.GetRGLFields(), ROS2.Transformations.Unity2RosMatrix4x4() * transform.worldToLocalMatrix);
+                pcl24SensorMsg = FormatPCL24.GetSensorMsg();
+                pcl24SensorMsg.SetHeaderFrame(frameID);
+            }
 
-            if (publishPCL24) pcl24 = precomputePCL24Message();
-            if (publishPCL48) pcl48 = precomputePCL48Message();
-
-            if (publishPCL24) pcl24.SetHeaderFrame(frameID);
-            if (publishPCL48) pcl48.SetHeaderFrame(frameID);
+            if (publishPCL48)
+            {
+                pcl48Data = new byte[1];
+                pcl48Publisher = SimulatorROS2Node.CreatePublisher<sensor_msgs.msg.PointCloud2>(pcl48Topic, qosSettings.GetQoSProfile());
+                pcl48RglHandle = lidarSensor.AddFormat(FormatPCL48.GetRGLFields(), ROS2.Transformations.Unity2RosMatrix4x4() * transform.worldToLocalMatrix);
+                pcl48SensorMsg = FormatPCL48.GetSensorMsg();
+                pcl48SensorMsg.SetHeaderFrame(frameID);
+            }
         }
 
-        private void Publish(LidarSensor.OutputData data)
+        private void OnNewLidarData()
         {
             Profiler.BeginSample("Publish Pointclouds");
-            if (publishPCL24) PublishFormat(_publisherPCL24, pcl24, data.rosPCL24, data.hitCount);
-            if (publishPCL48) PublishFormat(_publisherPCL48, pcl48, data.rosPCL48, data.hitCount);
+            if (publishPCL24)
+            {
+                int hitCount = lidarSensor.GetDataRaw(pcl24RglHandle, ref pcl24Data, 24);
+                PublishFormat(pcl24Publisher, pcl24SensorMsg, pcl24Data, hitCount);
+            }
+
+            if (publishPCL48)
+            {
+                int hitCount = lidarSensor.GetDataRaw(pcl48RglHandle, ref pcl48Data, 48);
+                PublishFormat(pcl48Publisher, pcl48SensorMsg, pcl48Data, hitCount);
+            }
             Profiler.EndSample();
         }
 
@@ -83,182 +113,10 @@ namespace AWSIM
 
         private void OnDisable()
         {
-            if(_publisherPCL24 != null) _publisherPCL24.Dispose();
-            if(_publisherPCL48 != null) _publisherPCL48.Dispose();
+            if(pcl24Publisher != null) pcl24Publisher.Dispose();
+            if(pcl48Publisher != null) pcl48Publisher.Dispose();
         }
-
-        private sensor_msgs.msg.PointCloud2 precomputeLegacyMessage()
-        {
-            return new sensor_msgs.msg.PointCloud2
-            {
-                Header = new std_msgs.msg.Header(), // TO BE FILLED 
-                Data = null, // TO BE FILLED
-                Is_bigendian = false,
-                Width = 0, // TO BE FILLED
-                Height = 1,
-                Is_dense = true,
-                Point_step = 12,
-                Row_step = 0, // TO BE FILLED,
-                Fields = new[]
-                {
-                    new sensor_msgs.msg.PointField
-                    {
-                        Name = "x",
-                        Count = 1,
-                        Datatype = sensor_msgs.msg.PointField.FLOAT32,
-                        Offset = 0,
-                    },
-                    new sensor_msgs.msg.PointField
-                    {
-                        Name = "y",
-                        Count = 1,
-                        Datatype = sensor_msgs.msg.PointField.FLOAT32,
-                        Offset = 4,
-                    },
-                    new sensor_msgs.msg.PointField
-                    {
-                        Name = "z",
-                        Count = 1,
-                        Datatype = sensor_msgs.msg.PointField.FLOAT32,
-                        Offset = 8,
-                    }
-                }
-            };
-        }
-
-        private sensor_msgs.msg.PointCloud2 precomputePCL24Message()
-        {
-            return new sensor_msgs.msg.PointCloud2()
-            {
-                Header = new std_msgs.msg.Header(), // TO BE FILLED 
-                Data = null, // TO BE FILLED
-                Is_bigendian = false,
-                Width = 0, // TO BE FILLED
-                Height = 1,
-                Is_dense = true,
-                Point_step = 24,
-                Row_step = 0, // TO BE FILLED,
-                Fields = new[]
-                {
-                    new sensor_msgs.msg.PointField
-                    {
-                        Name = "x",
-                        Count = 1,
-                        Datatype = sensor_msgs.msg.PointField.FLOAT32,
-                        Offset = 0,
-                    },
-                    new sensor_msgs.msg.PointField
-                    {
-                        Name = "y",
-                        Count = 1,
-                        Datatype = sensor_msgs.msg.PointField.FLOAT32,
-                        Offset = 4,
-                    },
-                    new sensor_msgs.msg.PointField
-                    {
-                        Name = "z",
-                        Count = 1,
-                        Datatype = sensor_msgs.msg.PointField.FLOAT32,
-                        Offset = 8,
-                    },
-                    new sensor_msgs.msg.PointField
-                    {
-                        Name = "intensity",
-                        Count = 1,
-                        Datatype = sensor_msgs.msg.PointField.FLOAT32,
-                        Offset = 16,
-                    },
-                    new sensor_msgs.msg.PointField
-                    {
-                        Name = "ring",
-                        Count = 1,
-                        Datatype = sensor_msgs.msg.PointField.UINT16,
-                        Offset = 20,
-                    }
-                }
-            };
-        }
-
-        private sensor_msgs.msg.PointCloud2 precomputePCL48Message()
-        {
-            return new sensor_msgs.msg.PointCloud2()
-            {
-                Header = new std_msgs.msg.Header(), // TO BE FILLED 
-                Data = null, // TO BE FILLED
-                Is_bigendian = false,
-                Width = 0, // TO BE FILLED
-                Height = 1,
-                Is_dense = true,
-                Point_step = 48,
-                Row_step = 0, // TO BE FILLED,
-                Fields = new[]
-                {
-                    new sensor_msgs.msg.PointField
-                    {
-                        Name = "x",
-                        Count = 1,
-                        Datatype = sensor_msgs.msg.PointField.FLOAT32,
-                        Offset = 0,
-                    },
-                    new sensor_msgs.msg.PointField
-                    {
-                        Name = "y",
-                        Count = 1,
-                        Datatype = sensor_msgs.msg.PointField.FLOAT32,
-                        Offset = 4,
-                    },
-                    new sensor_msgs.msg.PointField
-                    {
-                        Name = "z",
-                        Count = 1,
-                        Datatype = sensor_msgs.msg.PointField.FLOAT32,
-                        Offset = 8,
-                    },
-                    new sensor_msgs.msg.PointField
-                    {
-                        Name = "intensity",
-                        Count = 1,
-                        Datatype = sensor_msgs.msg.PointField.FLOAT32,
-                        Offset = 16,
-                    },
-                    new sensor_msgs.msg.PointField
-                    {
-                        Name = "ring",
-                        Count = 1,
-                        Datatype = sensor_msgs.msg.PointField.UINT16,
-                        Offset = 20,
-                    },
-                    new sensor_msgs.msg.PointField
-                    {
-                        Name = "azimuth",
-                        Count = 1,
-                        Datatype = sensor_msgs.msg.PointField.FLOAT32,
-                        Offset = 24,
-                    },
-                    new sensor_msgs.msg.PointField
-                    {
-                        Name = "distance",
-                        Count = 1,
-                        Datatype = sensor_msgs.msg.PointField.FLOAT32,
-                        Offset = 28,
-                    },
-                    new sensor_msgs.msg.PointField
-                    {
-                        Name = "return_type",
-                        Count = 1,
-                        Datatype = sensor_msgs.msg.PointField.UINT8,
-                        Offset = 32
-                    },
-                    new sensor_msgs.msg.PointField
-                    {
-                        Name = "time_stamp",
-                        Count = 1,
-                        Datatype = sensor_msgs.msg.PointField.FLOAT64,
-                        Offset = 40,
-                    }
-                }
-            };
-        }
+        
     }
 }
 

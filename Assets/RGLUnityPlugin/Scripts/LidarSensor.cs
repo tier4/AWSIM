@@ -13,6 +13,8 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -27,32 +29,6 @@ namespace RGLUnityPlugin
     public class LidarSensor : MonoBehaviour
     {
         /// <summary>
-        /// This data is output from LidarSensor at the OutputHz cycle.
-        /// </summary>
-        public struct OutputData
-        {
-            /// <summary>
-            /// Number of rays that actually has hit anything.
-            /// </summary>
-            public int hitCount;
-
-            /// <summary>
-            /// Vertices for visualization, Unity coordinate frame.
-            /// </summary>
-            public Vector3[] hits;
-
-            /// <summary>
-            /// Vertices for publishing Autoware format pointcloud, ROS coordinate frame
-            /// </summary>
-            public byte[] rosPCL24;
-
-            /// <summary>
-            /// Vertices for publishing extended Autoware format pointcloud, ROS coordinate frame
-            /// </summary>
-            public byte[] rosPCL48;
-        }
-
-        /// <summary>
         /// Sensor processing and callbacks are automatically called in this hz.
         /// </summary>
         [FormerlySerializedAs("OutputHz")]
@@ -62,12 +38,12 @@ namespace RGLUnityPlugin
         /// Delegate used in callbacks.
         /// </summary>
         /// <param name="outputData">Data output for each hz</param>
-        public delegate void OnOutputDataDelegate(OutputData outputData);
+        public delegate void OnNewDataDelegate();
 
         /// <summary>
         /// Called when new data is generated via automatic capture.
         /// </summary>
-        public OnOutputDataDelegate OnOutputData;
+        public OnNewDataDelegate onNewData;
 
         /// <summary>
         /// Allows to select one of built-in LiDAR models.
@@ -85,10 +61,9 @@ namespace RGLUnityPlugin
         /// </summary>
         public LidarConfiguration configuration = LidarConfigurationLibrary.ByModel[LidarModel.RangeMeter];
 
-        private RGLLidar rglLidar;
+        private RGLGraph rglGraph;
         private SceneManager sceneManager;
         private PointCloudVisualization pointCloudVisualization;
-        private OutputData outputData;
         private LidarModel? validatedPreset;
         private float timer;
 
@@ -103,15 +78,14 @@ namespace RGLUnityPlugin
                 Destroy(this);
             }
 
+            rglGraph = new RGLGraph();
             OnValidate();
-            if (rglLidar == null)
-            {
-                ApplyConfiguration(configuration);
-            }
         }
 
         public void OnValidate()
         {
+            // This tricky code ensures that configuring from a preset dropdown
+            // in Unity Inspector works well in prefab edit mode and regular edit mode. 
             bool presetChanged = validatedPreset != modelPreset;
             bool firstValidation = validatedPreset == null;
             if (!firstValidation && presetChanged)
@@ -125,17 +99,9 @@ namespace RGLUnityPlugin
 
         private void ApplyConfiguration(LidarConfiguration newConfig)
         {
-            rglLidar = null; // When GetRayPoses() fails, having null rglLidar will result in more readable error.
-            rglLidar = new RGLLidar(newConfig.GetRayPoses(), newConfig.laserArray.GetLaserRingIds());
-            rglLidar.SetGaussianNoiseParamsCtx(applyGaussianNoise
-                ? newConfig.noiseParams
-                : LidarConfiguration.ZeroNoiseParams);
-            outputData = new OutputData
-            {
-                hits = new Vector3[newConfig.PointCloudSize],
-                rosPCL24 = new byte[24 * newConfig.PointCloudSize],
-                rosPCL48 = new byte[48 * newConfig.PointCloudSize]
-            };
+            rglGraph.SetRays(newConfig.GetRayPoses());
+            rglGraph.SetRingIds(newConfig.laserArray.GetLaserRingIds());
+            // TODO: gaussian noise
         }
 
         public void FixedUpdate()
@@ -152,29 +118,44 @@ namespace RGLUnityPlugin
                 return;
             timer = 0;
 
-            OnOutputData.Invoke(RequestCapture());
+            // Capture();
+            onNewData.Invoke();
         }
 
-        public OutputData RequestCapture()
+        public RGLOutputHandle AddFormat(RGLField[] fields, Matrix4x4 transform)
         {
-            sceneManager.DoUpdate();
-            
-            rglLidar.RaytraceAsync(
-                transform.localToWorldMatrix,
-                ROS2.Transformations.Unity2RosMatrix4x4() * transform.worldToLocalMatrix,
-                configuration.maxRange);
-            
-            rglLidar.SyncAndDownload(
-                ref outputData.hitCount,
-                ref outputData.hits,
-                ref outputData.rosPCL24,
-                ref outputData.rosPCL48);
-
-            Vector3[] onlyHits = new Vector3[outputData.hitCount];
-            Array.Copy(outputData.hits, onlyHits, outputData.hitCount);
-            GetComponent<PointCloudVisualization>().SetPoints(onlyHits);
-
-            return outputData;
+            return rglGraph.AddFormat(fields, transform);
         }
+
+        public int GetData<T>(RGLOutputHandle handle, ref T[] data) where T: unmanaged
+        {
+            return rglGraph.GetData(handle, ref data);
+        }
+
+        public int GetDataRaw(RGLOutputHandle handle, ref byte[] data, int expectedPointSize)
+        {
+            return rglGraph.GetDataRaw(handle, ref data, expectedPointSize);
+        }
+
+        // public void Capture()
+        // {
+        //     sceneManager.DoUpdate();
+        //     
+        //     rglLidar.RaytraceAsync(
+        //         transform.localToWorldMatrix,
+        //         ROS2.Transformations.Unity2RosMatrix4x4() * transform.worldToLocalMatrix,
+        //         configuration.maxRange);
+        //     
+        //     rglLidar.SyncAndDownload(
+        //         ref outputData.hitCount,
+        //         ref outputData.hits,
+        //         ref outputData.rosPCL24,
+        //         ref outputData.rosPCL48);
+        //
+        //     Vector3[] onlyHits = new Vector3[outputData.hitCount];
+        //     Array.Copy(outputData.hits, onlyHits, outputData.hitCount);
+        //     GetComponent<PointCloudVisualization>().SetPoints(onlyHits);
+        //
+        // }
     }
 }
