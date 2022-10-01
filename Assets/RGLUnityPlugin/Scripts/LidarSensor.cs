@@ -63,6 +63,7 @@ namespace RGLUnityPlugin
 
         private RGLGraph rglGraph;
         private SceneManager sceneManager;
+        private RGLOutputHandle visualizationOutputHandle;
         private PointCloudVisualization pointCloudVisualization;
         private LidarModel? validatedPreset;
         private float timer;
@@ -70,16 +71,19 @@ namespace RGLUnityPlugin
         public void Start()
         {
             sceneManager = FindObjectOfType<SceneManager>();
-            
             if (sceneManager == null)
             {
                 // TODO(prybicki): this is too tedious, implement automatic instantiation of RGL Scene Manager
                 Debug.LogError($"RGL Scene Manager is not present on the scene. Destroying {name}.");
                 Destroy(this);
             }
+            OnValidate();
 
             rglGraph = new RGLGraph();
-            OnValidate();
+            rglGraph.SetRays(configuration.GetRayPoses());
+            rglGraph.SetRingIds(configuration.laserArray.GetLaserRingIds());
+            rglGraph.SetLidarRange(configuration.maxRange);
+            visualizationOutputHandle = rglGraph.AddFormat(new [] {RGLField.XYZ_F32}, Matrix4x4.identity);
         }
 
         public void OnValidate()
@@ -92,16 +96,7 @@ namespace RGLUnityPlugin
             {
                 configuration = LidarConfigurationLibrary.ByModel[modelPreset];
             }
-
-            ApplyConfiguration(configuration);
             validatedPreset = modelPreset;
-        }
-
-        private void ApplyConfiguration(LidarConfiguration newConfig)
-        {
-            rglGraph.SetRays(newConfig.GetRayPoses());
-            rglGraph.SetRingIds(newConfig.laserArray.GetLaserRingIds());
-            // TODO: gaussian noise
         }
 
         public void FixedUpdate()
@@ -118,8 +113,11 @@ namespace RGLUnityPlugin
                 return;
             timer = 0;
 
-            // Capture();
-            onNewData.Invoke();
+            Capture();
+            if (onNewData != null)
+            {
+                onNewData.Invoke();
+            }
         }
 
         public RGLOutputHandle AddFormat(RGLField[] fields, Matrix4x4 transform)
@@ -129,33 +127,30 @@ namespace RGLUnityPlugin
 
         public int GetData<T>(RGLOutputHandle handle, ref T[] data) where T: unmanaged
         {
-            return rglGraph.GetData(handle, ref data);
+            Debug.LogWarning("dummy");
+            // return rglGraph.GetData(handle, ref data);
+            return 0;
         }
 
         public int GetDataRaw(RGLOutputHandle handle, ref byte[] data, int expectedPointSize)
         {
-            return rglGraph.GetDataRaw(handle, ref data, expectedPointSize);
+            Debug.LogWarning("dummy");
+            // return rglGraph.GetDataRaw(handle, ref data, expectedPointSize);
+            return 0;
         }
 
-        // public void Capture()
-        // {
-        //     sceneManager.DoUpdate();
-        //     
-        //     rglLidar.RaytraceAsync(
-        //         transform.localToWorldMatrix,
-        //         ROS2.Transformations.Unity2RosMatrix4x4() * transform.worldToLocalMatrix,
-        //         configuration.maxRange);
-        //     
-        //     rglLidar.SyncAndDownload(
-        //         ref outputData.hitCount,
-        //         ref outputData.hits,
-        //         ref outputData.rosPCL24,
-        //         ref outputData.rosPCL48);
-        //
-        //     Vector3[] onlyHits = new Vector3[outputData.hitCount];
-        //     Array.Copy(outputData.hits, onlyHits, outputData.hitCount);
-        //     GetComponent<PointCloudVisualization>().SetPoints(onlyHits);
-        //
-        // }
+        public void Capture()
+        {
+            sceneManager.DoUpdate();
+            rglGraph.SetLidarPosition(gameObject.transform.localToWorldMatrix);
+            rglGraph.Run();
+            
+            
+            Vector3[] onlyHits = new Vector3[1];
+            rglGraph.GetData<Vector3>(visualizationOutputHandle, ref onlyHits);
+            // Array.Copy(outputData.hits, onlyHits, outputData.hitCount);
+            GetComponent<PointCloudVisualization>().SetPoints(onlyHits);
+        
+        }
     }
 }

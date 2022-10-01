@@ -23,6 +23,9 @@ namespace RGLUnityPlugin
         // Public RGL API
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_get_version_info(out int major, out int minor, out int patch);
+        
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_configure_logging(RGLLogLevel log_level, [MarshalAs(UnmanagedType.LPStr)] string log_file_path, bool use_stdout);
 
         [DllImport("RobotecGPULidar")]
         public static extern void rgl_get_last_error_string(out IntPtr error_string);
@@ -46,34 +49,34 @@ namespace RGLUnityPlugin
         public static extern int rgl_entity_set_pose(IntPtr entity, IntPtr local_to_world_tf);
         
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_use_rays_mat3x4f(ref IntPtr node, IntPtr rays, int ray_count);
+        public static extern int rgl_node_rays_from_mat3x4f(ref IntPtr node, IntPtr rays, int ray_count);
         
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_use_ring_ids(ref IntPtr node, IntPtr ring_ids, int ring_ids_count);
+        public static extern int rgl_node_rays_set_ring_ids(ref IntPtr node, IntPtr ring_ids, int ring_ids_count);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_transform_rays(ref IntPtr node, IntPtr transform);
+        public static extern int rgl_node_rays_transform(ref IntPtr node, IntPtr transform);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_transform_points(ref IntPtr node, IntPtr transform);
+        public static extern int rgl_node_points_transform(ref IntPtr node, IntPtr transform);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_raytrace(ref IntPtr node, IntPtr scene, float range);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_format(ref IntPtr node, out RGLField outToken, IntPtr fields, int field_count);
+        public static extern int rgl_node_points_format(ref IntPtr node, IntPtr fields, int field_count);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_yield_points(ref IntPtr node, IntPtr fields, int field_count);
+        public static extern int rgl_node_points_yield(ref IntPtr node, IntPtr fields, int field_count);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_compact(ref IntPtr node);
+        public static extern int rgl_node_points_compact(ref IntPtr node);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_downsample(ref IntPtr node, float leaf_size_x, float leaf_size_y, float leaf_size_z);
+        public static extern int rgl_node_points_downsample(ref IntPtr node, float leaf_size_x, float leaf_size_y, float leaf_size_z);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_write_pcd_file(ref IntPtr node, IntPtr file_path);
+        public static extern int rgl_node_points_write_pcd_file(ref IntPtr node, IntPtr file_path);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_run(IntPtr node);
@@ -82,7 +85,10 @@ namespace RGLUnityPlugin
         public static extern int rgl_graph_destroy(IntPtr node);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_graph_get_result(IntPtr node, RGLField field, out Int64 outCount, out Int64 outSizeOf, IntPtr data);
+        public static extern int rgl_graph_get_result_size(IntPtr node, RGLField field, out Int64 outCount, out Int64 outSizeOf);
+        
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_graph_get_result_data(IntPtr node, RGLField field, IntPtr data);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_node_set_active(IntPtr node, bool active);
@@ -120,6 +126,11 @@ namespace RGLUnityPlugin
             throw new RGLException(errStr);
         }
 
+        public static void ConfigureLogging(RGLLogLevel logLevel, string path)
+        {
+            CheckErr(rgl_configure_logging(logLevel, path, false));
+        }
+
         public static float[] IntoMat3x4f(Matrix4x4[] mats)
         {
             var matFloats = new float[mats.Length * 12];
@@ -144,7 +155,7 @@ namespace RGLUnityPlugin
             return IntoMat3x4f(new[]{mat});
         }
 
-        public static void NodeUseMat3x4f(ref IntPtr node, Matrix4x4[] rays)
+        public static void NodeRaysFromMat3x4f(ref IntPtr node, Matrix4x4[] rays)
         {
             var rayFloats = IntoMat3x4f(rays);
 
@@ -152,42 +163,42 @@ namespace RGLUnityPlugin
             {
                 fixed (float* rayFloatsPtr = rayFloats)
                 {
-                    CheckErr(rgl_node_use_rays_mat3x4f(ref node, (IntPtr) rayFloatsPtr, rays.Length));
+                    CheckErr(rgl_node_rays_from_mat3x4f(ref node, (IntPtr) rayFloatsPtr, rays.Length));
                 }
             }
         }
 
-        public static void NodeUseRingIds(ref IntPtr node, int[] ringIds)
+        public static void NodeRaysSetRingIds(ref IntPtr node, int[] ringIds)
         {
             unsafe
             {
                 fixed (int* ringIdsPtr = ringIds)
                 {
-                    CheckErr(rgl_node_use_ring_ids(ref node, (IntPtr) ringIdsPtr, ringIds.Length));
+                    CheckErr(rgl_node_rays_set_ring_ids(ref node, (IntPtr) ringIdsPtr, ringIds.Length));
                 }
             }
         }
 
-        public static void NodeTransformRays(ref IntPtr node, Matrix4x4 transform)
+        public static void NodeRaysTransform(ref IntPtr node, Matrix4x4 transform)
         {
             var tfFloats = IntoMat3x4f(transform);
             unsafe
             {
                 fixed (float* tfFloatsPtr = tfFloats)
                 {
-                    CheckErr(rgl_node_transform_rays(ref node, (IntPtr) tfFloatsPtr));
+                    CheckErr(rgl_node_rays_transform(ref node, (IntPtr) tfFloatsPtr));
                 }
             }
         }
 
-        public static void NodeTransformPoints(ref IntPtr node, Matrix4x4 transform)
+        public static void NodePointsTransform(ref IntPtr node, Matrix4x4 transform)
         {
             var tfFloats = IntoMat3x4f(transform);
             unsafe
             {
                 fixed (float* tfFloatsPtr = tfFloats)
                 {
-                    CheckErr(rgl_node_transform_points(ref node, (IntPtr) tfFloatsPtr));
+                    CheckErr(rgl_node_points_transform(ref node, (IntPtr) tfFloatsPtr));
                 }
             }
         }
@@ -197,54 +208,59 @@ namespace RGLUnityPlugin
             CheckErr(rgl_node_raytrace(ref node, IntPtr.Zero, range));
         }
 
-        public static void NodeFormat(ref IntPtr node, out RGLField outToken, RGLField[] fields)
+        public static void NodePointsFormat(ref IntPtr node, RGLField[] fields)
         {
             unsafe
             {
                 fixed (RGLField* fieldsPtr = fields)
                 {
-                    CheckErr(rgl_node_format(ref node, out outToken, (IntPtr) fieldsPtr, fields.Length));
+                    CheckErr(rgl_node_points_format(ref node, (IntPtr) fieldsPtr, fields.Length));
                 }
             }
         }
 
-        public static void NodeYieldPoints(ref IntPtr node, RGLField[] fields)
+        public static void NodePointsYield(ref IntPtr node, RGLField[] fields)
         {
             unsafe
             {
                 fixed (RGLField* fieldsPtr = fields)
                 {
-                    CheckErr(rgl_node_yield_points(ref node, (IntPtr) fieldsPtr, fields.Length));
+                    CheckErr(rgl_node_points_yield(ref node, (IntPtr) fieldsPtr, fields.Length));
                 }
             }
         }
 
-        public static void NodeCompact(ref IntPtr node)
+        public static void NodePointsCompact(ref IntPtr node)
         {
-            CheckErr(rgl_node_compact(ref node));
+            CheckErr(rgl_node_points_compact(ref node));
         }
 
-        public static void NodeDownsample(ref IntPtr node, Vector3 leafDims)
+        public static void NodePointsDownSample(ref IntPtr node, Vector3 leafDims)
         {
-            CheckErr(rgl_node_downsample(ref node, leafDims.x, leafDims.y, leafDims.z));
+            CheckErr(rgl_node_points_downsample(ref node, leafDims.x, leafDims.y, leafDims.z));
         }
 
-        public static void NodeWritePCDFile(ref IntPtr node, string path)
+        public static void NodePointsWritePCDFile(ref IntPtr node, string path)
         {
             unsafe
             {
                 fixed (char* pathStr = path)
                 {
-                    CheckErr(rgl_node_write_pcd_file(ref node, (IntPtr) pathStr));
+                    CheckErr(rgl_node_points_write_pcd_file(ref node, (IntPtr) pathStr));
                 }
             }
+        }
+
+        public static void GraphRun(IntPtr node)
+        {
+            CheckErr(rgl_graph_run(node));
         }
 
         public static int GraphGetResult<T>(IntPtr node, RGLField field, ref T[] data, int expectedPointSize) where T : unmanaged
         {
             Int64 pointCount = 0;
             Int64 pointSize = 0;
-            CheckErr(rgl_graph_get_result(node, field, out pointCount, out pointSize, IntPtr.Zero));
+            CheckErr(rgl_graph_get_result_size(node, field, out pointCount, out pointSize));
             unsafe
             {
                 if (pointSize != expectedPointSize)
@@ -262,7 +278,7 @@ namespace RGLUnityPlugin
                 }
                 fixed (T* dataPtr = data)
                 {
-                    CheckErr(rgl_graph_get_result(node, field, out pointCount, out pointSize, (IntPtr) dataPtr));
+                    CheckErr(rgl_graph_get_result_data(node, field, (IntPtr) dataPtr));
                 }
                 return (int) pointCount;
             }

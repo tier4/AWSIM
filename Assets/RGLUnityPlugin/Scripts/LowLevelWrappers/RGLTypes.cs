@@ -29,6 +29,18 @@ namespace RGLUnityPlugin
 		PADDING_16,
 		PADDING_32,
 		// Dynamic fields
-		DYNAMIC_BASE = 13842,
+		DYNAMIC_FORMAT = 13842,
 	}
+	
+	public enum RGLLogLevel
+	{
+		ALL = 0,
+		TRACE = 0,
+		DEBUG = 1,
+		INFO = 2,
+		WARN = 3,
+		ERROR = 4,
+		CRITICAL = 5,
+		OFF = 6,
+	};
 }
