@@ -1,0 +1,228 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2440576987535774365
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3068494487180298279}
+  - component: {fileID: 5865029131659967986}
+  - component: {fileID: 4572956135196922574}
+  - component: {fileID: 141188791316208376}
+  m_Layer: 0
+  m_Name: OusterOS1-64
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3068494487180298279
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2440576987535774365}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5995076691610956455}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5865029131659967986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2440576987535774365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87ba9656cbd67467f8119d8666b098aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pcl24Topic: lidar/pointcloud
+  pcl48Topic: lidar/pointcloud_ex
+  frameID: world
+  publishPCL24: 1
+  publishPCL48: 1
+  qosSettings:
+    ReliabilityPolicy: 1
+    DurabilityPolicy: 2
+    HistoryPolicy: 1
+    Depth: 1000
+--- !u!114 &4572956135196922574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2440576987535774365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b09121ab5f04a5dae5e27fd15e97c53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 0}
+--- !u!114 &141188791316208376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2440576987535774365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62277ad5b6d1cfd2984db58dc79535a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AutomaticCaptureHz: 10
+  modelPreset: 6
+  applyGaussianNoise: 1
+  configuration:
+    laserArray:
+      centerOfMeasurementVerticalLinearOffsetMm: 36.18
+      centerOfMeasurementHorizontalLinearOffsetMm: 0
+      lasers:
+      - horizontalAngularOffsetDeg: 0
+        verticalAngularOffsetDeg: 15
+        verticalLinearOffsetMm: -11.2
+        ringId: 1
+      - horizontalAngularOffsetDeg: 0
+        verticalAngularOffsetDeg: -1
+        verticalLinearOffsetMm: 0.7
+        ringId: 9
+      - horizontalAngularOffsetDeg: 0
+        verticalAngularOffsetDeg: 13
+        verticalLinearOffsetMm: -9.7
+        ringId: 2
+      - horizontalAngularOffsetDeg: 0
+        verticalAngularOffsetDeg: -3
+        verticalLinearOffsetMm: 2.2
+        ringId: 10
+      - horizontalAngularOffsetDeg: 0
+        verticalAngularOffsetDeg: 11
+        verticalLinearOffsetMm: -8.1
+        ringId: 3
+      - horizontalAngularOffsetDeg: 0
+        verticalAngularOffsetDeg: -5
+        verticalLinearOffsetMm: 3.7
+        ringId: 11
+      - horizontalAngularOffsetDeg: 0
+        verticalAngularOffsetDeg: 9
+        verticalLinearOffsetMm: -6.6
+        ringId: 4
+      - horizontalAngularOffsetDeg: 0
+        verticalAngularOffsetDeg: -7
+        verticalLinearOffsetMm: 5.1
+        ringId: 12
+      - horizontalAngularOffsetDeg: 0
+        verticalAngularOffsetDeg: 7
+        verticalLinearOffsetMm: -5.1
+        ringId: 5
+      - horizontalAngularOffsetDeg: 0
+        verticalAngularOffsetDeg: -9
+        verticalLinearOffsetMm: 6.6
+        ringId: 13
+      - horizontalAngularOffsetDeg: 0
+        verticalAngularOffsetDeg: 5
+        verticalLinearOffsetMm: -3.7
+        ringId: 6
+      - horizontalAngularOffsetDeg: 0
+        verticalAngularOffsetDeg: -11
+        verticalLinearOffsetMm: 8.1
+        ringId: 14
+      - horizontalAngularOffsetDeg: 0
+        verticalAngularOffsetDeg: 3
+        verticalLinearOffsetMm: -2.2
+        ringId: 7
+      - horizontalAngularOffsetDeg: 0
+        verticalAngularOffsetDeg: -13
+        verticalLinearOffsetMm: 9.7
+        ringId: 15
+      - horizontalAngularOffsetDeg: 0
+        verticalAngularOffsetDeg: 1
+        verticalLinearOffsetMm: -0.7
+        ringId: 8
+      - horizontalAngularOffsetDeg: 0
+        verticalAngularOffsetDeg: -15
+        verticalLinearOffsetMm: 11.2
+        ringId: 16
+    horizontalSteps: 1024
+    minHAngle: -180
+    maxHAngle: 180
+    maxRange: 120
+    noiseParams:
+      angularNoiseType: 0
+      angularNoiseStDev: 0.057295784
+      angularNoiseMean: 0
+      distanceNoiseStDevBase: 0.02
+      distanceNoiseStDevRisePerMeter: 0
+      distanceNoiseMean: 0
+--- !u!1001 &1279405457360735599
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3068494487180298279}
+    m_Modifications:
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5312073466771367282, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_Name
+      value: Ouster OS1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+--- !u!4 &5995076691610956455 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+  m_PrefabInstance: {fileID: 1279405457360735599}
+  m_PrefabAsset: {fileID: 0}
