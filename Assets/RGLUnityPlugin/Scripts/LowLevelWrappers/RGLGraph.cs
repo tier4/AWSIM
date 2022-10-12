@@ -104,13 +104,13 @@ namespace RGLUnityPlugin
         {
             unsafe
             {
-                return RGLNativeAPI.GraphGetResult(handle.node, handle.field, ref data, sizeof(T));
+                return RGLNativeAPI.GraphGetResult<T>(handle.node, handle.field, ref data, sizeof(T));
             }
         }
 
         public int GetDataRaw(RGLOutputHandle handle, ref byte[] data, int expectedPointSize)
         {
-            return RGLNativeAPI.GraphGetResult(handle.node, handle.field, ref data, expectedPointSize);
+            return RGLNativeAPI.GraphGetResult<byte>(handle.node, handle.field, ref data, expectedPointSize);
         }
 
         public void SetGaussianNoiseParamsCtx(LidarNoiseParams param)

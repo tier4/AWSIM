@@ -265,12 +265,16 @@ namespace RGLUnityPlugin
             {
                 if (pointSize != expectedPointSize)
                 {
-                    throw new RGLException($"Point size mismatch, requested {sizeof(T)}, but got {pointSize}");
+                    throw new RGLException($"Point size mismatch, requested {expectedPointSize}, but got {pointSize}");
                 }
-                if (data.Length < pointCount)
+                if (pointCount == 0)
+                {
+                    return 0;
+                }
+                if (data.Length * sizeof(T) < pointCount * pointSize)
                 {
                     var newSize = pointCount;
-                    if (typeof(T) == typeof(char))
+                    if (typeof(T) == typeof(byte))
                     {
                         newSize *= pointSize;
                     }

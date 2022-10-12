@@ -127,16 +127,12 @@ namespace RGLUnityPlugin
 
         public int GetData<T>(RGLOutputHandle handle, ref T[] data) where T: unmanaged
         {
-            Debug.LogWarning("dummy");
-            // return rglGraph.GetData(handle, ref data);
-            return 0;
+            return rglGraph.GetData<T>(handle, ref data);
         }
 
         public int GetDataRaw(RGLOutputHandle handle, ref byte[] data, int expectedPointSize)
         {
-            Debug.LogWarning("dummy");
-            // return rglGraph.GetDataRaw(handle, ref data, expectedPointSize);
-            return 0;
+            return rglGraph.GetDataRaw(handle, ref data, expectedPointSize);
         }
 
         public void Capture()
@@ -144,13 +140,13 @@ namespace RGLUnityPlugin
             sceneManager.DoUpdate();
             rglGraph.SetLidarPosition(gameObject.transform.localToWorldMatrix);
             rglGraph.Run();
-            
-            
-            Vector3[] onlyHits = new Vector3[1];
-            rglGraph.GetData<Vector3>(visualizationOutputHandle, ref onlyHits);
-            // Array.Copy(outputData.hits, onlyHits, outputData.hitCount);
-            GetComponent<PointCloudVisualization>().SetPoints(onlyHits);
-        
+
+            if (GetComponent<PointCloudVisualization>().isActiveAndEnabled == true)
+            {
+                Vector3[] onlyHits = new Vector3[1];
+                rglGraph.GetData<Vector3>(visualizationOutputHandle, ref onlyHits);
+                GetComponent<PointCloudVisualization>().SetPoints(onlyHits);
+            }
         }
     }
 }

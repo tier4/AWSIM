@@ -15,9 +15,13 @@ namespace AWSIM.PointCloudFormats
                 RGLField.PADDING_32,
                 RGLField.INTENSITY_F32,
                 RGLField.RING_ID_U16,
+                RGLField.PADDING_16,
                 RGLField.AZIMUTH_F32,
                 RGLField.DISTANCE_F32,
                 RGLField.RETURN_TYPE_U8,
+                RGLField.PADDING_8,
+                RGLField.PADDING_16,
+                RGLField.PADDING_32,
                 RGLField.TIME_STAMP_F64
             };
         }
