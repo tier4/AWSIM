@@ -140,17 +140,11 @@ source /opt/ros/galactic/setup.bash
 rosdep update
 rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
 ```
-7. Reduce processing load. This can only be applied to `awsim-stable` branch.   
-```
-cd <path_to_your_autoware_folder>
-wget "https://drive.google.com/uc?export=download&id=11mkwfg-OaXIp3Z5c3R58Pob3butKwE1Z" -O patch.sh
-bash patch.sh && rm patch.sh
-```
-8. Build the workspace.
+7. Build the workspace.
 ```
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-w"
 ```
-9. Launch Autoware.
+8. Launch Autoware.
     
     `<your mapfile location>` should be changed arbitrarily. You cannot use `~` to specify the path.
 ```
@@ -163,12 +157,7 @@ ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehic
 1. Launch both AWSIM and Autoware.
 ![](Image_top.png)
 2. Automatically set 2D Pose Estimate with RViz.
-!!! info
-    If it does not set automatically, please try manually.
-
-
-![](Image_Initial_0.png)
-![](Image_Initial_1.png)
+![](Image_Initial.png)
 3. Manually set 2D Goal Pose with RViz.
 ![](Image_goal_0.png)
 ![](Image_goal_1.png)
