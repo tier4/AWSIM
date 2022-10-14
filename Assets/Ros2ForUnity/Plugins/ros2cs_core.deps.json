@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "ros2cs_core/1.0.0": {
+        "dependencies": {
+          "ros2cs_common": "0.0.0.0"
+        },
+        "runtime": {
+          "ros2cs_core.dll": {}
+        }
+      },
+      "ros2cs_common/0.0.0.0": {
+        "runtime": {
+          "ros2cs_common.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ros2cs_core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ros2cs_common/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

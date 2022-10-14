@@ -1,0 +1,4244 @@
+fileFormatVersion: 2
+guid: 677bdac61a62b3c4ea5dc869c8158fa4
+ModelImporter:
+  serializedVersion: 21100
+  internalIDToNameTable:
+  - first:
+      74: -5345146253811299401
+    second: TrafficLightsPedestrian|Pole01_Base01_Brown01_Geo|Take 001|BaseLayer
+  - first:
+      74: 858354935280788061
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.001|Take 001|BaseLayer
+  - first:
+      74: -186386653820500412
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.002|Take 001|BaseLayer
+  - first:
+      74: 4000618423274366021
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.003|Take 001|BaseLayer
+  - first:
+      74: -2582714526961349228
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.004|Take 001|BaseLayer
+  - first:
+      74: 1633406935251759155
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.005|Take 001|BaseLayer
+  - first:
+      74: -1207848422869066327
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.009|Take 001|BaseLayer
+  - first:
+      74: 517177540457477644
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.011|Take 001|BaseLayer
+  - first:
+      74: -2095252081870475742
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.012|Take 001|BaseLayer
+  - first:
+      74: -8674163182151286068
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.013|Take 001|BaseLayer
+  - first:
+      74: -4145026492894670953
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.014|Take 001|BaseLayer
+  - first:
+      74: -922979343582166289
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.015|Take 001|BaseLayer
+  - first:
+      74: 1412859135789801406
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.016|Take 001|BaseLayer
+  - first:
+      74: 5653639629882029081
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.017|Take 001|BaseLayer
+  - first:
+      74: -3055146545259147134
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.018|Take 001|BaseLayer
+  - first:
+      74: 149268085712080512
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.019|Take 001|BaseLayer
+  - first:
+      74: -7771890455482483823
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.021|Take 001|BaseLayer
+  - first:
+      74: 2981014127650941987
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.022|Take 001|BaseLayer
+  - first:
+      74: -8133839353473290947
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.023|Take 001|BaseLayer
+  - first:
+      74: 763491438786682951
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.024|Take 001|BaseLayer
+  - first:
+      74: -5095959323076465648
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.025|Take 001|BaseLayer
+  - first:
+      74: 4866671580404639670
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.026|Take 001|BaseLayer
+  - first:
+      74: -1993838486792912080
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.027|Take 001|BaseLayer
+  - first:
+      74: -8852873128662673348
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.028|Take 001|BaseLayer
+  - first:
+      74: 455617706514168837
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.029|Take 001|BaseLayer
+  - first:
+      74: -820913305577492046
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.030|Take 001|BaseLayer
+  - first:
+      74: 7159042140908267126
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.031|Take 001|BaseLayer
+  - first:
+      74: 8626895651577187054
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.032|Take 001|BaseLayer
+  - first:
+      74: 8228196163321863552
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.033|Take 001|BaseLayer
+  - first:
+      74: -6353075986551099261
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.034|Take 001|BaseLayer
+  - first:
+      74: 6193733997525331611
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.035|Take 001|BaseLayer
+  - first:
+      74: 5572806982122734958
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.036|Take 001|BaseLayer
+  - first:
+      74: -6037198929769752811
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.037|Take 001|BaseLayer
+  - first:
+      74: -6112879664611566245
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.040|Take 001|BaseLayer
+  - first:
+      74: -6001465966808043610
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.041|Take 001|BaseLayer
+  - first:
+      74: -8484299498623498970
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.043|Take 001|BaseLayer
+  - first:
+      74: 3689325499107443189
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.045|Take 001|BaseLayer
+  - first:
+      74: 6146900616731254165
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.047|Take 001|BaseLayer
+  - first:
+      74: -119726642212665110
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.048|Take 001|BaseLayer
+  - first:
+      74: 4705813548543512143
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.049|Take 001|BaseLayer
+  - first:
+      74: -3762743633880583398
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.050|Take 001|BaseLayer
+  - first:
+      74: -7616735889296147424
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.051|Take 001|BaseLayer
+  - first:
+      74: -5939026127967249071
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.052|Take 001|BaseLayer
+  - first:
+      74: -9118246054085065485
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.053|Take 001|BaseLayer
+  - first:
+      74: -5247475078535683321
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.054|Take 001|BaseLayer
+  - first:
+      74: -2254942820172040465
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.055|Take 001|BaseLayer
+  - first:
+      74: -209225395127634277
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.056|Take 001|BaseLayer
+  - first:
+      74: -8238998737513381794
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.057|Take 001|BaseLayer
+  - first:
+      74: -7554133019702465652
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.058|Take 001|BaseLayer
+  - first:
+      74: 6033945307750768955
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.059|Take 001|BaseLayer
+  - first:
+      74: -4670853853584974639
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.060|Take 001|BaseLayer
+  - first:
+      74: 6305125716214771183
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.061|Take 001|BaseLayer
+  - first:
+      74: 16810024536185085
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.062|Take 001|BaseLayer
+  - first:
+      74: 5956664199298724688
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.063|Take 001|BaseLayer
+  - first:
+      74: -7989728504961939807
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.064|Take 001|BaseLayer
+  - first:
+      74: -5448465188088596981
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.065|Take 001|BaseLayer
+  - first:
+      74: 8821757018063939399
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.066|Take 001|BaseLayer
+  - first:
+      74: 8451054704853935530
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.067|Take 001|BaseLayer
+  - first:
+      74: 3533864914675440319
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.069|Take 001|BaseLayer
+  - first:
+      74: 4164229902388158040
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.070|Take 001|BaseLayer
+  - first:
+      74: -5108143647450446456
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.071|Take 001|BaseLayer
+  - first:
+      74: -4751519091909689162
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.072|Take 001|BaseLayer
+  - first:
+      74: -1882941044400721084
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.073|Take 001|BaseLayer
+  - first:
+      74: 780136304980739773
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.074|Take 001|BaseLayer
+  - first:
+      74: 1815433673733021061
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.075|Take 001|BaseLayer
+  - first:
+      74: -6798562880039558390
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.076|Take 001|BaseLayer
+  - first:
+      74: 2939935942972392190
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.077|Take 001|BaseLayer
+  - first:
+      74: 6222886699843755115
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.078|Take 001|BaseLayer
+  - first:
+      74: 4838588018730484681
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.079|Take 001|BaseLayer
+  - first:
+      74: 8680897588696472303
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.080|Take 001|BaseLayer
+  - first:
+      74: -2537113232850539595
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.081|Take 001|BaseLayer
+  - first:
+      74: -2158055885228423295
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.082|Take 001|BaseLayer
+  - first:
+      74: 5695868055396039656
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.083|Take 001|BaseLayer
+  - first:
+      74: 8412973795343978920
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.084|Take 001|BaseLayer
+  - first:
+      74: 2437423429453239072
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.085|Take 001|BaseLayer
+  - first:
+      74: 5190197779022749984
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.086|Take 001|BaseLayer
+  - first:
+      74: -5250235510899939792
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.087|Take 001|BaseLayer
+  - first:
+      74: 465114580056949956
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.088|Take 001|BaseLayer
+  - first:
+      74: -5817859795843598761
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.089|Take 001|BaseLayer
+  - first:
+      74: 2400122387834581187
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.090|Take 001|BaseLayer
+  - first:
+      74: 5151835018228671294
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.091|Take 001|BaseLayer
+  - first:
+      74: 6736573328967459449
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.092|Take 001|BaseLayer
+  - first:
+      74: 207689386658708991
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.093|Take 001|BaseLayer
+  - first:
+      74: -2860702901914323480
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.094|Take 001|BaseLayer
+  - first:
+      74: 4679017027276959450
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.095|Take 001|BaseLayer
+  - first:
+      74: 7528559315414742800
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.096|Take 001|BaseLayer
+  - first:
+      74: -7493046611287528584
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.097|Take 001|BaseLayer
+  - first:
+      74: -72593720150614793
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.098|Take 001|BaseLayer
+  - first:
+      74: -4342755250034795358
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.099|Take 001|BaseLayer
+  - first:
+      74: -3319577910826673649
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.100|Take 001|BaseLayer
+  - first:
+      74: 8010891032973881335
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.101|Take 001|BaseLayer
+  - first:
+      74: 1425065890094052948
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.102|Take 001|BaseLayer
+  - first:
+      74: 188252943327087481
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.103|Take 001|BaseLayer
+  - first:
+      74: 3278226849216959808
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.104|Take 001|BaseLayer
+  - first:
+      74: -1109342333822898851
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.105|Take 001|BaseLayer
+  - first:
+      74: -2893482624380874894
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.106|Take 001|BaseLayer
+  - first:
+      74: -2125005874129285593
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.107|Take 001|BaseLayer
+  - first:
+      74: -2520384827605510765
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.108|Take 001|BaseLayer
+  - first:
+      74: -2779437944268471983
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.109|Take 001|BaseLayer
+  - first:
+      74: 719040801503850401
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.110|Take 001|BaseLayer
+  - first:
+      74: -2790562737846428286
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.111|Take 001|BaseLayer
+  - first:
+      74: -845647162818556106
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.112|Take 001|BaseLayer
+  - first:
+      74: 7090523047982804983
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.113|Take 001|BaseLayer
+  - first:
+      74: -7156280388702808547
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.114|Take 001|BaseLayer
+  - first:
+      74: -5821522050044600508
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.115|Take 001|BaseLayer
+  - first:
+      74: 5097265658268161195
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.116|Take 001|BaseLayer
+  - first:
+      74: -4435525607312472004
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.117|Take 001|BaseLayer
+  - first:
+      74: -1886219028240654392
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.118|Take 001|BaseLayer
+  - first:
+      74: -6584528184535649040
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.119|Take 001|BaseLayer
+  - first:
+      74: 4738263172143085722
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.120|Take 001|BaseLayer
+  - first:
+      74: -309144457136200145
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.121|Take 001|BaseLayer
+  - first:
+      74: -5504530375076972965
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.122|Take 001|BaseLayer
+  - first:
+      74: 1930653746981826792
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.123|Take 001|BaseLayer
+  - first:
+      74: 866327533486605231
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.124|Take 001|BaseLayer
+  - first:
+      74: 8454725251487699126
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.125|Take 001|BaseLayer
+  - first:
+      74: -5126672166757616880
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.126|Take 001|BaseLayer
+  - first:
+      74: -3431414767248700764
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.127|Take 001|BaseLayer
+  - first:
+      74: 4343018174412212676
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.128|Take 001|BaseLayer
+  - first:
+      74: -85038773860425389
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.129|Take 001|BaseLayer
+  - first:
+      74: -1621689379474180780
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.130|Take 001|BaseLayer
+  - first:
+      74: 1982904431572312499
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.131|Take 001|BaseLayer
+  - first:
+      74: -7342461533308974391
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.132|Take 001|BaseLayer
+  - first:
+      74: 2944167561840775736
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.133|Take 001|BaseLayer
+  - first:
+      74: 7934831826608305133
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.134|Take 001|BaseLayer
+  - first:
+      74: 4322659395859483346
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.135|Take 001|BaseLayer
+  - first:
+      74: 6673477495159261837
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.136|Take 001|BaseLayer
+  - first:
+      74: 4295900740682330150
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.137|Take 001|BaseLayer
+  - first:
+      74: -6320912561839151517
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.138|Take 001|BaseLayer
+  - first:
+      74: -2757108605973783253
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.139|Take 001|BaseLayer
+  - first:
+      74: -5884545575050332733
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.140|Take 001|BaseLayer
+  - first:
+      74: -8131396346818916754
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.141|Take 001|BaseLayer
+  - first:
+      74: 5334596245274969167
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.142|Take 001|BaseLayer
+  - first:
+      74: -2220844887840259726
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.143|Take 001|BaseLayer
+  - first:
+      74: 6054663644068103002
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.144|Take 001|BaseLayer
+  - first:
+      74: -5684875162396992898
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.145|Take 001|BaseLayer
+  - first:
+      74: 7693753196431056375
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.146|Take 001|BaseLayer
+  - first:
+      74: -8889577824035092239
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.147|Take 001|BaseLayer
+  - first:
+      74: 7165302506610748168
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.148|Take 001|BaseLayer
+  - first:
+      74: -2235603333717995927
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.149|Take 001|BaseLayer
+  - first:
+      74: -1036477733150885780
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.150|Take 001|BaseLayer
+  - first:
+      74: 4513564034271407728
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.151|Take 001|BaseLayer
+  - first:
+      74: -620531562710785450
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.152|Take 001|BaseLayer
+  - first:
+      74: -8496398365350895744
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.153|Take 001|BaseLayer
+  - first:
+      74: 2723100033172270404
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.154|Take 001|BaseLayer
+  - first:
+      74: 9189380475770958655
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.155|Take 001|BaseLayer
+  - first:
+      74: 4782252077305148214
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo.156|Take 001|BaseLayer
+  - first:
+      74: 7323222844820388549
+    second: TrafficLightsPedestrian|Pole01_Body01_Gray01_Geo|Take 001|BaseLayer
+  - first:
+      74: 3410624496022850410
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo.001|Take 001|BaseLayer
+  - first:
+      74: 1006206601623029836
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo.002|Take 001|BaseLayer
+  - first:
+      74: 7541827464129690900
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo.003|Take 001|BaseLayer
+  - first:
+      74: -2732357308264997029
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo.004|Take 001|BaseLayer
+  - first:
+      74: 5973959236785534583
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo.005|Take 001|BaseLayer
+  - first:
+      74: 2672712388538185760
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo.006|Take 001|BaseLayer
+  - first:
+      74: 4125522896100178220
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo.007|Take 001|BaseLayer
+  - first:
+      74: -1478456765383826654
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo.008|Take 001|BaseLayer
+  - first:
+      74: -138912290773594558
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo.009|Take 001|BaseLayer
+  - first:
+      74: -5503496992757691199
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo.010|Take 001|BaseLayer
+  - first:
+      74: -8679528725006590448
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo.011|Take 001|BaseLayer
+  - first:
+      74: 1631130333012604492
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo.012|Take 001|BaseLayer
+  - first:
+      74: 5877606553090715224
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo.013|Take 001|BaseLayer
+  - first:
+      74: 3745635536399296229
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo.014|Take 001|BaseLayer
+  - first:
+      74: 1049999192553436155
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo.015|Take 001|BaseLayer
+  - first:
+      74: -4943205575190476080
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo.016|Take 001|BaseLayer
+  - first:
+      74: 7234850523124512995
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo.017|Take 001|BaseLayer
+  - first:
+      74: 5351667518478471369
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo.018|Take 001|BaseLayer
+  - first:
+      74: -8470505595779223804
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo.019|Take 001|BaseLayer
+  - first:
+      74: -2661628643467120681
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo.020|Take 001|BaseLayer
+  - first:
+      74: -1028454817353257451
+    second: TrafficLightsPedestrian|Pole02_Base01_Red01_Geo|Take 001|BaseLayer
+  - first:
+      74: -5644305234456701509
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.001|Take 001|BaseLayer
+  - first:
+      74: 174388404514414911
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.002|Take 001|BaseLayer
+  - first:
+      74: 7951462907452697653
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.003|Take 001|BaseLayer
+  - first:
+      74: 6614664066487516095
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.004|Take 001|BaseLayer
+  - first:
+      74: -7674153721106539359
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.005|Take 001|BaseLayer
+  - first:
+      74: -3794549878703013680
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.006|Take 001|BaseLayer
+  - first:
+      74: 2735832277329606808
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.007|Take 001|BaseLayer
+  - first:
+      74: -4827002999067419005
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.008|Take 001|BaseLayer
+  - first:
+      74: -6291416501348108515
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.009|Take 001|BaseLayer
+  - first:
+      74: 4431117403997616074
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.010|Take 001|BaseLayer
+  - first:
+      74: 964908423168752527
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.011|Take 001|BaseLayer
+  - first:
+      74: -2091848515172814580
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.012|Take 001|BaseLayer
+  - first:
+      74: 6927015434508533780
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.013|Take 001|BaseLayer
+  - first:
+      74: 618017673237938500
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.014|Take 001|BaseLayer
+  - first:
+      74: 1298716370450456159
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.015|Take 001|BaseLayer
+  - first:
+      74: 6132257944351542892
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.016|Take 001|BaseLayer
+  - first:
+      74: -3057213494141360874
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.017|Take 001|BaseLayer
+  - first:
+      74: -3892949216543965185
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.018|Take 001|BaseLayer
+  - first:
+      74: -5537162788176044306
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.019|Take 001|BaseLayer
+  - first:
+      74: 257189272711821915
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.020|Take 001|BaseLayer
+  - first:
+      74: -2870950665875599059
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.021|Take 001|BaseLayer
+  - first:
+      74: -5691386449542645631
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.022|Take 001|BaseLayer
+  - first:
+      74: -6390324624481012302
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.023|Take 001|BaseLayer
+  - first:
+      74: -3258280176361839101
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.024|Take 001|BaseLayer
+  - first:
+      74: -7893797426297080611
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.025|Take 001|BaseLayer
+  - first:
+      74: 5896618315060821277
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.026|Take 001|BaseLayer
+  - first:
+      74: 3667289079854084300
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.027|Take 001|BaseLayer
+  - first:
+      74: 8051831060462881599
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.028|Take 001|BaseLayer
+  - first:
+      74: -1860104794996928670
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.029|Take 001|BaseLayer
+  - first:
+      74: -4021921198189250892
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.030|Take 001|BaseLayer
+  - first:
+      74: 6401179412086582786
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.031|Take 001|BaseLayer
+  - first:
+      74: -5674350988798423267
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.032|Take 001|BaseLayer
+  - first:
+      74: -548013613252668685
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.033|Take 001|BaseLayer
+  - first:
+      74: -3705619358240388655
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.034|Take 001|BaseLayer
+  - first:
+      74: -6825089044093226057
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.035|Take 001|BaseLayer
+  - first:
+      74: 4723530633625402479
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.036|Take 001|BaseLayer
+  - first:
+      74: -1735510984387865603
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.037|Take 001|BaseLayer
+  - first:
+      74: -3236871672582857958
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.038|Take 001|BaseLayer
+  - first:
+      74: -2942460358034773892
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.039|Take 001|BaseLayer
+  - first:
+      74: 4813894598792189247
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.040|Take 001|BaseLayer
+  - first:
+      74: 6735488040835665419
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.041|Take 001|BaseLayer
+  - first:
+      74: -8993960934341870422
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.042|Take 001|BaseLayer
+  - first:
+      74: 8191569857879672212
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.043|Take 001|BaseLayer
+  - first:
+      74: 7028826351435917004
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.044|Take 001|BaseLayer
+  - first:
+      74: -3453760621029305080
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.045|Take 001|BaseLayer
+  - first:
+      74: 8540045401285540440
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.046|Take 001|BaseLayer
+  - first:
+      74: -1230193694641450771
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.047|Take 001|BaseLayer
+  - first:
+      74: 3998239061956455395
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.048|Take 001|BaseLayer
+  - first:
+      74: 8071649186084884116
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.049|Take 001|BaseLayer
+  - first:
+      74: -2555092316319224909
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.050|Take 001|BaseLayer
+  - first:
+      74: -397729199543721655
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.051|Take 001|BaseLayer
+  - first:
+      74: -7975373503657034076
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.052|Take 001|BaseLayer
+  - first:
+      74: 7550601091944525240
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.053|Take 001|BaseLayer
+  - first:
+      74: 6322767259970028064
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.054|Take 001|BaseLayer
+  - first:
+      74: 2681341036460900644
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.055|Take 001|BaseLayer
+  - first:
+      74: -4303354153730305632
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.056|Take 001|BaseLayer
+  - first:
+      74: -8139887721004009929
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.057|Take 001|BaseLayer
+  - first:
+      74: -7065636678413538819
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.058|Take 001|BaseLayer
+  - first:
+      74: -224579496304595059
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.060|Take 001|BaseLayer
+  - first:
+      74: -8128987112435001973
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.061|Take 001|BaseLayer
+  - first:
+      74: -7797454271057450970
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.062|Take 001|BaseLayer
+  - first:
+      74: 8830260940361061319
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.063|Take 001|BaseLayer
+  - first:
+      74: -2560555919151350177
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.064|Take 001|BaseLayer
+  - first:
+      74: -7864432746730161707
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.065|Take 001|BaseLayer
+  - first:
+      74: 7338020611072026562
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.066|Take 001|BaseLayer
+  - first:
+      74: -6671699457061203772
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.067|Take 001|BaseLayer
+  - first:
+      74: 6826440847497795898
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.068|Take 001|BaseLayer
+  - first:
+      74: 9055086986221368973
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.069|Take 001|BaseLayer
+  - first:
+      74: -5272033645168463884
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.071|Take 001|BaseLayer
+  - first:
+      74: 5780539597814118845
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.072|Take 001|BaseLayer
+  - first:
+      74: -2464714383540186361
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.073|Take 001|BaseLayer
+  - first:
+      74: -2282451490076682526
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.074|Take 001|BaseLayer
+  - first:
+      74: -8784842961954240699
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.076|Take 001|BaseLayer
+  - first:
+      74: -4391701772527356834
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.077|Take 001|BaseLayer
+  - first:
+      74: 4402944976181033709
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.079|Take 001|BaseLayer
+  - first:
+      74: -6927501024195826581
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.080|Take 001|BaseLayer
+  - first:
+      74: -3054515245417752557
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.081|Take 001|BaseLayer
+  - first:
+      74: -4433730112402078750
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.082|Take 001|BaseLayer
+  - first:
+      74: 283311674976793422
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.084|Take 001|BaseLayer
+  - first:
+      74: 7374955928373637159
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.085|Take 001|BaseLayer
+  - first:
+      74: 7972235490206199758
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.086|Take 001|BaseLayer
+  - first:
+      74: 3224364841699125896
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.087|Take 001|BaseLayer
+  - first:
+      74: -6205861199985890821
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.088|Take 001|BaseLayer
+  - first:
+      74: -6309914355404217753
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.089|Take 001|BaseLayer
+  - first:
+      74: 1323599173792650160
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.090|Take 001|BaseLayer
+  - first:
+      74: 7291480816561528543
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.091|Take 001|BaseLayer
+  - first:
+      74: -6259125587189215118
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo.092|Take 001|BaseLayer
+  - first:
+      74: 982349634281684386
+    second: TrafficLightsPedestrian|Pole_Body01_Brown01_Geo|Take 001|BaseLayer
+  - first:
+      74: -2272005881552688006
+    second: TrafficLightsPedestrian|Pole_Body01_Gray01_Geo.001|Take 001|BaseLayer
+  - first:
+      74: -39612586650929507
+    second: TrafficLightsPedestrian|Pole_Body01_Gray01_Geo|Take 001|BaseLayer
+  - first:
+      74: -8641014028994516794
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.001|Take 001|BaseLayer
+  - first:
+      74: -2088215332386928678
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.002|Take 001|BaseLayer
+  - first:
+      74: -8755621078846766543
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.003|Take 001|BaseLayer
+  - first:
+      74: 8480726345758738428
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.004|Take 001|BaseLayer
+  - first:
+      74: 3812623335498683956
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.005|Take 001|BaseLayer
+  - first:
+      74: -2335909912061304237
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.006|Take 001|BaseLayer
+  - first:
+      74: 3685848961091593044
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.007|Take 001|BaseLayer
+  - first:
+      74: -5461063383152535425
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.008|Take 001|BaseLayer
+  - first:
+      74: 5696116886708278564
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.009|Take 001|BaseLayer
+  - first:
+      74: 2488554302716804657
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.010|Take 001|BaseLayer
+  - first:
+      74: -7846598321049137037
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.011|Take 001|BaseLayer
+  - first:
+      74: 169937849384400585
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.012|Take 001|BaseLayer
+  - first:
+      74: 5580479469496274936
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.013|Take 001|BaseLayer
+  - first:
+      74: -1998818794763172369
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.014|Take 001|BaseLayer
+  - first:
+      74: 6576782508153286527
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.015|Take 001|BaseLayer
+  - first:
+      74: -8480186272090521317
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.016|Take 001|BaseLayer
+  - first:
+      74: -5116487536515016598
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.017|Take 001|BaseLayer
+  - first:
+      74: 2161685007610882209
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.018|Take 001|BaseLayer
+  - first:
+      74: -8196145216961369705
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.019|Take 001|BaseLayer
+  - first:
+      74: 7386875938046556235
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.020|Take 001|BaseLayer
+  - first:
+      74: -5857704856739891826
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.021|Take 001|BaseLayer
+  - first:
+      74: 8759064162795687095
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.022|Take 001|BaseLayer
+  - first:
+      74: 6888625901239846387
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.023|Take 001|BaseLayer
+  - first:
+      74: -3398439066540743366
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.024|Take 001|BaseLayer
+  - first:
+      74: -4061312503628804235
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.025|Take 001|BaseLayer
+  - first:
+      74: 7014134756990872555
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.026|Take 001|BaseLayer
+  - first:
+      74: -5687756263159320157
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.027|Take 001|BaseLayer
+  - first:
+      74: 1964180847569701998
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.028|Take 001|BaseLayer
+  - first:
+      74: -2952883516903981684
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.029|Take 001|BaseLayer
+  - first:
+      74: 1200244526611263687
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.030|Take 001|BaseLayer
+  - first:
+      74: 3379038194394735575
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.031|Take 001|BaseLayer
+  - first:
+      74: -3630789073078596055
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.032|Take 001|BaseLayer
+  - first:
+      74: 6635059679123315393
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.033|Take 001|BaseLayer
+  - first:
+      74: -7276738264580818489
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.034|Take 001|BaseLayer
+  - first:
+      74: -930209687415021805
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.035|Take 001|BaseLayer
+  - first:
+      74: -1897990987202364585
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.036|Take 001|BaseLayer
+  - first:
+      74: 8577262545721583800
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.037|Take 001|BaseLayer
+  - first:
+      74: 3045500594791920180
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.038|Take 001|BaseLayer
+  - first:
+      74: 1431855156070934260
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.039|Take 001|BaseLayer
+  - first:
+      74: 4892727649861274426
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.040|Take 001|BaseLayer
+  - first:
+      74: 1291772601182322887
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.041|Take 001|BaseLayer
+  - first:
+      74: -5030012835917569811
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.042|Take 001|BaseLayer
+  - first:
+      74: -6069282423053948688
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.043|Take 001|BaseLayer
+  - first:
+      74: -5180679787205242569
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.044|Take 001|BaseLayer
+  - first:
+      74: 8355783185444245442
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.045|Take 001|BaseLayer
+  - first:
+      74: -7549530079075758276
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.046|Take 001|BaseLayer
+  - first:
+      74: 3658295515312646668
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.047|Take 001|BaseLayer
+  - first:
+      74: 1411571572520626290
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.048|Take 001|BaseLayer
+  - first:
+      74: -8855255107723214194
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.049|Take 001|BaseLayer
+  - first:
+      74: 6874733554861725831
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.050|Take 001|BaseLayer
+  - first:
+      74: 8323962576102263466
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.051|Take 001|BaseLayer
+  - first:
+      74: 5267116666452304243
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.052|Take 001|BaseLayer
+  - first:
+      74: 3246225353548235104
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.053|Take 001|BaseLayer
+  - first:
+      74: 2478619920787387148
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.054|Take 001|BaseLayer
+  - first:
+      74: -5834525311091154163
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.055|Take 001|BaseLayer
+  - first:
+      74: -8888672766593426099
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.056|Take 001|BaseLayer
+  - first:
+      74: 651320425591155278
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.057|Take 001|BaseLayer
+  - first:
+      74: 9071649727824752793
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.058|Take 001|BaseLayer
+  - first:
+      74: 5342821499066200435
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.059|Take 001|BaseLayer
+  - first:
+      74: 6201490384536886035
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.060|Take 001|BaseLayer
+  - first:
+      74: 7690166965061706338
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.061|Take 001|BaseLayer
+  - first:
+      74: -5801868538198065097
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.062|Take 001|BaseLayer
+  - first:
+      74: 7380316563792461604
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.063|Take 001|BaseLayer
+  - first:
+      74: 6607038478650299736
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.064|Take 001|BaseLayer
+  - first:
+      74: 557366576338890982
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.065|Take 001|BaseLayer
+  - first:
+      74: -8044011382775251734
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.066|Take 001|BaseLayer
+  - first:
+      74: 5821107314121479014
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.067|Take 001|BaseLayer
+  - first:
+      74: 8477753402951850623
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.068|Take 001|BaseLayer
+  - first:
+      74: -2215503385603607230
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.069|Take 001|BaseLayer
+  - first:
+      74: 1989635970973702389
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.070|Take 001|BaseLayer
+  - first:
+      74: 8321485246186201290
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.071|Take 001|BaseLayer
+  - first:
+      74: -6465910186358830891
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.072|Take 001|BaseLayer
+  - first:
+      74: 4981331833591840164
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.073|Take 001|BaseLayer
+  - first:
+      74: -709039657152058884
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.074|Take 001|BaseLayer
+  - first:
+      74: -543375651905752174
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.075|Take 001|BaseLayer
+  - first:
+      74: -9056765657214054773
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.076|Take 001|BaseLayer
+  - first:
+      74: 2992271660058667782
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.077|Take 001|BaseLayer
+  - first:
+      74: -9023549598963330601
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.078|Take 001|BaseLayer
+  - first:
+      74: -5989484765285856213
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.079|Take 001|BaseLayer
+  - first:
+      74: 1052826331377401564
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.080|Take 001|BaseLayer
+  - first:
+      74: -7497815068752008590
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.081|Take 001|BaseLayer
+  - first:
+      74: -7981571983078884166
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.082|Take 001|BaseLayer
+  - first:
+      74: 2578800561569061423
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.083|Take 001|BaseLayer
+  - first:
+      74: -6133647951505810624
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.084|Take 001|BaseLayer
+  - first:
+      74: 3679474651336423155
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.085|Take 001|BaseLayer
+  - first:
+      74: 251388969497294287
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.086|Take 001|BaseLayer
+  - first:
+      74: 3710586227435667211
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.087|Take 001|BaseLayer
+  - first:
+      74: -9173167678162122420
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.088|Take 001|BaseLayer
+  - first:
+      74: -1596611195085296911
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.089|Take 001|BaseLayer
+  - first:
+      74: 3002314193754587096
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.090|Take 001|BaseLayer
+  - first:
+      74: -8282293019425240477
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.091|Take 001|BaseLayer
+  - first:
+      74: 5388620646677896033
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.092|Take 001|BaseLayer
+  - first:
+      74: 8111159851610758323
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.093|Take 001|BaseLayer
+  - first:
+      74: 1548152190723799705
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.094|Take 001|BaseLayer
+  - first:
+      74: -1113900688096547304
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.095|Take 001|BaseLayer
+  - first:
+      74: 7205776950744198735
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.096|Take 001|BaseLayer
+  - first:
+      74: -7499482028912428004
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.097|Take 001|BaseLayer
+  - first:
+      74: -4698374492986402302
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo.098|Take 001|BaseLayer
+  - first:
+      74: 798586293842134423
+    second: TrafficLightsPedestrian|Pole_Body01_White01_Geo001|Take 001|BaseLayer
+  - first:
+      74: -7878443202368766374
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo090|Take 001|BaseLayer
+  - first:
+      74: -855964241304363997
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo091|Take 001|BaseLayer
+  - first:
+      74: -8492899058726715573
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo092|Take 001|BaseLayer
+  - first:
+      74: -3376847529686881466
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo093|Take 001|BaseLayer
+  - first:
+      74: 4109171914960135051
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo094|Take 001|BaseLayer
+  - first:
+      74: 3542435078909181027
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo095|Take 001|BaseLayer
+  - first:
+      74: 7975971546991175558
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo10|Take 001|BaseLayer
+  - first:
+      74: 6595593285568988104
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo14|Take 001|BaseLayer
+  - first:
+      74: 1778901436901840116
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo15|Take 001|BaseLayer
+  - first:
+      74: -3328847448820006291
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo16|Take 001|BaseLayer
+  - first:
+      74: -5086123553612411023
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo17|Take 001|BaseLayer
+  - first:
+      74: 6264102376703748276
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo18|Take 001|BaseLayer
+  - first:
+      74: -6219622114802078332
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo19|Take 001|BaseLayer
+  - first:
+      74: -5995997995241338527
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo1|Take 001|BaseLayer
+  - first:
+      74: -4896638821376120806
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo20|Take 001|BaseLayer
+  - first:
+      74: 4669440164951422315
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo21|Take 001|BaseLayer
+  - first:
+      74: -1625077326074105751
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo22|Take 001|BaseLayer
+  - first:
+      74: 8881841698244736673
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo23|Take 001|BaseLayer
+  - first:
+      74: 5715833893127108404
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo24|Take 001|BaseLayer
+  - first:
+      74: 2245752698856326078
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo25|Take 001|BaseLayer
+  - first:
+      74: -2656476376597759836
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo26|Take 001|BaseLayer
+  - first:
+      74: 2972367689003797568
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo27|Take 001|BaseLayer
+  - first:
+      74: -7475492637853258237
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo28|Take 001|BaseLayer
+  - first:
+      74: -6646689659852194306
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo29|Take 001|BaseLayer
+  - first:
+      74: -9109933314638088987
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo2|Take 001|BaseLayer
+  - first:
+      74: 145469881317688150
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo30|Take 001|BaseLayer
+  - first:
+      74: -14680936088151957
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo31|Take 001|BaseLayer
+  - first:
+      74: -2450543298653578904
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo32|Take 001|BaseLayer
+  - first:
+      74: -1791377841650007611
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo33|Take 001|BaseLayer
+  - first:
+      74: 8707816281659029430
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo34|Take 001|BaseLayer
+  - first:
+      74: 6079947899139714921
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo35|Take 001|BaseLayer
+  - first:
+      74: 5613663324511253233
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo36|Take 001|BaseLayer
+  - first:
+      74: 4365880607991100891
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo37|Take 001|BaseLayer
+  - first:
+      74: -319050764120563557
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo38|Take 001|BaseLayer
+  - first:
+      74: 4539568215873708652
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo39|Take 001|BaseLayer
+  - first:
+      74: 7899957579655740975
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo3|Take 001|BaseLayer
+  - first:
+      74: -6386224411423910094
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo44|Take 001|BaseLayer
+  - first:
+      74: 960572739725980046
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo45|Take 001|BaseLayer
+  - first:
+      74: -567973064871832923
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo46|Take 001|BaseLayer
+  - first:
+      74: 7580644875145583965
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo47|Take 001|BaseLayer
+  - first:
+      74: 3223034297001786282
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo49|Take 001|BaseLayer
+  - first:
+      74: -997641757611779304
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo4|Take 001|BaseLayer
+  - first:
+      74: -3422149229669800670
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo50|Take 001|BaseLayer
+  - first:
+      74: 5047902815121549663
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo51|Take 001|BaseLayer
+  - first:
+      74: 7562527802040008560
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo52|Take 001|BaseLayer
+  - first:
+      74: -7218166290808505840
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo53|Take 001|BaseLayer
+  - first:
+      74: -5085900287180082791
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo54|Take 001|BaseLayer
+  - first:
+      74: -3166152637018553743
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo55|Take 001|BaseLayer
+  - first:
+      74: 2880419639843717422
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo56|Take 001|BaseLayer
+  - first:
+      74: 406894859185487953
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo57|Take 001|BaseLayer
+  - first:
+      74: -7783590251573179195
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo58|Take 001|BaseLayer
+  - first:
+      74: -115272946576089732
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo59|Take 001|BaseLayer
+  - first:
+      74: -2567840795865471095
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo5|Take 001|BaseLayer
+  - first:
+      74: 1627754466960158379
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo60|Take 001|BaseLayer
+  - first:
+      74: 5315962593629170923
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo61|Take 001|BaseLayer
+  - first:
+      74: -6483722731304209330
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo62|Take 001|BaseLayer
+  - first:
+      74: 4673354465082254337
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo63|Take 001|BaseLayer
+  - first:
+      74: 848424682938175354
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo64|Take 001|BaseLayer
+  - first:
+      74: -6320585625973266896
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo65|Take 001|BaseLayer
+  - first:
+      74: 346516547755109024
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo66|Take 001|BaseLayer
+  - first:
+      74: -5054903809945019716
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo67|Take 001|BaseLayer
+  - first:
+      74: 5461474178069531332
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo68|Take 001|BaseLayer
+  - first:
+      74: 2155422525509050312
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo69|Take 001|BaseLayer
+  - first:
+      74: -7298218301494548422
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo6|Take 001|BaseLayer
+  - first:
+      74: 8151282970610275517
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo70|Take 001|BaseLayer
+  - first:
+      74: 852684041334283109
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo71|Take 001|BaseLayer
+  - first:
+      74: -1936517844314989606
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo72|Take 001|BaseLayer
+  - first:
+      74: -8769900675356066509
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo73|Take 001|BaseLayer
+  - first:
+      74: 8624754311230753312
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo74|Take 001|BaseLayer
+  - first:
+      74: 6701407986529959843
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo75|Take 001|BaseLayer
+  - first:
+      74: 7710889444815010449
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo76|Take 001|BaseLayer
+  - first:
+      74: 8667707452392626483
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo77|Take 001|BaseLayer
+  - first:
+      74: -2430281091962758310
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo78|Take 001|BaseLayer
+  - first:
+      74: 1698959281424994913
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo79|Take 001|BaseLayer
+  - first:
+      74: -995885279704525402
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo7|Take 001|BaseLayer
+  - first:
+      74: -2599276319225221853
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo80|Take 001|BaseLayer
+  - first:
+      74: -2977915467068267128
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo81|Take 001|BaseLayer
+  - first:
+      74: 8148609423035762627
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo82|Take 001|BaseLayer
+  - first:
+      74: -6805181774437504861
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo83|Take 001|BaseLayer
+  - first:
+      74: 7898995297393975097
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo84|Take 001|BaseLayer
+  - first:
+      74: 8897112678958362114
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo85|Take 001|BaseLayer
+  - first:
+      74: -1252563738505126206
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo86|Take 001|BaseLayer
+  - first:
+      74: 2305680711064829939
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo87|Take 001|BaseLayer
+  - first:
+      74: 3595709102586178715
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo88|Take 001|BaseLayer
+  - first:
+      74: -7020652723476995277
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo89|Take 001|BaseLayer
+  - first:
+      74: 4541941437691921099
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo8|Take 001|BaseLayer
+  - first:
+      74: -4307920607103614678
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_Geo9|Take 001|BaseLayer
+  - first:
+      74: -8409952651519520480
+    second: TrafficLightsPedestrian|SignAuxiliaryA01_Panel01_Base01_GP01|Take 001|BaseLayer
+  - first:
+      74: -6476101647940779346
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo077|Take 001|BaseLayer
+  - first:
+      74: -8360614408173802996
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo078|Take 001|BaseLayer
+  - first:
+      74: -1321266038842992190
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo079|Take 001|BaseLayer
+  - first:
+      74: 1462438001661724248
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo080|Take 001|BaseLayer
+  - first:
+      74: -6806873249633860907
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo081|Take 001|BaseLayer
+  - first:
+      74: 3668572081479770026
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo082|Take 001|BaseLayer
+  - first:
+      74: 579726356389445241
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo083|Take 001|BaseLayer
+  - first:
+      74: -5204427656875360104
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo084|Take 001|BaseLayer
+  - first:
+      74: 5301716994122791720
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo085|Take 001|BaseLayer
+  - first:
+      74: 357800573459654899
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo086|Take 001|BaseLayer
+  - first:
+      74: 4959839244003011994
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo087|Take 001|BaseLayer
+  - first:
+      74: 6699011122157979291
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo088|Take 001|BaseLayer
+  - first:
+      74: -3475378832611882188
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo089|Take 001|BaseLayer
+  - first:
+      74: -6338545990603560159
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo090|Take 001|BaseLayer
+  - first:
+      74: -2168112049683570558
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo54|Take 001|BaseLayer
+  - first:
+      74: 7376022417887237226
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo55|Take 001|BaseLayer
+  - first:
+      74: -6552806407877796634
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo59|Take 001|BaseLayer
+  - first:
+      74: -2525902063019213832
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo62|Take 001|BaseLayer
+  - first:
+      74: 4742873678513184657
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo64|Take 001|BaseLayer
+  - first:
+      74: 8871069386749579096
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo66|Take 001|BaseLayer
+  - first:
+      74: -3994623977980175401
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo68|Take 001|BaseLayer
+  - first:
+      74: -3962345595359359306
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo70|Take 001|BaseLayer
+  - first:
+      74: 3050890093687878232
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo71|Take 001|BaseLayer
+  - first:
+      74: -7634330002589287854
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo72|Take 001|BaseLayer
+  - first:
+      74: -3817612279657957903
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo73|Take 001|BaseLayer
+  - first:
+      74: -7334325118094599688
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo74|Take 001|BaseLayer
+  - first:
+      74: 5214152028474041015
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo75|Take 001|BaseLayer
+  - first:
+      74: 4503370542401214066
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo76|Take 001|BaseLayer
+  - first:
+      74: 1668881609216693652
+    second: TrafficLightsPedestrian|SignAuxillaryA01_Panel01_Base01_Geo|Take 001|BaseLayer
+  - first:
+      74: -1127995628764167537
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo112|Take
+      001|BaseLayer
+  - first:
+      74: -8082979088793829925
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo113|Take
+      001|BaseLayer
+  - first:
+      74: -3175956312067798652
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo115|Take
+      001|BaseLayer
+  - first:
+      74: -1672030583050651727
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo116|Take
+      001|BaseLayer
+  - first:
+      74: -6712175790624836933
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo117|Take
+      001|BaseLayer
+  - first:
+      74: 2923087378866869704
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo118|Take
+      001|BaseLayer
+  - first:
+      74: 2998280654149705491
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo125|Take
+      001|BaseLayer
+  - first:
+      74: 5821505351453542043
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo126|Take
+      001|BaseLayer
+  - first:
+      74: 793859928585570036
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo155|Take
+      001|BaseLayer
+  - first:
+      74: 5952731629484238334
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo175|Take
+      001|BaseLayer
+  - first:
+      74: -1479894400826559732
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo176|Take
+      001|BaseLayer
+  - first:
+      74: -6938483631406266234
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo177|Take
+      001|BaseLayer
+  - first:
+      74: -3864067422584761124
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo178|Take
+      001|BaseLayer
+  - first:
+      74: 2252207772672120488
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo179|Take
+      001|BaseLayer
+  - first:
+      74: 5899376840580472524
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo180|Take
+      001|BaseLayer
+  - first:
+      74: 3792281487330438759
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo181|Take
+      001|BaseLayer
+  - first:
+      74: 4224461790949996914
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo182|Take
+      001|BaseLayer
+  - first:
+      74: -6726625725313285181
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo183|Take
+      001|BaseLayer
+  - first:
+      74: -1942525771397020749
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo184|Take
+      001|BaseLayer
+  - first:
+      74: -853531365454762790
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo24|Take
+      001|BaseLayer
+  - first:
+      74: 8471813484888898204
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo25|Take
+      001|BaseLayer
+  - first:
+      74: -6117292015513927068
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo26|Take
+      001|BaseLayer
+  - first:
+      74: -2330113584705190770
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo27|Take
+      001|BaseLayer
+  - first:
+      74: -1131454697395539369
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo28|Take
+      001|BaseLayer
+  - first:
+      74: 8672859503921881778
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo29|Take
+      001|BaseLayer
+  - first:
+      74: 1485641797220926980
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo30|Take
+      001|BaseLayer
+  - first:
+      74: -965234639592539474
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo31|Take
+      001|BaseLayer
+  - first:
+      74: -8132608444373372145
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo32|Take
+      001|BaseLayer
+  - first:
+      74: -4799881549852564982
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo33|Take
+      001|BaseLayer
+  - first:
+      74: 5976708287209520174
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo34|Take
+      001|BaseLayer
+  - first:
+      74: -2261385921376076671
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo35|Take
+      001|BaseLayer
+  - first:
+      74: -4232700072240178862
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo38|Take
+      001|BaseLayer
+  - first:
+      74: -8137255253532726138
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo43|Take
+      001|BaseLayer
+  - first:
+      74: 3120898614403413816
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo44|Take
+      001|BaseLayer
+  - first:
+      74: -5758625513374301333
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo45|Take
+      001|BaseLayer
+  - first:
+      74: 8300044773700830488
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo46|Take
+      001|BaseLayer
+  - first:
+      74: -7037178354267385387
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo47|Take
+      001|BaseLayer
+  - first:
+      74: -1485279019979511510
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo48|Take
+      001|BaseLayer
+  - first:
+      74: 134131475340728733
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo51|Take
+      001|BaseLayer
+  - first:
+      74: 7925436768633951819
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo52|Take
+      001|BaseLayer
+  - first:
+      74: -4923639465897012000
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo53|Take
+      001|BaseLayer
+  - first:
+      74: 4179147439837390491
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo54|Take
+      001|BaseLayer
+  - first:
+      74: -1720186003280702540
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo55|Take
+      001|BaseLayer
+  - first:
+      74: -1736901643039372696
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo56|Take
+      001|BaseLayer
+  - first:
+      74: 4069156507086158149
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo57|Take
+      001|BaseLayer
+  - first:
+      74: -3514849324738464091
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo58|Take
+      001|BaseLayer
+  - first:
+      74: 4559323747826735409
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo59|Take
+      001|BaseLayer
+  - first:
+      74: 404318232329495057
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo60|Take
+      001|BaseLayer
+  - first:
+      74: 6807302696699345158
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo62|Take
+      001|BaseLayer
+  - first:
+      74: -9173385060077171816
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo63|Take
+      001|BaseLayer
+  - first:
+      74: 1914799207558057153
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo64|Take
+      001|BaseLayer
+  - first:
+      74: 7026170815201551075
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo65|Take
+      001|BaseLayer
+  - first:
+      74: 1702989695066947915
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo66|Take
+      001|BaseLayer
+  - first:
+      74: 152974158689966029
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo67|Take
+      001|BaseLayer
+  - first:
+      74: -5346447121980730959
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo68|Take
+      001|BaseLayer
+  - first:
+      74: 318105257468915991
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo69|Take
+      001|BaseLayer
+  - first:
+      74: -6663686680847663558
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo70|Take
+      001|BaseLayer
+  - first:
+      74: 8487994175963198443
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo71|Take
+      001|BaseLayer
+  - first:
+      74: 1019960230029788946
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo72|Take
+      001|BaseLayer
+  - first:
+      74: 4815602797874263257
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo73|Take
+      001|BaseLayer
+  - first:
+      74: 3376806576070878778
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo74|Take
+      001|BaseLayer
+  - first:
+      74: -4246301540163305601
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo75|Take
+      001|BaseLayer
+  - first:
+      74: -4050331809603128400
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo76|Take
+      001|BaseLayer
+  - first:
+      74: -164602565390134529
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo77|Take
+      001|BaseLayer
+  - first:
+      74: -3770783224696058160
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo78|Take
+      001|BaseLayer
+  - first:
+      74: 1734663369054875786
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo80|Take
+      001|BaseLayer
+  - first:
+      74: -1512552204845644041
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo82|Take
+      001|BaseLayer
+  - first:
+      74: -3870382590057045917
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo83|Take
+      001|BaseLayer
+  - first:
+      74: 7979511180696284734
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo84|Take
+      001|BaseLayer
+  - first:
+      74: -8643007782914471222
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo85|Take
+      001|BaseLayer
+  - first:
+      74: 5022018212982256143
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo86|Take
+      001|BaseLayer
+  - first:
+      74: 1663191806042358123
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo87|Take
+      001|BaseLayer
+  - first:
+      74: 3324430121080718817
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo88|Take
+      001|BaseLayer
+  - first:
+      74: 1029252653481656372
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo89|Take
+      001|BaseLayer
+  - first:
+      74: 2509510442590744021
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo90|Take
+      001|BaseLayer
+  - first:
+      74: -188196696018672730
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo91|Take
+      001|BaseLayer
+  - first:
+      74: -6906475925611371967
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo92|Take
+      001|BaseLayer
+  - first:
+      74: -6234511976974561714
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo93|Take
+      001|BaseLayer
+  - first:
+      74: -8888649334903032365
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo94|Take
+      001|BaseLayer
+  - first:
+      74: 5216928594452086634
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo95|Take
+      001|BaseLayer
+  - first:
+      74: 8607385947477474479
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo96|Take
+      001|BaseLayer
+  - first:
+      74: 1849139617800710121
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo97|Take
+      001|BaseLayer
+  - first:
+      74: -3278272889268824904
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo98|Take
+      001|BaseLayer
+  - first:
+      74: -4124475653253339812
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_Geo99|Take
+      001|BaseLayer
+  - first:
+      74: -1267227956128311886
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel01_Base01_GP01|Take 001|BaseLayer
+  - first:
+      74: 6576664218230777673
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.001|Take
+      001|BaseLayer
+  - first:
+      74: -4010989751267301660
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.002|Take
+      001|BaseLayer
+  - first:
+      74: -4025510246357884835
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.003|Take
+      001|BaseLayer
+  - first:
+      74: -2254581412495609708
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.004|Take
+      001|BaseLayer
+  - first:
+      74: 3622526586999034340
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.005|Take
+      001|BaseLayer
+  - first:
+      74: 844104525246679557
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.006|Take
+      001|BaseLayer
+  - first:
+      74: -4427930021324342416
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.007|Take
+      001|BaseLayer
+  - first:
+      74: 3664766287372614043
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.008|Take
+      001|BaseLayer
+  - first:
+      74: -4529412400092817446
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.009|Take
+      001|BaseLayer
+  - first:
+      74: -2783849946343671394
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.010|Take
+      001|BaseLayer
+  - first:
+      74: 4842757032648112204
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.011|Take
+      001|BaseLayer
+  - first:
+      74: 5915308029150549070
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.012|Take
+      001|BaseLayer
+  - first:
+      74: -2088908305047474085
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.013|Take
+      001|BaseLayer
+  - first:
+      74: -6049786465557547720
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.014|Take
+      001|BaseLayer
+  - first:
+      74: 1534466899829408869
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.015|Take
+      001|BaseLayer
+  - first:
+      74: -8268893806907882154
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.016|Take
+      001|BaseLayer
+  - first:
+      74: 6237595850584933459
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.017|Take
+      001|BaseLayer
+  - first:
+      74: -2670250123363327420
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.018|Take
+      001|BaseLayer
+  - first:
+      74: -4871519706290145756
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.019|Take
+      001|BaseLayer
+  - first:
+      74: -8656204192208118663
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.020|Take
+      001|BaseLayer
+  - first:
+      74: 7118819273006029556
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.021|Take
+      001|BaseLayer
+  - first:
+      74: 3323599190813998074
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.022|Take
+      001|BaseLayer
+  - first:
+      74: 5728869138145156277
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.023|Take
+      001|BaseLayer
+  - first:
+      74: -2147748730057696982
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.024|Take
+      001|BaseLayer
+  - first:
+      74: 5059586638867689626
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.025|Take
+      001|BaseLayer
+  - first:
+      74: -71989209918148565
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.026|Take
+      001|BaseLayer
+  - first:
+      74: 6592777701332813210
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.027|Take
+      001|BaseLayer
+  - first:
+      74: 7034043398514244954
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.028|Take
+      001|BaseLayer
+  - first:
+      74: 8017070274312454639
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.029|Take
+      001|BaseLayer
+  - first:
+      74: -5932317049660299652
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.030|Take
+      001|BaseLayer
+  - first:
+      74: 4426088325091215322
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.031|Take
+      001|BaseLayer
+  - first:
+      74: -8131212638765376090
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.032|Take
+      001|BaseLayer
+  - first:
+      74: -7412285873877826380
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.033|Take
+      001|BaseLayer
+  - first:
+      74: 6633133231515943055
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.034|Take
+      001|BaseLayer
+  - first:
+      74: 90495037734181732
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.035|Take
+      001|BaseLayer
+  - first:
+      74: -7556890553493195817
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo.036|Take
+      001|BaseLayer
+  - first:
+      74: -6230537509784140259
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_Geo|Take 001|BaseLayer
+  - first:
+      74: -1417701712174259703
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel02_Base01_GP01|Take 001|BaseLayer
+  - first:
+      74: 7210339622884934828
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel03_Base01_Geo.001|Take
+      001|BaseLayer
+  - first:
+      74: 254485631367243172
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel03_Base01_Geo.002|Take
+      001|BaseLayer
+  - first:
+      74: 7480423297636616429
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel03_Base01_Geo.003|Take
+      001|BaseLayer
+  - first:
+      74: -3515763429224385981
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel03_Base01_Geo.004|Take
+      001|BaseLayer
+  - first:
+      74: -1824306926897823942
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel03_Base01_Geo.005|Take
+      001|BaseLayer
+  - first:
+      74: -4023537358070061895
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel03_Base01_Geo.006|Take
+      001|BaseLayer
+  - first:
+      74: -3764004148939947760
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel03_Base01_Geo.007|Take
+      001|BaseLayer
+  - first:
+      74: -2545014559123122074
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel03_Base01_Geo.008|Take
+      001|BaseLayer
+  - first:
+      74: 7795776555123641812
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel03_Base01_Geo.009|Take
+      001|BaseLayer
+  - first:
+      74: 7608114729722061206
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel03_Base01_Geo.010|Take
+      001|BaseLayer
+  - first:
+      74: -8514810370778966559
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel03_Base01_Geo.011|Take
+      001|BaseLayer
+  - first:
+      74: -4522932883413582136
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel03_Base01_Geo.012|Take
+      001|BaseLayer
+  - first:
+      74: 7677037533207541536
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel03_Base01_Geo|Take 001|BaseLayer
+  - first:
+      74: -8867183399767758443
+    second: TrafficLightsPedestrian|SignDirectionalA01_Panel03_Base01_GP01|Take 001|BaseLayer
+  - first:
+      74: -4672865163047832442
+    second: TrafficLightsPedestrian|SignInstructionalA01_Panel01_Base01_Geo.001|Take
+      001|BaseLayer
+  - first:
+      74: 2325612501151877549
+    second: TrafficLightsPedestrian|SignInstructionalA01_Panel01_Base01_Geo.002|Take
+      001|BaseLayer
+  - first:
+      74: -327505499995730866
+    second: TrafficLightsPedestrian|SignInstructionalA01_Panel01_Base01_Geo.003|Take
+      001|BaseLayer
+  - first:
+      74: -1736013640832718530
+    second: TrafficLightsPedestrian|SignInstructionalA01_Panel01_Base01_Geo|Take
+      001|BaseLayer
+  - first:
+      74: 8338017009768779013
+    second: TrafficLightsPedestrian|SignInstructionalA01_Panel01_Base01_GP01|Take
+      001|BaseLayer
+  - first:
+      74: -5304169429284960071
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.001|Take
+      001|BaseLayer
+  - first:
+      74: -4161034139568449148
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.002|Take
+      001|BaseLayer
+  - first:
+      74: 6250876273101621180
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.003|Take
+      001|BaseLayer
+  - first:
+      74: 8848444112652609309
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.004|Take
+      001|BaseLayer
+  - first:
+      74: 4072492956981089126
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.005|Take
+      001|BaseLayer
+  - first:
+      74: -4500483094953767225
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.006|Take
+      001|BaseLayer
+  - first:
+      74: -5724231727532012085
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.007|Take
+      001|BaseLayer
+  - first:
+      74: -2907479666639710264
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.008|Take
+      001|BaseLayer
+  - first:
+      74: 7499733593615350782
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.009|Take
+      001|BaseLayer
+  - first:
+      74: 1333972270447703230
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.010|Take
+      001|BaseLayer
+  - first:
+      74: -2835033472308384261
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.011|Take
+      001|BaseLayer
+  - first:
+      74: 493097872405935880
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.012|Take
+      001|BaseLayer
+  - first:
+      74: -5329879998076859466
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.013|Take
+      001|BaseLayer
+  - first:
+      74: 2909670098401379673
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.014|Take
+      001|BaseLayer
+  - first:
+      74: 9007620609215148591
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.015|Take
+      001|BaseLayer
+  - first:
+      74: -1857325372168520948
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.016|Take
+      001|BaseLayer
+  - first:
+      74: -3739996161123986597
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.017|Take
+      001|BaseLayer
+  - first:
+      74: -6260706589384606992
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.018|Take
+      001|BaseLayer
+  - first:
+      74: 9037156025023314140
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.019|Take
+      001|BaseLayer
+  - first:
+      74: -8727662493848636653
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.020|Take
+      001|BaseLayer
+  - first:
+      74: -3005521677256742953
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.021|Take
+      001|BaseLayer
+  - first:
+      74: 7004136862191309532
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.022|Take
+      001|BaseLayer
+  - first:
+      74: 4697295864271840242
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.023|Take
+      001|BaseLayer
+  - first:
+      74: -5328963559981855570
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.024|Take
+      001|BaseLayer
+  - first:
+      74: -4414647844209916086
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.025|Take
+      001|BaseLayer
+  - first:
+      74: -4480899718954328734
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.026|Take
+      001|BaseLayer
+  - first:
+      74: -970382811586407231
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.027|Take
+      001|BaseLayer
+  - first:
+      74: 8921714235507506862
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.028|Take
+      001|BaseLayer
+  - first:
+      74: -7466463948442876445
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.029|Take
+      001|BaseLayer
+  - first:
+      74: 616702203007069605
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.030|Take
+      001|BaseLayer
+  - first:
+      74: 2162667654275062709
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.031|Take
+      001|BaseLayer
+  - first:
+      74: 6557451769477360744
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.032|Take
+      001|BaseLayer
+  - first:
+      74: -5041323817801528039
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.033|Take
+      001|BaseLayer
+  - first:
+      74: 8718919327035860826
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.034|Take
+      001|BaseLayer
+  - first:
+      74: -4420141444623118360
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.035|Take
+      001|BaseLayer
+  - first:
+      74: -7974239727401143441
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.036|Take
+      001|BaseLayer
+  - first:
+      74: -8826202506819549628
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.037|Take
+      001|BaseLayer
+  - first:
+      74: 7658064990963213825
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.038|Take
+      001|BaseLayer
+  - first:
+      74: 713010539437535420
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.039|Take
+      001|BaseLayer
+  - first:
+      74: 1219397304206699189
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.040|Take
+      001|BaseLayer
+  - first:
+      74: -5655650904529315865
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.041|Take
+      001|BaseLayer
+  - first:
+      74: -3068925804748930637
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.042|Take
+      001|BaseLayer
+  - first:
+      74: 2038368722402051661
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.043|Take
+      001|BaseLayer
+  - first:
+      74: 2697989388637496340
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.044|Take
+      001|BaseLayer
+  - first:
+      74: 2232611356272553027
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.045|Take
+      001|BaseLayer
+  - first:
+      74: 2339578788057757901
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.046|Take
+      001|BaseLayer
+  - first:
+      74: 6742703933321834566
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.047|Take
+      001|BaseLayer
+  - first:
+      74: -6726649697773667464
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.048|Take
+      001|BaseLayer
+  - first:
+      74: 2172155750331856580
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.049|Take
+      001|BaseLayer
+  - first:
+      74: 1652046751761176463
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.050|Take
+      001|BaseLayer
+  - first:
+      74: 3828580173814591806
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.051|Take
+      001|BaseLayer
+  - first:
+      74: 8479788567518959411
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.052|Take
+      001|BaseLayer
+  - first:
+      74: 443212496647549296
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.053|Take
+      001|BaseLayer
+  - first:
+      74: 183182460762480934
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.054|Take
+      001|BaseLayer
+  - first:
+      74: 1887383322618872859
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.055|Take
+      001|BaseLayer
+  - first:
+      74: 312621734385000267
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.056|Take
+      001|BaseLayer
+  - first:
+      74: -6620349222550346574
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.057|Take
+      001|BaseLayer
+  - first:
+      74: 5634837961009788900
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.058|Take
+      001|BaseLayer
+  - first:
+      74: 7142494850744114537
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.059|Take
+      001|BaseLayer
+  - first:
+      74: -459121319161821813
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.060|Take
+      001|BaseLayer
+  - first:
+      74: 1540725964311075042
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.061|Take
+      001|BaseLayer
+  - first:
+      74: -2747884233719257431
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.062|Take
+      001|BaseLayer
+  - first:
+      74: -3748752308516093733
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.063|Take
+      001|BaseLayer
+  - first:
+      74: -758569355218662435
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.064|Take
+      001|BaseLayer
+  - first:
+      74: -7271747739189336
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.065|Take
+      001|BaseLayer
+  - first:
+      74: 122609784334119061
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.066|Take
+      001|BaseLayer
+  - first:
+      74: -4386534421142561356
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.067|Take
+      001|BaseLayer
+  - first:
+      74: 4701621259143487524
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.068|Take
+      001|BaseLayer
+  - first:
+      74: 4198122190247174169
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.069|Take
+      001|BaseLayer
+  - first:
+      74: -2495716257677242925
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.070|Take
+      001|BaseLayer
+  - first:
+      74: -2866912947239508125
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.071|Take
+      001|BaseLayer
+  - first:
+      74: 2350809703332859445
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.072|Take
+      001|BaseLayer
+  - first:
+      74: 4841380686271588410
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo.073|Take
+      001|BaseLayer
+  - first:
+      74: 3757443931490700120
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_Geo|Take 001|BaseLayer
+  - first:
+      74: 5813535867111552934
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel01_Base01_GP01|Take 001|BaseLayer
+  - first:
+      74: 6044626292778001988
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.001|Take
+      001|BaseLayer
+  - first:
+      74: 4103604488077714831
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.002|Take
+      001|BaseLayer
+  - first:
+      74: 2496790287589943454
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.003|Take
+      001|BaseLayer
+  - first:
+      74: 8001283712783601808
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.004|Take
+      001|BaseLayer
+  - first:
+      74: -4755566608819021970
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.005|Take
+      001|BaseLayer
+  - first:
+      74: 4797717331101217881
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.006|Take
+      001|BaseLayer
+  - first:
+      74: 677144501903436492
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.007|Take
+      001|BaseLayer
+  - first:
+      74: 6208828846216929971
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.008|Take
+      001|BaseLayer
+  - first:
+      74: -6914313787662067733
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.009|Take
+      001|BaseLayer
+  - first:
+      74: 1831547420361684228
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.010|Take
+      001|BaseLayer
+  - first:
+      74: 1052887468834868650
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.011|Take
+      001|BaseLayer
+  - first:
+      74: -3402185628507797443
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.012|Take
+      001|BaseLayer
+  - first:
+      74: -7633929051353305343
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.013|Take
+      001|BaseLayer
+  - first:
+      74: -5297164068131468816
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.014|Take
+      001|BaseLayer
+  - first:
+      74: 7128591393869840544
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.015|Take
+      001|BaseLayer
+  - first:
+      74: -6571759128800982411
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.016|Take
+      001|BaseLayer
+  - first:
+      74: 991743087895093314
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.017|Take
+      001|BaseLayer
+  - first:
+      74: -4673395301848804858
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.018|Take
+      001|BaseLayer
+  - first:
+      74: -7877935386287936037
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.019|Take
+      001|BaseLayer
+  - first:
+      74: 6353332457070672105
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.020|Take
+      001|BaseLayer
+  - first:
+      74: 6740802307619142515
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.021|Take
+      001|BaseLayer
+  - first:
+      74: 7414947250497714383
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.022|Take
+      001|BaseLayer
+  - first:
+      74: -5883160759172837315
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.023|Take
+      001|BaseLayer
+  - first:
+      74: 3239391412977811612
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.024|Take
+      001|BaseLayer
+  - first:
+      74: 5341169828337419942
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.025|Take
+      001|BaseLayer
+  - first:
+      74: -5231255192444964450
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.026|Take
+      001|BaseLayer
+  - first:
+      74: -2692002220610644498
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.027|Take
+      001|BaseLayer
+  - first:
+      74: 1614217108514179428
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.028|Take
+      001|BaseLayer
+  - first:
+      74: -4936612402334124595
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.029|Take
+      001|BaseLayer
+  - first:
+      74: 4881177628801794008
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.030|Take
+      001|BaseLayer
+  - first:
+      74: 2845744546717749335
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.031|Take
+      001|BaseLayer
+  - first:
+      74: 2647783659587429046
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.032|Take
+      001|BaseLayer
+  - first:
+      74: 5916134686470824791
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.033|Take
+      001|BaseLayer
+  - first:
+      74: -5062614520868791926
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.034|Take
+      001|BaseLayer
+  - first:
+      74: -8514187593251669596
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.035|Take
+      001|BaseLayer
+  - first:
+      74: 5424550566378245614
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.036|Take
+      001|BaseLayer
+  - first:
+      74: 1184462728806312274
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.037|Take
+      001|BaseLayer
+  - first:
+      74: -2263131142187448826
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.038|Take
+      001|BaseLayer
+  - first:
+      74: 2481898709833325736
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.039|Take
+      001|BaseLayer
+  - first:
+      74: 4530778758983961481
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.040|Take
+      001|BaseLayer
+  - first:
+      74: -900650880331587838
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.041|Take
+      001|BaseLayer
+  - first:
+      74: 7541707246492132581
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.042|Take
+      001|BaseLayer
+  - first:
+      74: -1933547130478636236
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.043|Take
+      001|BaseLayer
+  - first:
+      74: -8257414686223752578
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.044|Take
+      001|BaseLayer
+  - first:
+      74: 6242830180604014933
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.045|Take
+      001|BaseLayer
+  - first:
+      74: -2071950567800705805
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.046|Take
+      001|BaseLayer
+  - first:
+      74: -6694099610379877890
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.047|Take
+      001|BaseLayer
+  - first:
+      74: 7753602202881703027
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.048|Take
+      001|BaseLayer
+  - first:
+      74: -7647822859513466229
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.049|Take
+      001|BaseLayer
+  - first:
+      74: 2430817839938891846
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.050|Take
+      001|BaseLayer
+  - first:
+      74: -1071441261651130491
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.051|Take
+      001|BaseLayer
+  - first:
+      74: 8707567499012048113
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.052|Take
+      001|BaseLayer
+  - first:
+      74: 3387146673831855603
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.053|Take
+      001|BaseLayer
+  - first:
+      74: 1406470045618997612
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.054|Take
+      001|BaseLayer
+  - first:
+      74: 5662312433028460510
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.055|Take
+      001|BaseLayer
+  - first:
+      74: 3954199614563164671
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.056|Take
+      001|BaseLayer
+  - first:
+      74: 6159361130046592033
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.057|Take
+      001|BaseLayer
+  - first:
+      74: -3198559730999715580
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.058|Take
+      001|BaseLayer
+  - first:
+      74: 292414279314761424
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.059|Take
+      001|BaseLayer
+  - first:
+      74: 4896833973570233114
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.060|Take
+      001|BaseLayer
+  - first:
+      74: -2839924053775684695
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.061|Take
+      001|BaseLayer
+  - first:
+      74: 6734936828517336460
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.062|Take
+      001|BaseLayer
+  - first:
+      74: -7078657995978968396
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.063|Take
+      001|BaseLayer
+  - first:
+      74: 5711106410311223579
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.064|Take
+      001|BaseLayer
+  - first:
+      74: 9086217428857520885
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.065|Take
+      001|BaseLayer
+  - first:
+      74: 353017865483682851
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.066|Take
+      001|BaseLayer
+  - first:
+      74: -6829905468652994126
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.067|Take
+      001|BaseLayer
+  - first:
+      74: 508523410248799764
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.068|Take
+      001|BaseLayer
+  - first:
+      74: 1048526103680822461
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.069|Take
+      001|BaseLayer
+  - first:
+      74: 4024965427542577449
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.070|Take
+      001|BaseLayer
+  - first:
+      74: 8040390512849948291
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.071|Take
+      001|BaseLayer
+  - first:
+      74: -5176698723122352664
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.072|Take
+      001|BaseLayer
+  - first:
+      74: -7020108619071635657
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.073|Take
+      001|BaseLayer
+  - first:
+      74: 3692219236469679262
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.074|Take
+      001|BaseLayer
+  - first:
+      74: 3006784319295755610
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.075|Take
+      001|BaseLayer
+  - first:
+      74: 493568007412806012
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.076|Take
+      001|BaseLayer
+  - first:
+      74: 1530218167467656036
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.077|Take
+      001|BaseLayer
+  - first:
+      74: 7822238835671241090
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.078|Take
+      001|BaseLayer
+  - first:
+      74: 5005791546906766717
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.079|Take
+      001|BaseLayer
+  - first:
+      74: -8338260142204663725
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.080|Take
+      001|BaseLayer
+  - first:
+      74: -5967064533660226755
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.081|Take
+      001|BaseLayer
+  - first:
+      74: 8045048601251797781
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.082|Take
+      001|BaseLayer
+  - first:
+      74: -3564876091373427224
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.083|Take
+      001|BaseLayer
+  - first:
+      74: -8965754241836128641
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.084|Take
+      001|BaseLayer
+  - first:
+      74: -6270754695361695676
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.085|Take
+      001|BaseLayer
+  - first:
+      74: 137866972152697270
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.086|Take
+      001|BaseLayer
+  - first:
+      74: -6756966420668734323
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.087|Take
+      001|BaseLayer
+  - first:
+      74: 817993641538735096
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.088|Take
+      001|BaseLayer
+  - first:
+      74: 572587994332433170
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.089|Take
+      001|BaseLayer
+  - first:
+      74: -7282754454045538696
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.090|Take
+      001|BaseLayer
+  - first:
+      74: -6430217377083000931
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.091|Take
+      001|BaseLayer
+  - first:
+      74: 750663832702395777
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.092|Take
+      001|BaseLayer
+  - first:
+      74: 3456325470036312224
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.093|Take
+      001|BaseLayer
+  - first:
+      74: -2796126520714136472
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.094|Take
+      001|BaseLayer
+  - first:
+      74: 9187684858613969618
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.095|Take
+      001|BaseLayer
+  - first:
+      74: 4684644785158592227
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.096|Take
+      001|BaseLayer
+  - first:
+      74: -6817170218062511949
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.097|Take
+      001|BaseLayer
+  - first:
+      74: 2269648386746160006
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.098|Take
+      001|BaseLayer
+  - first:
+      74: -7924088836759688884
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.099|Take
+      001|BaseLayer
+  - first:
+      74: -4821132743524137289
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.100|Take
+      001|BaseLayer
+  - first:
+      74: 524354718017917028
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.101|Take
+      001|BaseLayer
+  - first:
+      74: -3974357775060336588
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.102|Take
+      001|BaseLayer
+  - first:
+      74: -8994029454172742216
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.103|Take
+      001|BaseLayer
+  - first:
+      74: 7630334992122285553
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.104|Take
+      001|BaseLayer
+  - first:
+      74: 4615877165798449174
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.105|Take
+      001|BaseLayer
+  - first:
+      74: 6447751040280077786
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.106|Take
+      001|BaseLayer
+  - first:
+      74: -8604557688666822195
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.107|Take
+      001|BaseLayer
+  - first:
+      74: -3814564685199209721
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.108|Take
+      001|BaseLayer
+  - first:
+      74: -2434232657043496973
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.109|Take
+      001|BaseLayer
+  - first:
+      74: -924589402681443316
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.110|Take
+      001|BaseLayer
+  - first:
+      74: 8771576138099036213
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.111|Take
+      001|BaseLayer
+  - first:
+      74: 6653022390833098675
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.112|Take
+      001|BaseLayer
+  - first:
+      74: -9141383943794730491
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.113|Take
+      001|BaseLayer
+  - first:
+      74: 2092967565391049382
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.114|Take
+      001|BaseLayer
+  - first:
+      74: 8558952652174855731
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.115|Take
+      001|BaseLayer
+  - first:
+      74: -4018745932606343485
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.116|Take
+      001|BaseLayer
+  - first:
+      74: -3072129615841079801
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.117|Take
+      001|BaseLayer
+  - first:
+      74: 112035712266484584
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.118|Take
+      001|BaseLayer
+  - first:
+      74: 5422717058746719690
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.119|Take
+      001|BaseLayer
+  - first:
+      74: 540836162836667890
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.120|Take
+      001|BaseLayer
+  - first:
+      74: 8411249767206230199
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.121|Take
+      001|BaseLayer
+  - first:
+      74: 1647030354392810762
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.122|Take
+      001|BaseLayer
+  - first:
+      74: 6173750872080915795
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.123|Take
+      001|BaseLayer
+  - first:
+      74: 8762371374674464354
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.124|Take
+      001|BaseLayer
+  - first:
+      74: 7296426895358477156
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.125|Take
+      001|BaseLayer
+  - first:
+      74: 2442371371124170909
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo.126|Take
+      001|BaseLayer
+  - first:
+      74: 1606550356467687745
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_Geo|Take 001|BaseLayer
+  - first:
+      74: -250853110543053947
+    second: TrafficLightsPedestrian|SignRegulationA01_Panel02_Base01_GP01|Take 001|BaseLayer
+  - first:
+      74: 7438689912999814275
+    second: TrafficLightsPedestrian|SJK01_P03_All_GP01|Take 001|BaseLayer
+  - first:
+      74: 4611309920156275886
+    second: TrafficLightsPedestrian|SJK01_Part00_Scenes_Root|Take 001|BaseLayer
+  - first:
+      74: 6070935073277267669
+    second: TrafficLightsPedestrian|StreetLight_East01_B01_Geo|Take 001|BaseLayer
+  - first:
+      74: 1896454981427393701
+    second: TrafficLightsPedestrian|StreetLight_Full01_A01_Geo|Take 001|BaseLayer
+  - first:
+      74: 2692695337930453968
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.001|Take 001|BaseLayer
+  - first:
+      74: 8008387601241725410
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.002|Take 001|BaseLayer
+  - first:
+      74: -3439946063336724814
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.003|Take 001|BaseLayer
+  - first:
+      74: -7327213053240690867
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.004|Take 001|BaseLayer
+  - first:
+      74: 4658715986952931048
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.005|Take 001|BaseLayer
+  - first:
+      74: -1924311546923402604
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.006|Take 001|BaseLayer
+  - first:
+      74: -6190815580269856058
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.007|Take 001|BaseLayer
+  - first:
+      74: 2618646025416110271
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.008|Take 001|BaseLayer
+  - first:
+      74: -2670123926206276349
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.009|Take 001|BaseLayer
+  - first:
+      74: -3666141425792411290
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.010|Take 001|BaseLayer
+  - first:
+      74: -3054863428777104298
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.011|Take 001|BaseLayer
+  - first:
+      74: 2410293474952924868
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.012|Take 001|BaseLayer
+  - first:
+      74: 4257873913726077511
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.013|Take 001|BaseLayer
+  - first:
+      74: 6636541890264447755
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.014|Take 001|BaseLayer
+  - first:
+      74: 5228346536301013584
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.015|Take 001|BaseLayer
+  - first:
+      74: -7406427809718757161
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.016|Take 001|BaseLayer
+  - first:
+      74: 1753100310250596462
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.017|Take 001|BaseLayer
+  - first:
+      74: -9195557420891769792
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.018|Take 001|BaseLayer
+  - first:
+      74: -7455731591141754408
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.019|Take 001|BaseLayer
+  - first:
+      74: 3759832543309712005
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.020|Take 001|BaseLayer
+  - first:
+      74: -5411644085527688591
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.021|Take 001|BaseLayer
+  - first:
+      74: -307079922726874128
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.022|Take 001|BaseLayer
+  - first:
+      74: 3626084966035665714
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.023|Take 001|BaseLayer
+  - first:
+      74: 4098037328172492209
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.024|Take 001|BaseLayer
+  - first:
+      74: -2991618031997140505
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.025|Take 001|BaseLayer
+  - first:
+      74: -4601168066101887813
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.026|Take 001|BaseLayer
+  - first:
+      74: -7408337934324462707
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.027|Take 001|BaseLayer
+  - first:
+      74: -516226951384600457
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.028|Take 001|BaseLayer
+  - first:
+      74: 5370138888421735677
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.029|Take 001|BaseLayer
+  - first:
+      74: 8641638563138033891
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.030|Take 001|BaseLayer
+  - first:
+      74: 7744590362436186255
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.031|Take 001|BaseLayer
+  - first:
+      74: -4634318275894542133
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.032|Take 001|BaseLayer
+  - first:
+      74: -855972546204542740
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.033|Take 001|BaseLayer
+  - first:
+      74: 2308423676367550541
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.034|Take 001|BaseLayer
+  - first:
+      74: -7331283181484632078
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.035|Take 001|BaseLayer
+  - first:
+      74: -7905029625374786444
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.036|Take 001|BaseLayer
+  - first:
+      74: 8620427893604163879
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.037|Take 001|BaseLayer
+  - first:
+      74: 6748149010663977038
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.038|Take 001|BaseLayer
+  - first:
+      74: -3430561506634350061
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.039|Take 001|BaseLayer
+  - first:
+      74: -4193096059972479368
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.040|Take 001|BaseLayer
+  - first:
+      74: -1836027886090324420
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.041|Take 001|BaseLayer
+  - first:
+      74: 8813837490709654443
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.042|Take 001|BaseLayer
+  - first:
+      74: -8757606930324065148
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.043|Take 001|BaseLayer
+  - first:
+      74: 6120503146859581840
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.044|Take 001|BaseLayer
+  - first:
+      74: 5019793726307484816
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.045|Take 001|BaseLayer
+  - first:
+      74: -3859723125158474554
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.046|Take 001|BaseLayer
+  - first:
+      74: 4777684128469594490
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.047|Take 001|BaseLayer
+  - first:
+      74: 7285728718861734810
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.048|Take 001|BaseLayer
+  - first:
+      74: 5146383693519008125
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.049|Take 001|BaseLayer
+  - first:
+      74: -6243793282579688137
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.050|Take 001|BaseLayer
+  - first:
+      74: 3540175931752451604
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.051|Take 001|BaseLayer
+  - first:
+      74: 5015119019495556226
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.052|Take 001|BaseLayer
+  - first:
+      74: 2145045640781547634
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.053|Take 001|BaseLayer
+  - first:
+      74: 2657516949004366819
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.054|Take 001|BaseLayer
+  - first:
+      74: 6844025200764880395
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.055|Take 001|BaseLayer
+  - first:
+      74: 4935909326478692806
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.056|Take 001|BaseLayer
+  - first:
+      74: -6248364885801337132
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.057|Take 001|BaseLayer
+  - first:
+      74: 3157582544278501722
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.058|Take 001|BaseLayer
+  - first:
+      74: 9163241384342241548
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.059|Take 001|BaseLayer
+  - first:
+      74: 8750780969535527292
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.060|Take 001|BaseLayer
+  - first:
+      74: 5552733209971963170
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.061|Take 001|BaseLayer
+  - first:
+      74: -7100812221970101382
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.062|Take 001|BaseLayer
+  - first:
+      74: 5186594950488111792
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.063|Take 001|BaseLayer
+  - first:
+      74: 457276024937952684
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.064|Take 001|BaseLayer
+  - first:
+      74: 2635963935550157214
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo.065|Take 001|BaseLayer
+  - first:
+      74: -6572591844172659200
+    second: TrafficLightsPedestrian|StreetLightA01_Head01_Base01_Geo|Take 001|BaseLayer
+  - first:
+      74: -6962870472287917180
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.001|Take 001|BaseLayer
+  - first:
+      74: -7605065903789400579
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.002|Take 001|BaseLayer
+  - first:
+      74: 6736527343136992031
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.003|Take 001|BaseLayer
+  - first:
+      74: -6206030302292657153
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.004|Take 001|BaseLayer
+  - first:
+      74: -1461623551871491593
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.005|Take 001|BaseLayer
+  - first:
+      74: 458049470690566570
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.006|Take 001|BaseLayer
+  - first:
+      74: -7269909120319706549
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.007|Take 001|BaseLayer
+  - first:
+      74: -7921488388484078030
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.008|Take 001|BaseLayer
+  - first:
+      74: 9079112055804504402
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.009|Take 001|BaseLayer
+  - first:
+      74: -2924573939492414952
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.010|Take 001|BaseLayer
+  - first:
+      74: 7368035960592188972
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.011|Take 001|BaseLayer
+  - first:
+      74: 6739633292304389044
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.012|Take 001|BaseLayer
+  - first:
+      74: 3868208742510345299
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.013|Take 001|BaseLayer
+  - first:
+      74: -1019543627297271972
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.014|Take 001|BaseLayer
+  - first:
+      74: 3714634969161056497
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.015|Take 001|BaseLayer
+  - first:
+      74: 6369071353017827027
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.016|Take 001|BaseLayer
+  - first:
+      74: 349994707649624690
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.017|Take 001|BaseLayer
+  - first:
+      74: -5410028881020397637
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.018|Take 001|BaseLayer
+  - first:
+      74: -4513283154511672948
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.019|Take 001|BaseLayer
+  - first:
+      74: -5303787938162871504
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.020|Take 001|BaseLayer
+  - first:
+      74: -5692315987130932406
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.021|Take 001|BaseLayer
+  - first:
+      74: -3140296028290378637
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.022|Take 001|BaseLayer
+  - first:
+      74: 8943535191699134956
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.023|Take 001|BaseLayer
+  - first:
+      74: 9213215763224709816
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.024|Take 001|BaseLayer
+  - first:
+      74: -5178503207542334183
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.025|Take 001|BaseLayer
+  - first:
+      74: -2485098361774263120
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.026|Take 001|BaseLayer
+  - first:
+      74: -4097274668900689702
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.027|Take 001|BaseLayer
+  - first:
+      74: 6393854999605624550
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.028|Take 001|BaseLayer
+  - first:
+      74: 4350098097047039494
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.029|Take 001|BaseLayer
+  - first:
+      74: -6276404730261667772
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.030|Take 001|BaseLayer
+  - first:
+      74: 7926567046080777723
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.031|Take 001|BaseLayer
+  - first:
+      74: 4703371077375017973
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.032|Take 001|BaseLayer
+  - first:
+      74: 4120115291415160383
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.033|Take 001|BaseLayer
+  - first:
+      74: 8985369347128019572
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.034|Take 001|BaseLayer
+  - first:
+      74: 4407654632771739097
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.035|Take 001|BaseLayer
+  - first:
+      74: 8476670908662040186
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.036|Take 001|BaseLayer
+  - first:
+      74: -8650988368326807639
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.037|Take 001|BaseLayer
+  - first:
+      74: 8883673579360093656
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.038|Take 001|BaseLayer
+  - first:
+      74: 1516253851430581276
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.039|Take 001|BaseLayer
+  - first:
+      74: 1960697109260022005
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.040|Take 001|BaseLayer
+  - first:
+      74: 6673138610941250091
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.041|Take 001|BaseLayer
+  - first:
+      74: -7186372276320319184
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.042|Take 001|BaseLayer
+  - first:
+      74: -1371519717632650685
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.043|Take 001|BaseLayer
+  - first:
+      74: -7419737268578290359
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.044|Take 001|BaseLayer
+  - first:
+      74: 4977446459103536849
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.045|Take 001|BaseLayer
+  - first:
+      74: -5727447332721508357
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.046|Take 001|BaseLayer
+  - first:
+      74: -3289462022466877411
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo.047|Take 001|BaseLayer
+  - first:
+      74: 3777460919220270711
+    second: TrafficLightsPedestrian|StreetLightB01_Head01_Base01_Geo|Take 001|BaseLayer
+  - first:
+      74: 3772756823211409263
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.001|Take 001|BaseLayer
+  - first:
+      74: -4971126464918519696
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.002|Take 001|BaseLayer
+  - first:
+      74: 527956983655483850
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.003|Take 001|BaseLayer
+  - first:
+      74: -8917320566915837861
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.004|Take 001|BaseLayer
+  - first:
+      74: 2309034630133142951
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.005|Take 001|BaseLayer
+  - first:
+      74: 2596368878953759
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.006|Take 001|BaseLayer
+  - first:
+      74: -508600401006277785
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.007|Take 001|BaseLayer
+  - first:
+      74: -1135956647152972703
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.008|Take 001|BaseLayer
+  - first:
+      74: 5728749401096715141
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.009|Take 001|BaseLayer
+  - first:
+      74: -6937471292984383435
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.010|Take 001|BaseLayer
+  - first:
+      74: 774812100207442965
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.011|Take 001|BaseLayer
+  - first:
+      74: -2205336962314773049
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.012|Take 001|BaseLayer
+  - first:
+      74: -2841853176134231090
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.013|Take 001|BaseLayer
+  - first:
+      74: -6675325521130602328
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.014|Take 001|BaseLayer
+  - first:
+      74: -5910458587492068476
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.015|Take 001|BaseLayer
+  - first:
+      74: 5725254646950171785
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.016|Take 001|BaseLayer
+  - first:
+      74: -7773051568800145673
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.017|Take 001|BaseLayer
+  - first:
+      74: -8208030642754622834
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.018|Take 001|BaseLayer
+  - first:
+      74: 3299190403748481538
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.019|Take 001|BaseLayer
+  - first:
+      74: 3453036469445222528
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.020|Take 001|BaseLayer
+  - first:
+      74: 6225019978065294679
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.021|Take 001|BaseLayer
+  - first:
+      74: -9037341675080908711
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.022|Take 001|BaseLayer
+  - first:
+      74: -7772893644331907582
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.023|Take 001|BaseLayer
+  - first:
+      74: 2448463353545714551
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.024|Take 001|BaseLayer
+  - first:
+      74: -6122103841132656138
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.025|Take 001|BaseLayer
+  - first:
+      74: 3347934819374879839
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo.026|Take 001|BaseLayer
+  - first:
+      74: 8411080602763774957
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_Geo|Take 001|BaseLayer
+  - first:
+      74: 7326630217828489745
+    second: TrafficLightsPedestrian|StreetLightC01_Head01_Base01_GP01|Take 001|BaseLayer
+  - first:
+      74: 6571585358845467629
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.001|Take 001|BaseLayer
+  - first:
+      74: -7746812027506139583
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.002|Take 001|BaseLayer
+  - first:
+      74: 7755383188302922016
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.003|Take 001|BaseLayer
+  - first:
+      74: 9091056382665189360
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.004|Take 001|BaseLayer
+  - first:
+      74: 4582437207659007757
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.005|Take 001|BaseLayer
+  - first:
+      74: 1357278305820621473
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.006|Take 001|BaseLayer
+  - first:
+      74: 2628753317848444805
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.007|Take 001|BaseLayer
+  - first:
+      74: -6020367782453935638
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.008|Take 001|BaseLayer
+  - first:
+      74: 2660496491652073899
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.009|Take 001|BaseLayer
+  - first:
+      74: -541371613172870074
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.010|Take 001|BaseLayer
+  - first:
+      74: 6926353129435635790
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.011|Take 001|BaseLayer
+  - first:
+      74: -9112114471042427219
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.012|Take 001|BaseLayer
+  - first:
+      74: -4739804460446034820
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.013|Take 001|BaseLayer
+  - first:
+      74: 3476850202996448157
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.014|Take 001|BaseLayer
+  - first:
+      74: 8933759814763906426
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.015|Take 001|BaseLayer
+  - first:
+      74: -3844377360707131764
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.016|Take 001|BaseLayer
+  - first:
+      74: -1774023788128448349
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.017|Take 001|BaseLayer
+  - first:
+      74: 7426671826823758111
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.018|Take 001|BaseLayer
+  - first:
+      74: -5608493723572477999
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.019|Take 001|BaseLayer
+  - first:
+      74: 8211106312982421229
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.020|Take 001|BaseLayer
+  - first:
+      74: -3365590989320232279
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.021|Take 001|BaseLayer
+  - first:
+      74: 3054047821910305733
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.022|Take 001|BaseLayer
+  - first:
+      74: 3723612300076419209
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.023|Take 001|BaseLayer
+  - first:
+      74: 1392745622667402497
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.024|Take 001|BaseLayer
+  - first:
+      74: -2843301350657776587
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.025|Take 001|BaseLayer
+  - first:
+      74: 2428103599530670958
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.026|Take 001|BaseLayer
+  - first:
+      74: -7394779384244848301
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.027|Take 001|BaseLayer
+  - first:
+      74: 6652886523026744029
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.028|Take 001|BaseLayer
+  - first:
+      74: -5200230074454161486
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.029|Take 001|BaseLayer
+  - first:
+      74: 1278405844462513842
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.030|Take 001|BaseLayer
+  - first:
+      74: 3499868655778301924
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.031|Take 001|BaseLayer
+  - first:
+      74: 5043009246226515137
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.032|Take 001|BaseLayer
+  - first:
+      74: 5290339463382731983
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.033|Take 001|BaseLayer
+  - first:
+      74: 3514355622586278041
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.034|Take 001|BaseLayer
+  - first:
+      74: 5217945122621474355
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.035|Take 001|BaseLayer
+  - first:
+      74: -1507716535064339825
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.036|Take 001|BaseLayer
+  - first:
+      74: 9168757474434427421
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.037|Take 001|BaseLayer
+  - first:
+      74: -1919306578584938022
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.038|Take 001|BaseLayer
+  - first:
+      74: -5573245543452839949
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.039|Take 001|BaseLayer
+  - first:
+      74: -5090737336421548095
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.040|Take 001|BaseLayer
+  - first:
+      74: 7402006940684843114
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.041|Take 001|BaseLayer
+  - first:
+      74: 6018909723831799005
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.042|Take 001|BaseLayer
+  - first:
+      74: 1110897896430664437
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.043|Take 001|BaseLayer
+  - first:
+      74: -2649344676633352991
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.044|Take 001|BaseLayer
+  - first:
+      74: -1075891891710145588
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.045|Take 001|BaseLayer
+  - first:
+      74: 8606378288444225128
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.046|Take 001|BaseLayer
+  - first:
+      74: -6577338073577134892
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.047|Take 001|BaseLayer
+  - first:
+      74: -389296481680893744
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.048|Take 001|BaseLayer
+  - first:
+      74: -3438957154556766356
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.049|Take 001|BaseLayer
+  - first:
+      74: -901435278471152671
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.050|Take 001|BaseLayer
+  - first:
+      74: -5176384114489028529
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.051|Take 001|BaseLayer
+  - first:
+      74: 4768789795934094094
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.052|Take 001|BaseLayer
+  - first:
+      74: 7535081807965419505
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.053|Take 001|BaseLayer
+  - first:
+      74: -899210047425096213
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.054|Take 001|BaseLayer
+  - first:
+      74: -5296876978016926509
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.055|Take 001|BaseLayer
+  - first:
+      74: -409538537078035684
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.056|Take 001|BaseLayer
+  - first:
+      74: -8285307540784853465
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.057|Take 001|BaseLayer
+  - first:
+      74: -7411207924829935926
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.058|Take 001|BaseLayer
+  - first:
+      74: 2893216587102790103
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.059|Take 001|BaseLayer
+  - first:
+      74: -2910085204857716394
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.060|Take 001|BaseLayer
+  - first:
+      74: 2790972307506185948
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.080|Take 001|BaseLayer
+  - first:
+      74: -6107132150700334734
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.081|Take 001|BaseLayer
+  - first:
+      74: -2023060272660219336
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.088|Take 001|BaseLayer
+  - first:
+      74: -1210737175866145072
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.089|Take 001|BaseLayer
+  - first:
+      74: 3548664917186572690
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.090|Take 001|BaseLayer
+  - first:
+      74: 17843680258927260
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.092|Take 001|BaseLayer
+  - first:
+      74: 7580352658639228722
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.093|Take 001|BaseLayer
+  - first:
+      74: -8479132411584216083
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.094|Take 001|BaseLayer
+  - first:
+      74: -1171441634456795922
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.095|Take 001|BaseLayer
+  - first:
+      74: 8936979807539369312
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.096|Take 001|BaseLayer
+  - first:
+      74: 4104077178340141804
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.097|Take 001|BaseLayer
+  - first:
+      74: -3428527763339146901
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.098|Take 001|BaseLayer
+  - first:
+      74: 4210554230245197892
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.099|Take 001|BaseLayer
+  - first:
+      74: -2587367039872016331
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.100|Take 001|BaseLayer
+  - first:
+      74: 1547734991642791429
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.101|Take 001|BaseLayer
+  - first:
+      74: -2466319673308603972
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.102|Take 001|BaseLayer
+  - first:
+      74: 1856662635837314560
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.103|Take 001|BaseLayer
+  - first:
+      74: -8556806103543169474
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.104|Take 001|BaseLayer
+  - first:
+      74: -1113170796786062077
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.105|Take 001|BaseLayer
+  - first:
+      74: -4508439730857421317
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.106|Take 001|BaseLayer
+  - first:
+      74: -7655469420457330227
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.116|Take 001|BaseLayer
+  - first:
+      74: -1599672135719169063
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo.117|Take 001|BaseLayer
+  - first:
+      74: -4847806082023772467
+    second: TrafficLightsPedestrian|StreetLightD01_Body01_Base01_Geo|Take 001|BaseLayer
+  - first:
+      74: 2615058972249578996
+    second: TrafficLightsPedestrian|StreetLightD01_Root01_All_GP01|Take 001|BaseLayer
+  - first:
+      74: -6919915571825950190
+    second: TrafficLightsPedestrian|StreetLightE01_Head01_Base01_Geo.001|Take 001|BaseLayer
+  - first:
+      74: -4380278725382849795
+    second: TrafficLightsPedestrian|StreetLightE01_Head01_Base01_Geo.002|Take 001|BaseLayer
+  - first:
+      74: 9091328028721480578
+    second: TrafficLightsPedestrian|StreetLightE01_Head01_Base01_Geo.003|Take 001|BaseLayer
+  - first:
+      74: 5332792991773651738
+    second: TrafficLightsPedestrian|StreetLightE01_Head01_Base01_Geo.004|Take 001|BaseLayer
+  - first:
+      74: -4598310354229514798
+    second: TrafficLightsPedestrian|StreetLightE01_Head01_Base01_Geo.005|Take 001|BaseLayer
+  - first:
+      74: 4244287255964986317
+    second: TrafficLightsPedestrian|StreetLightE01_Head01_Base01_Geo.006|Take 001|BaseLayer
+  - first:
+      74: 1074780693740964903
+    second: TrafficLightsPedestrian|StreetLightE01_Head01_Base01_Geo.007|Take 001|BaseLayer
+  - first:
+      74: -3032453022463963656
+    second: TrafficLightsPedestrian|StreetLightE01_Head01_Base01_Geo.008|Take 001|BaseLayer
+  - first:
+      74: -2474479253067845603
+    second: TrafficLightsPedestrian|StreetLightE01_Head01_Base01_Geo.009|Take 001|BaseLayer
+  - first:
+      74: 4851641598953452966
+    second: TrafficLightsPedestrian|StreetLightE01_Head01_Base01_Geo.010|Take 001|BaseLayer
+  - first:
+      74: -8877909512126868097
+    second: TrafficLightsPedestrian|StreetLightE01_Head01_Base01_Geo.011|Take 001|BaseLayer
+  - first:
+      74: -7722476432179776046
+    second: TrafficLightsPedestrian|StreetLightE01_Head01_Base01_Geo.012|Take 001|BaseLayer
+  - first:
+      74: -5008193726965784349
+    second: TrafficLightsPedestrian|StreetLightE01_Head01_Base01_Geo.013|Take 001|BaseLayer
+  - first:
+      74: -1162503455657672253
+    second: TrafficLightsPedestrian|StreetLightE01_Head01_Base01_Geo|Take 001|BaseLayer
+  - first:
+      74: -2975847960696124878
+    second: TrafficLightsPedestrian|StreetLightF01_Head01_Base01_Geo.001|Take 001|BaseLayer
+  - first:
+      74: -4791617354183699650
+    second: TrafficLightsPedestrian|StreetLightF01_Head01_Base01_Geo.002|Take 001|BaseLayer
+  - first:
+      74: 6620066481035650493
+    second: TrafficLightsPedestrian|StreetLightF01_Head01_Base01_Geo.003|Take 001|BaseLayer
+  - first:
+      74: -4335031995123731361
+    second: TrafficLightsPedestrian|StreetLightF01_Head01_Base01_Geo.004|Take 001|BaseLayer
+  - first:
+      74: 4477124021669322799
+    second: TrafficLightsPedestrian|StreetLightF01_Head01_Base01_Geo.005|Take 001|BaseLayer
+  - first:
+      74: 7974173297216842708
+    second: TrafficLightsPedestrian|StreetLightF01_Head01_Base01_Geo.006|Take 001|BaseLayer
+  - first:
+      74: -3741387095735429625
+    second: TrafficLightsPedestrian|StreetLightF01_Head01_Base01_Geo.007|Take 001|BaseLayer
+  - first:
+      74: -6617775799378807312
+    second: TrafficLightsPedestrian|StreetLightF01_Head01_Base01_Geo.008|Take 001|BaseLayer
+  - first:
+      74: -7857660094997014592
+    second: TrafficLightsPedestrian|StreetLightF01_Head01_Base01_Geo.009|Take 001|BaseLayer
+  - first:
+      74: 549676039008386492
+    second: TrafficLightsPedestrian|StreetLightF01_Head01_Base01_Geo|Take 001|BaseLayer
+  - first:
+      74: -8714492276606321543
+    second: TrafficLightsPedestrian|TrafficLightA01_Root01_ALL_GP01|Take 001|BaseLayer
+  - first:
+      74: 7019840798914242493
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.001|Take 001|BaseLayer
+  - first:
+      74: -1669692931643289447
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.002|Take 001|BaseLayer
+  - first:
+      74: -7580096830012960556
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.003|Take 001|BaseLayer
+  - first:
+      74: -7666171419925574407
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.004|Take 001|BaseLayer
+  - first:
+      74: -6657544981431578957
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.005|Take 001|BaseLayer
+  - first:
+      74: -8610371847599438754
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.006|Take 001|BaseLayer
+  - first:
+      74: 6872885324003144202
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.007|Take 001|BaseLayer
+  - first:
+      74: 6768338206516636729
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.008|Take 001|BaseLayer
+  - first:
+      74: 4503249041947711934
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.009|Take 001|BaseLayer
+  - first:
+      74: 8525134304145386395
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.010|Take 001|BaseLayer
+  - first:
+      74: -6069593479207844940
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.011|Take 001|BaseLayer
+  - first:
+      74: -1021694988252010667
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.012|Take 001|BaseLayer
+  - first:
+      74: 7117809442281815776
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.013|Take 001|BaseLayer
+  - first:
+      74: -6884708471346425649
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.014|Take 001|BaseLayer
+  - first:
+      74: 4014000149332772570
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.015|Take 001|BaseLayer
+  - first:
+      74: 6206942723467955996
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.016|Take 001|BaseLayer
+  - first:
+      74: 2888941078181195680
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.017|Take 001|BaseLayer
+  - first:
+      74: -3119633130020053272
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.018|Take 001|BaseLayer
+  - first:
+      74: -7363349519037567134
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.019|Take 001|BaseLayer
+  - first:
+      74: 4110001773263842155
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.020|Take 001|BaseLayer
+  - first:
+      74: 6138516063502203984
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo.021|Take 001|BaseLayer
+  - first:
+      74: 5480949498356558301
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_Black01_Geo|Take 001|BaseLayer
+  - first:
+      74: -8541171385816656586
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.001|Take 001|BaseLayer
+  - first:
+      74: -4478356046431600920
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.002|Take 001|BaseLayer
+  - first:
+      74: -2122520884023764461
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.003|Take 001|BaseLayer
+  - first:
+      74: 6798753019653612910
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.004|Take 001|BaseLayer
+  - first:
+      74: 6630810491560338642
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.005|Take 001|BaseLayer
+  - first:
+      74: -7930693354626436983
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.005|Take 001|BaseLayer.001
+  - first:
+      74: -2455234122832375419
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.006|Take 001|BaseLayer
+  - first:
+      74: 3968002733650018677
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.007|Take 001|BaseLayer
+  - first:
+      74: 4066712058786890939
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.008|Take 001|BaseLayer
+  - first:
+      74: 7528059447933737915
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.009|Take 001|BaseLayer
+  - first:
+      74: -2537230848890264264
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.010|Take 001|BaseLayer
+  - first:
+      74: -2429864209488698840
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.011|Take 001|BaseLayer
+  - first:
+      74: -4861036600705087002
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.012|Take 001|BaseLayer
+  - first:
+      74: 1322090448916130678
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.013|Take 001|BaseLayer
+  - first:
+      74: -1364628839942816632
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.014|Take 001|BaseLayer
+  - first:
+      74: 366434438818280536
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.015|Take 001|BaseLayer
+  - first:
+      74: -9035043206735338182
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.016|Take 001|BaseLayer
+  - first:
+      74: -3278066847916153210
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.017|Take 001|BaseLayer
+  - first:
+      74: 6855247457239368632
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.018|Take 001|BaseLayer
+  - first:
+      74: 7020734520103491732
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.019|Take 001|BaseLayer
+  - first:
+      74: 2408630696605132654
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.020|Take 001|BaseLayer
+  - first:
+      74: -7716824471284459907
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.021|Take 001|BaseLayer
+  - first:
+      74: 6748757543939600593
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.022|Take 001|BaseLayer
+  - first:
+      74: 7381539531513915047
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.023|Take 001|BaseLayer
+  - first:
+      74: 7841561300219985745
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.024|Take 001|BaseLayer
+  - first:
+      74: 77624382205587537
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.025|Take 001|BaseLayer
+  - first:
+      74: 3767807896665714543
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.026|Take 001|BaseLayer
+  - first:
+      74: 6090665619942168000
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.027|Take 001|BaseLayer
+  - first:
+      74: -2694084081779092978
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.028|Take 001|BaseLayer
+  - first:
+      74: -8377314428700604320
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.029|Take 001|BaseLayer
+  - first:
+      74: -2256400842001537053
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.030|Take 001|BaseLayer
+  - first:
+      74: 5690744919121826579
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.031|Take 001|BaseLayer
+  - first:
+      74: -8820322031684955891
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.032|Take 001|BaseLayer
+  - first:
+      74: -2096973723983387929
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.033|Take 001|BaseLayer
+  - first:
+      74: 3658054166134933836
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.034|Take 001|BaseLayer
+  - first:
+      74: -1239376764617681901
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.035|Take 001|BaseLayer
+  - first:
+      74: 4086356983099513555
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.036|Take 001|BaseLayer
+  - first:
+      74: -3785858510668427760
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.037|Take 001|BaseLayer
+  - first:
+      74: 6758494561905294537
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.038|Take 001|BaseLayer
+  - first:
+      74: 7673994451080484098
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.039|Take 001|BaseLayer
+  - first:
+      74: -2160356599217123564
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.040|Take 001|BaseLayer
+  - first:
+      74: 5263803741061777275
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.041|Take 001|BaseLayer
+  - first:
+      74: 572994362528868536
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo.042|Take 001|BaseLayer
+  - first:
+      74: -646140600625137368
+    second: TrafficLightsPedestrian|TrafficLightB01_Head01_White01_Geo|Take 001|BaseLayer
+  - first:
+      74: 3357685113131680498
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo.001|Take
+      001|BaseLayer
+  - first:
+      74: 6075923367368096889
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo.002|Take
+      001|BaseLayer
+  - first:
+      74: -749218851889390719
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo.003|Take
+      001|BaseLayer
+  - first:
+      74: -8523800045524255303
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo.004|Take
+      001|BaseLayer
+  - first:
+      74: -3163255630107620521
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo.005|Take
+      001|BaseLayer
+  - first:
+      74: -6627246748741377801
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo.006|Take
+      001|BaseLayer
+  - first:
+      74: 5435523134659719737
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo.007|Take
+      001|BaseLayer
+  - first:
+      74: 4290981140263653397
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo.008|Take
+      001|BaseLayer
+  - first:
+      74: 6540690136573005247
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo.009|Take
+      001|BaseLayer
+  - first:
+      74: -3277100684033127890
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo.010|Take
+      001|BaseLayer
+  - first:
+      74: -5351624498116103762
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo.011|Take
+      001|BaseLayer
+  - first:
+      74: 2929223751541292849
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo.012|Take
+      001|BaseLayer
+  - first:
+      74: 6180254453692853016
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo.013|Take
+      001|BaseLayer
+  - first:
+      74: -2980439133169299497
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo.014|Take
+      001|BaseLayer
+  - first:
+      74: 5462883248439793975
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo.015|Take
+      001|BaseLayer
+  - first:
+      74: -8124477571165921534
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo.016|Take
+      001|BaseLayer
+  - first:
+      74: 1377415112601730680
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo.017|Take
+      001|BaseLayer
+  - first:
+      74: 2720767698373886331
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo.018|Take
+      001|BaseLayer
+  - first:
+      74: -8443843025145815675
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo.019|Take
+      001|BaseLayer
+  - first:
+      74: 6968021679755053340
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo.020|Take
+      001|BaseLayer
+  - first:
+      74: 7177802320297087621
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_Black01_Geo|Take 001|BaseLayer
+  - first:
+      74: -6344114189531988012
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.001|Take
+      001|BaseLayer
+  - first:
+      74: 6539549598732589972
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.002|Take
+      001|BaseLayer
+  - first:
+      74: 7348786636360039835
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.003|Take
+      001|BaseLayer
+  - first:
+      74: -536281986490934411
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.004|Take
+      001|BaseLayer
+  - first:
+      74: 7374544440238272587
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.005|Take
+      001|BaseLayer
+  - first:
+      74: -7101539650590914067
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.006|Take
+      001|BaseLayer
+  - first:
+      74: -4521601208933000790
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.007|Take
+      001|BaseLayer
+  - first:
+      74: -3501313705762309063
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.008|Take
+      001|BaseLayer
+  - first:
+      74: -1303895023431853045
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.009|Take
+      001|BaseLayer
+  - first:
+      74: -2464385933541238994
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.010|Take
+      001|BaseLayer
+  - first:
+      74: 1918174317666626393
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.011|Take
+      001|BaseLayer
+  - first:
+      74: 2225652834093995762
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.012|Take
+      001|BaseLayer
+  - first:
+      74: 614303812412807391
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.013|Take
+      001|BaseLayer
+  - first:
+      74: -1549060536974543685
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.014|Take
+      001|BaseLayer
+  - first:
+      74: 3368196567031194771
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.015|Take
+      001|BaseLayer
+  - first:
+      74: -4723922492639114956
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.016|Take
+      001|BaseLayer
+  - first:
+      74: 9166647878446845465
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.017|Take
+      001|BaseLayer
+  - first:
+      74: 144189593782900367
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.018|Take
+      001|BaseLayer
+  - first:
+      74: -3458933241550499950
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.019|Take
+      001|BaseLayer
+  - first:
+      74: 7342072581209310929
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.020|Take
+      001|BaseLayer
+  - first:
+      74: 8865140835594623225
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.021|Take
+      001|BaseLayer
+  - first:
+      74: 5130036309725925706
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.022|Take
+      001|BaseLayer
+  - first:
+      74: 9136254100818277203
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.023|Take
+      001|BaseLayer
+  - first:
+      74: -4653181265373623567
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.024|Take
+      001|BaseLayer
+  - first:
+      74: -4784843568517311937
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.025|Take
+      001|BaseLayer
+  - first:
+      74: -1804790258476455769
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.026|Take
+      001|BaseLayer
+  - first:
+      74: -8216820607286684869
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.027|Take
+      001|BaseLayer
+  - first:
+      74: 7325808695171390236
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.028|Take
+      001|BaseLayer
+  - first:
+      74: -8294162155980916125
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.029|Take
+      001|BaseLayer
+  - first:
+      74: 926515824647723538
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.030|Take
+      001|BaseLayer
+  - first:
+      74: 3791759939309821793
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.031|Take
+      001|BaseLayer
+  - first:
+      74: -5029802689409127868
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.032|Take
+      001|BaseLayer
+  - first:
+      74: -7936665001981640120
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.033|Take
+      001|BaseLayer
+  - first:
+      74: 6484121644592948671
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.034|Take
+      001|BaseLayer
+  - first:
+      74: -3605023135344055164
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.035|Take
+      001|BaseLayer
+  - first:
+      74: -431765316953702513
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.036|Take
+      001|BaseLayer
+  - first:
+      74: -5851083261793159430
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.037|Take
+      001|BaseLayer
+  - first:
+      74: -5809983929479910642
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.038|Take
+      001|BaseLayer
+  - first:
+      74: -5161163054152507773
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.039|Take
+      001|BaseLayer
+  - first:
+      74: -4709527700864768732
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.040|Take
+      001|BaseLayer
+  - first:
+      74: 8616470080927669303
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.041|Take
+      001|BaseLayer
+  - first:
+      74: -7632471596586857229
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.042|Take
+      001|BaseLayer
+  - first:
+      74: -6916166405099092113
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.043|Take
+      001|BaseLayer
+  - first:
+      74: -7333004550463067433
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.044|Take
+      001|BaseLayer
+  - first:
+      74: -3582877002911785398
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.045|Take
+      001|BaseLayer
+  - first:
+      74: -1087249176859242802
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.046|Take
+      001|BaseLayer
+  - first:
+      74: 9014546750521504397
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.047|Take
+      001|BaseLayer
+  - first:
+      74: 7334664642987844752
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.048|Take
+      001|BaseLayer
+  - first:
+      74: 6686034121481859364
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.049|Take
+      001|BaseLayer
+  - first:
+      74: 4878825958953851036
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.050|Take
+      001|BaseLayer
+  - first:
+      74: 297217710330247309
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.051|Take
+      001|BaseLayer
+  - first:
+      74: 5492779752159023826
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.052|Take
+      001|BaseLayer
+  - first:
+      74: 6188392240952278970
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.053|Take
+      001|BaseLayer
+  - first:
+      74: -2220073858175200062
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.054|Take
+      001|BaseLayer
+  - first:
+      74: -3780534161574967804
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.055|Take
+      001|BaseLayer
+  - first:
+      74: 7637523077575457316
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.056|Take
+      001|BaseLayer
+  - first:
+      74: 2570675697991462
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.057|Take
+      001|BaseLayer
+  - first:
+      74: -3064504837760986758
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.058|Take
+      001|BaseLayer
+  - first:
+      74: 3217702619231061207
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.059|Take
+      001|BaseLayer
+  - first:
+      74: -5062761959051323963
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.060|Take
+      001|BaseLayer
+  - first:
+      74: 4048788150294158673
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.061|Take
+      001|BaseLayer
+  - first:
+      74: 8151135627630624151
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.062|Take
+      001|BaseLayer
+  - first:
+      74: 4311907806453289220
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.063|Take
+      001|BaseLayer
+  - first:
+      74: 4276409463338653046
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.064|Take
+      001|BaseLayer
+  - first:
+      74: -3838711803627937721
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.065|Take
+      001|BaseLayer
+  - first:
+      74: -4208607996001046416
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.066|Take
+      001|BaseLayer
+  - first:
+      74: -6487787557402043167
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo.067|Take
+      001|BaseLayer
+  - first:
+      74: -1495063213860700776
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo001|Take 001|BaseLayer
+  - first:
+      74: 2513909757868400955
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo002|Take 001|BaseLayer
+  - first:
+      74: 6518072836284568220
+    second: TrafficLightsPedestrian|TrafficLightsA01_Head01_White01_Geo|Take 001|BaseLayer
+  - first:
+      74: 7907477517948794382
+    second: TrafficLightsPedestrian|TrafficLightsA02_Root01_ALL_GP01|Take 001|BaseLayer
+  - first:
+      74: -3952176999861363919
+    second: TrafficLightsPedestrian|TrafficLightsA04_Root01_ALL_GP01|Take 001|BaseLayer
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stop
+    second: {fileID: 2100000, guid: ffb398452079ef8429a54d972cf173c3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TrafficLightB01_Head01_White01_MT1.005
+    second: {fileID: 2100000, guid: 611ab39c9b6fb7145b0559b9ecfa61e5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TrafficLightB01_Led01_Base01_MT1
+    second: {fileID: 2100000, guid: 506fb5984a6c146d38ff7e6406edfd87, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TrafficLightB01_Led01_Base01_MT1.001
+    second: {fileID: 2100000, guid: a2bf45b9895ce3c45aa8cbc58e2c81aa, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 10
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 10
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

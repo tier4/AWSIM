@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<ros2cs>
+   <ros2>galactic</ros2>
+   <version>
+      <sha>0a6e83356d917c1c8b240e6c80725717e307da5f</sha>
+      <desc>0a6e833</desc>
+      <date>2022-05-27 10:59:43 +0200</date>
+   </version>
+   <standalone>1</standalone>
+</ros2cs>

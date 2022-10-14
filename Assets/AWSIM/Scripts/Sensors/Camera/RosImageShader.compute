@@ -1,0 +1,58 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#include "UnityCG.cginc"
+#pragma kernel RosImageShaderKernel
+
+Texture2D<float4> _InputTexture;
+SamplerState sampler_InputTexture;
+
+RWStructuredBuffer<uint> _RosImageBuffer;
+
+uint _width;
+uint _height;
+
+#define BYTES_PER_PIXEL 3
+#define SIZE_OF_UINT 4
+
+uint ColorToUInt(float number)
+{
+    return uint(uint(number * 255) & 0xff);
+}
+
+[numthreads(32,1,1)]
+void RosImageShaderKernel (uint3 id : SV_DispatchThreadID)
+{
+    uint pixelIndex = id.x * SIZE_OF_UINT / BYTES_PER_PIXEL;
+    uint textureY = uint(pixelIndex / _width);
+    uint textureX = pixelIndex % _width;
+
+    // Convert coordinates for use in ROS (bgr8).
+    // write down for distortion texture
+    // write to B,G,R
+    uint rosImageY = _height - 1 - textureY;
+    float3 color1 = _InputTexture[float2(textureX, rosImageY)].rgb;
+
+    // check boundary conditions
+    bool inWidthRange = (textureX + 1) < _width;
+    uint textureX2 = inWidthRange * (textureX + 1);
+    float3 color2 = _InputTexture[float2(textureX2, rosImageY + 1 - inWidthRange)].rgb;
+
+    // Since _DistortedTexture is bound to RWTexture2D,
+    // the value written into it is always linear.
+    // But the texture is created as sRGB, so we need to do gamma correction here.
+    color1 = LinearToGammaSpace(color1);
+    color2 = LinearToGammaSpace(color2);
+
+    // Encode two pixels color (bgr8) into one uint32 in order to produce ROS Image bgr8 buffer
+    if(id.x % BYTES_PER_PIXEL == 0)
+    {
+        _RosImageBuffer[id.x] = ColorToUInt(color1.b) + (ColorToUInt(color1.g) << 8) + (ColorToUInt(color1.r) << 16) + (ColorToUInt(color2.b) << 24);
+    }
+    if(id.x % BYTES_PER_PIXEL == 1)
+    {
+        _RosImageBuffer[id.x] = ColorToUInt(color1.g) + (ColorToUInt(color1.r) << 8) + (ColorToUInt(color2.b) << 16) + (ColorToUInt(color2.g) << 24);
+    }
+    if(id.x % BYTES_PER_PIXEL == 2)
+    {
+        _RosImageBuffer[id.x] = ColorToUInt(color1.r) + (ColorToUInt(color2.b) << 8) + (ColorToUInt(color2.g) << 16) + (ColorToUInt(color2.r) << 24);
+    }
+}

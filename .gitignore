@@ -58,3 +58,9 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Vscode
+.vscode/
+
+# Externals directory
+[Aa]ssets/AWSIM/Externals/*
+![Aa]ssets/AWSIM/Externals/.gitkeep
