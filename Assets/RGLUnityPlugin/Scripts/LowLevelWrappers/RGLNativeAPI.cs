@@ -37,7 +37,7 @@ namespace RGLUnityPlugin
         public static extern int rgl_mesh_destroy(IntPtr mesh);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_mesh_set_vertices(IntPtr mesh, IntPtr vertices, int vertex_count);
+        public static extern int rgl_mesh_update_vertices(IntPtr mesh, IntPtr vertices, int vertex_count);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_entity_create(out IntPtr entity, IntPtr scene, IntPtr mesh);

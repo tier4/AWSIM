@@ -469,7 +469,7 @@ namespace RGLUnityPlugin
                 fixed (Vector3* pVertices = rglObject.Mesh.vertices)
                 {
                     RGLNativeAPI.CheckErr(
-                        RGLNativeAPI.rgl_mesh_set_vertices(rglObject.rglMesh, (IntPtr) pVertices,
+                        RGLNativeAPI.rgl_mesh_update_vertices(rglObject.rglMesh, (IntPtr) pVertices,
                             rglObject.Mesh.vertices.Length));
                 }
             }
