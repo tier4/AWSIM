@@ -18,7 +18,7 @@ The RandomTraffic system consists of the following components:
 3. You can control ego vehicle with arrow keys
 ![play](play.png)  
 
-For manual setup, please read [Components Settings](#component-settings) and [Add Environment for Random Traffic](AddRandomTrafficEnvironment)
+For manual setup, please read [Components Settings](#component-settings) and [Add Environment for Random Traffic](../AddRandomTrafficEnvironment/index.md)
 
 ## Components Settings
 ![inspector](inspector.png)  
