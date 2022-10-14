@@ -1,6 +1,9 @@
 AWSIM Licenses
-* AWSIM specific code is distributed under Apache2.0 License.
-* AWSIM specific assets are distributed under CC-BY NC License.
+* AWSIM specific code is distributed under Apache2.0 License.  
+The following extensions are included (*.cs *.compute *.xml)
+
+* AWSIM specific assets are distributed under CC-BY NC License.  
+The following extensions are included (*.fbx *.pcd *.osm *.png *.anim *.unitypackage)
                                  
 **********************************************************************************
                                  

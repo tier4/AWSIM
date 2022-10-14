@@ -20,6 +20,7 @@ AWSIM License
 
 - code : Apache 2.0
 - assets : CC BY-NC
+See also [LICENSE](./LICENSE)
 
 ## Contact
 
