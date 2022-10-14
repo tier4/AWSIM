@@ -17,6 +17,5 @@ AWSIM is the best scene simulator for [Autoware](https://github.com/autowarefoun
 [Download AWSIM Demo for ubuntu](https://github.com/tier4/AWSIM/releases/download/v1.0.0/AWSIM_v1.0.0.zip){.md-button .md-button--primary}
 
 Please try the AWSIM demo binary first!  
-you can find a tutorial on the [Quick start demo](../../GettingStarted/QuickStartDemo/index.md) page.
-
+you can find a tutorial on the [Quick start demo](./GettingStarted/QuickStartDemo/index.md) page.
 
