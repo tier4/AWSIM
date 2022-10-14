@@ -86,8 +86,8 @@ MonoBehaviour:
   applyGaussianNoise: 1
   configuration:
     laserArray:
-      centerOfMeasurementVerticalLinearOffsetMm: 12.163
-      centerOfMeasurementHorizontalLinearOffsetMm: 0
+      centerOfMeasurementVerticalLinearOffsetMm: 36.18
+      centerOfMeasurementHorizontalLinearOffsetMm: 12.163
       lasers:
       - horizontalAngularOffsetDeg: 3.057
         verticalAngularOffsetDeg: 16.352

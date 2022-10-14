@@ -319,11 +319,11 @@ namespace RGLUnityPlugin
         // Data can be get by Ouster TCP API in get_beam_intrinsics, get_lidar_intrinsics fields
         // https://static.ouster.dev/sensor-docs/image_route1/image_route2/common_sections/API/tcp-api.html
         // Data are taken from TOP lidar in a file located in
-        // Assets/RGLUnityPlugin/Scripts/LidarModels/Resources/ouster_status.txt
+        // Assets/RGLUnityPlugin/RawData/ouster_status.txt
         public static LaserArray OusterOS1_64 => new LaserArray
         {
-            centerOfMeasurementVerticalLinearOffsetMm = 12.163f,
-            centerOfMeasurementHorizontalLinearOffsetMm = 0.0f,
+            centerOfMeasurementVerticalLinearOffsetMm = 36.18f,
+            centerOfMeasurementHorizontalLinearOffsetMm = 12.163f,
             lasers = new[]
             {
                 new Laser {horizontalAngularOffsetDeg = 3.057f, verticalAngularOffsetDeg = 16.352f, ringId = 1},
