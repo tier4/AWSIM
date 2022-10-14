@@ -1,5 +1,7 @@
 site_name: AWSIM document
 
+repo_url: https://github.com/tier4/AWSIM
+
 theme:
   name: material
   palette:
@@ -7,6 +9,8 @@ theme:
   features:
     - navigation.sections
     - content.tabs.link
+  icon:
+    repo: fontawesome/brands/github
 
 markdown_extensions:
   - tables
