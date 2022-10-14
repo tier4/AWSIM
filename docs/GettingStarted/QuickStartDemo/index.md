@@ -90,7 +90,7 @@ fi
     ```
 
 3. Download and Run AWSIM Demo binary.
-    1. Download `AWSIM_demo.zip` and Unzip.
+    1. Download `AWSIM_vXXX.zip` and Unzip.
 
         [Download AWSIM Demo for ubuntu](https://github.com/tier4/AWSIM/releases/download/v1.0.0/AWSIM_v1.0.0.zip){.md-button .md-button--primary}
     
