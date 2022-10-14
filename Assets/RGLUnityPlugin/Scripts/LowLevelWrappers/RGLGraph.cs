@@ -25,12 +25,12 @@ namespace RGLUnityPlugin
     /// </summary>
     public class RGLGraph
     {
-        // private IntPtr gra;
-        private IntPtr fromMat3x4fRayNode = IntPtr.Zero;
-        private IntPtr setRingIdsRayNode = IntPtr.Zero;
-        private IntPtr transformRays = IntPtr.Zero;
-        private IntPtr raytraceNode = IntPtr.Zero;
-        private IntPtr compactNode = IntPtr.Zero;
+        private RGLNodeHandle fromMat3x4fRayNode = new RGLNodeHandle(RGLNodeType.RAYS_FROM_MAT3X4F);
+        private RGLNodeHandle setRingIdsRayNode = new RGLNodeHandle(RGLNodeType.RAYS_SET_RING_IDS);
+        private RGLNodeHandle transformRaysNode = new RGLNodeHandle(RGLNodeType.RAYS_TRANSFORM);
+        private RGLNodeHandle raytraceNode = new RGLNodeHandle(RGLNodeType.RAYTRACE);
+        private RGLNodeHandle compactNode = new RGLNodeHandle(RGLNodeType.POINTS_COMPACT);
+        private RGLNodeHandle transformPointsToLidarFrameNode = new RGLNodeHandle(RGLNodeType.POINTS_TRANSFORM);
 
         public RGLGraph()
         {
@@ -38,43 +38,69 @@ namespace RGLUnityPlugin
             SetRingIds(new int[1] {0}); // Create SetRingIdsRaysNode
             SetLidarPosition(Matrix4x4.identity); // Create transformRaysNode
             SetLidarRange(Mathf.Infinity); // Create raytraceNode
-            RGLNativeAPI.NodePointsCompact(ref compactNode);
+            RGLNativeAPI.NodePointsCompact(ref compactNode.node);
+            RGLNativeAPI.NodePointsTransform(ref transformPointsToLidarFrameNode.node, Matrix4x4.identity);
 
-            // UseRays -> TransformRays -> Raytrace -> Compact -> [many children, see AddFormat]
-            RGLNativeAPI.GraphNodeAddChild(fromMat3x4fRayNode, setRingIdsRayNode);
-            RGLNativeAPI.GraphNodeAddChild(setRingIdsRayNode, transformRays);
-            RGLNativeAPI.GraphNodeAddChild(transformRays, raytraceNode);
-            RGLNativeAPI.GraphNodeAddChild(raytraceNode, compactNode);
+            //                                                 -> [many children, see AddFormat]
+            //                                                /
+            // UseRays -> TransformRays -> Raytrace -> Compact -> TransformPointsToLidarFrame -> [many children]
+            RGLNativeAPI.GraphNodeAddChild(fromMat3x4fRayNode.node, setRingIdsRayNode.node);
+            RGLNativeAPI.GraphNodeAddChild(setRingIdsRayNode.node, transformRaysNode.node);
+            RGLNativeAPI.GraphNodeAddChild(transformRaysNode.node, raytraceNode.node);
+            RGLNativeAPI.GraphNodeAddChild(raytraceNode.node, compactNode.node);
+            RGLNativeAPI.GraphNodeAddChild(compactNode.node, transformPointsToLidarFrameNode.node);
         }
- 
+
+        public RGLNodeHandle GetPointsWorldFrameNodeHandle()
+        {
+            return compactNode;
+        }
+
+        public RGLNodeHandle GetPointsLidarFrameNodeHandle()
+        {
+            return transformPointsToLidarFrameNode;
+        }
+
         public void SetRays(Matrix4x4[] rays)
         {
-            RGLNativeAPI.NodeRaysFromMat3x4f(ref fromMat3x4fRayNode,  rays);
+            RGLNativeAPI.NodeRaysFromMat3x4f(ref fromMat3x4fRayNode.node,  rays);
+        }
+
+        public void SetRingIds(int[] ringIds)
+        {
+            RGLNativeAPI.NodeRaysSetRingIds(ref setRingIdsRayNode.node, ringIds);
         }
 
         public void SetLidarPosition(Matrix4x4 localToWorld)
         {
-            RGLNativeAPI.NodeRaysTransform(ref transformRays, localToWorld);
+            RGLNativeAPI.NodeRaysTransform(ref transformRaysNode.node, localToWorld);
+            RGLNativeAPI.NodePointsTransform(ref transformPointsToLidarFrameNode.node, localToWorld.inverse);
         }
 
         public void SetLidarRange(float range)
         {
-            RGLNativeAPI.NodeRaytrace(ref raytraceNode, range);
+            RGLNativeAPI.NodeRaytrace(ref raytraceNode.node, range);
         }
 
-        public RGLOutputHandle AddFormat(RGLField[] fields, Matrix4x4 postRaycastTransform)
+        public RGLNodeHandle AddPointsTransform(RGLNodeHandle parentNode, Matrix4x4 transform)
         {
-            IntPtr parentOfLeafNode = compactNode;
-            if (!postRaycastTransform.isIdentity)
+            RGLNodeHandle handle = new RGLNodeHandle(RGLNodeType.POINTS_TRANSFORM);
+            RGLNativeAPI.NodePointsTransform(ref handle.node, transform);
+            RGLNativeAPI.GraphNodeAddChild(parentNode.node, handle.node);
+            return handle;
+        }
+
+        public void UpdatePointsTransform(RGLNodeHandle nodeHandle, Matrix4x4 transform)
+        {
+            if (nodeHandle.GetNodeType() != RGLNodeType.POINTS_TRANSFORM)
             {
-                // This leak is conscious, RGL is able to cleanup correctly whole graph provided only a single node.
-                IntPtr transformPointsNode = IntPtr.Zero;
-                RGLNativeAPI.NodePointsTransform(ref transformPointsNode, postRaycastTransform);
-                RGLNativeAPI.GraphNodeAddChild(compactNode, transformPointsNode);
-                parentOfLeafNode = transformPointsNode;
-
+                throw new RGLException($"Node type mismatch, requested update for {RGLNodeType.POINTS_TRANSFORM}, but got {nodeHandle.GetNodeType()}");
             }
+            RGLNativeAPI.NodePointsTransform(ref nodeHandle.node, transform);
+        }
 
+        public RGLOutputHandle AddFormat(RGLNodeHandle parentNode, RGLField[] fields)
+        {
             RGLOutputHandle leaf = new RGLOutputHandle();
             if (fields.Length == 1)
             {
@@ -86,18 +112,13 @@ namespace RGLUnityPlugin
                 RGLNativeAPI.NodePointsFormat(ref leaf.node, fields);
                 leaf.field = RGLField.DYNAMIC_FORMAT;
             }
-            RGLNativeAPI.GraphNodeAddChild(parentOfLeafNode, leaf.node);
+            RGLNativeAPI.GraphNodeAddChild(parentNode.node, leaf.node);
             return leaf;
-        }
-
-        public void SetRingIds(int[] ringIds)
-        {
-            RGLNativeAPI.NodeRaysSetRingIds(ref setRingIdsRayNode, ringIds);
         }
 
         public void Run()
         {
-            RGLNativeAPI.GraphRun(raytraceNode);
+            RGLNativeAPI.GraphRun(raytraceNode.node);
         }
 
         public int GetData<T>(RGLOutputHandle handle, ref T[] data) where T : unmanaged
@@ -121,7 +142,7 @@ namespace RGLUnityPlugin
 
         ~RGLGraph()
         {
-            RGLNativeAPI.GraphDestroy(raytraceNode);
+            RGLNativeAPI.GraphDestroy(raytraceNode.node);
         }
     }
 }

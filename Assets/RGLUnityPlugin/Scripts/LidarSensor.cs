@@ -83,7 +83,8 @@ namespace RGLUnityPlugin
             rglGraph.SetRays(configuration.GetRayPoses());
             rglGraph.SetRingIds(configuration.laserArray.GetLaserRingIds());
             rglGraph.SetLidarRange(configuration.maxRange);
-            visualizationOutputHandle = rglGraph.AddFormat(new [] {RGLField.XYZ_F32}, Matrix4x4.identity);
+            visualizationOutputHandle = rglGraph.AddFormat(rglGraph.GetPointsWorldFrameNodeHandle(),
+                                                           new [] {RGLField.XYZ_F32});
         }
 
         public void OnValidate()
@@ -120,9 +121,29 @@ namespace RGLUnityPlugin
             }
         }
 
-        public RGLOutputHandle AddFormat(RGLField[] fields, Matrix4x4 transform)
+        public RGLNodeHandle GetPointsWorldFrameNodeHandle()
         {
-            return rglGraph.AddFormat(fields, transform);
+            return rglGraph.GetPointsWorldFrameNodeHandle();
+        }
+
+        public RGLNodeHandle GetPointsLidarFrameNodeHandle()
+        {
+            return rglGraph.GetPointsLidarFrameNodeHandle();
+        }
+
+        public RGLNodeHandle AddPointsTransform(RGLNodeHandle parentNode, Matrix4x4 transform)
+        {
+            return rglGraph.AddPointsTransform(parentNode, transform);
+        }
+
+        public void UpdatePointsTransform(RGLNodeHandle nodeHandle, Matrix4x4 transform)
+        {
+            rglGraph.UpdatePointsTransform(nodeHandle, transform);
+        }
+
+        public RGLOutputHandle AddFormat(RGLNodeHandle parentNode, RGLField[] fields)
+        {
+            return rglGraph.AddFormat(parentNode, fields);
         }
 
         public int GetData<T>(RGLOutputHandle handle, ref T[] data) where T: unmanaged
@@ -143,7 +164,7 @@ namespace RGLUnityPlugin
 
             if (GetComponent<PointCloudVisualization>().isActiveAndEnabled == true)
             {
-                Vector3[] onlyHits = new Vector3[1];
+                Vector3[] onlyHits = new Vector3[0];
                 rglGraph.GetData<Vector3>(visualizationOutputHandle, ref onlyHits);
                 GetComponent<PointCloudVisualization>().SetPoints(onlyHits);
             }

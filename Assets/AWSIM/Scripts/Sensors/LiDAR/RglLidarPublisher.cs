@@ -47,12 +47,12 @@ namespace AWSIM
         private Publisher<sensor_msgs.msg.PointCloud2> pcl48Publisher;
         private sensor_msgs.msg.PointCloud2 pcl24SensorMsg;
         private sensor_msgs.msg.PointCloud2 pcl48SensorMsg;
+        private RGLNodeHandle transformUnity2RosHandle;
         private RGLOutputHandle pcl24RglHandle;
         private RGLOutputHandle pcl48RglHandle;
         private byte[] pcl24Data;
         private byte[] pcl48Data;
         private LidarSensor lidarSensor;
-
 
         private void Start()
         {
@@ -64,20 +64,22 @@ namespace AWSIM
             lidarSensor = GetComponent<LidarSensor>();
             lidarSensor.onNewData += OnNewLidarData;
 
+            transformUnity2RosHandle = lidarSensor.AddPointsTransform(lidarSensor.GetPointsLidarFrameNodeHandle(), ROS2.Transformations.Unity2RosMatrix4x4());
+
             if (publishPCL24)
             {
-                pcl24Data = new byte[1];
+                pcl24Data = new byte[0];
                 pcl24Publisher = SimulatorROS2Node.CreatePublisher<sensor_msgs.msg.PointCloud2>(pcl24Topic, qosSettings.GetQoSProfile());
-                pcl24RglHandle = lidarSensor.AddFormat(FormatPCL24.GetRGLFields(), ROS2.Transformations.Unity2RosMatrix4x4() * transform.worldToLocalMatrix);
+                pcl24RglHandle = lidarSensor.AddFormat(transformUnity2RosHandle, FormatPCL24.GetRGLFields());
                 pcl24SensorMsg = FormatPCL24.GetSensorMsg();
                 pcl24SensorMsg.SetHeaderFrame(frameID);
             }
 
             if (publishPCL48)
             {
-                pcl48Data = new byte[1];
+                pcl48Data = new byte[0];
                 pcl48Publisher = SimulatorROS2Node.CreatePublisher<sensor_msgs.msg.PointCloud2>(pcl48Topic, qosSettings.GetQoSProfile());
-                pcl48RglHandle = lidarSensor.AddFormat(FormatPCL48.GetRGLFields(), ROS2.Transformations.Unity2RosMatrix4x4() * transform.worldToLocalMatrix);
+                pcl48RglHandle = lidarSensor.AddFormat(transformUnity2RosHandle, FormatPCL48.GetRGLFields());
                 pcl48SensorMsg = FormatPCL48.GetSensorMsg();
                 pcl48SensorMsg.SetHeaderFrame(frameID);
             }
