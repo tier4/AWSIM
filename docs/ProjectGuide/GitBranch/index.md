@@ -1,5 +1,9 @@
 # Git branch
 
+!!! warning
+
+    We have not started this branch operation yet, we will start it after the main branch is stable. 
+
 ## Branches
 
 |branch|explain|
@@ -8,6 +12,7 @@
 |develop|Development Branch. Develops pre-release functionality.|
 |feature/***|Feature implementation branch created from develop. <br>After implementation, it is merged into develop.|
 |release/***|Release branch containing release functionality created from the develop branch. <br>it is merge into main.|
+|gh-pages|Documentation hosted on GitHub pages.|
 
 ## Branch flow
 
