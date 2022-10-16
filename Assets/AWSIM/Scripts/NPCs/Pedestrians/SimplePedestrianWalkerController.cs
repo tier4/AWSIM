@@ -15,6 +15,7 @@ namespace AWSIM
 
         NPCPedestrian npcPedestrian;
         Vector3 startPosition;
+        Quaternion startRotation;
         Vector3 currentPosition;
         Quaternion currentRotation;
 
@@ -22,6 +23,7 @@ namespace AWSIM
         {
             npcPedestrian = GetComponent<NPCPedestrian>();
             startPosition = transform.position;
+            startRotation = transform.rotation;
             currentPosition = transform.position;
             currentRotation = transform.rotation;
         }
@@ -37,7 +39,10 @@ namespace AWSIM
             {
                 yield return MoveForwardRoutine(duration, speed);
                 yield return RotateRoutine(0.5f, 360f);
+                yield return MoveForwardRoutine(duration, speed);
+                yield return RotateRoutine(0.5f, 360f);
                 transform.position = startPosition;
+                transform.rotation = startRotation;
             }
         }
 
