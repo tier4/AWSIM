@@ -1,0 +1,23 @@
+name: documentation_link_check
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * *
+  pull_request:
+
+jobs:
+  link_checker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Link Checker
+        id: lychee
+        uses: lycheeverse/lychee-action@v1.5.0
+        with:
+          fail: true
+          args: "--verbose --no-progress './**/*.md' './**/*.html' --timeout 1000 --max-concurrency 32 -T 1 --retry-wait-time 10"
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
