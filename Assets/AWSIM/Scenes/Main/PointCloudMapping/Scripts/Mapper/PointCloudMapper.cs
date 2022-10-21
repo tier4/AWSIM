@@ -1,6 +1,5 @@
 ﻿using System;
 using AWSIM.Lanelet;
-using PclSharp;
 using System.Collections.Generic;
 using AWSIM.PointCloudMapping.Geometry;
 using UnityEngine;
@@ -39,16 +38,23 @@ namespace AWSIM.PointCloudMapping
         [Tooltip("Configurable visualization of the loaded lanelet map")]
         private LaneletVisualizer laneletVisualizer;
 
-        private List<IMappingSensor> mappingSensors;
+        private List<RGLMappingAdapter> mappingSensors;
         private Queue<Pose> capturePoseQueue;
-        private PointCloudOfXYZI mergedPCL;
 
         public void Start()
         {
-            mappingSensors = new List<IMappingSensor>(vehicleGameObject.GetComponentsInChildren<IMappingSensor>());
+            mappingSensors = new List<RGLMappingAdapter>(vehicleGameObject.GetComponentsInChildren<RGLMappingAdapter>());
             if (mappingSensors.Count == 0)
             {
                 Debug.LogError($"Found 0 sensors in {vehicleGameObject.name}. Disabling PointCloudMapper!");
+                enabled = false;
+                return;
+            }
+
+            // TODO: Support multiple sensors
+            if (mappingSensors.Count > 1)
+            {
+                Debug.LogError($"Found more then 1 sensors in {vehicleGameObject.name}. PointCloudMapper support only 1 at the same time for now. Disabling PointCloudMapper!");
                 enabled = false;
                 return;
             }
@@ -57,19 +63,19 @@ namespace AWSIM.PointCloudMapping
             foreach (var mappingSensor in mappingSensors)
             {
                 Debug.Log($"- IMappingSensor: {mappingSensor.GetSensorName()}");
+                mappingSensor.SetWorldOriginROS(worldOriginROS);
+                mappingSensor.SetOutputPcdFilePath($"{Application.dataPath}/{outputPcdFilePath}");
             }
-            
+
             var laneletMap = new OsmToLaneletMap(worldOriginROS).Convert(osmContainer.Data);
-            
+
             var start = Time.realtimeSinceStartup;
             capturePoseQueue = new Queue<Pose>(LaneletMapToPoses(laneletMap, captureLocationInterval));
             var computeTimeMs = (Time.realtimeSinceStartup - start) * 1000f; 
             Debug.Log($"Will visit {capturePoseQueue.Count} points; computed in {computeTimeMs} ms");
-            
+
             laneletVisualizer.Initialize(laneletMap);
             laneletVisualizer.CreateCenterline(transform);
-            
-            mergedPCL = new PointCloudOfXYZI();
         }
 
         public void Update()
@@ -77,7 +83,7 @@ namespace AWSIM.PointCloudMapping
             Debug.Log($"PointCloudMapper: {capturePoseQueue.Count} captures left");
             if (capturePoseQueue.Count == 0)
             {
-                SavePCL();
+                SavePcd();
                 enabled = false;
                 return;
             }
@@ -88,11 +94,7 @@ namespace AWSIM.PointCloudMapping
 
             foreach (var sensor in mappingSensors)
             {
-                var sensorPCL = sensor.Capture_XYZI_ROS(worldOriginROS);
-                foreach (var point in sensorPCL.Points)
-                {
-                    mergedPCL.Add(point);
-                }
+                sensor.Capture();
             }
         }
 
@@ -100,17 +102,17 @@ namespace AWSIM.PointCloudMapping
         {
             if (enabled)
             {
-                SavePCL();
+                SavePcd();
             }
         }
 
-        private void SavePCL()
+        private void SavePcd()
         {
-            var path = $"{Application.dataPath}/{outputPcdFilePath}";
-            Debug.Log($"Writing PCL data to {path}");
-            var writer = new PclSharp.IO.PCDWriter();
-            writer.Write(path, mergedPCL);
-            Debug.Log("PCL data saved successfully");
+            foreach (var mappingSensor in mappingSensors)
+            {
+                Debug.Log($"Writing PCD to {Application.dataPath}/{outputPcdFilePath}");
+                mappingSensor.SavePcd();
+            }
         }
 
         private static IEnumerable<Pose> LaneletMapToPoses(LaneletMap laneletMap, float jumpDistance)

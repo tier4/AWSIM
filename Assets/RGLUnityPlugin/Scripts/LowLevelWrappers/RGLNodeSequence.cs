@@ -250,6 +250,58 @@ namespace RGLUnityPlugin
             RGLNativeAPI.GraphRun(nodes.First().Node);
         }
 
+        public void RemoveNode(string identifier)
+        {
+            int index = nodes.FindIndex(n => n.Identifier == identifier);
+
+            if (index == -1)
+            {
+                throw new RGLException($"Attempted to remove node '{identifier}' but it was not found!");
+            }
+
+            if (nodes.Count == 1)
+            {
+                Debug.LogWarning("Removed the last node in the graph. Removing parent & child NodeSequences...");
+                Clear();
+                return;
+            }
+
+            RGLNodeType nodeType = nodes[index].Type;
+            if (nodeType == RGLNodeType.POINTS_FORMAT || nodeType == RGLNodeType.POINTS_YIELD)
+            {
+                outputField = RGLField.UNKNOWN;
+            }
+
+            if (index == 0)
+            {
+                if (parents.Count > 0)
+                {
+                    Debug.LogWarning("Removed the youngest node in already connected graph. Removing parent NodeSequences...");
+                    DisconnectAllParents();
+                }
+                RGLNativeAPI.GraphNodeRemoveChild(nodes[0].Node, nodes[1].Node);
+                nodes.RemoveAt(index);
+                return;
+            }
+
+            if (index == nodes.Count)
+            {
+                if (childs.Count > 0)
+                {
+                    Debug.LogWarning("Removed the youngest node in already connected graph. Removing parent NodeSequences...");
+                    DisconnectAllChilds();
+                }
+                RGLNativeAPI.GraphNodeRemoveChild(nodes[index - 1].Node, nodes[index].Node);
+                nodes.RemoveAt(index);
+                return;
+            }
+
+            RGLNativeAPI.GraphNodeRemoveChild(nodes[index - 1].Node, nodes[index].Node);
+            RGLNativeAPI.GraphNodeRemoveChild(nodes[index].Node, nodes[index + 1].Node);
+            RGLNativeAPI.GraphNodeAddChild(nodes[index - 1].Node, nodes[index + 1].Node);
+            nodes.RemoveAt(index);
+        }
+
         public void Clear()
         {
             DisconnectAllChilds();
