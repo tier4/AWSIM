@@ -19,8 +19,8 @@ Path : `Assets\AWSIM\Prefabs\Sensors\CameraSensor\*`
 
 |field|type|feature|
 |:--|:--|:--|
-|ImageDataBuffer|||
-|CameraParameters|||
+|ImageDataBuffer|byte[ ]|Buffer with image data.|
+|CameraParameters|CameraParameters|Set of the camera parameters.|
 
 ## ROS2 Publish Topics
 

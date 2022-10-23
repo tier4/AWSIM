@@ -59,7 +59,7 @@ AWSIM       // AWSIM root.
  │  │
  │  │  
  │  ├─RGLUnityPlugin        // Robotec GPU LiDAR external Library.
- │  │                       // (TODO) URL
+ │  │                       // https://github.com/RobotecAI/RobotecGPULidar
  │  │
  │  │  
  │  └─Ros2ForUnity          // ROS2 communication external Library.

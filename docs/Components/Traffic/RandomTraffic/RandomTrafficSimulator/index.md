@@ -12,14 +12,6 @@ The RandomTraffic system consists of the following components:
 - Ego vehicle can be referenced to be considered in the simulation steps.
 ![](overview.png)
 
-### Quick Start
-1. Prepare nishishinjuku environment assets.
-2. Open and play `Scenes/Main/RandomTraffic.unity`. NPCs should be generated in the scene and move along the lanes.
-3. You can control ego vehicle with arrow keys
-![play](play.png)  
-
-For manual setup, please read [Components Settings](#component-settings) and [Add Environment for Random Traffic](../AddRandomTrafficEnvironment/index.md)
-
 ## Components Settings
 ![inspector](inspector.png)  
 
@@ -29,6 +21,8 @@ For manual setup, please read [Components Settings](#component-settings) and [Ad
 | Ego Vehicle | Transform of ego vehicle |
 | Vehicle Layer Mask | LayerMask that masks only vehicle(NPC and ego) colliders |
 | Ground Layer Mask | LayerMask that masks only ground colliders of the map |
+| Culling Distance | Distance at which NPCs are culled relative to EgoVehicle |
+| Culling Hz | Culling operation cycle |
 | **NPC Vehicle Settings** | |
 | Max Vehicle Count | Maximum number of NPC vehicles |
 | NPC Prefabs | Prefabs of NPC vehicles which should have `NPCVehicle` component |
