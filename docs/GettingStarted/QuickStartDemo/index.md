@@ -100,9 +100,9 @@ fi
 
         ![](Image_1.png)
 
-    3. Launch `AWSIM_demo.x86_64`.
+    3. Launch `AWSIM.x86_64`.
         ```
-        ./<path to AWSIM_demo folder>/AWSIM_demo.x86_64
+        ./<path to AWSIM folder>/AWSIM.x86_64
         ``` 
         
         !!! warning
