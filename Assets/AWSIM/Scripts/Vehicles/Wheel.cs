@@ -58,35 +58,32 @@ namespace AWSIM
         }
 
         // for wheel rotation visual fields.
-        float sumDistance;
-        Vector3 lastPos;
+        float wheelPitchAngle = 0;
+        float lastSteerAngle = 0;
 
         void Update()
         {
-            UpdateWheelVisual();
+            var vehicleVelocity = vehicleRigidbody.velocity;
+            var localSpeed = vehicleRigidbody.transform.InverseTransformDirection(vehicleVelocity);
+
+            UpdateVisual(localSpeed.z, SteerAngle);
 
             // TODO: Determine rotation from the speed of the wheels.
-            void UpdateWheelVisual()
+            void UpdateVisual(float speed, float steerAngle)
             {
-                // Get position.
-                wheelCollider.GetWorldPose(out var pos, out var quat);
-
-                // Apply wheel position.
+                wheelCollider.GetWorldPose(out var pos, out _);
                 wheelVisualTransform.position = pos;
 
-                // Compute steer rotation.
-                var steerRot = Quaternion.AngleAxis(SteerAngle, Vector3.up);
+                // wheel forward rotation(pitch).
+                var additionalPitchAngle = (speed * Time.deltaTime / wheelCollider.radius) * Mathf.Rad2Deg;
+                wheelPitchAngle += additionalPitchAngle;
+                wheelPitchAngle %= 360;
 
-                // Compute forward rotation.
-                var localLastPos = vehicleRigidbody.transform.InverseTransformDirection(lastPos);
-                var localPos = vehicleRigidbody.transform.InverseTransformDirection(pos);
-                sumDistance += (localPos.z - localLastPos.z);
-                var forwardRot = Quaternion.AngleAxis(sumDistance / (wheelCollider.radius * 2 * Mathf.PI) * 360, Vector3.right);
+                // Apply rotations to visual wheel object.
+                wheelVisualTransform.localEulerAngles = new Vector3(wheelPitchAngle, steerAngle, 0);
 
-                // Apply wheel rotation.
-                wheelVisualTransform.localRotation = steerRot * forwardRot;
-
-                lastPos = pos;
+                // Cache steer angle value for next update.
+                lastSteerAngle = steerAngle;
             }
         }
 

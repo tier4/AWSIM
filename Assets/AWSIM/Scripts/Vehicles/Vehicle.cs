@@ -296,6 +296,7 @@ namespace AWSIM
 
                 // ----- inner methods -----
 
+                // Is wheel grounded ?
                 bool IsEachWheelGrounded()
                 {
                     foreach (var wheel in wheels)
@@ -306,14 +307,16 @@ namespace AWSIM
                     return true;
                 }
 
+                // Is less than sleepVelocityThreshold ?
                 bool IsCanSleepVelocity()
                 {
-                    if (Velocity.magnitude < sleepVelocityThreshold)
+                    if (Mathf.Abs(Velocity.z) < sleepVelocityThreshold)
                         return true;
                     else
                         return false;
                 }
 
+                // Is input gear & acceleration can sleep ?
                 bool IsCanSleepInput()
                 {
                     if (AutomaticShiftInput == Shift.REVERSE)
