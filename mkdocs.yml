@@ -55,6 +55,7 @@ nav:
       - Add custom ROS2 msg type: Components/ROS2/AddCustomROS2MessageType/index.md
 
   - Developer guide:
+    - How to Contribution: DeveloperGuide/HowToContribution/index.md
     - Trouble shooting: DeveloperGuide/TroubleShooting/index.md
     - Documentation: DeveloperGuide/Documentation/index.md
     - License : DeveloperGuide/License/index.md

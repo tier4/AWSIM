@@ -1,9 +1,5 @@
 # Git branch
 
-!!! warning
-
-    We have not started this branch operation yet, we will start it after the main branch is stable. 
-
 ## Branches
 
 |branch|explain|
