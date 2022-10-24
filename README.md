@@ -4,7 +4,7 @@
 
 AWSIM is the best scene simulator for [Autoware](https://github.com/autowarefoundation/autoware).
 
-**Features**
+## Features
 
 - Simulator components included (Vehicle, Sensor, Environment, ROS2, etc.)
 - Support for Windows and Ubuntu
@@ -12,7 +12,25 @@ AWSIM is the best scene simulator for [Autoware](https://github.com/autowarefoun
 - Open source software
 - Made with Unity Game Engine
 
-First, try the tutorial. [AWSIM Document - Quick Start Demo](https://tier4.github.io/AWSIM/GettingStarted/QuickStartDemo/)
+## Tutorial
+
+First, try the tutorial !!  
+[AWSIM Document - Quick Start Demo](https://tier4.github.io/AWSIM/GettingStarted/QuickStartDemo/)
+
+## Documantation
+
+https://tier4.github.io/AWSIM/
+
+## How to contribution
+
+Everyone is welcome !
+1. Create a derived branch (`feature/***`) from the `develop` branch.
+2. Create a pull request for the `develop` branch.
+
+see also [AWSIM document - Git branch](https://tier4.github.io/AWSIM/ProjectGuide/GitBranch/)
+
+We recommend microsoft's [C# coding convention](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions?redirectedfrom=MSDN).  
+However, if the logic of the code is good, it does not matter if coding conventions are not followed.
 
 ## License
 
