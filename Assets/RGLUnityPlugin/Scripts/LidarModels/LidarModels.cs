@@ -22,5 +22,6 @@ namespace RGLUnityPlugin
         VelodyneVLS128,
         HesaiPandarQT,
         HesaiPandar40P,
+        OusterOS1_64,
     }
 }
