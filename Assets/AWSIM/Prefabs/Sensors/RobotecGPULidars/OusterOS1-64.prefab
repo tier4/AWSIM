@@ -90,7 +90,7 @@ MonoBehaviour:
       centerOfMeasurementHorizontalLinearOffsetMm: 12.163
       lasers:
       - horizontalAngularOffsetDeg: 3.057
-        verticalAngularOffsetDeg: -16.352001
+        verticalAngularOffsetDeg: -16.352
         verticalLinearOffsetMm: 0
         ringId: 1
       - horizontalAngularOffsetDeg: 0.921
@@ -98,15 +98,15 @@ MonoBehaviour:
         verticalLinearOffsetMm: 0
         ringId: 2
       - horizontalAngularOffsetDeg: -1.188
-        verticalAngularOffsetDeg: -15.218999
+        verticalAngularOffsetDeg: -15.219
         verticalLinearOffsetMm: 0
         ringId: 3
       - horizontalAngularOffsetDeg: -3.313
-        verticalAngularOffsetDeg: -14.684999
+        verticalAngularOffsetDeg: -14.685
         verticalLinearOffsetMm: 0
         ringId: 4
       - horizontalAngularOffsetDeg: 3.051
-        verticalAngularOffsetDeg: -14.191001
+        verticalAngularOffsetDeg: -14.191
         verticalLinearOffsetMm: 0
         ringId: 5
       - horizontalAngularOffsetDeg: 0.928
@@ -122,7 +122,7 @@ MonoBehaviour:
         verticalLinearOffsetMm: 0
         ringId: 8
       - horizontalAngularOffsetDeg: 3.044
-        verticalAngularOffsetDeg: -12.071999
+        verticalAngularOffsetDeg: -12.072
         verticalLinearOffsetMm: 0
         ringId: 9
       - horizontalAngularOffsetDeg: 0.953
@@ -134,11 +134,11 @@ MonoBehaviour:
         verticalLinearOffsetMm: 0
         ringId: 11
       - horizontalAngularOffsetDeg: -3.204
-        verticalAngularOffsetDeg: -10.467999
+        verticalAngularOffsetDeg: -10.468
         verticalLinearOffsetMm: 0
         ringId: 12
       - horizontalAngularOffsetDeg: 3.042
-        verticalAngularOffsetDeg: -9.982001
+        verticalAngularOffsetDeg: -9.982
         verticalLinearOffsetMm: 0
         ringId: 13
       - horizontalAngularOffsetDeg: 0.954
@@ -150,7 +150,7 @@ MonoBehaviour:
         verticalLinearOffsetMm: 0
         ringId: 15
       - horizontalAngularOffsetDeg: -3.168
-        verticalAngularOffsetDeg: -8.379999
+        verticalAngularOffsetDeg: -8.38
         verticalLinearOffsetMm: 0
         ringId: 16
       - horizontalAngularOffsetDeg: 3.044
@@ -170,7 +170,7 @@ MonoBehaviour:
         verticalLinearOffsetMm: 0
         ringId: 20
       - horizontalAngularOffsetDeg: 3.047
-        verticalAngularOffsetDeg: -5.8400006
+        verticalAngularOffsetDeg: -5.84
         verticalLinearOffsetMm: 0
         ringId: 21
       - horizontalAngularOffsetDeg: 0.995
@@ -178,7 +178,7 @@ MonoBehaviour:
         verticalLinearOffsetMm: 0
         ringId: 22
       - horizontalAngularOffsetDeg: -1.064
-        verticalAngularOffsetDeg: -4.7710004
+        verticalAngularOffsetDeg: -4.771
         verticalLinearOffsetMm: 0
         ringId: 23
       - horizontalAngularOffsetDeg: -3.106
@@ -186,7 +186,7 @@ MonoBehaviour:
         verticalLinearOffsetMm: 0
         ringId: 24
       - horizontalAngularOffsetDeg: 3.071
-        verticalAngularOffsetDeg: -3.7790003
+        verticalAngularOffsetDeg: -3.779
         verticalLinearOffsetMm: 0
         ringId: 25
       - horizontalAngularOffsetDeg: 1.013
@@ -202,15 +202,15 @@ MonoBehaviour:
         verticalLinearOffsetMm: 0
         ringId: 28
       - horizontalAngularOffsetDeg: 3.08
-        verticalAngularOffsetDeg: -1.7170001
+        verticalAngularOffsetDeg: -1.717
         verticalLinearOffsetMm: 0
         ringId: 29
       - horizontalAngularOffsetDeg: 1.031
-        verticalAngularOffsetDeg: -1.1869999
+        verticalAngularOffsetDeg: -1.187
         verticalLinearOffsetMm: 0
         ringId: 30
       - horizontalAngularOffsetDeg: -1.016
-        verticalAngularOffsetDeg: -0.6499999
+        verticalAngularOffsetDeg: -0.65
         verticalLinearOffsetMm: 0
         ringId: 31
       - horizontalAngularOffsetDeg: -3.076
@@ -230,11 +230,11 @@ MonoBehaviour:
         verticalLinearOffsetMm: 0
         ringId: 35
       - horizontalAngularOffsetDeg: -3.062
-        verticalAngularOffsetDeg: 1.9360001
+        verticalAngularOffsetDeg: 1.936
         verticalLinearOffsetMm: 0
         ringId: 36
       - horizontalAngularOffsetDeg: 3.114
-        verticalAngularOffsetDeg: 2.4060001
+        verticalAngularOffsetDeg: 2.406
         verticalLinearOffsetMm: 0
         ringId: 37
       - horizontalAngularOffsetDeg: 1.066
@@ -254,7 +254,7 @@ MonoBehaviour:
         verticalLinearOffsetMm: 0
         ringId: 41
       - horizontalAngularOffsetDeg: 1.076
-        verticalAngularOffsetDeg: 4.9989996
+        verticalAngularOffsetDeg: 4.999
         verticalLinearOffsetMm: 0
         ringId: 42
       - horizontalAngularOffsetDeg: -0.98
@@ -318,7 +318,7 @@ MonoBehaviour:
         verticalLinearOffsetMm: 0
         ringId: 57
       - horizontalAngularOffsetDeg: 1.14
-        verticalAngularOffsetDeg: 13.320999
+        verticalAngularOffsetDeg: 13.321
         verticalLinearOffsetMm: 0
         ringId: 58
       - horizontalAngularOffsetDeg: -0.963
@@ -326,7 +326,7 @@ MonoBehaviour:
         verticalLinearOffsetMm: 0
         ringId: 59
       - horizontalAngularOffsetDeg: -3.066
-        verticalAngularOffsetDeg: 14.422999
+        verticalAngularOffsetDeg: 14.423
         verticalLinearOffsetMm: 0
         ringId: 60
       - horizontalAngularOffsetDeg: 3.282
