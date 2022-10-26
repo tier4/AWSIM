@@ -490,8 +490,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62277ad5b6d1cfd2984db58dc79535a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutputHz: 10
-  modelPreset: 3
+  AutomaticCaptureHz: 10
+  modelPreset: 4
   applyGaussianNoise: 1
   configuration:
     laserArray:
