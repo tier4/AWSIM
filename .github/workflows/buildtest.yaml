@@ -25,7 +25,7 @@ jobs:
         lfs: true
     - uses: game-ci/unity-builder@v2
       env:
-        UNITY_LICENSE: ${{ secrets.UNITY_SERIAL }}
+        UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
       with:
         targetPlatform: ${{ matrix.target_platform }}
         unityVersion: ${{ matrix.unity_version }}
