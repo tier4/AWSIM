@@ -7,7 +7,6 @@ on:
     branches:
       - master 
       - main
-      - develop
   workflow_dispatch:
 
 jobs:
