@@ -25,9 +25,9 @@ jobs:
         lfs: true
     - uses: game-ci/unity-builder@v2
       env:
+        UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
         UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
         UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
       with:
         targetPlatform: ${{ matrix.target_platform }}
         unityVersion: ${{ matrix.unity_version }}
