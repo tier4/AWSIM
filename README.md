@@ -24,8 +24,8 @@ https://tier4.github.io/AWSIM/
 ## How to contribution
 
 Everyone is welcome !
-1. Create a derived branch (`feature/***`) from the `develop` branch.
-2. Create a pull request for the `develop` branch.
+1. Create a derived branch (`feature/***`) from the `main` branch.
+2. Create a pull request for the `main` branch.
 
 see also [AWSIM document - Git branch](https://tier4.github.io/AWSIM/ProjectGuide/GitBranch/)
 
