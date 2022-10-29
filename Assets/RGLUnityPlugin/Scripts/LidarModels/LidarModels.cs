@@ -19,8 +19,10 @@ namespace RGLUnityPlugin
         RangeMeter,
         SickMRS6000,
         VelodyneVLP16,
+        VelodyneVLP32C,
         VelodyneVLS128,
         HesaiPandarQT,
         HesaiPandar40P,
+        OusterOS1_64,
     }
 }

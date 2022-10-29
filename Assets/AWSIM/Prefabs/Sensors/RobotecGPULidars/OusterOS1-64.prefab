@@ -1,0 +1,420 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2440576987535774365
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3068494487180298279}
+  - component: {fileID: 5865029131659967986}
+  - component: {fileID: 4572956135196922574}
+  - component: {fileID: 141188791316208376}
+  m_Layer: 0
+  m_Name: OusterOS1-64
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3068494487180298279
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2440576987535774365}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5995076691610956455}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5865029131659967986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2440576987535774365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87ba9656cbd67467f8119d8666b098aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pcl24Topic: lidar/pointcloud
+  pcl48Topic: lidar/pointcloud_ex
+  frameID: world
+  publishPCL24: 1
+  publishPCL48: 1
+  qosSettings:
+    ReliabilityPolicy: 1
+    DurabilityPolicy: 2
+    HistoryPolicy: 1
+    Depth: 1000
+--- !u!114 &4572956135196922574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2440576987535774365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b09121ab5f04a5dae5e27fd15e97c53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 0}
+--- !u!114 &141188791316208376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2440576987535774365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62277ad5b6d1cfd2984db58dc79535a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AutomaticCaptureHz: 20
+  modelPreset: 7
+  applyGaussianNoise: 1
+  configuration:
+    laserArray:
+      centerOfMeasurementVerticalLinearOffsetMm: 36.18
+      centerOfMeasurementHorizontalLinearOffsetMm: 12.163
+      lasers:
+      - horizontalAngularOffsetDeg: 3.057
+        verticalAngularOffsetDeg: -16.352
+        verticalLinearOffsetMm: 0
+        ringId: 1
+      - horizontalAngularOffsetDeg: 0.921
+        verticalAngularOffsetDeg: -15.772
+        verticalLinearOffsetMm: 0
+        ringId: 2
+      - horizontalAngularOffsetDeg: -1.188
+        verticalAngularOffsetDeg: -15.219
+        verticalLinearOffsetMm: 0
+        ringId: 3
+      - horizontalAngularOffsetDeg: -3.313
+        verticalAngularOffsetDeg: -14.685
+        verticalLinearOffsetMm: 0
+        ringId: 4
+      - horizontalAngularOffsetDeg: 3.051
+        verticalAngularOffsetDeg: -14.191
+        verticalLinearOffsetMm: 0
+        ringId: 5
+      - horizontalAngularOffsetDeg: 0.928
+        verticalAngularOffsetDeg: -13.622
+        verticalLinearOffsetMm: 0
+        ringId: 6
+      - horizontalAngularOffsetDeg: -1.152
+        verticalAngularOffsetDeg: -13.079
+        verticalLinearOffsetMm: 0
+        ringId: 7
+      - horizontalAngularOffsetDeg: -3.256
+        verticalAngularOffsetDeg: -12.564
+        verticalLinearOffsetMm: 0
+        ringId: 8
+      - horizontalAngularOffsetDeg: 3.044
+        verticalAngularOffsetDeg: -12.072
+        verticalLinearOffsetMm: 0
+        ringId: 9
+      - horizontalAngularOffsetDeg: 0.953
+        verticalAngularOffsetDeg: -11.518
+        verticalLinearOffsetMm: 0
+        ringId: 10
+      - horizontalAngularOffsetDeg: -1.131
+        verticalAngularOffsetDeg: -10.984
+        verticalLinearOffsetMm: 0
+        ringId: 11
+      - horizontalAngularOffsetDeg: -3.204
+        verticalAngularOffsetDeg: -10.468
+        verticalLinearOffsetMm: 0
+        ringId: 12
+      - horizontalAngularOffsetDeg: 3.042
+        verticalAngularOffsetDeg: -9.982
+        verticalLinearOffsetMm: 0
+        ringId: 13
+      - horizontalAngularOffsetDeg: 0.954
+        verticalAngularOffsetDeg: -9.435
+        verticalLinearOffsetMm: 0
+        ringId: 14
+      - horizontalAngularOffsetDeg: -1.105
+        verticalAngularOffsetDeg: -8.896
+        verticalLinearOffsetMm: 0
+        ringId: 15
+      - horizontalAngularOffsetDeg: -3.168
+        verticalAngularOffsetDeg: -8.38
+        verticalLinearOffsetMm: 0
+        ringId: 16
+      - horizontalAngularOffsetDeg: 3.044
+        verticalAngularOffsetDeg: -7.903
+        verticalLinearOffsetMm: 0
+        ringId: 17
+      - horizontalAngularOffsetDeg: 0.986
+        verticalAngularOffsetDeg: -7.368
+        verticalLinearOffsetMm: 0
+        ringId: 18
+      - horizontalAngularOffsetDeg: -1.082
+        verticalAngularOffsetDeg: -6.845
+        verticalLinearOffsetMm: 0
+        ringId: 19
+      - horizontalAngularOffsetDeg: -3.135
+        verticalAngularOffsetDeg: -6.312
+        verticalLinearOffsetMm: 0
+        ringId: 20
+      - horizontalAngularOffsetDeg: 3.047
+        verticalAngularOffsetDeg: -5.84
+        verticalLinearOffsetMm: 0
+        ringId: 21
+      - horizontalAngularOffsetDeg: 0.995
+        verticalAngularOffsetDeg: -5.306
+        verticalLinearOffsetMm: 0
+        ringId: 22
+      - horizontalAngularOffsetDeg: -1.064
+        verticalAngularOffsetDeg: -4.771
+        verticalLinearOffsetMm: 0
+        ringId: 23
+      - horizontalAngularOffsetDeg: -3.106
+        verticalAngularOffsetDeg: -4.251
+        verticalLinearOffsetMm: 0
+        ringId: 24
+      - horizontalAngularOffsetDeg: 3.071
+        verticalAngularOffsetDeg: -3.779
+        verticalLinearOffsetMm: 0
+        ringId: 25
+      - horizontalAngularOffsetDeg: 1.013
+        verticalAngularOffsetDeg: -3.24
+        verticalLinearOffsetMm: 0
+        ringId: 26
+      - horizontalAngularOffsetDeg: -1.036
+        verticalAngularOffsetDeg: -2.714
+        verticalLinearOffsetMm: 0
+        ringId: 27
+      - horizontalAngularOffsetDeg: -3.082
+        verticalAngularOffsetDeg: -2.189
+        verticalLinearOffsetMm: 0
+        ringId: 28
+      - horizontalAngularOffsetDeg: 3.08
+        verticalAngularOffsetDeg: -1.717
+        verticalLinearOffsetMm: 0
+        ringId: 29
+      - horizontalAngularOffsetDeg: 1.031
+        verticalAngularOffsetDeg: -1.187
+        verticalLinearOffsetMm: 0
+        ringId: 30
+      - horizontalAngularOffsetDeg: -1.016
+        verticalAngularOffsetDeg: -0.65
+        verticalLinearOffsetMm: 0
+        ringId: 31
+      - horizontalAngularOffsetDeg: -3.076
+        verticalAngularOffsetDeg: -0.125
+        verticalLinearOffsetMm: 0
+        ringId: 32
+      - horizontalAngularOffsetDeg: 3.103
+        verticalAngularOffsetDeg: 0.347
+        verticalLinearOffsetMm: 0
+        ringId: 33
+      - horizontalAngularOffsetDeg: 1.048
+        verticalAngularOffsetDeg: 0.874
+        verticalLinearOffsetMm: 0
+        ringId: 34
+      - horizontalAngularOffsetDeg: -1.008
+        verticalAngularOffsetDeg: 1.405
+        verticalLinearOffsetMm: 0
+        ringId: 35
+      - horizontalAngularOffsetDeg: -3.062
+        verticalAngularOffsetDeg: 1.936
+        verticalLinearOffsetMm: 0
+        ringId: 36
+      - horizontalAngularOffsetDeg: 3.114
+        verticalAngularOffsetDeg: 2.406
+        verticalLinearOffsetMm: 0
+        ringId: 37
+      - horizontalAngularOffsetDeg: 1.066
+        verticalAngularOffsetDeg: 2.937
+        verticalLinearOffsetMm: 0
+        ringId: 38
+      - horizontalAngularOffsetDeg: -0.995
+        verticalAngularOffsetDeg: 3.466
+        verticalLinearOffsetMm: 0
+        ringId: 39
+      - horizontalAngularOffsetDeg: -3.055
+        verticalAngularOffsetDeg: 4.002
+        verticalLinearOffsetMm: 0
+        ringId: 40
+      - horizontalAngularOffsetDeg: 3.134
+        verticalAngularOffsetDeg: 4.472
+        verticalLinearOffsetMm: 0
+        ringId: 41
+      - horizontalAngularOffsetDeg: 1.076
+        verticalAngularOffsetDeg: 4.999
+        verticalLinearOffsetMm: 0
+        ringId: 42
+      - horizontalAngularOffsetDeg: -0.98
+        verticalAngularOffsetDeg: 5.53
+        verticalLinearOffsetMm: 0
+        ringId: 43
+      - horizontalAngularOffsetDeg: -3.052
+        verticalAngularOffsetDeg: 6.066
+        verticalLinearOffsetMm: 0
+        ringId: 44
+      - horizontalAngularOffsetDeg: 3.156
+        verticalAngularOffsetDeg: 6.538
+        verticalLinearOffsetMm: 0
+        ringId: 45
+      - horizontalAngularOffsetDeg: 1.099
+        verticalAngularOffsetDeg: 7.063
+        verticalLinearOffsetMm: 0
+        ringId: 46
+      - horizontalAngularOffsetDeg: -0.972
+        verticalAngularOffsetDeg: 7.597
+        verticalLinearOffsetMm: 0
+        ringId: 47
+      - horizontalAngularOffsetDeg: -3.031
+        verticalAngularOffsetDeg: 8.144
+        verticalLinearOffsetMm: 0
+        ringId: 48
+      - horizontalAngularOffsetDeg: 3.175
+        verticalAngularOffsetDeg: 8.612
+        verticalLinearOffsetMm: 0
+        ringId: 49
+      - horizontalAngularOffsetDeg: 1.11
+        verticalAngularOffsetDeg: 9.137
+        verticalLinearOffsetMm: 0
+        ringId: 50
+      - horizontalAngularOffsetDeg: -0.959
+        verticalAngularOffsetDeg: 9.672
+        verticalLinearOffsetMm: 0
+        ringId: 51
+      - horizontalAngularOffsetDeg: -3.034
+        verticalAngularOffsetDeg: 10.218
+        verticalLinearOffsetMm: 0
+        ringId: 52
+      - horizontalAngularOffsetDeg: 3.204
+        verticalAngularOffsetDeg: 10.695
+        verticalLinearOffsetMm: 0
+        ringId: 53
+      - horizontalAngularOffsetDeg: 1.132
+        verticalAngularOffsetDeg: 11.215
+        verticalLinearOffsetMm: 0
+        ringId: 54
+      - horizontalAngularOffsetDeg: -0.964
+        verticalAngularOffsetDeg: 11.757
+        verticalLinearOffsetMm: 0
+        ringId: 55
+      - horizontalAngularOffsetDeg: -3.065
+        verticalAngularOffsetDeg: 12.316
+        verticalLinearOffsetMm: 0
+        ringId: 56
+      - horizontalAngularOffsetDeg: 3.244
+        verticalAngularOffsetDeg: 12.791
+        verticalLinearOffsetMm: 0
+        ringId: 57
+      - horizontalAngularOffsetDeg: 1.14
+        verticalAngularOffsetDeg: 13.321
+        verticalLinearOffsetMm: 0
+        ringId: 58
+      - horizontalAngularOffsetDeg: -0.963
+        verticalAngularOffsetDeg: 13.86
+        verticalLinearOffsetMm: 0
+        ringId: 59
+      - horizontalAngularOffsetDeg: -3.066
+        verticalAngularOffsetDeg: 14.423
+        verticalLinearOffsetMm: 0
+        ringId: 60
+      - horizontalAngularOffsetDeg: 3.282
+        verticalAngularOffsetDeg: 14.925
+        verticalLinearOffsetMm: 0
+        ringId: 61
+      - horizontalAngularOffsetDeg: 1.169
+        verticalAngularOffsetDeg: 15.458
+        verticalLinearOffsetMm: 0
+        ringId: 62
+      - horizontalAngularOffsetDeg: -0.971
+        verticalAngularOffsetDeg: 16.011
+        verticalLinearOffsetMm: 0
+        ringId: 63
+      - horizontalAngularOffsetDeg: -3.108
+        verticalAngularOffsetDeg: 16.598
+        verticalLinearOffsetMm: 0
+        ringId: 64
+    horizontalSteps: 1024
+    minHAngle: -180
+    maxHAngle: 180
+    maxRange: 120
+    noiseParams:
+      angularNoiseType: 0
+      angularNoiseStDev: 0.057295784
+      angularNoiseMean: 0
+      distanceNoiseStDevBase: 0.02
+      distanceNoiseStDevRisePerMeter: 0
+      distanceNoiseMean: 0
+--- !u!1001 &1279405457360735599
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3068494487180298279}
+    m_Modifications:
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5312073466771367282, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_Name
+      value: Ouster OS1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+--- !u!4 &5995076691610956455 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+  m_PrefabInstance: {fileID: 1279405457360735599}
+  m_PrefabAsset: {fileID: 0}
