@@ -1,0 +1,3 @@
+.github/ export-ignore
+.gitattributes
+#.git*    export-ignore
