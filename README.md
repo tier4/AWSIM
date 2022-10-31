@@ -14,7 +14,7 @@ AWSIM is the best scene simulator for [Autoware](https://github.com/autowarefoun
 
 ## Tutorial
 
-First, try the tutorial !!  
+First, try the tutorial !  
 [AWSIM Document - Quick Start Demo](https://tier4.github.io/AWSIM/GettingStarted/QuickStartDemo/)
 
 ## Documentation
