@@ -107,8 +107,8 @@ namespace AWSIM.RandomTraffic
                     foreach (var lane in States[i].FollowingLanes)
                     {
                         var length = Mathf.Min(
-                            MaxWaypointCount - dstIndex - 1,
-                            lane.Waypoints.Length - srcIndex - 1);
+                            MaxWaypointCount - dstIndex,
+                            lane.Waypoints.Length - srcIndex);
 
                         NativeArray<Vector3>.Copy(lane.Waypoints, srcIndex, Waypoints, offset + dstIndex, length);
 
