@@ -1,10 +1,13 @@
 # Quick Start Demo
 
-This page describes a Self-driving simulation connected to the AWSIM demo binary and Autoware. Use one Ubuntu PC.
+Below you can find instructions on how to setup the self-driving demo of AWSIM simulation controlled by Autoware.
+The instruction assumes using the Ubuntu OS.
 
 ![](Image_top.png)
 
-The simulation provided in the AWSIM demo has the following settings.
+### Demo configuration
+
+The simulation provided in the AWSIM demo is configured as follows:
 
 |AWSIM Demo Settings||
 |:--|:--|
@@ -14,8 +17,11 @@ The simulation provided in the AWSIM demo has the following settings.
 |Traffic|Randomized traffic|
 
 
-## 1. Check the required specifications
-PC specifications that meet the following requirements are required.
+## Prerequisites
+
+### PC specs
+
+Please make sure that your machine meets the following requirements in order to run the simulation correctly:
 
 |Required PC Specs||
 |:--|:--|
@@ -26,10 +32,12 @@ PC specifications that meet the following requirements are required.
 |Nvidia Driver (Linux)|>=460.27.03|
 
 
-## 2. ROS localhost settings
-    
-Add the following to `.bashrc`
-```
+### Localhost settings
+
+The simulation is based on the appropriate network setting, which allows for trouble-free communication of the AWSIM simulation with the Autoware software.
+To apply required localhost settings please add the following lines to `~/.bashrc` file.
+
+``` bash
 export ROS_LOCALHOST_ONLY=1
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
@@ -40,22 +48,27 @@ if [ ! -e /tmp/cycloneDDS_configured ]; then
 fi
 ```
 
-## 3. Launch AWSIM Demo binary
+## Start the demo
+
+### Running the AWSIM simulation demo
+
+To run the simulator, please follow the steps below.
 
 1. Install Nvidia GPU driver (Skip if already installed).
     1. Add Nvidia driver to apt repository
     ```
     sudo add-apt-repository ppa:graphics-drivers/ppa
-    ```
-    2. Check supported Nvidia driver versions.
-    ```
     sudo apt update
     ```
-    3. Install the recommended version.
+    2. Install the recommended version of the driver.
     ```
     sudo ubuntu-drivers autoinstall
     ```
-    4. reboot and check nvidia-smi.
+    3. Reboot your machine to make the installed driver detected by the system.
+    ```
+    sudo reboot
+    ```
+    4. Open terminal and check if `nvidia-smi` command is available and outputs summary similar to the one presented below.
     ```
     $ nvidia-smi 
     Fri Oct 14 01:41:05 2022       
@@ -81,57 +94,68 @@ fi
     +-----------------------------------------------------------------------------+
     ```
 
-2. Install Vulkun Graphics Library (Skip if already installed).
-    1. Update environment.
+2. Install Vulkan Graphics Library (Skip if already installed).
+    1. Update the environment.
     ```
     sudo apt update
     ```
-    2. Install libvulkan1.
+    2. Install the library.
     ```
     sudo apt install libvulkan1
     ```
 
 3. Download and Run AWSIM Demo binary.
-    1. Download `AWSIM_vXXX.zip` and Unzip.
+    1. Download `AWSIM_vXXX.zip`.
 
         [Download AWSIM Demo for ubuntu](https://github.com/tier4/AWSIM/releases/download/v1.0.1/AWSIM_v1.0.1.zip){.md-button .md-button--primary}
     
-    2. Allow permission.
+    2. Unzip the downloaded file.
 
-        Check the `Execute` checkbox.
+    3. Make the `AWSIM_demo.x86_64` file executable.
+
+        Rightclick the `AWSIM_demo.x86_64` file and check the `Execute` checkbox
 
         ![](Image_1.png)
 
-    3. Launch `AWSIM.x86_64`.
+        or execute the command below.
+
+        ```
+        chmod +x <path to AWSIM folder>/AWSIM.x86_64
+        ```
+
+    4. Launch `AWSIM.x86_64`.
         ```
         ./<path to AWSIM folder>/AWSIM.x86_64
         ``` 
         
         !!! warning
         
-            It may take a little time to start up.
+            It may take some time for the application to start the so please wait until image similar to the one presented below is visible in your application window.
+
         ![](Image_0.png)
 
-## 4. Launch Autoware
+### Launching Autoware
 
-1. Download `map files(pcd, osm)` and unzip.
+In order to configure and run the Autoware software with the AWSIM demo, please:
+
+1. Download `map files (pcd, osm)` and unzip them.
 
     [Download Map files (pcd, osm)](https://github.com/tier4/AWSIM/releases/download/v1.0.0/nishishinjuku_autoware_map.zip){.md-button .md-button--primary}
 
-2. Clone [autoware](https://github.com/autowarefoundation/autoware) and move to the directory.
+2. Clone [Autoware](https://github.com/autowarefoundation/autoware) and move to the directory.
 ```
 git clone https://github.com/autowarefoundation/autoware.git
 cd autoware
 ```
-3. Switch branches to `awsim-stable`. (The latest `main` branch may work, but `awsim-stable` will definitely work.)
+3. Switch branche to `awsim-stable`. *NOTE: The latest `main` branch may work properly, but `awsim-stable` is tested on an ongoing basis.*
 ```
 git checkout awsim-stable
 ```
-4. Setup environment. If you have already prepared an Autoware environment, you don't need to run this.
+4. Configure the environment. (Skip if Autoware environment has been configured before)
 ```
 ./setup-dev-env.sh
 ```
-5. Create the `src` directory and clone repositories into it.
+5. Create the `src` directory and clone external dependent repositories into it.
 ```
 mkdir src
 vcs import src < autoware.repos
@@ -147,34 +171,44 @@ rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-w"
 ```
 8. Launch Autoware.
-    
-    `<your mapfile location>` should be changed arbitrarily. You cannot use `~` to specify the path.
+
+    !!! warning
+
+        `<your mapfile location>` must be changed arbitrarily. When specifying the path the `~` operator cannot be used - please specify absolute full path.
 ```
 source install/setup.bash
 ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=<your mapfile location>
 ```
 ![](Image_2.png)
 
-## 5. Let's Self-Driving simulation
-1. Launch both AWSIM and Autoware.
+## 5. Let's run the self-Driving simulation
+
+1. Launch AWSIM and Autoware according to the steps described earlier in this document.
 ![](Image_top.png)
-2. Automatically set 2D Pose Estimate with RViz.
+
+2. The Autoware will automatically set its pose estimation as presented below.
 ![](Image_Initial.png)
-3. Manually set 2D Goal Pose with RViz.
+
+3. Set the navigation goal for the vehicle.
 ![](Image_goal_0.png)
 ![](Image_goal_1.png)
-4. Set 2D Checkpoint Pose (Optional).
-![](Image_checkpoint_0.png)
-Path generated.
-![](Image_path.png)
-5. Engage self-driving.
 
-Open new terminal and engage self-driving !!
+4. Optionally, you can define an intermediate point through which the vehicle will travel on its way to the destination.
+![](Image_checkpoint_0.png)
+The generated path can be seen on the image below.
+![](Image_path.png)
+
+5. Enable self-driving.
+
+To make the vehicle start navigating please engage it's operation using the command below.
 
 ```
 ros2 topic pub /autoware/engage autoware_auto_vehicle_msgs/msg/Engage '{engage: True}' -1
 ```
+
 ![](Image_running.png)
+
+The self-driving simulation demo has been successfully launched!
 
 ## Appendix
 - [AWSIM ROS2 topic list](../../Components/ROS2/ROS2TopicList/index.md)
