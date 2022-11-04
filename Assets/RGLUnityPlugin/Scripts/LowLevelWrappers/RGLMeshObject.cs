@@ -19,18 +19,15 @@ namespace RGLUnityPlugin
 {
     /// <summary>
     /// RGL counterpart of Unity GameObjects.
-    /// Contains all information needed by RGL native module.
-    /// Can be constructed in multiple ways - e.g. from collider or a (non-skinned) mesh.
+    /// Contains information about RGL entity and has mesh identifier which refers to RGLMesh identifier.
     /// </summary>
     public class RGLObject
     {
         public string Identifier;
-        public Mesh Mesh;
+        public int MeshIdentifier;
         public Func<Matrix4x4> GetLocalToWorld;
         public GameObject RepresentedGO;
 
-        // TODO(prybicki): I'm a bit dubious about these fields here, seems to violate SRP
-        public IntPtr rglMesh;
         public IntPtr rglEntity;
 
         public override int GetHashCode()
@@ -45,9 +42,34 @@ namespace RGLUnityPlugin
     }
 
     /// <summary>
+    /// RGL counterpart of Unity Mesh.
+    /// Contains information about RGL mesh.
+    /// Can be constructed in multiple ways - e.g. from collider or a (non-skinned) mesh.
+    /// </summary>
+    public class RGLMesh
+    {
+        public int Identifier;
+        public Mesh Mesh;
+
+        public IntPtr rglMesh = IntPtr.Zero;
+
+        public int SubscribersCounter = 0;
+
+        public override int GetHashCode()
+        {
+            return Identifier;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is RGLMesh rglMesh && Identifier.Equals(rglMesh.Identifier);
+        }
+    }
+
+    /// <summary>
     /// Some objects (such as NPC) use skinned meshes, which needs to be constantly updated by the Unity side.
     /// </summary>
-    public class RGLSkinnedObject : RGLObject
+    public class RGLSkinnedMesh : RGLMesh
     {
         public SkinnedMeshRenderer SkinnedMeshRenderer;
 

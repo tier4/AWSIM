@@ -103,7 +103,7 @@ namespace RGLUnityPlugin
         public static void CheckVersion()
         {
             int expectedMajor = 0;
-            int expectedMinor = 8;
+            int expectedMinor = 10;
             CheckErr(rgl_get_version_info(out var major, out var minor, out var patch));
             if (major != expectedMajor || minor < expectedMinor)
             {
