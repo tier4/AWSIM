@@ -69,8 +69,10 @@ namespace AWSIM
         public void OnDestroy()
         {
             // Enable WheelCollider inspector operation when WheelColliderConfig component is deleted.
-            if (!this.target)
+            foreach (var t in targets)
             {
+                var wheelColliderConfig = t as WheelColliderConfig;
+
                 if (wheelColliderConfig.WheelCollider != null)
                     wheelColliderConfig.WheelCollider.hideFlags = HideFlags.None;
             }
