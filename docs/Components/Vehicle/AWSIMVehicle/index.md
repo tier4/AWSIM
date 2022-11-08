@@ -2,28 +2,28 @@
 
 !!! info
 
-    AWSIM Vehicle Dynamics is currently under development. However, it is mostly functional.
+    AWSIM Vehicle Dynamics is mostly functional, but still under development.
 
 ## Sample Vehicle - Lexus RX450h
 
 <img src=image_0.png width=500px>
 
-AWSIM includes a Lexus RX450h vehicle in the sample. Prefab path is
+AWSIM project includes a Lexus RX450h vehicle model. Prefab path is
 ```
 AWSIM\Assets\AWSIM\Prefabs\VehiclesWithSensor\Lexus RX450h 2015 Sample Sensor.prefab
 ```
 
 ## Vehicle Dynamics Concept
 
-The concept is VehicleDynamics suitable for Autoware's `autoware_auto_control_msgs/AckermannControlCommand` and `autoware_auto_vehicle_msgs/GearCommand` msg interface.
+The concept for VehicleDynamics is suitable for Autoware's `autoware_auto_control_msgs/AckermannControlCommand` and `autoware_auto_vehicle_msgs/GearCommand` message interface usage.
 
-features
+Supported features:
 
 - Longitudinal control by acceleration (m/s^2)
 - Lateral control by two-wheel model
-- Yaw, roll and pitch changes by physics engine
-- Mass-spring-damer suspension model
-- Logical, not mechanical, automatic gears
+- Yaw, roll and pitch controlled by physics engine
+- Mass-spring-damper suspension model
+- Logical, not mechanical, automatic gears change
 
 ## Required vehicle parameters
 
@@ -31,7 +31,7 @@ features
 
     In general, measuring the moment of inertia is not easy, and past papers published by NHTSA are helpful. <br> [Measured Vehicle Inertial Parameters - NHTSA 1998](https://www.researchgate.net/publication/228945609_Measured_Vehicle_Inertial_Parameters-NHTSA)
 
-|parameter|example|unit|
+|Parameter|Value|unit|
 |:--|:--|:--|
 |mass|1500|kg|
 |wheel base|2.5|m|
@@ -43,19 +43,21 @@ features
 |suspension stroke|Ft : 0.2, Rr 0.2|m|
 |wheel radius|0.365|m|
 
-## Vehicle Scripts
+## Vehicle control scripts
 
-Vehicle scripts path is `AWSIM\Assets\AWSIM\Scripts\Vehicles\*`
+Scripts that simulate and support the car's behavior are placed under `AWSIM/Assets/AWSIM/Scripts/Vehicles` directory.
+
 
 |script|feature|
 |:--|:--|
 |Vehicle.cs|Vehicle dynamics core class|
 |VehicleKeyboardInput.cs|Input control by keyboard|
 |VehicleRosInput.cs|Input control by ROS|
-|VehicleVisualEffect.cs`|Visual effects such as brake and turn signals|
+|VehicleVisualEffect.cs`|Visual effects (e.g. brake and turn signals)|
 
 ## Vehicle API
-`Vehicle.cs` API list.
+
+The following section describes the API of `Vehicle.cs` script.
 
 ### Input API
 
@@ -65,10 +67,10 @@ Vehicle scripts path is `AWSIM\Assets\AWSIM\Scripts\Vehicles\*`
 
 |input API|type|feature|
 |:--|:--|:--|
-|Vehicle.AccelerationInput|float|Acceleration input (m/s^2). In the plane, output the force that will result in this acceleration.<br> On a slope, it is affected by the slope resistance, so it does not match the input.|
-|Vehicle.SteerAngleInput|float|Vehicle steering input. Tire angle (degree). Negative is left, positive is right turn tire angle.|
-|Vehicle.AutomaticShiftInput|enum|Vehicle gear shift input (AT). PARKING, REVERSE, NEUTRAL, DRIVE.|
-|Vehicle.SignalInput|enum|Vehicle turn signal input. NONE, LEFT, RIGHT, HAZARD.|
+|Vehicle.AccelerationInput|float|Acceleration input (m/s^2). On the plane, output the force that will result in this acceleration.<br> On a slope, it is affected by the slope resistance, so it does not match the input.|
+|Vehicle.SteerAngleInput|float|Vehicle steering input (degree). Negative steers left, positive right|
+|Vehicle.AutomaticShiftInput|enumeration|Vehicle gear shift input (AT).<br>Values: PARKING, REVERSE, NEUTRAL, DRIVE.|
+|Vehicle.SignalInput|enumeration|Vehicle turn signal input. <br>Values: NONE, LEFT, RIGHT, HAZARD.|
 
 ### Output API
 
@@ -77,10 +79,10 @@ Vehicle scripts path is `AWSIM\Assets\AWSIM\Scripts\Vehicles\*`
 |Vehicle.LocalAcceleration|Vector3|Acceleration(m/s^2) in the local coordinate system of the vehicle.|
 |Vehicle.Speed|float|Vehicle speed (m/s).|
 |Vehicle.SteerAngle|float|Vehicle steering angle (degree).|
-|Vehicle.Signal|enum|Vehicle turn signal.|
-|Vehicle.Velocity|vector3|Vehicle velocity (m/s)|
-|Vehicle.LocalVelcoity|vector3|Vehicle local velocity (m/s)|
-|Vehicle.AngularVelocity|vector3|Vehicle angular velocity (rad/s)|
+|Vehicle.Signal|enumeration|Vehicle turn signal.|
+|Vehicle.Velocity|Vector3|Vehicle velocity (m/s)|
+|Vehicle.LocalVelcoity|Vector3|Vehicle local velocity (m/s)|
+|Vehicle.AngularVelocity|Vector3|Vehicle angular velocity (rad/s)|
 
 ## ROS2 Control Topics
 
