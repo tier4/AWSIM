@@ -19,12 +19,12 @@ namespace RGLUnityPlugin
 {
     /// <summary>
     /// RGL counterpart of Unity GameObjects.
-    /// Contains information about RGL entity and has mesh identifier which refers to RGLMesh identifier.
+    /// Contains information about RGL entity and RGLMesh.
     /// </summary>
     public class RGLObject
     {
         public string Identifier;
-        public int MeshIdentifier;
+        public RGLMesh RglMesh;
         public Func<Matrix4x4> GetLocalToWorld;
         public GameObject RepresentedGO;
 
@@ -48,21 +48,60 @@ namespace RGLUnityPlugin
     /// </summary>
     public class RGLMesh
     {
-        public int Identifier;
+        public string Identifier;
         public Mesh Mesh;
 
         public IntPtr rglMesh = IntPtr.Zero;
 
-        public int SubscribersCounter = 0;
-
-        public override int GetHashCode()
+        public RGLMesh(string identifier, Mesh mesh)
         {
-            return Identifier;
+            Identifier = identifier;
+            Mesh = mesh;
+
+            UploadMesh();
         }
 
-        public override bool Equals(object obj)
+        protected RGLMesh() {}
+
+        protected void UploadMesh()
         {
-            return obj is RGLMesh rglMesh && Identifier.Equals(rglMesh.Identifier);
+            Vector3[] vertices = Mesh.vertices;
+            int[] indices = Mesh.triangles;
+            bool verticesOK = vertices != null && vertices.Length > 0;
+            bool indicesOK = indices != null && indices.Length > 0;
+
+            if (!verticesOK || !indicesOK)
+            {
+                throw new NotSupportedException(
+                    $"Could not get mesh data with mesh identifier {Identifier}. The mesh may be not readable or empty.");
+            }
+
+            unsafe
+            {
+                fixed (Vector3* pVertices = vertices)
+                {
+                    fixed (int* pIndices = indices)
+                    {
+                        try
+                        {
+                            RGLNativeAPI.CheckErr(
+                                RGLNativeAPI.rgl_mesh_create(out rglMesh,
+                                    (IntPtr) pVertices, vertices.Length,
+                                    (IntPtr) pIndices, indices.Length / 3));
+                        }
+                        catch (RGLException)
+                        {
+                            if (rglMesh != IntPtr.Zero) RGLNativeAPI.rgl_mesh_destroy(rglMesh);
+                            throw;
+                        }
+                    }
+                }
+            }
+        }
+
+        ~RGLMesh()
+        {
+            if (rglMesh != IntPtr.Zero) RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_mesh_destroy(rglMesh));
         }
     }
 
@@ -73,9 +112,31 @@ namespace RGLUnityPlugin
     {
         public SkinnedMeshRenderer SkinnedMeshRenderer;
 
+        public RGLSkinnedMesh(string identifier, SkinnedMeshRenderer smr)
+        {
+            Identifier = identifier;
+            Mesh = new Mesh();
+            SkinnedMeshRenderer = smr;
+            SkinnedMeshRenderer.BakeMesh(Mesh, true);
+            UploadMesh();
+        }
+
         public void UpdateSkinnedMesh()
         {
             SkinnedMeshRenderer.BakeMesh(Mesh, true);
+            unsafe
+            {
+                // Accessing .vertices perform a CPU copy!
+                // TODO: This could be optimized using Vulkan-CUDA interop and Unity NativePluginInterface. Expect difficulties.
+                // https://docs.unity3d.com/ScriptReference/Mesh.GetNativeVertexBufferPtr.html
+                // https://docs.unity3d.com/Manual/NativePluginInterface.html
+                // https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/simpleVulkan
+                fixed (Vector3* pVertices = Mesh.vertices)
+                {
+                    RGLNativeAPI.CheckErr(
+                        RGLNativeAPI.rgl_mesh_update_vertices(rglMesh, (IntPtr) pVertices, Mesh.vertices.Length));
+                }
+            }
         }
     }
 }
