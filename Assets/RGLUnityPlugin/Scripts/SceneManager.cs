@@ -145,13 +145,15 @@ namespace RGLUnityPlugin
             Profiler.BeginSample("Remove despawned objects");
             foreach (var rglObject in toRemove)
             {
-                RemoveObject(rglObject);
+                if (!(rglObject.RglMesh is RGLSkinnedMesh)) sharedMeshesUsageCount[rglObject.RglMesh.Identifier] -= 1;
+                rglObject.DestroyFromRGL();
+                uploadedRGLObjects.Remove(rglObject.RepresentedGO);
             }
 
             Profiler.EndSample();
 
             // TODO: this can be parallelized and moved to Update()
-            Profiler.BeginSample("Perform skinning");
+            Profiler.BeginSample("Update skinned meshes");
             foreach (var rglObject in toSkin)
             {
                 var skinnedMesh = rglObject.RglMesh as RGLSkinnedMesh;
@@ -161,10 +163,14 @@ namespace RGLUnityPlugin
 
             Profiler.EndSample();
 
-            Profiler.BeginSample("Add spawned objects");
+            Profiler.BeginSample("Mark spawned objects as updated");
             foreach (var rglObject in toAdd)
             {
-                UploadObject(rglObject);
+                // Game Objects must not have duplicate representations.
+                Assert.IsFalse(uploadedRGLObjects.ContainsKey(rglObject.RepresentedGO));
+
+                if (!(rglObject.RglMesh is RGLSkinnedMesh)) sharedMeshesUsageCount[rglObject.RglMesh.Identifier] += 1;
+                uploadedRGLObjects.Add(rglObject.RepresentedGO, rglObject);
             }
 
             Profiler.EndSample();
@@ -175,7 +181,7 @@ namespace RGLUnityPlugin
             Profiler.BeginSample("Update transforms");
             foreach (var gameRGLObject in uploadedRGLObjects)
             {
-                UpdateObjectTransform(gameRGLObject.Value);
+                gameRGLObject.Value.UpdateTransform();
             }
 
             Profiler.EndSample();
@@ -183,6 +189,7 @@ namespace RGLUnityPlugin
             Profiler.BeginSample("Destroy unused meshes");
             foreach (var meshUsageCounter in sharedMeshesUsageCount.Where(x => x.Value < 1).ToList())
             {
+                sharedMeshes[meshUsageCounter.Key].DestroyFromRGL();
                 sharedMeshes.Remove(meshUsageCounter.Key);
                 sharedMeshesUsageCount.Remove(meshUsageCounter.Key);
             }
@@ -192,10 +199,16 @@ namespace RGLUnityPlugin
 
         private void Clear()
         {
-            if (!lastFrameGameObjects.Any() && !uploadedRGLObjects.Any()) return;
-            while (uploadedRGLObjects.Any())
+            if (!lastFrameGameObjects.Any() && !uploadedRGLObjects.Any() && !sharedMeshes.Any()) return;
+
+            foreach (var rglMesh in sharedMeshes)
             {
-                RemoveObject(uploadedRGLObjects.First().Value);
+                rglMesh.Value.DestroyFromRGL();
+            }
+
+            foreach (var rglObject in uploadedRGLObjects)
+            {
+                rglObject.Value.DestroyFromRGL();
             }
 
             uploadedRGLObjects.Clear();
@@ -292,13 +305,10 @@ namespace RGLUnityPlugin
                     // SkinnedMesh cannot be shared
                     string meshId = $"s#{go.GetInstanceID()}";
                     RGLSkinnedMesh rglSkinnedMesh = new RGLSkinnedMesh(meshId, smr);
-                    yield return new RGLObject
-                    {
-                        GetLocalToWorld = () => smr.transform.localToWorldMatrix,
-                        Identifier = $"{go.name}#{go.GetInstanceID()}",
-                        RglMesh = rglSkinnedMesh,
-                        RepresentedGO = go
-                    };
+                    yield return new RGLObject($"{go.name}#{go.GetInstanceID()}",
+                                               rglSkinnedMesh,
+                                               () => smr.transform.localToWorldMatrix,
+                                               go);
                 }
             }
         }
@@ -314,14 +324,12 @@ namespace RGLUnityPlugin
                 sharedMeshesUsageCount.Add(meshId, 0);
             }
 
-            return new RGLObject
-            {
-                GetLocalToWorld = () => collider.transform.localToWorldMatrix *
-                                        ColliderUtilities.GetColliderTransformMatrix(collider),
-                Identifier = $"{collider.gameObject.name}#{collider.gameObject.GetInstanceID()}",
-                RglMesh = sharedMeshes[meshId],
-                RepresentedGO = collider.gameObject
-            };
+            var gameObject = collider.gameObject;
+            return new RGLObject($"{gameObject.name}#{gameObject.GetInstanceID()}",
+                                 sharedMeshes[meshId],
+                                 () => collider.transform.localToWorldMatrix *
+                                       ColliderUtilities.GetColliderTransformMatrix(collider),
+                                 gameObject);
         }
 
         private static RGLObject MeshFilterToRGLObject(MeshFilter meshFilter)
@@ -336,13 +344,10 @@ namespace RGLUnityPlugin
             }
 
             var gameObject = meshFilter.gameObject;
-            return new RGLObject
-            {
-                GetLocalToWorld = () => gameObject.transform.localToWorldMatrix,
-                Identifier = $"{gameObject.name}#{gameObject.GetInstanceID()}",
-                RglMesh = sharedMeshes[meshId],
-                RepresentedGO = gameObject
-            };
+            return new RGLObject($"{gameObject.name}#{gameObject.GetInstanceID()}",
+                                 sharedMeshes[meshId],
+                                 () => gameObject.transform.localToWorldMatrix,
+                                 gameObject);
         }
 
         /// <summary>
@@ -399,64 +404,6 @@ namespace RGLUnityPlugin
 
             foreach (var smr in smrs) yield return smr;
             foreach (var mr in mrs) yield return mr;
-        }
-
-        private void UploadObject(RGLObject rglObject)
-        {
-            // Game Objects must not have duplicate representations.
-            Assert.IsFalse(uploadedRGLObjects.ContainsKey(rglObject.RepresentedGO));
-
-            IntPtr rglMesh = rglObject.RglMesh.rglMesh;
-            // Mesh should be uploaded.
-            Assert.IsFalse(rglMesh == IntPtr.Zero);
-
-            unsafe
-            {
-                try
-                {
-                    RGLNativeAPI.CheckErr(
-                        RGLNativeAPI.rgl_entity_create(out rglObject.rglEntity, IntPtr.Zero, rglMesh));
-                }
-                catch (RGLException)
-                {
-                    if (rglObject.rglEntity != IntPtr.Zero) RGLNativeAPI.rgl_entity_destroy(rglObject.rglEntity);
-                    throw;
-                }
-            }
-
-            if (!(rglObject.RglMesh is RGLSkinnedMesh)) sharedMeshesUsageCount[rglObject.RglMesh.Identifier] += 1;
-            uploadedRGLObjects.Add(rglObject.RepresentedGO, rglObject);
-        }
-
-        private void RemoveObject(RGLObject rglObject)
-        {
-            if (rglObject.rglEntity != IntPtr.Zero)
-            {
-                RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_entity_destroy(rglObject.rglEntity));
-                rglObject.rglEntity = IntPtr.Zero;
-            }
-
-            if (!(rglObject.RglMesh is RGLSkinnedMesh)) sharedMeshesUsageCount[rglObject.RglMesh.Identifier] -= 1;
-            uploadedRGLObjects.Remove(rglObject.RepresentedGO);
-        }
-
-        private static void UpdateObjectTransform(RGLObject rglObject)
-        {
-            Matrix4x4 m = rglObject.GetLocalToWorld();
-            float[] matrix3x4 =
-            {
-                m.m00, m.m01, m.m02, m.m03,
-                m.m10, m.m11, m.m12, m.m13,
-                m.m20, m.m21, m.m22, m.m23,
-            };
-            unsafe
-            {
-                fixed (float* pMatrix3x4 = matrix3x4)
-                {
-                    RGLNativeAPI.CheckErr(
-                        RGLNativeAPI.rgl_entity_set_pose(rglObject.rglEntity, (IntPtr) pMatrix3x4));
-                }
-            }
         }
     }
 }

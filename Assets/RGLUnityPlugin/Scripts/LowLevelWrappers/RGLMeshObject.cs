@@ -14,6 +14,7 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace RGLUnityPlugin
 {
@@ -28,7 +29,50 @@ namespace RGLUnityPlugin
         public Func<Matrix4x4> GetLocalToWorld;
         public GameObject RepresentedGO;
 
-        public IntPtr rglEntity;
+        public IntPtr rglEntityPtr;
+
+        public RGLObject(string identifier, RGLMesh rglMesh, Func<Matrix4x4> getLocalToWorld, GameObject representedGO)
+        {
+            Identifier = identifier;
+            RglMesh = rglMesh;
+            GetLocalToWorld = getLocalToWorld;
+            RepresentedGO = representedGO;
+
+            UploadToRGL();
+        }
+
+        ~RGLObject()
+        {
+            DestroyFromRGL();
+        }
+
+        public void DestroyFromRGL()
+        {
+            if (rglEntityPtr != IntPtr.Zero)
+            {
+                RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_entity_destroy(rglEntityPtr));
+                rglEntityPtr = IntPtr.Zero;
+            }
+        }
+
+        public void UpdateTransform()
+        {
+            Matrix4x4 m = GetLocalToWorld();
+            float[] matrix3x4 =
+            {
+                m.m00, m.m01, m.m02, m.m03,
+                m.m10, m.m11, m.m12, m.m13,
+                m.m20, m.m21, m.m22, m.m23,
+            };
+            unsafe
+            {
+                fixed (float* pMatrix3x4 = matrix3x4)
+                {
+                    RGLNativeAPI.CheckErr(
+                        RGLNativeAPI.rgl_entity_set_pose(rglEntityPtr, (IntPtr) pMatrix3x4));
+                }
+            }
+        }
 
         public override int GetHashCode()
         {
@@ -38,6 +82,26 @@ namespace RGLUnityPlugin
         public override bool Equals(object obj)
         {
             return obj is RGLObject rglObject && Identifier.Equals(rglObject.Identifier);
+        }
+
+        protected void UploadToRGL()
+        {
+            // Mesh should be uploaded.
+            Assert.IsFalse(RglMesh.rglMeshPtr == IntPtr.Zero);
+
+            unsafe
+            {
+                try
+                {
+                    RGLNativeAPI.CheckErr(
+                        RGLNativeAPI.rgl_entity_create(out rglEntityPtr, IntPtr.Zero, RglMesh.rglMeshPtr));
+                }
+                catch (RGLException)
+                {
+                    if (rglEntityPtr != IntPtr.Zero) RGLNativeAPI.rgl_entity_destroy(rglEntityPtr);
+                    throw;
+                }
+            }
         }
     }
 
@@ -51,19 +115,33 @@ namespace RGLUnityPlugin
         public string Identifier;
         public Mesh Mesh;
 
-        public IntPtr rglMesh = IntPtr.Zero;
+        public IntPtr rglMeshPtr = IntPtr.Zero;
 
         public RGLMesh(string identifier, Mesh mesh)
         {
             Identifier = identifier;
             Mesh = mesh;
 
-            UploadMesh();
+            UploadToRGL();
+        }
+
+        ~RGLMesh()
+        {
+            DestroyFromRGL();
+        }
+
+        public void DestroyFromRGL()
+        {
+            if (rglMeshPtr != IntPtr.Zero)
+            {
+                RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_mesh_destroy(rglMeshPtr));
+                rglMeshPtr = IntPtr.Zero;
+            }
         }
 
         protected RGLMesh() {}
 
-        protected void UploadMesh()
+        protected void UploadToRGL()
         {
             Vector3[] vertices = Mesh.vertices;
             int[] indices = Mesh.triangles;
@@ -85,23 +163,18 @@ namespace RGLUnityPlugin
                         try
                         {
                             RGLNativeAPI.CheckErr(
-                                RGLNativeAPI.rgl_mesh_create(out rglMesh,
+                                RGLNativeAPI.rgl_mesh_create(out rglMeshPtr,
                                     (IntPtr) pVertices, vertices.Length,
                                     (IntPtr) pIndices, indices.Length / 3));
                         }
                         catch (RGLException)
                         {
-                            if (rglMesh != IntPtr.Zero) RGLNativeAPI.rgl_mesh_destroy(rglMesh);
+                            if (rglMeshPtr != IntPtr.Zero) RGLNativeAPI.rgl_mesh_destroy(rglMeshPtr);
                             throw;
                         }
                     }
                 }
             }
-        }
-
-        ~RGLMesh()
-        {
-            if (rglMesh != IntPtr.Zero) RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_mesh_destroy(rglMesh));
         }
     }
 
@@ -118,7 +191,7 @@ namespace RGLUnityPlugin
             Mesh = new Mesh();
             SkinnedMeshRenderer = smr;
             SkinnedMeshRenderer.BakeMesh(Mesh, true);
-            UploadMesh();
+            UploadToRGL();
         }
 
         public void UpdateSkinnedMesh()
@@ -134,7 +207,7 @@ namespace RGLUnityPlugin
                 fixed (Vector3* pVertices = Mesh.vertices)
                 {
                     RGLNativeAPI.CheckErr(
-                        RGLNativeAPI.rgl_mesh_update_vertices(rglMesh, (IntPtr) pVertices, Mesh.vertices.Length));
+                        RGLNativeAPI.rgl_mesh_update_vertices(rglMeshPtr, (IntPtr) pVertices, Mesh.vertices.Length));
                 }
             }
         }
