@@ -24,7 +24,7 @@ https://tier4.github.io/AWSIM/
 ## How to contribution
 
 Everyone is welcome !
-1. Create a derived branch (`feature/***`) from the `main` branch.
+1. Create a derived branch `feature/***` from the `main` branch.
 2. Create a pull request for the `main` branch.
 
 see also [AWSIM document - Git branch](https://tier4.github.io/AWSIM/ProjectGuide/GitBranch/)
@@ -35,7 +35,7 @@ However, if the logic of the code is good, it does not matter if coding conventi
 ## License
 
 AWSIM License
-Applies to tier4/AWSIM repositories and all content contained in the [Releases](https://github.com/tier4/AWSIM/releases).
+Applies to `tier4/AWSIM` repositories and all content contained in the [Releases](https://github.com/tier4/AWSIM/releases).
 
 - code : Apache 2.0
 - assets : CC BY-NC
