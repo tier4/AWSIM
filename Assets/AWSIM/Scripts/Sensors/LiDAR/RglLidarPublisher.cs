@@ -47,9 +47,11 @@ namespace AWSIM
         private Publisher<sensor_msgs.msg.PointCloud2> pcl48Publisher;
         private sensor_msgs.msg.PointCloud2 pcl24SensorMsg;
         private sensor_msgs.msg.PointCloud2 pcl48SensorMsg;
-        private RGLNodeHandle transformUnity2RosHandle;
-        private RGLOutputHandle pcl24RglHandle;
-        private RGLOutputHandle pcl48RglHandle;
+
+        private RGLGraph rglGraphUnity2Ros;
+        private RGLGraph rglGraphPcl24;
+        private RGLGraph rglGraphPcl48;
+
         private byte[] pcl24Data;
         private byte[] pcl48Data;
         private LidarSensor lidarSensor;
@@ -64,24 +66,30 @@ namespace AWSIM
             lidarSensor = GetComponent<LidarSensor>();
             lidarSensor.onNewData += OnNewLidarData;
 
-            transformUnity2RosHandle = lidarSensor.AddPointsTransform(lidarSensor.GetPointsLidarFrameNodeHandle(), ROS2.Transformations.Unity2RosMatrix4x4());
+            rglGraphUnity2Ros = new RGLGraph()
+                .AddNodePointsTransform("UNITY_TO_ROS", ROS2.Transformations.Unity2RosMatrix4x4());
+            lidarSensor.ConnectToLidarFrame(rglGraphUnity2Ros);
 
             if (publishPCL24)
             {
                 pcl24Data = new byte[0];
                 pcl24Publisher = SimulatorROS2Node.CreatePublisher<sensor_msgs.msg.PointCloud2>(pcl24Topic, qosSettings.GetQoSProfile());
-                pcl24RglHandle = lidarSensor.AddFormat(transformUnity2RosHandle, FormatPCL24.GetRGLFields());
                 pcl24SensorMsg = FormatPCL24.GetSensorMsg();
                 pcl24SensorMsg.SetHeaderFrame(frameID);
+                rglGraphPcl24 = new RGLGraph()
+                    .AddNodePointsFormat("PCL24", FormatPCL24.GetRGLFields());
+                RGLGraph.ConnectGraphs(rglGraphUnity2Ros, rglGraphPcl24);
             }
 
             if (publishPCL48)
             {
                 pcl48Data = new byte[0];
                 pcl48Publisher = SimulatorROS2Node.CreatePublisher<sensor_msgs.msg.PointCloud2>(pcl48Topic, qosSettings.GetQoSProfile());
-                pcl48RglHandle = lidarSensor.AddFormat(transformUnity2RosHandle, FormatPCL48.GetRGLFields());
                 pcl48SensorMsg = FormatPCL48.GetSensorMsg();
                 pcl48SensorMsg.SetHeaderFrame(frameID);
+                rglGraphPcl48 = new RGLGraph()
+                    .AddNodePointsFormat("PCL48", FormatPCL48.GetRGLFields());
+                RGLGraph.ConnectGraphs(rglGraphUnity2Ros, rglGraphPcl48);
             }
         }
 
@@ -90,13 +98,13 @@ namespace AWSIM
             Profiler.BeginSample("Publish Pointclouds");
             if (publishPCL24)
             {
-                int hitCount = lidarSensor.GetDataRaw(pcl24RglHandle, ref pcl24Data, 24);
+                int hitCount = rglGraphPcl24.GetResultDataRaw(ref pcl24Data, 24);
                 PublishFormat(pcl24Publisher, pcl24SensorMsg, pcl24Data, hitCount);
             }
 
             if (publishPCL48)
             {
-                int hitCount = lidarSensor.GetDataRaw(pcl48RglHandle, ref pcl48Data, 48);
+                int hitCount = rglGraphPcl48.GetResultDataRaw(ref pcl48Data, 48);
                 PublishFormat(pcl48Publisher, pcl48SensorMsg, pcl48Data, hitCount);
             }
             Profiler.EndSample();
@@ -118,7 +126,5 @@ namespace AWSIM
             if(pcl24Publisher != null) pcl24Publisher.Dispose();
             if(pcl48Publisher != null) pcl48Publisher.Dispose();
         }
-        
     }
 }
-

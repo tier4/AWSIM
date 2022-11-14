@@ -13,136 +13,321 @@
 // limitations under the License.
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
-using PclSharp;
 using Unity.Collections;
 using UnityEngine;
 
 namespace RGLUnityPlugin
 {
     /// <summary>
-    /// This class provides automatic creation & destruction of the native Lidar object.
+    /// Wrapper class for RGL graph concept.
     /// </summary>
     public class RGLGraph
     {
-        private RGLNodeHandle fromMat3x4fRayNode = new RGLNodeHandle(RGLNodeType.RAYS_FROM_MAT3X4F);
-        private RGLNodeHandle setRingIdsRayNode = new RGLNodeHandle(RGLNodeType.RAYS_SET_RING_IDS);
-        private RGLNodeHandle transformRaysNode = new RGLNodeHandle(RGLNodeType.RAYS_TRANSFORM);
-        private RGLNodeHandle raytraceNode = new RGLNodeHandle(RGLNodeType.RAYTRACE);
-        private RGLNodeHandle compactNode = new RGLNodeHandle(RGLNodeType.POINTS_COMPACT);
-        private RGLNodeHandle transformPointsToLidarFrameNode = new RGLNodeHandle(RGLNodeType.POINTS_TRANSFORM);
+        private List<RGLNodeHandle> nodes = new List<RGLNodeHandle>();
+        private List<RGLGraph> parentGraphs = new List<RGLGraph>();
+        private List<RGLGraph> childGraphs = new List<RGLGraph>();
+        private RGLField outputField = RGLField.UNKNOWN;
 
-        public RGLGraph()
+        //// MULTIGRAPH OPERATIONS ////
+        public static void ConnectGraphs(RGLGraph parentGraph, RGLGraph childGraph)
         {
-            SetRays(new Matrix4x4[1] {Matrix4x4.identity}); // Create FromMat3x4fRaysNode
-            SetRingIds(new int[1] {0}); // Create SetRingIdsRaysNode
-            SetLidarPosition(Matrix4x4.identity); // Create transformRaysNode
-            SetLidarRange(Mathf.Infinity); // Create raytraceNode
-            RGLNativeAPI.NodePointsCompact(ref compactNode.node);
-            RGLNativeAPI.NodePointsTransform(ref transformPointsToLidarFrameNode.node, Matrix4x4.identity);
-
-            //                                                 -> [many children, see AddFormat]
-            //                                                /
-            // UseRays -> TransformRays -> Raytrace -> Compact -> TransformPointsToLidarFrame -> [many children]
-            RGLNativeAPI.GraphNodeAddChild(fromMat3x4fRayNode.node, setRingIdsRayNode.node);
-            RGLNativeAPI.GraphNodeAddChild(setRingIdsRayNode.node, transformRaysNode.node);
-            RGLNativeAPI.GraphNodeAddChild(transformRaysNode.node, raytraceNode.node);
-            RGLNativeAPI.GraphNodeAddChild(raytraceNode.node, compactNode.node);
-            RGLNativeAPI.GraphNodeAddChild(compactNode.node, transformPointsToLidarFrameNode.node);
-        }
-
-        public RGLNodeHandle GetPointsWorldFrameNodeHandle()
-        {
-            return compactNode;
-        }
-
-        public RGLNodeHandle GetPointsLidarFrameNodeHandle()
-        {
-            return transformPointsToLidarFrameNode;
-        }
-
-        public void SetRays(Matrix4x4[] rays)
-        {
-            RGLNativeAPI.NodeRaysFromMat3x4f(ref fromMat3x4fRayNode.node,  rays);
-        }
-
-        public void SetRingIds(int[] ringIds)
-        {
-            RGLNativeAPI.NodeRaysSetRingIds(ref setRingIdsRayNode.node, ringIds);
-        }
-
-        public void SetLidarPosition(Matrix4x4 localToWorld)
-        {
-            RGLNativeAPI.NodeRaysTransform(ref transformRaysNode.node, localToWorld);
-            RGLNativeAPI.NodePointsTransform(ref transformPointsToLidarFrameNode.node, localToWorld.inverse);
-        }
-
-        public void SetLidarRange(float range)
-        {
-            RGLNativeAPI.NodeRaytrace(ref raytraceNode.node, range);
-        }
-
-        public RGLNodeHandle AddPointsTransform(RGLNodeHandle parentNode, Matrix4x4 transform)
-        {
-            RGLNodeHandle handle = new RGLNodeHandle(RGLNodeType.POINTS_TRANSFORM);
-            RGLNativeAPI.NodePointsTransform(ref handle.node, transform);
-            RGLNativeAPI.GraphNodeAddChild(parentNode.node, handle.node);
-            return handle;
-        }
-
-        public void UpdatePointsTransform(RGLNodeHandle nodeHandle, Matrix4x4 transform)
-        {
-            if (nodeHandle.GetNodeType() != RGLNodeType.POINTS_TRANSFORM)
+            if (parentGraph.nodes.Count == 0 || childGraph.nodes.Count == 0)
             {
-                throw new RGLException($"Node type mismatch, requested update for {RGLNodeType.POINTS_TRANSFORM}, but got {nodeHandle.GetNodeType()}");
+                throw new RGLException("Attempted to connect empty graph!");
             }
-            RGLNativeAPI.NodePointsTransform(ref nodeHandle.node, transform);
+            RGLNativeAPI.GraphNodeAddChild(parentGraph.nodes.Last().Node, childGraph.nodes.First().Node);
+            parentGraph.childGraphs.Add(childGraph);
+            childGraph.parentGraphs.Add(parentGraph);
         }
 
-        public RGLOutputHandle AddFormat(RGLNodeHandle parentNode, RGLField[] fields)
+        public static void DisconnectGraphs(RGLGraph parentGraph, RGLGraph childGraph)
         {
-            RGLOutputHandle leaf = new RGLOutputHandle();
+            if (parentGraph.nodes.Count == 0 || childGraph.nodes.Count == 0)
+            {
+                throw new RGLException("Attempted to disconnect empty graph!");
+            }
+
+            if (!parentGraph.childGraphs.Contains(childGraph) || !childGraph.parentGraphs.Contains(parentGraph))
+            {
+                throw new RGLException("Attempted to disconnect graphs that are not connected!");
+            }
+
+            RGLNativeAPI.GraphNodeRemoveChild(parentGraph.nodes.Last().Node, childGraph.nodes.First().Node);
+            parentGraph.childGraphs.Remove(childGraph);
+            childGraph.parentGraphs.Remove(parentGraph);
+        }
+
+        //// ADD NODES ////
+        public RGLGraph AddNodeRaysFromMat3x4f(string identifier, Matrix4x4[] rays)
+        {
+            ValidateNewNode(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodeRaysFromMat3x4f(ref handle.Node, rays);
+            handle.Identifier = identifier;
+            handle.Type = RGLNodeType.RAYS_FROM_MAT3X4F;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLGraph AddNodeRaysSetRingIds(string identifier, int[] ringIds)
+        {
+            ValidateNewNode(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodeRaysSetRingIds(ref handle.Node, ringIds);
+            handle.Identifier = identifier;
+            handle.Type = RGLNodeType.RAYS_SET_RING_IDS;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLGraph AddNodeRaysTransform(string identifier, Matrix4x4 transform)
+        {
+            ValidateNewNode(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodeRaysTransform(ref handle.Node, transform);
+            handle.Identifier = identifier;
+            handle.Type = RGLNodeType.RAYS_TRANSFORM;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLGraph AddNodeRaytrace(string identifier, float range)
+        {
+            ValidateNewNode(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodeRaytrace(ref handle.Node, range);
+            handle.Identifier = identifier;
+            handle.Type = RGLNodeType.RAYTRACE;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLGraph AddNodePointsTransform(string identifier, Matrix4x4 transform)
+        {
+            ValidateNewNode(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsTransform(ref handle.Node, transform);
+            handle.Identifier = identifier;
+            handle.Type = RGLNodeType.POINTS_TRANSFORM;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLGraph AddNodePointsCompact(string identifier)
+        {
+            ValidateNewNode(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsCompact(ref handle.Node);
+            handle.Identifier = identifier;
+            handle.Type = RGLNodeType.POINTS_COMPACT;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLGraph AddNodePointsDownsample(string identifier, Vector3 leafDims)
+        {
+            ValidateNewNode(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsDownSample(ref handle.Node, leafDims);
+            handle.Identifier = identifier;
+            handle.Type = RGLNodeType.POINTS_DOWNSAMPLE;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLGraph AddNodePointsWritePCDFile(string identifier, string path)
+        {
+            ValidateNewNode(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsWritePCDFile(ref handle.Node, path);
+            handle.Identifier = identifier;
+            handle.Type = RGLNodeType.POINTS_WRITE_PCD_FILE;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLGraph AddNodePointsFormat(string identifier, RGLField[] fields)
+        {
+            ValidateNewNode(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
             if (fields.Length == 1)
             {
-                RGLNativeAPI.NodePointsYield(ref leaf.node, fields);
-                leaf.field = fields[0];
+                RGLNativeAPI.NodePointsYield(ref handle.Node, fields);
+                handle.Type = RGLNodeType.POINTS_YIELD;
+                outputField = fields[0];
             }
             else
             {
-                RGLNativeAPI.NodePointsFormat(ref leaf.node, fields);
-                leaf.field = RGLField.DYNAMIC_FORMAT;
+                RGLNativeAPI.NodePointsFormat(ref handle.Node, fields);
+                handle.Type = RGLNodeType.POINTS_FORMAT;
+                outputField = RGLField.DYNAMIC_FORMAT;
             }
-            RGLNativeAPI.GraphNodeAddChild(parentNode.node, leaf.node);
-            return leaf;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
+        //// UPDATE NODES ////
+        public RGLGraph UpdateNodeRaysFromMat3x4f(string identifier, Matrix4x4[] rays)
+        {
+            ValidateExistingNode(identifier, RGLNodeType.RAYS_FROM_MAT3X4F);
+            RGLNativeAPI.NodeRaysFromMat3x4f(ref nodes.Single(n => n.Identifier == identifier).Node, rays);
+            return this;
+        }
+
+        public RGLGraph UpdateNodeRaysSetRingIds(string identifier, int[] ringIds)
+        {
+            ValidateExistingNode(identifier, RGLNodeType.RAYS_SET_RING_IDS);
+            RGLNativeAPI.NodeRaysSetRingIds(ref nodes.Single(n => n.Identifier == identifier).Node, ringIds);
+            return this;
+        }
+
+        public RGLGraph UpdateNodeRaysTransform(string identifier, Matrix4x4 transform)
+        {
+            ValidateExistingNode(identifier, RGLNodeType.RAYS_TRANSFORM);
+            RGLNativeAPI.NodeRaysTransform(ref nodes.Single(n => n.Identifier == identifier).Node, transform);
+            return this;
+        }
+
+        public RGLGraph UpdateNodeRaytrace(string identifier, float range)
+        {
+            ValidateExistingNode(identifier, RGLNodeType.RAYTRACE);
+            RGLNativeAPI.NodeRaytrace(ref nodes.Single(n => n.Identifier == identifier).Node, range);
+            return this;
+        }
+
+        public RGLGraph UpdateNodePointsTransform(string identifier, Matrix4x4 transform)
+        {
+            ValidateExistingNode(identifier, RGLNodeType.POINTS_TRANSFORM);
+            RGLNativeAPI.NodePointsTransform(ref nodes.Single(n => n.Identifier == identifier).Node, transform);
+            return this;
+        }
+        
+        public RGLGraph UpdateNodePointsDownsample(string identifier, Vector3 leafDims)
+        {
+            ValidateExistingNode(identifier, RGLNodeType.POINTS_DOWNSAMPLE);
+            RGLNativeAPI.NodePointsDownSample(ref nodes.Single(n => n.Identifier == identifier).Node, leafDims);
+            return this;
+        }
+
+        public RGLGraph UpdateNodePointsWritePCDFile(string identifier, string path)
+        {
+            ValidateExistingNode(identifier, RGLNodeType.POINTS_WRITE_PCD_FILE);
+            RGLNativeAPI.NodePointsWritePCDFile(ref nodes.Single(n => n.Identifier == identifier).Node, path);
+            return this;
+        }
+
+        //// GRAPH OPERATIONS ////
+        public int GetResultData<T>(ref T[] data) where T : unmanaged
+        {
+            ValidateOutputNode();
+            unsafe
+            {
+                return RGLNativeAPI.GraphGetResult<T>(nodes.Last().Node, outputField, ref data, sizeof(T));
+            }
+        }
+
+        public int GetResultDataRaw(ref byte[] data, int expectedPointSize)
+        {
+            ValidateOutputNode();
+            return RGLNativeAPI.GraphGetResult<byte>(nodes.Last().Node, outputField, ref data, expectedPointSize);
         }
 
         public void Run()
         {
-            RGLNativeAPI.GraphRun(raytraceNode.node);
+            if (nodes.Count == 0)
+            {
+                throw new RGLException("Attempted to run empty graph!");
+            }
+            RGLNativeAPI.GraphRun(nodes.First().Node);
         }
 
-        public int GetData<T>(RGLOutputHandle handle, ref T[] data) where T : unmanaged
+        public void Destroy()
         {
-            unsafe
+            DisconnectAllChildGraphs();
+            DisconnectAllParentGraphs();
+            if (nodes.Count > 0)
             {
-                return RGLNativeAPI.GraphGetResult<T>(handle.node, handle.field, ref data, sizeof(T));
+                RGLNativeAPI.GraphDestroy(nodes.First().Node);
+                nodes.Clear();
             }
         }
 
-        public int GetDataRaw(RGLOutputHandle handle, ref byte[] data, int expectedPointSize)
+        //// PRIVATE HELPERS ////
+        private void ValidateNewNode(string identifier)
         {
-            return RGLNativeAPI.GraphGetResult<byte>(handle.node, handle.field, ref data, expectedPointSize);
+            var nodeFilter = nodes.Where(n => n.Identifier == identifier);
+            if (nodeFilter.Count() != 0)
+            {
+                throw new RGLException($"Attempted to add node '{identifier}' twice!");
+            }
         }
 
-        public void SetGaussianNoiseParamsCtx(LidarNoiseParams param)
+        private void ValidateExistingNode(string identifier, RGLNodeType desiredType)
         {
-            // TODO
-            Debug.LogError("Gaussian Noise not yet supported");
+            var nodeFilter = nodes.Where(n => n.Identifier == identifier);
+            if (nodeFilter.Count() != 1)
+            {
+                throw new RGLException($"Attempted to access node '{identifier}' but it was not found!");
+            }
+            if (nodeFilter.First().Type != desiredType)
+            {
+                throw new RGLException($"Attempted to access node '{identifier}' but node type mismatch!");
+            }
+        }
+
+        private void ValidateOutputNode()
+        {
+            if (outputField == RGLField.UNKNOWN)
+            {
+                throw new RGLException("Attempted to get result data but format node was not found!");
+            }
+            RGLNodeType lastNodeType = nodes.Last().Type;
+            if (!(lastNodeType == RGLNodeType.POINTS_FORMAT || lastNodeType == RGLNodeType.POINTS_YIELD))
+            {
+                throw new RGLException("Attempted to get result data but format node is not the last node in the graph!");
+            }
+        }
+
+        private void AddNode(RGLNodeHandle nodeHandle)
+        {
+            if (nodes.Count == 0)
+            {
+                nodes.Add(nodeHandle);
+                return;
+            }
+
+            if (childGraphs.Count > 0)
+            {
+                Debug.LogWarning("Added node to already connected graph. Removing child graphs...");
+                DisconnectAllChildGraphs();
+            }
+
+            RGLNativeAPI.GraphNodeAddChild(nodes.Last().Node, nodeHandle.Node);
+            nodes.Add(nodeHandle);
+        }
+
+        private void DisconnectAllChildGraphs()
+        {
+            foreach (RGLGraph graph in childGraphs.ToList())
+            {
+                DisconnectGraphs(this, graph);
+            }
+        }
+
+        private void DisconnectAllParentGraphs()
+        {
+            foreach (RGLGraph graph in parentGraphs.ToList())
+            {
+                DisconnectGraphs(graph, this);
+            }
         }
 
         ~RGLGraph()
         {
-            RGLNativeAPI.GraphDestroy(raytraceNode.node);
+            Destroy();
         }
     }
 }

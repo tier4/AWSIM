@@ -61,12 +61,38 @@ namespace RGLUnityPlugin
         /// </summary>
         public LidarConfiguration configuration = LidarConfigurationLibrary.ByModel[LidarModel.RangeMeter];
 
-        private RGLGraph rglGraph;
+        private RGLGraph rglGraphBase;
+        private RGLGraph rglGraphToLidarFrame;
+        private RGLGraph rglGraphVisualizationOutput;
         private SceneManager sceneManager;
-        private RGLOutputHandle visualizationOutputHandle;
-        private PointCloudVisualization pointCloudVisualization;
+
+        private string lidarRaysNodeId = "LIDAR_RAYS";
+        private string lidarRingsNodeId = "LIDAR_RINGS";
+        private string lidarPoseNodeId = "LIDAR_POSE";
+        private string lidarRangeNodeId = "LIDAR_RAYTRACE";
+        private string toLidarFrameNodeId = "TO_LIDAR_FRAME";
+
         private LidarModel? validatedPreset;
         private float timer;
+
+        public void Awake()
+        {
+            rglGraphBase = new RGLGraph()
+                .AddNodeRaysFromMat3x4f(lidarRaysNodeId, new Matrix4x4[1] {Matrix4x4.identity})
+                .AddNodeRaysSetRingIds(lidarRingsNodeId, new int[1] {0})
+                .AddNodeRaysTransform(lidarPoseNodeId, Matrix4x4.identity)
+                .AddNodeRaytrace(lidarRangeNodeId, Mathf.Infinity)
+                .AddNodePointsCompact("POINTS_COMPACT");
+
+            rglGraphToLidarFrame = new RGLGraph()
+                .AddNodePointsTransform(toLidarFrameNodeId, Matrix4x4.identity);
+
+            rglGraphVisualizationOutput = new RGLGraph()
+                .AddNodePointsFormat("OUT", new [] {RGLField.XYZ_F32});
+
+            RGLGraph.ConnectGraphs(rglGraphBase, rglGraphToLidarFrame);
+            RGLGraph.ConnectGraphs(rglGraphBase, rglGraphVisualizationOutput);
+        }
 
         public void Start()
         {
@@ -78,13 +104,6 @@ namespace RGLUnityPlugin
                 Destroy(this);
             }
             OnValidate();
-
-            rglGraph = new RGLGraph();
-            rglGraph.SetRays(configuration.GetRayPoses());
-            rglGraph.SetRingIds(configuration.laserArray.GetLaserRingIds());
-            rglGraph.SetLidarRange(configuration.maxRange);
-            visualizationOutputHandle = rglGraph.AddFormat(rglGraph.GetPointsWorldFrameNodeHandle(),
-                                                           new [] {RGLField.XYZ_F32});
         }
 
         public void OnValidate()
@@ -97,7 +116,20 @@ namespace RGLUnityPlugin
             {
                 configuration = LidarConfigurationLibrary.ByModel[modelPreset];
             }
+            ApplyConfiguration(configuration);
             validatedPreset = modelPreset;
+        }
+
+        private void ApplyConfiguration(LidarConfiguration newConfig)
+        {
+            if (rglGraphBase == null)
+            {
+                return;
+            }
+
+            rglGraphBase.UpdateNodeRaysFromMat3x4f(lidarRaysNodeId, newConfig.GetRayPoses())
+                        .UpdateNodeRaysSetRingIds(lidarRingsNodeId, newConfig.laserArray.GetLaserRingIds())
+                        .UpdateNodeRaytrace(lidarRangeNodeId, newConfig.maxRange);
         }
 
         public void FixedUpdate()
@@ -121,51 +153,32 @@ namespace RGLUnityPlugin
             }
         }
 
-        public RGLNodeHandle GetPointsWorldFrameNodeHandle()
+        public void ConnectToWorldFrame(RGLGraph graph)
         {
-            return rglGraph.GetPointsWorldFrameNodeHandle();
+            RGLGraph.ConnectGraphs(rglGraphBase, graph);
         }
 
-        public RGLNodeHandle GetPointsLidarFrameNodeHandle()
+        public void ConnectToLidarFrame(RGLGraph graph)
         {
-            return rglGraph.GetPointsLidarFrameNodeHandle();
-        }
-
-        public RGLNodeHandle AddPointsTransform(RGLNodeHandle parentNode, Matrix4x4 transform)
-        {
-            return rglGraph.AddPointsTransform(parentNode, transform);
-        }
-
-        public void UpdatePointsTransform(RGLNodeHandle nodeHandle, Matrix4x4 transform)
-        {
-            rglGraph.UpdatePointsTransform(nodeHandle, transform);
-        }
-
-        public RGLOutputHandle AddFormat(RGLNodeHandle parentNode, RGLField[] fields)
-        {
-            return rglGraph.AddFormat(parentNode, fields);
-        }
-
-        public int GetData<T>(RGLOutputHandle handle, ref T[] data) where T: unmanaged
-        {
-            return rglGraph.GetData<T>(handle, ref data);
-        }
-
-        public int GetDataRaw(RGLOutputHandle handle, ref byte[] data, int expectedPointSize)
-        {
-            return rglGraph.GetDataRaw(handle, ref data, expectedPointSize);
+            RGLGraph.ConnectGraphs(rglGraphToLidarFrame, graph);
         }
 
         public void Capture()
         {
             sceneManager.DoUpdate();
-            rglGraph.SetLidarPosition(gameObject.transform.localToWorldMatrix);
-            rglGraph.Run();
 
+            // Set lidar pose
+            Matrix4x4 lidarPose = gameObject.transform.localToWorldMatrix;
+            rglGraphBase.UpdateNodeRaysTransform(lidarPoseNodeId, lidarPose);
+            rglGraphToLidarFrame.UpdateNodePointsTransform(toLidarFrameNodeId, lidarPose.inverse);
+
+            rglGraphBase.Run();
+
+            // Could be moved to PointCloudVisualization
             if (GetComponent<PointCloudVisualization>().isActiveAndEnabled == true)
             {
                 Vector3[] onlyHits = new Vector3[0];
-                rglGraph.GetData<Vector3>(visualizationOutputHandle, ref onlyHits);
+                rglGraphVisualizationOutput.GetResultData<Vector3>(ref onlyHits);
                 GetComponent<PointCloudVisualization>().SetPoints(onlyHits);
             }
         }

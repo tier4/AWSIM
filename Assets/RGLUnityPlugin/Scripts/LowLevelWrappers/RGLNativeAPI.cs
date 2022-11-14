@@ -23,7 +23,7 @@ namespace RGLUnityPlugin
         // Public RGL API
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_get_version_info(out int major, out int minor, out int patch);
-        
+
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_configure_logging(RGLLogLevel log_level, [MarshalAs(UnmanagedType.LPStr)] string log_file_path, bool use_stdout);
 
@@ -47,10 +47,10 @@ namespace RGLUnityPlugin
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_entity_set_pose(IntPtr entity, IntPtr local_to_world_tf);
-        
+
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_rays_from_mat3x4f(ref IntPtr node, IntPtr rays, int ray_count);
-        
+
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_rays_set_ring_ids(ref IntPtr node, IntPtr ring_ids, int ring_ids_count);
 
@@ -76,7 +76,7 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_points_downsample(ref IntPtr node, float leaf_size_x, float leaf_size_y, float leaf_size_z);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_points_write_pcd_file(ref IntPtr node, IntPtr file_path);
+        public static extern int rgl_node_points_write_pcd_file(ref IntPtr node, [MarshalAs(UnmanagedType.LPStr)] string file_path);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_run(IntPtr node);
@@ -86,7 +86,7 @@ namespace RGLUnityPlugin
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_get_result_size(IntPtr node, RGLField field, out Int64 outCount, out Int64 outSizeOf);
-        
+
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_get_result_data(IntPtr node, RGLField field, IntPtr data);
 
@@ -98,9 +98,8 @@ namespace RGLUnityPlugin
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_node_remove_child(IntPtr parent, IntPtr child);
-        
-        
-        
+
+
         public static void CheckVersion()
         {
             int expectedMajor = 0;
@@ -242,13 +241,7 @@ namespace RGLUnityPlugin
 
         public static void NodePointsWritePCDFile(ref IntPtr node, string path)
         {
-            unsafe
-            {
-                fixed (char* pathStr = path)
-                {
-                    CheckErr(rgl_node_points_write_pcd_file(ref node, (IntPtr) pathStr));
-                }
-            }
+            CheckErr(rgl_node_points_write_pcd_file(ref node, path));
         }
 
         public static void GraphRun(IntPtr node)
@@ -287,11 +280,15 @@ namespace RGLUnityPlugin
                 return (int) pointCount;
             }
         }
-        
 
         public static void GraphNodeAddChild(IntPtr parent, IntPtr child)
         {
             CheckErr(rgl_graph_node_add_child(parent, child));
+        }
+
+        public static void GraphNodeRemoveChild(IntPtr parent, IntPtr child)
+        {
+            CheckErr(rgl_graph_node_remove_child(parent, child));
         }
 
         public static void GraphDestroy(IntPtr node)

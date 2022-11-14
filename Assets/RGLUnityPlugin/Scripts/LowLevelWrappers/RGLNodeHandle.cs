@@ -4,17 +4,8 @@ namespace RGLUnityPlugin
 {
     public class RGLNodeHandle
     {
-        public IntPtr node = IntPtr.Zero; // rgl_node_t
-        private RGLNodeType type = RGLNodeType.UNKNOWN;
-
-        public RGLNodeHandle(RGLNodeType nodeType)
-        {
-            type = nodeType;
-        }
-
-        public RGLNodeType GetNodeType()
-        {
-            return type;
-        }
+        public string Identifier = "";
+        public IntPtr Node = IntPtr.Zero; // rgl_node_t
+        public RGLNodeType Type = RGLNodeType.UNKNOWN;
     }
 }

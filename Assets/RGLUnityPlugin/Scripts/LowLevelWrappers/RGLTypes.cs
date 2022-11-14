@@ -14,6 +14,7 @@ namespace RGLUnityPlugin
 
 	public enum RGLField
 	{
+		UNKNOWN = -1,
 		XYZ_F32 = 1,
 		INTENSITY_F32,
 		IS_HIT_I32,
