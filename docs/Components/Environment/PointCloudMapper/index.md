@@ -1,9 +1,5 @@
 # PointCloudMapper
 
-!!! warning
-
-    Currently works only on Windows. Will support ubuntu in the future.
-
 <img src=image_0.png width=700px>
 
 ## Description
@@ -49,5 +45,4 @@ PCD file will be written when you stop your scene or all locations in the route 
 
 ### Other LiDAR libraries
 
-If you want to use other libraries, your should provide a script that implements IMappingSensor.
-Finding your sensors and requesting data will be done automatically by `PointCloudMapper`
+For now only works with `RGLMappingAdapter`. Will support other LiDAR libraries in the future.
