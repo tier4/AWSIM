@@ -11,4 +11,5 @@
 |Lidar (colored pointcloud on RViz ) does not show. |Reduce processing load by following command. This can only be applied to `awsim-stable` branch. <br><br> `cd <path_to_your_autoware_folder>`<br>`wget "https://drive.google.com/uc?export=download&id=11mkwfg-OaXIp3Z5c3R58Pob3butKwE1Z" -O patch.sh`<br>`bash patch.sh && rm patch.sh`|
 |Error when starting AWSIM binary. `segmentation fault (core dumped)`|Correctly install Nvidia drivers or vulkan API.|
 |Initial pose does not match automatically. |Set initial pose manually. <br>![](Image_Initial_0.png)<br>![](Image_Initial_1.png)|
+|Unity crashes and check the log for the cause of the error.|**Editor**<br>Windows :<br> `C:\Users\username\AppData\Local\Unity\Editor\Editor.log`<br>Linux :<br> `~/.config/unity3d/.Editor.log` <br><br> **Player**<br> Windows : `C:\Users\username\AppData\LocalLow\CompanyName\ProductName\output_log.txt`<br>Linux :<br>`~/.config/unity3d/CompanyName/ProductName/Player.log`<br><br>See also : [Unity Documentation - Log Files](https://docs.unity3d.com/2021.1/Documentation/Manual/LogFiles.html)|
 
