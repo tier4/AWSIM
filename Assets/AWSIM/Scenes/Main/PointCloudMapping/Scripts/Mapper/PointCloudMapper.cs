@@ -113,6 +113,7 @@ namespace AWSIM.PointCloudMapping
                 Debug.Log($"Writing PCD to {Application.dataPath}/{outputPcdFilePath}");
                 mappingSensor.SavePcd();
             }
+            Debug.Log("PCL data saved successfully");
         }
 
         private static IEnumerable<Pose> LaneletMapToPoses(LaneletMap laneletMap, float jumpDistance)
