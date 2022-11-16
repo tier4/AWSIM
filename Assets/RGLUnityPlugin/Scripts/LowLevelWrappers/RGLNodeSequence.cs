@@ -261,7 +261,7 @@ namespace RGLUnityPlugin
 
             if (nodes.Count == 1)
             {
-                Debug.LogWarning("Removed the last node in the graph. Removing parent & child NodeSequences...");
+                Debug.LogWarning("Removed the last node in the NodeSequence. Disconnecting parents & childs...");
                 Clear();
                 return;
             }
@@ -276,7 +276,7 @@ namespace RGLUnityPlugin
             {
                 if (parents.Count > 0)
                 {
-                    Debug.LogWarning("Removed the youngest node in already connected graph. Removing parent NodeSequences...");
+                    Debug.LogWarning("Removed the first node in already connected NodeSequence. Disconnecting parents...");
                     DisconnectAllParents();
                 }
                 RGLNativeAPI.GraphNodeRemoveChild(nodes[0].Node, nodes[1].Node);
@@ -284,11 +284,11 @@ namespace RGLUnityPlugin
                 return;
             }
 
-            if (index == nodes.Count)
+            if (index == nodes.Count - 1)
             {
                 if (childs.Count > 0)
                 {
-                    Debug.LogWarning("Removed the youngest node in already connected graph. Removing parent NodeSequences...");
+                    Debug.LogWarning("Removed the last node in already connected NodeSequence. Disconnecting childs...");
                     DisconnectAllChilds();
                 }
                 RGLNativeAPI.GraphNodeRemoveChild(nodes[index - 1].Node, nodes[index].Node);

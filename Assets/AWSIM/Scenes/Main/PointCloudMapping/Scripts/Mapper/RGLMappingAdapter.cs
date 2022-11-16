@@ -5,10 +5,9 @@ using UnityEngine;
 namespace AWSIM.PointCloudMapping
 {
     /// <summary>
-    /// Implementation of IMappingSensor for PointCloudMapper based on RGL.
-    /// Provides a filtered PCL based on the visualization points for Unity.
-    /// Intensity is dummy.
+    /// Implementation of an adapter to LidarSensor based on RGL for PointCloudMapper.
     /// </summary>
+    [RequireComponent(typeof(LidarSensor))]
     public class RGLMappingAdapter : MonoBehaviour
     {
         [SerializeField]
@@ -18,44 +17,22 @@ namespace AWSIM.PointCloudMapping
         private Vector3 worldOriginROS;
         private string outputPCDFilePath = "output.pcd";
 
+        public PointCloudMapper mapper;
+
         private LidarSensor lidarSensor;
 
-        private RGLNodeSequence rglGraphMapping;
+        private RGLNodeSequence rglSubgraphMapping;
 
-        private string rosWorldTransformNodeId = "ROS_WORLD_TF";
-        private string downsampleNodeId = "DOWNSAMPLE";
-        private string writePcdNodeId = "WRITE_PCD";
-
-        public void Awake()
-        {
-            rglGraphMapping = new RGLNodeSequence()
-                .AddNodePointsTransform(rosWorldTransformNodeId, ROS2.Transformations.Unity2RosMatrix4x4())
-                .AddNodePointsDownsample(downsampleNodeId, new Vector3(1, 1, 1))
-                .AddNodePointsWritePCDFile(writePcdNodeId, outputPCDFilePath);
-        }
+        private readonly string rosWorldTransformNodeId = "ROS_WORLD_TF";
+        private readonly string downsampleNodeId = "DOWNSAMPLE";
+        private readonly string writePcdNodeId = "WRITE_PCD";
 
         public void Start()
         {
-            if (!TryGetComponent(out lidarSensor) || !lidarSensor.enabled)
-            {
-                Debug.LogError("LidarSensor not found for RGLMappingAdapter. Make sure it is attached to the same GameObject!");
-                enabled = false;
-                return;
-            }
+            lidarSensor = GetComponent<LidarSensor>();
             // Make sure automatic capture in RGL Lidar Sensor is disabled.
             // We want to perform captures only on demand (after warping).
             lidarSensor.AutomaticCaptureHz = 0;
-
-            if (leafSize > 0.0f)
-            {
-                rglGraphMapping.UpdateNodePointsDownsample(downsampleNodeId, new Vector3(leafSize, leafSize, leafSize));
-            }
-            else
-            {
-                rglGraphMapping.RemoveNode(downsampleNodeId);
-            }
-
-            lidarSensor.ConnectToWorldFrame(rglGraphMapping);
         }
 
         public string GetSensorName()
@@ -63,27 +40,38 @@ namespace AWSIM.PointCloudMapping
             return gameObject.name;
         }
 
-        public void SetOutputPcdFilePath(string path)
-        {
-            outputPCDFilePath = path;
-            rglGraphMapping.UpdateNodePointsWritePCDFile(writePcdNodeId, outputPCDFilePath);
-        }
-
-        public void SetWorldOriginROS(Vector3 position)
-        {
-            worldOriginROS = position;
-            Matrix4x4 transform = ROS2.Transformations.Unity2RosMatrix4x4();
-            transform.SetColumn(3, transform.GetColumn(3) + (Vector4)worldOriginROS);
-            rglGraphMapping.UpdateNodePointsTransform(rosWorldTransformNodeId, transform);
-        }
-
         public void SavePcd()
         {
-            rglGraphMapping.Clear();
+            rglSubgraphMapping.Clear();
         }
 
         public void Capture()
         {
+            if (rglSubgraphMapping == null)
+            {
+                if (mapper == null)
+                {
+                    throw new Exception("Attempted to run RGLMappingAdapter without mapper attached!");
+                }
+                worldOriginROS = mapper.GetWorldOriginROS();
+                outputPCDFilePath = mapper.GetOutputPcdFilePath();
+
+                // Create and connect subgraph
+                Matrix4x4 worldTransform = ROS2.Transformations.Unity2RosMatrix4x4();
+                worldTransform.SetColumn(3, worldTransform.GetColumn(3) + (Vector4) worldOriginROS);
+                rglSubgraphMapping = new RGLNodeSequence()
+                    .AddNodePointsTransform(rosWorldTransformNodeId, worldTransform);
+
+                if (leafSize > 0.0f)
+                {
+                    rglSubgraphMapping.AddNodePointsDownsample(downsampleNodeId, new Vector3(leafSize, leafSize, leafSize));
+                }
+
+                rglSubgraphMapping.AddNodePointsWritePCDFile(writePcdNodeId, outputPCDFilePath);
+
+                lidarSensor.ConnectToWorldFrame(rglSubgraphMapping);
+            }
+
             lidarSensor.Capture();
         }
     }

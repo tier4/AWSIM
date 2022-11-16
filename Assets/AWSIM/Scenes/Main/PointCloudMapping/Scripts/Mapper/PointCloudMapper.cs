@@ -41,6 +41,16 @@ namespace AWSIM.PointCloudMapping
         private List<RGLMappingAdapter> mappingSensors;
         private Queue<Pose> capturePoseQueue;
 
+        public Vector3 GetWorldOriginROS()
+        {
+            return worldOriginROS;
+        }
+
+        public string GetOutputPcdFilePath()
+        {
+            return $"{Application.dataPath}/{outputPcdFilePath}";
+        }
+
         public void Start()
         {
             mappingSensors = new List<RGLMappingAdapter>(vehicleGameObject.GetComponentsInChildren<RGLMappingAdapter>());
@@ -54,18 +64,14 @@ namespace AWSIM.PointCloudMapping
             // TODO: Support multiple sensors
             if (mappingSensors.Count > 1)
             {
-                Debug.LogError($"Found more then 1 sensors in {vehicleGameObject.name}. PointCloudMapper support only 1 at the same time for now. Disabling PointCloudMapper!");
+                Debug.LogError($"Found more then 1 sensors in {vehicleGameObject.name}. PointCloudMapper currently supports only 1 sensor per mapping vehicle. Disabling PointCloudMapper!");
                 enabled = false;
                 return;
             }
 
-            Debug.Log($"Found {mappingSensors.Count} sensors in {vehicleGameObject.name}:");
-            foreach (var mappingSensor in mappingSensors)
-            {
-                Debug.Log($"- IMappingSensor: {mappingSensor.GetSensorName()}");
-                mappingSensor.SetWorldOriginROS(worldOriginROS);
-                mappingSensor.SetOutputPcdFilePath($"{Application.dataPath}/{outputPcdFilePath}");
-            }
+            Debug.Log($"Found mapping sensors in {vehicleGameObject.name}: {mappingSensors[0].GetSensorName()}");
+            // Attach mapper to enable access to outputPcdFilePath and worldOriginROS
+            mappingSensors[0].mapper = this;
 
             var laneletMap = new OsmToLaneletMap(worldOriginROS).Convert(osmContainer.Data);
 
@@ -108,11 +114,8 @@ namespace AWSIM.PointCloudMapping
 
         private void SavePcd()
         {
-            foreach (var mappingSensor in mappingSensors)
-            {
-                Debug.Log($"Writing PCD to {Application.dataPath}/{outputPcdFilePath}");
-                mappingSensor.SavePcd();
-            }
+            Debug.Log($"Writing PCD to {Application.dataPath}/{outputPcdFilePath}");
+            mappingSensors[0].SavePcd();
             Debug.Log("PCL data saved successfully");
         }
 

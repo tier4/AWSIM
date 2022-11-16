@@ -40,9 +40,3 @@ PCD file will be written when you stop your scene or all locations in the route 
 
 ## Sample Scene
 `PointCloudMappingDemo.unity` is a sample scene for `PointCloudMapper`. You need to setup OSM data and 3D model map of the area according to the above steps.
-
-## LiDAR Sensor integration
-
-### Other LiDAR libraries
-
-For now only works with `RGLMappingAdapter`. Will support other LiDAR libraries in the future.
