@@ -19,6 +19,6 @@ To properly create 3D models of the environment please keep in mind the followin
 - Occlusion culling and flutter culling cannot be used because the sensors detection target will disappear.
 - Each traffic light should have a separate GameObject. Also, each light in the traffic light should be split into separate materials.
 
-## 3. Output Pcd from Mesh
+## 3. Output PCD from Mesh
 
-It may be difficult to make Enviornment's 3D model as accurate as the actual device. However, it is possible to create a PCD map from objects meshes in AWSIM. Please refer to [PointCloudMapper](../../Environment/PointCloudMapper/index.md) document to see how to create a PCD map using previously existent digital-twin of environment.
+It may not be easy to make Environment's 3D model as accurate as from the real sensor. However, it is possible to create a PCD map from object meshes in AWSIM. Please refer to [PointCloudMapper](../../Environment/PointCloudMapper/index.md) document to see how to create a PCD map using a previously existent digital twin of the environment.
