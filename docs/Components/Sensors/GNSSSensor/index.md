@@ -1,14 +1,14 @@
 # GNSS Sensor
 
-GNSS simulation component is Global Navigation Satellite System Sensor. The GNSS sensor outputs the position in the MGRS coordinate system.
+GNSS senor is a component which simulates the position of vehicle computed by the Global Navigation Satellite System. The GNSS sensor outputs the position in the MGRS coordinate system.
 
 ## Prefabs
 
-The component prefab can be found under following path: `Assets\AWSIM\Prefabs\Sensors\GnssSensor.prefab`
+The component prefab can be found under the following path: `Assets\AWSIM\Prefabs\Sensors\GnssSensor.prefab`
 
 ## Scripts
 
-All most important scripts can be found under the ``Assets\AWSIM\Prefabs\Sensors\Gnss\*` path.
+All the most important scripts can be found under the ``Assets\AWSIM\Prefabs\Sensors\Gnss\*` path.
 
 The table below describes features contained in each provided script:
 

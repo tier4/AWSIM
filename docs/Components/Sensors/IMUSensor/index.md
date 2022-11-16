@@ -7,7 +7,7 @@ Path : `Assets\AWSIM\Prefabs\Sensors\IMUSensor.prefab`
 
 ## Scripts
 
-All most important scripts can be found under the `Assets\AWSIM\Scripts\Sensors\Imu\*`
+All the most important scripts can be found under the `Assets\AWSIM\Scripts\Sensors\Imu\*`
 
 The table below describes features contained in each provided script:
 

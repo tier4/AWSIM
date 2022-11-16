@@ -145,7 +145,7 @@ Objects, to be detectable by Robotec GPU lidar, must fulfill the following requi
 
 ## RGL Unity side scripts
 
-All most important scripts can be found under the following paths:<br>
+All the most important scripts can be found under the following paths:<br>
 `Assets/RGLUnityPlugin/Scripts/SceneManager.cs`<br>
 `Assets/RGLUnityPlugin/Scripts/LidarSensor.cs`<br>
 `Assets/RGLUnityPlugin/Scripts/PointCloudVisualization.cs`<br>

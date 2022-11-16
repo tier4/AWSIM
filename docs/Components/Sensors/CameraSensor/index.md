@@ -4,11 +4,11 @@ The following document describes Unity component used for camera simulation. The
 
 ## Prefabs
 
-The component prefab can be found under following path: `Assets\AWSIM\Prefabs\Sensors\CameraSensor.prefab`
+The component prefab can be found under the following path: `Assets\AWSIM\Prefabs\Sensors\CameraSensor.prefab`
 
 ## Scripts
 
-All most important scripts can be found under the `Assets\AWSIM\Prefabs\Sensors\CameraSensor\*` path.
+All the most important scripts can be found under the `Assets\AWSIM\Prefabs\Sensors\CameraSensor\*` path.
 
 The table below describes features contained in each provided script:
 
