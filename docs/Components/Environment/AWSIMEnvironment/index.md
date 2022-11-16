@@ -1,10 +1,10 @@
 # AWSIM Environment
 
-The following document describes the real-world environment simulation, used in AWSIM.
+The following document describes the environment simulated in AWSIM.
 
 ## Required Environment files
 
-AWSIM and Autoware requires the following three Environment files.
+AWSIM and Autoware requires the following three Environment files to work properly.
 
 |file|use|purpose|
 |:--|:--|:--|
@@ -30,14 +30,15 @@ See [SetupUnityProject](../../../GettingStarted/SetupUnityProject/#5-import-envi
 
 ### Buildings and roads
 
-Buildings has the greatest impact on Autowares self-position estimation. Accurate environment objects placement is crucial for correct point cloud data generation, which directly affects localization capabilities.
-The road surface affects vehicle dynamics.
+Buildings have the greatest impact on Autoware's self-position estimation. Accurate environment object placement is crucial for correct point cloud data generation, which directly affects localization capabilities.
+Additionally, the road surface affects vehicle dynamics.
 
 ### Traffic lights control
 
-To simulate signal recognition, the modelled traffic lights must be strictly aligned with the Lanelet2 location.
-NPCVehicle runs based on traffic light control, which defines traffic flow on intersections, preventing the NPCs from colliding.
+To simulate signal recognition, the modeled traffic lights must be strictly aligned with the Lanelet2 location.
+NPCVehicle runs based on traffic light control, which defines traffic flow at intersections, preventing the NPCs from colliding.
 Additionally, ego vehicle performs signal recognition from camera sensor images containing traffic lights.
 
 ## NPC traffic
-The use of NPCs adds realism to self-driving simulations, especially in urban environment. NPCVehicle, NPCPedestrian to simulate traffic.
+
+The use of NPCs adds realism to self-driving simulations, especially in urban environments. NPC Vehicle, NPC Pedestrian to simulate traffic.
