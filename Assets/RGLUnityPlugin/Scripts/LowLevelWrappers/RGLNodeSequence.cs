@@ -21,46 +21,52 @@ using UnityEngine;
 namespace RGLUnityPlugin
 {
     /// <summary>
-    /// Wrapper class for RGL graph concept.
+    /// Represents a linearly connected series of RGL nodes.
     /// </summary>
-    public class RGLGraph
+    public class RGLNodeSequence
     {
         private List<RGLNodeHandle> nodes = new List<RGLNodeHandle>();
-        private List<RGLGraph> parentGraphs = new List<RGLGraph>();
-        private List<RGLGraph> childGraphs = new List<RGLGraph>();
+        private List<RGLNodeSequence> parents = new List<RGLNodeSequence>();
+        private List<RGLNodeSequence> childs = new List<RGLNodeSequence>();
         private RGLField outputField = RGLField.UNKNOWN;
 
-        //// MULTIGRAPH OPERATIONS ////
-        public static void ConnectGraphs(RGLGraph parentGraph, RGLGraph childGraph)
+        //// NODESEQUENCES OPERATIONS ////
+        public static void Connect(RGLNodeSequence parent, RGLNodeSequence child)
         {
-            if (parentGraph.nodes.Count == 0 || childGraph.nodes.Count == 0)
+            if (parent.nodes.Count == 0 || child.nodes.Count == 0)
             {
-                throw new RGLException("Attempted to connect empty graph!");
+                throw new RGLException("Attempted to connect empty NodeSequence!");
             }
-            RGLNativeAPI.GraphNodeAddChild(parentGraph.nodes.Last().Node, childGraph.nodes.First().Node);
-            parentGraph.childGraphs.Add(childGraph);
-            childGraph.parentGraphs.Add(parentGraph);
+
+            if (parent.childs.Contains(child) || child.parents.Contains(parent))
+            {
+                throw new RGLException("Attempted to connect NodeSequences twice!");
+            }
+
+            RGLNativeAPI.GraphNodeAddChild(parent.nodes.Last().Node, child.nodes.First().Node);
+            parent.childs.Add(child);
+            child.parents.Add(parent);
         }
 
-        public static void DisconnectGraphs(RGLGraph parentGraph, RGLGraph childGraph)
+        public static void Disconnect(RGLNodeSequence parent, RGLNodeSequence child)
         {
-            if (parentGraph.nodes.Count == 0 || childGraph.nodes.Count == 0)
+            if (parent.nodes.Count == 0 || child.nodes.Count == 0)
             {
-                throw new RGLException("Attempted to disconnect empty graph!");
+                throw new RGLException("Attempted to disconnect empty NodeSequence!");
             }
 
-            if (!parentGraph.childGraphs.Contains(childGraph) || !childGraph.parentGraphs.Contains(parentGraph))
+            if (!parent.childs.Contains(child) || !child.parents.Contains(parent))
             {
-                throw new RGLException("Attempted to disconnect graphs that are not connected!");
+                throw new RGLException("Attempted to disconnect NodeSequences that are not connected!");
             }
 
-            RGLNativeAPI.GraphNodeRemoveChild(parentGraph.nodes.Last().Node, childGraph.nodes.First().Node);
-            parentGraph.childGraphs.Remove(childGraph);
-            childGraph.parentGraphs.Remove(parentGraph);
+            RGLNativeAPI.GraphNodeRemoveChild(parent.nodes.Last().Node, child.nodes.First().Node);
+            parent.childs.Remove(child);
+            child.parents.Remove(parent);
         }
 
         //// ADD NODES ////
-        public RGLGraph AddNodeRaysFromMat3x4f(string identifier, Matrix4x4[] rays)
+        public RGLNodeSequence AddNodeRaysFromMat3x4f(string identifier, Matrix4x4[] rays)
         {
             ValidateNewNode(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
@@ -71,7 +77,7 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLGraph AddNodeRaysSetRingIds(string identifier, int[] ringIds)
+        public RGLNodeSequence AddNodeRaysSetRingIds(string identifier, int[] ringIds)
         {
             ValidateNewNode(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
@@ -82,7 +88,7 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLGraph AddNodeRaysTransform(string identifier, Matrix4x4 transform)
+        public RGLNodeSequence AddNodeRaysTransform(string identifier, Matrix4x4 transform)
         {
             ValidateNewNode(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
@@ -93,7 +99,7 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLGraph AddNodeRaytrace(string identifier, float range)
+        public RGLNodeSequence AddNodeRaytrace(string identifier, float range)
         {
             ValidateNewNode(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
@@ -104,7 +110,7 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLGraph AddNodePointsTransform(string identifier, Matrix4x4 transform)
+        public RGLNodeSequence AddNodePointsTransform(string identifier, Matrix4x4 transform)
         {
             ValidateNewNode(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
@@ -115,7 +121,7 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLGraph AddNodePointsCompact(string identifier)
+        public RGLNodeSequence AddNodePointsCompact(string identifier)
         {
             ValidateNewNode(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
@@ -126,7 +132,7 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLGraph AddNodePointsDownsample(string identifier, Vector3 leafDims)
+        public RGLNodeSequence AddNodePointsDownsample(string identifier, Vector3 leafDims)
         {
             ValidateNewNode(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
@@ -137,7 +143,7 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLGraph AddNodePointsWritePCDFile(string identifier, string path)
+        public RGLNodeSequence AddNodePointsWritePCDFile(string identifier, string path)
         {
             ValidateNewNode(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
@@ -148,7 +154,7 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLGraph AddNodePointsFormat(string identifier, RGLField[] fields)
+        public RGLNodeSequence AddNodePointsFormat(string identifier, RGLField[] fields)
         {
             ValidateNewNode(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
@@ -170,56 +176,56 @@ namespace RGLUnityPlugin
         }
 
         //// UPDATE NODES ////
-        public RGLGraph UpdateNodeRaysFromMat3x4f(string identifier, Matrix4x4[] rays)
+        public RGLNodeSequence UpdateNodeRaysFromMat3x4f(string identifier, Matrix4x4[] rays)
         {
             ValidateExistingNode(identifier, RGLNodeType.RAYS_FROM_MAT3X4F);
             RGLNativeAPI.NodeRaysFromMat3x4f(ref nodes.Single(n => n.Identifier == identifier).Node, rays);
             return this;
         }
 
-        public RGLGraph UpdateNodeRaysSetRingIds(string identifier, int[] ringIds)
+        public RGLNodeSequence UpdateNodeRaysSetRingIds(string identifier, int[] ringIds)
         {
             ValidateExistingNode(identifier, RGLNodeType.RAYS_SET_RING_IDS);
             RGLNativeAPI.NodeRaysSetRingIds(ref nodes.Single(n => n.Identifier == identifier).Node, ringIds);
             return this;
         }
 
-        public RGLGraph UpdateNodeRaysTransform(string identifier, Matrix4x4 transform)
+        public RGLNodeSequence UpdateNodeRaysTransform(string identifier, Matrix4x4 transform)
         {
             ValidateExistingNode(identifier, RGLNodeType.RAYS_TRANSFORM);
             RGLNativeAPI.NodeRaysTransform(ref nodes.Single(n => n.Identifier == identifier).Node, transform);
             return this;
         }
 
-        public RGLGraph UpdateNodeRaytrace(string identifier, float range)
+        public RGLNodeSequence UpdateNodeRaytrace(string identifier, float range)
         {
             ValidateExistingNode(identifier, RGLNodeType.RAYTRACE);
             RGLNativeAPI.NodeRaytrace(ref nodes.Single(n => n.Identifier == identifier).Node, range);
             return this;
         }
 
-        public RGLGraph UpdateNodePointsTransform(string identifier, Matrix4x4 transform)
+        public RGLNodeSequence UpdateNodePointsTransform(string identifier, Matrix4x4 transform)
         {
             ValidateExistingNode(identifier, RGLNodeType.POINTS_TRANSFORM);
             RGLNativeAPI.NodePointsTransform(ref nodes.Single(n => n.Identifier == identifier).Node, transform);
             return this;
         }
         
-        public RGLGraph UpdateNodePointsDownsample(string identifier, Vector3 leafDims)
+        public RGLNodeSequence UpdateNodePointsDownsample(string identifier, Vector3 leafDims)
         {
             ValidateExistingNode(identifier, RGLNodeType.POINTS_DOWNSAMPLE);
             RGLNativeAPI.NodePointsDownSample(ref nodes.Single(n => n.Identifier == identifier).Node, leafDims);
             return this;
         }
 
-        public RGLGraph UpdateNodePointsWritePCDFile(string identifier, string path)
+        public RGLNodeSequence UpdateNodePointsWritePCDFile(string identifier, string path)
         {
             ValidateExistingNode(identifier, RGLNodeType.POINTS_WRITE_PCD_FILE);
             RGLNativeAPI.NodePointsWritePCDFile(ref nodes.Single(n => n.Identifier == identifier).Node, path);
             return this;
         }
 
-        //// GRAPH OPERATIONS ////
+        //// NODESEQUENCE OPERATIONS ////
         public int GetResultData<T>(ref T[] data) where T : unmanaged
         {
             ValidateOutputNode();
@@ -239,15 +245,15 @@ namespace RGLUnityPlugin
         {
             if (nodes.Count == 0)
             {
-                throw new RGLException("Attempted to run empty graph!");
+                throw new RGLException("Attempted to run empty NodeSequence!");
             }
             RGLNativeAPI.GraphRun(nodes.First().Node);
         }
 
-        public void Destroy()
+        public void Clear()
         {
-            DisconnectAllChildGraphs();
-            DisconnectAllParentGraphs();
+            DisconnectAllChilds();
+            DisconnectAllParents();
             if (nodes.Count > 0)
             {
                 RGLNativeAPI.GraphDestroy(nodes.First().Node);
@@ -256,6 +262,7 @@ namespace RGLUnityPlugin
         }
 
         //// PRIVATE HELPERS ////
+        // A new node to add should not exists in our sequence
         private void ValidateNewNode(string identifier)
         {
             var nodeFilter = nodes.Where(n => n.Identifier == identifier);
@@ -265,6 +272,7 @@ namespace RGLUnityPlugin
             }
         }
 
+        // A desired node should exists in our sequence and has the same type as requested
         private void ValidateExistingNode(string identifier, RGLNodeType desiredType)
         {
             var nodeFilter = nodes.Where(n => n.Identifier == identifier);
@@ -278,6 +286,7 @@ namespace RGLUnityPlugin
             }
         }
 
+        // To get result data specific node should be at the end of sequence
         private void ValidateOutputNode()
         {
             if (outputField == RGLField.UNKNOWN)
@@ -287,7 +296,7 @@ namespace RGLUnityPlugin
             RGLNodeType lastNodeType = nodes.Last().Type;
             if (!(lastNodeType == RGLNodeType.POINTS_FORMAT || lastNodeType == RGLNodeType.POINTS_YIELD))
             {
-                throw new RGLException("Attempted to get result data but format node is not the last node in the graph!");
+                throw new RGLException("Attempted to get result data but format node is not the last node in the NodeSequence!");
             }
         }
 
@@ -299,35 +308,34 @@ namespace RGLUnityPlugin
                 return;
             }
 
-            if (childGraphs.Count > 0)
+            if (childs.Count > 0)
             {
-                Debug.LogWarning("Added node to already connected graph. Removing child graphs...");
-                DisconnectAllChildGraphs();
+                throw new RGLException("Attempted to add node to already connected NodeSequence!");
             }
 
             RGLNativeAPI.GraphNodeAddChild(nodes.Last().Node, nodeHandle.Node);
             nodes.Add(nodeHandle);
         }
 
-        private void DisconnectAllChildGraphs()
+        private void DisconnectAllChilds()
         {
-            foreach (RGLGraph graph in childGraphs.ToList())
+            foreach (RGLNodeSequence nodeSequence in childs.ToList())
             {
-                DisconnectGraphs(this, graph);
+                Disconnect(this, nodeSequence);
             }
         }
 
-        private void DisconnectAllParentGraphs()
+        private void DisconnectAllParents()
         {
-            foreach (RGLGraph graph in parentGraphs.ToList())
+            foreach (RGLNodeSequence nodeSequence in parents.ToList())
             {
-                DisconnectGraphs(graph, this);
+                Disconnect(nodeSequence, this);
             }
         }
 
-        ~RGLGraph()
+        ~RGLNodeSequence()
         {
-            Destroy();
+            Clear();
         }
     }
 }

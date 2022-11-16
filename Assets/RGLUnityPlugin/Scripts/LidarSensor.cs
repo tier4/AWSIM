@@ -61,37 +61,39 @@ namespace RGLUnityPlugin
         /// </summary>
         public LidarConfiguration configuration = LidarConfigurationLibrary.ByModel[LidarModel.RangeMeter];
 
-        private RGLGraph rglGraphBase;
-        private RGLGraph rglGraphToLidarFrame;
-        private RGLGraph rglGraphVisualizationOutput;
+        private RGLNodeSequence rglGraphLidar;
+        private RGLNodeSequence rglSubgraphToLidarFrame;
+        private RGLNodeSequence rglSubgraphVisualizationOutput;
         private SceneManager sceneManager;
 
-        private string lidarRaysNodeId = "LIDAR_RAYS";
-        private string lidarRingsNodeId = "LIDAR_RINGS";
-        private string lidarPoseNodeId = "LIDAR_POSE";
-        private string lidarRangeNodeId = "LIDAR_RAYTRACE";
-        private string toLidarFrameNodeId = "TO_LIDAR_FRAME";
+        private readonly string lidarRaysNodeId = "LIDAR_RAYS";
+        private readonly string lidarRingsNodeId = "LIDAR_RINGS";
+        private readonly string lidarPoseNodeId = "LIDAR_POSE";
+        private readonly string lidarRangeNodeId = "LIDAR_RAYTRACE";
+        private readonly string pointsCompactNodeId = "POINTS_COMPACT";
+        private readonly string toLidarFrameNodeId = "TO_LIDAR_FRAME";
+        private readonly string visualizationOutputNodeId = "OUT_VISUALIZATION";
 
         private LidarModel? validatedPreset;
         private float timer;
 
         public void Awake()
         {
-            rglGraphBase = new RGLGraph()
+            rglGraphLidar = new RGLNodeSequence()
                 .AddNodeRaysFromMat3x4f(lidarRaysNodeId, new Matrix4x4[1] {Matrix4x4.identity})
                 .AddNodeRaysSetRingIds(lidarRingsNodeId, new int[1] {0})
                 .AddNodeRaysTransform(lidarPoseNodeId, Matrix4x4.identity)
                 .AddNodeRaytrace(lidarRangeNodeId, Mathf.Infinity)
-                .AddNodePointsCompact("POINTS_COMPACT");
+                .AddNodePointsCompact(pointsCompactNodeId);
 
-            rglGraphToLidarFrame = new RGLGraph()
+            rglSubgraphToLidarFrame = new RGLNodeSequence()
                 .AddNodePointsTransform(toLidarFrameNodeId, Matrix4x4.identity);
 
-            rglGraphVisualizationOutput = new RGLGraph()
-                .AddNodePointsFormat("OUT", new [] {RGLField.XYZ_F32});
+            rglSubgraphVisualizationOutput = new RGLNodeSequence()
+                .AddNodePointsFormat(visualizationOutputNodeId, new [] {RGLField.XYZ_F32});
 
-            RGLGraph.ConnectGraphs(rglGraphBase, rglGraphToLidarFrame);
-            RGLGraph.ConnectGraphs(rglGraphBase, rglGraphVisualizationOutput);
+            RGLNodeSequence.Connect(rglGraphLidar, rglSubgraphToLidarFrame);
+            RGLNodeSequence.Connect(rglGraphLidar, rglSubgraphVisualizationOutput);
         }
 
         public void Start()
@@ -122,14 +124,14 @@ namespace RGLUnityPlugin
 
         private void ApplyConfiguration(LidarConfiguration newConfig)
         {
-            if (rglGraphBase == null)
+            if (rglGraphLidar == null)
             {
                 return;
             }
 
-            rglGraphBase.UpdateNodeRaysFromMat3x4f(lidarRaysNodeId, newConfig.GetRayPoses())
-                        .UpdateNodeRaysSetRingIds(lidarRingsNodeId, newConfig.laserArray.GetLaserRingIds())
-                        .UpdateNodeRaytrace(lidarRangeNodeId, newConfig.maxRange);
+            rglGraphLidar.UpdateNodeRaysFromMat3x4f(lidarRaysNodeId, newConfig.GetRayPoses())
+                         .UpdateNodeRaysSetRingIds(lidarRingsNodeId, newConfig.laserArray.GetLaserRingIds())
+                         .UpdateNodeRaytrace(lidarRangeNodeId, newConfig.maxRange);
         }
 
         public void FixedUpdate()
@@ -153,14 +155,14 @@ namespace RGLUnityPlugin
             }
         }
 
-        public void ConnectToWorldFrame(RGLGraph graph)
+        public void ConnectToWorldFrame(RGLNodeSequence nodeSequence)
         {
-            RGLGraph.ConnectGraphs(rglGraphBase, graph);
+            RGLNodeSequence.Connect(rglGraphLidar, nodeSequence);
         }
 
-        public void ConnectToLidarFrame(RGLGraph graph)
+        public void ConnectToLidarFrame(RGLNodeSequence nodeSequence)
         {
-            RGLGraph.ConnectGraphs(rglGraphToLidarFrame, graph);
+            RGLNodeSequence.Connect(rglSubgraphToLidarFrame, nodeSequence);
         }
 
         public void Capture()
@@ -169,16 +171,16 @@ namespace RGLUnityPlugin
 
             // Set lidar pose
             Matrix4x4 lidarPose = gameObject.transform.localToWorldMatrix;
-            rglGraphBase.UpdateNodeRaysTransform(lidarPoseNodeId, lidarPose);
-            rglGraphToLidarFrame.UpdateNodePointsTransform(toLidarFrameNodeId, lidarPose.inverse);
+            rglGraphLidar.UpdateNodeRaysTransform(lidarPoseNodeId, lidarPose);
+            rglSubgraphToLidarFrame.UpdateNodePointsTransform(toLidarFrameNodeId, lidarPose.inverse);
 
-            rglGraphBase.Run();
+            rglGraphLidar.Run();
 
             // Could be moved to PointCloudVisualization
             if (GetComponent<PointCloudVisualization>().isActiveAndEnabled == true)
             {
                 Vector3[] onlyHits = new Vector3[0];
-                rglGraphVisualizationOutput.GetResultData<Vector3>(ref onlyHits);
+                rglSubgraphVisualizationOutput.GetResultData<Vector3>(ref onlyHits);
                 GetComponent<PointCloudVisualization>().SetPoints(onlyHits);
             }
         }
