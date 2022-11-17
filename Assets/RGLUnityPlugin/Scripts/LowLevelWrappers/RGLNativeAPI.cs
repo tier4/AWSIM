@@ -103,11 +103,11 @@ namespace RGLUnityPlugin
         public static void CheckVersion()
         {
             int expectedMajor = 0;
-            int expectedMinor = 10;
+            int expectedMinor = 11;
             CheckErr(rgl_get_version_info(out var major, out var minor, out var patch));
             if (major != expectedMajor || minor < expectedMinor)
             {
-                throw new RGLException("RGL version mismatch");
+                throw new RGLException($"RGL version mismatch. Expected: {expectedMajor}.>={expectedMinor}.x, but found {major}.{minor}.{patch}.");
             }
 
             Debug.Log($"RGL Version: {major}.{minor}.{patch}");
