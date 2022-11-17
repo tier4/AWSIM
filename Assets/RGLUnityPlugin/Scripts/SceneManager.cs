@@ -167,6 +167,7 @@ namespace RGLUnityPlugin
             foreach (var rglObject in toAdd)
             {
                 // Game Objects must not have duplicate representations.
+                // Occasionally, this assertion may fail due to disabled Read/Write setting of the prefab's mesh.
                 Assert.IsFalse(uploadedRGLObjects.ContainsKey(rglObject.RepresentedGO));
 
                 if (!(rglObject.RglMesh is RGLSkinnedMesh)) sharedMeshesUsageCount[rglObject.RglMesh.Identifier] += 1;
