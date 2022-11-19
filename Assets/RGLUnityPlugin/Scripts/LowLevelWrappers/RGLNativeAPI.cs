@@ -121,7 +121,7 @@ namespace RGLUnityPlugin
             }
 
             rgl_get_last_error_string(out var errStrPtr);
-            string errStr = Marshal.PtrToStringAuto(errStrPtr);
+            string errStr = Marshal.PtrToStringAnsi(errStrPtr);
             throw new RGLException(errStr);
         }
 
