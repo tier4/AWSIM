@@ -35,10 +35,10 @@ namespace AWSIM
 
         public QoSSettings qosSettings = new QoSSettings()
         {
-            ReliabilityPolicy = ReliabilityPolicy.QOS_POLICY_RELIABILITY_RELIABLE,
+            ReliabilityPolicy = ReliabilityPolicy.QOS_POLICY_RELIABILITY_BEST_EFFORT,
             DurabilityPolicy = DurabilityPolicy.QOS_POLICY_DURABILITY_VOLATILE,
             HistoryPolicy = HistoryPolicy.QOS_POLICY_HISTORY_KEEP_LAST,
-            Depth = 1000,
+            Depth = 5,
         };
 
         private Publisher<sensor_msgs.msg.PointCloud2> pcl24Publisher;

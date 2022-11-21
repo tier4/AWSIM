@@ -41,17 +41,7 @@ namespace AWSIM.PointCloudMapping
         private List<RGLMappingAdapter> mappingSensors;
         private Queue<Pose> capturePoseQueue;
 
-        public Vector3 GetWorldOriginROS()
-        {
-            return worldOriginROS;
-        }
-
-        public string GetOutputPcdFilePath()
-        {
-            return $"{Application.dataPath}/{outputPcdFilePath}";
-        }
-
-        public void Start()
+        private void Start()
         {
             mappingSensors = new List<RGLMappingAdapter>(vehicleGameObject.GetComponentsInChildren<RGLMappingAdapter>());
             if (mappingSensors.Count == 0)
@@ -70,8 +60,8 @@ namespace AWSIM.PointCloudMapping
             }
 
             Debug.Log($"Found mapping sensors in {vehicleGameObject.name}: {mappingSensors[0].GetSensorName()}");
-            // Attach mapper to enable access to outputPcdFilePath and worldOriginROS
-            mappingSensors[0].mapper = this;
+
+            mappingSensors[0].Initialize(worldOriginROS, $"{Application.dataPath}/{outputPcdFilePath}");
 
             var laneletMap = new OsmToLaneletMap(worldOriginROS).Convert(osmContainer.Data);
 
@@ -84,7 +74,7 @@ namespace AWSIM.PointCloudMapping
             laneletVisualizer.CreateCenterline(transform);
         }
 
-        public void Update()
+        private void Update()
         {
             Debug.Log($"PointCloudMapper: {capturePoseQueue.Count} captures left");
             if (capturePoseQueue.Count == 0)

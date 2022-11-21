@@ -28,10 +28,7 @@ namespace AWSIM.PointCloudMapping
         [Tooltip("Resolution to sub-sample point cloud data. Set leaf size to 0 if you don't want to sub-sample.")]
         private float leafSize;
 
-        private Vector3 worldOriginROS;
-        private string outputPCDFilePath = "output.pcd";
-
-        public PointCloudMapper mapper;
+        private bool isInitialized = false;
 
         private LidarSensor lidarSensor;
 
@@ -49,6 +46,31 @@ namespace AWSIM.PointCloudMapping
             lidarSensor.AutomaticCaptureHz = 0;
         }
 
+        public void Initialize(Vector3 worldOriginROS, string outputPcdFilePath)
+        {
+            if (isInitialized)
+            {
+                throw new Exception("Attempted to initialize RGLMappingAdapter twice!");
+            }
+
+            // Create and connect subgraph
+            Matrix4x4 worldTransform = ROS2.Transformations.Unity2RosMatrix4x4();
+            worldTransform.SetColumn(3, worldTransform.GetColumn(3) + (Vector4) worldOriginROS);
+            rglSubgraphMapping = new RGLNodeSequence()
+                .AddNodePointsTransform(rosWorldTransformNodeId, worldTransform);
+
+            if (leafSize > 0.0f)
+            {
+                rglSubgraphMapping.AddNodePointsDownsample(downsampleNodeId, new Vector3(leafSize, leafSize, leafSize));
+            }
+
+            rglSubgraphMapping.AddNodePointsWritePCDFile(writePcdNodeId, outputPcdFilePath);
+
+            lidarSensor.ConnectToWorldFrame(rglSubgraphMapping);
+
+            isInitialized = true;
+        }
+
         public string GetSensorName()
         {
             return gameObject.name;
@@ -56,34 +78,19 @@ namespace AWSIM.PointCloudMapping
 
         public void SavePcd()
         {
+            if (rglSubgraphMapping == null)
+            {
+                Debug.LogWarning("RGLMappingAdapter: skipped saving PCD file - empty point cloud");
+                return;
+            }
             rglSubgraphMapping.Clear();
         }
 
         public void Capture()
         {
-            if (rglSubgraphMapping == null)
+            if (!isInitialized)
             {
-                if (mapper == null)
-                {
-                    throw new Exception("Attempted to run RGLMappingAdapter without mapper attached!");
-                }
-                worldOriginROS = mapper.GetWorldOriginROS();
-                outputPCDFilePath = mapper.GetOutputPcdFilePath();
-
-                // Create and connect subgraph
-                Matrix4x4 worldTransform = ROS2.Transformations.Unity2RosMatrix4x4();
-                worldTransform.SetColumn(3, worldTransform.GetColumn(3) + (Vector4) worldOriginROS);
-                rglSubgraphMapping = new RGLNodeSequence()
-                    .AddNodePointsTransform(rosWorldTransformNodeId, worldTransform);
-
-                if (leafSize > 0.0f)
-                {
-                    rglSubgraphMapping.AddNodePointsDownsample(downsampleNodeId, new Vector3(leafSize, leafSize, leafSize));
-                }
-
-                rglSubgraphMapping.AddNodePointsWritePCDFile(writePcdNodeId, outputPCDFilePath);
-
-                lidarSensor.ConnectToWorldFrame(rglSubgraphMapping);
+                throw new Exception("Attempted to run RGLMappingAdapter without initialization!");
             }
 
             lidarSensor.Capture();
