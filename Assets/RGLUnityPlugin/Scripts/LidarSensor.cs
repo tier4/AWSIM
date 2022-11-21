@@ -177,7 +177,7 @@ namespace RGLUnityPlugin
             rglGraphLidar.Run();
 
             // Could be moved to PointCloudVisualization
-            if (GetComponent<PointCloudVisualization>().isActiveAndEnabled == true)
+            if (GetComponent<PointCloudVisualization>().isActiveAndEnabled)
             {
                 Vector3[] onlyHits = new Vector3[0];
                 rglSubgraphVisualizationOutput.GetResultData<Vector3>(ref onlyHits);
