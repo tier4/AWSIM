@@ -38,30 +38,23 @@ namespace AWSIM.PointCloudMapping
         [Tooltip("Configurable visualization of the loaded lanelet map")]
         private LaneletVisualizer laneletVisualizer;
 
-        private List<RGLMappingAdapter> mappingSensors;
+        private RGLMappingAdapter mappingSensor;
         private Queue<Pose> capturePoseQueue;
 
         private void Start()
         {
-            mappingSensors = new List<RGLMappingAdapter>(vehicleGameObject.GetComponentsInChildren<RGLMappingAdapter>());
-            if (mappingSensors.Count == 0)
-            {
-                Debug.LogError($"Found 0 sensors in {vehicleGameObject.name}. Disabling PointCloudMapper!");
-                enabled = false;
-                return;
-            }
-
             // TODO: Support multiple sensors
-            if (mappingSensors.Count > 1)
+            mappingSensor = vehicleGameObject.GetComponentInChildren<RGLMappingAdapter>();
+            if (mappingSensor == null)
             {
-                Debug.LogError($"Found more then 1 sensors in {vehicleGameObject.name}. PointCloudMapper currently supports only 1 sensor per mapping vehicle. Disabling PointCloudMapper!");
+                Debug.LogError($"Could not find mapping sensor in {vehicleGameObject.name}. Disabling PointCloudMapper!");
                 enabled = false;
                 return;
             }
 
-            Debug.Log($"Found mapping sensors in {vehicleGameObject.name}: {mappingSensors[0].GetSensorName()}");
+            Debug.Log($"Found mapping sensor in {vehicleGameObject.name}: {mappingSensor.GetSensorName()}");
 
-            mappingSensors[0].Initialize(worldOriginROS, $"{Application.dataPath}/{outputPcdFilePath}");
+            mappingSensor.Initialize(worldOriginROS, $"{Application.dataPath}/{outputPcdFilePath}");
 
             var laneletMap = new OsmToLaneletMap(worldOriginROS).Convert(osmContainer.Data);
 
@@ -88,10 +81,7 @@ namespace AWSIM.PointCloudMapping
             vehicleGameObject.transform.position = currentPose.position;
             vehicleGameObject.transform.rotation = currentPose.rotation;
 
-            foreach (var sensor in mappingSensors)
-            {
-                sensor.Capture();
-            }
+            mappingSensor.Capture();
         }
 
         public void OnDestroy()
@@ -105,7 +95,7 @@ namespace AWSIM.PointCloudMapping
         private void SavePcd()
         {
             Debug.Log($"Writing PCD to {Application.dataPath}/{outputPcdFilePath}");
-            mappingSensors[0].SavePcd();
+            mappingSensor.SavePcd();
             Debug.Log("PCL data saved successfully");
         }
 
