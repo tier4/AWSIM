@@ -38,7 +38,7 @@ namespace AWSIM.PointCloudMapping
         private readonly string downsampleNodeId = "DOWNSAMPLE";
         private readonly string writePcdNodeId = "WRITE_PCD";
 
-        public void Start()
+        public void Awake()
         {
             lidarSensor = GetComponent<LidarSensor>();
             // Make sure automatic capture in RGL Lidar Sensor is disabled.
