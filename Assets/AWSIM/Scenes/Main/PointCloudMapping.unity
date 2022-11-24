@@ -399,8 +399,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AutomaticCaptureHz: 10
-  modelPreset: 3
-  applyGaussianNoise: 1
+  modelPreset: 4
+  applyGaussianNoise: 0
   configuration:
     laserArray:
       centerOfMeasurementVerticalLinearOffsetMm: 66.11
