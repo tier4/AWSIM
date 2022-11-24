@@ -1,6 +1,5 @@
 ﻿using System;
 using AWSIM.Lanelet;
-using PclSharp;
 using System.Collections.Generic;
 using AWSIM.PointCloudMapping.Geometry;
 using UnityEngine;
@@ -39,45 +38,41 @@ namespace AWSIM.PointCloudMapping
         [Tooltip("Configurable visualization of the loaded lanelet map")]
         private LaneletVisualizer laneletVisualizer;
 
-        private List<IMappingSensor> mappingSensors;
+        private RGLMappingAdapter mappingSensor;
         private Queue<Pose> capturePoseQueue;
-        private PointCloudOfXYZI mergedPCL;
 
-        public void Start()
+        private void Start()
         {
-            mappingSensors = new List<IMappingSensor>(vehicleGameObject.GetComponentsInChildren<IMappingSensor>());
-            if (mappingSensors.Count == 0)
+            // TODO: Support multiple sensors
+            mappingSensor = vehicleGameObject.GetComponentInChildren<RGLMappingAdapter>();
+            if (mappingSensor == null)
             {
-                Debug.LogError($"Found 0 sensors in {vehicleGameObject.name}. Disabling PointCloudMapper!");
+                Debug.LogError($"Could not find mapping sensor in {vehicleGameObject.name}. Disabling PointCloudMapper!");
                 enabled = false;
                 return;
             }
 
-            Debug.Log($"Found {mappingSensors.Count} sensors in {vehicleGameObject.name}:");
-            foreach (var mappingSensor in mappingSensors)
-            {
-                Debug.Log($"- IMappingSensor: {mappingSensor.GetSensorName()}");
-            }
-            
+            Debug.Log($"Found mapping sensor in {vehicleGameObject.name}: {mappingSensor.GetSensorName()}");
+
+            mappingSensor.Initialize(worldOriginROS, $"{Application.dataPath}/{outputPcdFilePath}");
+
             var laneletMap = new OsmToLaneletMap(worldOriginROS).Convert(osmContainer.Data);
-            
+
             var start = Time.realtimeSinceStartup;
             capturePoseQueue = new Queue<Pose>(LaneletMapToPoses(laneletMap, captureLocationInterval));
             var computeTimeMs = (Time.realtimeSinceStartup - start) * 1000f; 
             Debug.Log($"Will visit {capturePoseQueue.Count} points; computed in {computeTimeMs} ms");
-            
+
             laneletVisualizer.Initialize(laneletMap);
             laneletVisualizer.CreateCenterline(transform);
-            
-            mergedPCL = new PointCloudOfXYZI();
         }
 
-        public void Update()
+        private void Update()
         {
             Debug.Log($"PointCloudMapper: {capturePoseQueue.Count} captures left");
             if (capturePoseQueue.Count == 0)
             {
-                SavePCL();
+                SavePcd();
                 enabled = false;
                 return;
             }
@@ -86,30 +81,21 @@ namespace AWSIM.PointCloudMapping
             vehicleGameObject.transform.position = currentPose.position;
             vehicleGameObject.transform.rotation = currentPose.rotation;
 
-            foreach (var sensor in mappingSensors)
-            {
-                var sensorPCL = sensor.Capture_XYZI_ROS(worldOriginROS);
-                foreach (var point in sensorPCL.Points)
-                {
-                    mergedPCL.Add(point);
-                }
-            }
+            mappingSensor.Capture();
         }
 
         public void OnDestroy()
         {
             if (enabled)
             {
-                SavePCL();
+                SavePcd();
             }
         }
 
-        private void SavePCL()
+        private void SavePcd()
         {
-            var path = $"{Application.dataPath}/{outputPcdFilePath}";
-            Debug.Log($"Writing PCL data to {path}");
-            var writer = new PclSharp.IO.PCDWriter();
-            writer.Write(path, mergedPCL);
+            Debug.Log($"Writing PCD to {Application.dataPath}/{outputPcdFilePath}");
+            mappingSensor.SavePcd();
             Debug.Log("PCL data saved successfully");
         }
 

@@ -22,7 +22,7 @@ PC specifications that meet the following requirements are required.
 |OS|Ubutnu 20.04|
 |CPU|6cores and 12thread or higher|
 |GPU|RTX2080Ti or higher|
-|Nvidia Driver (Windows)|>=460.82|
+|Nvidia Driver (Windows)|>=472.50|
 |Nvidia Driver (Linux)|>=460.27.03|
 
 

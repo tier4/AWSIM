@@ -1,34 +1,74 @@
-using PclSharp;
-using PclSharp.Struct;
+// Copyright 2022 Robotec.ai.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+using System;
 using RGLUnityPlugin;
 using UnityEngine;
 
 namespace AWSIM.PointCloudMapping
 {
     /// <summary>
-    /// Implementation of IMappingSensor for PointCloudMapper based on RGL.
-    /// Provides a filtered PCL based on the visualization points for Unity.
-    /// Intensity is dummy.
+    /// Implementation of an adapter to LidarSensor based on RGL for PointCloudMapper.
     /// </summary>
-    public class RGLMappingAdapter : MonoBehaviour, IMappingSensor
+    [RequireComponent(typeof(LidarSensor))]
+    public class RGLMappingAdapter : MonoBehaviour
     {
         [SerializeField]
         [Tooltip("Resolution to sub-sample point cloud data. Set leaf size to 0 if you don't want to sub-sample.")]
         private float leafSize;
-        
+
+        private bool isInitialized = false;
+
         private LidarSensor lidarSensor;
 
-        public void Start()
+        private RGLNodeSequence rglSubgraphMapping;
+
+        private readonly string rosWorldTransformNodeId = "ROS_WORLD_TF";
+        private readonly string downsampleNodeId = "DOWNSAMPLE";
+        private readonly string writePcdNodeId = "WRITE_PCD";
+
+        public void Awake()
         {
-            if (!TryGetComponent(out lidarSensor) || !lidarSensor.enabled)
-            {
-                Debug.LogError("LidarSensor not found for RGLMappingAdapter. Make sure it is attached to the same GameObject!");
-                enabled = false;
-                return;
-            }
+            lidarSensor = GetComponent<LidarSensor>();
             // Make sure automatic capture in RGL Lidar Sensor is disabled.
             // We want to perform captures only on demand (after warping).
             lidarSensor.AutomaticCaptureHz = 0;
+        }
+
+        public void Initialize(Vector3 worldOriginROS, string outputPcdFilePath)
+        {
+            if (isInitialized)
+            {
+                throw new Exception("Attempted to initialize RGLMappingAdapter twice!");
+            }
+
+            // Create and connect subgraph
+            Matrix4x4 worldTransform = ROS2.Transformations.Unity2RosMatrix4x4();
+            worldTransform.SetColumn(3, worldTransform.GetColumn(3) + (Vector4) worldOriginROS);
+            rglSubgraphMapping = new RGLNodeSequence()
+                .AddNodePointsTransform(rosWorldTransformNodeId, worldTransform);
+
+            if (leafSize > 0.0f)
+            {
+                rglSubgraphMapping.AddNodePointsDownsample(downsampleNodeId, new Vector3(leafSize, leafSize, leafSize));
+            }
+
+            rglSubgraphMapping.AddNodePointsWritePCDFile(writePcdNodeId, outputPcdFilePath);
+
+            lidarSensor.ConnectToWorldFrame(rglSubgraphMapping);
+
+            isInitialized = true;
         }
 
         public string GetSensorName()
@@ -36,34 +76,24 @@ namespace AWSIM.PointCloudMapping
             return gameObject.name;
         }
 
-        public PointCloudOfXYZI Capture_XYZI_ROS(Vector3 worldOriginROS)
+        public void SavePcd()
         {
-            var outputData = lidarSensor.RequestCapture();
-            var pcl = new PointCloudOfXYZI();
-
-            for (int i = 0; i < outputData.hitCount; ++i)
+            if (rglSubgraphMapping == null)
             {
-                var rosPoint = ROS2Utility.UnityToRosPosition(outputData.hits[i]) + worldOriginROS;
-                pcl.Add(new PointXYZI
-                {
-                    X = rosPoint.x,
-                    Y = rosPoint.y,
-                    Z = rosPoint.z,
-                    Intensity = 100.0f
-                });
+                Debug.LogWarning("RGLMappingAdapter: skipped saving PCD file - empty point cloud");
+                return;
+            }
+            rglSubgraphMapping.Clear();
+        }
+
+        public void Capture()
+        {
+            if (!isInitialized)
+            {
+                throw new Exception("Attempted to run RGLMappingAdapter without initialization!");
             }
 
-            if (leafSize == 0.0f)
-            {
-                return pcl;
-            }
-
-            var filteredPCL = new PointCloudOfXYZI();
-            var voxelGrid = new PclSharp.Filters.VoxelGridOfXYZI();
-            voxelGrid.SetInputCloud(pcl);
-            voxelGrid.LeafSize = new PointXYZ { V = new System.Numerics.Vector3(leafSize, leafSize, leafSize) };
-            voxelGrid.filter(filteredPCL);
-            return filteredPCL;
+            lidarSensor.Capture();
         }
     }
 }
