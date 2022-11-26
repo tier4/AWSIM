@@ -177,13 +177,12 @@ namespace AWSIM.RandomTraffic
                 var startPoint = waypointIndex == 0
                     ? States[stateIndex].FrontCenterPosition
                     : Waypoints[waypointOffset + waypointIndex - 1];
-                startPoint.y += States[stateIndex].Extents.y;
 
                 // Reduce the detection range so that large sized vehicles can pass each other.
                 var boxCastExtents = States[stateIndex].Extents * 0.5f;
+                boxCastExtents.y *= 3;
                 boxCastExtents.z = 0.1f;
                 var endPoint = Waypoints[waypointOffset + waypointIndex];
-                endPoint.y += States[stateIndex].Extents.y;
 
                 var distance = Vector3.Distance(startPoint, endPoint);
                 var direction = (endPoint - startPoint).normalized;
