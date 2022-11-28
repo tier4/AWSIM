@@ -145,15 +145,11 @@ Objects, to be detectable by Robotec GPU lidar, must fulfill the following requi
 
 ## RGL Unity side scripts
 
-All the most important scripts can be found under the following paths:<br>
-`Assets/RGLUnityPlugin/Scripts/SceneManager.cs`<br>
-`Assets/RGLUnityPlugin/Scripts/LidarSensor.cs`<br>
-`Assets/RGLUnityPlugin/Scripts/PointCloudVisualization.cs`<br>
-`Assets/AWSIM/Scripts/Sensors/LiDAR/RglLidarPublisher.cs`
+The following table describes the most essential lidar simulation scripts:
 
-|script|feature|
-|:--|:--|
-|SceneManager.cs|Synchronize the scene between Unity and RGL.|
-|LidarSensor.cs|Lidar Sensor. Provide lidar configuration and collect point cloud.|
-|PointCloudVisualization.cs|Visualize point cloud collected by lidar.|
-|RglLidarPublisher.cs|Convert the data output from LidarSensor to ROS2 msg and publish.|
+|script|feature|path|
+|:--|:--|:--|
+|SceneManager.cs|Synchronize the scene between Unity and RGL.|`Assets/RGLUnityPlugin/Scripts/SceneManager.cs`|
+|LidarSensor.cs|Lidar Sensor. Provide lidar configuration and collect point cloud.|`Assets/RGLUnityPlugin/Scripts/LidarSensor.cs`|
+|PointCloudVisualization.cs|Visualize point cloud collected by lidar.|`Assets/RGLUnityPlugin/Scripts/PointCloudVisualization.cs`|
+|RglLidarPublisher.cs|Convert the data output from LidarSensor to ROS2 msg and publish.|`Assets/AWSIM/Scripts/Sensors/LiDAR/RglLidarPublisher.cs`|
