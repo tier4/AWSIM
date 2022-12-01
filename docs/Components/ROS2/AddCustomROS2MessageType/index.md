@@ -129,15 +129,15 @@ To include a custom ROS2 message, you have to build `ROS2 For Unity` with your c
 
 Build `ROS2 For Unity` using the foolowing command:
 
-    === "Ubuntu"
-        ```
-        ./build.sh --standalone
-        ```
+=== "Ubuntu"
+    ```
+    ./build.sh --standalone
+    ```
 
-    === "Windows"
-        ```
-        .\build.ps1 -standalone
-        ```
+=== "Windows"
+    ```
+    .\build.ps1 -standalone
+    ```
 
 ### Install `custom_msgs` to AWSIM
 
