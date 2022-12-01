@@ -29,6 +29,7 @@ namespace RGLUnityPlugin
         private List<RGLNodeSequence> parents = new List<RGLNodeSequence>();
         private List<RGLNodeSequence> childs = new List<RGLNodeSequence>();
         private RGLField outputField = RGLField.UNKNOWN;
+        private bool isActive = true; 
 
         //// NODESEQUENCES OPERATIONS ////
         public static void Connect(RGLNodeSequence parent, RGLNodeSequence child)
@@ -154,23 +155,46 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence AddNodePointsYield(string identifier, RGLField field)
+        {
+            ValidateNewNode(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsYield(ref handle.Node, new [] {field});
+            handle.Type = RGLNodeType.POINTS_YIELD;
+            outputField = field;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
         public RGLNodeSequence AddNodePointsFormat(string identifier, RGLField[] fields)
         {
             ValidateNewNode(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
-            if (fields.Length == 1)
-            {
-                RGLNativeAPI.NodePointsYield(ref handle.Node, fields);
-                handle.Type = RGLNodeType.POINTS_YIELD;
-                outputField = fields[0];
-            }
-            else
-            {
-                RGLNativeAPI.NodePointsFormat(ref handle.Node, fields);
-                handle.Type = RGLNodeType.POINTS_FORMAT;
-                outputField = RGLField.DYNAMIC_FORMAT;
-            }
+            RGLNativeAPI.NodePointsFormat(ref handle.Node, fields);
+            handle.Type = RGLNodeType.POINTS_FORMAT;
+            outputField = RGLField.DYNAMIC_FORMAT;
             handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLNodeSequence AddNodePointsRos2Publish(
+            string identifier, string topicName, string frameId,
+            RGLQosPolicyReliability reliability = RGLQosPolicyReliability.QOS_POLICY_RELIABILITY_SYSTEM_DEFAULT,
+            RGLQosPolicyDurability durability = RGLQosPolicyDurability.QOS_POLICY_DURABILITY_SYSTEM_DEFAULT,
+            RGLQosPolicyHistory history = RGLQosPolicyHistory.QOS_POLICY_HISTORY_SYSTEM_DEFAULT,
+            int historyDepth = 5)
+        {
+            ValidateNewNode(identifier);
+            if (nodes.Count == 0 || nodes.Last().Type != RGLNodeType.POINTS_FORMAT)
+            {
+                throw new RGLException("Attempted to add NodePointsRos2Publish but NodePointsFormat is required before!");
+            }
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsRos2PublishWithQos(ref handle.Node, topicName, frameId, reliability, durability, history, historyDepth);
+            handle.Identifier = identifier;
+            handle.Type = RGLNodeType.POINTS_ROS2_PUBLISH;
             AddNode(handle);
             return this;
         }
@@ -266,12 +290,14 @@ namespace RGLUnityPlugin
                 return;
             }
 
+            // If removing output node then unset outputField
             RGLNodeType nodeType = nodes[index].Type;
             if (nodeType == RGLNodeType.POINTS_FORMAT || nodeType == RGLNodeType.POINTS_YIELD)
             {
                 outputField = RGLField.UNKNOWN;
             }
 
+            // Removing first node in NodeSequence
             if (index == 0)
             {
                 if (parents.Count > 0)
@@ -280,10 +306,18 @@ namespace RGLUnityPlugin
                     DisconnectAllParents();
                 }
                 RGLNativeAPI.GraphNodeRemoveChild(nodes[0].Node, nodes[1].Node);
+                RGLNativeAPI.GraphDestroy(nodes[index].Node);
                 nodes.RemoveAt(index);
+                // Need to inactive a new first node if NodeSequence was inactive.
+                if (!isActive)
+                {
+                    isActive = true;
+                    SetActive(false);
+                }
                 return;
             }
 
+            // Removing last node in NodeSequence
             if (index == nodes.Count - 1)
             {
                 if (childs.Count > 0)
@@ -292,13 +326,16 @@ namespace RGLUnityPlugin
                     DisconnectAllChilds();
                 }
                 RGLNativeAPI.GraphNodeRemoveChild(nodes[index - 1].Node, nodes[index].Node);
+                RGLNativeAPI.GraphDestroy(nodes[index].Node);
                 nodes.RemoveAt(index);
                 return;
             }
 
+            // Removing node in the middle of NodeSequence
             RGLNativeAPI.GraphNodeRemoveChild(nodes[index - 1].Node, nodes[index].Node);
             RGLNativeAPI.GraphNodeRemoveChild(nodes[index].Node, nodes[index + 1].Node);
             RGLNativeAPI.GraphNodeAddChild(nodes[index - 1].Node, nodes[index + 1].Node);
+            RGLNativeAPI.GraphDestroy(nodes[index].Node);
             nodes.RemoveAt(index);
         }
 
@@ -311,6 +348,28 @@ namespace RGLUnityPlugin
                 RGLNativeAPI.GraphDestroy(nodes.First().Node);
                 nodes.Clear();
             }
+            isActive = true;
+        }
+
+        public bool IsActive()
+        {
+            return isActive;
+        }
+
+        public void SetActive(bool active)
+        {
+            if (isActive == active)
+            {
+                return;
+            }
+
+            if (nodes.Count == 0)
+            {
+                throw new RGLException("Attempted to set active on empty NodeSequence!");
+            }
+
+            RGLNativeAPI.GraphNodeSetActive(nodes.First().Node, active);
+            isActive = active;
         }
 
         //// PRIVATE HELPERS ////
@@ -343,12 +402,12 @@ namespace RGLUnityPlugin
         {
             if (outputField == RGLField.UNKNOWN)
             {
-                throw new RGLException("Attempted to get result data but format node was not found!");
+                throw new RGLException("Attempted to get result data but format or yield node was not found!");
             }
             RGLNodeType lastNodeType = nodes.Last().Type;
             if (!(lastNodeType == RGLNodeType.POINTS_FORMAT || lastNodeType == RGLNodeType.POINTS_YIELD))
             {
-                throw new RGLException("Attempted to get result data but format node is not the last node in the NodeSequence!");
+                throw new RGLException("Attempted to get result data but format or yield node is not the last node in the NodeSequence!");
             }
         }
 

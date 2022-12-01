@@ -16,8 +16,6 @@ using UnityEngine;
 using AWSIM;
 using AWSIM.PointCloudFormats;
 using RGLUnityPlugin;
-using ROS2;
-using UnityEngine.Profiling;
 
 namespace AWSIM
 {
@@ -33,25 +31,15 @@ namespace AWSIM
         public bool publishPCL24 = true;
         public bool publishPCL48 = true;
 
-        public QoSSettings qosSettings = new QoSSettings()
-        {
-            ReliabilityPolicy = ReliabilityPolicy.QOS_POLICY_RELIABILITY_BEST_EFFORT,
-            DurabilityPolicy = DurabilityPolicy.QOS_POLICY_DURABILITY_VOLATILE,
-            HistoryPolicy = HistoryPolicy.QOS_POLICY_HISTORY_KEEP_LAST,
-            Depth = 5,
-        };
-
-        private Publisher<sensor_msgs.msg.PointCloud2> pcl24Publisher;
-        private Publisher<sensor_msgs.msg.PointCloud2> pcl48Publisher;
-        private sensor_msgs.msg.PointCloud2 pcl24SensorMsg;
-        private sensor_msgs.msg.PointCloud2 pcl48SensorMsg;
+        public RGLQosPolicyReliability reliabilityPolicy = RGLQosPolicyReliability.QOS_POLICY_RELIABILITY_BEST_EFFORT;
+        public RGLQosPolicyDurability durabilityPolicy = RGLQosPolicyDurability.QOS_POLICY_DURABILITY_VOLATILE;
+        public RGLQosPolicyHistory historyPolicy = RGLQosPolicyHistory.QOS_POLICY_HISTORY_KEEP_LAST;
+        public int historyDepth = 5;
 
         private RGLNodeSequence rglSubgraphUnity2Ros;
         private RGLNodeSequence rglSubgraphPcl24;
         private RGLNodeSequence rglSubgraphPcl48;
 
-        private byte[] pcl24Data;
-        private byte[] pcl48Data;
         private LidarSensor lidarSensor;
 
         private void Start()
@@ -62,7 +50,6 @@ namespace AWSIM
             }
 
             lidarSensor = GetComponent<LidarSensor>();
-            lidarSensor.onNewData += OnNewLidarData;
 
             rglSubgraphUnity2Ros = new RGLNodeSequence()
                 .AddNodePointsTransform("UNITY_TO_ROS", ROS2.Transformations.Unity2RosMatrix4x4());
@@ -70,59 +57,38 @@ namespace AWSIM
 
             if (publishPCL24)
             {
-                pcl24Data = new byte[0];
-                pcl24Publisher = SimulatorROS2Node.CreatePublisher<sensor_msgs.msg.PointCloud2>(pcl24Topic, qosSettings.GetQoSProfile());
-                pcl24SensorMsg = FormatPCL24.GetSensorMsg();
-                pcl24SensorMsg.SetHeaderFrame(frameID);
                 rglSubgraphPcl24 = new RGLNodeSequence()
-                    .AddNodePointsFormat("PCL24", FormatPCL24.GetRGLFields());
+                    .AddNodePointsFormat("PCL24", FormatPCL24.GetRGLFields())
+                    .AddNodePointsRos2Publish("pub24", pcl24Topic, frameID, reliabilityPolicy, durabilityPolicy, historyPolicy, historyDepth);
                 RGLNodeSequence.Connect(rglSubgraphUnity2Ros, rglSubgraphPcl24);
             }
 
             if (publishPCL48)
             {
-                pcl48Data = new byte[0];
-                pcl48Publisher = SimulatorROS2Node.CreatePublisher<sensor_msgs.msg.PointCloud2>(pcl48Topic, qosSettings.GetQoSProfile());
-                pcl48SensorMsg = FormatPCL48.GetSensorMsg();
-                pcl48SensorMsg.SetHeaderFrame(frameID);
                 rglSubgraphPcl48 = new RGLNodeSequence()
-                    .AddNodePointsFormat("PCL48", FormatPCL48.GetRGLFields());
+                    .AddNodePointsFormat("PCL48", FormatPCL48.GetRGLFields())
+                    .AddNodePointsRos2Publish("pub48", pcl48Topic, frameID, reliabilityPolicy, durabilityPolicy, historyPolicy, historyDepth);
                 RGLNodeSequence.Connect(rglSubgraphUnity2Ros, rglSubgraphPcl48);
             }
         }
 
-        private void OnNewLidarData()
+        public void OnValidate()
         {
-            Profiler.BeginSample("Publish Pointclouds");
-            if (publishPCL24)
+            if (rglSubgraphPcl24 != null)
             {
-                int hitCount = rglSubgraphPcl24.GetResultDataRaw(ref pcl24Data, 24);
-                PublishFormat(pcl24Publisher, pcl24SensorMsg, pcl24Data, hitCount);
+                if (publishPCL24 != rglSubgraphPcl24.IsActive())
+                {
+                    rglSubgraphPcl24.SetActive(publishPCL24);
+                }
             }
 
-            if (publishPCL48)
+            if (rglSubgraphPcl48 != null)
             {
-                int hitCount = rglSubgraphPcl48.GetResultDataRaw(ref pcl48Data, 48);
-                PublishFormat(pcl48Publisher, pcl48SensorMsg, pcl48Data, hitCount);
+                if (publishPCL48 != rglSubgraphPcl48.IsActive())
+                {
+                    rglSubgraphPcl48.SetActive(publishPCL48);
+                }
             }
-            Profiler.EndSample();
-        }
-
-        private void PublishFormat(Publisher<sensor_msgs.msg.PointCloud2> publisher, sensor_msgs.msg.PointCloud2 msg,
-            byte[] data, int hitCount)
-        {
-            var header = msg as MessageWithHeader;
-            SimulatorROS2Node.UpdateROSTimestamp(ref header);
-            msg.Data = data;
-            msg.Width = (uint) hitCount;
-            msg.Row_step = msg.Point_step * msg.Width;
-            publisher.Publish(msg);
-        }
-
-        private void OnDisable()
-        {
-            if(pcl24Publisher != null) pcl24Publisher.Dispose();
-            if(pcl48Publisher != null) pcl48Publisher.Dispose();
         }
     }
 }
