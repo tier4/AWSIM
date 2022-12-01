@@ -1,21 +1,24 @@
 # AWSIM Environment
 
+The following document describes the environment simulated in AWSIM.
+
 ## Required Environment files
-AWSIM and Autowade require the following three Environment files.
+
+AWSIM and Autoware requires the following three Environment files to work properly.
 
 |file|use|purpose|
 |:--|:--|:--|
-|lanelet2 (.osm)|Autoware|Autoware uses lane information.|
-|pointcloud (.pcd)|Autoware|Autoware uses point cloud information. |
-|3D model (.fbx)|AWSIM|Used to render the environment within AWSIM.|
+|lanelet2 (.osm)|Autoware|Lane information defining traffic rules.|
+|pointcloud (.pcd)|Autoware|Point cloud information used for Autoware's localization. |
+|3D model (.fbx)|AWSIM|3D model of the simulated environment within AWSIM.|
 
 ## Overview
 
-AWSIM's Environment includes the following.
+AWSIM's Environment contains the following elements.
 
-- Building, Road
+- Buildings, Roads
 - Traffic lights
-- Traffic NPC
+- NPC traffic
     - Vehicle
     - Pedestrian
 
@@ -25,11 +28,17 @@ AWSIM's Environment includes the following.
 The sample 3D map of Tokyo West Shinjuku, Japan set up as a sample is available for distribution.
 See [SetupUnityProject](../../../GettingStarted/SetupUnityProject/#5-import-environment-custom-package), where you can download the unitypackage.
 
-## Building, Road
-Building has the greatest impact on self-position estimation by LiDARSensor. The road surface affects vehicle dynamics.
+### Buildings and roads
 
-## Traffic lights
-To simulate signal recognition, the Traffic light must be strictly aligned with the VectorMap location. NPCVehicle runs based on traffic light control. Ego Vehicle performs signal recognition from camera sensor images.
+Buildings have the greatest impact on Autoware's self-position estimation. Accurate environment object placement is crucial for correct point cloud data generation, which directly affects localization capabilities.
+Additionally, the road surface affects vehicle dynamics.
 
-## Traffic NPC
-The use of NPCs can add realism to self-driving simulations. NPCVehicle, NPCPedestrian to simulate traffic.
+### Traffic lights control
+
+To simulate signal recognition, the modeled traffic lights must be strictly aligned with the Lanelet2 location.
+NPCVehicle runs based on traffic light control, which defines traffic flow at intersections, preventing the NPCs from colliding.
+Additionally, ego vehicle performs signal recognition from camera sensor images containing traffic lights.
+
+## NPC traffic
+
+The use of NPCs adds realism to self-driving simulations, especially in urban environments. NPC Vehicle, NPC Pedestrian to simulate traffic.

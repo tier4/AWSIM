@@ -1,6 +1,7 @@
 
-AWSIM publishes/subscribes to these topics.  
-User can also add a custom msg type for ROS2. see also [Add custom ROS2 msg type](../AddCustomROS2MessageType/index.md)
+The tables of topics AWSIM publishes and subscribes from can be found below.
+The list can be extended by the user for the specific use case.
+To see how to custom messages type for ROS2, please refer to [Add custom ROS2 message type](../AddCustomROS2MessageType/index.md) document.
 
 ## Publisher list
 |category|topic|msg|frame_id|hz|QoS|
