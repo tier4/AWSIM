@@ -14,9 +14,17 @@ namespace AWSIM
         [SerializeField]
         Vector3 mgrsOffsetPosition;
 
+        [SerializeField]
+        string mgrsGridZone;
+
         /// <summary>
-        /// Reference point of Autoware's MGRS coordinate system.
+        /// Reference point of MGRS coordinate system.
         /// </summary>
         public Vector3 MgrsOffsetPosition => mgrsOffsetPosition;
+
+        /// <summary>
+        /// MGRS Grid Zone.
+        /// </summary>
+        public string MgrsGridZone => mgrsGridZone;
     }
 }
