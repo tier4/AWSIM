@@ -391,8 +391,10 @@ namespace RGLUnityPlugin
                 {
                     smrs.Add(smr);
                 }
-                
-                if (gameObject.TryGetComponent<MeshRenderer>(out var mr) && mr.enabled)
+
+                bool hasMeshRenderer = gameObject.TryGetComponent<MeshRenderer>(out var mr) && mr.enabled;
+                bool hasMeshFilter = gameObject.TryGetComponent<MeshFilter>(out _); // Mesh filter can't be disabled
+                if (hasMeshRenderer && hasMeshFilter)
                 {
                     mrs.Add(mr);
                 }
