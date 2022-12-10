@@ -41,8 +41,13 @@ namespace AWSIM
                 yield return RotateRoutine(0.5f, 360f);
                 yield return MoveForwardRoutine(duration, speed);
                 yield return RotateRoutine(0.5f, 360f);
-                transform.position = startPosition;
-                transform.rotation = startRotation;
+                var npcTransformPos = npcPedestrian.transform.position;
+
+                // reset
+                npcPedestrian.SetPosition(startPosition);
+                npcPedestrian.SetRotation(startRotation);
+                currentPosition = startPosition;
+                currentRotation = startRotation;
             }
         }
 
