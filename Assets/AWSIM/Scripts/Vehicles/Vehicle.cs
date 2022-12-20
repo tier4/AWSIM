@@ -212,6 +212,11 @@ namespace AWSIM
         Vector3 lastPosition;
         Quaternion lastRotation;
 
+        // Sleep position & rotation
+        Vector3 sleepPositon;
+        Quaternion sleepRotation;
+        bool lastSleep;
+
         void Awake()
         {
             m_rigidbody = GetComponent<Rigidbody>();
@@ -254,6 +259,7 @@ namespace AWSIM
             lastVelocity = m_rigidbody.velocity;
             lastPosition = m_transform.position;
             lastRotation = m_transform.rotation;
+            lastSleep = sleep;
 
             // ----- inner methods -----
 
@@ -340,6 +346,12 @@ namespace AWSIM
 
             void UpdateVehicleSleep(bool isSleep)
             {
+                if (isSleep == true && lastSleep == false)
+                {
+                    sleepPositon = transform.position;
+                    sleepRotation = transform.rotation;
+                }
+
                 // Vehicle sleep.
                 if (isSleep)
                 {
@@ -348,6 +360,9 @@ namespace AWSIM
 
                     m_rigidbody.Sleep();
                     m_rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+
+                    transform.position = sleepPositon;
+                    transform.rotation = sleepRotation;
                 }
                 else
                 {

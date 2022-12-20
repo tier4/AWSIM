@@ -275,6 +275,11 @@ namespace RGLUnityPlugin
                 if (renderer is MeshRenderer mr)
                 {
                     var mf = mr.GetComponent<MeshFilter>();
+                    if (mf.sharedMesh == null)
+                    {
+                        Debug.LogWarning($"Shared mesh of {mr.gameObject} is null, skipping");
+                        continue;
+                    }
                     yield return MeshFilterToRGLObject(mf);
                 }
             }
@@ -298,11 +303,21 @@ namespace RGLUnityPlugin
                 if (renderer is MeshRenderer mr)
                 {
                     var mf = mr.GetComponent<MeshFilter>();
+                    if (mf.sharedMesh == null)
+                    {
+                        Debug.LogWarning($"Shared mesh of {mr.gameObject} is null, skipping");
+                        continue;
+                    }
                     yield return MeshFilterToRGLObject(mf);
                 }
 
                 if (renderer is SkinnedMeshRenderer smr)
                 {
+                    if (smr.sharedMesh == null)
+                    {
+                        Debug.LogWarning($"Shared mesh of {smr.gameObject} is null, skipping");
+                        continue;
+                    }
                     // SkinnedMesh cannot be shared
                     string meshId = $"s#{go.GetInstanceID()}";
                     RGLSkinnedMesh rglSkinnedMesh = new RGLSkinnedMesh(meshId, smr);
@@ -376,8 +391,10 @@ namespace RGLUnityPlugin
                 {
                     smrs.Add(smr);
                 }
-                
-                if (gameObject.TryGetComponent<MeshRenderer>(out var mr) && mr.enabled)
+
+                bool hasMeshRenderer = gameObject.TryGetComponent<MeshRenderer>(out var mr) && mr.enabled;
+                bool hasMeshFilter = gameObject.TryGetComponent<MeshFilter>(out _); // Mesh filter can't be disabled
+                if (hasMeshRenderer && hasMeshFilter)
                 {
                     mrs.Add(mr);
                 }

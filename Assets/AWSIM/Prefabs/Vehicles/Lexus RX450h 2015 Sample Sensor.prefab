@@ -1766,7 +1766,7 @@ MonoBehaviour:
   centerOfMassTransform: {fileID: 2963107001226707149}
   useInertia: 0
   inertia: {x: 0, y: 0, z: 0}
-  sleepVelocityThreshold: 0.04
+  sleepVelocityThreshold: 0.02
   SkiddingCancelRate: 0.606
   frontAxle:
     leftWheel: {fileID: 2963107000584003440}
