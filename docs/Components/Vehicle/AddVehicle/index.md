@@ -1,58 +1,64 @@
 # Add New Vehicle
 
-## 1. Prepare Vehicle 3D models
+This document describes process of adding new vehicle model to Unity project.
+
+## Prepare Vehicle 3D model
 
 ![](image_0.png)
 
-You can check the fbx of Lexus rx450h in the sample.   
-Path : `Assets\AWSIM\Models\Vehicles\Lexus RX450h 2015`
+A good example of how to prepare the 3D vehicle model prefab is Lexus RX450h which is already added and used in AWSIM project.
+The model can be found under `Assets/AWSIM/Models/Vehicles/Lexus RX450h 2015` directory.
 
-These meshes need to be divided.
+To add new model user have to divide the model's meshes in the following parts:
 
 - Body
 - Each wheel
 - Steering
 
-These materials need to be divided.
+The division needs also to be applied regarding the materials:
 
 - HeadLight
 - BrakeLight
 - TurnSignal
 - ReverseLight
 
-## 2. Setup Physics & Collider
+## Setup Physics & Collider
 
 ![](image_1.png)
 
+To make the vehicle model properly interact with other parts of simulation system, the following steps need to be conducted:
+
 1. Attach and configure `Rigidbody`
-2. Create `MeshCollider` for Body
+2. Create `MeshCollider` for models body
 3. Set up `WheelCollider` on each wheel. Also attach the editor extension script for `WheelColliderConfig.cs`, which automatically sets unnecessary parameters of `WheelCollider`. Set up parameters through the `WheelColliderConfig` inspector.
-## 3. Attach Script & Configuration
+## Attach control scripts
+
+The last step is to attach proper component scripts to the vehicle model prefab. The scripts will make the vehicle controllable and interactive with Autoware:
 
 1. Wheel.cs
 
-    Attach `Wheel.cs` script to each `WheelCollider`
+    Attach `Wheel.cs` script to each `WheelCollider` in the 3D model
 
     |property|feature|
     |:--|:--|
-    |WheelCollider|See WheelCollider. (automatically referenced)|
+    |WheelCollider|See [Unity documentation](https://docs.unity3d.com/Manual/class-WheelCollider.html)|
     |WheelVisualTransform|Reference to WheelVisual Object|
 
 
 2. Vehicle.cs
 
-    Attach `Vehicle.cs` script to vehicle root game object
+    Attach `Vehicle.cs` script to vehicle root GameObject
 
     |property|feature|
     |:--|:--|
     |CenterOfMass|Center of Mass position set by transform|
-    |UseInertia|Define moment of inertia?|
-    |Inertia|Moment of inertia when `UseInertia` is true. (kgm^2)|
+    |UseInertia|Flag enabling moment of inertia usage|
+    |Inertia|Moment of inertia when `UseInertia` is enabled (kgm^2)|
     |Front, Rear Axle|Reference to each `Wheel` component|
 
 3. VehicleVisualEffect.cs
 
-    Attach `VehicleVisualEffect.cs` script to the object to which `Vehicle.cs` is attached
+    Attach `VehicleVisualEffect.cs` script to the GameObject to which `Vehicle.cs` is attached
 
     |property|feature|
     |:--|:--|
@@ -65,6 +71,7 @@ These materials need to be divided.
 
 4. VehicleROSInput.cs
 
-    Attach `VehicleROSInput.cs` script to the object ot which `Vehicle.cs` is attached. You can configure the Topic of each msg to subscribe in ROS2. When this script is attached, default values are set.
+    Attach `VehicleROSInput.cs` script to the GameObject to which `Vehicle.cs` is attached. You can configure the topic of each msg to subscribe in ROS2. When this script is attached, default values are set.
 
-    (Attach `VehicleKeyboardInput.cs` depending on the application. It can be operated with a keyboard.)
+!!! info
+    Attach `VehicleKeyboardInput.cs` for keyboard operation instead.

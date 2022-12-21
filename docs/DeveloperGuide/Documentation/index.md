@@ -3,7 +3,7 @@ This document uses [Material for MkDocs](https://squidfunk.github.io/mkdocs-mate
 
 ## Local hosting
 
-1 Install Material for MkDocs. (skip if already installed)
+1 Install Material for `MkDocs`.
 ```
 $ pip install mkdocs-material
 ```
@@ -17,16 +17,19 @@ INFO     -  Documentation built in 0.16 seconds
 INFO     -  [03:13:22] Watching paths for changes: 'docs', 'mkdocs.yml'
 INFO     -  [03:13:22] Serving on http://127.0.0.1:8000/
 ```
-3 Access `http://127.0.0.1:8000/` with a web browser. (TODO change image)
+
+
+3 Access `http://127.0.0.1:8000/` with a web browser.
+<!-- (TODO change image) -->
 ![](image_0.png)
 
-see also [Material for MkDocs - Getting started](https://squidfunk.github.io/mkdocs-material/getting-started/)
+For further reference see [Material for MkDocs - Getting started](https://squidfunk.github.io/mkdocs-material/getting-started/).
 
 ## MkDocs files
-Use the following `/docs` directory and `mkdocs.yml` for documentation.
+Use the following `/docs` directory and `mkdocs.yml` for new documentation files.
 ```
 AWSIM
-├─ docs/                // md and image file for each document.
+├─ docs/                // markdown and image file for each document.
 └─ mkdocs.yml           // mkdocs config.
 ```
 Create one directory per document. For example, the directory structure of this "Documentation" page might look like this.

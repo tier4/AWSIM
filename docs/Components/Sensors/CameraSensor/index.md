@@ -1,28 +1,34 @@
 # Camera Sensor
 
-CameraSensor is used for Autoware traffic light recognition.
+The following document describes Unity component used for camera simulation. The `CameraSensor` component is used for Autoware traffic light recognition.
 
 ## Prefabs
 
-Path : `Assets\AWSIM\Prefabs\Sensors\CameraSensor.prefab`
+The component prefab can be found under the following path: `Assets\AWSIM\Prefabs\Sensors\CameraSensor.prefab`
 
 ## Scripts
 
-Path : `Assets\AWSIM\Prefabs\Sensors\CameraSensor\*`
+All the most important scripts can be found under the `Assets\AWSIM\Prefabs\Sensors\CameraSensor\*` path.
+
+The table below describes features contained in each provided script:
 
 |script|feature|
 |:--|:--|
-|CameraSensor.cs|Camera Sensor. Apply OpenCV distortion and encode to bgr8 format. Use ComputeShader.|
-|CameraRos2Publisher.cs|Convert the data output from CameraSensor to ROS2 msg and Publish.|
+|CameraSensor.cs|Core camera sensor component. It is responsible for applying OpenCV distortion and encoding to bgr8 format. Uses `ComputeShader`.|
+|CameraRos2Publisher.cs|Converts the data output from CameraSensor to ROS2 message and publishes it.|
 
 ## Output Data
+
+The sensor computation output format is presented below:
 
 |field|type|feature|
 |:--|:--|:--|
 |ImageDataBuffer|byte[ ]|Buffer with image data.|
 |CameraParameters|CameraParameters|Set of the camera parameters.|
 
-## ROS2 Publish Topics
+## Published Topics
+
+The data output is published to the following topics:
 
 |topic|msg|frame_id|hz|QoS|
 |:--|:--|:--|:--|:--|

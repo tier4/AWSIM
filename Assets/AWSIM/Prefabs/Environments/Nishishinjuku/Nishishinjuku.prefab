@@ -22765,7 +22765,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: e9f6c123297306c43ad64cf3b2b7768d, type: 2}
-  - {fileID: 2100000, guid: 451aea9b91355944e8c8b22453d23245, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -23810,6 +23810,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mgrsOffsetPosition: {x: 81655.73, y: 50137.434, z: 42.49998}
+  mgrsGridZone: 54SUE
 --- !u!1 &9133155309130949695
 GameObject:
   m_ObjectHideFlags: 0

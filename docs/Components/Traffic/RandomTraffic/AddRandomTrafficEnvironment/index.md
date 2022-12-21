@@ -1,61 +1,72 @@
 # Add Environment for Random Traffic
-This page describes the steps to add environment components required by `RandomTrafficSimulator`.
 
-## Prepare Map
-Add 3d model map to be annotated to the scene. Make sure that an `Environment` component with appropriate `mgrsOffsetPosition` is attached to the root GameObject.
-![](map.png)  
+This document describes the steps to properly configuer `RandomTrafficSimulator` in your environment.
+
+## Map preparation
+
+The 3D map model should be added to the scene. Please make sure that the `Environment` component with appropriate `mgrsOffsetPosition` is attached to the root GameObject.
+![](map.png)
 
 ## Annotate Traffic Lights
-Attach `TrafficLight` component to all traffic light game objects.
+
+Please attach `TrafficLight` component to all traffic light GameObjects placed on scene.
 ![](traffic_light.png)  
 
 ## Load Lanelet
-Open `AWSIM -> Random Traffic -> Load Lanelet`.
+
+The lanelet load process can be performed by opening `AWSIM -> Random Traffic -> Load Lanelet` at the top toolbar of Unity Editor.
 ![](load_lanelet.png)
 
-Set OSM file and change settings as needed. 
-![](lanelet_loader_window.png)  
-Waypoint settings affect the density and accuracy of the waypoints generated.
-- Resolution
-  - Resolution of resampling. Lower values provide better accuracy at the cost of processing time.
-- Min Delta Length
-  - Minimum length(m) between adjacent points.
-- Min Delta Angle
-  - Minimum angle(deg) between adjacent edges. Lowering this value produces a smoother curve. Click the Load button. Environment components are generated.
+You should be prompted with a similar window to the one presented below. Please adjust the parameters for the loading process if needed.
 
-Click `Load` button. `TrafficLane` components and `StopLine` objects should be placed as child objects of Environment game object. You can check them in a editor view by selecting them.
-![](environment_components.png)  
+![](lanelet_loader_window.png)
+
+Waypoint settings affect the density and accuracy of the generated waypoints. The parameters are described below:
+
+- Resolution: resolution of resampling. Lower values provide better accuracy at the cost of processing time.
+- Min Delta Length: minimum length(m) between adjacent points.
+- Min Delta Angle: minimum angle(deg) between adjacent edges. Lowering this value produces a smoother curve.
+
+To generate the Lanelet2 map representation in your simulation, please click the `Load` button. Environment components should be generated and placed as child objects of the `Environment` GameObject. You can check their visual representation by clicking consecutive elements in the scene hierarchy.
+
+![](environment_components.png)
 
 ## Annotate Traffic Intersections
-![](traffic_intersection.png)  
+![](traffic_intersection.png)
 
-Add an empty GameObject named `TrafficIntersections` in the same hierarchy as the TrafficLanes object.
+To annotate intersection please, add an empty GameObject named `TrafficIntersections` at the same level as the `TrafficLanes` GameObject.
 
-For each intersection, do the following:
-1. Add an object named TrafficIntersection as a child object of the TrafficIntersections object.
-Attach a TrafficIntersection component.
-2. Set BoxCollider to cover the intersection. This is used for detecting vehicles in the intersection.
-3. Set TrafficLightGroups. Each group is controlled to have different signals, so facing traffic lights should be added to the same group. These groupings are used in traffic signal control.
-4. Specifies the signal control pattern.
+For each intersection repeat the following steps:
 
-## Annotate Additional Right of Ways
-You need to annotate right of ways of `TrafficLane` manually for unsignalized intersections.
+1. Add an GameObject named `TrafficIntersection` as a child object of the `TrafficIntersections` object.
+2. Attach a `TrafficIntersection` component to it.
+3. Add a  `BoxCollider` as a component of GameObject. It's size and position should cover the whole intersection. This is used for detecting vehicles in the intersection.
+4. Set `TrafficLightGroups`. Each group is controlled to have different signals, so facing traffic lights should be added to the same group. These groupings are used in traffic signal control.
+5. Specify the signal control pattern.
 
-![](select_traffic_light.png)  
-Select straight lane that is not right of way in the intersection. The selected lane should be highlighted.(The image is for illustration.)
+## Annotate right of ways on uncontrolled intersections
+
+For the vehicles to operate properly it is needed to annotate the right of way of `TrafficLane` manually on intersections without traffic lights.
+
+
+![](select_traffic_light.png)
+
+To set the right of way, please:
+
+- Select a straight lane that is not right of way in the intersection. The selected lane should be highlighted as presented below.
+- Click the `Set RightOfWays` button to give the lane priority over other lanes.
 ![](set_right_of_way.png)
+- Please check if all lanes that intersect with the selected lane are highlighted yellow. This means that the right of way was applied correctly.
+![](right_of_ways.png)
 
-Click `Set RightOfWays` button.
+## Annotate stop lines
 
-![](right_of_ways.png)  
-
-Check all lanes that intersect the lane are highlighted yellow.(The image is for illustration.)
-
-## Annotate Additional Stop Lines
 For each right turn lane that yields to the opposite straight or left turn lane, a stop line needs to be defined near the center of the intersection.
-![](stop_lines.png)  
-If there is no visible stop line, a `StopLine` component should be added near the center of the intersection and associated with `TrafficLane`.
+![](stop_lines.png)
+If there is no visible stop line, a `StopLine` component should be added to the scene, near the center of the intersection and associated with `TrafficLane`.
 
-## Run and Check Random Traffic
-Once all the components are ready, let's get the random traffic moving once.
+## Check final configuration
+
+Once all the components are ready, the simulation can be run.
+Check carefully if the vehicles are moving around the map correctly.
 For each intersection, review the settings of the relevant components if vehicles are unable to proceed.

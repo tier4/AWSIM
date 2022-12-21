@@ -1,4 +1,4 @@
-# AWSIM
+# AWSIM 
 
 ![](/README_img/AWSIM.png)
 
@@ -21,7 +21,7 @@ First, try the tutorial !
 
 https://tier4.github.io/AWSIM/
 
-## How to contribution
+## How to Contribute
 
 Everyone is welcome !
 1. Create a derived branch `feature/***` from the `main` branch.
