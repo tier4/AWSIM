@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine.Serialization;
 using UnityEngine;
 
 namespace RGLUnityPlugin
@@ -20,6 +23,34 @@ namespace RGLUnityPlugin
     public class PointCloudVisualization : MonoBehaviour
     {
         public Material material;
+
+        static private readonly List<Color> rainblowColors = new List<Color> {
+            Color.red,
+            new Color(1, 0.5f, 0, 1), // orange
+            Color.yellow,
+            Color.green,
+            Color.blue,
+            new Color(0.5f, 0, 1, 1) // violet
+        };
+
+        [SerializeField]
+        [Range(0, 0.5f)]private float pointSize = 0.1f;
+
+        [SerializeField]
+        private List<Color> colors = rainblowColors;
+
+        [SerializeField]
+        private bool autoComputeColoringHeights = false;
+
+        [SerializeField]
+        private float minColoringHeight = 0f;
+
+        [SerializeField]
+        private float maxColoringHeight = 10f;
+
+        private bool PointCloudMaterialLoaded = false;
+        private bool ColorsInitialized = false;
+
         private static readonly int visualizationLayerID = 11;
 
         private Mesh mesh;
@@ -29,14 +60,50 @@ namespace RGLUnityPlugin
             mesh = new Mesh();
             if (!material)
             {
-                material = Resources.Load("PointCloudMaterial", typeof(Material)) as Material;
+                material = Instantiate<Material>(Resources.Load("PointCloudMaterial", typeof(Material)) as Material);
             }
 
+            if (material.name.Replace("(Clone)","") == "PointCloudMaterial")
+            {
+                PointCloudMaterialLoaded = true;
+            }
+
+            OnValidate();
             mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+        }
+
+        public void OnValidate()
+        {
+            // Colors need to be initialized with maximum length of the array (6 in this case)
+            if (!ColorsInitialized && PointCloudMaterialLoaded)
+            {
+                material.SetColorArray("_Colors", rainblowColors);
+                material.SetInt("_ColorsNum", rainblowColors.Count);
+                ColorsInitialized = true;
+            }
+
+            if (PointCloudMaterialLoaded)
+            {
+                material.SetFloat("_Radius", pointSize);
+
+                if (!autoComputeColoringHeights) {
+                    material.SetFloat("_MinColoringHeight", minColoringHeight);
+                    material.SetFloat("_MaxColoringHeight", maxColoringHeight);
+                }
+
+                material.SetColorArray("_Colors", colors);
+                material.SetInt("_ColorsNum", colors.Count);
+            }
         }
 
         public void SetPoints(Vector3[] points)
         {
+            if (autoComputeColoringHeights && PointCloudMaterialLoaded)
+            {
+                material.SetFloat("_MinColoringHeight", points.Min(p => p.y));
+                material.SetFloat("_MaxColoringHeight", points.Max(p => p.y));
+            }
+
             // TODO: easy, low-prio optimization here
             int[] indicies = new int[points.Length];
             Color[] colors = new Color[points.Length];

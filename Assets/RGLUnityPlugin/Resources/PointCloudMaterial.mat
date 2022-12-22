@@ -178,7 +178,6 @@ Material:
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
     - _ExtrusionFactor: 0.1
-    - _FirstDistance: -5.2
     - _FlipbookMode: 0
     - _FuzzMapUVScale: 0.1
     - _FuzzStrength: 1
@@ -189,9 +188,11 @@ Material:
     - _InvFade: 2.82
     - _LightingEnabled: 0
     - _MaskBlendSrc: 1
+    - _MaxColoringHeight: 21.541412
     - _Metallic: 0
     - _MetallicRemapMax: 1
     - _MetallicRemapMin: 0
+    - _MinColoringHeight: -2.243432
     - _Mode: 0
     - _NormalBlendSrc: 0
     - _NormalMapStrength: 1
@@ -205,7 +206,6 @@ Material:
     - _RequireSplitLighting: 1
     - _ScaleX: 1
     - _ScaleY: 1
-    - _SecondDistance: -3
     - _Shininess: 0.2
     - _Smoothness: 0.5
     - _SmoothnessMax: 1
@@ -262,14 +262,13 @@ Material:
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
+    - _Colors: {r: 0, g: 0.14653754, b: 1, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorHDR: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
-    - _FirstColor: {r: 1, g: 0.00000012715658, b: 0, a: 1}
-    - _SecondColor: {r: 0.0025007725, g: 1, b: 0, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _Specular: {r: 0, g: 0, b: 0, a: 0}
     - _SpecularColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 0}
