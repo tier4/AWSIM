@@ -188,18 +188,19 @@ Material:
     - _InvFade: 2.82
     - _LightingEnabled: 0
     - _MaskBlendSrc: 1
-    - _MaxColoringHeight: 21.541412
+    - _MaxColoringHeight: 100
     - _Metallic: 0
     - _MetallicRemapMax: 1
     - _MetallicRemapMin: 0
-    - _MinColoringHeight: -2.243432
+    - _MinColoringHeight: -100
     - _Mode: 0
     - _NormalBlendSrc: 0
     - _NormalMapStrength: 1
     - _OcclusionStrength: 1
     - _OpaqueCullMode: 2
     - _Parallax: 0.02
-    - _Radius: 0.15
+    - _PointShape: 0
+    - _PointSize: 0.03
     - _ReceivesSSR: 0
     - _ReceivesSSRTransparent: 0
     - _RenderQueueType: 1
@@ -260,7 +261,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.9433962, g: 0.13794944, b: 0.13794944, a: 1}
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _Colors: {r: 0, g: 0.14653754, b: 1, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}

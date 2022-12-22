@@ -22,6 +22,13 @@ namespace RGLUnityPlugin
     [System.Serializable]
     public class PointCloudVisualization : MonoBehaviour
     {
+        public enum PointShape
+        {
+            FlatSquare = 0,
+            Box = 1,
+            Pyramid = 2
+        }
+
         public Material material;
 
         static private readonly List<Color> rainblowColors = new List<Color> {
@@ -32,6 +39,9 @@ namespace RGLUnityPlugin
             Color.blue,
             new Color(0.5f, 0, 1, 1) // violet
         };
+
+        [SerializeField]
+        private PointShape pointShape = PointShape.Box;
 
         [SerializeField]
         [Range(0, 0.5f)]private float pointSize = 0.1f;
@@ -84,7 +94,8 @@ namespace RGLUnityPlugin
 
             if (PointCloudMaterialLoaded)
             {
-                material.SetFloat("_Radius", pointSize);
+                material.SetFloat("_PointSize", pointSize);
+                material.SetInt("_PointShape", (int)pointShape);
 
                 if (!autoComputeColoringHeights) {
                     material.SetFloat("_MinColoringHeight", minColoringHeight);
