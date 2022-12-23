@@ -29,6 +29,7 @@ namespace RGLUnityPlugin
             Pyramid = 2
         }
 
+        [Tooltip("Set 'none' to load material from RGLUnityPlugin resources.")]
         public Material material;
 
         static private readonly List<Color> rainblowColors = new List<Color> {
@@ -84,7 +85,7 @@ namespace RGLUnityPlugin
 
         public void OnValidate()
         {
-            // Colors need to be initialized with maximum length of the array (6 in this case)
+            // Colors in material need to be initialized with maximum length of the array (6 in this case)
             if (!ColorsInitialized && PointCloudMaterialLoaded)
             {
                 material.SetColorArray("_Colors", rainblowColors);

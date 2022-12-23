@@ -118,7 +118,8 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
+    m_Ints:
+    - _ColorsNum: 0
     m_Floats:
     - Vector1_2aaabd0243594f9d92cf2bceef82a9ce: 905
     - _AO: 1
@@ -200,7 +201,7 @@ Material:
     - _OpaqueCullMode: 2
     - _Parallax: 0.02
     - _PointShape: 0
-    - _PointSize: 0.03
+    - _PointSize: 0.01
     - _ReceivesSSR: 0
     - _ReceivesSSRTransparent: 0
     - _RenderQueueType: 1
@@ -264,6 +265,7 @@ Material:
     - _Color: {r: 0.9433962, g: 0.13794944, b: 0.13794944, a: 1}
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _Colors: {r: 0, g: 0.14653754, b: 1, a: 1}
+    - _DefaultColor: {r: 1, g: 1, b: 1, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
