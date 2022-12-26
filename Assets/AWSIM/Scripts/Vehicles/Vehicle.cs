@@ -116,11 +116,11 @@ namespace AWSIM
 
         [Header("Physics Settings (experimental)")]
 
-        // Threshold for Rigidbody Sleep.
+        // Threshold for Rigidbody Sleep (m/s).
         [SerializeField] float sleepVelocityThreshold;
 
-        // Time to Rigidbody Sleep.
-        [SerializeField] float timeThreshold;
+        // Time to Rigidbody Sleep (sec).
+        [SerializeField] float sleepTimeThreshold;
 
         // Coefficient for prevent skidding while stopping.
         // Applies to each wheel.
@@ -206,7 +206,7 @@ namespace AWSIM
         public Vector3 AngularVelocity { get; private set; }
 
 
-        private float counttime = 0.0f; ///Count the time until CanSleep is switched to true
+        private float sleepTimer = 0.0f; ///Count the time until CanSleep is switched to true
 
 
 
@@ -253,8 +253,7 @@ namespace AWSIM
             PreUpdateWheels();
 
             // Sleep ?
-            var maybe_sleep = CanSleep();
-            var sleep = SleepTime(maybe_sleep);
+            var sleep = CanSleep();
             UpdateVehicleSleep(sleep);
 
             if (sleep == false)
@@ -307,8 +306,19 @@ namespace AWSIM
                     return true;
 
                 // Is wheel grounded ? Is less than sleepVelocityThreshold ? Is input gear & acceleration can sleep?
-                return (IsEachWheelGrounded() && IsCanSleepVelocity() && IsCanSleepInput());
-
+                else if (IsEachWheelGrounded() && IsCanSleepVelocity() && IsCanSleepInput())
+                {
+                    sleepTimer += Time.deltaTime;
+                    if (sleepTimer >= sleepTimeThreshold)
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                {
+                    sleepTimer = 0.0f;
+                    return false;
+                }
                 // ----- inner methods -----
 
                 // Is wheel grounded ?
@@ -350,24 +360,6 @@ namespace AWSIM
                     }
                     else
                         return true;
-                }
-            }
-
-            bool SleepTime(bool maybeSleep)
-            {
-                if (maybeSleep == true) 
-                {
-                    counttime += Time.deltaTime;
-
-                    if (counttime >= timeThreshold)
-                        return true;
-                    else
-                        return false;
-                }
-                else
-                {
-                    counttime = 0.0f;
-                    return false;
                 }
             }
 
