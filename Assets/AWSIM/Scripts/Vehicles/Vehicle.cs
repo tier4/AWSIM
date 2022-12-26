@@ -119,6 +119,9 @@ namespace AWSIM
         // Threshold for Rigidbody Sleep.
         [SerializeField] float sleepVelocityThreshold;
 
+        // Time to Rigidbody Sleep.
+        [SerializeField] float timeThreshold;
+
         // Coefficient for prevent skidding while stopping.
         // Applies to each wheel.
         // TODO: A more accurate calculation method.
@@ -202,6 +205,11 @@ namespace AWSIM
         /// </summary>
         public Vector3 AngularVelocity { get; private set; }
 
+
+        private float counttime = 0.0f; ///Count the time until CanSleep is switched to true
+
+
+
         // Cache components.
         Wheel[] wheels;
         Rigidbody m_rigidbody;
@@ -245,7 +253,8 @@ namespace AWSIM
             PreUpdateWheels();
 
             // Sleep ?
-            var sleep = CanSleep();
+            var maybe_sleep = CanSleep();
+            var sleep = SleepTime(maybe_sleep);
             UpdateVehicleSleep(sleep);
 
             if (sleep == false)
@@ -341,6 +350,24 @@ namespace AWSIM
                     }
                     else
                         return true;
+                }
+            }
+
+            bool SleepTime(bool maybeSleep)
+            {
+                if (maybeSleep == true) 
+                {
+                    counttime += Time.deltaTime;
+
+                    if (counttime >= timeThreshold)
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                {
+                    counttime = 0.0f;
+                    return false;
                 }
             }
 
