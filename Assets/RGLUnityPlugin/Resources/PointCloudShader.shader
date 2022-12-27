@@ -91,15 +91,14 @@ Shader "Custom/PointCloudShader" {
         half4 _Colors[6];
         int _ColorsNum;
         vertexOut vert (vertexIn i) {
-            vertexOut OUT;
-            OUT.pos = i.pos;
-
             if (_ColorsNum < 1) {
                 _Colors[0] = _DefaultColor;
                 _ColorsNum = 1;
             }
 
             if (_ColorsNum == 1 || _MinColoringHeight >= _MaxColoringHeight) {
+                vertexOut OUT;
+                OUT.pos = i.pos;
                 OUT.color = _Colors[0];
                 return OUT;
             }
@@ -108,21 +107,25 @@ Shader "Custom/PointCloudShader" {
             float range = abs(_MaxColoringHeight - _MinColoringHeight);
             float rangeStep = range / (_ColorsNum - 1);
 
+            float4 outColor;
             if (pos_z < _MinColoringHeight || rangeStep <= 0) {
-                OUT.color = _Colors[0];
+                outColor = _Colors[0];
             } else if (pos_z > _MaxColoringHeight) {
-                OUT.color = _Colors[_ColorsNum - 1];
+                outColor = _Colors[_ColorsNum - 1];
             } else {
                 for (int i = 0; i < _ColorsNum - 1; i++) {
                     float currentMin = _MinColoringHeight + rangeStep * i;
                     float currentMax = _MinColoringHeight + rangeStep * (i + 1);
                     if(pos_z <= currentMax) {
                         float weight = (pos_z - currentMin) / (currentMax - currentMin);
-                        OUT.color = lerp(_Colors[i], _Colors[i + 1], weight);
+                        outColor = lerp(_Colors[i], _Colors[i + 1], weight);
                         break;
                     }
                 }
             }
+            vertexOut OUT;
+            OUT.pos = i.pos;
+            OUT.color = outColor;
             return OUT;
         }
 

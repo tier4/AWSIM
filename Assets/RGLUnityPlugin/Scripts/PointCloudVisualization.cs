@@ -54,7 +54,7 @@ namespace RGLUnityPlugin
         private float minColoringHeight = 0f;
 
         [SerializeField]
-        private float maxColoringHeight = 10f;
+        private float maxColoringHeight = 20f;
 
         private Material material = null;
 
@@ -99,12 +99,6 @@ namespace RGLUnityPlugin
 
         public void SetPoints(Vector3[] points)
         {
-            if (autoComputeColoringHeights)
-            {
-                material.SetFloat("_MinColoringHeight", points.Min(p => p.y));
-                material.SetFloat("_MaxColoringHeight", points.Max(p => p.y));
-            }
-
             // TODO: easy, low-prio optimization here
             int[] indicies = new int[points.Length];
             Color[] colors = new Color[points.Length];
@@ -119,6 +113,15 @@ namespace RGLUnityPlugin
             mesh.vertices = points;
             mesh.colors = colors;
             mesh.SetIndices(indicies, MeshTopology.Points, 0);
+
+            if (autoComputeColoringHeights)
+            {
+                minColoringHeight = mesh.bounds.min.y;
+                maxColoringHeight = mesh.bounds.max.y;
+
+                material.SetFloat("_MinColoringHeight", minColoringHeight);
+                material.SetFloat("_MaxColoringHeight", maxColoringHeight);
+            }
         }
 
         public void Update()
