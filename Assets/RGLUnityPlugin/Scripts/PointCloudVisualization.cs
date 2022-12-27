@@ -29,9 +29,6 @@ namespace RGLUnityPlugin
             Pyramid = 2
         }
 
-        [Tooltip("Set 'none' to load material from RGLUnityPlugin resources.")]
-        public Material material;
-
         static private readonly List<Color> rainblowColors = new List<Color> {
             Color.red,
             new Color(1, 0.5f, 0, 1), // orange
@@ -45,7 +42,7 @@ namespace RGLUnityPlugin
         private PointShape pointShape = PointShape.Box;
 
         [SerializeField]
-        [Range(0, 0.5f)]private float pointSize = 0.1f;
+        [Range(0, 0.5f)]private float pointSize = 0.05f;
 
         [SerializeField]
         private List<Color> colors = rainblowColors;
@@ -59,8 +56,7 @@ namespace RGLUnityPlugin
         [SerializeField]
         private float maxColoringHeight = 10f;
 
-        private bool PointCloudMaterialLoaded = false;
-        private bool ColorsInitialized = false;
+        private Material material = null;
 
         private static readonly int visualizationLayerID = 11;
 
@@ -72,11 +68,10 @@ namespace RGLUnityPlugin
             if (!material)
             {
                 material = Instantiate<Material>(Resources.Load("PointCloudMaterial", typeof(Material)) as Material);
-            }
 
-            if (material.name.Replace("(Clone)","") == "PointCloudMaterial")
-            {
-                PointCloudMaterialLoaded = true;
+                // Colors in material need to be initialized with maximum length of the array (6 in this case)
+                material.SetColorArray("_Colors", rainblowColors);
+                material.SetInt("_ColorsNum", rainblowColors.Count);
             }
 
             OnValidate();
@@ -85,32 +80,26 @@ namespace RGLUnityPlugin
 
         public void OnValidate()
         {
-            // Colors in material need to be initialized with maximum length of the array (6 in this case)
-            if (!ColorsInitialized && PointCloudMaterialLoaded)
+            if (!material)
             {
-                material.SetColorArray("_Colors", rainblowColors);
-                material.SetInt("_ColorsNum", rainblowColors.Count);
-                ColorsInitialized = true;
+                return;
             }
 
-            if (PointCloudMaterialLoaded)
-            {
-                material.SetFloat("_PointSize", pointSize);
-                material.SetInt("_PointShape", (int)pointShape);
+            material.SetFloat("_PointSize", pointSize);
+            material.SetInt("_PointShape", (int)pointShape);
 
-                if (!autoComputeColoringHeights) {
-                    material.SetFloat("_MinColoringHeight", minColoringHeight);
-                    material.SetFloat("_MaxColoringHeight", maxColoringHeight);
-                }
-
-                material.SetColorArray("_Colors", colors);
-                material.SetInt("_ColorsNum", colors.Count);
+            if (!autoComputeColoringHeights) {
+                material.SetFloat("_MinColoringHeight", minColoringHeight);
+                material.SetFloat("_MaxColoringHeight", maxColoringHeight);
             }
+
+            material.SetColorArray("_Colors", colors);
+            material.SetInt("_ColorsNum", colors.Count);
         }
 
         public void SetPoints(Vector3[] points)
         {
-            if (autoComputeColoringHeights && PointCloudMaterialLoaded)
+            if (autoComputeColoringHeights)
             {
                 material.SetFloat("_MinColoringHeight", points.Min(p => p.y));
                 material.SetFloat("_MaxColoringHeight", points.Max(p => p.y));
