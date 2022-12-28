@@ -20,7 +20,7 @@ This page is a tutorial for setting up a AWSIM Unity project.
 === "Windows"
     1. Make sure your machine meets the [required hardware specifications](../QuickStartDemo/#pc-specs).
         - *NOTE: PC requirements may vary depending on simulation contents which may change as the simulator develops*
-    2. Prepare a desktop PC with Windows 7, 8, 10 or 11 (64 bit) installed.
+    2. Prepare a desktop PC with Windows 10 or 11 (64 bit) installed.
     3. Install [git](https://git-scm.com/).
 
 ### Unity installation
