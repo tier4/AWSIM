@@ -99,6 +99,34 @@ namespace RGLUnityPlugin
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_node_remove_child(IntPtr parent, IntPtr child);
 
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_tape_record_begin([MarshalAs(UnmanagedType.LPStr)] string path);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_tape_record_end();
+
+
+        static RGLNativeAPI()
+        {
+            try
+            {
+                CheckVersion();
+            }
+            catch (DllNotFoundException)
+            {
+                Debug.LogError($"RobotecGPULidar library cannot be found!");
+            }
+
+            RGLDebugger debugger = MonoBehaviour.FindObjectOfType<RGLDebugger>();
+            if (debugger != null)
+            {
+                ConfigureLogging(debugger.LogLevel, debugger.LogOutputPath);
+                if (debugger.TapeRecord)
+                {
+                    TapeRecordBegin(debugger.TapeOutputPath);
+                }
+            }
+        }
 
         public static void CheckVersion()
         {
@@ -125,8 +153,24 @@ namespace RGLUnityPlugin
             throw new RGLException(errStr);
         }
 
+        public static void TapeRecordBegin(string path)
+        {
+            Debug.Log($"Start RGL recording on path '{path}'. Two files will be created with .bin and .yaml extensions");
+            CheckErr(rgl_tape_record_begin(path));
+        }
+
+        public static void TapeRecordEnd()
+        {
+            Debug.Log("End RGL recording");
+            CheckErr(rgl_tape_record_end());
+        }
+
         public static void ConfigureLogging(RGLLogLevel logLevel, string path)
         {
+            if (string.IsNullOrEmpty(path))
+            {
+                logLevel = RGLLogLevel.OFF;
+            }
             CheckErr(rgl_configure_logging(logLevel, path, false));
         }
 
