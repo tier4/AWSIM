@@ -29,7 +29,7 @@ namespace RGLUnityPlugin
             Pyramid = 2
         }
 
-        static private readonly List<Color> rainblowColors = new List<Color> {
+        static private readonly List<Color> rainbowColors = new List<Color> {
             Color.red,
             new Color(1, 0.5f, 0, 1), // orange
             Color.yellow,
@@ -42,10 +42,11 @@ namespace RGLUnityPlugin
         private PointShape pointShape = PointShape.Box;
 
         [SerializeField]
-        [Range(0, 0.5f)]private float pointSize = 0.05f;
+        [Range(0.005f, 0.5f)]
+        private float pointSize = 0.05f;
 
         [SerializeField]
-        private List<Color> colors = rainblowColors;
+        private List<Color> colors = rainbowColors;
 
         [SerializeField]
         private bool autoComputeColoringHeights = false;
@@ -70,8 +71,8 @@ namespace RGLUnityPlugin
                 material = Instantiate<Material>(Resources.Load("PointCloudMaterial", typeof(Material)) as Material);
 
                 // Colors in material need to be initialized with maximum length of the array (6 in this case)
-                material.SetColorArray("_Colors", rainblowColors);
-                material.SetInt("_ColorsNum", rainblowColors.Count);
+                material.SetColorArray("_Colors", rainbowColors);
+                material.SetInt("_ColorsNum", rainbowColors.Count);
             }
 
             OnValidate();
