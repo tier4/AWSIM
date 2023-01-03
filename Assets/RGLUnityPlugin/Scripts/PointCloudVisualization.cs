@@ -102,17 +102,14 @@ namespace RGLUnityPlugin
         {
             // TODO: easy, low-prio optimization here
             int[] indicies = new int[points.Length];
-            Color[] colors = new Color[points.Length];
 
             for (int i = 0; i < points.Length; ++i)
             {
                 indicies[i] = i;
-                colors[i] = Color.red; // Can base on reflectivity or whatever here
             }
 
             mesh.Clear();
             mesh.vertices = points;
-            mesh.colors = colors;
             mesh.SetIndices(indicies, MeshTopology.Points, 0);
 
             if (autoComputeColoringHeights)
