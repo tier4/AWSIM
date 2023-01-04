@@ -9,7 +9,7 @@ Shader "Custom/PointCloudShader" {
     }
     SubShader {
     LOD 200
-    Tags { "RenderType"="Opaque" }
+    Tags { "RenderType"="Opaque" "ForceNoShadowCasting"="True" }
     Pass {
         CGPROGRAM
         #pragma vertex vert
