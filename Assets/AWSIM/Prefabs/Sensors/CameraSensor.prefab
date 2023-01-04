@@ -50,7 +50,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 70, y: 39.4}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 20
+  m_FocalLength: 35
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -59,7 +59,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 89.13409
+  field of view: 58.746593
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -206,12 +206,12 @@ MonoBehaviour:
   publishHz: 10
   imageOnGui:
     show: 1
-    scale: 3
+    scale: 4
     xAxis: 0
     yAxis: 0
   cameraParameters:
-    width: 1280
-    height: 720
+    width: 1920
+    height: 1080
     fx: 0
     fy: 0
     cx: 0
