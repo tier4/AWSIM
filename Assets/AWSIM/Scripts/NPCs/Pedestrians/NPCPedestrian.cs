@@ -35,7 +35,7 @@ namespace AWSIM
         {
             // Switch animation based on movement speed (m/s).
             var speed2D = new Vector2(rigidbody.velocity.x, rigidbody.velocity.z).magnitude;
-            animator.SetFloat(moveSpeedProperty, speed2D);
+            animator.SetFloat(moveSpeedProperty, speed2D * 0.54f); 
 
             // Switch animation based on rotation speed (rad/s).
             animator.SetFloat(rotateSpeedProperty, rigidbody.angularVelocity.magnitude);
