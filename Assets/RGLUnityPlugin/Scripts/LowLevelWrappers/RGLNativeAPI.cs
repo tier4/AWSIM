@@ -117,7 +117,7 @@ namespace RGLUnityPlugin
                 Debug.LogError($"RobotecGPULidar library cannot be found!");
             }
 
-            RGLDebugger debugger = MonoBehaviour.FindObjectOfType<RGLDebugger>();
+            RGLDebugger debugger = UnityEngine.Object.FindObjectOfType<RGLDebugger>(false);
             if (debugger != null)
             {
                 ConfigureLogging(debugger.LogLevel, debugger.LogOutputPath);
@@ -155,21 +155,25 @@ namespace RGLUnityPlugin
 
         public static void TapeRecordBegin(string path)
         {
-            Debug.Log($"Start RGL recording on path '{path}'. Two files will be created with .bin and .yaml extensions");
+            if (string.IsNullOrEmpty(path))
+            {
+                throw new RGLException("Attempted to start tape recording on empty path.");
+            }
+            Debug.LogWarning($"Start RGL tape recording on path '{path}'. Two files will be created with .bin and .yaml extensions");
             CheckErr(rgl_tape_record_begin(path));
         }
 
         public static void TapeRecordEnd()
         {
-            Debug.Log("End RGL recording");
+            Debug.LogWarning("End RGL tape recording");
             CheckErr(rgl_tape_record_end());
         }
 
         public static void ConfigureLogging(RGLLogLevel logLevel, string path)
         {
-            if (string.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(path) && logLevel != RGLLogLevel.OFF)
             {
-                logLevel = RGLLogLevel.OFF;
+                throw new RGLException("Attempted to set RGL logging for empty output logging path.");
             }
             CheckErr(rgl_configure_logging(logLevel, path, false));
         }

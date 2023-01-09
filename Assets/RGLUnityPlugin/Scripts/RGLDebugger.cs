@@ -18,17 +18,17 @@ namespace RGLUnityPlugin
 {
     public class RGLDebugger : MonoBehaviour
     {
-        [Tooltip("Logging verbosity level")]
-        public RGLLogLevel LogLevel = RGLLogLevel.INFO;
+        [field: SerializeField, Tooltip("Logging verbosity level")]
+        public RGLLogLevel LogLevel { get; private set; } = RGLLogLevel.OFF;
 
-        [Tooltip("Path to the file where logs will be saved")]
-        public string LogOutputPath = "";
+        [field: SerializeField, Tooltip("Path to the file where logs will be saved")]
+        public string LogOutputPath { get; private set; } = "";
 
-        [Tooltip("Path to the file where tape will be saved (should contain filename without extension)")]
-        public string TapeOutputPath = "";
+        [field: SerializeField, Tooltip("Path to the file where tape recording will be saved (should contain filename without extension)")]
+        public string TapeOutputPath { get; private set; } = "";
 
-        [Tooltip("Tape recording activation button")]
-        public bool TapeRecord = false;
+        [field: SerializeField, Tooltip("Tape recording activation button")]
+        public bool TapeRecord { get; private set; } = false;
 
         private bool TapeRecordPrev = false;
         private bool isStarted = false;
