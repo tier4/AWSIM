@@ -105,6 +105,9 @@ namespace RGLUnityPlugin
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_tape_record_end();
 
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_tape_record_is_active(out bool isActive);
+
 
         static RGLNativeAPI()
         {
@@ -121,7 +124,7 @@ namespace RGLUnityPlugin
             if (debugger != null)
             {
                 ConfigureLogging(debugger.LogLevel, debugger.LogOutputPath);
-                if (debugger.TapeRecord)
+                if (debugger.ActivateTapeRecord)
                 {
                     TapeRecordBegin(debugger.TapeOutputPath);
                 }
@@ -167,6 +170,12 @@ namespace RGLUnityPlugin
         {
             Debug.LogWarning("End RGL tape recording");
             CheckErr(rgl_tape_record_end());
+        }
+
+        public static bool isTapeRecordActive()
+        {
+            CheckErr(rgl_tape_record_is_active(out bool isActive));
+            return isActive;
         }
 
         public static void ConfigureLogging(RGLLogLevel logLevel, string path)

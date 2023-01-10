@@ -28,46 +28,39 @@ namespace RGLUnityPlugin
         public string TapeOutputPath { get; private set; } = "";
 
         [field: SerializeField, Tooltip("Tape recording activation button")]
-        public bool TapeRecord { get; private set; } = false;
-
-        private bool TapeRecordPrev = false;
-        private bool isStarted = false;
-
-        public void Start()
-        {
-            isStarted = true;
-        }
+        public bool ActivateTapeRecord { get; private set; } = false;
 
         public void OnValidate()
         {
-            if (!isStarted)
+            if (!Application.isPlaying)
             {
-                TapeRecordPrev = TapeRecord;
                 return;
             }
 
-            if (TapeRecord != TapeRecordPrev)
+            if (RGLNativeAPI.isTapeRecordActive() != ActivateTapeRecord)
             {
-                if (TapeRecord)
-                {
-                    RGLNativeAPI.TapeRecordBegin(TapeOutputPath);
-                }
-                else
-                {
-                    RGLNativeAPI.TapeRecordEnd();
-                }
+                ApplyRecordingState();
             }
-            TapeRecordPrev = TapeRecord;
         }
 
         void OnDisable()
         {
-            if (TapeRecord)
+            if (RGLNativeAPI.isTapeRecordActive())
             {
                 RGLNativeAPI.TapeRecordEnd();
             }
-            TapeRecord = false;
-            TapeRecordPrev = false;
+        }
+
+        private void ApplyRecordingState()
+        {
+            if (ActivateTapeRecord)
+            {
+                RGLNativeAPI.TapeRecordBegin(TapeOutputPath);
+            }
+            else
+            {
+                RGLNativeAPI.TapeRecordEnd();
+            }
         }
     }
 }
