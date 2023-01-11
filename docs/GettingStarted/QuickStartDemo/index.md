@@ -210,5 +210,8 @@ ros2 topic pub /autoware/engage autoware_auto_vehicle_msgs/msg/Engage '{engage: 
 
 The self-driving simulation demo has been successfully launched!
 
+Here is an example video:
+![type:video](https://drive.google.com/file/d/1qxImNdK7d1zhMsJqhOa2NEM3vnjKSY7B/view?usp=share_link)
+
 ## Appendix
 - [AWSIM ROS2 topic list](../../Components/ROS2/ROS2TopicList/index.md)

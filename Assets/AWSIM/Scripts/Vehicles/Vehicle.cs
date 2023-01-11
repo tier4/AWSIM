@@ -116,8 +116,11 @@ namespace AWSIM
 
         [Header("Physics Settings (experimental)")]
 
-        // Threshold for Rigidbody Sleep.
+        // Threshold for Rigidbody Sleep (m/s).
         [SerializeField] float sleepVelocityThreshold;
+
+        // Time to Rigidbody Sleep (sec).
+        [SerializeField] float sleepTimeThreshold;
 
         // Coefficient for prevent skidding while stopping.
         // Applies to each wheel.
@@ -201,6 +204,11 @@ namespace AWSIM
         /// Vehicle angular velocity (rad/s)
         /// </summary>
         public Vector3 AngularVelocity { get; private set; }
+
+
+        private float sleepTimer = 0.0f; ///Count the time until CanSleep is switched to true
+
+
 
         // Cache components.
         Wheel[] wheels;
@@ -298,8 +306,19 @@ namespace AWSIM
                     return true;
 
                 // Is wheel grounded ? Is less than sleepVelocityThreshold ? Is input gear & acceleration can sleep?
-                return (IsEachWheelGrounded() && IsCanSleepVelocity() && IsCanSleepInput());
-
+                else if (IsEachWheelGrounded() && IsCanSleepVelocity() && IsCanSleepInput())
+                {
+                    sleepTimer += Time.deltaTime;
+                    if (sleepTimer >= sleepTimeThreshold)
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                {
+                    sleepTimer = 0.0f;
+                    return false;
+                }
                 // ----- inner methods -----
 
                 // Is wheel grounded ?
