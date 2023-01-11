@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine.Serialization;
 using UnityEngine;
 
 namespace RGLUnityPlugin
@@ -19,7 +22,43 @@ namespace RGLUnityPlugin
     [System.Serializable]
     public class PointCloudVisualization : MonoBehaviour
     {
-        public Material material;
+        public enum PointShape
+        {
+            FlatSquare = 0,
+            Box = 1,
+            Pyramid = 2
+        }
+
+        static private readonly List<Color> rainbowColors = new List<Color> {
+            Color.red,
+            new Color(1, 0.5f, 0, 1), // orange
+            Color.yellow,
+            Color.green,
+            Color.blue,
+            new Color(0.5f, 0, 1, 1) // violet
+        };
+
+        [SerializeField]
+        private PointShape pointShape = PointShape.Box;
+
+        [SerializeField]
+        [Range(0.005f, 0.5f)]
+        private float pointSize = 0.05f;
+
+        [SerializeField]
+        private List<Color> colors = rainbowColors;
+
+        [SerializeField]
+        private bool autoComputeColoringHeights = false;
+
+        [SerializeField]
+        private float minColoringHeight = 0f;
+
+        [SerializeField]
+        private float maxColoringHeight = 20f;
+
+        private Material material = null;
+
         private static readonly int visualizationLayerID = 11;
 
         private Mesh mesh;
@@ -29,28 +68,58 @@ namespace RGLUnityPlugin
             mesh = new Mesh();
             if (!material)
             {
-                material = Resources.Load("PointCloudMaterial", typeof(Material)) as Material;
+                material = Instantiate<Material>(Resources.Load("PointCloudMaterial", typeof(Material)) as Material);
+
+                // Colors in material need to be initialized with maximum length of the array (6 in this case)
+                material.SetColorArray("_Colors", rainbowColors);
+                material.SetInt("_ColorsNum", rainbowColors.Count);
             }
 
+            OnValidate();
             mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+        }
+
+        public void OnValidate()
+        {
+            if (!material)
+            {
+                return;
+            }
+
+            material.SetFloat("_PointSize", pointSize);
+            material.SetInt("_PointShape", (int)pointShape);
+
+            if (!autoComputeColoringHeights) {
+                material.SetFloat("_MinColoringHeight", minColoringHeight);
+                material.SetFloat("_MaxColoringHeight", maxColoringHeight);
+            }
+
+            material.SetColorArray("_Colors", colors);
+            material.SetInt("_ColorsNum", colors.Count);
         }
 
         public void SetPoints(Vector3[] points)
         {
             // TODO: easy, low-prio optimization here
             int[] indicies = new int[points.Length];
-            Color[] colors = new Color[points.Length];
 
             for (int i = 0; i < points.Length; ++i)
             {
                 indicies[i] = i;
-                colors[i] = Color.red; // Can base on reflectivity or whatever here
             }
 
             mesh.Clear();
             mesh.vertices = points;
-            mesh.colors = colors;
             mesh.SetIndices(indicies, MeshTopology.Points, 0);
+
+            if (autoComputeColoringHeights)
+            {
+                minColoringHeight = mesh.bounds.min.y;
+                maxColoringHeight = mesh.bounds.max.y;
+
+                material.SetFloat("_MinColoringHeight", minColoringHeight);
+                material.SetFloat("_MaxColoringHeight", maxColoringHeight);
+            }
         }
 
         public void Update()
