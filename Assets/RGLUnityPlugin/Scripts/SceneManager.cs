@@ -72,7 +72,6 @@ namespace RGLUnityPlugin
 
         private void Awake()
         {
-            RGLNativeAPI.CheckVersion();
             if (IntoRGLObjects == null)
             {
                 UpdateMeshSource();
