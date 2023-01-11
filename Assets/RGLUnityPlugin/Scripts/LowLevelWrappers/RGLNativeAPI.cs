@@ -135,10 +135,12 @@ namespace RGLUnityPlugin
         {
             int expectedMajor = 0;
             int expectedMinor = 11;
+            int expectedPatch = 3;
             CheckErr(rgl_get_version_info(out var major, out var minor, out var patch));
-            if (major != expectedMajor || minor < expectedMinor)
+            if (major != expectedMajor || minor < expectedMinor || (minor == expectedMinor && patch < expectedPatch))
             {
-                throw new RGLException($"RGL version mismatch. Expected: {expectedMajor}.>={expectedMinor}.x, but found {major}.{minor}.{patch}.");
+                throw new RGLException($"RGL version mismatch. Expected: minimum {expectedMinor}.{expectedPatch} for major {expectedMajor}, " +
+                                       $"but found {major}.{minor}.{patch}.");
             }
 
             Debug.Log($"RGL Version: {major}.{minor}.{patch}");
