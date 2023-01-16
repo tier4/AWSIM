@@ -31,8 +31,8 @@ The following section describes the API of `NPCPedestrian.cs` script.
 
 |API|type|feature|
 |:--|:--|:--|
-|SetPosition|Vector3|Move NPC pedestrian so that the reference point is at the specified coordinates.|
-|SetRotation|Vector3|Rotate NPC pedestrian so that the orientation of the reference point becomes the specified one.|
+|SetPosition|Vector3|Move the NPC pedestrian so that the reference point is at the specified coordinates.|
+|SetRotation|Vector3|Rotate the NPC pedestrian so that the orientation of the reference point becomes the specified one.|
 
 
 
