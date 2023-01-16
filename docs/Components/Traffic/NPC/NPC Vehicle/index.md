@@ -6,26 +6,8 @@ The `NPC Vehicle` is a non-playable vehicle object and used for simulation traff
 
 The following prefab files are placed under `AWSIM\Assets\AWSIM\Prefabs\NPCs\Vehicles` directory.
 
-<figure style="display: inline-block">
-<img src="image_1.png" width="120" height="120">
-<figcaption>Hatchback.prefab</figcaption>
-</figure>
-<figure style="display: inline-block">
-<img src="image_2.png" width="120" height="120">
-<figcaption>SmallCar.prefab</figcaption>
-</figure>
-<figure style="display: inline-block">
-<img src="image_3.png" width="120" height="120">
-<figcaption>Taxi.prefab</figcaption>
-</figure>
-<figure style="display: inline-block">
-<img src="image_4.png" width="120" height="120">
-<figcaption>Truck_2t.prefab</figcaption>
-</figure>
-<figure style="display: inline-block">
-<img src="image_5.png" width="120" height="120">
-<figcaption>Van.prefab</figcaption>
-</figure>
+<img src="image_1.png" title="Hatchback.prefab" width="130" height="130"> <img src="image_2.png" title="SmallCar.prefab"  width="130" height="130"> <img src="image_3.png" title="Taxi.prefab" width="130" height="130"> <img src="image_4.png" title="Truck_2t.prefab" width="130" height="130">
+<img src="image_5.png" title="Van.prefab" width="130" height="130">
 
 Supported features:
 
