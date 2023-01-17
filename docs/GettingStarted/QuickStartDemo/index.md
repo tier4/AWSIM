@@ -15,6 +15,7 @@ The simulation provided in the AWSIM demo is configured as follows:
 |Environment|Japan Tokyo Nishishinjuku|
 |Sensors|Gnss * 1<br> IMU * 1<br> LiDAR * 1<br> Traffic camera * 1|
 |Traffic|Randomized traffic|
+|ROS2|humble|
 
 
 ## Prerequisites
@@ -105,9 +106,9 @@ To run the simulator, please follow the steps below.
     ```
 
 3. Download and Run AWSIM Demo binary.
-    1. Download `AWSIM_vXXX.zip`.
+    1. Download `AWSIM_v1.1.0.zip`.
 
-        [Download AWSIM Demo for ubuntu](https://github.com/tier4/AWSIM/releases/download/v1.0.1/AWSIM_v1.0.1.zip){.md-button .md-button--primary}
+        [Download AWSIM Demo for ubuntu](https://github.com/tier4/AWSIM/releases/download/v1.1.0/AWSIM_v1.1.0.zip){.md-button .md-button--primary}
     
     2. Unzip the downloaded file.
 
@@ -120,12 +121,12 @@ To run the simulator, please follow the steps below.
         or execute the command below.
 
         ```
-        chmod +x <path to AWSIM folder>/AWSIM.x86_64
+        chmod +x <path to AWSIM folder>/AWSIM_demo.x86_64
         ```
 
-    4. Launch `AWSIM.x86_64`.
+    4. Launch `AWSIM_demo.x86_64`.
         ```
-        ./<path to AWSIM folder>/AWSIM.x86_64
+        ./<path to AWSIM folder>/AWSIM_demo.x86_64
         ``` 
         
         !!! warning
@@ -140,7 +141,7 @@ In order to configure and run the Autoware software with the AWSIM demo, please:
 
 1. Download `map files (pcd, osm)` and unzip them.
 
-    [Download Map files (pcd, osm)](https://github.com/tier4/AWSIM/releases/download/v1.0.0/nishishinjuku_autoware_map.zip){.md-button .md-button--primary}
+    [Download Map files (pcd, osm)](https://github.com/tier4/AWSIM/releases/download/v1.1.0/nishishinjuku_autoware_map.zip){.md-button .md-button--primary}
 
 2. Clone [Autoware](https://github.com/autowarefoundation/autoware) and move to the directory.
 ```
