@@ -20,13 +20,18 @@ The simulation provided in the AWSIM demo is configured as follows:
 
 ## Prerequisites
 
+!!! warning
+
+    If you use Ubuntu 20.04 and ROS 2 Galactic version, please reffer to [v1.0.2](https://github.com/tier4/AWSIM/releases/tag/v1.0.2) [QuickStartDemo documentation](https://github.com/tier4/AWSIM/blob/v1.0.2/docs/GettingStarted/QuickStartDemo/index.md).
+
+
 ### PC specs
 
 Please make sure that your machine meets the following requirements in order to run the simulation correctly:
 
 |Required PC Specs||
 |:--|:--|
-|OS|Ubutnu 20.04|
+|OS|Ubutnu 22.04|
 |CPU|6cores and 12thread or higher|
 |GPU|RTX2080Ti or higher|
 |Nvidia Driver (Windows)|>=472.50|
@@ -163,7 +168,7 @@ vcs import src < autoware.repos
 ```
 6. Install dependent ROS packages.
 ```
-source /opt/ros/galactic/setup.bash
+source /opt/ros/humble/setup.bash
 rosdep update
 rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
 ```
