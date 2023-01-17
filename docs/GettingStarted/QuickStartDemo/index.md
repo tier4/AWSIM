@@ -111,6 +111,7 @@ To run the simulator, please follow the steps below.
     ```
 
 3. Download and Run AWSIM Demo binary.
+
     1. Download `AWSIM_v1.1.0.zip`.
 
         [Download AWSIM Demo for ubuntu](https://github.com/tier4/AWSIM/releases/download/v1.1.0/AWSIM_v1.1.0.zip){.md-button .md-button--primary}
@@ -153,9 +154,9 @@ In order to configure and run the Autoware software with the AWSIM demo, please:
 git clone https://github.com/autowarefoundation/autoware.git
 cd autoware
 ```
-3. Switch branche to `awsim-stable`. *NOTE: The latest `main` branch may work properly, but `awsim-stable` is tested on an ongoing basis.*
+3. Switch branche to `galactic`. *NOTE: The latest `main` branch is for [ROS 2 humble](https://docs.ros.org/en/rolling/Releases/Release-Humble-Hawksbill.html).*
 ```
-git checkout awsim-stable
+git checkout galactic
 ```
 4. Configure the environment. (Skip if Autoware environment has been configured before)
 ```
@@ -168,6 +169,7 @@ vcs import src < autoware.repos
 ```
 6. Install dependent ROS packages.
 ```
+
 source /opt/ros/humble/setup.bash
 rosdep update
 rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
