@@ -50,13 +50,13 @@ To include a custom ROS2 message, you have to build `ROS2 For Unity` with your c
 
     === "Windows"
         `C:\custom_msgs`
-- ROS2 version is `galactic` (`foxy` and `humble` are also supported, please check the current AWSIM version for more information about its ROS2 version) and is located in
+- ROS2 version is `humble` (`foxy` and `galactic` are also supported, please check the current AWSIM version for more information about its ROS2 version) and is located in
 
     === "Ubuntu"
-        `/opt/ros/galactic`
+        `/opt/ros/humble`
 
     === "Windows"
-        `C:\ros2_galactic`
+        `C:\ros2_humble`
 
 ### Workspace preparation
 
@@ -71,14 +71,14 @@ To include a custom ROS2 message, you have to build `ROS2 For Unity` with your c
     === "Ubuntu"
         ```bash
         cd ~/ros2-for-unity
-        . /opt/ros/galactic/setup.bash
+        . /opt/ros/humble/setup.bash
         ./pull_repositories.sh
         ```
 
     === "Windows"
         ```powershell
         cd C:\ros2-for-unity
-        C:\ros2_galactic\local_setup.ps1
+        C:\ros2_humble\local_setup.ps1
         .\pull_repositories.ps1
         ```
 

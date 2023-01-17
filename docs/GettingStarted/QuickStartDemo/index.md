@@ -15,9 +15,15 @@ The simulation provided in the AWSIM demo is configured as follows:
 |Environment|Japan Tokyo Nishishinjuku|
 |Sensors|Gnss * 1<br> IMU * 1<br> LiDAR * 1<br> Traffic camera * 1|
 |Traffic|Randomized traffic|
+|ROS2|humble|
 
 
 ## Prerequisites
+
+!!! warning
+
+    If you use Ubuntu 20.04 and ROS 2 Galactic version, please reffer to [v1.0.2](https://github.com/tier4/AWSIM/releases/tag/v1.0.2) [QuickStartDemo documentation](https://github.com/tier4/AWSIM/blob/v1.0.2/docs/GettingStarted/QuickStartDemo/index.md).
+
 
 ### PC specs
 
@@ -25,7 +31,7 @@ Please make sure that your machine meets the following requirements in order to 
 
 |Required PC Specs||
 |:--|:--|
-|OS|Ubutnu 20.04|
+|OS|Ubutnu 22.04|
 |CPU|6cores and 12thread or higher|
 |GPU|RTX2080Ti or higher|
 |Nvidia Driver (Windows)|>=472.50|
@@ -105,9 +111,10 @@ To run the simulator, please follow the steps below.
     ```
 
 3. Download and Run AWSIM Demo binary.
-    1. Download `AWSIM_v1.0.1.zip`.
 
-        [Download AWSIM Demo for ubuntu](https://github.com/tier4/AWSIM/releases/download/v1.0.1/AWSIM_v1.0.1.zip){.md-button .md-button--primary}
+    1. Download `AWSIM_v1.1.0.zip`.
+
+        [Download AWSIM Demo for ubuntu](https://github.com/tier4/AWSIM/releases/download/v1.1.0/AWSIM_v1.1.0.zip){.md-button .md-button--primary}
     
     2. Unzip the downloaded file.
 
@@ -120,12 +127,12 @@ To run the simulator, please follow the steps below.
         or execute the command below.
 
         ```
-        chmod +x <path to AWSIM folder>/AWSIM.x86_64
+        chmod +x <path to AWSIM folder>/AWSIM_demo.x86_64
         ```
 
-    4. Launch `AWSIM.x86_64`.
+    4. Launch `AWSIM_demo.x86_64`.
         ```
-        ./<path to AWSIM folder>/AWSIM.x86_64
+        ./<path to AWSIM folder>/AWSIM_demo.x86_64
         ``` 
         
         !!! warning
@@ -140,7 +147,7 @@ In order to configure and run the Autoware software with the AWSIM demo, please:
 
 1. Download `map files (pcd, osm)` and unzip them.
 
-    [Download Map files (pcd, osm)](https://github.com/tier4/AWSIM/releases/download/v1.0.0/nishishinjuku_autoware_map.zip){.md-button .md-button--primary}
+    [Download Map files (pcd, osm)](https://github.com/tier4/AWSIM/releases/download/v1.1.0/nishishinjuku_autoware_map.zip){.md-button .md-button--primary}
 
 2. Clone [Autoware](https://github.com/autowarefoundation/autoware) and move to the directory.
 ```
@@ -162,8 +169,9 @@ vcs import src < autoware.repos
 ```
 6. Install dependent ROS packages.
 ```
-source /opt/ros/galactic/setup.bash
-rosdep update --include-eol-distros
+
+source /opt/ros/humble/setup.bash
+rosdep update
 rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
 ```
 7. Build the workspace.

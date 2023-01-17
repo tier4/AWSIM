@@ -13,7 +13,7 @@ This page is a tutorial for setting up a AWSIM Unity project.
 === "Ubuntu 20"
     1. Make sure your machine meets the [required hardware specifications](../QuickStartDemo/#pc-specs).
         - *NOTE: PC requirements may vary depending on simulation contents which may change as the simulator develops*
-    2. Prepare a desktop PC with Ubuntu 20.04 installed.
+    2. Prepare a desktop PC with Ubuntu 22.04 installed.
     2. Install [Nvidia drivers and Vulkan Graphics API](../QuickStartDemo/#running-the-awsim-simulation-demo).
     3. Install [git](https://git-scm.com/).
 
@@ -85,7 +85,7 @@ To properly run and use AWSIM project in Unity it is required to download map pa
 
 1. Download and import `Japan_Tokyo_Nishishinjuku.unitypackage`
 
-    [Download Map files (unitypackage)](https://github.com/tier4/AWSIM/releases/download/v1.0.0/Japan_Tokyo_Nishishinjuku.unitypackage){.md-button .md-button--primary}
+    [Download Map files (unitypackage)](https://github.com/tier4/AWSIM/releases/download/v1.1.0/Japan_Tokyo_Nishishinjuku.unitypackage){.md-button .md-button--primary}
 
 2. In Unity Editor, from the menu bar at the top, select `Assets -> Import Package -> Custom Package...` and navigate the `Japan_Tokyo_Nishishinjuku.unitypackage` file.
 ![](image_10.png)
