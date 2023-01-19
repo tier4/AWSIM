@@ -14,7 +14,7 @@ Create a Lanelet2 using [VectorMapBuilder](https://tools.tier4.jp/feature/vector
 
 To properly create 3D models of the environment please keep in mind the following notes:
 
-- 3D models creation can be done based on PCD data, using [VectorMapBuilder](https://tools.tier4.jp/feature/vector_map_builder/).
+- Creating a 3D model based on actual point cloud data makes it more realistic.
 - AWSIM is created using HDRP (High Definition Rendering Pipeline) which performs better when object meshes are merged.
 - Occlusion culling and flutter culling cannot be used because the sensors detection target will disappear.
 - Each traffic light should have a separate GameObject. Also, each light in the traffic light should be split into separate materials.
