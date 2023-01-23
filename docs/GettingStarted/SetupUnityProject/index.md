@@ -10,7 +10,7 @@ This page is a tutorial for setting up a AWSIM Unity project.
 
 ### System setup
 
-=== "Ubuntu 20"
+=== "Ubuntu 22"
     1. Make sure your machine meets the [required hardware specifications](../QuickStartDemo/#pc-specs).
         - *NOTE: PC requirements may vary depending on simulation contents which may change as the simulator develops*
     2. Prepare a desktop PC with Ubuntu 22.04 installed.
@@ -44,7 +44,7 @@ Follow the steps below to install Unity on your machine:
 ![](image_4.png)
     - At this point, your Unity installation process should have started.
 
-        === "Ubuntu 20"
+        === "Ubuntu 22"
         - *NOTE: If the installation process has not started after clicking the green button (image above), please copy the hyperlink (by rightclicking the button and selecting `Copy link address`) and add it as a argument for Unity Hub app. An example command:
         ```
         ./UnityHub.AppImage unityhub://2021.1.7f1/d91830b65d9b
