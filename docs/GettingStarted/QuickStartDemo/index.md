@@ -154,9 +154,9 @@ In order to configure and run the Autoware software with the AWSIM demo, please:
 git clone https://github.com/autowarefoundation/autoware.git
 cd autoware
 ```
-3. Switch branche to `galactic`. *NOTE: The latest `main` branch is for [ROS 2 humble](https://docs.ros.org/en/rolling/Releases/Release-Humble-Hawksbill.html).*
+3. Switch branche to `awsim-stable`. *NOTE: The latest `main` branch is for [ROS 2 humble](https://docs.ros.org/en/rolling/Releases/Release-Humble-Hawksbill.html).*
 ```
-git checkout galactic
+git checkout awsim-stable
 ```
 4. Configure the environment. (Skip if Autoware environment has been configured before)
 ```
