@@ -46,7 +46,7 @@ namespace RGLUnityPlugin
         private float pointSize = 0.05f;
 
         [SerializeField]
-        private List<Color> colors = rainbowColors;
+        private List<Color> colors = new List<Color>(rainbowColors);
 
         [SerializeField]
         private bool autoComputeColoringHeights = false;
