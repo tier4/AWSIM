@@ -49,6 +49,9 @@ namespace AWSIM
                 Debug.LogWarning("All lidar message formats are disabled. Nothing to publish!");
             }
 
+            // Synchronize RGL time with the same TimeSource as AWSIM
+            SceneManager.TimeSource = SimulatorROS2Node.TimeSource;
+
             lidarSensor = GetComponent<LidarSensor>();
 
             rglSubgraphUnity2Ros = new RGLNodeSequence()

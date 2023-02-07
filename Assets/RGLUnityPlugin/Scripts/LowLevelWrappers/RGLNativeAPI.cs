@@ -49,6 +49,9 @@ namespace RGLUnityPlugin
         public static extern int rgl_entity_set_pose(IntPtr entity, IntPtr local_to_world_tf);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_scene_set_time(IntPtr scene, UInt64 nanoseconds);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_rays_from_mat3x4f(ref IntPtr node, IntPtr rays, int ray_count);
 
         [DllImport("RobotecGPULidar")]
