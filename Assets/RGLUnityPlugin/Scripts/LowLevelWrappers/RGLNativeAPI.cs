@@ -99,9 +99,6 @@ namespace RGLUnityPlugin
         public static extern int rgl_graph_get_result_data(IntPtr node, RGLField field, IntPtr data);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_graph_node_set_active(IntPtr node, bool active);
-
-        [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_node_add_child(IntPtr parent, IntPtr child);
 
         [DllImport("RobotecGPULidar")]
@@ -377,11 +374,6 @@ namespace RGLUnityPlugin
         public static void GraphNodeRemoveChild(IntPtr parent, IntPtr child)
         {
             CheckErr(rgl_graph_node_remove_child(parent, child));
-        }
-
-        public static void GraphNodeSetActive(IntPtr node, bool active)
-        {
-            CheckErr(rgl_graph_node_set_active(node, active));
         }
 
         public static void GraphDestroy(IntPtr node)

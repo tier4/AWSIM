@@ -29,6 +29,16 @@ namespace RGLUnityPlugin
         public IntPtr Node = IntPtr.Zero;
 
         /// <summary>
+        /// Whether the node is connected to the NodeSequence or not.
+        /// </summary>
+        public bool Connected = false;
+
+        /// <summary>
+        /// Stores output field that can be received.
+        /// </summary>
+        public RGLField OutputField = RGLField.UNKNOWN;
+
+        /// <summary>
         /// Allows calling correct API call to modify node's arguments.
         /// </summary>
         public RGLNodeType Type = RGLNodeType.UNKNOWN;

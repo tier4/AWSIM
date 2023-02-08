@@ -17,6 +17,7 @@ namespace RGLUnityPlugin
 public enum RGLNodeType
 	{
 		UNKNOWN = -1,
+		ANY = 0,
 		RAYS_FROM_MAT3X4F = 1,
 		RAYS_SET_RING_IDS,
 		RAYS_TRANSFORM,
