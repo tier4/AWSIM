@@ -87,6 +87,15 @@ namespace RGLUnityPlugin
             RGLQosPolicyReliability qos_reliability, RGLQosPolicyDurability qos_durability, RGLQosPolicyHistory qos_history, int qos_depth);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_gaussian_noise_angular_ray(ref IntPtr node, float mean, float st_dev, RGLAxis rotation_axis);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_gaussian_noise_angular_hitpoint(ref IntPtr node, float mean, float st_dev, RGLAxis rotation_axis);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_gaussian_noise_distance(ref IntPtr node, float mean, float st_dev, float st_dev_rise_per_meter);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_run(IntPtr node);
 
         [DllImport("RobotecGPULidar")]
@@ -327,6 +336,21 @@ namespace RGLUnityPlugin
             RGLQosPolicyReliability qos_reliability, RGLQosPolicyDurability qos_durability, RGLQosPolicyHistory qos_history, int qos_depth)
         {
             CheckErr(rgl_node_points_ros2_publish_with_qos(ref node, topicName, frameId, qos_reliability, qos_durability, qos_history, qos_depth));
+        }
+
+        public static void NodeGaussianNoiseAngularRay(ref IntPtr node, float mean, float stDev)
+        {
+            CheckErr(rgl_node_gaussian_noise_angular_ray(ref node, mean, stDev, RGLAxis.RGL_AXIS_Y));
+        }
+
+        public static void NodeGaussianNoiseAngularHitpoint(ref IntPtr node, float mean, float stDev)
+        {
+            CheckErr(rgl_node_gaussian_noise_angular_hitpoint(ref node, mean, stDev, RGLAxis.RGL_AXIS_Y));
+        }
+
+        public static void NodeGaussianNoiseDistance(ref IntPtr node, float mean, float stDev, float stDevRisePerMeter)
+        {
+            CheckErr(rgl_node_gaussian_noise_distance(ref node, mean, stDev, stDevRisePerMeter));
         }
 
         public static void GraphRun(IntPtr node)

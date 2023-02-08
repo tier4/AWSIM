@@ -202,6 +202,39 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence AddNodeGaussianNoiseAngularRay(string identifier, float mean, float stDev)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodeGaussianNoiseAngularRay(ref handle.Node, mean, stDev);
+            handle.Type = RGLNodeType.GAUSSIAN_NOISE_ANGULAR_RAY;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLNodeSequence AddNodeGaussianNoiseAngularHitpoint(string identifier, float mean, float stDev)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodeGaussianNoiseAngularHitpoint(ref handle.Node, mean, stDev);
+            handle.Type = RGLNodeType.GAUSSIAN_NOISE_ANGULAR_HITPOINT;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLNodeSequence AddNodeGaussianNoiseDistance(string identifier, float mean, float stDev, float stDevRisePerMeter)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodeGaussianNoiseDistance(ref handle.Node, mean, stDev, stDevRisePerMeter);
+            handle.Type = RGLNodeType.GAUSSIAN_NOISE_DISTANCE;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
         //// UPDATE NODES ////
         public RGLNodeSequence UpdateNodeRaysFromMat3x4f(string identifier, Matrix4x4[] rays)
         {
@@ -249,6 +282,27 @@ namespace RGLUnityPlugin
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_WRITE_PCD_FILE);
             RGLNativeAPI.NodePointsWritePCDFile(ref handle.Node, path);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodeGaussianNoiseAngularRay(string identifier, float mean, float stDev)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.GAUSSIAN_NOISE_ANGULAR_RAY);
+            RGLNativeAPI.NodeGaussianNoiseAngularRay(ref handle.Node, mean, stDev);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodeGaussianNoiseAngularHitpoint(string identifier, float mean, float stDev)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.GAUSSIAN_NOISE_ANGULAR_HITPOINT);
+            RGLNativeAPI.NodeGaussianNoiseAngularHitpoint(ref handle.Node, mean, stDev);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodeGaussianNoiseDistance(string identifier, float mean, float stDev, float stDevRisePerMeter)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.GAUSSIAN_NOISE_DISTANCE);
+            RGLNativeAPI.NodeGaussianNoiseDistance(ref handle.Node, mean, stDev, stDevRisePerMeter);
             return this;
         }
 
@@ -496,8 +550,11 @@ namespace RGLUnityPlugin
             List<RGLNodeHandle> outNodes = new List<RGLNodeHandle>();
             int refNodeIdx = nodes.FindIndex(n => n.Identifier == referenceNode.Identifier);
 
-            int validatedRangeIdx = Math.Min(refNodeIdx + 1, nodes.Count - 1);
-            var nextNodesInThisSeq = nodes.GetRange(validatedRangeIdx, nodes.Count - validatedRangeIdx - 1);
+            List<RGLNodeHandle> nextNodesInThisSeq = new List<RGLNodeHandle>();
+            if (refNodeIdx + 1 < nodes.Count)
+            {
+                nextNodesInThisSeq = nodes.GetRange(refNodeIdx + 1, nodes.Count - refNodeIdx - 1);
+            }
             int nextNodeIdx = nextNodesInThisSeq.FindIndex(n => !mustBeConnected || n.Connected == true);
 
             if (nextNodeIdx == -1)  // This sequence doesn't contain any nodes. Search in child sequences

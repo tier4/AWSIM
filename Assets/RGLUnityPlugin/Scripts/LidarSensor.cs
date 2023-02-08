@@ -69,7 +69,10 @@ namespace RGLUnityPlugin
         private readonly string lidarRaysNodeId = "LIDAR_RAYS";
         private readonly string lidarRingsNodeId = "LIDAR_RINGS";
         private readonly string lidarPoseNodeId = "LIDAR_POSE";
+        private readonly string noiseLidarRayNodeId = "NOISE_LIDAR_RAY";
         private readonly string lidarRangeNodeId = "LIDAR_RAYTRACE";
+        private readonly string noiseHitpointNodeId = "NOISE_HITPOINT";
+        private readonly string noiseDistanceNodeId = "NOISE_DISTANCE";
         private readonly string pointsCompactNodeId = "POINTS_COMPACT";
         private readonly string toLidarFrameNodeId = "TO_LIDAR_FRAME";
         private readonly string visualizationOutputNodeId = "OUT_VISUALIZATION";
@@ -83,8 +86,11 @@ namespace RGLUnityPlugin
                 .AddNodeRaysFromMat3x4f(lidarRaysNodeId, new Matrix4x4[1] {Matrix4x4.identity})
                 .AddNodeRaysSetRingIds(lidarRingsNodeId, new int[1] {0})
                 .AddNodeRaysTransform(lidarPoseNodeId, Matrix4x4.identity)
+                .AddNodeGaussianNoiseAngularRay(noiseLidarRayNodeId, 0, 0)
                 .AddNodeRaytrace(lidarRangeNodeId, Mathf.Infinity)
-                .AddNodePointsCompact(pointsCompactNodeId);
+                .AddNodePointsCompact(pointsCompactNodeId)
+                .AddNodeGaussianNoiseAngularHitpoint(noiseHitpointNodeId, 0, 0)
+                .AddNodeGaussianNoiseDistance(noiseDistanceNodeId, 0, 0, 0);
 
             rglSubgraphToLidarFrame = new RGLNodeSequence()
                 .AddNodePointsTransform(toLidarFrameNodeId, Matrix4x4.identity);
@@ -131,7 +137,32 @@ namespace RGLUnityPlugin
 
             rglGraphLidar.UpdateNodeRaysFromMat3x4f(lidarRaysNodeId, newConfig.GetRayPoses())
                          .UpdateNodeRaysSetRingIds(lidarRingsNodeId, newConfig.laserArray.GetLaserRingIds())
-                         .UpdateNodeRaytrace(lidarRangeNodeId, newConfig.maxRange);
+                         .UpdateNodeRaytrace(lidarRangeNodeId, newConfig.maxRange)
+                         .UpdateNodeGaussianNoiseAngularRay(noiseLidarRayNodeId, newConfig.noiseParams.angularNoiseMean, newConfig.noiseParams.angularNoiseStDev)
+                         .UpdateNodeGaussianNoiseAngularHitpoint(noiseHitpointNodeId, newConfig.noiseParams.angularNoiseMean, newConfig.noiseParams.angularNoiseStDev)
+                         .UpdateNodeGaussianNoiseDistance(noiseDistanceNodeId, newConfig.noiseParams.distanceNoiseMean,
+                                                          newConfig.noiseParams.distanceNoiseStDevBase, newConfig.noiseParams.distanceNoiseStDevRisePerMeter);
+
+            if (applyGaussianNoise)
+            {
+                rglGraphLidar.SetActive(noiseDistanceNodeId, true);
+                if (newConfig.noiseParams.angularNoiseType == AngularNoiseType.RayBased)
+                {
+                    rglGraphLidar.SetActive(noiseLidarRayNodeId, true);
+                    rglGraphLidar.SetActive(noiseHitpointNodeId, false);
+                }
+                else if (newConfig.noiseParams.angularNoiseType == AngularNoiseType.HitpointBased)
+                {
+                    rglGraphLidar.SetActive(noiseHitpointNodeId, true);
+                    rglGraphLidar.SetActive(noiseLidarRayNodeId, false);
+                }
+            }
+            else
+            {
+                rglGraphLidar.SetActive(noiseLidarRayNodeId, false);
+                rglGraphLidar.SetActive(noiseHitpointNodeId, false);
+                rglGraphLidar.SetActive(noiseDistanceNodeId, false);
+            }
         }
 
         public void FixedUpdate()

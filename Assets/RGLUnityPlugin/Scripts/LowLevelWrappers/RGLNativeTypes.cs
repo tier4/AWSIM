@@ -59,6 +59,13 @@ namespace RGLUnityPlugin
 		OFF = 6,
 	};
 
+	public enum RGLAxis
+	{
+		RGL_AXIS_X = 1,
+		RGL_AXIS_Y = 2,
+		RGL_AXIS_Z = 3,
+	};
+
 	public enum RGLQosPolicyReliability
 	{
 		QOS_POLICY_RELIABILITY_SYSTEM_DEFAULT = 0,
