@@ -138,10 +138,14 @@ namespace RGLUnityPlugin
             rglGraphLidar.UpdateNodeRaysFromMat3x4f(lidarRaysNodeId, newConfig.GetRayPoses())
                          .UpdateNodeRaysSetRingIds(lidarRingsNodeId, newConfig.laserArray.GetLaserRingIds())
                          .UpdateNodeRaytrace(lidarRangeNodeId, newConfig.maxRange)
-                         .UpdateNodeGaussianNoiseAngularRay(noiseLidarRayNodeId, newConfig.noiseParams.angularNoiseMean, newConfig.noiseParams.angularNoiseStDev)
-                         .UpdateNodeGaussianNoiseAngularHitpoint(noiseHitpointNodeId, newConfig.noiseParams.angularNoiseMean, newConfig.noiseParams.angularNoiseStDev)
+                         .UpdateNodeGaussianNoiseAngularRay(noiseLidarRayNodeId,
+                             newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,
+                             newConfig.noiseParams.angularNoiseStDev * Mathf.Deg2Rad)
+                         .UpdateNodeGaussianNoiseAngularHitpoint(noiseHitpointNodeId,
+                             newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,
+                             newConfig.noiseParams.angularNoiseStDev * Mathf.Deg2Rad)
                          .UpdateNodeGaussianNoiseDistance(noiseDistanceNodeId, newConfig.noiseParams.distanceNoiseMean,
-                                                          newConfig.noiseParams.distanceNoiseStDevBase, newConfig.noiseParams.distanceNoiseStDevRisePerMeter);
+                             newConfig.noiseParams.distanceNoiseStDevBase, newConfig.noiseParams.distanceNoiseStDevRisePerMeter);
 
             if (applyGaussianNoise)
             {
