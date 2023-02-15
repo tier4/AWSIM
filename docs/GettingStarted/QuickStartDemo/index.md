@@ -154,9 +154,9 @@ In order to configure and run the Autoware software with the AWSIM demo, please:
 git clone https://github.com/autowarefoundation/autoware.git
 cd autoware
 ```
-3. Switch branche to `galactic`. *NOTE: The latest `main` branch is for [ROS 2 humble](https://docs.ros.org/en/rolling/Releases/Release-Humble-Hawksbill.html).*
+3. Switch branche to `awsim-stable`. *NOTE: The latest `main` branch is for [ROS 2 humble](https://docs.ros.org/en/rolling/Releases/Release-Humble-Hawksbill.html).*
 ```
-git checkout galactic
+git checkout awsim-stable
 ```
 4. Configure the environment. (Skip if Autoware environment has been configured before)
 ```
@@ -220,6 +220,10 @@ The self-driving simulation demo has been successfully launched!
 
 Here is an example video:
 ![type:video](https://drive.google.com/file/d/1qxImNdK7d1zhMsJqhOa2NEM3vnjKSY7B/view?usp=share_link)
+
+## 6. Troubleshooting
+
+In case of any problems with running the sample AWSIM binary with Autoware, start with checking our [Troubleshooting page](https://tier4.github.io/AWSIM/DeveloperGuide/TroubleShooting/) with the most common problems.
 
 ## Appendix
 - [AWSIM ROS2 topic list](../../Components/ROS2/ROS2TopicList/index.md)
