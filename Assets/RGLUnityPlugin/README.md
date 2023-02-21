@@ -44,6 +44,9 @@ The code consist of the following parts:
   - `SceneManager.cs`
     - Responsible for syncing the scene between Unity and GPU (CUDA)
   - `PointCloudVisualization.cs`
+    - Displays PointCloud on the Unity Scene
+  - `RGLDebugger.cs`
+    - Provides configuration for Native RGL debug tools (logging and tape)
 - A set of classes providing tools to define LiDAR specification (mostly: ray poses)
   - `LidarModels.cs`
     - Enumeration of some real-world LiDARs names
@@ -61,3 +64,18 @@ The code consist of the following parts:
   - Provides some convenience code to call Native RGL functions
 - Utilities
   - Miscellaneous utilities to make rest of the code clearer
+
+## Debugging Native RGL library (advanced)
+
+1. Create an empty object
+2. Attach script `RGLDebugger.cs`
+3. Configure debug tools:
+   - Logging - saves logs from Native RGL to the file
+     - `Log Level` - logging verbosity level.
+     - `Log Output Path` - path to the file where logs will be saved
+   - Tape (Linux only) - saves all Native RGL functions calls to the file. For playback, it is required to have a special program (available in [RGL repository](https://github.com/RobotecAI/RobotecGPULidar)).
+     - `Tape Output Path` - path to the file where tape recording will be saved (should contain filename without extension)
+     - `Activate Tape Record` - tape recording activation button
+4. Start the simulation
+
+In case of any problems, please create issue in the [RGL repository](https://github.com/RobotecAI/RobotecGPULidar) and attach the generated files with logs and tape.

@@ -99,15 +99,48 @@ namespace RGLUnityPlugin
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_node_remove_child(IntPtr parent, IntPtr child);
 
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_tape_record_begin([MarshalAs(UnmanagedType.LPStr)] string path);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_tape_record_end();
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_tape_record_is_active(out bool isActive);
+
+
+        static RGLNativeAPI()
+        {
+            try
+            {
+                CheckVersion();
+            }
+            catch (DllNotFoundException)
+            {
+                Debug.LogError($"RobotecGPULidar library cannot be found!");
+            }
+
+            RGLDebugger debugger = UnityEngine.Object.FindObjectOfType<RGLDebugger>(false);
+            if (debugger != null)
+            {
+                ConfigureLogging(debugger.LogLevel, debugger.LogOutputPath);
+                if (debugger.ActivateTapeRecord)
+                {
+                    TapeRecordBegin(debugger.TapeOutputPath);
+                }
+            }
+        }
 
         public static void CheckVersion()
         {
             int expectedMajor = 0;
             int expectedMinor = 11;
+            int expectedPatch = 3;
             CheckErr(rgl_get_version_info(out var major, out var minor, out var patch));
-            if (major != expectedMajor || minor < expectedMinor)
+            if (major != expectedMajor || minor < expectedMinor || (minor == expectedMinor && patch < expectedPatch))
             {
-                throw new RGLException($"RGL version mismatch. Expected: {expectedMajor}.>={expectedMinor}.x, but found {major}.{minor}.{patch}.");
+                throw new RGLException($"RGL version mismatch. Expected: minimum {expectedMinor}.{expectedPatch} for major {expectedMajor}, " +
+                                       $"but found {major}.{minor}.{patch}.");
             }
 
             Debug.Log($"RGL Version: {major}.{minor}.{patch}");
@@ -125,8 +158,34 @@ namespace RGLUnityPlugin
             throw new RGLException(errStr);
         }
 
+        public static void TapeRecordBegin(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                throw new RGLException("Attempted to start tape recording on empty path.");
+            }
+            Debug.LogWarning($"Start RGL tape recording on path '{path}'. Two files will be created with .bin and .yaml extensions");
+            CheckErr(rgl_tape_record_begin(path));
+        }
+
+        public static void TapeRecordEnd()
+        {
+            Debug.LogWarning("End RGL tape recording");
+            CheckErr(rgl_tape_record_end());
+        }
+
+        public static bool isTapeRecordActive()
+        {
+            CheckErr(rgl_tape_record_is_active(out bool isActive));
+            return isActive;
+        }
+
         public static void ConfigureLogging(RGLLogLevel logLevel, string path)
         {
+            if (string.IsNullOrEmpty(path) && logLevel != RGLLogLevel.OFF)
+            {
+                throw new RGLException("Attempted to set RGL logging for empty output logging path.");
+            }
             CheckErr(rgl_configure_logging(logLevel, path, false));
         }
 

@@ -8,6 +8,7 @@ theme:
     primary: indigo
   features:
     - navigation.sections
+    - navigation.footer
     - content.tabs.link
   icon:
     repo: fontawesome/brands/github
@@ -18,7 +19,7 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.details
   - pymdownx.tabbed:
-      alternate_style: true 
+      alternate_style: true
   - attr_list
 
 nav:
@@ -50,6 +51,9 @@ nav:
       - Random Traffic:
         - Random Traffic Simulator: Components/Traffic/RandomTraffic/RandomTrafficSimulator/index.md
         - Add Random Traffic Environment: Components/Traffic/RandomTraffic/AddRandomTrafficEnvironment/index.md
+      - NPC:
+        - NPC Pedestrian: Components/Traffic/NPC/NPC Pedestrian/index.md
+        - NPC Vehicle: Components/Traffic/NPC/NPC Vehicle/index.md
     - ROS2:
       - ROS2 topic list: Components/ROS2/ROS2TopicList/index.md
       - Add custom ROS2 msg type: Components/ROS2/AddCustomROS2MessageType/index.md
