@@ -12,6 +12,7 @@ namespace AWSIM
     {
         public Transform target;
         public float Distance = 10.0f;
+        public float Offset = 0.0f;
         public float Height = 5.0f;
         public float HeightMultiplier = 0.5f;
         float HeightDamping = 2.0f;
@@ -44,14 +45,14 @@ namespace AWSIM
             targetAngle = target.eulerAngles.y;
 
             float newHeight = target.position.y + Height;
-            float currentRotationAngle = transform.eulerAngles.y;
+            float currentRotationAngle = target.eulerAngles.y;
             float currentHeight = transform.position.y;
 
             currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, targetAngle, RotationDamping * Time.deltaTime);
             currentHeight = Mathf.Lerp(currentHeight, newHeight, HeightDamping * Time.deltaTime);
             Quaternion currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
             transform.position = target.position;
-            transform.position -= currentRotation * Vector3.forward * Distance;
+            transform.position -= (currentRotation * Vector3.forward * Distance + currentRotation * Vector3.right * Offset);
             Vector3 pos = transform.position;
             pos.y = currentHeight;
             transform.position = pos;
