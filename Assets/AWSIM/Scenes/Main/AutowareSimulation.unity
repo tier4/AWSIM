@@ -1132,6 +1132,7 @@ GameObject:
   - component: {fileID: 988705867}
   - component: {fileID: 988705869}
   - component: {fileID: 988705868}
+  - component: {fileID: 988705870}
   m_Layer: 5
   m_Name: VerText
   m_TagString: Untagged
@@ -1191,7 +1192,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: AWSIM  v 1.1.0
+  m_Text: AWSIM  v 0.0.0
 --- !u!222 &988705869
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1200,6 +1201,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 988705866}
   m_CullTransparentMesh: 1
+--- !u!114 &988705870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988705866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 712a4f37042726a43a643f55bb3590a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 988705868}
 --- !u!1001 &1013960845
 PrefabInstance:
   m_ObjectHideFlags: 0
