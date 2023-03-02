@@ -90,7 +90,7 @@ namespace RGLUnityPlugin
                 .AddNodePointsTransform(toLidarFrameNodeId, Matrix4x4.identity);
 
             rglSubgraphVisualizationOutput = new RGLNodeSequence()
-                .AddNodePointsFormat(visualizationOutputNodeId, new [] {RGLField.XYZ_F32});
+                .AddNodePointsYield(visualizationOutputNodeId, RGLField.XYZ_F32);
 
             RGLNodeSequence.Connect(rglGraphLidar, rglSubgraphToLidarFrame);
             RGLNodeSequence.Connect(rglGraphLidar, rglSubgraphVisualizationOutput);

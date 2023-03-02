@@ -18,6 +18,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Profiling;
+using ROS2;
 
 namespace RGLUnityPlugin
 {
@@ -57,6 +58,8 @@ namespace RGLUnityPlugin
 
         private static Dictionary<string, RGLMesh> sharedMeshes = new Dictionary<string, RGLMesh>(); // <Identifier, RGLMesh>
         private static Dictionary<string, int> sharedMeshesUsageCount = new Dictionary<string, int>(); // <RGLMesh Identifier, count>
+
+        public static ITimeSource TimeSource { get; set; } = new UnityTimeSource();
 
         private int lastUpdateFrame = -1;
 
@@ -114,6 +117,7 @@ namespace RGLUnityPlugin
 
             lastUpdateFrame = Time.frameCount;
 
+            SynchronizeSceneTime();
 
             Profiler.BeginSample("Find changes and make TODO list");
             var thisFrameGOs = FindObjectsOfType<GameObject>()
@@ -195,6 +199,15 @@ namespace RGLUnityPlugin
             }
 
             Profiler.EndSample();
+        }
+
+        private void SynchronizeSceneTime()
+        {
+            int seconds;
+            uint nanoseconds;
+            TimeSource.GetTime(out seconds, out nanoseconds);
+            UInt64 timeNs = (UInt64)(seconds * 1e9) + nanoseconds;
+            RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_scene_set_time(IntPtr.Zero, timeNs));
         }
 
         private void Clear()

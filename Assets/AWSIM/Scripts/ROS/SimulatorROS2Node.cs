@@ -17,6 +17,8 @@ namespace AWSIM
         const string NODE_NAME = "AWSIM";
         static ROS2Clock ros2Clock;
 
+        public static ITimeSource TimeSource { get; private set; } = new UnityTimeSource();
+
         // Initialize faster than Awake() or Start()
         // Use Scripting Define Symbols to turn on and off.
 #if ROS2
@@ -28,7 +30,7 @@ namespace AWSIM
 
             if (ros2UnityCore.Ok())
             {
-                ros2Clock = new ROS2Clock(new UnityTimeSource());
+                ros2Clock = new ROS2Clock(TimeSource);
                 node = ros2UnityCore.CreateNode(NODE_NAME);
             }
         }
