@@ -24,21 +24,19 @@ namespace AWSIM.RandomTraffic
             var cullingInterval = 1.0f / cullingHz;
             cullingInterval -= 0.00001f;       // Allow for accuracy errors.
 
-            foreach (var state in states)
+            // Apply culling
+            if (cullingTimer < cullingInterval)
             {
-                // Apply culling
-                if (cullingTimer < cullingInterval)
+                foreach (var state in states)
                 {
                     if (Vector3.Distance(state.Vehicle.transform.position, egoVehicle.position) < cullingDistance)
                         state.Vehicle.SetActiveVisualObjects(true);
                     else
                         state.Vehicle.SetActiveVisualObjects(false);
-
-                    cullingTimer = 0;
+                    ApplyPose(state);
+                    ApplyTurnSignalState(state);
                 }
-
-                ApplyPose(state);
-                ApplyTurnSignalState(state);
+                cullingTimer = 0;
             }
 
             cullingTimer += Time.deltaTime;
