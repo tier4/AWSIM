@@ -9,7 +9,8 @@ namespace AWSIM.RandomTraffic
         NORMAL,
         SLOW,
         STOP,
-        SUDDEN_STOP
+        SUDDEN_STOP,
+        ABSOLUTE_STOP
     }
 
     public enum NPCVehicleYieldPhase

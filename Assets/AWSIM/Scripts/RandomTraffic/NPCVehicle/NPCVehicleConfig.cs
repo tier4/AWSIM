@@ -25,13 +25,15 @@ namespace AWSIM.RandomTraffic
         public float Acceleration;
         public float Deceleration;
         public float SuddenDeceleration;
+        public float AbsoluteDeceleration;
 
         public static NPCVehicleConfig Default()
             => new NPCVehicleConfig
             {
                 Acceleration = 3f,
                 Deceleration = 2f,
-                SuddenDeceleration = 4f
+                SuddenDeceleration = 4f,
+                AbsoluteDeceleration = 20f
             };
     }
 }
