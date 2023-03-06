@@ -57,7 +57,7 @@ namespace AWSIM.RandomTraffic
 
                     if (!isCloseToTarget)
                         continue;
-                    
+
                     if (state.WaypointIndex >= state.CurrentFollowingLane.Waypoints.Length - 1)
                     {
                         state.ExtendFollowingLane();
@@ -298,32 +298,42 @@ namespace AWSIM.RandomTraffic
                     {
                         case NPCVehicleYieldPhase.NONE:
                             // Check if the next lane is a yielding lane.
-                            if (state.FollowingLanes.Count <= 1)
-                                break;
-
-                            var nextLane = state.FollowingLanes[1];
-                            var isEnteringYieldingLane = nextLane.RightOfWayLanes.Count > 0;
-                            if (isEnteringYieldingLane)
+                            if (state.FollowingLanes.Count > 1)
                             {
-                                state.YieldPhase = NPCVehicleYieldPhase.ENTERING_YIELDING_LANE;
-                                state.YieldPoint = GetStopPoint(nextLane);
-                                state.YieldLane = nextLane;
+                                var nextLane = state.FollowingLanes[1];
+                                var isEnteringYieldingLane = nextLane.RightOfWayLanes.Count > 0;
+                                if (isEnteringYieldingLane)
+                                {
+                                    state.YieldPhase = NPCVehicleYieldPhase.ENTERING_YIELDING_LANE;
+                                    state.YieldPoint = GetStopPoint(nextLane);
+                                    state.YieldLane = nextLane;
+                                }
+                            }
+                            // Check if the current lane is a yielding lane.
+                            if (state.FollowingLanes.Count > 0)
+                            {
+                                var currentLine = state.FollowingLanes[0];
+                                if (currentLine.RightOfWayLanes.Count > 0)
+                                {
+                                    state.YieldPhase = NPCVehicleYieldPhase.ON_YELDING_LANE;
+                                    state.YieldPoint = GetStopPoint(currentLine, 1);
+                                    state.YieldLane = currentLine;
+                                }
                             }
                             break;
-
+                        case NPCVehicleYieldPhase.ON_YELDING_LANE:
                         case NPCVehicleYieldPhase.ENTERING_YIELDING_LANE:
                             // Do nothing if the vehicle is far from stop line
                             var signedDistanceToStopLine = state.SignedDistanceToPointOnLane(state.YieldPoint);
                             if (signedDistanceToStopLine >= 3f)
                                 break;
-
                             var shouldYield = ShouldYield(state, States, EGOTransform, out var dominatingVehicle);
                             state.DominatingVehicle = dominatingVehicle;
                             if (shouldYield)
                                 state.YieldPhase = NPCVehicleYieldPhase.YIELDING;
 
                             // Cancel yielding if the vehicle exceeds stop line
-                            if (signedDistanceToStopLine < 0f)
+                            if (signedDistanceToStopLine < -2f)
                                 state.YieldPhase = NPCVehicleYieldPhase.NONE;
                             break;
 
@@ -338,10 +348,10 @@ namespace AWSIM.RandomTraffic
                 }
             }
 
-            private static Vector3 GetStopPoint(TrafficLane lane)
+            private static Vector3 GetStopPoint(TrafficLane lane, int waypointIndex = 0)
             {
                 return lane.StopLine == null
-                    ? lane.Waypoints[0]
+                    ? lane.Waypoints[waypointIndex]
                     : lane.StopLine.CenterPoint;
             }
 
@@ -352,7 +362,7 @@ namespace AWSIM.RandomTraffic
                 dominatingVehicle = null;
                 foreach (var lane in state.YieldLane.RightOfWayLanes)
                 {
-                    var isDominatedByNPC = IsLaneDominatedByAny(lane, states, out dominatingVehicle);
+                    var isDominatedByNPC = IsLaneDominatedByAny(lane, states, state, out dominatingVehicle);
                     if (isDominatedByNPC)
                         return true;
 
@@ -370,19 +380,29 @@ namespace AWSIM.RandomTraffic
             }
 
             private static bool IsLaneDominatedByAny(TrafficLane lane, IReadOnlyList<NPCVehicleInternalState> states,
-                out Transform dominatingVehicle)
+                NPCVehicleInternalState refState, out Transform dominatingVehicle)
             {
                 foreach (var state in states)
                 {
                     if (!IsLaneDominatedBy(lane, state))
                         continue;
-
+                    if (haveTheVehiclesPassed(refState, state))
+                        continue;
                     dominatingVehicle = state.Vehicle.transform;
                     return true;
                 }
 
                 dominatingVehicle = null;
                 return false;
+
+                static bool haveTheVehiclesPassed(NPCVehicleInternalState refState, NPCVehicleInternalState state)
+                {
+                    var refPosition = refState.BackCenterPosition;
+                    var position = state.BackCenterPosition;
+                    refPosition.y = 0f;
+                    position.y = 0f;
+                    return Vector3.Dot(refState.Forward, position - refPosition) < 0f;
+                }
             }
 
             /// <summary>
