@@ -61,7 +61,7 @@ namespace AWSIM.RandomTraffic
             var stopDistance = CalculateStoppableDistance(state.Speed, config.Deceleration) + 3 * MinStopDistance;
             var slowDownDistance = stopDistance + 4 * MinStopDistance;
 
-            var distanceToStopPointByFrontVehicle = state.DistanceToFrontVehicle - MinFrontVehicleDistance;
+            var distanceToStopPointByFrontVehicle = onlyGeatherThan(state.DistanceToFrontVehicle - MinFrontVehicleDistance, 0);
             var distanceToStopPointByTrafficLight = CalculateTrafficLightDistance(state, suddenStopDistance);
             var distanceToStopPointByRightOfWay = CalculateYeldingDistance(state);
             var distanceToStopPoint = Mathf.Min(distanceToStopPointByFrontVehicle, distanceToStopPointByTrafficLight, distanceToStopPointByRightOfWay);
@@ -114,7 +114,7 @@ namespace AWSIM.RandomTraffic
                         break;
                 }
             }
-            return distanceToStopPointByTrafficLight;
+            return onlyGeatherThan(distanceToStopPointByTrafficLight, 0);
         }
 
         private static float CalculateYeldingDistance(NPCVehicleInternalState state)
@@ -122,13 +122,16 @@ namespace AWSIM.RandomTraffic
             var distanceToStopPointByRightOfWay = float.MaxValue;
             if (state.YieldPhase == NPCVehicleYieldPhase.YIELDING)
                 distanceToStopPointByRightOfWay = state.SignedDistanceToPointOnLane(state.YieldPoint);
-            return distanceToStopPointByRightOfWay;
+            return onlyGeatherThan(distanceToStopPointByRightOfWay, 0);
         }
 
         private static float CalculateStoppableDistance(float speed, float deceleration)
         {
-            return speed * speed / 2f / deceleration;
+            return onlyGeatherThan(speed * speed / 2f / deceleration, 0);
         }
+
+        private static float onlyGeatherThan(float value, float min_value = 0)
+        { return value >= min_value ? value : float.MaxValue; }
 
         public void ShowGizmos(IReadOnlyList<NPCVehicleInternalState> states)
         {
