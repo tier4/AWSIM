@@ -18,9 +18,9 @@ namespace AWSIM.RandomTraffic
         [SerializeField] private LayerMask vehicleLayerMask;
         [SerializeField] private LayerMask groundLayerMask;
 
-        [SerializeField, Tooltip("Culling NPCs that are more than this distance from the EgoVehicle")] 
+        [SerializeField, Tooltip("Culling NPCs that are more than this distance from the EgoVehicle")]
         private float cullingDistance = 100;
-        [SerializeField, Tooltip("Hz to consider Culling")] 
+        [SerializeField, Tooltip("Hz to consider Culling")]
         private float cullingHz = 3;
 
         [Header("NPC Vehicle Settings")]
@@ -33,6 +33,7 @@ namespace AWSIM.RandomTraffic
         [Header("Debug")]
         [SerializeField] private bool showGizmos = false;
 
+        private uint numberSpawnedVehicles = 0;
         private NPCVehicleSpawner npcVehicleSpawner;
         private NPCVehicleSimulator npcVehicleSimulator;
 
@@ -74,7 +75,7 @@ namespace AWSIM.RandomTraffic
             if (!npcVehicleSpawner.TryGetRandomSpawnablePoint(prefab, out var spawnPoint))
                 return;
 
-            var vehicle = npcVehicleSpawner.Spawn(prefab, spawnPoint);
+            var vehicle = npcVehicleSpawner.Spawn(prefab, numberSpawnedVehicles++, spawnPoint);
             npcVehicleSimulator.Register(vehicle, spawnPoint.Lane, spawnPoint.WaypointIndex);
         }
 

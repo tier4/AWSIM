@@ -83,13 +83,14 @@ namespace AWSIM.RandomTraffic
         /// <param name="prefab">NPC vehicle prefab</param>
         /// <param name="npcVehicleSpawnPoint">Spawn point</param>
         /// <returns>Spawned NPC vehicle.</returns>
-        public NPCVehicle Spawn(GameObject prefab, NPCVehicleSpawnPoint npcVehicleSpawnPoint)
+        public NPCVehicle Spawn(GameObject prefab, uint vehicleID, NPCVehicleSpawnPoint npcVehicleSpawnPoint)
         {
             var obj = Object.Instantiate(prefab, npcVehicleSpawnPoint.Position, Quaternion.identity);
+            obj.name = obj.name + "_" + vehicleID.ToString();
             obj.transform.forward = npcVehicleSpawnPoint.Forward;
             obj.transform.parent = NPCVehicleParentsObj.transform;
             var vehicle = obj.GetComponent<NPCVehicle>();
-
+            vehicle.VehicleID = vehicleID;
             return vehicle;
         }
 
