@@ -307,6 +307,7 @@ namespace AWSIM.RandomTraffic
                                     state.YieldPhase = NPCVehicleYieldPhase.ENTERING_YIELDING_LANE;
                                     state.YieldPoint = GetStopPoint(nextLane);
                                     state.YieldLane = nextLane;
+                                    break;
                                 }
                             }
                             // Check if the current lane is a yielding lane.
@@ -318,6 +319,7 @@ namespace AWSIM.RandomTraffic
                                     state.YieldPhase = NPCVehicleYieldPhase.ON_YELDING_LANE;
                                     state.YieldPoint = GetStopPoint(currentLine, 1);
                                     state.YieldLane = currentLine;
+                                    break;
                                 }
                             }
                             break;
@@ -342,7 +344,6 @@ namespace AWSIM.RandomTraffic
                             state.DominatingVehicle = dominatingVehicle;
                             if (!shouldYield)
                                 state.YieldPhase = NPCVehicleYieldPhase.NONE;
-
                             break;
                     }
                 }
