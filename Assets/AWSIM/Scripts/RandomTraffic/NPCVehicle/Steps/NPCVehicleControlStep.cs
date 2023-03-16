@@ -51,6 +51,10 @@ namespace AWSIM.RandomTraffic
                     targetSpeed = 0f;
                     acceleration = config.SuddenDeceleration;
                     break;
+                case NPCVehicleSpeedMode.ABSOLUTE_STOP:
+                    targetSpeed = 0f;
+                    acceleration = config.AbsoluteDeceleration;
+                    break;
                 case NPCVehicleSpeedMode.STOP:
                     targetSpeed = 0f;
                     acceleration = config.Deceleration;

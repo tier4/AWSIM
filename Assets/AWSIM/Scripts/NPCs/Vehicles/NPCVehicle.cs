@@ -150,6 +150,11 @@ namespace AWSIM
         /// </summary>
         public Bounds Bounds => bounds;
 
+        /// <summary>
+        /// Vehicle ID.
+        /// </summary>
+        public uint VehicleID { get; set; }
+
         // dynamics settings const values.
         const float maxSteerAngle = 40f;                    // deg
         const float maxSteerSpeed = 60f;                    // deg/s
@@ -406,7 +411,7 @@ namespace AWSIM
             // Cache Gizmos default values.
             var cacheColor = Gizmos.color;
             var cacheMatrix = Gizmos.matrix;
-            
+
             // Apply color and matrix.
             Gizmos.color = Color.white;
             Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.lossyScale);

@@ -9,14 +9,16 @@ namespace AWSIM.RandomTraffic
         NORMAL,
         SLOW,
         STOP,
-        SUDDEN_STOP
+        SUDDEN_STOP,
+        ABSOLUTE_STOP
     }
 
     public enum NPCVehicleYieldPhase
     {
         NONE,
         ENTERING_YIELDING_LANE,
-        YIELDING
+        YIELDING,
+        ON_YELDING_LANE
     }
 
     /// <summary>
@@ -27,6 +29,7 @@ namespace AWSIM.RandomTraffic
         // Immutable states
         public NPCVehicle Vehicle { get; private set; }
         public Vector3 FrontCenterLocalPosition { get; private set; }
+        public Vector3 BackCenterLocalPosition { get; private set; }
 
         // Output from Cognition (Waypoint Following)
         public IList<TrafficLane> FollowingLanes { get; set; } = new List<TrafficLane>();
@@ -69,6 +72,9 @@ namespace AWSIM.RandomTraffic
 
         public Vector3 FrontCenterPosition =>
             Position + Quaternion.AngleAxis(Yaw, Vector3.up) * FrontCenterLocalPosition;
+
+        public Vector3 BackCenterPosition =>
+            Position + Quaternion.AngleAxis(Yaw, Vector3.up) * BackCenterLocalPosition;
 
         public float DistanceToTargetPoint
             => SignedDistanceToPointOnLane(TargetPoint);
@@ -153,6 +159,12 @@ namespace AWSIM.RandomTraffic
                     x = 0f,
                     y = 0f,
                     z = vehicle.Bounds.max.z
+                },
+                BackCenterLocalPosition = new Vector3
+                {
+                    x = 0f,
+                    y = 0f,
+                    z = vehicle.Bounds.min.z
                 }
             };
             state.FollowingLanes.Add(lane);

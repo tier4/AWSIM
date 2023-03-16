@@ -14,6 +14,7 @@ namespace AWSIM.RandomTraffic
         // MinFrontVehicleDistance is added to the threshold for the distance at which an obstacle is considered dangerous.
         // The vehicle is controlled to stop at this distance away from the obstacle(e.g. another vehicle in front of the vehicle).
         private const float MinFrontVehicleDistance = 4f;
+        private const float MinStopDistance = 0.5f;
 
         public NPCVehicleDecisionStep(NPCVehicleConfig config)
         {
@@ -47,23 +48,33 @@ namespace AWSIM.RandomTraffic
         /// - SLOW when the vehicle is in a sharp curve, needs to keep distance from a front vehicle or is entering yielding lane.<br/>
         /// - STOP when the vehicle can stop safely at a stop point(e.g. a stop line or a point that an obstacle exists).<br/>
         /// - SUDDEN_STOP when the vehicle cannot stop safely at a stop point.<br/>
+        /// - ABSOLUTE_STOP when the vehicle cannot stop using SUDDEN_STOP<br/>
         /// - NORMAL under other conditions.
-        /// </summary>
+        // /// </summary>
         private static void UpdateSpeedMode(NPCVehicleInternalState state, NPCVehicleConfig config)
         {
             if (state.ShouldDespawn)
                 return;
 
-            var maxStoppableDistance =
-                Mathf.Max(CalculateStoppableDistance(state.Speed, config.Deceleration), 3f);
-            var minStoppableDistance =
-                Mathf.Max(CalculateStoppableDistance(state.Speed, config.SuddenDeceleration), 3f);
+            var absoluteStopDistance = CalculateStoppableDistance(state.Speed, config.AbsoluteDeceleration) + MinStopDistance;
+            var suddenStopDistance = CalculateStoppableDistance(state.Speed, config.SuddenDeceleration) + 2 * MinStopDistance;
+            var stopDistance = CalculateStoppableDistance(state.Speed, config.Deceleration) + 3 * MinStopDistance;
+            var slowDownDistance = stopDistance + 4 * MinStopDistance;
 
-            var distanceToStopPointByFrontVehicle = state.DistanceToFrontVehicle - MinFrontVehicleDistance;
+            var distanceToStopPointByFrontVehicle = onlyGeatherThan(state.DistanceToFrontVehicle - MinFrontVehicleDistance, 0);
+            var distanceToStopPointByTrafficLight = CalculateTrafficLightDistance(state, suddenStopDistance);
+            var distanceToStopPointByRightOfWay = CalculateYeldingDistance(state);
+            var distanceToStopPoint = Mathf.Min(distanceToStopPointByFrontVehicle, distanceToStopPointByTrafficLight, distanceToStopPointByRightOfWay);
 
-            // Speed mode updated by front vehicle is SLOW or SUDDEN_STOP.
+            // Speed mode updated by front vehicle is SLOW or SUDDEN_STOP/ABSOLUTE_STOP.
             // STOP state is not used to prevent the state from changing every frame.
-            if (distanceToStopPointByFrontVehicle <= minStoppableDistance)
+            if (distanceToStopPointByFrontVehicle <= suddenStopDistance)
+            {
+                state.IsStoppedByFrontVehicle = true;
+                state.SpeedMode = NPCVehicleSpeedMode.ABSOLUTE_STOP;
+                return;
+            }
+            else if (distanceToStopPointByFrontVehicle <= stopDistance)
             {
                 state.IsStoppedByFrontVehicle = true;
                 state.SpeedMode = NPCVehicleSpeedMode.SUDDEN_STOP;
@@ -71,6 +82,20 @@ namespace AWSIM.RandomTraffic
             }
             state.IsStoppedByFrontVehicle = false;
 
+            if (distanceToStopPoint <= absoluteStopDistance)
+                state.SpeedMode = NPCVehicleSpeedMode.ABSOLUTE_STOP;
+            else if (distanceToStopPoint <= suddenStopDistance || state.YieldPhase == NPCVehicleYieldPhase.YIELDING)
+                state.SpeedMode = NPCVehicleSpeedMode.SUDDEN_STOP;
+            else if (distanceToStopPoint <= stopDistance)
+                state.SpeedMode = NPCVehicleSpeedMode.STOP;
+            else if (distanceToStopPoint <= slowDownDistance || state.IsTurning || state.YieldPhase == NPCVehicleYieldPhase.ENTERING_YIELDING_LANE)
+                state.SpeedMode = NPCVehicleSpeedMode.SLOW;
+            else
+                state.SpeedMode = NPCVehicleSpeedMode.NORMAL;
+        }
+
+        private static float CalculateTrafficLightDistance(NPCVehicleInternalState state, float suddenStopDistance)
+        {
             var distanceToStopPointByTrafficLight = float.MaxValue;
             if (state.TrafficLightLane != null)
             {
@@ -81,9 +106,7 @@ namespace AWSIM.RandomTraffic
                     case TrafficLightPassability.GREEN:
                         break;
                     case TrafficLightPassability.YELLOW:
-                        var canStopSafely = distanceToStopLine >= minStoppableDistance;
-                        if (!canStopSafely)
-                            break;
+                        if (distanceToStopLine < suddenStopDistance) break;
                         distanceToStopPointByTrafficLight = distanceToStopLine;
                         break;
                     case TrafficLightPassability.RED:
@@ -91,57 +114,24 @@ namespace AWSIM.RandomTraffic
                         break;
                 }
             }
+            return onlyGeatherThan(distanceToStopPointByTrafficLight, 0);
+        }
 
+        private static float CalculateYeldingDistance(NPCVehicleInternalState state)
+        {
             var distanceToStopPointByRightOfWay = float.MaxValue;
             if (state.YieldPhase == NPCVehicleYieldPhase.YIELDING)
-            {
                 distanceToStopPointByRightOfWay = state.SignedDistanceToPointOnLane(state.YieldPoint);
-            }
-
-            var distanceToStopPoint = Mathf.Min(
-                distanceToStopPointByTrafficLight,
-                distanceToStopPointByRightOfWay);
-
-            // Sudden stop if the vehicle cannot stop safely.
-            var shouldStopSuddenly =
-                distanceToStopPoint <= minStoppableDistance ||
-                state.YieldPhase == NPCVehicleYieldPhase.YIELDING;
-            if (shouldStopSuddenly)
-            {
-                state.SpeedMode = NPCVehicleSpeedMode.SUDDEN_STOP;
-                return;
-            }
-
-            // Stop normally when the vehicle is reaching stop point.
-            var shouldStopNormally =
-                distanceToStopPoint <= maxStoppableDistance;
-            if (shouldStopNormally)
-            {
-                state.SpeedMode = NPCVehicleSpeedMode.STOP;
-                return;
-            }
-
-            var shouldSlowDownByRightOfWay =
-                state.YieldPhase == NPCVehicleYieldPhase.ENTERING_YIELDING_LANE;
-
-            var shouldSlowDown =
-                // Should slow down by front vehicle (for keeping distance)
-                state.DistanceToFrontVehicle <= maxStoppableDistance + MinFrontVehicleDistance ||
-                shouldSlowDownByRightOfWay ||
-                state.IsTurning;
-            if (shouldSlowDown)
-            {
-                state.SpeedMode = NPCVehicleSpeedMode.SLOW;
-                return;
-            }
-
-            state.SpeedMode = NPCVehicleSpeedMode.NORMAL;
+            return onlyGeatherThan(distanceToStopPointByRightOfWay, 0);
         }
 
         private static float CalculateStoppableDistance(float speed, float deceleration)
         {
-            return speed * speed / 2f / deceleration;
+            return onlyGeatherThan(speed * speed / 2f / deceleration, 0);
         }
+
+        private static float onlyGeatherThan(float value, float min_value = 0)
+        { return value >= min_value ? value : float.MaxValue; }
 
         public void ShowGizmos(IReadOnlyList<NPCVehicleInternalState> states)
         {
@@ -149,6 +139,7 @@ namespace AWSIM.RandomTraffic
             {
                 switch (state.SpeedMode)
                 {
+                    case NPCVehicleSpeedMode.ABSOLUTE_STOP:
                     case NPCVehicleSpeedMode.SUDDEN_STOP:
                     case NPCVehicleSpeedMode.STOP:
                         Gizmos.color = Color.red;
