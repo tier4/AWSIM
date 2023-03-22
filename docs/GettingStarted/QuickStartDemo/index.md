@@ -31,11 +31,11 @@ Please make sure that your machine meets the following requirements in order to 
 
 |Required PC Specs||
 |:--|:--|
-|OS|Ubutnu 22.04|
+|OS|Ubuntu 22.04|
 |CPU|6cores and 12thread or higher|
 |GPU|RTX2080Ti or higher|
 |Nvidia Driver (Windows)|>=472.50|
-|Nvidia Driver (Linux)|>=460.27.03|
+|Nvidia Driver (Ubuntu 22)|>=515.43.04|
 
 
 ### Localhost settings
