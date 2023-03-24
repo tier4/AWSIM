@@ -930,7 +930,7 @@ PrefabInstance:
       objectReference: {fileID: 7808269042169720464}
     - target: {fileID: 9027057600357292012, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: cullingDistance
-      value: 3000
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600357292012, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: maxVehicleCount
