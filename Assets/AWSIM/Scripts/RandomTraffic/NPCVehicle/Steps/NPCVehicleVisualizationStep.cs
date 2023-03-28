@@ -29,10 +29,10 @@ namespace AWSIM.RandomTraffic
             {
                 foreach (var state in states)
                 {
-                    if (Vector3.Distance(state.Vehicle.transform.position, egoVehicle.position) < cullingDistance)
-                        state.Vehicle.SetActiveVisualObjects(true);
-                    else
-                        state.Vehicle.SetActiveVisualObjects(false);
+                    //if (Vector3.Distance(state.Vehicle.transform.position, egoVehicle.position) < cullingDistance)
+                    //    state.Vehicle.SetActiveVisualObjects(true);
+                    //else
+                    //    state.Vehicle.SetActiveVisualObjects(false);
                     ApplyPose(state);
                     ApplyTurnSignalState(state);
                 }
