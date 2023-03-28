@@ -14,14 +14,8 @@ namespace AWSIM.RandomTraffic
     {
         [SerializeField, Tooltip("Seed value for random generator.")]
         private int seed;
-        [SerializeField] private Transform egoVehicle;
         [SerializeField] private LayerMask vehicleLayerMask;
         [SerializeField] private LayerMask groundLayerMask;
-
-        [SerializeField, Tooltip("Culling NPCs that are more than this distance from the EgoVehicle")]
-        private float cullingDistance = 100;
-        [SerializeField, Tooltip("Hz to consider Culling")]
-        private float cullingHz = 3;
 
         [Header("NPC Vehicle Settings")]
         [SerializeField] private int maxVehicleCount = 40;
@@ -41,10 +35,7 @@ namespace AWSIM.RandomTraffic
         {
             Random.InitState(seed);
 
-            npcVehicleSimulator = new NPCVehicleSimulator(vehicleConfig, vehicleLayerMask, groundLayerMask, maxVehicleCount, cullingDistance, cullingHz)
-            {
-                EGOVehicle = egoVehicle
-            };
+            npcVehicleSimulator = new NPCVehicleSimulator(vehicleConfig, vehicleLayerMask, groundLayerMask, maxVehicleCount);
 
             npcVehicleSpawner = new NPCVehicleSpawner(this.gameObject, npcPrefabs, spawnableLanes);
         }
