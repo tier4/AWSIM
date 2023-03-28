@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 5044061803550657126}
   - component: {fileID: 672599926743682132}
   - component: {fileID: 4124385585312092154}
+  - component: {fileID: 3707945760163496769}
   m_Layer: 6
   m_Name: Van
   m_TagString: Untagged
@@ -185,6 +186,37 @@ MonoBehaviour:
     lightingIntensity: 20
     lightingColor: {r: 1, g: 1, b: 0, a: 1}
     lightingExposureWeight: 0.6
+--- !u!205 &3707945760163496769
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536101250511469494}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0.14593405, y: 1.2079731, z: 1.1229131}
+  m_Size: 4.8045526
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.0277647
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 283744175045223444}
+    - renderer: {fileID: 5695673250060282598}
+    - renderer: {fileID: 1847404746697541185}
+    - renderer: {fileID: 4752868027952030592}
+    - renderer: {fileID: 6051547376802911152}
+    - renderer: {fileID: 4741901082135403643}
+    - renderer: {fileID: 5323382605783473628}
+  - screenRelativeHeight: 0.0277647
+    fadeTransitionWidth: 0
+    renderers: []
+  - screenRelativeHeight: 0.0277647
+    fadeTransitionWidth: 0
+    renderers: []
+  m_Enabled: 1
 --- !u!1 &1052166350441772725
 GameObject:
   m_ObjectHideFlags: 0

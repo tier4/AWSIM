@@ -9,37 +9,13 @@ namespace AWSIM.RandomTraffic
     /// </summary>
     public class NPCVehicleVisualizationStep
     {
-        private float cullingDistance;
-        private float cullingHz;
-        private float cullingTimer;
-
-        public NPCVehicleVisualizationStep(float cullingDistance, float cullingHz)
-        {
-            this.cullingDistance = cullingDistance;
-            this.cullingHz = cullingHz;
-        }
-
         public void Execute(IReadOnlyList<NPCVehicleInternalState> states, Transform egoVehicle)
         {
-            var cullingInterval = 1.0f / cullingHz;
-            cullingInterval -= 0.00001f;       // Allow for accuracy errors.
-
-            // Apply culling
-            if (cullingTimer < cullingInterval)
+            foreach (var state in states)
             {
-                foreach (var state in states)
-                {
-                    if (Vector3.Distance(state.Vehicle.transform.position, egoVehicle.position) < cullingDistance)
-                        state.Vehicle.SetActiveVisualObjects(true);
-                    else
-                        state.Vehicle.SetActiveVisualObjects(false);
-                    ApplyPose(state);
-                    ApplyTurnSignalState(state);
-                }
-                cullingTimer = 0;
+                ApplyPose(state);
+                ApplyTurnSignalState(state);
             }
-
-            cullingTimer += Time.deltaTime;
         }
 
         private static void ApplyPose(NPCVehicleInternalState state)

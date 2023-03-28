@@ -815,6 +815,7 @@ GameObject:
   - component: {fileID: 2189271265261361943}
   - component: {fileID: 5851389709525032229}
   - component: {fileID: 7015767329444961931}
+  - component: {fileID: 8802681695267733101}
   m_Layer: 6
   m_Name: Truck_2t
   m_TagString: Untagged
@@ -906,6 +907,37 @@ MonoBehaviour:
     lightingIntensity: 20
     lightingColor: {r: 1, g: 1, b: 0, a: 1}
     lightingExposureWeight: 0.6
+--- !u!205 &8802681695267733101
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6850358619771218631}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0.00000011920929, y: 2.0786762, z: -0.016079426}
+  m_Size: 9.187011
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.05208671
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 6598281649186108773}
+    - renderer: {fileID: 141017386329055343}
+    - renderer: {fileID: 4866892320997323416}
+    - renderer: {fileID: 1419429398100291372}
+    - renderer: {fileID: 718308640165977632}
+    - renderer: {fileID: 3172555940650282244}
+    - renderer: {fileID: 3923309619383197152}
+  - screenRelativeHeight: 0.05208671
+    fadeTransitionWidth: 0
+    renderers: []
+  - screenRelativeHeight: 0.05208671
+    fadeTransitionWidth: 0
+    renderers: []
+  m_Enabled: 1
 --- !u!1 &7786019894065468892
 GameObject:
   m_ObjectHideFlags: 0

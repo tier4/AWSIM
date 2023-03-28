@@ -311,6 +311,7 @@ GameObject:
   - component: {fileID: 5231512353441078096}
   - component: {fileID: 562815439553322338}
   - component: {fileID: -5213258043002167604}
+  - component: {fileID: 2942136667019727489}
   m_Layer: 6
   m_Name: Taxi
   m_TagString: Untagged
@@ -402,6 +403,37 @@ MonoBehaviour:
     lightingIntensity: 20
     lightingColor: {r: 1, g: 1, b: 0, a: 1}
     lightingExposureWeight: 0.6
+--- !u!205 &2942136667019727489
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714549001370495616}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0.09294599, y: 0.77497315, z: 1.1388929}
+  m_Size: 4.597516
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.026844317
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 966589924302435618}
+    - renderer: {fileID: 6745048515010204702}
+    - renderer: {fileID: 4532047802037903960}
+    - renderer: {fileID: 3027108089706383709}
+    - renderer: {fileID: 2220581906112940982}
+    - renderer: {fileID: 9086343521580110402}
+    - renderer: {fileID: 6974169334371775899}
+  - screenRelativeHeight: 0.026844317
+    fadeTransitionWidth: 0
+    renderers: []
+  - screenRelativeHeight: 0.026844317
+    fadeTransitionWidth: 0
+    renderers: []
+  m_Enabled: 1
 --- !u!1 &889589186835819325
 GameObject:
   m_ObjectHideFlags: 0

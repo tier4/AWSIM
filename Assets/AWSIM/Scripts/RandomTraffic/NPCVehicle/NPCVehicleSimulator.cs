@@ -32,14 +32,14 @@ namespace AWSIM.RandomTraffic
         private readonly NPCVehicleControlStep controlStep;
         private readonly NPCVehicleVisualizationStep visualizationStep;
 
-        public NPCVehicleSimulator(NPCVehicleConfig config, LayerMask vehicleLayerMask, LayerMask groundLayerMask, int maxVehicleCount, float cullingDistance, float cullingHz)
+        public NPCVehicleSimulator(NPCVehicleConfig config, LayerMask vehicleLayerMask, LayerMask groundLayerMask, int maxVehicleCount)
         {
             vehicleStates = new List<NPCVehicleInternalState>();
 
             cognitionStep = new NPCVehicleCognitionStep(vehicleLayerMask, groundLayerMask, maxVehicleCount);
             decisionStep = new NPCVehicleDecisionStep(config);
             controlStep = new NPCVehicleControlStep(config);
-            visualizationStep = new NPCVehicleVisualizationStep(cullingDistance, cullingHz);
+            visualizationStep = new NPCVehicleVisualizationStep();
         }
 
         /// <summary>

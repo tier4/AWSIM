@@ -521,6 +521,7 @@ GameObject:
   - component: {fileID: 8012901545304018818}
   - component: {fileID: 2334587463588399536}
   - component: {fileID: 1157233971956959774}
+  - component: {fileID: 7948141583298997655}
   m_Layer: 6
   m_Name: SmallCar
   m_TagString: Untagged
@@ -612,6 +613,37 @@ MonoBehaviour:
     lightingIntensity: 20
     lightingColor: {r: 1, g: 1, b: 0, a: 1}
     lightingExposureWeight: 0.6
+--- !u!205 &7948141583298997655
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3333523281254186578}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0.09057912, y: 0.91997325, z: 1.145699}
+  m_Size: 3.3633394
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.028174752
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 3081481593818096112}
+    - renderer: {fileID: 692507353433946564}
+    - renderer: {fileID: 7985155211118128832}
+    - renderer: {fileID: 1295396300695302154}
+    - renderer: {fileID: 1442316815021959667}
+    - renderer: {fileID: 8963445617790342844}
+    - renderer: {fileID: 7354877175769228888}
+  - screenRelativeHeight: 0.028174752
+    fadeTransitionWidth: 0
+    renderers: []
+  - screenRelativeHeight: 0.028174752
+    fadeTransitionWidth: 0
+    renderers: []
+  m_Enabled: 1
 --- !u!1 &3512298344394682664
 GameObject:
   m_ObjectHideFlags: 0

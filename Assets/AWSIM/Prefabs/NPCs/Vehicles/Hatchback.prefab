@@ -845,6 +845,7 @@ GameObject:
   - component: {fileID: 1934784267107460101}
   - component: {fileID: 6164347515437474359}
   - component: {fileID: 7342386509215981977}
+  - component: {fileID: 11694345330987065}
   m_Layer: 6
   m_Name: Hatchback
   m_TagString: Untagged
@@ -936,6 +937,37 @@ MonoBehaviour:
     lightingIntensity: 20
     lightingColor: {r: 1, g: 1, b: 0, a: 1}
     lightingExposureWeight: 0.6
+--- !u!205 &11694345330987065
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6604874415271597525}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0.06785345, y: 0.7939732, z: 1.4083744}
+  m_Size: 3.9404533
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.02289802
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 6857197332335463031}
+    - renderer: {fileID: 2069742082203342487}
+    - renderer: {fileID: 2081742662571682623}
+    - renderer: {fileID: 3166225564334862163}
+    - renderer: {fileID: 6840420088501570131}
+    - renderer: {fileID: 1881755969069844193}
+    - renderer: {fileID: 3154669250183935413}
+  - screenRelativeHeight: 0.02289802
+    fadeTransitionWidth: 0
+    renderers: []
+  - screenRelativeHeight: 0.02289802
+    fadeTransitionWidth: 0
+    renderers: []
+  m_Enabled: 1
 --- !u!1 &6969276747894473337
 GameObject:
   m_ObjectHideFlags: 0
