@@ -21,6 +21,29 @@ namespace AWSIM
         }
 
         /// <summary>
+        /// Convert position from ROS to Unity.
+        /// </summary>
+        /// <param name="rosPosition">position by ROS</param>
+        /// <returns>position by Unity</returns>
+        public static Vector3 RosToUnityPosition(geometry_msgs.msg.Point rosPosition)
+        {
+            return new Vector3((float)-rosPosition.Y, (float)rosPosition.Z, (float)rosPosition.X);
+        }
+
+        /// <summary>
+        /// Convert position from ROS (MGRS) to Unity (word coordinate system).
+        /// </summary>
+        /// <param name="rosPosition">position by ROS in MGRS</param>
+        /// <returns>position by Unity in Unity WORLD</returns>
+        public static Vector3 RosMGRSToUnityPosition(geometry_msgs.msg.Point rosPosition)
+        {
+            var offset = Environment.Instance.MgrsOffsetPosition;
+            return new Vector3(-(float)(rosPosition.Y - offset.y),
+                               (float)(rosPosition.Z - offset.z),
+                               (float)(rosPosition.X - offset.x));
+        }
+
+        /// <summary>
         /// Convert position from Unity to ROS.
         /// </summary>
         /// <param name="unityPosition">position by Unity</param>
@@ -38,6 +61,16 @@ namespace AWSIM
         public static Quaternion RosToUnityRotation(Quaternion rosQuaternion)
         {
             return new Quaternion(rosQuaternion.y, -rosQuaternion.z, -rosQuaternion.x, rosQuaternion.w);
+        }
+
+        /// <summary>
+        /// Convert position from ROS to Unity.
+        /// </summary>
+        /// <param name="rosQuaternion">rotation by ROS</param>
+        /// <returns>rotation by Unity</returns>
+        public static Quaternion RosToUnityRotation(geometry_msgs.msg.Quaternion rosQuaternion)
+        {
+            return new Quaternion((float)rosQuaternion.Y, (float)-rosQuaternion.Z, (float)-rosQuaternion.X, (float)rosQuaternion.W);
         }
 
         /// <summary>
