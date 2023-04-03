@@ -227,7 +227,6 @@ namespace AWSIM
 
         void OnCollisionStay(Collision collision)
         {
-            Debug.Log("Collision!!!");
             collisionAnalyzer.Update(collision);
         }
     }
