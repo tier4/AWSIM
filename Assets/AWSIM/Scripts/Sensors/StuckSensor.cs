@@ -137,9 +137,9 @@ namespace AWSIM
     /// Determined on the basis of 3 sources of information (one, two or all of them can be used at the same time)
     /// whether the vehicle "is stuck" - this state is published on the specific topic and can be also displayed in the GUI.
     /// </summary>
+    [RequireComponent(typeof(MeshCollider))]
     public class StuckSensor : MonoBehaviour
     {
-
         private bool initialized = false;
         private float timer = 0;
         private bool isStuck = false;
@@ -165,13 +165,24 @@ namespace AWSIM
 
         void Start()
         {
-            initialized = true;
-            collisionAnalyzer = new CollisionAnalyzer();
-            movementAnalyzer = new MovementAnalyzer();
-            stuckPublisher = SimulatorROS2Node.CreatePublisher<std_msgs.msg.Bool>(stuckSensorTopic, qosSettings.GetQoSProfile());
-            ackermanControlCommandSubscriber
-            = SimulatorROS2Node.CreateSubscription<autoware_auto_control_msgs.msg.AckermannControlCommand>(
-                ackermannControlCommandTopic, msg => { subscribedTargetSpeed = msg.Longitudinal.Speed; }, qosSettings.GetQoSProfile());
+            try
+            {
+                var collider = GetComponent<MeshCollider>();
+                if (collider == null || collider.sharedMesh == null)
+                    throw new Exception("CollisionAnalyzer needs mesh set in collider to work properly!");
+                initialized = true;
+                collisionAnalyzer = new CollisionAnalyzer();
+                movementAnalyzer = new MovementAnalyzer();
+                stuckPublisher = SimulatorROS2Node.CreatePublisher<std_msgs.msg.Bool>(stuckSensorTopic, qosSettings.GetQoSProfile());
+                ackermanControlCommandSubscriber
+                = SimulatorROS2Node.CreateSubscription<autoware_auto_control_msgs.msg.AckermannControlCommand>(
+                    ackermannControlCommandTopic, msg => { subscribedTargetSpeed = msg.Longitudinal.Speed; }, qosSettings.GetQoSProfile());
+            }
+            catch (Exception exception)
+            {
+                Debug.LogError("[StuckSensor]: " + exception.Message);
+                this.enabled = false;
+            }
         }
 
         bool NeedToPublish()
