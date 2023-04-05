@@ -158,6 +158,46 @@ namespace AWSIM
             }
         }
 
+        [Serializable]
+        class GroundTruths
+        {
+            private float _timer = 0;
+            private IPublisher<std_msgs.msg.Bool> _goalArrivedPublisher;
+            private IPublisher<std_msgs.msg.Bool> _goalStartedPublisher;
+            [Header("GroundTruths Settings")]
+            //GroundTruth publication frequency and topics
+            [SerializeField, Tooltip("GroundTruths publication frequency - number of publications per second"), Range(1.0f, 100.0f)] int publishFrequency = 30;
+            [SerializeField, Tooltip("'true' will be published when the vehicle starts moving after receiving the goal")] string goalArrivedTopic = "/ground_truth/is_goal_arrived";
+            [SerializeField, Tooltip("'true' will be published when the vehicle arrives at the goal with the assumed accuracy")] string goalStartedTopic = "/ground_truth/is_goal_started";
+            public GroundTruths() { }
+            public GroundTruths(QoSSettings qosSettings)
+            {
+                var qos = qosSettings.GetQoSProfile();
+                _goalArrivedPublisher = SimulatorROS2Node.CreatePublisher<std_msgs.msg.Bool>(goalArrivedTopic, qosSettings.GetQoSProfile());
+                _goalStartedPublisher = SimulatorROS2Node.CreatePublisher<std_msgs.msg.Bool>(goalStartedTopic, qos);
+            }
+
+            bool NeedToPublish()
+            {
+                _timer += Time.deltaTime;
+                var interval = 1.0f / publishFrequency;
+                interval -= 0.00001f;
+                if (_timer < interval)
+                    return false;
+                _timer = 0;
+                return true;
+            }
+
+            public void Publish(bool isGoalArrived, bool isGoalStarted)
+            {
+                if (NeedToPublish())
+                {
+                    _goalArrivedPublisher.Publish(new std_msgs.msg.Bool() { Data = isGoalArrived, });
+                    _goalStartedPublisher.Publish(new std_msgs.msg.Bool() { Data = isGoalStarted, });
+                }
+            }
+        }
+
 
         // Gui
         //Enable/disible displaying goal state change
@@ -174,7 +214,6 @@ namespace AWSIM
         [Header("Vehicle Speed Subscription Settings")]
         [SerializeField] private Vehicle vehicle;
 
-
         //Autoware
         private autoware_auto_system_msgs.msg.AutowareState autowareState;
         private bool isAutowareReadyForEngagement => autowareState.State is autoware_auto_system_msgs.msg.AutowareState.WAITING_FOR_ENGAGE;
@@ -184,7 +223,6 @@ namespace AWSIM
         //Input topic for autoware state
         [SerializeField, Tooltip("From this topic, the autoware state will be subscribed")] string autowareStateSubscriberTopic = "/autoware/state";
         ISubscription<autoware_auto_system_msgs.msg.AutowareState> autowareStateSubscriber;
-
 
         //Goal
         ISubscription<geometry_msgs.msg.PoseStamped> currentGoalSubscriber;
@@ -196,31 +234,21 @@ namespace AWSIM
         //Position accuracy
         [SerializeField, Tooltip("It is the accuracy of the position with which the vehicle must reach the given goal +/- [m]"), Range(0.01f, 2.0f)] double positionTolerance = 0.2;
 
-
-        //GroundTruths
-        private float _timer = 0;
-        private IPublisher<std_msgs.msg.Bool> _goalArrivedPublisher;
-        private IPublisher<std_msgs.msg.Bool> _goalStartedPublisher;
-        [Header("GroundTruths Settings")]
-        //GroundTruth publication frequency and topics
-        [SerializeField, Tooltip("GroundTruths publication frequency - number of publications per second"), Range(1.0f, 100.0f)] int publishFrequency = 30;
-        [SerializeField, Tooltip("'true' will be published when the vehicle starts moving after receiving the goal")] string goalArrivedTopic = "/ground_truth/is_goal_arrived";
-        [SerializeField, Tooltip("'true' will be published when the vehicle arrives at the goal with the assumed accuracy")] string goalStartedTopic = "/ground_truth/is_goal_started";
+        [Header("GroundTruths Publication Settings")]
+        [SerializeField] private GroundTruths groundTruths;
 
         void Start()
         {
-            autowareState = new autoware_auto_system_msgs.msg.AutowareState();
-            autowareState.State = autoware_auto_system_msgs.msg.AutowareState.INITIALIZING;
+            qosSettings = new QoSSettings();
             goalsManager = new GoalsManager();
             vehicle = new Vehicle(GetComponent<Rigidbody>(), qosSettings);
-            var qos = qosSettings.GetQoSProfile();
-            _goalArrivedPublisher = SimulatorROS2Node.CreatePublisher<std_msgs.msg.Bool>(goalArrivedTopic, qos);
-            _goalStartedPublisher = SimulatorROS2Node.CreatePublisher<std_msgs.msg.Bool>(goalStartedTopic, qos);
+            groundTruths = new GroundTruths(qosSettings);
+            autowareState = new autoware_auto_system_msgs.msg.AutowareState();
             autowareStateSubscriber = SimulatorROS2Node.CreateSubscription<autoware_auto_system_msgs.msg.AutowareState>(
-                    autowareStateSubscriberTopic, msg => { autowareState = msg; }, qos);
+                    autowareStateSubscriberTopic, msg => { autowareState = msg; }, qosSettings.GetQoSProfile());
             currentGoalSubscriber
                 = SimulatorROS2Node.CreateSubscription<geometry_msgs.msg.PoseStamped>(
-                    currentGoalTopic, msg => { goalsManager.AddGoal(msg); vehicle.Reset(); }, qos);
+                    currentGoalTopic, msg => { goalsManager.AddGoal(msg); vehicle.Reset(); }, qosSettings.GetQoSProfile());
             initialized = true;
         }
 
@@ -249,27 +277,7 @@ namespace AWSIM
                 goalsManager.SetGoalState(GoalState.ARRIVED);
 
             if (goalsManager.IsAnyGoal)
-                Publish(goalsManager.IsGoalArrived, goalsManager.IsGoalStarted);
-        }
-
-        bool NeedToPublish()
-        {
-            _timer += Time.deltaTime;
-            var interval = 1.0f / publishFrequency;
-            interval -= 0.00001f;
-            if (_timer < interval)
-                return false;
-            _timer = 0;
-            return true;
-        }
-
-        void Publish(bool isGoalArrived, bool isGoalStarted)
-        {
-            if (initialized && NeedToPublish())
-            {
-                _goalArrivedPublisher.Publish(new std_msgs.msg.Bool() { Data = isGoalArrived, });
-                _goalStartedPublisher.Publish(new std_msgs.msg.Bool() { Data = isGoalStarted, });
-            }
+                groundTruths.Publish(goalsManager.IsGoalArrived, goalsManager.IsGoalStarted);
         }
 
         void OnGUI()
