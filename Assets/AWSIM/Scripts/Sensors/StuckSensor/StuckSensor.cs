@@ -58,7 +58,7 @@ namespace AWSIM
 
         [Header("DistanceTraveled Settings")]
         //Enable/disable 'is stuck' checking based on a comparison of the target and traveled distances
-        [SerializeField, Tooltip("Whether the 'is stuck' state should be published when vehicle should be moving (receives speed) but isn't moving as it should.")] bool considerDistanceTraveledOverTime = false;
+        [SerializeField, Tooltip("Whether the 'is stuck' state should be published when vehicle should be moving (receives speed) but isn't moving as it should.")] bool considerDistanceTraveledOverTime = true;
         //Time over which the distances traveled and expected are summed up
         [SerializeField, Range(0.1f, 3.0f), Tooltip("During this time [s], the distances traveled and expected summed up")] double distanceTimePeriod = 2.0;
         //The difference in distances that implies 'is stuck'
@@ -72,7 +72,7 @@ namespace AWSIM
 
         [Header("LongImmobility Settings")]
         //Enable/disable 'is stuck' checking based on long immobility
-        [SerializeField, Tooltip("Whether the 'is stuck' state should be published when vehicle should be moving but its current speed is zero for a long time. ")] bool considerLongImmobility = false;
+        [SerializeField, Tooltip("Whether the 'is stuck' state should be published when vehicle should be moving but its current speed is zero for a long time. ")] bool considerLongImmobility = true;
         //Time threshold for long immobility (this time must also elapse to go to 'is unstuck')
         [SerializeField, Range(0.1f, 3.0f), Tooltip("If during this time [s] (currentSpeed<0.01 and targetSpeed>0.01) then the vehicle 'is stuck', this time must also elapse to go to 'is unstuck'")] double longImmobilityTimeThreshold = 1.0;
 
@@ -253,7 +253,7 @@ namespace AWSIM
                 guiStyle.fontStyle = FontStyle.Bold;
                 guiStyle.alignment = TextAnchor.UpperRight;
                 guiStyle.normal.textColor = Color.white;
-                GUI.Label(new Rect(10, 30 + 2 * guiStyle.fontSize, Screen.width - 20, 2 * guiStyle.fontSize), name + " is stuck", guiStyle);
+                GUI.Label(new Rect(10, 30 + 2 * guiStyle.fontSize, Screen.width - 20, 2 * guiStyle.fontSize), "Vehicle is stuck", guiStyle);
             }
         }
 

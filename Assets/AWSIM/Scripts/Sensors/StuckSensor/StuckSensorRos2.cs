@@ -19,6 +19,7 @@ namespace AWSIM
         private IPublisher<std_msgs.msg.Bool> stuckPublisher;
         private ISubscription<autoware_auto_control_msgs.msg.AckermannControlCommand> ackermanControlCommandSubscriber;
         private double subscribedTargetSpeed = 0;
+        private bool lastIsStuckState = false;
 
         [Header("ROS Communication Settings")]
         //QoS settings for communication with ROS"
@@ -29,6 +30,12 @@ namespace AWSIM
         [Header("Output")]
         //The topic for publication 'is stuck' state
         [SerializeField, Tooltip("On this topic, the 'is_stuck' state is published (as a std_msgs::Bool)")] string stuckSensorTopic = "/vehicle/status/is_stuck";
+
+        [Header("IsStuck Log Settings")]
+        //Enable/disable save logs
+        [SerializeField, Tooltip("Should is stuck state change logs be saved?")] public bool saveLogToFile = true;
+        //Filename to save logs
+        [SerializeField, Tooltip("Name of the file (please add *.log)")] private String logOutFileName = "is_stuck.log";
 
         void Start()
         {
@@ -46,6 +53,16 @@ namespace AWSIM
 
         }
 
+        void LogStateToFile(bool isStuck)
+        {
+            if (saveLogToFile)
+            {
+                var fileWriter = File.AppendText(logOutFileName);
+                fileWriter.WriteLine("[" + DateTime.Now.ToString("yyyy-MM-dd | HH:mm:ss") + "] Change state 'is_stuck' to: " + isStuck);
+                fileWriter.Close();
+            }
+        }
+
         void UpdateSensor(StuckSensor.InputData inputData)
         {
             inputData.TargetSpeed = subscribedTargetSpeed;
@@ -54,6 +71,8 @@ namespace AWSIM
         void Publish(StuckSensor.OutputData outputData)
         {
             stuckPublisher.Publish(new std_msgs.msg.Bool() { Data = outputData.IsStuck, });
+            if (lastIsStuckState != outputData.IsStuck) LogStateToFile(outputData.IsStuck);
+            lastIsStuckState = outputData.IsStuck;
         }
 
         void OnDestroy()
