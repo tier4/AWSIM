@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1039279547098496482}
   - component: {fileID: 1224591328862869302}
-  - component: {fileID: -3335141825585819978}
+  - component: {fileID: 1864320612826663584}
+  - component: {fileID: 1016608132469057335}
   m_Layer: 0
   m_Name: StuckSensor
   m_TagString: Untagged
@@ -40,13 +41,13 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3546539901144125674}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!114 &-3335141825585819978
+--- !u!114 &1864320612826663584
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,15 +59,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc58a429a654cb6f8c80e27dfa06ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showGuiInformation: 1
-  stuckSensorTopic: /vehicle/status/is_stuck
-  ackermannControlCommandTopic: /control/command/control_cmd
-  publishFrequency: 30
-  qosSettings:
-    ReliabilityPolicy: 0
-    DurabilityPolicy: 0
-    HistoryPolicy: 0
-    Depth: 0
+  showIsStuckStatusInGui: 1
+  OutputHz: 30
   collisionAnalyzer:
     considerCollisionStay: 1
     collisionTimeThreshold: 3
@@ -77,3 +71,22 @@ MonoBehaviour:
     maxSpeedWhileStuck: 1
     considerLongImmobility: 1
     longImmobilityTimeThreshold: 1
+--- !u!114 &1016608132469057335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3546539901144125674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3572f15a4b46851658f7a95a6d6debb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qosSettings:
+    ReliabilityPolicy: 0
+    DurabilityPolicy: 0
+    HistoryPolicy: 0
+    Depth: 0
+  ackermannControlCommandTopic: /control/command/control_cmd
+  stuckSensorTopic: /vehicle/status/is_stuck

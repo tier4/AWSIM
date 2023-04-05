@@ -14,7 +14,7 @@ namespace AWSIM
     [System.Serializable]
     public class CollisionAnalyzer
     {
-        private Collision lastCollisionObject;
+        private Collider lastColliderObject;
         private System.DateTime lastCollisionTimestamp;
 
         [Header("CollisionStay Settings")]
@@ -28,10 +28,10 @@ namespace AWSIM
             lastCollisionTimestamp = new System.DateTime(1970, 1, 1);
         }
 
-        public void Update(Collision collision)
+        public void Update(Collider other)
         {
             lastCollisionTimestamp = System.DateTime.Now;
-            lastCollisionObject = collision;
+            lastColliderObject = other;
         }
         public bool IsConctantCollision()
         {
@@ -140,25 +140,43 @@ namespace AWSIM
     [RequireComponent(typeof(MeshCollider))]
     public class StuckSensor : MonoBehaviour
     {
+        /// <summary>
+        /// This data is output from StuckSensor at the OutputHz cycle.
+        /// </summary>
+        public class OutputData
+        {
+            public bool IsStuck = false;
+        }
+
+        /// <summary>
+        /// This data is input to StuckSensor
+        /// </summary>
+        public class InputData
+        {
+            public double TargetSpeed = 0;
+        }
+
         private bool initialized = false;
         private float timer = 0;
-        private bool isStuck = false;
         private Vector3 previousTransform = Vector3.zero;
-        //ROS
-        private ISubscription<autoware_auto_control_msgs.msg.AckermannControlCommand> ackermanControlCommandSubscriber;
-        private double subscribedTargetSpeed = 0;
-        private IPublisher<std_msgs.msg.Bool> stuckPublisher;
-        //Enable/disable displaying of 'is stuck' in the GUI
-        [SerializeField, Tooltip("Whether 'is stuck' should be displayed in the GUI")] bool showGuiInformation = true;
-        [Header("ROS Communication Settings")]
-        //The topic for publication 'is stuck' state
-        [SerializeField, Tooltip("On this topic, the 'is_stuck' state is published (as a std_msgs::Bool)")] string stuckSensorTopic = "/vehicle/status/is_stuck";
-        //The topic to subscribe to the target speed
-        [SerializeField, Tooltip("From this topic, speeds are subscribed to calculate the expected distance.")] string ackermannControlCommandTopic = "/control/command/control_cmd";
-        //Frequency of publication 'is stuck' state
-        [SerializeField, Range(1.0f, 100.0f), Tooltip("'is_stuck' publication frequency - number of publications per second")] int publishFrequency = 30;
-        //QoS settings for communication with ROS"
-        [SerializeField, Tooltip("QoS settings for communication with ROS")] QoSSettings qosSettings;
+
+        // Input
+        public delegate void OnInputDataDelegate(InputData inputData);
+        public OnInputDataDelegate OnInputData;
+        InputData inputData;
+
+        // Output
+        public delegate void OnOutputDataDelegate(OutputData outputData);
+        public OnOutputDataDelegate OnOutputData;
+        OutputData outputData;
+
+
+        [Header("Output Settings")]
+        // Enable/disable displaying of 'is stuck' in the GUI
+        [SerializeField, Tooltip("Whether 'is stuck' should be displayed in the GUI")] bool showIsStuckStatusInGui = true;
+        /// Sensor output are called in this hz
+        [SerializeField, Range(0, 50), Tooltip("'is_stuck' output frequency - number of publications per second")] public int OutputHz = 30;
+
         // Analyzers
         [SerializeField] private CollisionAnalyzer collisionAnalyzer;
         [SerializeField] private MovementAnalyzer movementAnalyzer;
@@ -173,10 +191,8 @@ namespace AWSIM
                 initialized = true;
                 collisionAnalyzer = new CollisionAnalyzer();
                 movementAnalyzer = new MovementAnalyzer();
-                stuckPublisher = SimulatorROS2Node.CreatePublisher<std_msgs.msg.Bool>(stuckSensorTopic, qosSettings.GetQoSProfile());
-                ackermanControlCommandSubscriber
-                = SimulatorROS2Node.CreateSubscription<autoware_auto_control_msgs.msg.AckermannControlCommand>(
-                    ackermannControlCommandTopic, msg => { subscribedTargetSpeed = msg.Longitudinal.Speed; }, qosSettings.GetQoSProfile());
+                inputData = new InputData();
+                outputData = new OutputData();
             }
             catch (Exception exception)
             {
@@ -185,10 +201,10 @@ namespace AWSIM
             }
         }
 
-        bool NeedToPublish()
+        bool NeedToOutput()
         {
             timer += Time.deltaTime;
-            var interval = 1.0f / publishFrequency;
+            var interval = 1.0f / OutputHz;
             interval -= 0.00001f;
             if (timer < interval)
                 return false;
@@ -201,9 +217,12 @@ namespace AWSIM
             if (initialized == false)
                 return;
 
+            // Call input callback
+            OnInputData.Invoke(inputData);
+
             var calculatedCurrentSpeed = ((transform.position - previousTransform).magnitude) / Time.deltaTime;
             previousTransform = transform.position;
-            movementAnalyzer.Update(calculatedCurrentSpeed, subscribedTargetSpeed);
+            movementAnalyzer.Update(calculatedCurrentSpeed, inputData.TargetSpeed);
 
             //case when the collision occurs constantly
             var isConctantCollision = collisionAnalyzer.IsConctantCollision();
@@ -215,9 +234,11 @@ namespace AWSIM
             //becouse vehicleTargetSpeed is very small and vehicleCurrentSpeed==0 for a long time
             var isLongImmobilityExceeded = movementAnalyzer.isLongImmobilityExceeded();
 
-            isStuck = isConctantCollision || isDistanceDifferenceExceeded || isLongImmobilityExceeded;
-            if (NeedToPublish())
-                stuckPublisher.Publish(new std_msgs.msg.Bool() { Data = isStuck, });
+            outputData.IsStuck = isConctantCollision || isDistanceDifferenceExceeded || isLongImmobilityExceeded;
+
+            // Call output callback
+            if (NeedToOutput())
+                OnOutputData.Invoke(outputData);
         }
 
         /// <summary>
@@ -225,7 +246,7 @@ namespace AWSIM
         /// </summary>
         void OnGUI()
         {
-            if (showGuiInformation && initialized && isStuck)
+            if (showIsStuckStatusInGui && initialized && outputData.IsStuck)
             {
                 var guiStyle = GUI.skin.GetStyle("Label");
                 guiStyle.fontSize = Math.Max(10, (int)(Screen.height / 40));
@@ -236,9 +257,10 @@ namespace AWSIM
             }
         }
 
-        void OnCollisionStay(Collision collision)
+        void OnTriggerStay(Collider other)
         {
-            collisionAnalyzer.Update(collision);
+            Debug.Log("Collider: " + other.gameObject.name);
+            collisionAnalyzer.Update(other);
         }
     }
 
