@@ -160,9 +160,19 @@ namespace RGLUnityPlugin
 
         public static void CheckErr(int status)
         {
-            if (status == 0)
+            if (status == (int)RGLStatus.SUCCESS)
             {
                 return;
+            }
+
+            if (status == (int)RGLStatus.INVALID_STATE)
+            {
+                foreach (LidarSensor rglLidar in UnityEngine.Object.FindObjectsOfType<LidarSensor>())
+                {
+                    rglLidar.enabled = false;
+                }
+                throw new RGLException("A previous unrecoverable error has corrupted RobotecGPULidar's internal state. "
+                                       + "Disabling LidarSensor components. The application must be restarted!");
             }
 
             rgl_get_last_error_string(out var errStrPtr);
