@@ -47,6 +47,11 @@ namespace AWSIM
                     }, qosSettings.GetQoSProfile());
             }
 
+            ~Vehicle()
+            {
+                SimulatorROS2Node.RemoveSubscription<autoware_auto_control_msgs.msg.AckermannControlCommand>(ackermanControlCommandSubscriber);
+            }
+
             public bool IsMovingProperly()
             {
                 return (!IsLastSpeedExpired && Math.Abs(_currentSpeed) > 0.01 && Math.Abs(_targetSpeed) > 0.01);
@@ -177,6 +182,12 @@ namespace AWSIM
                 _goalStartedPublisher = SimulatorROS2Node.CreatePublisher<std_msgs.msg.Bool>(goalStartedTopic, qos);
             }
 
+            ~GroundTruths()
+            {
+                SimulatorROS2Node.RemovePublisher<std_msgs.msg.Bool>(_goalArrivedPublisher);
+                SimulatorROS2Node.RemovePublisher<std_msgs.msg.Bool>(_goalStartedPublisher);
+            }
+
             bool NeedToPublish()
             {
                 _timer += Time.deltaTime;
@@ -304,6 +315,12 @@ namespace AWSIM
                     }
                 }
             }
+        }
+
+        void OnDestroy()
+        {
+            SimulatorROS2Node.RemoveSubscription<autoware_auto_system_msgs.msg.AutowareState>(autowareStateSubscriber);
+            SimulatorROS2Node.RemoveSubscription<geometry_msgs.msg.PoseStamped>(currentGoalSubscriber);
         }
     }
 }
