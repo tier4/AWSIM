@@ -17,17 +17,17 @@ namespace AWSIM
         /// </summary>
         public enum BulbType
         {
-            ANY_CIRCLE_BULB         = 0,
-            RED_BULB         = 1,
-            YELLOW_BULB      = 2,
-            GREEN_BULB       = 3,
-            LEFT_ARROW_BULB         = 4,
-            RIGHT_ARROW_BULB        = 5,
-            UP_ARROW_BULB           = 6,
-            DOWN_ARROW_BULB         = 7,
-            DOWN_LEFT_ARROW_BULB    = 8,
-            DOWN_RIGHT_ARROW_BULB   = 9,
-            CROSS_BULB              = 10,
+            ANY_CIRCLE_BULB = 0,
+            RED_BULB = 1,
+            YELLOW_BULB = 2,
+            GREEN_BULB = 3,
+            LEFT_ARROW_BULB = 4,
+            RIGHT_ARROW_BULB = 5,
+            UP_ARROW_BULB = 6,
+            DOWN_ARROW_BULB = 7,
+            DOWN_LEFT_ARROW_BULB = 8,
+            DOWN_RIGHT_ARROW_BULB = 9,
+            CROSS_BULB = 10,
         }
 
         /// <summary>
@@ -35,9 +35,9 @@ namespace AWSIM
         /// </summary>
         public enum BulbStatus
         {
-            SOLID_OFF               = 0,        // Lights off.
-            SOLID_ON                = 1,        // Lights on.
-            FLASHING                = 2,        // Lights on every flashSec.
+            SOLID_OFF = 0,        // Lights off.
+            SOLID_ON = 1,        // Lights on.
+            FLASHING = 2,        // Lights on every flashSec.
         }
 
         /// <summary>
@@ -45,10 +45,10 @@ namespace AWSIM
         /// </summary>
         public enum BulbColor
         {
-            RED                     = 0,
-            YELLOW                  = 1,
-            GREEN                   = 2,
-            WHITE                   = 3,
+            RED = 0,
+            YELLOW = 1,
+            GREEN = 2,
+            WHITE = 3,
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace AWSIM
             public BulbColor BulbColor => color;
 
             [SerializeField] BulbType bulbType;
-            [SerializeField, Tooltip("Specifies the index of the material to be used for the bulb.")] 
+            [SerializeField, Tooltip("Specifies the index of the material to be used for the bulb.")]
             int materialIndex;
 
             // const parameters.
@@ -223,7 +223,7 @@ namespace AWSIM
             }
         }
 
-        [SerializeField, Tooltip("Set the Renderer containing the bulb material.")] 
+        [SerializeField, Tooltip("Set the Renderer containing the bulb material.")]
         new Renderer renderer;
 
         /// <summary>
@@ -270,6 +270,8 @@ namespace AWSIM
         int bulbCount;
         BulbData[] bulbDataArray;
 
+        public int LaneletElementID = 0;
+
         void Reset()
         {
             renderer = GetComponent<Renderer>();
@@ -299,7 +301,7 @@ namespace AWSIM
 
         public void TurnOffAllBulbs()
         {
-            foreach(var e in bulbs)
+            foreach (var e in bulbs)
             {
                 e.SetBulbLighting(TrafficLight.BulbStatus.SOLID_OFF, BulbColor.WHITE);
             }
@@ -335,7 +337,7 @@ namespace AWSIM
         {
             int i = 0;
 
-            foreach(var e in bulbPairs)
+            foreach (var e in bulbPairs)
             {
                 bulbDataArray[i] = new BulbData(e.Value.BulbType, e.Value.BulbColor, e.Value.BulbStatus);
                 i++;
