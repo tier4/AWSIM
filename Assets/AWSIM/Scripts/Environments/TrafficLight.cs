@@ -226,6 +226,8 @@ namespace AWSIM
         [SerializeField, Tooltip("Set the Renderer containing the bulb material.")]
         new Renderer renderer;
 
+        public long LaneletElementID = 0;
+
         /// <summary>
         /// Define the Emission parameter to be applied to the material when the Bulb is turned on.
         /// </summary>
@@ -269,8 +271,6 @@ namespace AWSIM
         Dictionary<BulbType, Bulb> bulbPairs;
         int bulbCount;
         BulbData[] bulbDataArray;
-
-        public int LaneletElementID = 0;
 
         void Reset()
         {

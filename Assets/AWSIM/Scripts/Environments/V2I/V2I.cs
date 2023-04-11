@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using GeometryUtility = AWSIM.Lanelet.GeometryUtility;
 
 namespace AWSIM
 {
@@ -11,8 +13,11 @@ namespace AWSIM
         Range(1.0f, 100.0f)]
         int outputHz = 10;
 
-        [SerializeField] 
-        private GameObject trafficLightsParent;
+        private Vehicle egoVehicle;
+
+        private TrafficLight[] allTrafficLights;
+
+        public double egoDistanceToTrafficSignals = 150.0;
         
         public class OutputData
         {
@@ -27,7 +32,8 @@ namespace AWSIM
 
         void Start()
         {
-            outputData.trafficLights = trafficLightsParent.GetComponentsInChildren<TrafficLight>();
+            egoVehicle = GameObject.FindObjectOfType<Vehicle>();
+            allTrafficLights = GameObject.FindObjectsOfType<TrafficLight>();
         }
 
         void FixedUpdate()
@@ -42,7 +48,20 @@ namespace AWSIM
                 return;
             timer = 0;
 
+            outputData.trafficLights = FindClosestTrafficLights(allTrafficLights, egoVehicle.transform.position,
+                egoDistanceToTrafficSignals);
+
             OnOutputData.Invoke(outputData);
+        }
+
+        private TrafficLight[] FindClosestTrafficLights(TrafficLight[] trafficLights, Vector3 position, double radius = 10.0)
+        {
+            return trafficLights
+                .Where(trafficLight =>
+                {
+                    var distance2D = GeometryUtility.Distance2D(trafficLight.transform.position, position);
+                    return distance2D <= radius && trafficLight.LaneletElementID != 0;
+                }).ToList().ToArray();
         }
     }
 
