@@ -1,4 +1,4 @@
-// Copyright 2019-2022 Robotec.ai.
+// Copyright 2019-2023 Robotec.ai.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,7 +13,11 @@
 // limitations under the License.
 
 #if UNITY_EDITOR
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Build;
@@ -46,6 +50,18 @@ internal class PostInstall : IPostprocessBuildWithReport
         } else {
             FileUtil.CopyFileOrDirectory(
                 r2csMeta, outputDir + "/" + execFilename + "_Data/Plugins/x86_64/" + r2csMetadataName);
+        }
+
+        // Copy versioned libraries on Linux (Unity skips them)
+        if (ROS2ForUnity.GetOS() == ROS2ForUnity.Platform.Linux) {
+            Regex soWithVersionReg = new Regex(@".*\.so(\.[0-9])+$");
+            var versionedLibs = new List<String>(Directory.GetFiles(ROS2ForUnity.GetPluginPath()))
+                                    .Where(path => soWithVersionReg.IsMatch(path))
+                                    .ToList();
+            foreach (var libPath in versionedLibs) {
+                FileUtil.CopyFileOrDirectory(
+                    libPath, outputDir + "/" + execFilename + "_Data/Plugins/" + Path.GetFileName(libPath));
+            }
         }
     }
 
