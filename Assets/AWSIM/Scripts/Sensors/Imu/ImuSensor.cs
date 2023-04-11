@@ -36,7 +36,7 @@ namespace AWSIM
         /// Data output hz.
         /// Sensor processing and callbacks are called in this hz.
         /// </summary>
-        [Range(0, 50)]
+        [Range(1, 100)]
         public int OutputHz = 30;   // Autoware's ImuSensor basically output at 30hz.
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace AWSIM
 
             // Compute acceleration.
             var localVelocity = (transform.InverseTransformDirection(transform.position - lastPosition)) / Time.deltaTime;
-            var localAcceleration = (localVelocity - lastLocalVelocity) / Time.deltaTime;
+            var localAcceleration = (localVelocity - lastLocalVelocity) / Time.deltaTime + Physics.gravity;
             lastPosition = transform.position;
             lastLocalVelocity = localVelocity;
 
