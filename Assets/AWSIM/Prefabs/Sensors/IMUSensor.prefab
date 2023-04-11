@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5762454874707511909}
   - component: {fileID: 1213553379199470883}
   m_Layer: 0
-  m_Name: ImuSensor
+  m_Name: IMUSensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

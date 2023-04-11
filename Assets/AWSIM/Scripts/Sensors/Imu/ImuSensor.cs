@@ -36,7 +36,7 @@ namespace AWSIM
         /// Data output hz.
         /// Sensor processing and callbacks are called in this hz.
         /// </summary>
-        [Range(0, 50)]
+        [SerializeField, Range(0, 100)]
         public int OutputHz = 30;   // Autoware's ImuSensor basically output at 30hz.
 
         /// <summary>
@@ -55,6 +55,8 @@ namespace AWSIM
         QuaternionD lastRotation;       // Previous frame rotation used for angular velocity calculation.
         float timer = 0;
         OutputData outputData = new OutputData();
+
+        Vector3 gravity = new Vector3(0f, 9.81f, 0f);
 
         void Start()
         {
@@ -77,7 +79,7 @@ namespace AWSIM
 
             // Compute acceleration.
             var localVelocity = (transform.InverseTransformDirection(transform.position - lastPosition)) / Time.deltaTime;
-            var localAcceleration = (localVelocity - lastLocalVelocity) / Time.deltaTime;
+            var localAcceleration = (localVelocity - lastLocalVelocity) / Time.deltaTime - gravity;
             lastPosition = transform.position;
             lastLocalVelocity = localVelocity;
 
