@@ -8,7 +8,7 @@ namespace AWSIM
     /// <summary>
     /// Vehicle ROS2 utility static class.
     /// </summary>
-    public static class TrafficLightROS2Utility
+    public static class V2IROS2Utility
     {
         /// <summary>
         /// Convert the TrafficLight.BulbType to ROS msg TrafficLightElement

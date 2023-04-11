@@ -58,9 +58,9 @@ namespace AWSIM
                 for (int i = 0; i < bulbData.Length; ++i)
                 {
                     ts.Elements[i] = new autoware_perception_msgs.msg.TrafficLightElement();
-                    ts.Elements[i].Color = TrafficLightROS2Utility.UnityToRosBulbColor(bulbData[i].Color);
-                    ts.Elements[i].Shape = TrafficLightROS2Utility.UnityToRosBulbShape(bulbData[i].Type);
-                    ts.Elements[i].Status = TrafficLightROS2Utility.UnityToRosBulbStatus(bulbData[i].Status);
+                    ts.Elements[i].Color = V2IROS2Utility.UnityToRosBulbColor(bulbData[i].Color);
+                    ts.Elements[i].Shape = V2IROS2Utility.UnityToRosBulbShape(bulbData[i].Type);
+                    ts.Elements[i].Status = V2IROS2Utility.UnityToRosBulbStatus(bulbData[i].Status);
                     ts.Elements[i].Confidence = 1.0f;
                 }
                 //Add TrafficLight signal to list
