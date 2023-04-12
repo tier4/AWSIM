@@ -47,13 +47,8 @@ internal class PostInstall : IPostprocessBuildWithReport
         if (ROS2ForUnity.GetOS() == ROS2ForUnity.Platform.Linux) {
             FileUtil.CopyFileOrDirectory(
                 r2csMeta, outputDir + "/" + execFilename + "_Data/Plugins/" + r2csMetadataName);
-        } else {
-            FileUtil.CopyFileOrDirectory(
-                r2csMeta, outputDir + "/" + execFilename + "_Data/Plugins/x86_64/" + r2csMetadataName);
-        }
 
-        // Copy versioned libraries on Linux (Unity skips them)
-        if (ROS2ForUnity.GetOS() == ROS2ForUnity.Platform.Linux) {
+            // Copy versioned libraries (Unity skips them)
             Regex soWithVersionReg = new Regex(@".*\.so(\.[0-9])+$");
             var versionedLibs = new List<String>(Directory.GetFiles(ROS2ForUnity.GetPluginPath()))
                                     .Where(path => soWithVersionReg.IsMatch(path))
@@ -62,6 +57,9 @@ internal class PostInstall : IPostprocessBuildWithReport
                 FileUtil.CopyFileOrDirectory(
                     libPath, outputDir + "/" + execFilename + "_Data/Plugins/" + Path.GetFileName(libPath));
             }
+        } else {
+            FileUtil.CopyFileOrDirectory(
+                r2csMeta, outputDir + "/" + execFilename + "_Data/Plugins/x86_64/" + r2csMetadataName);
         }
     }
 
