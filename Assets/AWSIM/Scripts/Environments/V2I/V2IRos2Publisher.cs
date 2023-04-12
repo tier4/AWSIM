@@ -10,8 +10,6 @@ namespace AWSIM
     {
         [SerializeField, Tooltip("On this topic, the traffic_signals are published (as a ")]
         string trafficSignalsTopic = "/v2x/traffic_signals";
-
-        public string frameId = "v2i";
         
         public QoSSettings qosSettings = new QoSSettings()
         {
