@@ -211,6 +211,8 @@ The generated path can be seen on the image below.
 To make the vehicle start navigating please engage it's operation using the command below.
 
 ```
+cd autoware
+source install/setup.bash
 ros2 topic pub /autoware/engage autoware_auto_vehicle_msgs/msg/Engage '{engage: True}' -1
 ```
 
