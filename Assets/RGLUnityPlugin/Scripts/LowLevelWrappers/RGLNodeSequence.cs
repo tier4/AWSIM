@@ -28,13 +28,11 @@ namespace RGLUnityPlugin
         private List<RGLNodeHandle> nodes = new List<RGLNodeHandle>();
         private List<RGLNodeSequence> parents = new List<RGLNodeSequence>();
         private List<RGLNodeSequence> childs = new List<RGLNodeSequence>();
-        private RGLField outputField = RGLField.UNKNOWN;
-        private bool isActive = true; 
 
         //// NODESEQUENCES OPERATIONS ////
         public static void Connect(RGLNodeSequence parent, RGLNodeSequence child)
         {
-            if (parent.nodes.Count == 0 || child.nodes.Count == 0)
+            if (parent.GetLastNodeOrNull(true) == null || child.GetFirstNodeOrNull(true) == null)
             {
                 throw new RGLException("Attempted to connect empty NodeSequence!");
             }
@@ -44,14 +42,14 @@ namespace RGLUnityPlugin
                 throw new RGLException("Attempted to connect NodeSequences twice!");
             }
 
-            RGLNativeAPI.GraphNodeAddChild(parent.nodes.Last().Node, child.nodes.First().Node);
+            RGLNativeAPI.GraphNodeAddChild(parent.GetLastNodeOrNull(true).Node, child.GetFirstNodeOrNull(true).Node);
             parent.childs.Add(child);
             child.parents.Add(parent);
         }
 
         public static void Disconnect(RGLNodeSequence parent, RGLNodeSequence child)
         {
-            if (parent.nodes.Count == 0 || child.nodes.Count == 0)
+            if (parent.GetLastNodeOrNull(true) == null || child.GetFirstNodeOrNull(true) == null)
             {
                 throw new RGLException("Attempted to disconnect empty NodeSequence!");
             }
@@ -61,15 +59,20 @@ namespace RGLUnityPlugin
                 throw new RGLException("Attempted to disconnect NodeSequences that are not connected!");
             }
 
-            RGLNativeAPI.GraphNodeRemoveChild(parent.nodes.Last().Node, child.nodes.First().Node);
+            RGLNativeAPI.GraphNodeRemoveChild(parent.GetLastNodeOrNull(true).Node, child.GetFirstNodeOrNull(true).Node);
             parent.childs.Remove(child);
             child.parents.Remove(parent);
+        }
+
+        public static bool AreConnected(RGLNodeSequence parent, RGLNodeSequence child)
+        {
+            return parent.childs.Contains(child) && child.parents.Contains(parent);
         }
 
         //// ADD NODES ////
         public RGLNodeSequence AddNodeRaysFromMat3x4f(string identifier, Matrix4x4[] rays)
         {
-            ValidateNewNode(identifier);
+            CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
             RGLNativeAPI.NodeRaysFromMat3x4f(ref handle.Node, rays);
             handle.Identifier = identifier;
@@ -80,7 +83,7 @@ namespace RGLUnityPlugin
 
         public RGLNodeSequence AddNodeRaysSetRingIds(string identifier, int[] ringIds)
         {
-            ValidateNewNode(identifier);
+            CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
             RGLNativeAPI.NodeRaysSetRingIds(ref handle.Node, ringIds);
             handle.Identifier = identifier;
@@ -91,7 +94,7 @@ namespace RGLUnityPlugin
 
         public RGLNodeSequence AddNodeRaysTransform(string identifier, Matrix4x4 transform)
         {
-            ValidateNewNode(identifier);
+            CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
             RGLNativeAPI.NodeRaysTransform(ref handle.Node, transform);
             handle.Identifier = identifier;
@@ -102,7 +105,7 @@ namespace RGLUnityPlugin
 
         public RGLNodeSequence AddNodeRaytrace(string identifier, float range)
         {
-            ValidateNewNode(identifier);
+            CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
             RGLNativeAPI.NodeRaytrace(ref handle.Node, range);
             handle.Identifier = identifier;
@@ -113,7 +116,7 @@ namespace RGLUnityPlugin
 
         public RGLNodeSequence AddNodePointsTransform(string identifier, Matrix4x4 transform)
         {
-            ValidateNewNode(identifier);
+            CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
             RGLNativeAPI.NodePointsTransform(ref handle.Node, transform);
             handle.Identifier = identifier;
@@ -124,7 +127,7 @@ namespace RGLUnityPlugin
 
         public RGLNodeSequence AddNodePointsCompact(string identifier)
         {
-            ValidateNewNode(identifier);
+            CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
             RGLNativeAPI.NodePointsCompact(ref handle.Node);
             handle.Identifier = identifier;
@@ -135,7 +138,7 @@ namespace RGLUnityPlugin
 
         public RGLNodeSequence AddNodePointsDownsample(string identifier, Vector3 leafDims)
         {
-            ValidateNewNode(identifier);
+            CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
             RGLNativeAPI.NodePointsDownSample(ref handle.Node, leafDims);
             handle.Identifier = identifier;
@@ -146,7 +149,7 @@ namespace RGLUnityPlugin
 
         public RGLNodeSequence AddNodePointsWritePCDFile(string identifier, string path)
         {
-            ValidateNewNode(identifier);
+            CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
             RGLNativeAPI.NodePointsWritePCDFile(ref handle.Node, path);
             handle.Identifier = identifier;
@@ -157,11 +160,11 @@ namespace RGLUnityPlugin
 
         public RGLNodeSequence AddNodePointsYield(string identifier, RGLField field)
         {
-            ValidateNewNode(identifier);
+            CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
             RGLNativeAPI.NodePointsYield(ref handle.Node, new [] {field});
             handle.Type = RGLNodeType.POINTS_YIELD;
-            outputField = field;
+            handle.OutputField = field;
             handle.Identifier = identifier;
             AddNode(handle);
             return this;
@@ -169,11 +172,11 @@ namespace RGLUnityPlugin
 
         public RGLNodeSequence AddNodePointsFormat(string identifier, RGLField[] fields)
         {
-            ValidateNewNode(identifier);
+            CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
             RGLNativeAPI.NodePointsFormat(ref handle.Node, fields);
             handle.Type = RGLNodeType.POINTS_FORMAT;
-            outputField = RGLField.DYNAMIC_FORMAT;
+            handle.OutputField = RGLField.DYNAMIC_FORMAT;
             handle.Identifier = identifier;
             AddNode(handle);
             return this;
@@ -186,7 +189,7 @@ namespace RGLUnityPlugin
             RGLQosPolicyHistory history = RGLQosPolicyHistory.QOS_POLICY_HISTORY_SYSTEM_DEFAULT,
             int historyDepth = 5)
         {
-            ValidateNewNode(identifier);
+            CheckNodeNotExist(identifier);
             if (nodes.Count == 0 || nodes.Last().Type != RGLNodeType.POINTS_FORMAT)
             {
                 throw new RGLException("Attempted to add NodePointsRos2Publish but NodePointsFormat is required before!");
@@ -199,233 +202,374 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence AddNodeGaussianNoiseAngularRay(string identifier, float mean, float stDev)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodeGaussianNoiseAngularRay(ref handle.Node, mean, stDev);
+            handle.Type = RGLNodeType.GAUSSIAN_NOISE_ANGULAR_RAY;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLNodeSequence AddNodeGaussianNoiseAngularHitpoint(string identifier, float mean, float stDev)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodeGaussianNoiseAngularHitpoint(ref handle.Node, mean, stDev);
+            handle.Type = RGLNodeType.GAUSSIAN_NOISE_ANGULAR_HITPOINT;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLNodeSequence AddNodeGaussianNoiseDistance(string identifier, float mean, float stDev, float stDevRisePerMeter)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodeGaussianNoiseDistance(ref handle.Node, mean, stDev, stDevRisePerMeter);
+            handle.Type = RGLNodeType.GAUSSIAN_NOISE_DISTANCE;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
         //// UPDATE NODES ////
         public RGLNodeSequence UpdateNodeRaysFromMat3x4f(string identifier, Matrix4x4[] rays)
         {
-            ValidateExistingNode(identifier, RGLNodeType.RAYS_FROM_MAT3X4F);
-            RGLNativeAPI.NodeRaysFromMat3x4f(ref nodes.Single(n => n.Identifier == identifier).Node, rays);
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYS_FROM_MAT3X4F);
+            RGLNativeAPI.NodeRaysFromMat3x4f(ref handle.Node, rays);
             return this;
         }
 
         public RGLNodeSequence UpdateNodeRaysSetRingIds(string identifier, int[] ringIds)
         {
-            ValidateExistingNode(identifier, RGLNodeType.RAYS_SET_RING_IDS);
-            RGLNativeAPI.NodeRaysSetRingIds(ref nodes.Single(n => n.Identifier == identifier).Node, ringIds);
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYS_SET_RING_IDS);
+            RGLNativeAPI.NodeRaysSetRingIds(ref handle.Node, ringIds);
             return this;
         }
 
         public RGLNodeSequence UpdateNodeRaysTransform(string identifier, Matrix4x4 transform)
         {
-            ValidateExistingNode(identifier, RGLNodeType.RAYS_TRANSFORM);
-            RGLNativeAPI.NodeRaysTransform(ref nodes.Single(n => n.Identifier == identifier).Node, transform);
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYS_TRANSFORM);
+            RGLNativeAPI.NodeRaysTransform(ref handle.Node, transform);
             return this;
         }
 
         public RGLNodeSequence UpdateNodeRaytrace(string identifier, float range)
         {
-            ValidateExistingNode(identifier, RGLNodeType.RAYTRACE);
-            RGLNativeAPI.NodeRaytrace(ref nodes.Single(n => n.Identifier == identifier).Node, range);
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
+            RGLNativeAPI.NodeRaytrace(ref handle.Node, range);
             return this;
         }
 
         public RGLNodeSequence UpdateNodePointsTransform(string identifier, Matrix4x4 transform)
         {
-            ValidateExistingNode(identifier, RGLNodeType.POINTS_TRANSFORM);
-            RGLNativeAPI.NodePointsTransform(ref nodes.Single(n => n.Identifier == identifier).Node, transform);
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_TRANSFORM);
+            RGLNativeAPI.NodePointsTransform(ref handle.Node, transform);
             return this;
         }
         
         public RGLNodeSequence UpdateNodePointsDownsample(string identifier, Vector3 leafDims)
         {
-            ValidateExistingNode(identifier, RGLNodeType.POINTS_DOWNSAMPLE);
-            RGLNativeAPI.NodePointsDownSample(ref nodes.Single(n => n.Identifier == identifier).Node, leafDims);
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_DOWNSAMPLE);
+            RGLNativeAPI.NodePointsDownSample(ref handle.Node, leafDims);
             return this;
         }
 
         public RGLNodeSequence UpdateNodePointsWritePCDFile(string identifier, string path)
         {
-            ValidateExistingNode(identifier, RGLNodeType.POINTS_WRITE_PCD_FILE);
-            RGLNativeAPI.NodePointsWritePCDFile(ref nodes.Single(n => n.Identifier == identifier).Node, path);
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_WRITE_PCD_FILE);
+            RGLNativeAPI.NodePointsWritePCDFile(ref handle.Node, path);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodeGaussianNoiseAngularRay(string identifier, float mean, float stDev)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.GAUSSIAN_NOISE_ANGULAR_RAY);
+            RGLNativeAPI.NodeGaussianNoiseAngularRay(ref handle.Node, mean, stDev);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodeGaussianNoiseAngularHitpoint(string identifier, float mean, float stDev)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.GAUSSIAN_NOISE_ANGULAR_HITPOINT);
+            RGLNativeAPI.NodeGaussianNoiseAngularHitpoint(ref handle.Node, mean, stDev);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodeGaussianNoiseDistance(string identifier, float mean, float stDev, float stDevRisePerMeter)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.GAUSSIAN_NOISE_DISTANCE);
+            RGLNativeAPI.NodeGaussianNoiseDistance(ref handle.Node, mean, stDev, stDevRisePerMeter);
             return this;
         }
 
         //// NODESEQUENCE OPERATIONS ////
         public int GetResultData<T>(ref T[] data) where T : unmanaged
         {
-            ValidateOutputNode();
+            RGLNodeHandle handle = ValidateOutputNode();
             unsafe
             {
-                return RGLNativeAPI.GraphGetResult<T>(nodes.Last().Node, outputField, ref data, sizeof(T));
+                return RGLNativeAPI.GraphGetResult<T>(handle.Node, handle.OutputField, ref data, sizeof(T));
             }
         }
 
         public int GetResultDataRaw(ref byte[] data, int expectedPointSize)
         {
-            ValidateOutputNode();
-            return RGLNativeAPI.GraphGetResult<byte>(nodes.Last().Node, outputField, ref data, expectedPointSize);
+            RGLNodeHandle handle = ValidateOutputNode();
+            return RGLNativeAPI.GraphGetResult<byte>(handle.Node, handle.OutputField, ref data, expectedPointSize);
         }
 
         public void Run()
         {
-            if (nodes.Count == 0)
+            RGLNodeHandle handle = GetFirstNodeOrNull(true);
+            if (handle == null)
             {
                 throw new RGLException("Attempted to run empty NodeSequence!");
             }
-            RGLNativeAPI.GraphRun(nodes.First().Node);
+            RGLNativeAPI.GraphRun(handle.Node);
         }
 
         public void RemoveNode(string identifier)
         {
-            int index = nodes.FindIndex(n => n.Identifier == identifier);
-
-            if (index == -1)
+            RGLNodeHandle node = ValidateNode(identifier);
+            if (node.Connected)
             {
-                throw new RGLException($"Attempted to remove node '{identifier}' but it was not found!");
+                DisconnectNode(node);
             }
-
-            if (nodes.Count == 1)
-            {
-                Debug.LogWarning("Removed the last node in the NodeSequence. Disconnecting parents & childs...");
-                Clear();
-                return;
-            }
-
-            // If removing output node then unset outputField
-            RGLNodeType nodeType = nodes[index].Type;
-            if (nodeType == RGLNodeType.POINTS_FORMAT || nodeType == RGLNodeType.POINTS_YIELD)
-            {
-                outputField = RGLField.UNKNOWN;
-            }
-
-            // Removing first node in NodeSequence
-            if (index == 0)
-            {
-                if (parents.Count > 0)
-                {
-                    Debug.LogWarning("Removed the first node in already connected NodeSequence. Disconnecting parents...");
-                    DisconnectAllParents();
-                }
-                RGLNativeAPI.GraphNodeRemoveChild(nodes[0].Node, nodes[1].Node);
-                RGLNativeAPI.GraphDestroy(nodes[index].Node);
-                nodes.RemoveAt(index);
-                // Need to inactive a new first node if NodeSequence was inactive.
-                if (!isActive)
-                {
-                    isActive = true;
-                    SetActive(false);
-                }
-                return;
-            }
-
-            // Removing last node in NodeSequence
-            if (index == nodes.Count - 1)
-            {
-                if (childs.Count > 0)
-                {
-                    Debug.LogWarning("Removed the last node in already connected NodeSequence. Disconnecting childs...");
-                    DisconnectAllChilds();
-                }
-                RGLNativeAPI.GraphNodeRemoveChild(nodes[index - 1].Node, nodes[index].Node);
-                RGLNativeAPI.GraphDestroy(nodes[index].Node);
-                nodes.RemoveAt(index);
-                return;
-            }
-
-            // Removing node in the middle of NodeSequence
-            RGLNativeAPI.GraphNodeRemoveChild(nodes[index - 1].Node, nodes[index].Node);
-            RGLNativeAPI.GraphNodeRemoveChild(nodes[index].Node, nodes[index + 1].Node);
-            RGLNativeAPI.GraphNodeAddChild(nodes[index - 1].Node, nodes[index + 1].Node);
-            RGLNativeAPI.GraphDestroy(nodes[index].Node);
-            nodes.RemoveAt(index);
+            RGLNativeAPI.GraphDestroy(node.Node);
+            nodes.Remove(node);
         }
 
         public void Clear()
         {
             DisconnectAllChilds();
             DisconnectAllParents();
-            if (nodes.Count > 0)
+
+            foreach (var node in nodes.ToArray())
             {
-                RGLNativeAPI.GraphDestroy(nodes.First().Node);
-                nodes.Clear();
+                RemoveNode(node.Identifier);
             }
-            isActive = true;
         }
 
-        public bool IsActive()
+        public bool IsActive(string identifier)
         {
-            return isActive;
+            return ValidateNode(identifier).Connected;
         }
 
-        public void SetActive(bool active)
+        public void SetActive(string identifier, bool active)
         {
-            if (nodes.Count == 0)
+            RGLNodeHandle node = ValidateNode(identifier);
+            if (active && !node.Connected)
             {
-                throw new RGLException("Attempted to set active on empty NodeSequence!");
-            }
-
-            if (isActive == active)
-            {
+                ConnectNode(node);
                 return;
             }
-
-            RGLNativeAPI.GraphNodeSetActive(nodes.First().Node, active);
-            isActive = active;
+            if (!active && node.Connected)
+            {
+                DisconnectNode(node);
+            }
         }
 
         //// PRIVATE HELPERS ////
-        // A new node to add should not exists in our sequence
-        private void ValidateNewNode(string identifier)
+        // Throws an exception when node with provided identifier already exists in this NodeSequence
+        private void CheckNodeNotExist(string identifier)
         {
             var nodeFilter = nodes.Where(n => n.Identifier == identifier);
             if (nodeFilter.Count() != 0)
             {
-                throw new RGLException($"Attempted to add node '{identifier}' twice!");
+                throw new RGLException($"Node with identifier '{identifier}' already exists!");
             }
         }
 
-        // A desired node should exists in our sequence and has the same type as requested
-        private void ValidateExistingNode(string identifier, RGLNodeType desiredType)
+        // Returns RGLNodeHandle to the node with provided identifier.
+        // Throws an exception when node was not found or type of the node mismatch.
+        private RGLNodeHandle ValidateNode(string identifier, RGLNodeType desiredType = RGLNodeType.ANY)
         {
             var nodeFilter = nodes.Where(n => n.Identifier == identifier);
             if (nodeFilter.Count() != 1)
             {
                 throw new RGLException($"Attempted to access node '{identifier}' but it was not found!");
             }
-            if (nodeFilter.First().Type != desiredType)
+            if (desiredType != RGLNodeType.ANY && nodeFilter.First().Type != desiredType)
             {
                 throw new RGLException($"Attempted to access node '{identifier}' but node type mismatch!");
             }
+            return nodeFilter.First();
         }
 
-        // To get result data specific node should be at the end of sequence
-        private void ValidateOutputNode()
+        // Returns RGLNodeHandle to the output node in this NodeSequence.
+        // Throws an exception when output node was not found. 
+        private RGLNodeHandle ValidateOutputNode()
         {
-            if (outputField == RGLField.UNKNOWN)
+            RGLNodeHandle outputNode = GetLastNodeOrNull(true);
+            if (outputNode == null)
             {
-                throw new RGLException("Attempted to get result data but format or yield node was not found!");
+                throw new RGLException("Attempted to get result data from empty NodeSequence!");
             }
-            RGLNodeType lastNodeType = nodes.Last().Type;
-            if (!(lastNodeType == RGLNodeType.POINTS_FORMAT || lastNodeType == RGLNodeType.POINTS_YIELD))
+            if (outputNode.OutputField == RGLField.UNKNOWN)
             {
-                throw new RGLException("Attempted to get result data but format or yield node is not the last node in the NodeSequence!");
+                throw new RGLException("Attempted to get result data but output node was not found on the last position in the NodeSequence!");
             }
+            return outputNode;
         }
 
         private void AddNode(RGLNodeHandle nodeHandle)
         {
-            if (nodes.Count == 0)
-            {
-                nodes.Add(nodeHandle);
-                return;
-            }
-
-            if (childs.Count > 0)
-            {
-                throw new RGLException("Attempted to add node to already connected NodeSequence!");
-            }
-
-            RGLNativeAPI.GraphNodeAddChild(nodes.Last().Node, nodeHandle.Node);
             nodes.Add(nodeHandle);
+            ConnectNode(nodeHandle);
+        }
+
+        private void ConnectNode(RGLNodeHandle nodeToConnect)
+        {
+            if (nodeToConnect.Connected)
+            {
+                throw new RGLException($"Attempted to connect node '{nodeToConnect.Identifier}' twice!");
+            }
+
+            // Collect previous and next nodes that are connected
+            RGLNodeHandle[] prevNodes = GetPreviousNodes(nodeToConnect, true);
+            RGLNodeHandle[] nextNodes = GetNextNodes(nodeToConnect, true);
+
+            // Nodes are connected with each other. Need to disconnect them.
+            if (prevNodes.Length != 0 && nextNodes.Length != 0)
+            {
+                foreach (RGLNodeHandle prevNode in prevNodes)
+                {
+                    foreach (RGLNodeHandle nextNode in nextNodes)
+                    {
+                        RGLNativeAPI.GraphNodeRemoveChild(prevNode.Node, nextNode.Node);
+                    }
+                }
+            }
+
+            // Connect nodeToConnect between prevNodes and nextNodes
+            foreach (RGLNodeHandle prevNode in prevNodes)
+            {
+                RGLNativeAPI.GraphNodeAddChild(prevNode.Node, nodeToConnect.Node);
+            }
+            foreach (RGLNodeHandle nextNode in nextNodes)
+            {
+                RGLNativeAPI.GraphNodeAddChild(nodeToConnect.Node, nextNode.Node);
+            }
+
+            nodeToConnect.Connected = true;
+        }
+
+        private void DisconnectNode(RGLNodeHandle nodeToDisconnect)
+        {
+            if (!nodeToDisconnect.Connected)
+            {
+                throw new RGLException($"Attempted to disconnect node '{nodeToDisconnect.Identifier}' that is not connected!");
+            }
+
+            // Collect previous and next nodes that are connected
+            RGLNodeHandle[] prevNodes = GetPreviousNodes(nodeToDisconnect, true);
+            RGLNodeHandle[] nextNodes = GetNextNodes(nodeToDisconnect, true);
+
+            // Disconnect nodeToDisconnect with prevNodes and nextNodes
+            foreach (RGLNodeHandle prevNode in prevNodes)
+            {
+                RGLNativeAPI.GraphNodeRemoveChild(prevNode.Node, nodeToDisconnect.Node);
+            }
+            foreach (RGLNodeHandle nextNode in nextNodes)
+            {
+                RGLNativeAPI.GraphNodeRemoveChild(nodeToDisconnect.Node, nextNode.Node);
+            }
+
+            bool anyNodeRemained = false;
+            foreach (RGLNodeHandle node in prevNodes.ToList().Concat(nextNodes.ToList()))
+            {
+                if (nodes.Contains(node))
+                {
+                    anyNodeRemained = true;
+                    break;
+                }
+            }
+
+            // Connect nodes that have become adjacent
+            // If there is no remaining nodes in this sequence - skip connecting
+            if (prevNodes.Length != 0 && nextNodes.Length != 0 && anyNodeRemained)
+            {
+                foreach (RGLNodeHandle prevNode in prevNodes)
+                {
+                    foreach (RGLNodeHandle nextNode in nextNodes)
+                    {
+                        RGLNativeAPI.GraphNodeAddChild(prevNode.Node, nextNode.Node);
+                    }
+                }
+            }
+
+            nodeToDisconnect.Connected = false;
+        }
+
+        //// NODE GETTERS ////
+        // Get first node in this NodeSequence or return null
+        private RGLNodeHandle GetFirstNodeOrNull(bool mustBeConnected)
+        {
+            int idx = nodes.FindIndex(n => !mustBeConnected || n.Connected == true);
+            return idx != -1 ? nodes[idx] : null;
+        }
+
+        // Get last node in this NodeSequence or return null
+        private RGLNodeHandle GetLastNodeOrNull(bool mustBeConnected)
+        {
+            int idx = nodes.FindLastIndex(n => !mustBeConnected || n.Connected == true);
+            return idx != -1 ? nodes[idx] : null;
+        }
+
+        // Get previous nodes including parent NodeSequences
+        private RGLNodeHandle[] GetPreviousNodes(RGLNodeHandle referenceNode, bool mustBeConnected)
+        {
+            List<RGLNodeHandle> outNodes = new List<RGLNodeHandle>();
+            int refNodeIdx = nodes.FindIndex(n => n.Identifier == referenceNode.Identifier);
+
+            var prevNodesInThisSeq = nodes.GetRange(0, refNodeIdx);
+            int prevNodeIdx = prevNodesInThisSeq.FindLastIndex(n => !mustBeConnected || n.Connected == true);
+
+            if (prevNodeIdx == -1)  // This sequence doesn't contain any nodes. Search in parent sequences
+            {
+                foreach (RGLNodeSequence nodeSequence in parents.ToList())
+                {
+                    outNodes.Add(nodeSequence.GetLastNodeOrNull(mustBeConnected));
+                }
+                outNodes.RemoveAll(n => n == null);
+            }
+            else
+            {
+                outNodes.Add(prevNodesInThisSeq[prevNodeIdx]);
+            }
+            return outNodes.ToArray();
+        }
+
+        // Get next nodes including child NodeSequences
+        private RGLNodeHandle[] GetNextNodes(RGLNodeHandle referenceNode, bool mustBeConnected)
+        {
+            List<RGLNodeHandle> outNodes = new List<RGLNodeHandle>();
+            int refNodeIdx = nodes.FindIndex(n => n.Identifier == referenceNode.Identifier);
+
+            List<RGLNodeHandle> nextNodesInThisSeq = new List<RGLNodeHandle>();
+            if (refNodeIdx + 1 < nodes.Count)
+            {
+                nextNodesInThisSeq = nodes.GetRange(refNodeIdx + 1, nodes.Count - refNodeIdx - 1);
+            }
+            int nextNodeIdx = nextNodesInThisSeq.FindIndex(n => !mustBeConnected || n.Connected == true);
+
+            if (nextNodeIdx == -1)  // This sequence doesn't contain any nodes. Search in child sequences
+            {
+                foreach (RGLNodeSequence nodeSequence in childs.ToList())
+                {
+                    outNodes.Add(nodeSequence.GetFirstNodeOrNull(mustBeConnected));
+                }
+                outNodes.RemoveAll(n => n == null);
+            }
+            else
+            {
+                outNodes.Add(nextNodesInThisSeq[nextNodeIdx]);
+            }
+            return outNodes.ToArray();
         }
 
         private void DisconnectAllChilds()
