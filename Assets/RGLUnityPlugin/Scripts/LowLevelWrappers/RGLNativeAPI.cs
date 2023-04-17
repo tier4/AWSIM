@@ -79,7 +79,7 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_points_downsample(ref IntPtr node, float leaf_size_x, float leaf_size_y, float leaf_size_z);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_points_write_pcd_file(ref IntPtr node, [MarshalAs(UnmanagedType.LPStr)] string file_path);
+        public static extern int rgl_node_points_temporal_merge(ref IntPtr node, IntPtr fields, int field_count);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_ros2_publish_with_qos(
@@ -100,6 +100,9 @@ namespace RGLUnityPlugin
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_destroy(IntPtr node);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_graph_write_pcd_file(IntPtr node, [MarshalAs(UnmanagedType.LPStr)] string file_path);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_get_result_size(IntPtr node, RGLField field, out Int64 outCount, out Int64 outSizeOf);
@@ -326,9 +329,15 @@ namespace RGLUnityPlugin
             CheckErr(rgl_node_points_downsample(ref node, leafDims.x, leafDims.y, leafDims.z));
         }
 
-        public static void NodePointsWritePCDFile(ref IntPtr node, string path)
+        public static void NodePointsTemporalMerge(ref IntPtr node, RGLField[] fields)
         {
-            CheckErr(rgl_node_points_write_pcd_file(ref node, path));
+            unsafe
+            {
+                fixed (RGLField* fieldsPtr = fields)
+                {
+                    CheckErr(rgl_node_points_temporal_merge(ref node, (IntPtr) fieldsPtr, fields.Length));
+                }
+            }
         }
 
         public static void NodePointsRos2PublishWithQos(
@@ -388,6 +397,11 @@ namespace RGLUnityPlugin
                 }
                 return (int) pointCount;
             }
+        }
+
+        public static void GraphSavePcdFile(IntPtr node, string path)
+        {
+            CheckErr(rgl_graph_write_pcd_file(node, path));
         }
 
         public static void GraphNodeAddChild(IntPtr parent, IntPtr child)

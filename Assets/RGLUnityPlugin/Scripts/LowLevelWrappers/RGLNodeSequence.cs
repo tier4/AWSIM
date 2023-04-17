@@ -147,13 +147,13 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence AddNodePointsWritePCDFile(string identifier, string path)
+        public RGLNodeSequence AddNodePointsTemporalMerge(string identifier, RGLField[] fields)
         {
             CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
-            RGLNativeAPI.NodePointsWritePCDFile(ref handle.Node, path);
+            RGLNativeAPI.NodePointsTemporalMerge(ref handle.Node, fields);
             handle.Identifier = identifier;
-            handle.Type = RGLNodeType.POINTS_WRITE_PCD_FILE;
+            handle.Type = RGLNodeType.POINTS_TEMPORAL_MERGE;
             AddNode(handle);
             return this;
         }
@@ -278,10 +278,10 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence UpdateNodePointsWritePCDFile(string identifier, string path)
+        public RGLNodeSequence UpdateNodePointsTemporalMerge(string identifier, RGLField[] fields)
         {
-            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_WRITE_PCD_FILE);
-            RGLNativeAPI.NodePointsWritePCDFile(ref handle.Node, path);
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_TEMPORAL_MERGE);
+            RGLNativeAPI.NodePointsTemporalMerge(ref handle.Node, fields);
             return this;
         }
 
@@ -320,6 +320,16 @@ namespace RGLUnityPlugin
         {
             RGLNodeHandle handle = ValidateOutputNode();
             return RGLNativeAPI.GraphGetResult<byte>(handle.Node, handle.OutputField, ref data, expectedPointSize);
+        }
+
+        public void SavePcdFile(string outFilepath)
+        {
+            RGLNodeHandle lastNode = GetLastNodeOrNull(true);
+            if (lastNode == null)
+            {
+                throw new RGLException("Attempted to save PCD file from empty NodeSequence!");
+            }
+            RGLNativeAPI.GraphSavePcdFile(lastNode.Node, outFilepath);
         }
 
         public void Run()

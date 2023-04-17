@@ -36,7 +36,9 @@ namespace AWSIM.PointCloudMapping
 
         private readonly string rosWorldTransformNodeId = "ROS_WORLD_TF";
         private readonly string downsampleNodeId = "DOWNSAMPLE";
-        private readonly string writePcdNodeId = "WRITE_PCD";
+        private readonly string temporalMergeNodeId = "TEMPORAL_MERGE";
+
+        private string outputPcdFilePath;
 
         public void Awake()
         {
@@ -53,6 +55,8 @@ namespace AWSIM.PointCloudMapping
                 throw new Exception("Attempted to initialize RGLMappingAdapter twice!");
             }
 
+            this.outputPcdFilePath = outputPcdFilePath;
+
             // Create and connect subgraph
             Matrix4x4 worldTransform = ROS2.Transformations.Unity2RosMatrix4x4();
             worldTransform.SetColumn(3, worldTransform.GetColumn(3) + (Vector4) worldOriginROS);
@@ -64,7 +68,7 @@ namespace AWSIM.PointCloudMapping
                 rglSubgraphMapping.AddNodePointsDownsample(downsampleNodeId, new Vector3(leafSize, leafSize, leafSize));
             }
 
-            rglSubgraphMapping.AddNodePointsWritePCDFile(writePcdNodeId, outputPcdFilePath);
+            rglSubgraphMapping.AddNodePointsTemporalMerge(temporalMergeNodeId, new RGLField[1] {RGLField.XYZ_F32});
 
             lidarSensor.ConnectToWorldFrame(rglSubgraphMapping);
 
@@ -83,7 +87,7 @@ namespace AWSIM.PointCloudMapping
                 Debug.LogWarning("RGLMappingAdapter: skipped saving PCD file - empty point cloud");
                 return;
             }
-            rglSubgraphMapping.Clear();
+            rglSubgraphMapping.SavePcdFile(outputPcdFilePath);
         }
 
         public void Capture()
