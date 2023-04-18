@@ -51,6 +51,7 @@ namespace AWSIM
         public OnOutputDataDelegate OnOutputData;
 
         Vector3 lastPosition;           // Previous frame position used for acceleration calculation.
+        Vector3 lastVelocity;           // Previous frame velocity used for acceleration calculation in global coordinate system.
         Vector3 lastLocalVelocity;      // Previous frame velocity used for acceleration calculation.
         QuaternionD lastRotation;       // Previous frame rotation used for angular velocity calculation.
         float timer = 0;
@@ -76,9 +77,11 @@ namespace AWSIM
             lastRotation = currentRotation;
 
             // Compute acceleration.
+            var Velocity = (transform.position - lastPosition) / Time.deltaTime;
             var localVelocity = (transform.InverseTransformDirection(transform.position - lastPosition)) / Time.deltaTime;
-            var localAcceleration = (localVelocity - lastLocalVelocity) / Time.deltaTime + Physics.gravity;
+            var localAcceleration = transform.InverseTransformDirection((Velocity - lastVelocity) / Time.deltaTime + Physics.gravity);
             lastPosition = transform.position;
+            lastVelocity = Velocity;
             lastLocalVelocity = localVelocity;
 
             // Matching output to hz.
@@ -98,6 +101,7 @@ namespace AWSIM
 
             // Calls registered callbacks
             OnOutputData.Invoke(outputData);
+
         }
     }
 }
