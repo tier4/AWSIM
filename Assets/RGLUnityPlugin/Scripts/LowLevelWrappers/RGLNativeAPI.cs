@@ -367,6 +367,14 @@ namespace RGLUnityPlugin
             CheckErr(rgl_graph_run(node));
         }
 
+        public static int GraphGetResultSize(IntPtr node, RGLField field)
+        {
+            Int64 pointCount = 0;
+            Int64 pointSize = 0;
+            CheckErr(rgl_graph_get_result_size(node, field, out pointCount, out pointSize));
+            return (int) pointCount;
+        }
+
         public static int GraphGetResult<T>(IntPtr node, RGLField field, ref T[] data, int expectedPointSize) where T : unmanaged
         {
             Int64 pointCount = 0;

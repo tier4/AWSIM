@@ -39,6 +39,7 @@ namespace AWSIM.PointCloudMapping
         private readonly string temporalMergeNodeId = "TEMPORAL_MERGE";
 
         private string outputPcdFilePath;
+        private bool downsamplingEnabled = false;
 
         public void Awake()
         {
@@ -66,6 +67,7 @@ namespace AWSIM.PointCloudMapping
             if (leafSize > 0.0f)
             {
                 rglSubgraphMapping.AddNodePointsDownsample(downsampleNodeId, new Vector3(leafSize, leafSize, leafSize));
+                downsamplingEnabled = true;
             }
 
             rglSubgraphMapping.AddNodePointsTemporalMerge(temporalMergeNodeId, new RGLField[1] {RGLField.XYZ_F32});
@@ -98,6 +100,17 @@ namespace AWSIM.PointCloudMapping
             }
 
             lidarSensor.Capture();
+
+            if (downsamplingEnabled)
+            {
+                int countBeforeDownsample = rglSubgraphMapping.GetPointCloudCount(rosWorldTransformNodeId);
+                int countAfterDownsample = rglSubgraphMapping.GetPointCloudCount(downsampleNodeId);
+                bool pointCloudReduced = countAfterDownsample < countBeforeDownsample;
+                if (!pointCloudReduced)
+                {
+                    Debug.LogWarning($"Downsampling had no effect for '{name}'. If you see this message often, consider increasing leafSize.");
+                }
+            }
         }
     }
 }

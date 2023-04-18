@@ -322,6 +322,12 @@ namespace RGLUnityPlugin
             return RGLNativeAPI.GraphGetResult<byte>(handle.Node, handle.OutputField, ref data, expectedPointSize);
         }
 
+        public int GetPointCloudCount(string identifier = null, RGLField field = RGLField.XYZ_F32)
+        {
+            RGLNodeHandle handle = identifier == null ? GetLastNodeOrNull(true) : ValidateNode(identifier);
+            return RGLNativeAPI.GraphGetResultSize(handle.Node, field);
+        }
+
         public void SavePcdFile(string outFilepath)
         {
             RGLNodeHandle lastNode = GetLastNodeOrNull(true);
