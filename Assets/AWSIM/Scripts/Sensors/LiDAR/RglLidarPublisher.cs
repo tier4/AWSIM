@@ -79,17 +79,31 @@ namespace AWSIM
         {
             if (rglSubgraphPcl24 != null)
             {
-                if (publishPCL24 != rglSubgraphPcl24.IsActive())
+                if (publishPCL24 != RGLNodeSequence.AreConnected(rglSubgraphUnity2Ros, rglSubgraphPcl24))
                 {
-                    rglSubgraphPcl24.SetActive(publishPCL24);
+                    if (publishPCL24)
+                    {
+                        RGLNodeSequence.Connect(rglSubgraphUnity2Ros, rglSubgraphPcl24);
+                    }
+                    else
+                    {
+                        RGLNodeSequence.Disconnect(rglSubgraphUnity2Ros, rglSubgraphPcl24);
+                    }
                 }
             }
 
             if (rglSubgraphPcl48 != null)
             {
-                if (publishPCL48 != rglSubgraphPcl48.IsActive())
+                if (publishPCL48 != RGLNodeSequence.AreConnected(rglSubgraphUnity2Ros, rglSubgraphPcl48))
                 {
-                    rglSubgraphPcl48.SetActive(publishPCL48);
+                    if (publishPCL48)
+                    {
+                        RGLNodeSequence.Connect(rglSubgraphUnity2Ros, rglSubgraphPcl48);
+                    }
+                    else
+                    {
+                        RGLNodeSequence.Disconnect(rglSubgraphUnity2Ros, rglSubgraphPcl48);
+                    }
                 }
             }
         }

@@ -25,16 +25,22 @@ namespace RGLUnityPlugin
     [System.Serializable]
     public struct LidarNoiseParams
     {
+        [Tooltip("Angular noise type")]
         public AngularNoiseType angularNoiseType;
 
-        [Min(0)] public float angularNoiseStDev; // Degrees
+        [Min(0), Tooltip("Angular noise standard deviation in degrees")]
+        public float angularNoiseStDev; // Degrees
 
+        [Tooltip("Angular noise mean in degrees")]
         public float angularNoiseMean; // Degrees
 
-        [Min(0)] public float distanceNoiseStDevBase; // Meters
+        [Min(0), Tooltip("Distance noise standard deviation base in meters")]
+        public float distanceNoiseStDevBase; // Meters
 
-        [Min(0)] public float distanceNoiseStDevRisePerMeter; // Meters
+        [Min(0), Tooltip("Distance noise standard deviation rise per meter")]
+        public float distanceNoiseStDevRisePerMeter; // Meters
 
+        [Tooltip("Distance noise mean in meters")]
         public float distanceNoiseMean; // Meters
     }
 }

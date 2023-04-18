@@ -87,6 +87,15 @@ namespace RGLUnityPlugin
             RGLQosPolicyReliability qos_reliability, RGLQosPolicyDurability qos_durability, RGLQosPolicyHistory qos_history, int qos_depth);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_gaussian_noise_angular_ray(ref IntPtr node, float mean, float st_dev, RGLAxis rotation_axis);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_gaussian_noise_angular_hitpoint(ref IntPtr node, float mean, float st_dev, RGLAxis rotation_axis);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_gaussian_noise_distance(ref IntPtr node, float mean, float st_dev, float st_dev_rise_per_meter);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_run(IntPtr node);
 
         [DllImport("RobotecGPULidar")]
@@ -97,9 +106,6 @@ namespace RGLUnityPlugin
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_get_result_data(IntPtr node, RGLField field, IntPtr data);
-
-        [DllImport("RobotecGPULidar")]
-        public static extern int rgl_graph_node_set_active(IntPtr node, bool active);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_node_add_child(IntPtr parent, IntPtr child);
@@ -146,7 +152,7 @@ namespace RGLUnityPlugin
         public static void CheckVersion()
         {
             int expectedMajor = 0;
-            int expectedMinor = 12;
+            int expectedMinor = 13;
             int expectedPatch = 0;
             CheckErr(rgl_get_version_info(out var major, out var minor, out var patch));
             if (major != expectedMajor || minor < expectedMinor || (minor == expectedMinor && patch < expectedPatch))
@@ -332,6 +338,21 @@ namespace RGLUnityPlugin
             CheckErr(rgl_node_points_ros2_publish_with_qos(ref node, topicName, frameId, qos_reliability, qos_durability, qos_history, qos_depth));
         }
 
+        public static void NodeGaussianNoiseAngularRay(ref IntPtr node, float mean, float stDev)
+        {
+            CheckErr(rgl_node_gaussian_noise_angular_ray(ref node, mean, stDev, RGLAxis.RGL_AXIS_Y));
+        }
+
+        public static void NodeGaussianNoiseAngularHitpoint(ref IntPtr node, float mean, float stDev)
+        {
+            CheckErr(rgl_node_gaussian_noise_angular_hitpoint(ref node, mean, stDev, RGLAxis.RGL_AXIS_Y));
+        }
+
+        public static void NodeGaussianNoiseDistance(ref IntPtr node, float mean, float stDev, float stDevRisePerMeter)
+        {
+            CheckErr(rgl_node_gaussian_noise_distance(ref node, mean, stDev, stDevRisePerMeter));
+        }
+
         public static void GraphRun(IntPtr node)
         {
             CheckErr(rgl_graph_run(node));
@@ -377,11 +398,6 @@ namespace RGLUnityPlugin
         public static void GraphNodeRemoveChild(IntPtr parent, IntPtr child)
         {
             CheckErr(rgl_graph_node_remove_child(parent, child));
-        }
-
-        public static void GraphNodeSetActive(IntPtr node, bool active)
-        {
-            CheckErr(rgl_graph_node_set_active(node, active));
         }
 
         public static void GraphDestroy(IntPtr node)
