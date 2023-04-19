@@ -43,29 +43,38 @@ namespace AWSIM
 
         private void UpdateTrafficSignalArrayMsg(V2I.OutputData data)
         {
-            var ts_list = new List<autoware_perception_msgs.msg.TrafficSignal>();
+            var trafficSignalList = new List<autoware_perception_msgs.msg.TrafficSignal>();
             foreach (var trafficLight in data.trafficLights)
             {
-                var ts = new autoware_perception_msgs.msg.TrafficSignal();
-                ts.Traffic_signal_id = trafficLight.LaneletElementID;
+                var trafficSignalMsg = new autoware_perception_msgs.msg.TrafficSignal();
+                trafficSignalMsg.Traffic_signal_id = trafficLight.LaneletElementID;
                 //Get bulbData
-                var bulbData = trafficLight.GetBulbData();
-                //Adjust container size
-                ts.Elements = new autoware_perception_msgs.msg.TrafficLightElement[bulbData.Length];
+                var trafficLightBulbData = trafficLight.GetBulbData();
                 //Fill TrafficSignal with bulbData
-                for (int i = 0; i < bulbData.Length; ++i)
+                var trafficLightElementList = new List<autoware_perception_msgs.msg.TrafficLightElement>();
+                foreach (var bulbData in trafficLightBulbData)
                 {
-                    ts.Elements[i] = new autoware_perception_msgs.msg.TrafficLightElement();
-                    ts.Elements[i].Color = V2IROS2Utility.UnityToRosBulbColor(bulbData[i].Color);
-                    ts.Elements[i].Shape = V2IROS2Utility.UnityToRosBulbShape(bulbData[i].Type);
-                    ts.Elements[i].Status = V2IROS2Utility.UnityToRosBulbStatus(bulbData[i].Status);
-                    ts.Elements[i].Confidence = 1.0f;
+                    if (isBulbTurnOn(bulbData.Status))
+                    {
+                        var trafficLightElementMsg = new autoware_perception_msgs.msg.TrafficLightElement();
+                        trafficLightElementMsg.Color = V2IROS2Utility.UnityToRosBulbColor(bulbData.Color);
+                        trafficLightElementMsg.Shape = V2IROS2Utility.UnityToRosBulbShape(bulbData.Type);
+                        trafficLightElementMsg.Status = V2IROS2Utility.UnityToRosBulbStatus(bulbData.Status);
+                        trafficLightElementMsg.Confidence = 1.0f;
+                        trafficLightElementList.Add(trafficLightElementMsg);
+                    }
                 }
                 //Add TrafficLight signal to list
-                ts_list.Add(ts);
+                trafficSignalMsg.Elements = trafficLightElementList.ToArray();
+                trafficSignalList.Add(trafficSignalMsg);
             }
             trafficSignalArrayMsg.Stamp = SimulatorROS2Node.GetCurrentRosTime();
-            trafficSignalArrayMsg.Signals = ts_list.ToArray();
+            trafficSignalArrayMsg.Signals = trafficSignalList.ToArray();
+        }
+
+        private bool isBulbTurnOn(TrafficLight.BulbStatus bulbStatus)
+        {
+            return bulbStatus == TrafficLight.BulbStatus.SOLID_ON || bulbStatus == TrafficLight.BulbStatus.FLASHING;
         }
 
         void OnDestroy()
