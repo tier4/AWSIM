@@ -325,6 +325,10 @@ namespace RGLUnityPlugin
         public int GetPointCloudCount(string identifier = null, RGLField field = RGLField.XYZ_F32)
         {
             RGLNodeHandle handle = identifier == null ? GetLastNodeOrNull(true) : ValidateNode(identifier);
+            if (handle == null)
+            {
+                throw new RGLException("Attempted to get point cloud count from empty NodeSequence!");
+            }
             return RGLNativeAPI.GraphGetResultSize(handle.Node, field);
         }
 
