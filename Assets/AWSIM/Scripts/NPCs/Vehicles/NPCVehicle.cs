@@ -190,7 +190,7 @@ namespace AWSIM
         float speed;            // m/s (forward only)
         float yawAngularSpeed;  // deg/s (yaw only)
 
-        Vector3 lastVelocity;
+        public Vector3 lastVelocity;
         Vector3 lastPosition;
         float lastEulerAnguleY;
         float lastSpeed;

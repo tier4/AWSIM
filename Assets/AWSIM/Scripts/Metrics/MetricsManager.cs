@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -29,9 +30,18 @@ namespace AWISM.Metrics
         ObjectMetrics objectMetrics = new ObjectMetrics();
         diagnostic_msgs.msg.DiagnosticArray metricsMessage;
 
-        // Start is called before the first frame update
+        [SerializeField]
+        [Tooltip("Filter secondary collisions that occurs right after first one.")]
+        bool filterSecondaryCollisions = true;
+        [SerializeField]
+        [Tooltip("Time window to ignore secondary collisions.")]
+        float timeWindow = 2.0f;
+        List<GameObject> secondaryCollisionMap;
+
         void Start()
         {
+            secondaryCollisionMap = new List<GameObject>();
+
             metricsTriggers = FindObjectsOfType<MetricsTrigger>().ToList();
 
             if (egoVehicle == null)
@@ -80,8 +90,32 @@ namespace AWISM.Metrics
             }
         }
 
+        IEnumerator removeGameObjectFromSecondaryCollisionList(float timeWindow, GameObject go)
+        {
+            yield return new WaitForSecondsRealtime(timeWindow);
+            secondaryCollisionMap.Remove(go);
+        }
+
         void onTriggerCollision(Vehicle vehicle, Collision collision)
         {
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                return;
+            }
+
+            if (filterSecondaryCollisions)
+            {   
+                if (secondaryCollisionMap.Contains(collision.gameObject))
+                {
+                    // Secondary collision detected
+                    return;
+                } else {
+                    secondaryCollisionMap.Add(collision.gameObject);
+                    StartCoroutine(removeGameObjectFromSecondaryCollisionList(timeWindow, collision.gameObject));
+                }
+
+            }
+
             egoMetrics.UpdateMetrics(vehicle);
             objectMetrics.UpdateMetrics(collision.gameObject);
             
@@ -96,13 +130,13 @@ namespace AWISM.Metrics
             metricsMessage.Status[0].Values[0].Value = egoMetrics.name;
 
             metricsMessage.Status[0].Values[1].Key = "ego_position";
-            metricsMessage.Status[0].Values[1].Value = egoMetrics.position.ToString();
+            metricsMessage.Status[0].Values[1].Value = egoMetrics.position.ToString("F4");
 
             metricsMessage.Status[0].Values[2].Key = "ego_rotation";
-            metricsMessage.Status[0].Values[2].Value = egoMetrics.rotation.ToString();
+            metricsMessage.Status[0].Values[2].Value = egoMetrics.rotation.ToString("F4");
 
             metricsMessage.Status[0].Values[3].Key = "ego_velocity";
-            metricsMessage.Status[0].Values[3].Value = egoMetrics.velocity.ToString();
+            metricsMessage.Status[0].Values[3].Value = egoMetrics.velocity.ToString("F4");
 
             metricsMessage.Status[0].Values[4].Key = "ego_acceleration_input";
             metricsMessage.Status[0].Values[4].Value = egoMetrics.accelerationInput.ToString();
@@ -121,13 +155,13 @@ namespace AWISM.Metrics
             metricsMessage.Status[0].Values[8].Value = objectMetrics.name;
 
             metricsMessage.Status[0].Values[9].Key = "object_position";
-            metricsMessage.Status[0].Values[9].Value = objectMetrics.position.ToString();
+            metricsMessage.Status[0].Values[9].Value = objectMetrics.position.ToString("F4");
 
             metricsMessage.Status[0].Values[10].Key = "object_rotation";
-            metricsMessage.Status[0].Values[10].Value = objectMetrics.rotation.ToString();
+            metricsMessage.Status[0].Values[10].Value = objectMetrics.rotation.ToString("F4");
 
             metricsMessage.Status[0].Values[11].Key = "object_velocity";
-            metricsMessage.Status[0].Values[11].Value = objectMetrics.velocity.ToString();
+            metricsMessage.Status[0].Values[11].Value = objectMetrics.velocity.ToString("F4");
 
             metricsMessage.Status[0].Values[12].Key = "object_type";
             metricsMessage.Status[0].Values[12].Value = objectMetrics.type.ToString();

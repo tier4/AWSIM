@@ -216,7 +216,7 @@ namespace AWSIM
         Transform m_transform;
 
         // Cache previous frame values.
-        Vector3 lastVelocity;
+        public Vector3 lastVelocity;
         Vector3 lastPosition;
         Quaternion lastRotation;
 
