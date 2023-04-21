@@ -90,6 +90,7 @@ namespace AWSIM.PointCloudMapping
             {
                 SavePcd();
             }
+            mappingSensor.Destroy();
         }
 
         private void SavePcd()
