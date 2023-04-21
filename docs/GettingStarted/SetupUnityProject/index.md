@@ -23,36 +23,6 @@ This page is a tutorial for setting up a AWSIM Unity project.
     2. Prepare a desktop PC with Windows 10 or 11 (64 bit) installed.
     3. Install [git](https://git-scm.com/).
 
-### Unity installation
-
-!!! info
-
-    AWSIM's Unity version is currently **2021.1.7f1**
-
-Follow the steps below to install Unity on your machine:
-
-1. Install UnityHub to manage Unity projects. Please go to [Unity download page](https://unity3d.com/get-unity/download) and download latest `UnityHub.AppImage`.
-![](image_1.png)
-2. Install Unity 2021.1.7f1 via UnityHub.
-    - Open new terminal, navigate to directory where `UnityHub.AppImage` is download and execute the following command:
-```
-./UnityHub.AppImage
-```
-    - To install Unity Editor please proceed as shown on the images below
-![](image_2.png)
-![](image_3.png)
-![](image_4.png)
-    - At this point, your Unity installation process should have started.
-
-        === "Ubuntu 22"
-        - *NOTE: If the installation process has not started after clicking the green button (image above), please copy the hyperlink (by rightclicking the button and selecting `Copy link address`) and add it as a argument for Unity Hub app. An example command:
-        ```
-        ./UnityHub.AppImage unityhub://2021.1.7f1/d91830b65d9b
-        ```
-
-    - After successful installation the version will be available under the `Installs` tab in Unity Hub.
-![](image_5.png)
-
 ### Open AWSIM project
 
 To open the Unity AWSIM project in Unity Editor:

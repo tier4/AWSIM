@@ -1,3 +1,4 @@
+<!-- TODO everything -->
 (prefab location, purpose of existence)
 
 - Usage requirements (collider, mesh renderer, skinned mesh renderer, Read/Write Enabled)

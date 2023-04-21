@@ -1,3 +1,4 @@
+<!-- TODO everything -->
 - Add a ClockPublisher (ros2 topic, qos)
 - Add MainCamera
     - Camera component (**screen**, hyperlinks, configure fov)

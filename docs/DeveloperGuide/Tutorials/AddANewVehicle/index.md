@@ -1,3 +1,4 @@
+<!-- TODO everything -->
 (highlight the part required by ego - not needed in npc)
 
 - Create a prefab (**gif**)

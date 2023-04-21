@@ -1,3 +1,4 @@
+<!-- TODO everything -->
 - Update LidarModels.cs (description, **screen**)
 - Update LaserArrayLibrary.cs (description, using LaserArray.Uniform() to generate a array, **screens**)
 - Update LidarConfigurationLibrary.cs (description, adding the generated array, **screen**)
