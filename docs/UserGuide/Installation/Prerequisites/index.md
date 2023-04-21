@@ -1,0 +1,12 @@
+- textPC specs [100% current]
+- Linux
+    - Localhost settings [100% current]
+    - Install Git
+    - Install Nvidia GPU driver (**gif** - how to test)
+    - Install Vulkan Graphics Library
+- Windows
+    - Localhost settings
+    - Install Git
+    - Install Nvidia GPU driver (**gif** - how to test)
+    - Install Vulkan Graphics Library
+- Installing Autoware [70% current Launching Autoware]

@@ -1,0 +1,2 @@
+- Open the default scene (**gifs**)
+- Run with Autoware (**gifs**)

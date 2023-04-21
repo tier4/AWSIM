@@ -1,0 +1,3 @@
+- Demo configuration [100% current]
+- Download and run [60% current] (**gifs**)
+- Run with Autoware (**gifs/video**)
