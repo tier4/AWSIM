@@ -52,7 +52,7 @@ nav:
       - Project guide: UserGuide/ProjectGuide/index.md
       - Default existing scenes: UserGuide/ProjectGuide/DefaultExistingScenes/index.md
       - Directory structure: UserGuide/ProjectGuide/DirectoryStructure/index.md
-      - External Libraries: UserGuide/ProjectGuide/External Libraries/index.md
+      - External Libraries: UserGuide/ProjectGuide/ExternalLibraries/index.md
     - Components:
       - Environment: UserGuide/Components/Environment/index.md
       - Random Traffic Simulator: UserGuide/Components/RandomTrafficSimulator/index.md
