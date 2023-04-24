@@ -60,7 +60,7 @@ MonoBehaviour:
   Topic: /awsim/ground_truth/vehicle/pose
   FrameID: base_link
   QosSettings:
-    ReliabilityPolicy: 2
+    ReliabilityPolicy: 1
     DurabilityPolicy: 2
     HistoryPolicy: 1
     Depth: 1
