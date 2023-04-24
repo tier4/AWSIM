@@ -226,8 +226,6 @@ namespace AWSIM
         [SerializeField, Tooltip("Set the Renderer containing the bulb material.")] 
         new Renderer renderer;
 
-        public long LaneletElementID = 0;
-
         /// <summary>
         /// Define the Emission parameter to be applied to the material when the Bulb is turned on.
         /// </summary>

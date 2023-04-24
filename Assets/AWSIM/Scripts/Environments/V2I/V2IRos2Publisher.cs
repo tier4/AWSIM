@@ -47,7 +47,11 @@ namespace AWSIM
             foreach (var trafficLight in data.trafficLights)
             {
                 var trafficSignalMsg = new autoware_perception_msgs.msg.TrafficSignal();
-                trafficSignalMsg.Traffic_signal_id = trafficLight.LaneletElementID;
+                var trafficLightLaneletID = trafficLight.GetComponentInParent<TrafficLightLaneletID>();
+                if (trafficLightLaneletID != null)
+                {
+                    trafficSignalMsg.Traffic_signal_id = trafficLightLaneletID.LaneletElementID;
+                }
                 //Get bulbData
                 var trafficLightBulbData = trafficLight.GetBulbData();
                 //Fill TrafficSignal with bulbData

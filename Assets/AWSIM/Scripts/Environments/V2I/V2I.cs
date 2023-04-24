@@ -59,7 +59,8 @@ namespace AWSIM
                 .Where(trafficLight =>
                 {
                     var distance2D = GeometryUtility.Distance2D(trafficLight.transform.position, position);
-                    return distance2D <= radius && trafficLight.LaneletElementID != 0;
+                    var trafficLightLaneletID = trafficLight.GetComponentInParent<TrafficLightLaneletID>();
+                    return distance2D <= radius && trafficLightLaneletID != null && trafficLightLaneletID.LaneletElementID != 0;
                 }).ToList().ToArray();
         }
     }

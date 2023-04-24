@@ -300,7 +300,15 @@ namespace AWSIM.RandomTraffic
                     }
                     EditorUtility.SetDirty(trafficLight);
                     Undo.RecordObject(trafficLight, "Assigning lanelet id");
-                    trafficLight.LaneletElementID = line.ID;
+                    var trafficLightLaneletID = trafficLight.GetComponentInParent<TrafficLightLaneletID>();
+                    if (trafficLightLaneletID == null)
+                    {
+                        trafficLight.gameObject.AddComponent<TrafficLightLaneletID>();
+                    }
+                    else
+                    {
+                        trafficLightLaneletID.LaneletElementID = line.ID;
+                    }
                     PrefabUtility.RecordPrefabInstancePropertyModifications(trafficLight);
                 }
             }
