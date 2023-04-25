@@ -597,7 +597,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    1: UNITY_CCU;ALLOW_AUTHORING;ROS2;ENABLE_RAYTRACING
+    1: UNITY_CCU;ALLOW_AUTHORING;ROS2
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
