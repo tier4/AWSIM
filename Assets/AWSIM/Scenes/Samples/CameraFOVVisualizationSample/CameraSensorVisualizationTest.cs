@@ -16,34 +16,40 @@ namespace AWSIM.Tests
 
         [Header("Components")]
         [SerializeField] private Camera cameraSensor = default;
+
+        [SerializeField] private Transform dummyCar = default;
+
         [SerializeField] private CameraSensorVisualization cameraSensorVisualization = default;
+
+        [Header("Sensors")]
+        [SerializeField] private GameObject leftSensor = default;
+        [SerializeField] private GameObject rightSensor = default;
 
         [Header("Variables")]
         [SerializeField] private AnimationCurve swapPath = default;
 
 
         private Vector3[] meshVerticesFov60 = new Vector3[] {
-            new Vector3(-0.2309401f, -0.1732051f, 0.3f),
-            new Vector3(-0.2309401f, 0.1732051f, 0.3f),
-            new Vector3(0.2309401f, 0.1732051f, 0.3f),
-            new Vector3(0.2309401f, -0.1732051f, 0.3f),
-            new Vector3(-76.98004f, -57.7350f, 100f),
-            new Vector3(-76.98004f, 57.7350f, 100f),
-            new Vector3(76.98004f, 57.7350f, 100f),
-            new Vector3(76.98004f, -57.7350f, 100f),
+            new Vector3(-0.3f, -0.16875f, 0.3f),
+            new Vector3(-0.3f, 0.16875f, 0.3f),
+            new Vector3(0.3f, 0.16875f, 0.3f),
+            new Vector3(0.3f, -0.16875f, 0.3f),
+            new Vector3(-100f, -56.25f, 100f),
+            new Vector3(-100f, 56.25f, 100f),
+            new Vector3(100f, 56.25f, 100f),
+            new Vector3(100f, -56.25f, 100f),
         };
 
         private Vector3[] meshVerticesFov89 = new Vector3[] {
-            new Vector3(-0.3930789f, -0.2948092f, 0.3f),
-            new Vector3(-0.3930789f, 0.2948092f, 0.3f),
-            new Vector3(0.3930789f, 0.2948092f, 0.3f),
-            new Vector3(0.3930789f, -0.2948092f, 0.3f),
-            new Vector3(-131.0263f, -98.26973f, 100f),
-            new Vector3(-131.0263f, 98.26973f, 100f),
-            new Vector3(131.0263f, 98.26973f, 100f),
-            new Vector3(131.0263f, -98.26973f, 100f),
+            new Vector3(-0.525f, -0.2953124f, 0.3f),
+            new Vector3(-0.525f, 0.2953124f, 0.3f),
+            new Vector3(0.525f, 0.2953124f, 0.3f),
+            new Vector3(0.525f, -0.2953124f, 0.3f),
+            new Vector3(-175f, -98.43747f, 100f),
+            new Vector3(-175f, 98.43747f, 100f),
+            new Vector3(175f, 98.43747f, 100f),
+            new Vector3(175f, -98.43747f, 100f),
         };
-
 
 
         public void StartTest()
@@ -57,10 +63,10 @@ namespace AWSIM.Tests
             yield return StartCoroutine(MeshFor60FovTestRoutine());
             yield return StartCoroutine(MeshFor89FovTestRoutine());
             yield return StartCoroutine(SwapCameraFovTestRoutine());
-            yield return StartCoroutine(MoveAndRotateVisualizerTestRoutine());
+            yield return StartCoroutine(MoveAndRotateVisualizerTestRoutine());       
+            yield return StartCoroutine(ThreeSensorTestRoutine());
             yield return StartCoroutine(ResetTestRoutine());
         }
-
 
         private IEnumerator MeshInitializationTestRoutine()
         {
@@ -106,11 +112,23 @@ namespace AWSIM.Tests
             cameraSensorVisualization.gameObject.SetActive(false);
             yield return null;
 
-            cameraSensor.fieldOfView = 60f;
             cameraSensor.nearClipPlane = 0.3f;
             cameraSensor.farClipPlane = 100f;
+            cameraSensor.sensorSize = new Vector2(70.0f, 39.4f);
+            cameraSensor.focalLength = 35f;
 
-            cameraSensorVisualization.gameObject.SetActive(true);      
+            cameraSensorVisualization.gameObject.SetActive(true);
+
+            // mesh vertices are created on update, so just after enable number of vertices are zero
+            for (int i = 0; i < 5; i++)
+            {
+                yield return new WaitForSeconds(0.1f);
+
+                if(cameraSensorVisualization.FillMesh.vertices.Length > 0)
+                {
+                    break;
+                }
+            }
 
             if(cameraSensorVisualization.FillMesh.vertices.Length != meshVerticesFov60.Length)
             {
@@ -123,6 +141,7 @@ namespace AWSIM.Tests
                 if(!IsEqual(cameraSensorVisualization.FillMesh.vertices[i],
                     meshVerticesFov60[i], 0.001f))
                 {
+
                     LogResult(false, "Mesh for FOV 60 is not correct.");
                     yield break;
                 } 
@@ -142,11 +161,23 @@ namespace AWSIM.Tests
             cameraSensorVisualization.gameObject.SetActive(false);
             yield return null;
 
-            cameraSensor.fieldOfView = 89f;
             cameraSensor.nearClipPlane = 0.3f;
             cameraSensor.farClipPlane = 100f;
+            cameraSensor.sensorSize = new Vector2(70.0f, 39.4f);
+            cameraSensor.focalLength = 20f;
 
             cameraSensorVisualization.gameObject.SetActive(true);     
+
+            // mesh vertices are created on update, so just after enable number of vertices are zero
+            for (int i = 0; i < 5; i++)
+            {
+                yield return new WaitForSeconds(0.1f);
+
+                if(cameraSensorVisualization.FillMesh.vertices.Length > 0)
+                {
+                    break;
+                }
+            }
 
             if(cameraSensorVisualization.FillMesh.vertices.Length != meshVerticesFov89.Length)
             {
@@ -198,14 +229,27 @@ namespace AWSIM.Tests
                 yield return null;
             }
 
-            LogMessage("Camera Fov Swap Completed");
+            LogMessage("Camera Fov Swap Completed", 0);
         }
 
         private IEnumerator MoveAndRotateVisualizerTestRoutine()
         {
             LogMessage("Start Camera Fov Movement ...");
 
-            cameraSensor.fieldOfView = 60f;
+            if(cameraSensor.transform.parent == null)
+            {
+                LogMessage("For testing purpose please attach camera to ForwardSensor gameobject.", 1);
+                yield break;
+            }
+
+            if(cameraSensor.transform.parent.parent != dummyCar)
+            {
+                LogMessage("For testing purpose please attach camera and ForwardSensor to DummyCar gameobject.", 1);
+                yield break;
+            }
+
+            cameraSensor.sensorSize = new Vector2(70.0f, 39.4f);
+            cameraSensor.focalLength = 35f;
 
             float duration = 4f;
             float speed = 2f;
@@ -213,16 +257,15 @@ namespace AWSIM.Tests
             float time = 0f;
             Vector3 direction = new Vector3(0.3f, 0.1f, 0.7f).normalized;
 
-            Quaternion startQuaternion = cameraSensor.transform.rotation;
+            Quaternion startQuaternion = dummyCar.rotation;
             Quaternion targetQuaternion = Quaternion.Euler(-17f, 36f, 0f);
-
 
             while(time < duration)
             {
                 time += Time.deltaTime;
 
-                cameraSensor.transform.position += direction * speed * Time.fixedDeltaTime;
-                cameraSensor.transform.rotation = Quaternion.Lerp(startQuaternion, targetQuaternion, time / duration); 
+                dummyCar.position += direction * speed * Time.deltaTime;
+                dummyCar.rotation = Quaternion.Lerp(startQuaternion, targetQuaternion, time / duration); 
 
                 yield return null;
             }
@@ -230,34 +273,52 @@ namespace AWSIM.Tests
             time = 0f;
             direction = new Vector3(-0.4f, 0.0f, 0.4f).normalized;
 
-            startQuaternion = cameraSensor.transform.rotation;
+            startQuaternion = dummyCar.rotation;
             targetQuaternion = Quaternion.Euler(13f, -74f, 3f);
 
             while(time < duration)
             {
                 time += Time.deltaTime;
 
-                cameraSensor.transform.position += direction * speed * Time.fixedDeltaTime;
-                cameraSensor.transform.rotation = Quaternion.Lerp(startQuaternion, targetQuaternion, time / duration); 
+                dummyCar.position += direction * speed * Time.deltaTime;
+                dummyCar.rotation = Quaternion.Lerp(startQuaternion, targetQuaternion, time / duration); 
 
                 yield return null;
             }
 
-            LogMessage("Camera Fov Movement Completed");    
 
+            dummyCar.position = new Vector3(0f, 1f, 0f);
+            dummyCar.rotation = Quaternion.identity;
+
+            LogMessage("Camera Fov Movement Completed", 0);    
+
+        }
+
+        private IEnumerator ThreeSensorTestRoutine()
+        {
+            leftSensor.SetActive(true);
+            rightSensor.SetActive(true);
+
+            yield return new WaitForSeconds(0.4f);
+
+            yield return MoveAndRotateVisualizerTestRoutine();
+
+            yield return new WaitForSeconds(0.4f);
+
+            leftSensor.SetActive(false);
+            rightSensor.SetActive(false);
         }
 
         private IEnumerator ResetTestRoutine()
         {
-            cameraSensor.transform.position = Vector3.zero;
-            cameraSensor.transform.rotation = Quaternion.identity;
-
             cameraSensor.fieldOfView = 60f;
             cameraSensor.nearClipPlane = 0.3f;
-            cameraSensor.farClipPlane = 100f;
+            cameraSensor.sensorSize = new Vector2(70.0f, 39.4f);
+            cameraSensor.focalLength = 35f;
 
             yield return null;
         }
+
 
         private void LogResult(bool success, string message) 
         {
@@ -271,9 +332,20 @@ namespace AWSIM.Tests
             }            
         }
 
-        private void LogMessage(string message)
+        private void LogMessage(string message, int colorId = -1)
         {
-            Debug.Log("<color=green>TEST </color>" + message);
+            if(colorId == 0)
+            {
+                Debug.Log("<color=green>TEST </color>" + message);
+            }
+            else if(colorId == 1)
+            {
+                Debug.Log("<color=red>TEST </color>" + message);
+            }
+            else
+            {
+                Debug.Log("<color=yellow>TEST </color>" + message);
+            }
         }
 
         private bool IsEqual(Vector3 a, Vector3 b, float precision)

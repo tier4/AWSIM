@@ -15,7 +15,7 @@ namespace AWSIM
         #region Inspector Variables
 
         [Header("Camera sensor to visualize")]
-        [SerializeField] private Camera cameraSensor = default;
+        [SerializeField] private Camera cameraObject = default;
 
         [Space(10)]
         [Tooltip("Max drawing distance of fov visualizer")]
@@ -71,7 +71,15 @@ namespace AWSIM
 
         #region Mutables
 
-        private float currFov = 45f;
+        private float currSensorSizeX = 1f;
+
+        private float currSensorSizeY = 1f;
+
+        private float currFocalLength = 1f;
+
+        private float currImageWidth = 1f;
+
+        private float currImageHeight = 1f;
 
         private float currThickness = 1f;
 
@@ -88,7 +96,6 @@ namespace AWSIM
         {
             InitVars();
             InitiliseMeshes();
-            UpdateMesh();
 
             initialized = true;
         }
@@ -102,10 +109,16 @@ namespace AWSIM
 
         private void InitVars()
         {
-            nearDrawDistance = cameraSensor.nearClipPlane;
-            farDrawDistance = cameraSensor.farClipPlane > maxDrawDistance? maxDrawDistance : cameraSensor.farClipPlane;
+            nearDrawDistance = cameraObject.nearClipPlane;
+            farDrawDistance = cameraObject.farClipPlane > maxDrawDistance? maxDrawDistance : cameraObject.farClipPlane;
 
-            currFov = cameraSensor.fieldOfView;
+            currSensorSizeX = cameraObject.sensorSize.x;
+            currSensorSizeY = cameraObject.sensorSize.y;
+            currFocalLength = cameraObject.focalLength;
+
+            currImageWidth = 1f;
+            currImageHeight = 1f;
+
             currThickness = edgeThickness;
         }
 
@@ -127,7 +140,7 @@ namespace AWSIM
             depthMesh.name = "Depth";
         }
      
-
+     
         private void Dispose()
         {
             edgeMesh.Clear();
@@ -151,10 +164,35 @@ namespace AWSIM
                 return;
             }
 
-            if( Mathf.Abs(currFov - cameraSensor.fieldOfView) > 0.001f)
+            // check if render texture from camera sensor object is ready
+            if(!IsCamereSensorValid())
+            {
+                return;
+            }
+
+            if(Mathf.Abs(currImageWidth - GetCameraSensorImageWidth()) > 0.001f || Mathf.Abs(currImageHeight - GetCameraSensorImageHeight()) > 0.001f)
+            {
+                currImageWidth = GetCameraSensorImageWidth();
+                currImageHeight = GetCameraSensorImageHeight();
+                UpdateMesh();
+            }
+
+            if(Mathf.Abs(currSensorSizeX - cameraObject.sensorSize.x) > 0.001f)
             {
                 UpdateMesh();
-                currFov = cameraSensor.fieldOfView;
+                currSensorSizeX = cameraObject.sensorSize.x;
+            }
+
+            if(Mathf.Abs(currSensorSizeY - cameraObject.sensorSize.y) > 0.001f)
+            {
+                UpdateMesh();
+                currSensorSizeY = cameraObject.sensorSize.y;
+            }
+
+            if(Mathf.Abs(currFocalLength - cameraObject.focalLength) > 0.001f)
+            {
+                UpdateMesh();
+                currFocalLength = cameraObject.focalLength;
             }
 
             if(Mathf.Abs(currThickness - edgeThickness) > 0.001f)
@@ -176,7 +214,7 @@ namespace AWSIM
             fillMesh.Clear();
             depthMesh.Clear();
 
-            float vertFov = cameraSensor.fieldOfView;
+            float vertFov = GetVerticalFOV();
             float horzFov = GetHorizontalFOV();
             
             Vector3[] nearPoints = GetFovVertices(horzFov, vertFov, nearDrawDistance);
@@ -205,8 +243,8 @@ namespace AWSIM
 
         private void UpdateTransform()
         {
-            this.transform.position = cameraSensor.gameObject.transform.position;
-            this.transform.rotation = cameraSensor.gameObject.transform.rotation;
+            this.transform.position = cameraObject.gameObject.transform.position;
+            this.transform.rotation = cameraObject.gameObject.transform.rotation;
         }
 
         #endregion
@@ -326,14 +364,8 @@ namespace AWSIM
         /// <param name="spacing">Spacing between indicator objects</param>
         /// <returns>Return MesnInfo with vartices and triangles data</returns>
         private MeshInfo GetDepthIndicatorMesh(float minDistance, float maxDistance, float spacing)
-
-
-
-
-
-
         {
-            float fovVert = cameraSensor.fieldOfView;
+            float fovVert = GetVerticalFOV();
             float fovHorz = GetHorizontalFOV();
 
             MeshInfo lines = new MeshInfo();
@@ -362,9 +394,46 @@ namespace AWSIM
             return lines;
         }
 
+        private float GetVerticalFOV()
+        {
+            float aspect = currImageWidth / currImageHeight;
+            return Camera.HorizontalToVerticalFieldOfView(GetHorizontalFOV(), aspect);
+        }
+
         private float GetHorizontalFOV()
         {
-            return Camera.VerticalToHorizontalFieldOfView(cameraSensor.fieldOfView, cameraSensor.aspect);
+            float fov = Mathf.Atan2((cameraObject.sensorSize.x * 0.5f ), cameraObject.focalLength) * Mathf.Rad2Deg * 2f;
+            return fov;
+        }
+
+        private bool IsCamereSensorValid()
+        {
+            if(cameraObject.targetTexture != null && GetCameraSensorImageWidth() > 0f && GetCameraSensorImageHeight() > 0f) 
+            {
+                return true;                
+            }
+
+            return false;
+        }
+
+        private float GetCameraSensorImageWidth()
+        {
+            if(cameraObject.targetTexture != null)
+            {
+                return cameraObject.targetTexture.width;
+            }
+
+            return -1f;
+        }
+
+        private float GetCameraSensorImageHeight()
+        {
+            if(cameraObject.targetTexture != null)
+            {
+                return cameraObject.targetTexture.height;
+            }
+
+            return -1f;
         }
 
         #endregion
