@@ -220,9 +220,6 @@ ros2 topic pub /autoware/engage autoware_auto_vehicle_msgs/msg/Engage '{engage: 
 
 The self-driving simulation demo has been successfully launched!
 
-Here is an example video:
-![type:video](https://drive.google.com/file/d/1qxImNdK7d1zhMsJqhOa2NEM3vnjKSY7B/view?usp=share_link)
-
 ## 6. Troubleshooting
 
 In case of any problems with running the sample AWSIM binary with Autoware, start with checking our [Troubleshooting page](https://tier4.github.io/AWSIM/DeveloperGuide/TroubleShooting/) with the most common problems.
