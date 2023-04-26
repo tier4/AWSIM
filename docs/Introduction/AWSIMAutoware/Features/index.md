@@ -11,3 +11,27 @@
     - Pedestrian on the road beyond the crosswalk (**gifs**)
 - Detecting bad behaviors (**Future**, **gifs)**
 <!-- TODO everything -->
+
+## Engagement
+Autoware in combination with AWSIM can participate in common road situations
+
+- Drive straight in lane on an intersection
+![go straight](straight_green.gif)
+- Turn on an intersection
+![turn](turn_green.gif)
+
+## Traffic light recognition
+AWSIM allows Autoware to recognize traffic lights and act accordingly
+
+- Stop at a red light
+![stop on red](stop_red.gif)
+- Drive at green light
+![run on green](straight_green.gif)
+- Still drive at a yellow light
+![run on yellow](straight_yellow.gif)
+
+## Interaction with vehicles
+<!-- TODO -->
+
+## Interaction with pedestrians
+<!-- TODO -->
