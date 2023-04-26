@@ -31,9 +31,56 @@ fi
 If you are having trouble with network connection consider replacing `export ROS_LOCALHOST_ONLY=1` with `export ROS_DOMAIN_ID=XX` where `XX` is a unique number in your network between 0 and 101 inclusive.
 For more information about `ROS_DOMAIN_ID` head to official [documentation](https://docs.ros.org/en/rolling/Concepts/About-Domain-ID.html).
 
-    - Install Git
-    - Install Nvidia GPU driver (**gif** - how to test)
-    - Install Vulkan Graphics Library
+!!! note
+
+    Adding these lines to your `.bashrc` file will require you to supply your password first time you open a terminal after each PC restart.
+
+### Install Git
+To download AWSIM from a [remote repository](https://github.com/tier4/AWSIM) you need to install [git](https://git-scm.com/).
+To do that paste the commands below into terminal.
+
+```
+sudo apt-get -y update
+sudo apt-get -y install git
+```
+
+### Install Nvidia GPU driver
+On Ubuntu you can open `Additional Drivers` application and from there select one driver and install it.
+![additional drivers](gpu_drivers.png)
+
+Other possibility is to install drivers from command line.
+
+- Add Nvidia driver to apt repository.
+```
+sudo add-apt-repository ppa:graphics-drivers/ppa
+sudo apt update
+```
+- Install the recommended version of the driver.
+```
+sudo ubuntu-drivers autoinstall
+```
+
+!!! note
+
+    After installing drivers PC reboot is required.
+
+
+To check whether the drivers are working correctly run `nvidia-smi` command in terminal and check whether you get a result similar to the one below.
+
+![nvidia-smi](nvidia_check.gif)
+
+### Install Vulkan Graphics Library
+To install Vulkan Graphics Library
+
+- Update the environment.
+```
+sudo apt update
+```
+- Install Vulkan library
+```
+sudo apt install libvulkan1
+```
+
 ## Windows
 <!-- TODO -->
 ### Localhost settings
@@ -44,10 +91,8 @@ For more information about `ROS_DOMAIN_ID` head to official [documentation](http
 <!-- TODO -->
 ### Install Vulkan Graphics Library
 <!-- TODO -->
-## Installing Autoware [70% current Launching Autoware]
-<!-- TODO -->
 
-### Launching Autoware
+## Installing Autoware [70% current Launching Autoware]
 <!-- TODO copied from old -->
 
 In order to configure and run the Autoware software with the AWSIM demo, please:
@@ -56,41 +101,31 @@ In order to configure and run the Autoware software with the AWSIM demo, please:
 
     [Download Map files (pcd, osm)](https://github.com/tier4/AWSIM/releases/download/v1.1.0/nishishinjuku_autoware_map.zip){.md-button .md-button--primary}
 
-2. Clone [Autoware](https://github.com/autowarefoundation/autoware) and move to the directory.
+1. Clone [Autoware](https://github.com/autowarefoundation/autoware) and move to the directory.
 ```
 git clone https://github.com/autowarefoundation/autoware.git
 cd autoware
 ```
-3. Switch branch to `awsim-stable`. *NOTE: The latest `main` branch is for [ROS 2 humble](https://docs.ros.org/en/rolling/Releases/Release-Humble-Hawksbill.html).*
+1. Switch branch to `awsim-stable`. *NOTE: The latest `main` branch is for [ROS 2 humble](https://docs.ros.org/en/rolling/Releases/Release-Humble-Hawksbill.html).*
 ```
 git checkout awsim-stable
 ```
-4. Configure the environment. (Skip if Autoware environment has been configured before)
+1. Configure the environment. (Skip if Autoware environment has been configured before)
 ```
 ./setup-dev-env.sh
 ```
-5. Create the `src` directory and clone external dependent repositories into it.
+1. Create the `src` directory and clone external dependent repositories into it.
 ```
 mkdir src
 vcs import src < autoware.repos
 ```
-6. Install dependent ROS packages.
+1. Install dependent ROS packages.
 ```
 source /opt/ros/humble/setup.bash
 rosdep update
 rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
 ```
-7. Build the workspace.
+1. Build the workspace.
 ```
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-w"
 ```
-8. Launch Autoware.
-
-    !!! warning
-
-        `<your mapfile location>` must be changed arbitrarily. When specifying the path the `~` operator cannot be used - please specify absolute full path.
-```
-source install/setup.bash
-ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=<your mapfile location>
-```
-![](Image_2.png)

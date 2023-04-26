@@ -10,94 +10,73 @@ The simulation provided in the AWSIM demo is configured as follows:
 |Traffic|Randomized traffic|
 |ROS2|humble|
 
-- Download and run [60% current] (**gifs**)
+## Download and run
 <!-- TODO only copied from old -->
-## Start the demo
-
-### Running the AWSIM simulation demo
+!!! warning
+    Before following through with this section make sure to check [prerequisites](/UserGuide/Installation/Prerequisites).
 
 To run the simulator, please follow the steps below.
 
-1. Install Nvidia GPU driver (Skip if already installed).
-    1. Add Nvidia driver to apt repository
-    ```
-    sudo add-apt-repository ppa:graphics-drivers/ppa
-    sudo apt update
-    ```
-    2. Install the recommended version of the driver.
-    ```
-    sudo ubuntu-drivers autoinstall
-    ```
-    3. Reboot your machine to make the installed driver detected by the system.
-    ```
-    sudo reboot
-    ```
-    4. Open terminal and check if `nvidia-smi` command is available and outputs summary similar to the one presented below.
-    ```
-    $ nvidia-smi 
-    Fri Oct 14 01:41:05 2022       
-    +-----------------------------------------------------------------------------+
-    | NVIDIA-SMI 515.65.01    Driver Version: 515.65.01    CUDA Version: 11.7     |
-    |-------------------------------+----------------------+----------------------+
-    | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
-    | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
-    |                               |                      |               MIG M. |
-    |===============================+======================+======================|
-    |   0  NVIDIA GeForce ...  Off  | 00000000:01:00.0  On |                  N/A |
-    | 37%   31C    P8    30W / 250W |    188MiB / 11264MiB |      3%      Default |
-    |                               |                      |                  N/A |
-    +-------------------------------+----------------------+----------------------+
+1. Download the `AWSIM_v1.1.0.zip`.
 
-    +-----------------------------------------------------------------------------+
-    | Processes:                                                                  |
-    |  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
-    |        ID   ID                                                   Usage      |
-    |=============================================================================|
-    |    0   N/A  N/A      1151      G   /usr/lib/xorg/Xorg                133MiB |
-    |    0   N/A  N/A      1470      G   /usr/bin/gnome-shell               45MiB |
-    +-----------------------------------------------------------------------------+
+    [Download AWSIM Demo for ubuntu](https://github.com/tier4/AWSIM/releases/download/v1.1.0/AWSIM_v1.1.0.zip){.md-button .md-button--primary}
+
+2. Unzip the downloaded file.
+
+3. Make the `AWSIM_demo.x86_64` file executable.
+
+    Rightclick the `AWSIM_demo.x86_64` file and check the `Execute` checkbox
+    <!-- ![Make binary executable gif](demo_executable.gif) -->
+    ![Make binary executable gif](demo_executable.gif)
+
+    <!-- ![Make binary executable image](Image_1.png) -->
+
+    or execute the command below.
+
+    ```
+    chmod +x <path to AWSIM folder>/AWSIM_demo.x86_64
     ```
 
-2. Install Vulkan Graphics Library (Skip if already installed).
-    1. Update the environment.
+4. Launch `AWSIM_demo.x86_64`.
     ```
-    sudo apt update
-    ```
-    2. Install the library.
-    ```
-    sudo apt install libvulkan1
-    ```
+    ./<path to AWSIM folder>/AWSIM_demo.x86_64
+    ``` 
 
-3. Download and Run AWSIM Demo binary.
+    !!! warning
 
-    1. Download `AWSIM_v1.1.0.zip`.
+        It may take some time for the application to start the so please wait until image similar to the one presented below is visible in your application window.
 
-        [Download AWSIM Demo for ubuntu](https://github.com/tier4/AWSIM/releases/download/v1.1.0/AWSIM_v1.1.0.zip){.md-button .md-button--primary}
-    
-    2. Unzip the downloaded file.
+    Running AWSIM should look something like te one below.
 
-    3. Make the `AWSIM_demo.x86_64` file executable.
+    ![Running system image](awsim.png)
 
-        Rightclick the `AWSIM_demo.x86_64` file and check the `Execute` checkbox
-
-        ![Make binary executable image](Image_1.png)
-
-        or execute the command below.
-
-        ```
-        chmod +x <path to AWSIM folder>/AWSIM_demo.x86_64
-        ```
-
-    4. Launch `AWSIM_demo.x86_64`.
-        ```
-        ./<path to AWSIM folder>/AWSIM_demo.x86_64
-        ``` 
-        
-        !!! warning
-        
-            It may take some time for the application to start the so please wait until image similar to the one presented below is visible in your application window.
-
-        ![Running system image](Image_0.png)
-
-- Run with Autoware (**gifs/video**)
+## Run with Autoware (**gifs/video**)
 <!-- TODO whole section -->
+
+1. Launch AWSIM like in [section before](#download-and-run)
+
+1. Launch Autoware.
+
+    1. Open new terminal and source the Autoware workspace
+
+        ```
+        source <autoware workspace>/install/setub.bash
+        ```
+
+    1. Launch the Autoware
+
+        !!! warning
+
+            `<your mapfile location>` must be changed arbitrarily.
+            Specify the path to the outermost map folder.
+            When specifying the path the `~` operator cannot be used - please specify absolute full path, or use the `$HOME` environmental variable.
+
+        ```
+        source install/setup.bash
+        ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=<your mapfile location>
+        ```
+
+
+    Successfully launched Autoware should look something like the one below.
+
+    ![autoware](autoware.png)
