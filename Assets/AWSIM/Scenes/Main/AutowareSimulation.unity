@@ -539,7 +539,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 556633328}
-  - component: {fileID: 556633329}
   m_Layer: 5
   m_Name: TimeScaleSlider
   m_TagString: Untagged
@@ -569,20 +568,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &556633329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 556633327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5a9c79977d9ec0408478af749d712e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeScaleText: {fileID: 631930841}
-  timeScaleSlider: {fileID: 1153401690}
 --- !u!1 &631930839
 GameObject:
   m_ObjectHideFlags: 0
@@ -2820,7 +2805,6 @@ GameObject:
   - component: {fileID: 988705867}
   - component: {fileID: 988705869}
   - component: {fileID: 988705868}
-  - component: {fileID: 988705870}
   m_Layer: 5
   m_Name: VerText
   m_TagString: Untagged
@@ -2889,19 +2873,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 988705866}
   m_CullTransparentMesh: 1
---- !u!114 &988705870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 988705866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 712a4f37042726a43a643f55bb3590a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 988705868}
 --- !u!1001 &1013960845
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3149,8 +3120,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 556633329}
-        m_TargetAssemblyTypeName: E2ESimulator.TimeScaleSlider, Assembly-CSharp
+      - m_Target: {fileID: 1511771842}
+        m_TargetAssemblyTypeName: AWSIM.DemoUI, Assembly-CSharp
         m_MethodName: SetTimeScale
         m_Mode: 0
         m_Arguments:
@@ -3449,6 +3420,7 @@ GameObject:
   - component: {fileID: 1511771840}
   - component: {fileID: 1511771839}
   - component: {fileID: 1511771838}
+  - component: {fileID: 1511771842}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -3539,6 +3511,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1511771842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511771837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5606fd1e61f51d0759e1ca8f1abda3c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeScaleText: {fileID: 631930841}
+  timeScaleSlider: {fileID: 1153401690}
+  versionText: {fileID: 988705868}
 --- !u!114 &1672697011 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9027057599777832477, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
