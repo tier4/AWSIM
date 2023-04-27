@@ -34,12 +34,12 @@ namespace RGLUnityPlugin
         /// <summary>
         /// Min horizontal angle (left)
         /// </summary>
-        public float minHAngle;
+        [Range(-360.0f, 360.0f)] public float minHAngle;
 
         /// <summary>
         /// Max horizontal angle (right)
         /// </summary>
-        public float maxHAngle;
+        [Range(-360.0f, 360.0f)] public float maxHAngle;
 
         /// <summary>
         /// Maximum range of the sensor.
@@ -59,6 +59,12 @@ namespace RGLUnityPlugin
             {
                 throw new ArgumentOutOfRangeException(nameof(minHAngle),
                     "Minimum angle must be lower or equal to maximum angle");
+            }
+
+            if (maxHAngle - minHAngle > 360.0f)
+            {
+                throw new ArgumentOutOfRangeException(nameof(maxHAngle),
+                    "Horizontal range must be lower than 360 degrees");
             }
 
             if (!(horizontalSteps > 0))
