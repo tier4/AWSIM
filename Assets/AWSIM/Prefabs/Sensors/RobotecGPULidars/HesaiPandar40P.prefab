@@ -460,11 +460,10 @@ MonoBehaviour:
   frameID: world
   publishPCL24: 1
   publishPCL48: 1
-  qosSettings:
-    ReliabilityPolicy: 1
-    DurabilityPolicy: 2
-    HistoryPolicy: 1
-    Depth: 1000
+  reliabilityPolicy: 2
+  durabilityPolicy: 2
+  historyPolicy: 1
+  historyDepth: 5
 --- !u!114 &7675420128049466981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,7 +669,7 @@ MonoBehaviour:
         verticalAngularOffsetDeg: -15
         verticalLinearOffsetMm: 0
         ringId: 40
-    horizontalSteps: 1800
+    horizontalResolution: 0.2
     minHAngle: 0
     maxHAngle: 360
     maxRange: 200

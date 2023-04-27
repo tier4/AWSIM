@@ -165,7 +165,7 @@ MonoBehaviour:
         verticalAngularOffsetDeg: -15
         verticalLinearOffsetMm: 11.2
         ringId: 16
-    horizontalSteps: 1800
+    horizontalResolution: 0.2
     minHAngle: 0
     maxHAngle: 360
     maxRange: 100
