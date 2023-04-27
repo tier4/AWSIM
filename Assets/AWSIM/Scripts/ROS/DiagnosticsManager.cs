@@ -21,17 +21,21 @@ namespace AWSIM
     ///     diagnostics:
     ///         "topic_state_monitor_initialpose3d: localization_topic_status":
     ///             alias: "Initialpose 3D status"
+    ///             display_values: 0
     ///             level: 0
     ///         "topic_state_monitor_pose_twist_fusion_filter_pose: localization_topic_status":
     ///             alias: "Pose Twist fusion status"
+    ///             display_values: 0
     ///             level: 0
     ///         "concatenate_data: concat_status":
     ///             alias: "Concat status"
+    ///             display_values: 0
     ///             level: 0
     ///
     /// where:
     ///     alias - on screen substitution, if not set, the whole name is used,
     ///     level - log level, messages with lower level are filtered out.
+    ///     display_values: - should the values of each diagnostic status should be printed
     /// </summary>
     public class DiagnosticsManager : MonoBehaviour
     {
@@ -43,6 +47,7 @@ namespace AWSIM
             public string name;
             public string message;
             public string hardwareId;
+            public bool displayValues;
             public Dictionary<string, string> content;
         }
 
@@ -50,6 +55,7 @@ namespace AWSIM
         {
             public byte level { get; set; }
             public string alias { get; set; }
+            public bool displayValues {get; set;}
         };
 
         public class DiagnosticsConfig
@@ -130,7 +136,8 @@ namespace AWSIM
                     namesToWatch.Add(entry.Key);
                     diagnosticConfigEntries.Add(entry.Key, entry.Value);
                     Debug.Log("Registered diagnostic watch for: \"" + entry.Key + "\" with alias: "
-                        + "\"" + entry.Value.alias + "\" and log level: " + entry.Value.level);
+                        + "\"" + entry.Value.alias + "\" and log level: " + entry.Value.level + ". Displaying values: " 
+                        + entry.Value.displayValues);
                 }
 
                 if(!diagnosticsCanvas.gameObject.activeInHierarchy) diagnosticsCanvas.gameObject.SetActive(true);
@@ -237,6 +244,15 @@ namespace AWSIM
                 message += "</b>";
                 message += "<i>Message:</i> " + entry.Value.message;
                 message += System.Environment.NewLine;
+                if (diagnosticConfigEntries[entry.Key].displayValues)
+                {
+                    message += "<i>Values:</i>" + System.Environment.NewLine;
+                    foreach (var keyVal in entry.Value.content)
+                    {
+                        message += "\t" + keyVal.Key + ": " + keyVal.Value;
+                        message += System.Environment.NewLine;
+                    }
+                }
             }
 
             contentTextWindow.text = message;
