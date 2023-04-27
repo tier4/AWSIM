@@ -477,7 +477,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b09121ab5f04a5dae5e27fd15e97c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 0}
+  pointShape: 1
+  pointSize: 0.05
+  colors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: 0.5, b: 0, a: 1}
+  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 0.5, g: 0, b: 1, a: 1}
+  autoComputeColoringHeights: 0
+  minColoringHeight: 0
+  maxColoringHeight: 20
 --- !u!114 &4243938545670296942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -492,7 +503,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AutomaticCaptureHz: 10
   modelPreset: 6
-  applyGaussianNoise: 1
+  applyDistanceGaussianNoise: 1
+  applyAngularGaussianNoise: 1
   configuration:
     laserArray:
       centerOfMeasurementVerticalLinearOffsetMm: 47.7
@@ -659,8 +671,8 @@ MonoBehaviour:
         verticalLinearOffsetMm: 0
         ringId: 40
     horizontalSteps: 1800
-    minHAngle: -180
-    maxHAngle: 180
+    minHAngle: 0
+    maxHAngle: 360
     maxRange: 200
     noiseParams:
       angularNoiseType: 0

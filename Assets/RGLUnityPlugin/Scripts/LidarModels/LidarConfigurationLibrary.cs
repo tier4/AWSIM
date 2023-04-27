@@ -55,8 +55,8 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.VelodyneVLP16,
             horizontalSteps = 360 * 5, // for 0.2deg resolution
-            minHAngle = -180.0f,
-            maxHAngle = 180.0f,
+            minHAngle = 0.0f,
+            maxHAngle = 360.0f,
             maxRange = 100.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
         };
@@ -65,8 +65,8 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.VelodyneVLP32C,
             horizontalSteps = 360 * 5, // for 0.2deg resolution
-            minHAngle = -180.0f,
-            maxHAngle = 180.0f,
+            minHAngle = 0.0f,
+            maxHAngle = 360.0f,
             maxRange = 200.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
         };
@@ -75,8 +75,8 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.VelodyneVLS128,
             horizontalSteps = 360 * 5, // for 0.2deg resolution
-            minHAngle = -180.0f,
-            maxHAngle = 180.0f,
+            minHAngle = 0.0f,
+            maxHAngle = 360.0f,
             maxRange = 300.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
         };
@@ -85,8 +85,8 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.HesaiPandarQT,
             horizontalSteps = 600, // for 0.6deg resolution
-            minHAngle = -180.0f,
-            maxHAngle = 180.0f,
+            minHAngle = 0.0f,
+            maxHAngle = 360.0f,
             maxRange = 20.0f, // Yes, 20 meters, this is not a typo!
             noiseParams = LidarConfiguration.TypicalNoiseParams,
         };
@@ -95,8 +95,8 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.HesaiPandar40P,
             horizontalSteps = 360 * 5, // for 0.2deg resolution
-            minHAngle = -180.0f,
-            maxHAngle = 180.0f,
+            minHAngle = 0.0f,
+            maxHAngle = 360.0f,
             // documentation is unclear on max range;
             // on one hand there is "range capability" = 200m
             // on the other, in appendix beams have individual ranges assigned
@@ -110,8 +110,8 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.OusterOS1_64,
             horizontalSteps = 1024,
-            minHAngle = -180.0f,
-            maxHAngle = 180.0f,
+            minHAngle = 0.0f,
+            maxHAngle = 360.0f,
             maxRange = 120.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
         };
