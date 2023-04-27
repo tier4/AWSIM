@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace AWSIM.RandomTraffic
+namespace AWSIM.TrafficSimulation
 {
     public enum NPCVehicleSpeedMode
     {
@@ -29,6 +29,7 @@ namespace AWSIM.RandomTraffic
         // Immutable states
         public NPCVehicle Vehicle { get; private set; }
         public Vector3 FrontCenterLocalPosition { get; private set; }
+        public List<TrafficLane> Route { get; set; }
         public Vector3 BackCenterLocalPosition { get; private set; }
 
         // Output from Cognition (Waypoint Following)
@@ -85,6 +86,8 @@ namespace AWSIM.RandomTraffic
         public float DistanceToNextLane
             => SignedDistanceToPointOnLane(CurrentFollowingLane.Waypoints[CurrentFollowingLane.Waypoints.Length - 1]);
 
+        private int routeIndex = 0;
+
         // TODO: Calculate distance along the lane
         public float SignedDistanceToPointOnLane(Vector3 point)
         {
@@ -132,8 +135,18 @@ namespace AWSIM.RandomTraffic
 
         public bool ExtendFollowingLane()
         {
+            // If the internal state has route - use it. Otherwise, choose next lane randomly.
             var lastLane = FollowingLanes.Last();
-            var nextLane = RandomTrafficUtils.GetRandomElement(lastLane.NextLanes);
+            TrafficLane nextLane;
+            if(Route == null || Route.Count == 0 || routeIndex + 1 == Route.Count)
+            {
+                nextLane = RandomTrafficUtils.GetRandomElement(lastLane.NextLanes);
+            } else {
+                // Todo: check if route[0] equals to the spawnlane
+                // Todo: check if next lane in route is valid (is one of lastLane.NextLanes)
+                routeIndex += 1;
+                nextLane = Route[routeIndex];
+            }
             if (nextLane == null)
                 return false;
             FollowingLanes.Add(nextLane);
@@ -168,6 +181,13 @@ namespace AWSIM.RandomTraffic
                 }
             };
             state.FollowingLanes.Add(lane);
+            return state;
+        }
+
+        public static NPCVehicleInternalState Create(NPCVehicle vehicle, List<TrafficLane> route, int waypointIndex = 0)
+        {
+            var state = NPCVehicleInternalState.Create(vehicle, route.First(), waypointIndex);
+            state.Route = route;
             return state;
         }
     }

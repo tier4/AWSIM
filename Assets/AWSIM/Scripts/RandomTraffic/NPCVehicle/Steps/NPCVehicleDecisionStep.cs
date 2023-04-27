@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace AWSIM.RandomTraffic
+namespace AWSIM.TrafficSimulation
 {
     /// <summary>
     /// Decision step implementation for a NPC vehicle simulation.
@@ -61,9 +61,9 @@ namespace AWSIM.RandomTraffic
             var stopDistance = CalculateStoppableDistance(state.Speed, config.Deceleration) + 3 * MinStopDistance;
             var slowDownDistance = stopDistance + 4 * MinStopDistance;
 
-            var distanceToStopPointByFrontVehicle = onlyGeatherThan(state.DistanceToFrontVehicle - MinFrontVehicleDistance, 0);
+            var distanceToStopPointByFrontVehicle = onlyGreaterThan(state.DistanceToFrontVehicle - MinFrontVehicleDistance, -MinFrontVehicleDistance);
             var distanceToStopPointByTrafficLight = CalculateTrafficLightDistance(state, suddenStopDistance);
-            var distanceToStopPointByRightOfWay = CalculateYeldingDistance(state);
+            var distanceToStopPointByRightOfWay = CalculateYieldingDistance(state);
             var distanceToStopPoint = Mathf.Min(distanceToStopPointByFrontVehicle, distanceToStopPointByTrafficLight, distanceToStopPointByRightOfWay);
 
             // Speed mode updated by front vehicle is SLOW or SUDDEN_STOP/ABSOLUTE_STOP.
@@ -114,23 +114,23 @@ namespace AWSIM.RandomTraffic
                         break;
                 }
             }
-            return onlyGeatherThan(distanceToStopPointByTrafficLight, 0);
+            return onlyGreaterThan(distanceToStopPointByTrafficLight, 0);
         }
 
-        private static float CalculateYeldingDistance(NPCVehicleInternalState state)
+        private static float CalculateYieldingDistance(NPCVehicleInternalState state)
         {
             var distanceToStopPointByRightOfWay = float.MaxValue;
             if (state.YieldPhase == NPCVehicleYieldPhase.YIELDING)
                 distanceToStopPointByRightOfWay = state.SignedDistanceToPointOnLane(state.YieldPoint);
-            return onlyGeatherThan(distanceToStopPointByRightOfWay, 0);
+            return onlyGreaterThan(distanceToStopPointByRightOfWay, 0);
         }
 
         private static float CalculateStoppableDistance(float speed, float deceleration)
         {
-            return onlyGeatherThan(speed * speed / 2f / deceleration, 0);
+            return onlyGreaterThan(speed * speed / 2f / deceleration, 0);
         }
 
-        private static float onlyGeatherThan(float value, float min_value = 0)
+        private static float onlyGreaterThan(float value, float min_value = 0)
         { return value >= min_value ? value : float.MaxValue; }
 
         public void ShowGizmos(IReadOnlyList<NPCVehicleInternalState> states)

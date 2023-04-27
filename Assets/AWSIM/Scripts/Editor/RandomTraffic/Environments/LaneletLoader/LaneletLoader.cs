@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using GeometryUtility = AWSIM.Lanelet.GeometryUtility;
 
-namespace AWSIM.RandomTraffic
+namespace AWSIM.TrafficSimulation
 {
     /// <summary>
     /// A class that provides capability to convert Lanelet2 data into environment components.
