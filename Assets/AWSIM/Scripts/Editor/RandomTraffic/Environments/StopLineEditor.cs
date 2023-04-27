@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace AWSIM.RandomTraffic
+namespace AWSIM.TrafficSimulation
 {
     [CanEditMultipleObjects]
     [CustomEditor(typeof(StopLine))]

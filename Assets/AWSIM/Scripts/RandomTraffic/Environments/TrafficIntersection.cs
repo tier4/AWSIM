@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using AWSIM;
 
-namespace AWSIM.RandomTraffic
+namespace AWSIM.TrafficSimulation
 {
     /// <summary>
     /// Intersection class used by RandomTraffic.
