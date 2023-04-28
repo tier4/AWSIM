@@ -2,12 +2,12 @@
 - Ros2Unity (description, reasons for using, hyperlink)
     - Default message types (short description with location)
     - List of used topics
-    - Add custom ROS 2 message type [70% Current] (**screens**)
-    <!-- TODO copied old, needs to me adjusted (70%) -->
+    - Add custom ROS2 message type [70% Current] (**screens**)
+    - Accessing and filling in message fields (short example - including array)
+- RobotecGPULidar (description, reasons for using, hyperlink)
+    - SceneManager Script (description)
 
-## Add custom ROS 2 message type
-
-### ROS 2 For Unity
+## ROS 2 For Unity
 
 AWSIM uses [Ros2ForUnity](https://github.com/RobotecAI/ros2-for-unity) module for ROS 2 communication. `ROS 2 For Unity` is a high-performance communication solution to connect Unity3D and ROS 2 ecosystem in a ROS 2 "native" way.
 
@@ -33,10 +33,49 @@ Additional required tools:
     === "Ubuntu"
         `bash`
 
-    === "Windows 10"
+    === "Windows"
         `powershell`
 
-### Build custom messages
+### Default message types
+<!-- TODO short description with location -->
+
+### List of used topics
+
+The tables of topics AWSIM publishes and subscribes from can be found below.
+The list can be extended by the user for the specific use case.
+To see how to custom messages type for ROS 2, please refer to [Add custom ROS 2 message type](#add-custom-ros-2-message-type) document.
+
+#### Publisher list
+|category|topic|msg|frame_id|hz|QoS|
+|:--|:--|:--|:--|:--|:--|
+|clock|`/clock`|`rosgraph_msgs/Clock`|none|`100`|`Best effort`, `Volatile`, `Keep last/1`|
+|camera|`/sensing/camera/traffic_light/camera_info`|`sensor_msgs/CameraInfo`|`traffic_light_left_camera/camera_link`|`10`|`Best effort`, `Volatile`, `Keep last/1`|
+|camera|`/sensing/camera/traffic_light/image_raw`|`sensor_msgs/Image`|`traffic_light_left_camera/camera_link`|`10`|`Best effort`, `Volatile`, `Keep last/1`|
+|gnss|`/sensing/gnss/pose`|`geometry_msgs/Pose`|`gnss_link`|`1`|`Reliable`, `Volatile`, `Keep last/1`|
+|gnss|`/sensing/gnss/pose_with_covariance`|`geometry_msgs/PoseWithCovarianceStamped `|`gnss_link`|`1`|`Reliable`, `Volatile`, `Keep last/1`|
+|imu|`/sensing/imu/tamagawa/imu_raw`|`sensor_msgs/Imu`|`tamagawa/imu_link`|`30`|`Reliable`, `Volatile`, `Keep last/1000`|
+|lidar|`/sensing/lidar/top/pointcloud_raw`|`sensor_msgs/PointCloud2`|`sensor_kit_base_link`|`10`|`Best effort`, `Volatile`, `Keep last/5`|
+|lidar|`/sensing/lidar/top/pointcloud_raw_ex`|`sensor_msgs/PointCloud2`|`sensor_kit_base_link`|`10`|`Best effort`, `Volatile`, `Keep last/5`|
+|vehicle status|`/vehicle/status/control_mode`|`autoware_auto_vehicle_msgs/ControlModeReport`|none|`30`|`Reliable`, `Volatile`, `Keep last/1`|
+|vehicle status|`/vehicle/status/gear_status`|`autoware_auto_vehicle_msgs/GearReport`|none|`30`|`Reliable`, `Volatile`, `Keep last/1`|
+|vehicle status|`/vehicle/status/steering_status`|`autoware_auto_vehicle_msgs/SteeringReport`|none|`30`|`Reliable`, `Volatile`, `Keep last/1`|
+|vehicle status|`/vehicle/status/turn_indicators_status`|`autoware_auto_vehicle_msgs/TurnIndicatorsReport`|none|`30`|`Reliable`, `Volatile`, `Keep last/1`|
+|vehicle status|`/vehicle/status/hazard_lights_status`|`autoware_auto_vehicle_msgs/HazardLightsReport`|none|`30`|`Reliable`, `Volatile`, `Keep last/1`|
+|vehicle status|`/vehicle/status/velocity_status`|`autoware_auto_vehicle_msgs/VehicleReport`|none|`30`|`Reliable`, `Volatile`, `Keep last/1`|
+
+
+#### Subscriber list
+|category|topic|msg|frame_id|hz|QoS|
+|:--|:--|:--|:--|:--|:--|
+|control|`/control/command/turn_indicators_cmd`|`autoware_auto_vehicle_msgs/TurnIndicatorsCommand`|none|`10`|`Reliable`,<br> `TransientLocal`,<br> `KeepLast/1`|
+|control|`/control/command/hazard_lights_cmd`|`autoware_auto_vehicle_msgs/HazardLightsCommand`|none|`10`|`Reliable`,<br> `TransientLocal`,<br> `KeepLast/1`|
+|control|`/control/command/control_cmd`|`autoware_auto_control_msgs/AckermannControlCommand`|none|`60`|`Reliable`,<br> `TransientLocal`,<br> `KeepLast/1`|
+|control|`/control/command/gear_cmd`|`autoware_auto_vehicle_msgs/GearCommand`|none|`10`|`Reliable`,<br> `TransientLocal`,<br> `KeepLast/1`|
+|control|`/control/command/emergency_cmd`|`tier4_vehicle_msgs/msg/VehicleEmergencyStamped`|none|`60`|`Reliable`,<br> `TransientLocal`,<br> `KeepLast/1`|
+
+
+### Add custom ROS 2 message type
+<!-- TODO needs to be adjusted (70%), this is copied old -->
 
 #### Assumptions
 
@@ -178,41 +217,13 @@ To automate the process, you can use these commands (change `<AWSIM_DIR>` to you
     Get-ChildItem C:\ros2-for-unity\install\asset\Ros2ForUnity\Plugins\Windows\x86_64\* -Include @('<CUSTOM_MSGS_PACKAGE_NAME>*') | Copy-Item -Destination <AWSIM_DIR>\Assets\Ros2ForUnity\Plugins\Windows\x86_64
     ```
 
+### Accessing and filling in message fields
+<!-- TODO (short example - including array) -->
 
-    - Accessing and filling in message fields (short example - including array)
-- RobotecGPULidar (description, reasons for using, hyperlink)
-    - SceneManager Script (description)
+## RobotecGPULidar
+<!-- TODO description, reasons for using, hyperlink -->
+[Robotec GPU Lidar](https://github.com/RobotecAI/RobotecGPULidar) is an open source high performance lidar simulator running on CUDA-enabled GPUs.
+It is used because of the performance benefits (calculations happen on the GPU).
 
-## ROS 2 topic list
-
-The tables of topics AWSIM publishes and subscribes from can be found below.
-The list can be extended by the user for the specific use case.
-To see how to custom messages type for ROS 2, please refer to [Add custom ROS 2 message type](#add-custom-ros-2-message-type) document.
-
-### Publisher list
-|category|topic|msg|frame_id|hz|QoS|
-|:--|:--|:--|:--|:--|:--|
-|clock|`/clock`|`rosgraph_msgs/Clock`|none|`100`|`Best effort`, `Volatile`, `Keep last/1`|
-|camera|`/sensing/camera/traffic_light/camera_info`|`sensor_msgs/CameraInfo`|`traffic_light_left_camera/camera_link`|`10`|`Best effort`, `Volatile`, `Keep last/1`|
-|camera|`/sensing/camera/traffic_light/image_raw`|`sensor_msgs/Image`|`traffic_light_left_camera/camera_link`|`10`|`Best effort`, `Volatile`, `Keep last/1`|
-|gnss|`/sensing/gnss/pose`|`geometry_msgs/Pose`|`gnss_link`|`1`|`Reliable`, `Volatile`, `Keep last/1`|
-|gnss|`/sensing/gnss/pose_with_covariance`|`geometry_msgs/PoseWithCovarianceStamped `|`gnss_link`|`1`|`Reliable`, `Volatile`, `Keep last/1`|
-|imu|`/sensing/imu/tamagawa/imu_raw`|`sensor_msgs/Imu`|`tamagawa/imu_link`|`30`|`Reliable`, `Volatile`, `Keep last/1000`|
-|lidar|`/sensing/lidar/top/pointcloud_raw`|`sensor_msgs/PointCloud2`|`sensor_kit_base_link`|`10`|`Best effort`, `Volatile`, `Keep last/5`|
-|lidar|`/sensing/lidar/top/pointcloud_raw_ex`|`sensor_msgs/PointCloud2`|`sensor_kit_base_link`|`10`|`Best effort`, `Volatile`, `Keep last/5`|
-|vehicle status|`/vehicle/status/control_mode`|`autoware_auto_vehicle_msgs/ControlModeReport`|none|`30`|`Reliable`, `Volatile`, `Keep last/1`|
-|vehicle status|`/vehicle/status/gear_status`|`autoware_auto_vehicle_msgs/GearReport`|none|`30`|`Reliable`, `Volatile`, `Keep last/1`|
-|vehicle status|`/vehicle/status/steering_status`|`autoware_auto_vehicle_msgs/SteeringReport`|none|`30`|`Reliable`, `Volatile`, `Keep last/1`|
-|vehicle status|`/vehicle/status/turn_indicators_status`|`autoware_auto_vehicle_msgs/TurnIndicatorsReport`|none|`30`|`Reliable`, `Volatile`, `Keep last/1`|
-|vehicle status|`/vehicle/status/hazard_lights_status`|`autoware_auto_vehicle_msgs/HazardLightsReport`|none|`30`|`Reliable`, `Volatile`, `Keep last/1`|
-|vehicle status|`/vehicle/status/velocity_status`|`autoware_auto_vehicle_msgs/VehicleReport`|none|`30`|`Reliable`, `Volatile`, `Keep last/1`|
-
-
-### Subscriber list
-|category|topic|msg|frame_id|hz|QoS|
-|:--|:--|:--|:--|:--|:--|
-|control|`/control/command/turn_indicators_cmd`|`autoware_auto_vehicle_msgs/TurnIndicatorsCommand`|none|`10`|`Reliable`,<br> `TransientLocal`,<br> `KeepLast/1`|
-|control|`/control/command/hazard_lights_cmd`|`autoware_auto_vehicle_msgs/HazardLightsCommand`|none|`10`|`Reliable`,<br> `TransientLocal`,<br> `KeepLast/1`|
-|control|`/control/command/control_cmd`|`autoware_auto_control_msgs/AckermannControlCommand`|none|`60`|`Reliable`,<br> `TransientLocal`,<br> `KeepLast/1`|
-|control|`/control/command/gear_cmd`|`autoware_auto_vehicle_msgs/GearCommand`|none|`10`|`Reliable`,<br> `TransientLocal`,<br> `KeepLast/1`|
-|control|`/control/command/emergency_cmd`|`tier4_vehicle_msgs/msg/VehicleEmergencyStamped`|none|`60`|`Reliable`,<br> `TransientLocal`,<br> `KeepLast/1`|
+### SceneManager Script
+<!-- TODO description -->
