@@ -12,4 +12,4 @@ The following steps describe how to run the demo in Unity Editor:
 The following steps describe how to run the AWSIM with Autoware
 
 1. Open and play the default scene as described [above](#open-the-default-scene)
-1. Launch Autoware the same way as [with AWSIM Demo](UserGuide/Installation/AWSIMDemo/#run-with-autoware)
+1. Launch Autoware the same way as [with AWSIM Demo](../../Installation/AWSIMDemo/#run-with-autoware)

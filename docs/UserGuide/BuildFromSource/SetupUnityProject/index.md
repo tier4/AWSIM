@@ -8,14 +8,14 @@ This page is a tutorial for setting up a AWSIM Unity project.
 ## System setup
 
 === "Ubuntu 22"
-    1. Make sure your machine meets the [required hardware specifications](/UserGuide/Installation/Prerequisites/#pc-specs).
+    1. Make sure your machine meets the [required hardware specifications](../../Installation/Prerequisites/#pc-specs).
         - *NOTE: PC requirements may vary depending on simulation contents which may change as the simulator develops*
     2. Prepare a desktop PC with Ubuntu 22.04 installed.
-    2. Install [Nvidia drivers and Vulkan Graphics API](/UserGuide/Installation/AWSIMDemo/#running-the-awsim-simulation-demo).
-    3. Install [git](https://git-scm.com/).
+    3. Install [Nvidia drivers and Vulkan Graphics API](../../Installation/Prerequisites/#linux).
+    4. Install [git](https://git-scm.com/).
 
 === "Windows"
-    1. Make sure your machine meets the [required hardware specifications](/UserGuide/Installation/Prerequisites/#pc-specs).
+    1. Make sure your machine meets the [required hardware specifications](../../Installation/Prerequisites/#pc-specs).
         - *NOTE: PC requirements may vary depending on simulation contents which may change as the simulator develops*
     2. Prepare a desktop PC with Windows 10 or 11 (64 bit) installed.
     3. Install [git](https://git-scm.com/).

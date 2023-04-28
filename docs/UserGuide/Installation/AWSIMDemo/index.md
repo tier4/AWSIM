@@ -1,5 +1,4 @@
 ## Demo configuration
-<!-- copied 100% from old -->
 The simulation provided in the AWSIM demo is configured as follows:
 
 |AWSIM Demo Settings||
@@ -11,9 +10,8 @@ The simulation provided in the AWSIM demo is configured as follows:
 |ROS2|humble|
 
 ## Download and run
-<!-- TODO only copied from old -->
 !!! warning
-    Before following through with this section make sure to check [prerequisites](/UserGuide/Installation/Prerequisites).
+    Before following through with this section make sure to check [prerequisites](../Prerequisites/).
 
 To run the simulator, please follow the steps below.
 
@@ -26,10 +24,7 @@ To run the simulator, please follow the steps below.
 3. Make the `AWSIM_demo.x86_64` file executable.
 
     Rightclick the `AWSIM_demo.x86_64` file and check the `Execute` checkbox
-    <!-- ![Make binary executable gif](demo_executable.gif) -->
     ![Make binary executable gif](demo_executable.gif)
-
-    <!-- ![Make binary executable image](Image_1.png) -->
 
     or execute the command below.
 
@@ -51,7 +46,6 @@ To run the simulator, please follow the steps below.
     ![Running system image](awsim.png)
 
 ## Run with Autoware
-<!-- TODO whole section -->
 
 1. Launch AWSIM like in [section before](#download-and-run)
 

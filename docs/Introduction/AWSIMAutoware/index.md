@@ -3,4 +3,4 @@
 
 ## AWSIM - Autoware connection architecture
 
-[**ROS 2 topics**](/UserGuide/ProjectGuide/ExternalLibraries/#ros-2-topic-list)
+[**ROS 2 topics**](../../UserGuide/ProjectGuide/ExternalLibraries/#ros-2-topic-list)

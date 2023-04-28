@@ -92,7 +92,7 @@ sudo apt install libvulkan1
 ### Install Vulkan Graphics Library
 <!-- TODO -->
 
-## Installing Autoware [70% current Launching Autoware]
+## Installing Autoware
 <!-- TODO copied from old -->
 
 In order to configure and run the Autoware software with the AWSIM demo, please:
