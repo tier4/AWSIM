@@ -50,7 +50,7 @@ To run the simulator, please follow the steps below.
 
     ![Running system image](awsim.png)
 
-## Run with Autoware (**gifs/video**)
+## Run with Autoware
 <!-- TODO whole section -->
 
 1. Launch AWSIM like in [section before](#download-and-run)
