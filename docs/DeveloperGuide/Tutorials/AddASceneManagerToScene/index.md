@@ -33,7 +33,7 @@ There are three possible interaction strategies for obtaining 3D models from Gam
 Below is shown how to select each of them.
 
 ### Only Colliders
-![add_prefab_to_scene](add_prefab_to_scene.gif)
+![scene_manager_only_colliders](scene_manager_only_colliders.gif)
 
 ### Regular Meshes And Colliders Instead Of Skinned
 ![scene_manager_regular_meshes_and_colliders](scene_manager_regular_meshes_and_colliders.gif)
