@@ -225,5 +225,17 @@ To automate the process, you can use these commands (change `<AWSIM_DIR>` to you
 [Robotec GPU Lidar](https://github.com/RobotecAI/RobotecGPULidar) is an open source high performance lidar simulator running on CUDA-enabled GPUs.
 It is used because of the performance benefits (calculations happen on the GPU).
 
+RobotecGPULidar can also perform parallelized point cloud calculations e.g. transformations.
+
 ### SceneManager Script
 <!-- TODO description -->
+Scene Manager is a script responsible for synchronizing model data between Unity and RGL.
+
+SceneManager synchronizes 3D model data in time keeping track of what is changing between frames.
+It obtains 3D models from Game Objects when they are needed and deletes them when they are no longer needed.
+
+This script can obtain 3D model in several different ways from a Game Object:
+
+1. From active colliders in the Game Object
+2. From mesh in the Game Object
+3. From mesh for non-skinned MeshRenderers and from colliders for SkinnedMeshRenderers
