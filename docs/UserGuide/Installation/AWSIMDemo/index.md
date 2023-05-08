@@ -1,13 +1,14 @@
+<!-- DM: tutaj tak, to co czytelnikowi najbardziej potrzebne na samej gorze, mozesz napisac ze demo wspolpracuje humble w "uwaga" i dana wersja Autoware, ale reszta tabelki zjezdza na dol -->
 ## Demo configuration
 The simulation provided in the AWSIM demo is configured as follows:
 
-|AWSIM Demo Settings||
-|:--|:--|
-|Vehicle|Lexus RX 450h|
-|Environment|Japan Tokyo Nishishinjuku|
-|Sensors|Gnss * 1<br> IMU * 1<br> LiDAR * 1<br> Traffic camera * 1|
-|Traffic|Randomized traffic|
-|ROS2|humble|
+| AWSIM Demo Settings |                                                           |
+| :------------------ | :-------------------------------------------------------- |
+| Vehicle             | Lexus RX 450h                                             |
+| Environment         | Japan Tokyo Nishishinjuku                                 |
+| Sensors             | Gnss * 1<br> IMU * 1<br> LiDAR * 1<br> Traffic camera * 1 |
+| Traffic             | Randomized traffic                                        |
+| ROS2                | humble                                                    |
 
 ## Download and run
 !!! warning

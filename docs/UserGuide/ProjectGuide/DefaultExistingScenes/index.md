@@ -1,4 +1,5 @@
 <!-- TODO Add descriptions -->
+<!-- DM: dokladnie, opis krotki do kazdej sceny, plus hyperlinki do opisu komponentu/tutka -->
 ## AutowareSimulation
 AutowareSimulation scene is a scene used for simulating environment in which Autoware is operating.
 It allows for effortless operation with Autoware, simply run this scene, launch Autoware with correct map file and everything should work out of the box.
