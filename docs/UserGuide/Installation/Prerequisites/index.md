@@ -1,14 +1,16 @@
+
+<!-- DM: tutaj na pewno brakuje mi czytelnego rodzielenia linux/windows, na wstepie powinnny byc odnosniki  przenoszace do tej czesci tekstu, jeszcze lepiej jakby udalo sie 'zwinac' wybrana, mysle ze tez lepiej dodawac tutaj jakies bullety zeby to bylo wszystko czytelne bo srednio jest -->
 ### PC specs
 <!-- copied from old -->
 Please make sure that your machine meets the following requirements in order to run the simulation correctly:
 
-|Required PC Specs||
-|:--|:--|
-|OS|Ubuntu 22.04|
-|CPU|6 cores and 12 thread or higher|
-|GPU|RTX2080Ti or higher|
-|Nvidia Driver (Windows)|>=472.50|
-|Nvidia Driver (Ubuntu 22)|>=515.43.04|
+| Required PC Specs         |                                 |
+| :------------------------ | :------------------------------ |
+| OS                        | Ubuntu 22.04                    |
+| CPU                       | 6 cores and 12 thread or higher |
+| GPU                       | RTX2080Ti or higher             |
+| Nvidia Driver (Windows)   | >=472.50                        |
+| Nvidia Driver (Ubuntu 22) | >=515.43.04                     |
 
 ## Linux
 ### Localhost settings

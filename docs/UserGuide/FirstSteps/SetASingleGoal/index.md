@@ -1,3 +1,4 @@
+<!-- DM: gites, mozna dopisac jedynie ze jak nie planuje sie to nalezy sprawdzic czy pojazd ma dobra lokalizacje (czy znajduje sie poprawnie na pasie) a takze czy wgl goal ejst mozliwy do osiagniecia -->
 ## How to set a single goal step by step
 
 1. Click `2D Goal Pose` button

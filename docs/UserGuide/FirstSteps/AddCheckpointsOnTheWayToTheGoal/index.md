@@ -1,3 +1,4 @@
+<!-- DM: mocno gites -->
 ## How to set a checkpoint on the way to goal step by step
 1. Set goal pose as in [Set a single goal](../SetASingleGoal/).
 ![](checkpoint_set_goal.gif)
