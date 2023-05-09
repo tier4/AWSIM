@@ -20,6 +20,7 @@ To see how to custom messages type for ROS2, please refer to [Add custom ROS2 me
 |vehicle status|`/vehicle/status/turn_indicators_status`|`autoware_auto_vehicle_msgs/TurnIndicatorsReport`|none|`30`|`Reliable`, `Volatile`, `Keep last/1`|
 |vehicle status|`/vehicle/status/hazard_lights_status`|`autoware_auto_vehicle_msgs/HazardLightsReport`|none|`30`|`Reliable`, `Volatile`, `Keep last/1`|
 |vehicle status|`/vehicle/status/velocity_status`|`autoware_auto_vehicle_msgs/VehicleReport`|none|`30`|`Reliable`, `Volatile`, `Keep last/1`|
+|ground_truth|`/awsim/ground_truth/vehicle/pose`|`geometry_msgs/PoseStamped`|`base_link`|`100`|`Reliable`, `Volatile`, `Keep last/1`|
 
 
 ## Subscriber list
