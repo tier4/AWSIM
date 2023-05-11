@@ -13,7 +13,7 @@ namespace AWSIM
         Range(1.0f, 100.0f)]
         int outputHz = 10;
 
-        [SerializeField] Transform egoVehicleTransform;
+        public Transform egoVehicleTransform;
 
         private TrafficLight[] allTrafficLights;
 
@@ -33,6 +33,7 @@ namespace AWSIM
         void Start()
         {
             allTrafficLights = GameObject.FindObjectsOfType<TrafficLight>();
+            outputData.trafficLights = new List<TrafficLight>().ToArray();
         }
 
         void FixedUpdate()
@@ -47,9 +48,11 @@ namespace AWSIM
                 return;
             timer = 0;
 
-            outputData.trafficLights = FindClosestTrafficLights(allTrafficLights, egoVehicleTransform.position,
-                egoDistanceToTrafficSignals);
-
+            if (egoVehicleTransform != null)
+            {
+                outputData.trafficLights = FindClosestTrafficLights(allTrafficLights, egoVehicleTransform.position,
+                    egoDistanceToTrafficSignals);
+            }
             OnOutputData.Invoke(outputData);
         }
 
