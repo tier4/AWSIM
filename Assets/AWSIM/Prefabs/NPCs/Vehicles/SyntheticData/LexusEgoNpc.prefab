@@ -213,6 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 5377576352622939982}
   Distance: 5.48
+  Offset: 0
   Height: 2.82
   HeightMultiplier: 0.5
 --- !u!1 &495267323153814775
@@ -784,6 +785,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutputHz: 30
+  EnableGravity: 0
 --- !u!114 &7774964405623368936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1175,10 +1177,9 @@ GameObject:
   - component: {fileID: 3302374478451720441}
   - component: {fileID: 2783141814249331266}
   - component: {fileID: 4489991999923691292}
-  - component: {fileID: 4558800168148733723}
   m_Layer: 6
   m_Name: LexusEgoNpc
-  m_TagString: Untagged
+  m_TagString: Ego
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1270,18 +1271,6 @@ MonoBehaviour:
     lightingIntensity: 0
     lightingColor: {r: 0, g: 0, b: 0, a: 0}
     lightingExposureWeight: 0
---- !u!114 &4558800168148733723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2783141814249331267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9073f5ed6a16f662baf598da0432986d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2907940157626469500
 GameObject:
   m_ObjectHideFlags: 0
@@ -3923,7 +3912,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7800869322880189813, guid: c7276496f3d93284c9ac668faf9a39c6, type: 3}
       propertyPath: field of view
-      value: 89.13409
+      value: 58.746593
       objectReference: {fileID: 0}
     - target: {fileID: 7800869322880189813, guid: c7276496f3d93284c9ac668faf9a39c6, type: 3}
       propertyPath: m_SensorSize.y
