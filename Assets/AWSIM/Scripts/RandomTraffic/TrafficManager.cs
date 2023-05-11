@@ -141,13 +141,15 @@ public class TrafficManager : MonoBehaviour
         // For lane with multiple vehicle spawners - make priorities and spawn one by one.
         foreach (var spawnLoc in spawnLanes)
         {
+            NPCVehicle spawnedVehicle;
+
             if (spawnLoc.Value.Count == 1) {
                 var tsimAndPrefab = spawnLoc.Value.First();
                 var trafficSim = tsimAndPrefab.Key;
                 var prefab = tsimAndPrefab.Value;
                 if (!NPCVehicleSpawner.IsSpawnable(prefab.GetComponent<NPCVehicle>().Bounds, spawnLoc.Key))
                     continue;
-                var spawned = trafficSim.Spawn(prefab, spawnLoc.Key);
+                var spawned = trafficSim.Spawn(prefab, spawnLoc.Key, out spawnedVehicle);
             } 
             else {
                 var priorityTrafficSimList = spawnLoc.Value.OrderByDescending(x => x.Key.GetCurrentPriority());
@@ -157,7 +159,7 @@ public class TrafficManager : MonoBehaviour
                 {
                     continue;
                 }
-                bool spawned = priorityTrafficSimGo.Key.Spawn(prefab, spawnLoc.Key);
+                bool spawned = priorityTrafficSimGo.Key.Spawn(prefab, spawnLoc.Key, out spawnedVehicle);
                 if (spawned) {
                     foreach (var rest in priorityTrafficSimList)
                     {
@@ -165,6 +167,11 @@ public class TrafficManager : MonoBehaviour
                     }
                     priorityTrafficSimGo.Key.ResetPriority();
                 } 
+            }
+
+            if (spawnedVehicle && spawnedVehicle.gameObject.tag == "Ego")
+            {
+                npcVehicleSimulator.EGOVehicle = spawnedVehicle.transform;
             }
         }
         

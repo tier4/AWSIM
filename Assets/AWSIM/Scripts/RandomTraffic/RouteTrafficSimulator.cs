@@ -89,14 +89,16 @@ namespace AWSIM.TrafficSimulation
             spawnPoint = npcVehicleSpawner.GetRandomSpawnPoint();
         }
 
-        public bool Spawn(GameObject prefab, NPCVehicleSpawnPoint spawnPoint)
+        public bool Spawn(GameObject prefab, NPCVehicleSpawnPoint spawnPoint, out NPCVehicle spawnedVehicle)
         {
-            if(IsMaximumSpawnsNumberReached()) { 
+            if(IsMaximumSpawnsNumberReached()) {
+                spawnedVehicle = null; 
                 return false;
             };
 
             if (npcVehicleSimulator.VehicleStates.Count >= npcVehicleSimulator.maxVehicleCount)
             {
+                spawnedVehicle = null; 
                 return false;
             }
 
@@ -107,6 +109,7 @@ namespace AWSIM.TrafficSimulation
             if(maximumSpawns > 0)
                 currentSpawnNumber++;
             
+            spawnedVehicle = vehicle; 
             return true;
         }
 

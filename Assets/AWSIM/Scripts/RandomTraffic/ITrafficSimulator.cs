@@ -13,8 +13,9 @@ public interface ITrafficSimulator
     /// </summary>
     /// <param name="prefab"></param>
     /// <param name="spawnPoint"></param>
+    /// <param name="spawnedVehicle"></param>
     /// <returns>True if spawned, False is failed to spawn.</returns>
-    public bool Spawn(GameObject prefab, NPCVehicleSpawnPoint spawnPoint);
+    public bool Spawn(GameObject prefab, NPCVehicleSpawnPoint spawnPoint, out NPCVehicle spawnedVehicle);
     
     /// <summary>
     /// Gets random spawn point and NPC prefab.
