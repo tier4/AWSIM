@@ -18,7 +18,7 @@ namespace AWSIM.RandomTraffic
         NONE,
         ENTERING_YIELDING_LANE,
         YIELDING,
-        ON_YELDING_LANE
+        ON_YIELDING_LANE
     }
 
     /// <summary>
