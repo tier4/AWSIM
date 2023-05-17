@@ -107,7 +107,7 @@ Adding spawnable lanes is similar to [Adding NPC Prefabs](#add-npc-vehicles).
 
 2. Now you can click on the small icon on the right of the list element and select a Traffic Lane you are interested in.
 
-    <img src="add_traffic_lane2.gif" alt="Select traffic late gif" width="500"/>
+    <img src="add_traffic_lane2.gif" alt="Select traffic lane gif" width="500"/>
 
     Unfortunately all Traffic Lanes have the same names so it can be difficult to know which one to use.
     Alternatively you can do the following to add a traffic lane by visually selecting it in the editor:
@@ -149,6 +149,95 @@ You can specify acceleration rate  of vehicles and three values of deceleration.
     This configuration is common for all vehicles managed by the Random Traffic Simulator Script.
 
 ## Add a TrafficIntersection
+Every Traffic Intersection on the scene needs to be added as a Game Object.
+You can do this the same as with [Random Traffic Simulator](#add-a-random-traffic-simulator-script).
+
+
+### Make sure that TrafficLights have added scripts
+<!-- TODO add hyperlink -->
+
+### Add a box collider
+1. Traffic intersection needs to be marked with a box collider.
+First click on the `Add Component` button
+
+    ![Add box collider gif](traffic_intersection_add_box.gif)
+
+1. In the window that popped up search for `Box Collider` and select it
+
+    ![Search for box collider](box_collider_search.png)
+
+1. Then set the position and orientation and size of the collider box to match the intersection on the scene.
+
+    ![Set traffic intersection size](traffic_intersection_size.png)
+
+### Add a Traffic Intersection Script
+1. Click on the `Add Component` button
+
+    ![Add traffic intersection script gif](add_traffic_intersection.gif)
+
+1. In the window that popped up search for `Traffic Intersection` and select it
+
+    ![Search for traffic intersection script](traffic_intersection_search.png)
+
+1. You need to set a proper collider mask in order for the script to work.
+
+#### Create traffic light groups
+Traffic Light Groups are groups of traffic lights that are synchronized, meaning they light up with the same color and pattern at all times.
+
+Traffic lights are divided into groups to simplify the process of creating a lighting sequence.
+By default you will see 4 Traffic Light Groups, you can add and remove them to suit your needs.
+
+1. First choose from the drop-down menu called `Group` the Traffic Light Group name you want to assign to your Traffic Light Group.
+
+    <!-- ![Traffic intersection add traffic light gif](traffic_intersection_add_traffic_light.gif) -->
+    <img src="traffic_intersection_add_traffic_light.gif" alt="Traffic intersection add traffic light gif" width="600"/>
+
+1. Then add as many Traffic light as you want your group to have and from the drop-down menu select the Traffic lights you want to have
+
+    <!-- ![Traffic intersection add traffic light 2 gif](traffic_intersection_add_traffic_light2.gif) -->
+    <img src="traffic_intersection_add_traffic_light2.gif" alt="Traffic intersection add traffic light 2 gif" width="600"/>
+
+    !!!note
+        If you have a lot of traffic lights you can select them visually from the Scene the same as you had selected Traffic Lanes in the [Random Traffic Simulator](#add-spawnable-lanes)
+
+#### Create lighting sequences
+Lighting Sequences is the list of commands based on which the Traffic Lights will operate on given intersection.
+The elements in the Lighting Sequences list are changes (commands) that will be executed on the Traffic Light Groups.
+
+Group Lighting Order should be interpreted as a command (or order) given to all Traffic Lights in selected Traffic Light Group.
+In Group Lighting Orders you can set different traffic light status for every Traffic Light Group (in separate elements).
+Lighting sequences list is processed in an infinite loop.
+
+It should be noted that changes applied to one Traffic Light Group will remain the same until the next Group Lighting Order is given to this Traffic Light Group.
+This means that if in one Group Lighting Order no command is sent to a Traffic Light Group then this Group will remain its current lighting pattern (color, bulb and status).
+
+For every Lighting Sequences Element you have to specify the following
+
+1. Interval Sec
+
+    This is the time for which the sequence should wait until executing next order, so how long this state will be active.
+
+1. For every element in Group Lighting Orders there needs to be specified
+
+    1. Group to which this order will be applied
+    2. List of orders (Bulb Data)
+
+        In other words - what bulbs should be turned on, their color and pattern.
+        
+        - Type - What type of bulb should be turned on
+        - Color - What color this bulb should have (in most cases this will be the same as color of the bulb if specified)
+        - Status - How the bulb should light up (selecting `SOLID_OFF` is necessary only when you want to turn the Traffic Light completely)
+
+        !!!note
+            When applying the change to a Traffic Light all other bulbs in this Traffic Light are turned off.
+            It is only necessary to supply the data about what bulbs should be turned on.
+            E.g. you don't have to turn off red bulb when turning on the green one for example.
+
+<!-- ![Interval sec param](lighting_orders_element.png) -->
+<img src="lighting_orders_element.png" alt="Interval sec param" width="650"/>
+
+!!!warning
+    The first Element in the Lighting Sequences should contain bulb data for every Traffic Light Group, otherwise Traffic Light Groups not specified will not light up at all.
 
 ## Load StopLines and Trafficlanes from Lanelet
 
