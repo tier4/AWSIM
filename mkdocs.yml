@@ -24,6 +24,7 @@ markdown_extensions:
   - attr_list
 
 nav:
+  - DEVEL TABLE OF CONTENT: dev/index.md
   - Introduction:
     - AWSIM: Introduction/AWSIM/index.md
     - Autoware: Introduction/Autoware/index.md
@@ -59,7 +60,7 @@ nav:
       - Vehicle: UserGuide/Components/Vehicle/index.md
       - Sensors: UserGuide/Components/Sensors/index.md
       - NPCs: UserGuide/Components/NPCs/index.md
-  - Developer Guide:
+  - Developer guide:
     - Tutorials:
       - Add a new Environment: DeveloperGuide/Tutorials/AddANewEnvironment/index.md
       - Add a new Scene: DeveloperGuide/Tutorials/AddANewScene/index.md
