@@ -81,5 +81,6 @@ For the best possible representation
 ### Add NPCPedestrians
 
 ### Add a RandomTraffic
+For information about how to add a Random Traffic to a scene please visit [this section](../AddARandomTrafficToScene/)
 
 ## Create a PCD from Mesh
