@@ -44,10 +44,10 @@
 
 ### Developer guide
 - Tutorials
-    - <a href="../DeveloperGuide/Tutorials/AddANewEnvironment/" style="color:red;">Add a new Environment</a>
-    - <a href="../DeveloperGuide/Tutorials/AddANewScene/" style="color:red;">Add a new Scene</a>
-    - <a href="../DeveloperGuide/Tutorials/AddASceneManagerToScene/" style="color:orange;">Add a SceneManager to scene</a>
-    - <a href="../DeveloperGuide/Tutorials/AddARandomTrafficToScene/" style="color:orange;">Add a RandomTraffic to scene</a>
+    - <a href="../DeveloperGuide/Tutorials/AddANewEnvironment/" style="color:orange;">Add a new Environment</a> last update: 19.05
+    - <a href="../DeveloperGuide/Tutorials/AddANewScene/" style="color:red;">Add a new Scene</a> 
+    - <a href="../DeveloperGuide/Tutorials/AddASceneManagerToScene/" style="color:orange;">Add a SceneManager to scene</a> last update 19.05
+    - <a href="../DeveloperGuide/Tutorials/AddARandomTrafficToScene/" style="color:orange;">Add a RandomTraffic to scene</a> last update 19.05
     - <a href="../DeveloperGuide/Tutorials/AddANewVehicle/" style="color:red;">Add a new Vehicle</a>
     - <a href="../DeveloperGuide/Tutorials/AddANewLiDARModel/" style="color:red;">Add a new LiDAR model</a>
 - <a href="../DeveloperGuide/API/" style="color:red;">API</a>

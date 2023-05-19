@@ -48,28 +48,27 @@ Add en Environment Script into an Environment Object which should be a child of 
 
     ![Search for environment script](search_environment_script.png)
 
-1. Set the MGRS offset position
+1. Set the MGRS offset position to the global coordinates in which models are created
 
-    - To what is your offset position navigate to your osm file containing the lanelet
-    - Open it and find the first `<node>` tag, it should look something like this
+    ![environment mgrs](environment_mgrs.png)
 
-        ```xml
-        <node id="4" lat="35.68855194431519" lon="139.69142711058254">
-            <tag k="mgrs_code" v="54SUE815501"/>
-            <tag k="local_x" v="81596.1357"/>
-            <tag k="local_y" v="50194.0803"/>
-            <tag k="ele" v="34.137"/>
-        </node>
-        ```
+1. For the Traffic Lanes to be positioned accurately you also need to set a positive 90 degree rotation over Y axis to an Environment Object
 
-    - From this data copy
-        - `local_x` value to Mgrs Offset Position X
-        - `local_y` value to Mgrs Offset Position Y
-        - `ele` value to Mgrs Offset Position Z
-        - All the letters and *only* letters from the beginning of the `mgrs_code` value to Mgrs Grid Zone
+    ![environment transformation](environment_transformation.png)
 
+### Localization information
+In AWSIM all objects are located with their real world coordinates.
+This way the real world is represented accurately.
+
+When adding some static element to your scene that is a part of the world (like 3D models of buildings, traffic lights etc.) it is a good practice to aggregate them in one parent Object called `Map` or something similar.
+
+Then you can set a transformation of the parent Object `Map` to adjust the world position in reference to loaded Traffic Lanes from lanelet.
 
 ### Add roads, buildings, greenery, signs, road markings…
+!!!important
+    When adding static elements that belong to a certain map remember to add them to a Map Object as explained [here](#localization-information).
+
+For the best possible representation 
 
 ### Add Traffic Lights
 
