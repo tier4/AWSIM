@@ -179,7 +179,9 @@ First click on the `Add Component` button
 
     ![Search for traffic intersection script](traffic_intersection_search.png)
 
-1. You need to set a proper collider mask in order for the script to work.
+1. You need to set a proper Collider Mask in order for the script to work.
+
+    ![Set collider mask](traffic_intersection_collider_mask.png)
 
 #### Create traffic light groups
 Traffic Light Groups are groups of traffic lights that are synchronized, meaning they light up with the same color and pattern at all times.
@@ -192,13 +194,15 @@ By default you will see 4 Traffic Light Groups, you can add and remove them to s
     <!-- ![Traffic intersection add traffic light gif](traffic_intersection_add_traffic_light.gif) -->
     <img src="traffic_intersection_add_traffic_light.gif" alt="Traffic intersection add traffic light gif" width="600"/>
 
-1. Then add as many Traffic light as you want your group to have and from the drop-down menu select the Traffic lights you want to have
+1. Then add as many Traffic Lights as you want your group to have.
+From the drop-down menu select the Traffic Lights you want to add.
 
     <!-- ![Traffic intersection add traffic light 2 gif](traffic_intersection_add_traffic_light2.gif) -->
     <img src="traffic_intersection_add_traffic_light2.gif" alt="Traffic intersection add traffic light 2 gif" width="600"/>
 
     !!!note
-        If you have a lot of traffic lights you can select them visually from the Scene the same as you had selected Traffic Lanes in the [Random Traffic Simulator](#add-spawnable-lanes)
+        If you have a lot of Traffic Lights it can be challenging to add them from the list.
+        You can select them visually from the Scene the same as you had selected Traffic Lanes in the [Random Traffic Simulator](#add-spawnable-lanes).
 
 #### Create lighting sequences
 Lighting Sequences is the list of commands based on which the Traffic Lights will operate on given intersection.
@@ -229,15 +233,43 @@ For every Lighting Sequences Element you have to specify the following
         - Status - How the bulb should light up (selecting `SOLID_OFF` is necessary only when you want to turn the Traffic Light completely)
 
         !!!note
-            When applying the change to a Traffic Light all other bulbs in this Traffic Light are turned off.
-            It is only necessary to supply the data about what bulbs should be turned on.
-            E.g. you don't have to turn off red bulb when turning on the green one for example.
+            When applying the change to a Traffic Light
 
-<!-- ![Interval sec param](lighting_orders_element.png) -->
-<img src="lighting_orders_element.png" alt="Interval sec param" width="650"/>
+            - First all bulbs are turned off
+            - Only after that changes made in the order are applied
+
+            This means it is only necessary to supply the data about what bulbs should be turned on.
+            E.g. you don't have to turn off a red bulb when turning on the green one.
 
 !!!warning
-    The first Element in the Lighting Sequences should contain bulb data for every Traffic Light Group, otherwise Traffic Light Groups not specified will not light up at all.
+    The first Element in the Lighting Sequences (in most cases) should contain bulb data for every Traffic Light Group.
+    Traffic Light Groups not specified in the first Element will not light up at the beginning of the scene.
+
+##### Example
+In the Lighting Sequence Element 5 presented below we tell all Traffic Lights in the Vehicle Traffic Light Group 2 to light up their Green Bulb with the color Green and status Solid On which means that they will be turned on all the time.
+We also implicitly tell them to turn all other Bulbs off.
+
+In the same time we tell all Traffic Lights in the Pedestrian Traffic Light Group 2 to do the very same thing.
+
+This state will be active for the next 15 seconds, and after that Traffic Intersection will move to the next Element in the Sequence.
+
+<!-- It should now be clear that Vehicle Traffic Light Group 2 and Pedestrian Traffic Light Group 2 are pointed towards pedestrians and vehicles moving in the same direction. -->
+
+![Example Group Lighting Orders](traffic_intersecton_example_sequence_element.png)
+
+Lets consider the following Lighting Sequences Element 6.
+Here we order the Traffic Lights in the Pedestrian Traffic Light Group 2 to light up their Green Bulb with the color Green and status Flashing.
+We also implicitly tell them to turn all other bulbs off, which were already off from the implicit change in Element 5, so this effectively does nothing.
+
+Note that Lighting Sequences Element 6 has no orders for Vehicle Traffic Light Group 2.
+This means that Traffic Light in the Vehicle Traffic Light Group 2 will hold on to their earlier orders.
+
+This state will be active for 5 seconds, which means that Traffic Lights in the Vehicle Traffic Light Group 2 will be lighting solid green for the total of 20 seconds.
+
+![Example Group Lighting Order 2](traffic_intersecton_example_sequence_element2.png)
+
+<!-- ![Interval sec param](lighting_orders_element.png) -->
+<!-- <img src="lighting_orders_element.png" alt="Interval sec param" width="650"/> -->
 
 ## Load StopLines and Trafficlanes from Lanelet
 
