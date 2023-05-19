@@ -152,9 +152,8 @@ You can specify acceleration rate  of vehicles and three values of deceleration.
     This configuration is common for all vehicles managed by the Random Traffic Simulator Script.
 
 ## Load StopLines and Trafficlanes from Lanelet
-<!-- TODO add hyperlink to script with MGRS -->
 !!!warning
-    Before following this tutorial make sure you have added an Environment Script
+    Before following this tutorial make sure you have added an [Environment Script](../AddANewEnvironment/#add-a-environment-script) and set a proper MGRS data.
 
 1. Click on the `AWSIM` button in the top menu of the Unity editor and navigate to `AWSIM -> Random Traffic -> Load Lanelet`
 
