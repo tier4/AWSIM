@@ -42,16 +42,19 @@
 
 ## Add a Random Traffic Simulator Script
 To add a Random Traffic to your scene you need the Random Traffic Simulator Script.
-To add it to your scene create a new Game Object and call it `RandomTrafficSimulator` with optional prefix or suffix indicating for which location it is created.
-![create_random_traffic_simulator](create_random_traffic_simulator.gif)
 
-Then click a button `Add Component` in the `Inspector` to add a script
-![add_component_random_traffic_simulator](add_component_random_traffic_simulator.gif)
+1. Create a new Game Object as a child of `Environment` and call it `RandomTrafficSimulator`.
 
-A small window should pop-up.
+    ![create_random_traffic_simulator](add_random_traffic_simulator.gif)
+
+1. Click a button `Add Component` in the `Inspector` to add a script
+
+    ![add_component_random_traffic_simulator](add_component_random_traffic_simulator.gif)
+
+1. A small window should pop-up.
 Search for `RandomTrafficSimulator` script and add it by double clicking it or by pressing enter.
 
-![add_component_random_traffic_simulator](add_component_random_traffic_simulator.png)
+    ![add_component_random_traffic_simulator](add_component_random_traffic_simulator.png)
 
 ### Basic Configuration
 After clicking on the newly created `RandomTrafficSimulator` object in the Scene tree you should see something like this in the `Inspector` view
@@ -148,15 +151,41 @@ You can specify acceleration rate  of vehicles and three values of deceleration.
 !!!note
     This configuration is common for all vehicles managed by the Random Traffic Simulator Script.
 
-## Add a TrafficIntersection
-Every Traffic Intersection on the scene needs to be added as a Game Object.
-You can do this the same as with [Random Traffic Simulator](#add-a-random-traffic-simulator-script).
+## Load StopLines and Trafficlanes from Lanelet
+<!-- TODO add hyperlink to script with MGRS -->
+!!!warning
+    Before following this tutorial make sure you have added an Environment Script
 
+1. Click on the `AWSIM` button in the top menu of the Unity editor and navigate to `AWSIM -> Random Traffic -> Load Lanelet`
+
+    ![load lanelet gif](load_lanelet.gif)
+
+2. In the window that pops-up select your osm file, change some Waypoint Settings to suit your needs and click `Load`
+
+    ![load lanelet gif](load_lanelet2.gif)
+
+    Waypoint Settings explanation:
+
+    - Resolution: resolution of resampling. Lower values provide better accuracy at the cost of processing time
+    - Min Delta Length: minimum length(m) between adjacent points
+    - Min Delta Angle: minimum angle(deg) between adjacent edges. Lowering this value produces a smoother curve
+
+3. Traffic Lanes and Stop Lanes should occur in the Hierarchy view.
+If they appear somewhere else in your Hierarchy tree, then move them into the `Environment` object
+
+## Complete loaded TrafficLanes
+<!-- TODO -->
+
+## Add a Traffic Intersection
+Every Traffic Intersection on the scene needs to be added as a Game Object.
+Best practice is to create a parent object `TrafficIntersections` and add all instances of Traffic Intersection as its children.
+You can do this the same as with [Random Traffic Simulator](#add-a-random-traffic-simulator-script).
 
 ### Make sure that TrafficLights have added scripts
 <!-- TODO add hyperlink -->
 
 ### Add a box collider
+<!-- TODO add guidelines -->
 1. Traffic intersection needs to be marked with a box collider.
 First click on the `Add Component` button
 
@@ -167,13 +196,14 @@ First click on the `Add Component` button
     ![Search for box collider](box_collider_search.png)
 
 1. Then set the position and orientation and size of the collider box to match the intersection on the scene.
+You can do this by manipulating Box Collider properties `Center` and `Size` in the Inspector view.
 
     ![Set traffic intersection size](traffic_intersection_size.png)
 
 ### Add a Traffic Intersection Script
 1. Click on the `Add Component` button
 
-    ![Add traffic intersection script gif](add_traffic_intersection.gif)
+    ![Add traffic intersection script gif](traffic_intersection_add_script.gif)
 
 1. In the window that popped up search for `Traffic Intersection` and select it
 
@@ -271,12 +301,11 @@ This state will be active for 5 seconds, which means that Traffic Lights in the 
 <!-- ![Interval sec param](lighting_orders_element.png) -->
 <!-- <img src="lighting_orders_element.png" alt="Interval sec param" width="650"/> -->
 
-## Load StopLines and Trafficlanes from Lanelet
-
-## Complete loaded TrafficLanes
-
 ## How to test
+<!-- TODO -->
 
 ## Add a StopLine manually
+<!-- TODO -->
 
 ## Add a TrafficLane manually
+<!-- TODO -->
