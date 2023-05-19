@@ -1,0 +1,22 @@
+{
+    "mapConfiguration": {
+        "mapName": "Shinjuku"
+    },
+    "simulationConfiguration": {
+        "useTraffic": true,
+        "timeScale": 0.6
+    },
+    "egoConfiguration": {
+        "egoVehicleName": "Lexus RX450h 2015 Sample Sensor",
+        "egoPosition": {
+            "x": 81380.7265625,
+            "y": 49918.7890625,
+            "z": 41.57674865722656
+        },
+        "egoEulerAngles": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 35.0
+        }
+    }
+}

@@ -5,7 +5,17 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/AWSIM/Scenes/Main/AutowareSimulation.unity
     guid: 9a19a6429a390f1428320cff9d4e1f10
+  - enabled: 1
+    path: Assets/AWSIM/Scenes/Composition/LoaderScene.unity
+    guid: 761c14fff098a9f788c5e2d5c78c8518
+  - enabled: 1
+    path: Assets/AWSIM/Scenes/Composition/AWSIMSimulation.unity
+    guid: e9f7d82634334d139a608a94a9a49117
+  - enabled: 1
+    path: Assets/AWSIM/Scenes/Composition/Shinjuku.unity
+    guid: 51cd051db4a340ee3af1d999dbbfcc36
   m_configObjects: {}
+  

@@ -11,6 +11,8 @@ namespace AWSIM
         [SerializeField] Slider timeScaleSlider;
         [SerializeField] Text versionText;
 
+        public Slider TimeScaleSlider => timeScaleSlider;
+
         private void Start()
         {
             timeScaleText.text = "x " + timeScaleSlider.value.ToString("F2");
