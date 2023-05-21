@@ -3,76 +3,77 @@ site_name: AWSIM document
 repo_url: https://github.com/tier4/AWSIM
 
 theme:
-  name: material
-  palette:
-    primary: indigo
-  features:
-    - navigation.sections
-    # - navigation.indexes  # adds section index pages
-    - navigation.footer
-    - content.tabs.link
-  icon:
-    repo: fontawesome/brands/github
+        name: material
+        palette:
+                primary: indigo
+        features:
+                - navigation.sections
+                # - navigation.indexes  # adds section index pages
+                - navigation.footer
+                - content.tabs.link
+        icon:
+                repo: fontawesome/brands/github
 
 markdown_extensions:
-  - tables
-  - admonition
-  - pymdownx.superfences
-  - pymdownx.details
-  - pymdownx.tabbed:
-      alternate_style: true
-  - attr_list
+        - tables
+        - admonition
+        - pymdownx.superfences
+        - pymdownx.details
+        - pymdownx.tabbed:
+                  alternate_style: true
+        - attr_list
 
 nav:
-  - DEVEL TABLE OF CONTENT: dev/index.md
-  - Introduction:
-    - AWSIM: Introduction/AWSIM/index.md
-    - Autoware: Introduction/Autoware/index.md
-    - AWSIM & Autoware:
-      - AWSIM & Autoware: Introduction/AWSIMAutoware/index.md
-      - Features: Introduction/AWSIMAutoware/Features/index.md
-    - AWSIM & Autoware & Scenario simulator v2:
-      - AWSIM & Autoware & Scenario simulator v2: Introduction/AWSIMAutowareScenarioSimulatorV2/index.md
-      - Features: Introduction/AWSIMAutowareScenarioSimulatorV2/Features/index.md
-  - User guide:
-    - Installation:
-      - Prerequisites: UserGuide/Installation/Prerequisites/index.md
-      - AWSIM Demo: UserGuide/Installation/AWSIMDemo/index.md
-      - Troubleshooting: UserGuide/Installation/Troubleshooting/index.md
-    - First steps:
-      - Set the initialization position: UserGuide/FirstSteps/SetTheInitializationPosition/index.md
-      - Set a single goal: UserGuide/FirstSteps/SetASingleGoal/index.md
-      - Add checkpoints on the way to the goal: UserGuide/FirstSteps/AddCheckpointsOnTheWayToTheGoal/index.md
-      - Enable self-driving: UserGuide/FirstSteps/EnableSelf-driving/index.md
-    - Build from source: 
-      - Prerequisites: UserGuide/BuildFromSource/Prerequisites/index.md
-      - Unity installation: UserGuide/BuildFromSource/UnityInstallation/index.md
-      - Setup Unity Project: UserGuide/BuildFromSource/SetupUnityProject/index.md
-      - Run AWSIM scene: UserGuide/BuildFromSource/RunAWSIMScene/index.md
-    - Project guide:
-      - Project guide: UserGuide/ProjectGuide/index.md
-      - Default existing scenes: UserGuide/ProjectGuide/DefaultExistingScenes/index.md
-      - Directory structure: UserGuide/ProjectGuide/DirectoryStructure/index.md
-      - External Libraries: UserGuide/ProjectGuide/ExternalLibraries/index.md
-    - Components:
-      - Environment: UserGuide/Components/Environment/index.md
-      - Random Traffic Simulator: UserGuide/Components/RandomTrafficSimulator/index.md
-      - Vehicle: UserGuide/Components/Vehicle/index.md
-      - Sensors: UserGuide/Components/Sensors/index.md
-      - NPCs: UserGuide/Components/NPCs/index.md
-  - Developer guide:
-    - Tutorials:
-      - Add a new Environment: DeveloperGuide/Tutorials/AddANewEnvironment/index.md
-      - Add a new Scene: DeveloperGuide/Tutorials/AddANewScene/index.md
-      - Add a SceneManager to scene: DeveloperGuide/Tutorials/AddASceneManagerToScene/index.md
-      - Add a RandomTraffic to scene: DeveloperGuide/Tutorials/AddARandomTrafficToScene/index.md
-      - Add a new Vehicle: DeveloperGuide/Tutorials/AddANewVehicle/index.md
-      - Add a new LiDAR model: DeveloperGuide/Tutorials/AddANewLiDARModel/index.md
-    - API: DeveloperGuide/API/index.md
-    - Contributing:
-      - Git Branch: DeveloperGuide/Contributing/GitBranch/index.md
-      - How to Contribute: DeveloperGuide/Contributing/HowToContribute/index.md
-    - Documentation generation: DeveloperGuide/DocumentationGeneration/index.md
-    - Trouble shooting: DeveloperGuide/TroubleShooting/index.md
-  - License: License/index.md
-  - Contact: Contact/index.md
+        - DEVEL TABLE OF CONTENT: dev/index.md
+        - Introduction:
+                  - AWSIM: Introduction/AWSIM/index.md
+                  - Autoware: Introduction/Autoware/index.md
+                  - AWSIM & Autoware:
+                            - AWSIM & Autoware: Introduction/AWSIMAutoware/index.md
+                            - Features: Introduction/AWSIMAutoware/Features/index.md
+                  - AWSIM & Autoware & Scenario simulator v2:
+                            - AWSIM & Autoware & Scenario simulator v2: Introduction/AWSIMAutowareScenarioSimulatorV2/index.md
+                            - Features: Introduction/AWSIMAutowareScenarioSimulatorV2/Features/index.md
+        - User guide:
+                  - Installation:
+                            - Prerequisites: UserGuide/Installation/Prerequisites/index.md
+                            - Run demo: UserGuide/Installation/RunDemo/index.md
+                            - Troubleshooting: DeveloperGuide/TroubleShooting/index.md
+                  - First steps:
+                            - Set the initialization position: UserGuide/FirstSteps/SetTheInitializationPosition/index.md
+                            - Set a single goal: UserGuide/FirstSteps/SetASingleGoal/index.md
+                            - Add checkpoints on the way to the goal: UserGuide/FirstSteps/AddCheckpointsOnTheWayToTheGoal/index.md
+                            - Enable self-driving: UserGuide/FirstSteps/EnableSelf-driving/index.md
+                  - Build from source:
+                            - Prerequisites: UserGuide/BuildFromSource/Prerequisites/index.md
+                            - Unity installation: UserGuide/BuildFromSource/UnityInstallation/index.md
+                            - Setup Unity Project: UserGuide/BuildFromSource/SetupUnityProject/index.md
+                            - Run scene: UserGuide/BuildFromSource/RunScene/index.md
+                            - Troubleshooting: DeveloperGuide/TroubleShooting/index.md
+                  - Project guide:
+                            - Project guide: UserGuide/ProjectGuide/index.md
+                            - Default existing scenes: UserGuide/ProjectGuide/DefaultExistingScenes/index.md
+                            - Directory structure: UserGuide/ProjectGuide/DirectoryStructure/index.md
+                            - External Libraries: UserGuide/ProjectGuide/ExternalLibraries/index.md
+                  - Components:
+                            - Environment: UserGuide/Components/Environment/index.md
+                            - Random Traffic Simulator: UserGuide/Components/RandomTrafficSimulator/index.md
+                            - Vehicle: UserGuide/Components/Vehicle/index.md
+                            - Sensors: UserGuide/Components/Sensors/index.md
+                            - NPCs: UserGuide/Components/NPCs/index.md
+        - Developer guide:
+                  - Tutorials:
+                            - Add a new Environment: DeveloperGuide/Tutorials/AddANewEnvironment/index.md
+                            - Add a new Scene: DeveloperGuide/Tutorials/AddANewScene/index.md
+                            - Add a SceneManager to scene: DeveloperGuide/Tutorials/AddASceneManagerToScene/index.md
+                            - Add a RandomTraffic to scene: DeveloperGuide/Tutorials/AddARandomTrafficToScene/index.md
+                            - Add a new Vehicle: DeveloperGuide/Tutorials/AddANewVehicle/index.md
+                            - Add a new LiDAR model: DeveloperGuide/Tutorials/AddANewLiDARModel/index.md
+                  - API: DeveloperGuide/API/index.md
+                  - Contributing:
+                            - Git Branch: DeveloperGuide/Contributing/GitBranch/index.md
+                            - How to Contribute: DeveloperGuide/Contributing/HowToContribute/index.md
+                  - Documentation generation: DeveloperGuide/DocumentationGeneration/index.md
+                  - Trouble shooting: DeveloperGuide/TroubleShooting/index.md
+        - License: License/index.md
+        - Contact: Contact/index.md

@@ -1,70 +1,56 @@
 <!-- TODO update link, but idk what should it point to, because what was once one page now is like 2 sections full of pages -->
-!!! info
 
-    It is advised to checkout the [Quick Start Demo](../QuickStartDemo) tutorial before reading this section.
 
-This page is a tutorial for setting up a AWSIM Unity project.
+# Prerequisites
 
-## System setup
+!!! tip
 
-=== "Ubuntu 22"
-    1. Make sure your machine meets the [required hardware specifications](../../Installation/Prerequisites/#pc-specs).
-        - *NOTE: PC requirements may vary depending on simulation contents which may change as the simulator develops*
-    2. Prepare a desktop PC with Ubuntu 22.04 installed.
-    3. Install [Nvidia drivers and Vulkan Graphics API](../../Installation/Prerequisites/#linux).
-    4. Install [git](https://git-scm.com/).
+    It is advised to checkout the [Run Demo](../../Installation/RunDemo) tutorial before reading this section.
 
-=== "Windows"
-    1. Make sure your machine meets the [required hardware specifications](../../Installation/Prerequisites/#pc-specs).
-        - *NOTE: PC requirements may vary depending on simulation contents which may change as the simulator develops*
-    2. Prepare a desktop PC with Windows 10 or 11 (64 bit) installed.
-    3. Install [git](https://git-scm.com/).
+Before following through with this section make sure to check [prerequisites](../Prerequisites/) and install *Unity* in accordance with section [Unity installation](../UnityInstallation/).
 
-## Open AWSIM project
 
-To open the Unity AWSIM project in Unity Editor:
+# Setup AWSIM Unity project
 
-1. Make sure you have the AWSIM repository cloned
+To setup the *AWSIM* project in *Unity* *Editor*:
+
+1. Clone the *AWSIM* repository by executing the following command in the terminal:
     ```
     git clone git@github.com:tier4/AWSIM.git
     ```
 
-1. Launch UnityHub.
+1. Download `Japan_Tokyo_Nishishinjuku.unitypackage`
+    [Download Map files (unitypackage)](https://github.com/tier4/AWSIM/releases/download/v1.1.0/Japan_Tokyo_Nishishinjuku.unitypackage){.md-button .md-button--primary}
+   
+    !!! info
 
-1. Open the project in UnityHub
-    - Click the `Open` button in Unity Hub
+        The Externals directory is added to the `.gitignore` because the map has a large file size and should not be directly uploaded to the repository.
+
+1. Launch *UnityHub*.
+
+1. Open the project in *UnityHub*
+    - Click the `Open` button in Unity Hub:
 ![](open_unity_project1.gif)
 
-    - Navigate the directory where the AWSIM repository was cloned to, select it and click `Open` in file explorer
+    - Navigate the directory where the AWSIM repository was cloned to, select it and click `Open` in file explorer:
 ![](open_unity_project2.gif)
 
-    - The project should open automatically, if it doesn't it still should be added to `Projects` tab in Unity Hub. To launch the project in Unity Editor simply click the `AWSIM` item
+    - The project should open automatically, if it doesn't it still should be added to `Projects` tab in Unity Hub. To launch the project in Unity Editor simply click the `AWSIM` item:
 ![](launch_unity_project.gif)
 
-    - The project is now ready to use
-![](opened_project.png)
+    !!! tip
 
-!!! warning
+        If you get the safe mode dialog when starting *UnityEditor*, you may need to install openssl.
 
-    If you get the safe mode dialog when starting UnityEditor, you may need to install openssl.
+        1. Download *libssl*:
+        `$ wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.11_amd64.deb`
+        2. Install it:  
+        `sudo dpkg -i libssl1.0.0_1.0.2n-1ubuntu5.11_amd64.deb`
 
-    1. download libssl  
-    `$ wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.11_amd64.deb`
-    2. install  
-    `sudo dpkg -i libssl1.0.0_1.0.2n-1ubuntu5.11_amd64.deb`
-
-## Import external packages
-
-To properly run and use AWSIM project in Unity it is required to download map package which is not included in the repository.
-
-1. Download `Japan_Tokyo_Nishishinjuku.unitypackage`
-
-    [Download Map files (unitypackage)](https://github.com/tier4/AWSIM/releases/download/v1.1.0/Japan_Tokyo_Nishishinjuku.unitypackage){.md-button .md-button--primary}
-
-1. In Unity Editor, from the menu bar at the top, select `Assets -> Import Package -> Custom Package...`
+1. In the open project, from the menu bar at the top, select `Assets -> Import Package -> Custom Package...`
 ![](import_unity_package1.gif)
 
-1. Navigate the `Japan_Tokyo_Nishishinjuku.unitypackage` file and open it
+1. Navigate the to downloaded `Japan_Tokyo_Nishishinjuku.unitypackage` file and open it
 ![](import_unity_package2.gif)
 
 1. In import window that appeared click the `Import` button to confirm and wait for the process to finish.
@@ -73,6 +59,9 @@ To properly run and use AWSIM project in Unity it is required to download map pa
 1. `Nishishinjuku` package has been successfully imported under `Assets/AWSIM/Externals/`directory.
 ![](externals_dir.png)
 
-!!! info
+!!! success
+    The project is now ready to use. Now you can proceed to the next step [Run Scene](../RunScene/).
 
-    The Externals directory is added to the `.gitignore` because the map has a large file size and should not be directly uploaded to the repository.
+
+
+
