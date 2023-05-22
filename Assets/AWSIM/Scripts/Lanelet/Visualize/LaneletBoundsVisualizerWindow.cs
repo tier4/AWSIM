@@ -16,25 +16,24 @@ using AWSIM.Lanelet;
 using UnityEditor;
 using UnityEngine;
 
-namespace AWSIM.RandomTraffic
+namespace AWSIM.Lanelet
 {
-    public class LaneletBoundsLoaderWindow : EditorWindow
+    public class LaneletBoundsVisualizerWindow : EditorWindow
     {
         [SerializeField] private OsmDataContainer osm;
-        [SerializeField] private LaneletBoundsLoader.WaypointSettings waypointSettings = LaneletBoundsLoader.WaypointSettings.Default();
+        [SerializeField] private LaneletBoundsVisualizer.WaypointSettings waypointSettings = LaneletBoundsVisualizer.WaypointSettings.Default();
         private SerializedObject serializedObject;
 
-        [MenuItem("AWSIM/Random Traffic/Load Lanelet Bounds")]
+        [MenuItem("AWSIM/Visualize/Load Lanelet Bounds")]
         private static void ShowWindow()
         {
-            var window = GetWindow(typeof(LaneletBoundsLoaderWindow), true, "LaneletBoundsLoader");
+            var window = GetWindow(typeof(LaneletBoundsVisualizerWindow), true, "LaneletBoundsVisualizer");
             window.Show();
         }
 
         private void OnEnable()
         {
             serializedObject = new SerializedObject(this);
-
         }
 
         private void OnGUI()
@@ -50,12 +49,21 @@ namespace AWSIM.RandomTraffic
 
             serializedObject.ApplyModifiedProperties();
 
-            if (GUILayout.Button("Load"))
+            if (GUILayout.Button("Load with Waypoint Setting"))
             {
                 var referencePoint = Environment.Instance.MgrsOffsetPosition;
-                var loader = new LaneletBoundsLoader();
+                var loader = new LaneletBoundsVisualizer();
                 loader.SetWaypointSettings(waypointSettings);
-                loader.Load(osm.Data, referencePoint, Environment.Instance.gameObject);
+
+                loader.Load(osm.Data, referencePoint, Environment.Instance.gameObject, false);
+            }
+            else if (GUILayout.Button("Load Raw Data"))
+            {
+                var referencePoint = Environment.Instance.MgrsOffsetPosition;
+                var loader = new LaneletBoundsVisualizer();
+                loader.SetWaypointSettings(waypointSettings);
+
+                loader.Load(osm.Data, referencePoint, Environment.Instance.gameObject, true);
             }
         }
     }
