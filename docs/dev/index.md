@@ -19,7 +19,7 @@
 - Installation
     - <a href="../UserGuide/Installation/Prerequisites/" style="color:orange;">Prerequisites</a> (last update: 19.05 - it remained to complete the case for *Windows*) <!--D-->
     - <a href="../UserGuide/Installation/RunDemo/" style="color:green;">Run demo</a> (last update: 19.05) <!--D-->
-    - <a href="../UserGuide/Installation/Troubleshooting/" style="color:green;">Troubleshooting</a> (last update: 19.05) <!--D-->
+    - <a href="../DeveloperGuide/TroubleShooting/" style="color:green;">Troubleshooting</a> (last update: 19.05) <!--D-->
 - First steps
     - <a href="../UserGuide/FirstSteps/SetTheInitializationPosition/" style="color:orange;">Set the initialization position</a> (last update: 08.05) 
     - <a href="../UserGuide/FirstSteps/SetASingleGoal/" style="color:orange;">Set a single goal</a>  (last update: 08.05) 
@@ -30,6 +30,7 @@
     - <a href="../UserGuide/BuildFromSource/UnityInstallation/" style="color:green;">Unity installation</a> (last update: 19.05) <!--D-->
     - <a href="../UserGuide/BuildFromSource/SetupUnityProject/" style="color:green;">Setup Unity Project</a> (last update: 19.05) <!--D-->
     - <a href="../UserGuide/BuildFromSource/RunScene/" style="color:green;">Run scene</a> (last update: 19.05) <!--D-->
+    - <a href="../DeveloperGuide/TroubleShooting/" style="color:green;">Troubleshooting</a> (last update: 19.05) <!--D-->
 - Project guide
     - <a href="../UserGuide/ProjectGuide/" style="color:red;">Project guide</a>
     - <a href="../UserGuide/ProjectGuide/DefaultExistingScenes/" style="color:orange;">Default existing scenes</a> (last update: 08.05) 
