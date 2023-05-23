@@ -34,7 +34,7 @@ namespace RGLUnityPlugin
         public static LidarConfiguration RangeMeter => new LidarConfiguration
         {
             laserArray = LaserArray.Uniform(-0.0f, 0.0f, 1),
-            horizontalSteps = 1,
+            horizontalResolution = 1.0f,
             minHAngle = -0,
             maxHAngle = 0,
             maxRange = 40,
@@ -44,7 +44,7 @@ namespace RGLUnityPlugin
         public static LidarConfiguration SickMRS6000 => new LidarConfiguration
         {
             laserArray = LaserArray.Uniform(-15f, 1.5f, 24),
-            horizontalSteps = 924,
+            horizontalResolution = 240.0f / 924.0f,
             minHAngle = -120,
             maxHAngle = 120,
             maxRange = 40,
@@ -54,9 +54,9 @@ namespace RGLUnityPlugin
         public static LidarConfiguration VelodyneVLP16 => new LidarConfiguration
         {
             laserArray = LaserArrayLibrary.VelodyneVLP16,
-            horizontalSteps = 360 * 5, // for 0.2deg resolution
-            minHAngle = -180.0f,
-            maxHAngle = 180.0f,
+            horizontalResolution = 0.2f,
+            minHAngle = 0.0f,
+            maxHAngle = 360.0f,
             maxRange = 100.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
         };
@@ -64,9 +64,9 @@ namespace RGLUnityPlugin
         public static LidarConfiguration VelodyneVLP32C => new LidarConfiguration
         {
             laserArray = LaserArrayLibrary.VelodyneVLP32C,
-            horizontalSteps = 360 * 5, // for 0.2deg resolution
-            minHAngle = -180.0f,
-            maxHAngle = 180.0f,
+            horizontalResolution = 0.2f,
+            minHAngle = 0.0f,
+            maxHAngle = 360.0f,
             maxRange = 200.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
         };
@@ -74,9 +74,9 @@ namespace RGLUnityPlugin
         public static LidarConfiguration VelodyneVLS128 => new LidarConfiguration
         {
             laserArray = LaserArrayLibrary.VelodyneVLS128,
-            horizontalSteps = 360 * 5, // for 0.2deg resolution
-            minHAngle = -180.0f,
-            maxHAngle = 180.0f,
+            horizontalResolution = 0.2f,
+            minHAngle = 0.0f,
+            maxHAngle = 360.0f,
             maxRange = 300.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
         };
@@ -84,9 +84,9 @@ namespace RGLUnityPlugin
         public static LidarConfiguration HesaiPandarQT => new LidarConfiguration
         {
             laserArray = LaserArrayLibrary.HesaiPandarQT,
-            horizontalSteps = 600, // for 0.6deg resolution
-            minHAngle = -180.0f,
-            maxHAngle = 180.0f,
+            horizontalResolution = 0.6f,
+            minHAngle = 0.0f,
+            maxHAngle = 360.0f,
             maxRange = 20.0f, // Yes, 20 meters, this is not a typo!
             noiseParams = LidarConfiguration.TypicalNoiseParams,
         };
@@ -94,9 +94,9 @@ namespace RGLUnityPlugin
         public static LidarConfiguration HesaiPandar40P => new LidarConfiguration
         {
             laserArray = LaserArrayLibrary.HesaiPandar40P,
-            horizontalSteps = 360 * 5, // for 0.2deg resolution
-            minHAngle = -180.0f,
-            maxHAngle = 180.0f,
+            horizontalResolution = 0.2f,
+            minHAngle = 0.0f,
+            maxHAngle = 360.0f,
             // documentation is unclear on max range;
             // on one hand there is "range capability" = 200m
             // on the other, in appendix beams have individual ranges assigned
@@ -109,9 +109,9 @@ namespace RGLUnityPlugin
         public static LidarConfiguration OusterOS1_64 => new LidarConfiguration
         {
             laserArray = LaserArrayLibrary.OusterOS1_64,
-            horizontalSteps = 1024,
-            minHAngle = -180.0f,
-            maxHAngle = 180.0f,
+            horizontalResolution = 360.0f / 1024.0f,
+            minHAngle = 0.0f,
+            maxHAngle = 360.0f,
             maxRange = 120.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
         };
