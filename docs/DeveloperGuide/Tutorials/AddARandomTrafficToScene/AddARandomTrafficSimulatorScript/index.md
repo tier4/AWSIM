@@ -33,9 +33,11 @@ These settings can to be adjusted to your preference.
 
 1. Setting Max Vehicle Count.
 
-    This parameter sets a limit on how many vehicles can be 
+    This parameter sets a limit on how many vehicles can be added to the scene at one time.
 
-2. Add NPC Prefabs
+2. NPC Prefabs
+
+    These are models of vehicles that should be spawned on the scene, to add NPC Prefabs please follow these steps:
 
     1. To do this click on the "+" sign and in the new list element at the bottom and click on the small icon on the right to select a prefab.
 

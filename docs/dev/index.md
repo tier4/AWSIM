@@ -50,7 +50,7 @@
     - <a href="../DeveloperGuide/Tutorials/AddASceneManagerToScene/" style="color:orange;">Add a SceneManager to scene</a> (last update: 19.05) <!--M-->
     - Add a RandomTraffic to scene
         - <a href="../DeveloperGuide/Tutorials/AddARandomTrafficToScene/" style="color:orange;">Add a RandomTraffic to scene</a> (last update: 19.05) <!--M-->
-        - <a href="../DeveloperGuide/Tutorials/AddARandomTrafficToScene/AddARandomTrafficSimulatorScript/" style="color:orange;">Add a Random Traffic Simulator Script</a> (last update: 23.05) <!--M-->
+        - <a href="../DeveloperGuide/Tutorials/AddARandomTrafficToScene/AddARandomTrafficSimulatorScript/" style="color:green;">Add a Random Traffic Simulator Script</a> (last update: 23.05) <!--M-->
         - <a href="../DeveloperGuide/Tutorials/AddARandomTrafficToScene/LoadStopLinesAndTrafficLanesFromLanelet/" style="color:orange;">Load Stop Lines and Traffic Lines from lanelet</a> (last update: 23.05) <!--M-->
         - <a href="../DeveloperGuide/Tutorials/AddARandomTrafficToScene/AddATrafficIntersection/" style="color:orange;">Add a Traffic Intersection</a> (last update: 23.05) <!--M-->
     - <a href="../DeveloperGuide/Tutorials/AddANewVehicle/" style="color:red;">Add a new Vehicle</a>
