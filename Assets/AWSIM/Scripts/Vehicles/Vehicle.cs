@@ -344,19 +344,12 @@ namespace AWSIM
                 // Is input gear & acceleration can sleep ?
                 bool IsCanSleepInput()
                 {
-                    if (AutomaticShiftInput == Shift.REVERSE)
-                    {
-                        if (AccelerationInput >= 0)
-                            return true;
-                        else
-                            return false;           // Negative input in reverse gear.
-                    }
-                    else if (AutomaticShiftInput == Shift.DRIVE)
+                    if (AutomaticShiftInput == Shift.REVERSE || AutomaticShiftInput == Shift.DRIVE)
                     {
                         if (AccelerationInput <= 0)
                             return true;
                         else
-                            return false;           // Positive input in drive gear.
+                            return false;           // Negative input in reverse gear.
                     }
                     else
                         return true;
@@ -403,24 +396,24 @@ namespace AWSIM
 
             void UpdateWheelsForce(float acceleration)
             {
-                if (AutomaticShiftInput == Shift.REVERSE)
+                if (AutomaticShiftInput == Shift.DRIVE)
                 {
-                    // Consider the maximum acceleration(positive) to avoid moving forward when in reverse gear.
-                    if (Speed > 0)
-                    {
-                        var maxAcceleration = -Speed / Time.deltaTime;
-                        if (acceleration > maxAcceleration)
-                            acceleration = maxAcceleration;
-                    }
-                }
-                else if (AutomaticShiftInput == Shift.DRIVE)
-                {
-                    // Consider minimum acceleration(negative) to avoid retraction when in drive gear
                     if (Speed < 0)
                     {
                         var minAcceleration = -Speed / Time.deltaTime;
                         if (acceleration < minAcceleration)
                             acceleration = minAcceleration;
+                    }
+                }
+                else if (AutomaticShiftInput == Shift.REVERSE)
+                {
+                    acceleration *= -1;
+
+                    if (Speed > 0)
+                    {
+                        var maxAcceleration = Speed / Time.deltaTime;
+                        if (acceleration > maxAcceleration)
+                            acceleration = maxAcceleration;
                     }
                 }
                 else
