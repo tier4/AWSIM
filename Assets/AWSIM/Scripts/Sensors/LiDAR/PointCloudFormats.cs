@@ -62,4 +62,21 @@ namespace AWSIM.PointCloudFormats
             };
         }
     }
+
+    /// <summary>
+    /// Instance ID format
+    /// </summary>
+    public static class FormatInstanceId
+    {
+        public static RGLField[] GetRGLFields()
+        {
+            return new[]
+            {
+                RGLField.XYZ_F32,
+                RGLField.PADDING_32,
+                RGLField.ENTITY_ID_I32,
+                RGLField.INTENSITY_F32
+            };
+        }
+    }
 }
