@@ -144,6 +144,15 @@ namespace AWSIM.Lanelet
             return centerPoints;
         }
 
+        public static Vector3[] CalculateSideLine(Vector3[] sideLine, float resolution = 1f, float minDeltaLength = 30f, float minDeltaAngle = 15f)
+        {
+            var lineLength = Length(sideLine);
+            var pointCount = Mathf.Max(Mathf.CeilToInt(lineLength / resolution) + 1, 2);
+            var resampledPoints = ResamplePoints(sideLine, pointCount);
+            resampledPoints = ReducePolyLinePoints(resampledPoints, minDeltaLength, minDeltaAngle);
+            return resampledPoints;
+        }
+
         public static float Distance2D(Vector3 p1, Vector3 p2)
         {
             var vec = p1 - p2;
