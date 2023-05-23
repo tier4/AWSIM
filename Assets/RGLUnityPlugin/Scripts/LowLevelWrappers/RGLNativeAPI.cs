@@ -52,6 +52,9 @@ namespace RGLUnityPlugin
         public static extern int rgl_entity_set_pose(IntPtr entity, IntPtr local_to_world_tf);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_entity_set_id(IntPtr entity, int id);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_entity_set_intensity_texture(IntPtr entity, IntPtr texture);
 
         [DllImport("RobotecGPULidar")]
