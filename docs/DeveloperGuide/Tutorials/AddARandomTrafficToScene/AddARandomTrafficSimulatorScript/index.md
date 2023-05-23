@@ -18,7 +18,7 @@ After clicking on the newly created `RandomTrafficSimulator` object in the Scene
 
 ![random_traffic_simulator_inspector](random_traffic_simulator_inspector.png)
 
-Random Traffic Simulator as the name suggests generates traffic based on random numbers.
+Random Traffic Simulator, as the name suggests, generates traffic based on random numbers.
 To replicate situations you can set a specific [seed](https://en.wikipedia.org/wiki/Random_seed).
 
 You can also set `Vehicle Layer Mask` and `Ground Layer Mask`.
@@ -33,17 +33,19 @@ These settings can to be adjusted to your preference.
 
 1. Setting Max Vehicle Count.
 
-1. Add NPC Prefabs
+    This parameter sets a limit on how many vehicles can be 
+
+2. Add NPC Prefabs
 
     1. To do this click on the "+" sign and in the new list element at the bottom and click on the small icon on the right to select a prefab.
 
         <!-- <img src="add_npc_prefab1.gif" alt="Add npc list element gif" width="500"/> -->
 
-    1. Change to the `Assets` tab in the small windows that popped-up.
+    2. Change to the `Assets` tab in the small windows that popped-up.
 
         <!-- <img src="add_npc_prefab2.gif" alt="Select Assets tab gif" width="500"/> -->
 
-    1. Search for the Vehicle prefab you want to add, e.g. `Hatchback`.
+    3. Search for the Vehicle prefab you want to add, e.g. `Hatchback`.
 
         <!-- <img src="add_npc_prefab3.gif" alt="Search a prefab gif" width="500"/> -->
 
@@ -59,8 +61,10 @@ These settings can to be adjusted to your preference.
 Spawnable lanes are the lanes on which new vehicles can be spawned by the Random Traffic Simulator Script.
 Best practice is to use beginnings of the lanes on the edges of the map as spawnable lanes.
 
-<!-- TODO link to loading a lanelet if it exists -->
-To add a spawnable lane make sure you have a lanelet loaded into your scene.
+!!!important
+    Make sure you have a lanelet added into your scene.
+    The full tutorial on this topic can be found [here](../LoadStopLinesAndTrafficLanesFromLanelet/)/
+
 Adding spawnable lanes is similar to [Adding NPC Prefabs](#add-npc-vehicles).
 
 1. Add an element to the `Spawnable Lanes` list by clicking on the "+" symbol or by selecting number of lanes directly.
