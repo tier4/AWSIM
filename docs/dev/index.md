@@ -45,7 +45,9 @@
 
 ### Developer guide
 - Tutorials
-    - <a href="../DeveloperGuide/Tutorials/AddANewEnvironment/" style="color:orange;">Add a new Environment</a> (last update: 19.05) <!--M-->
+    - Add a new Environment
+        - <a href="../DeveloperGuide/Tutorials/AddANewEnvironment/" style="color:orange;">Add a new Environment</a> (last update: 24.05) <!--M-->
+        - <a href="../DeveloperGuide/Tutorials/AddANewEnvironment/AddTrafficLights/" style="color:green;">Add Traffic Lights</a> (last update: 24.05) <!--M-->
     - <a href="../DeveloperGuide/Tutorials/AddANewScene/" style="color:red;">Add a new Scene</a> 
     - <a href="../DeveloperGuide/Tutorials/AddASceneManagerToScene/" style="color:orange;">Add a SceneManager to scene</a> (last update: 19.05) <!--M-->
     - Add a RandomTraffic to scene

@@ -1,4 +1,3 @@
-<!-- TODO everything -->
 **Create a lanelet2**
 
 - Use VectorMapBuilder and real-world PCD (*.pcd) (**video** -* .osm file creation)
@@ -32,10 +31,12 @@
 - Mapping (description play->stop->result, example - **video**)
 
 ## Create a lanelet2
+<!-- TODO -->
 
 ## Create a prefab
 
 ### Guidelines for making 3d models
+<!-- TODO -->
 
 ### Add a Environment Script
 Add en Environment Script into an Environment Object which should be a child of your Simulation Object.
@@ -68,15 +69,42 @@ Then you can set a transformation of the parent Object `Map` to adjust the world
 !!!important
     When adding static elements that belong to a certain map remember to add them to a Map Object as explained [here](#localization-information).
 
-For the best possible representation 
+<!-- TODO -->
 
 ### Add a Directional Light
+1. Create a new child Object of the Environment and name it `Directional Light`
+
+    ![add directional light](directional_light_add_object.gif)
+
+1. Click `Add Component` button, search for `light` and select it. 
+
+    ![directional light search](directional_light_search.png)
+
+2. Change light Type to `Directional`.
+3. Now you can configure the directional light as you wish. E.g. change the intensity or orientation.
+
+    ![directional light configure](directional_light_config.gif)
 
 ### Add a Volume
+1. Create a new child object of the Environment and name it `Volume`
+
+    ![volume add object](volume_add_object.gif)
+
+1. Click `Add Component` search for `volume` and select it.
+
+    ![select volume](volume_search.png)
+
+1. Change the Profile to `Volume Profile` and wait for changes to take effect.
+
+    ![volume configure](volume_config.gif)
+
+1. Now you can configure the Volume individually as you wish.
 
 ### Add NPCPedestrians
+<!-- TODO -->
 
 ### Add a RandomTraffic
 For information about how to add a Random Traffic to a scene please visit [this section](../AddARandomTrafficToScene/)
 
 ## Create a PCD from Mesh
+<!-- TODO -->
