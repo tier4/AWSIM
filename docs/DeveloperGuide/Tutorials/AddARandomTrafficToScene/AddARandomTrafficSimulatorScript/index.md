@@ -65,7 +65,7 @@ Best practice is to use beginnings of the lanes on the edges of the map as spawn
 
 !!!important
     Make sure you have a lanelet added into your scene.
-    The full tutorial on this topic can be found [here](../LoadStopLinesAndTrafficLanesFromLanelet/)/
+    The full tutorial on this topic can be found [here](../LoadStopLinesAndTrafficLanesFromLanelet/).
 
 Adding spawnable lanes is similar to [Adding NPC Prefabs](#add-npc-vehicles).
 
