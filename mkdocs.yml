@@ -63,7 +63,9 @@ nav:
                         - NPCs: UserGuide/Components/NPCs/index.md
         - Developer guide:
                 - Tutorials:
-                        - Add a new Environment: DeveloperGuide/Tutorials/AddANewEnvironment/index.md
+                        - Add a new Environment:
+                                - Add a new Environment: DeveloperGuide/Tutorials/AddANewEnvironment/index.md
+                                - Add Traffic Lights: DeveloperGuide/Tutorials/AddANewEnvironment/AddTrafficLights/index.md
                         - Add a new Scene: DeveloperGuide/Tutorials/AddANewScene/index.md
                         - Add a SceneManager to scene: DeveloperGuide/Tutorials/AddASceneManagerToScene/index.md
                         - Add a RandomTraffic to scene:

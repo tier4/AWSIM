@@ -70,10 +70,6 @@ Then you can set a transformation of the parent Object `Map` to adjust the world
 
 For the best possible representation 
 
-### Add Traffic Lights
-
-#### Add Traffic Light Script
-
 ### Add a Directional Light
 
 ### Add a Volume
