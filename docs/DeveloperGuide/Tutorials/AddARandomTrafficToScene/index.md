@@ -181,7 +181,10 @@ Best practice is to create a parent object `TrafficIntersections` and add all in
 You can do this the same as with [Random Traffic Simulator](#add-a-random-traffic-simulator-script).
 
 ### Make sure that TrafficLights have added scripts
-<!-- TODO add hyperlink -->
+Check Traffic Lights and whether they are set up properly.
+
+!!!note
+    If you want to learn how to add and configure Traffic Lights check out [this tutorial](../AddANewEnvironment/AddTrafficLights/).
 
 ### Add a box collider
 <!-- TODO add guidelines -->

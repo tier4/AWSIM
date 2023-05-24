@@ -72,6 +72,9 @@ Then you can set a transformation of the parent Object `Map` to adjust the world
 <!-- TODO -->
 
 ### Add a Directional Light
+!!!tip
+    For more details on lighting check out [official Unity documentation](https://docs.unity3d.com/Manual/Lighting.html).
+
 1. Create a new child Object of the Environment and name it `Directional Light`
 
     ![add directional light](directional_light_add_object.gif)
@@ -86,6 +89,9 @@ Then you can set a transformation of the parent Object `Map` to adjust the world
     ![directional light configure](directional_light_config.gif)
 
 ### Add a Volume
+!!!tip
+    For more details on volumes checkout [official Unity documentation](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@11.0/manual/Volumes.html).
+
 1. Create a new child object of the Environment and name it `Volume`
 
     ![volume add object](volume_add_object.gif)
@@ -101,7 +107,35 @@ Then you can set a transformation of the parent Object `Map` to adjust the world
 1. Now you can configure the Volume individually as you wish.
 
 ### Add NPCPedestrians
-<!-- TODO -->
+1. Make NPCPedestrians parent object.
+
+    ![npcpedestrians make parent](npcpedestrian_add_parent.gif)
+
+2. Open `Assets/AWSIM/Prefabs/NPCs/Pedestrians` in Project view and drag a humanElegant into the NPCPedestrians parent object
+
+    ![npcpedestrian find prefab](npcpedestrian_find_prefab2.gif)
+
+    ![npcpedestrian add prefab](npcpedestrian_add_prefab.gif)
+
+1. Click `Add Component` in the humanElegant object and search for `Simple Pedestrian Walker Controller` Script and select it.
+
+    This is a simple Script that makes the pedestrian indefinitely walk straight and turn around.
+    You can configure pedestrian behavior with 2 parameters.
+
+    - Duration: how long will the pedestrian walk straight
+    - Speed: how fat will the pedestrian walk straight
+
+    !!!tip
+        The `Simple Pedestrian Walker Controller` Script is best suited to be used on pavements.
+
+    ![npcpedestrian configure](npcpedestrian_config.gif)
+
+    ![npcpedestrian simple script search](npcpedestrian_search.png)
+
+2. Finally position the NPCPedestrian on the scene where you want it to start walking.
+
+    !!!note
+        Remember to set correct orientation, as the NPCPedestrian will walk straight from the starting position with the starting orientation.
 
 ### Add a RandomTraffic
 For information about how to add a Random Traffic to a scene please visit [this section](../AddARandomTrafficToScene/)
