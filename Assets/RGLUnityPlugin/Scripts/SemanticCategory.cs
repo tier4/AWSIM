@@ -18,7 +18,32 @@ namespace RGLUnityPlugin
 {
     public class SemanticCategory : MonoBehaviour
     {
+        public delegate void OnCategoryIdChangeDelegate(int categoryId);
+
+        public OnCategoryIdChangeDelegate onCategoryIdChange;
+
         [field: SerializeField, Tooltip("Semantic Category ID")]
-        public int CategoryId { get; private set; } = 1;
+        private int categoryId;
+
+        public int CategoryId
+        {
+            get
+            {
+                return categoryId;
+            }
+            set
+            {
+                categoryId = value;
+                if (onCategoryIdChange != null)
+                {
+                    onCategoryIdChange.Invoke(categoryId);
+                }
+            }
+        }
+
+        public void OnValidate()
+        {
+            CategoryId = categoryId;
+        }
     }
 }
