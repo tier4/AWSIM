@@ -63,12 +63,20 @@ nav:
                             - NPCs: UserGuide/Components/NPCs/index.md
         - Developer guide:
                   - Tutorials:
-                            - Add a new Environment: DeveloperGuide/Tutorials/AddANewEnvironment/index.md
-                            - Add a new Scene: DeveloperGuide/Tutorials/AddANewScene/index.md
-                            - Add a SceneManager to scene: DeveloperGuide/Tutorials/AddASceneManagerToScene/index.md
-                            - Add a RandomTraffic to scene: DeveloperGuide/Tutorials/AddARandomTrafficToScene/index.md
+                            - Add a new Environment:
+                                      - Add a Environment: DeveloperGuide/Tutorials/AddANewEnvironment/AddAEnvironment/index.md
+                                      - Add TrafficLights: DeveloperGuide/Tutorials/AddANewEnvironment/AddTrafficLights/index.md
+                                      - Add a RandomTraffic:
+                                                - Load items from lanelet2: DeveloperGuide/Tutorials/AddARandomTraffic/LoadItemsFromLanelet/index.md
+                                                - Add a RandomTraffic: DeveloperGuide/Tutorials/AddARandomTraffic/AddARandomTrafficSimulatorScript/index.md
+                                                - Add a TrafficIntersection: DeveloperGuide/Tutorials/AddARandomTraffic/AddATrafficIntersection/index.md
                             - Add a new Vehicle: DeveloperGuide/Tutorials/AddANewVehicle/index.md
+                            - Add a new Scene:
+                                      - Add a Scene: DeveloperGuide/Tutorials/AddANewScene/AddANewScene/index.md
+                                      - Add a SceneManager: DeveloperGuide/Tutorials/AddANewScene/AddASceneManager/index.md
+                                      - Test a Scene: DeveloperGuide/Tutorials/AddANewScene/TestAScene/index.md
                             - Add a new LiDAR model: DeveloperGuide/Tutorials/AddANewLiDARModel/index.md
+                            - Create a PCD: DeveloperGuide/Tutorials/CreateAPCDFromMesh/index.md
                   - API: DeveloperGuide/API/index.md
                   - Contributing:
                             - Git Branch: DeveloperGuide/Contributing/GitBranch/index.md
