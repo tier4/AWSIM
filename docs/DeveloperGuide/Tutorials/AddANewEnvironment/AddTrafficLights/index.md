@@ -1,11 +1,10 @@
+To add `TrafficLights` into your `Environment` follow steps below.
 !!!tip
-    In the environment you are creating there will most likely be many Traffic Lights that should look and work the same way.
-    To simplify the process of creating an environment it is advised to create one Traffic Light of each type with this tutorial and then save them as prefabs that you will be able to reuse.
-
-To add Traffic Lights into your Environment follow steps below.
+    In the `Environment` you are creating there will most likely be many `TrafficLights` that should look and work the same way.
+    To simplify the process of creating an environment it is advised to create one `TrafficLight` of each type with this tutorial and then save them as prefabs that you will be able to reuse.
 
 ## Add Traffic Light Object
-Into your Map Object in the Hierarchy view add a new Child Object and name it appropriately.
+Into your `Map` object in the *Hierarchy* view add a new *Child Object* and name it appropriately.
 
 ![add traffic light object](traffic_light_add_object.gif)
 
@@ -15,17 +14,17 @@ Into your Map Object in the Hierarchy view add a new Child Object and name it ap
 
     ![add traffic light component](traffic_light_add_component.gif)
 
-1. Search for `mesh filter` and select it by clicking on it.
+1. Search for `Mesh filter` and select it by clicking on it.
 
     ![search mesh filter](mesh_filter_search.png)
 
-1. For any Traffic Light specify the mesh you want to use.
+1. For each `TrafficLight` specify the mesh you want to use.
 
     ![traffic light mesh](traffic_light_select_mesh.gif)
 
 ## Add a Mesh Renderer and specify materials
 
-1. The same way as above search for `mesh renderer` and select it.
+1. The same way as above search for `Mesh renderer` and select it.
 
     ![search mesh renderer](mesh_renderer_search.png)
 
@@ -43,7 +42,7 @@ Into your Map Object in the Hierarchy view add a new Child Object and name it ap
 
     ![too many traffic materials](traffic_light_too_many_materials.png)
 
-    !!!important
+    !!! warning
         When specifying materials remember the order in which they are used in the mesh.
         Especially remember what Materials Elements are associated with every Bulb in the Traffic Light.
         This information will be needed later.
@@ -62,13 +61,13 @@ Into your Map Object in the Hierarchy view add a new Child Object and name it ap
         Please only use models of Traffic Lights that have different Materials Elements for every Bulb.
 
 ## Add a Mesh Collider
-The same way as above search for `mesh collider` and select it.
+The same way as above search for `Mesh collider` and select it.
 Collider may not seem useful, as the Traffic Light in many cases will be out of reach of vehicles.
 It is however used for Lidar simulation, so it is advised to always add colliders to Objects that should be detected by Lidars.
 
 ![search mesh collider](mesh_collider_search.png)
 
-## Position Traffic Light in the environment
+## Position Traffic Light in the Environment
 Finally after configuring all visual aspects of the Traffic Light you can position it in the environment.
 Do this by dragging a Traffic Light with a square representing a plane or with an arrow representing one axis.
 
@@ -102,3 +101,6 @@ The Traffic Light Script will enable you to control how the Traffic Light lights
     This information will be of use to us when specifying Traffic Lights sequences.
 
     ![traffic light bulb config](traffic_light_bulb_config.gif)
+
+!!! success
+    Once you have added Traffic Lights to your environment, you can start configuring Random Traffic which will add moving vehicles to it! Details here:
