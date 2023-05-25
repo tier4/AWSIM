@@ -54,11 +54,11 @@ nav:
                   - Project guide:
                             - Introduction: UserGuide/ProjectGuide/Introduction/index.md
                             - Components:
-                                      - Sensors: UserGuide/Components/Sensors/index.md
-                                      - Ego Vehicle: UserGuide/Components/Vehicle/index.md
-                                      - Environment: UserGuide/Components/Environment/index.md
-                                      - NPCs: UserGuide/Components/NPCs/index.md
-                                      - Random Traffic Simulator: UserGuide/Components/RandomTrafficSimulator/index.md
+                                      - Sensors: UserGuide/ProjectGuide/Components/Sensors/index.md
+                                      - Ego Vehicle: UserGuide/ProjectGuide/Components/Vehicle/index.md
+                                      - Environment: UserGuide/ProjectGuide/Components/Environment/index.md
+                                      - NPCs: UserGuide/ProjectGuide/Components/NPCs/index.md
+                                      - Random Traffic Simulator: UserGuide/ProjectGuide/Components/RandomTrafficSimulator/index.md
                             - Default existing scenes: UserGuide/ProjectGuide/DefaultExistingScenes/index.md
                             - External Libraries:
                                       - RGLUnityPlugin: UserGuide/ProjectGuide/ExternalLibraries/RGLUnityPlugin/index.md
