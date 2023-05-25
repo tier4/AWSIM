@@ -63,9 +63,9 @@ These settings can to be adjusted to your preference.
 Spawnable lanes are the lanes on which new vehicles can be spawned by the Random Traffic Simulator Script.
 Best practice is to use beginnings of the lanes on the edges of the map as spawnable lanes.
 
-!!!important
+!!! warning
     Make sure you have a lanelet added into your scene.
-    The full tutorial on this topic can be found [here](../LoadStopLinesAndTrafficLanesFromLanelet/).
+    The full tutorial on this topic can be found [here](../LoadItemsFromLanelet/).
 
 Adding spawnable lanes is similar to [Adding NPC Prefabs](#add-npc-vehicles).
 
@@ -113,5 +113,8 @@ You can specify acceleration rate  of vehicles and three values of deceleration.
     When no other deceleration is enough to prevent an accident this value is used.
     This should be set to the highest value achievable by a vehicle.
 
-!!!note
-    This configuration is common for all vehicles managed by the Random Traffic Simulator Script.
+!!! question
+    This configuration is common for all vehicles managed by the `Random Traffic Simulator Script`.
+
+!!! success
+    The last thing that needs to be done for `RandomTraffic` to work properly is to add intersections with traffic lights and configure their sequences. Details here:
