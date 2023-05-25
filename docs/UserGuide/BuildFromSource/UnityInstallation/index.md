@@ -16,12 +16,16 @@ To install *Unity* on *Linux* you need to install *Unity Hub*, run the following
     sudo apt-get install unityhub
     ```
 !!! warning
-    To be on the safe side always check the official documentation on how to install *Unity Hub*, this manual is just for reference.
-
+    To be on the safe side always check the official documentation on how to install *Unity Hub*, this manual is just for reference.<br>
     Please follow [these instructions](https://docs.unity3d.com/hub/manual/InstallHub.html#install-hub-linux) if you have any problems.
 
 !!! success
-    Here will be added gif of unityhub launch
+    A properly installed and running *Unity Hub* should look like this.
+    <video width="1920" controls>
+    <source src="unityhub.mp4" type="video/mp4">
+    </video>
+<br>
+
 # 2. Unity installation
 
 !!! info
@@ -45,5 +49,5 @@ Follow the steps below to install *Unity 2021.1.7f1* via *UnityHub*:
         ```
 
 !!! success
-    After successful installation the version will be available under the `Installs` tab in Unity Hub. Now you can proceed to the next step [Setup Unity Project](../SetupUnityProject/).
+    After successful installation the version will be available under the `Installs` tab in *Unity Hub*. Now you can proceed to the next step [Setup Unity Project](../SetupUnityProject/).
     ![successful_install](successful_install.png)
