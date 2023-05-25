@@ -1,13 +1,10 @@
 <!-- TODO everything -->
-<!-- DM: nie da sie tego podzielic na podsekcje? duzo tutaj tego jest -->
 - Ros2Unity (description, reasons for using, hyperlink)
     - Default message types (short description with location)
     - List of used topics
     - Add custom ROS2 message type [70% Current] (**screens**)
     - Accessing and filling in message fields (short example - including array)
-- RobotecGPULidar (description, reasons for using, hyperlink)
-    - SceneManager Script (description)
-
+    - 
 ## ROS 2 For Unity
 
 AWSIM uses [Ros2ForUnity](https://github.com/RobotecAI/ros2-for-unity) module for ROS 2 communication. `ROS 2 For Unity` is a high-performance communication solution to connect Unity3D and ROS 2 ecosystem in a ROS 2 "native" way.
@@ -220,23 +217,3 @@ To automate the process, you can use these commands (change `<AWSIM_DIR>` to you
 
 ### Accessing and filling in message fields
 <!-- TODO (short example - including array) -->
-
-## RobotecGPULidar
-<!-- TODO description, reasons for using, hyperlink -->
-[Robotec GPU Lidar](https://github.com/RobotecAI/RobotecGPULidar) is an open source high performance lidar simulator running on CUDA-enabled GPUs.
-It is used because of the performance benefits (calculations happen on the GPU).
-
-RobotecGPULidar can also perform parallelized point cloud calculations e.g. transformations.
-
-### SceneManager Script
-<!-- TODO description -->
-Scene Manager is a script responsible for synchronizing model data between Unity and RGL.
-
-SceneManager synchronizes 3D model data in time keeping track of what is changing between frames.
-It obtains 3D models from Game Objects when they are needed and deletes them when they are no longer needed.
-
-This script can obtain 3D model in several different ways from a Game Object:
-
-1. From active colliders in the Game Object
-2. From mesh in the Game Object
-3. From mesh for non-skinned MeshRenderers and from colliders for SkinnedMeshRenderers
