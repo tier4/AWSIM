@@ -49,7 +49,7 @@
         - <a href="../DeveloperGuide/Tutorials/AddANewEnvironment/" style="color:orange;">Add a new Environment</a> (last update: 24.05) <!--M-->
         - <a href="../DeveloperGuide/Tutorials/AddANewEnvironment/AddTrafficLights/" style="color:green;">Add Traffic Lights</a> (last update: 24.05) <!--M-->
     - <a href="../DeveloperGuide/Tutorials/AddANewScene/" style="color:red;">Add a new Scene</a> 
-    - <a href="../DeveloperGuide/Tutorials/AddASceneManager/" style="color:orange;">Add a SceneManager to scene</a> (last update: 19.05) <!--M-->
+    - <a href="../DeveloperGuide/Tutorials/AddANewScene/AddASceneManager/" style="color:orange;">Add a SceneManager to scene</a> (last update: 19.05) <!--M-->
     - Add a RandomTraffic to scene
         - <a href="../DeveloperGuide/Tutorials/AddARandomTraffic/" style="color:orange;">Add a RandomTraffic to scene</a> (last update: 24.05) <!--M-->
         - <a href="../DeveloperGuide/Tutorials/AddARandomTraffic/AddARandomTrafficSimulatorScript/" style="color:green;">Add a Random Traffic Simulator Script</a> (last update: 23.05) <!--M-->
