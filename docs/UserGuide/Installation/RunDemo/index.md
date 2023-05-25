@@ -1,18 +1,15 @@
 <!-- DM: trzeba dodac sprawdzenie czy demo ma topicki w rosie (gif z termianla) -->
 
-# Prerequisites
-   Before following through with this section make sure to check [prerequisites](../Prerequisites/).
+Before following through with this section make sure to check [prerequisites](../Prerequisites/).
 
-!!! warning
-    The *AWSIM*-compatible version of *Autoware* is developed for the [***ROS2 Humble distribution***](https://docs.ros.org/en/rolling/Releases/Release-Humble-Hawksbill.html)
-
-# Download and run
+## Ubuntu
+### 1. Download demo and run
 
 To run the demo, please follow the steps below.
 
 1. Download the `AWSIM_v1.1.0.zip`.
 
-    [Download AWSIM Demo for ubuntu](https://github.com/tier4/AWSIM/releases/download/v1.1.0/AWSIM_v1.1.0.zip){.md-button .md-button--primary}
+    [Download AWSIM Demo for Ubuntu](https://github.com/tier4/AWSIM/releases/download/v1.1.0/AWSIM_v1.1.0.zip){.md-button .md-button--primary}
 
 2. Unzip the downloaded file.
 
@@ -36,9 +33,9 @@ To run the demo, please follow the steps below.
 
         It may take some time for the application to start the so please wait until image similar to the one presented below is visible in your application window.
 
-## Demo configuration
+#### Demo configuration
     
-The simulation provided in the AWSIM demo is configured as follows:
+The simulation provided in the `AWSIM` demo is configured as follows:
 
 | Demo Settings     |                                                     |
 | :---------------- | :-------------------------------------------------- |
@@ -50,13 +47,16 @@ The simulation provided in the AWSIM demo is configured as follows:
 
 
 !!! success
-    Started and working properly the demo should look like this:
+    The *AWSIM demo* that has been started and working properly should look like this:
 
     ![Running system image](awsim.png)
 
 
 
-# Run with Autoware
+### 2. Run demo with Autoware
+To run *AWSIM* with *Autoware* follow these steps:
+!!! warning
+    The *AWSIM*-compatible version of *Autoware* is developed for the [***ROS2 Humble distribution***](https://docs.ros.org/en/rolling/Releases/Release-Humble-Hawksbill.html)
 
 1. Download `map files (pcd, osm)` and unzip them to the desired location<br> (keep the path to the folder - it will be needed).
 
@@ -88,6 +88,11 @@ The simulation provided in the AWSIM demo is configured as follows:
 
 
 !!! success
-    The *Autoware* that has been started and communicating properly with *AWSIM* should look like this:
-
+    The *Autoware* that has been started and communicating properly with *AWSIM* should look like this. <br>Now you can proceed and get to know the [first steps of using *AWSIM* with *Autoware*](../../FirstSteps/SetTheInitializationPosition/).
     ![autoware](autoware.png)
+  
+
+
+## Windows
+!!! warning
+    Unfortunately, the official demo for *Windows* has not yet been released.
