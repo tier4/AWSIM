@@ -14,10 +14,19 @@ public class TrafficManager : MonoBehaviour
     private int seed;
     [Header("NPC Vehicle Settings")]
     [SerializeField] private NPCVehicleConfig vehicleConfig = NPCVehicleConfig.Default();
-    [SerializeField] private LayerMask vehicleLayerMask;
-    [SerializeField] private LayerMask groundLayerMask;
-    [SerializeField] public int maxVehicleCount = 40;
-    [SerializeField] private GameObject _egoVehicle;
+    
+    [SerializeField, Tooltip("Vehicle layer for raytracing the collision distances.")] 
+    private LayerMask vehicleLayerMask;
+
+    [SerializeField, Tooltip("Ground layer for raytracing the collision distances.")] 
+    private LayerMask groundLayerMask;
+
+    [SerializeField, Tooltip("A maximum number of vehicles that can simultaneously live in the scene. Lowering this value results in less dense traffic but improves the simulator's performance.")]
+    public int maxVehicleCount = 40;
+
+    [SerializeField, Tooltip("Ego vehicle handler. If not set, the manager creates a dummy ego. This reference is also set automatically when the Ego spawns via the traffic simulator.")]
+    private GameObject _egoVehicle;
+    
     public GameObject egoVehicle {
         get {
             return _egoVehicle;
