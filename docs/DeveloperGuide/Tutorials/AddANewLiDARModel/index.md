@@ -1,14 +1,4 @@
 <!-- TODO everything -->
-- Update LidarModels.cs (description, **screen**)
-- Update LaserArrayLibrary.cs (description, using LaserArray.Uniform() to generate a array, **screens**)
-- Update LidarConfigurationLibrary.cs (description, adding the generated array, **screen**)
-- Create a prefab (**screen**)
-    - Add a Lidar Sensor Script
-    - Add a Rgl Lidar Publisher Script
-    - Add a Point Cloud Visualization Script
-- How to test - **video** (hyperlink to 5.2)
-
-
 ## Scene preparation
 
 The native RGL library needs a once-per-scene preparation to access models on the scene from the native library:
@@ -36,3 +26,15 @@ To add a new lidar model, perform the following steps:
 2. If the Lidar has a non-uniform laser array construction (e.g. different linear / angular spacing between lasers), add an entry to the `LaserArrayLibrary`.
 3. Add an entry to `LidarConfigurationLibrary`. Use the provided laser array or generate a uniform one using static method `LaserArray.Uniform()`.
 4. Done. New lidar preset should be available via Unity Inspector.
+!!! Draft-note    
+    - Update LidarModels.cs (description, **screen**)
+    - Update LaserArrayLibrary.cs (description, using LaserArray.Uniform() to generate a array, **screens**)
+    - Update LidarConfigurationLibrary.cs (description, adding the generated array, **screen**)
+    - Create a prefab (**screen**)
+        - Add a Lidar Sensor Script
+        - Add a Rgl Lidar Publisher Script
+        - Add a Point Cloud Visualization Script
+    - How to test - **video** (hyperlink to 5.2)
+
+    Could you describe what kinds of LiDARs can be supported ? 
+    I think as of now mechanical LiDARs are supported but MEMs LiDARs are not yet supported. 
