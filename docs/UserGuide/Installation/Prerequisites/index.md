@@ -2,7 +2,7 @@
 <!-- DM: fajnie jakby udalo sie dodac zwijanie sekcji linux/windows
 trzeba tez niestety zrobic wywiad jak zainstalowac to na windowsie i uzupelnic.. -->
 
-# System Requirements
+## System Requirements
 <!-- copied from old -->
 Before installation, please make sure that your machine meets the following requirements in order to run the simulation correctly:
 
@@ -15,10 +15,10 @@ Before installation, please make sure that your machine meets the following requ
 !!! info  
     System requirements may vary depending on simulation contents which may change as the simulator develops.
 
-# Linux
+## Ubuntu
 Follow these steps to get your *Ubuntu* system ready to run *AWSIM* with *Autoware*.
 
-## 1. Localhost settings
+### 1. Localhost settings
 <!-- TODO copied from old and added what I think is some additional help -->
 
 The simulation is based on the appropriate network setting, which allows for trouble-free communication of the *AWSIM* simulation with the *Autoware* software.
@@ -45,7 +45,7 @@ fi
 
     Adding these lines to your `.bashrc` file will require you to supply your password first time you open a terminal after each PC restart.
 
-## 2. Install Git
+### 2. Install Git
 To download *AWSIM* from a [remote repository](https://github.com/tier4/AWSIM) you need to install [git](https://git-scm.com/).
 
 Install it by executing the following commands in the terminal:
@@ -55,7 +55,7 @@ sudo apt update
 sudo apt install git
 ```
 
-## 3. Install Nvidia GPU driver
+### 3. Install Nvidia GPU driver
 To run *AWSIM* on *Ubuntu*, it is required to install *Nvidia* `515.43.04` drivers or higher.
 
 To check what version you currently have installed, run the `nvidia-smi` command in the terminal. 
@@ -68,12 +68,12 @@ If you do not have drivers installed or you need to update them, select one of t
 
     After installing the graphics driver, a system restart is **required**.
 
-### 3.1 App option
+#### 3.1 App option
 You can open `Additional Drivers` application and from there select one driver and install it.
 ![additional drivers](gpu_drivers.png)
 
 To verify that the drivers have been installed correctly, run the command `nvidia-smi` again and check.
-### 3.2 Command line option
+#### 3.2 Command line option
 
 Other possibility is to install drivers from command line.
 
@@ -89,7 +89,7 @@ sudo ubuntu-drivers autoinstall
 
 To verify that the drivers have been installed correctly, run the command `nvidia-smi` again and check.
 
-## 4. Install Vulkan Graphics Library
+### 4. Install Vulkan Graphics Library
 *AWSIM* uses *Vulkan Graphics Library*, to install it run the following commands:
 
 1. Update the environment.
@@ -101,7 +101,7 @@ sudo apt update
 sudo apt install libvulkan1
 ```
 
-## 5. Installing Autoware
+### 5. Installing Autoware
 *AWSIM* has been developed to work with *Autoware*, to install *Autoware* follow these steps:
 
 !!! warning
@@ -139,18 +139,33 @@ colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release -DCMAKE_C
 !!! info
     More details related to the Autoware installation process can be found here: [Autoware Installation](https://autowarefoundation.github.io/autoware-documentation/main/installation/autoware/source-installation/)
 
-# Windows
-Follow these steps to get your *Windows* system ready to run *AWSIM* with *Autoware*.
+## Windows
+Follow these steps to get your *Windows* system ready to run *AWSIM*.
+!!! tip
+    Unfortunately, *Autoware* is not officially supported on *Windows*, but It can be run on a separate *Ubuntu* machine that communicates with *AWSIM* running on *Windows* via *ROS2*.
 <!-- TODO -->
-## 1. Localhost settings
+### 1. Install ROS2
+Install ROS2 Humble following the steps in the [official manual](https://docs.ros.org/en/humble/Installation/Windows-Install-Binary.html).
 <!-- TODO -->
-## 2. Install Git
+### 2. Install Git
+1. Navigate to [git-scm.com](https://git-scm.com/download/win) and download the latest version installer for Windows.
+2. After launching the installer, follow the instructions on the *Setup* screen until the installation is complete.
+3. Open the windows command prompt (or *Git Bash*)  and execute command `git version` to verify *Git* was installed properly.
+### 3. Install Nvidia GPU driver
+To run *AWSIM* on *Windows*, it is required to install *Nvidia* `472.50` drivers or higher.
+
+1. Navigate to the [Nvidia site](https://www.nvidia.co.uk/Download/index.aspx?lang=en-uk) and find the driver according to your Windows version and graphics card.
+![nvidia_search_win10](nvidia_search_win10.png)
+1. For the found driver, check if its version is appropriate, if yes then click and Download.
+![nvidia_search_win10](nvidia_driver_win10.png)
+1. After launching the installer, follow the instructions on the *Setup* screen until the installation is complete.
+
+!!! Warning
+
+    After installing the graphics driver, a system restart is **required**.
+
+<!-- ## 4. Install Vulkan Graphics Library -->
 <!-- TODO -->
-## 3. Install Nvidia GPU driver
-Nvidia Driver (Windows) | >=472.50     
-<!-- TODO -->
-## 4. Install Vulkan Graphics Library
-<!-- TODO -->
-## 5. Installing Autoware
+<!-- ## 5. Installing Autoware -->
 <!-- TODO -->
 
