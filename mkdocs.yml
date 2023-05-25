@@ -24,7 +24,6 @@ markdown_extensions:
         - attr_list
 
 nav:
-        - DEVEL TABLE OF CONTENT: dev/index.md
         - Introduction:
                   - AWSIM: Introduction/AWSIM/index.md
                   - Autoware: Introduction/Autoware/index.md
