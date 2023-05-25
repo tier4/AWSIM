@@ -2,7 +2,7 @@ using AWSIM.Lanelet;
 using UnityEditor;
 using UnityEngine;
 
-namespace AWSIM.RandomTraffic
+namespace AWSIM.TrafficSimulation
 {
     public class LaneletLoaderWindow : EditorWindow
     {

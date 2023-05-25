@@ -5,7 +5,7 @@ using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.Profiling;
 
-namespace AWSIM.RandomTraffic
+namespace AWSIM.TrafficSimulation
 {
     /// <summary>
     /// Cognition step implementation for a NPC vehicle simulation.

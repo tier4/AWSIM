@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AWSIM.RandomTraffic
+namespace AWSIM.TrafficSimulation
 {
     /// <summary>
     /// Stop line component.
