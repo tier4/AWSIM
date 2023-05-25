@@ -12,10 +12,10 @@ namespace AWSIM.TrafficSimulation
         [Tooltip("NPCs to be spawned.")]
         public GameObject[] npcPrefabs;
 
-        [Tooltip("Route to follow.")]
+        [Tooltip("Route to follow. The first element also acts as a spawn lane.")]
         public TrafficLane[] route;
 
-        [Tooltip("Maximum spawned vehicles for this traffic simulator. [0] is unlimited.")]
+        [Tooltip("Describes the lifetime of a traffic simulator instance by specifying how many vehicles this traffic simulator will spawn. Setting it makes the spawner live longer or shorter, while it can also be set to infinity if needed (endless lifetime).")]
         public int maximumSpawns;
 
         [Tooltip("Is this traffic simulation enabled.")]
