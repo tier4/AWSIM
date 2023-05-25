@@ -1,11 +1,8 @@
 <!-- TODO update link, but idk what should it point to, because what was once one page now is like 2 sections full of pages -->
 
-
-# Prerequisites
-
 !!! tip
 
-    It is advised to checkout the [Run Demo](../../Installation/RunDemo) tutorial before reading this section.
+    It is advised to checkout the [Run Demo](../../Installation/RunDemo) and [First steps](../../FirstSteps/SetTheInitializationPosition/) tutorials before reading this section.
 
 Before following through with this section make sure to check [prerequisites](../Prerequisites/) and install *Unity* in accordance with section [Unity installation](../UnityInstallation/).
 
@@ -39,13 +36,12 @@ To setup the *AWSIM* project in *Unity* *Editor*:
 ![](launch_unity_project.gif)
 
     !!! tip
-
         If you get the safe mode dialog when starting *UnityEditor*, you may need to install openssl.
 
-        1. Download *libssl*:
-        `$ wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.11_amd64.deb`
-        2. Install it:  
-        `sudo dpkg -i libssl1.0.0_1.0.2n-1ubuntu5.11_amd64.deb`
+          1. Download *libssl*:
+          `$ wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.11_amd64.deb`
+          2. Install it:  
+          `sudo dpkg -i libssl1.0.0_1.0.2n-1ubuntu5.11_amd64.deb`
 
 1. In the open project, from the menu bar at the top, select `Assets -> Import Package -> Custom Package...`
 ![](import_unity_package1.gif)

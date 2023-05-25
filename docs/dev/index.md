@@ -34,14 +34,14 @@
 - Project guide
     - <a href="../UserGuide/ProjectGuide/" style="color:red;">Project guide</a>
     - <a href="../UserGuide/ProjectGuide/DefaultExistingScenes/" style="color:orange;">Default existing scenes</a> (last update: 08.05) 
-    - <a href="../UserGuide/ProjectGuide/DirectoryStructure/" style="color:green;">Directory structure</a>  (last update: 08.05) 
+
     - <a href="../UserGuide/ProjectGuide/ExternalLibraries/" style="color:orange;">External Libraries</a> (last update: 08.05) 
 - Components
-    - <a href="../UserGuide/Components/Environment/" style="color:red;">Environment</a>
-    - <a href="../UserGuide/Components/RandomTrafficSimulator/" style="color:red;">Random Traffic Simulator</a>
-    - <a href="../UserGuide/Components/Vehicle/" style="color:red;">Vehicle</a>
-    - <a href="../UserGuide/Components/Sensors/" style="color:red;">Sensors</a>
-    - <a href="../UserGuide/Components/NPCs/" style="color:red;">NPCs</a>
+    - <a href="../UserGuide/ProjectGuide/Components/Environment/" style="color:red;">Environment</a>
+    - <a href="../UserGuide/ProjectGuide/Components/RandomTrafficSimulator/" style="color:red;">Random Traffic Simulator</a>
+    - <a href="../UserGuide/ProjectGuide/Components/Vehicle/" style="color:red;">Vehicle</a>
+    - <a href="../UserGuide/ProjectGuide/Components/Sensors/" style="color:red;">Sensors</a>
+    - <a href="../UserGuide/ProjectGuide/Components/NPCs/" style="color:red;">NPCs</a>
 
 ### Developer guide
 - Tutorials

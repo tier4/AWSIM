@@ -24,7 +24,6 @@ markdown_extensions:
         - attr_list
 
 nav:
-        - DEVEL TABLE OF CONTENT: dev/index.md
         - Introduction:
                   - AWSIM: Introduction/AWSIM/index.md
                   - Autoware: Introduction/Autoware/index.md
@@ -44,6 +43,7 @@ nav:
                             - Set a single goal: UserGuide/FirstSteps/SetASingleGoal/index.md
                             - Add checkpoints on the way to the goal: UserGuide/FirstSteps/AddCheckpointsOnTheWayToTheGoal/index.md
                             - Enable self-driving: UserGuide/FirstSteps/EnableSelf-driving/index.md
+                            - Set a list of goals: UserGuide/FirstSteps/SetGoalList/index.md
                   - Build from source:
                             - Prerequisites: UserGuide/BuildFromSource/Prerequisites/index.md
                             - Unity installation: UserGuide/BuildFromSource/UnityInstallation/index.md
@@ -51,16 +51,17 @@ nav:
                             - Run scene: UserGuide/BuildFromSource/RunScene/index.md
                             - Troubleshooting: DeveloperGuide/TroubleShooting/index.md
                   - Project guide:
-                            - Project guide: UserGuide/ProjectGuide/index.md
+                            - Introduction: UserGuide/ProjectGuide/Introduction/index.md
+                            - Components:
+                                      - Sensors: UserGuide/ProjectGuide/Components/Sensors/index.md
+                                      - Ego Vehicle: UserGuide/ProjectGuide/Components/Vehicle/index.md
+                                      - Environment: UserGuide/ProjectGuide/Components/Environment/index.md
+                                      - NPCs: UserGuide/ProjectGuide/Components/NPCs/index.md
+                                      - Random Traffic Simulator: UserGuide/ProjectGuide/Components/RandomTrafficSimulator/index.md
                             - Default existing scenes: UserGuide/ProjectGuide/DefaultExistingScenes/index.md
-                            - Directory structure: UserGuide/ProjectGuide/DirectoryStructure/index.md
-                            - External Libraries: UserGuide/ProjectGuide/ExternalLibraries/index.md
-                  - Components:
-                            - Environment: UserGuide/Components/Environment/index.md
-                            - Random Traffic Simulator: UserGuide/Components/RandomTrafficSimulator/index.md
-                            - Vehicle: UserGuide/Components/Vehicle/index.md
-                            - Sensors: UserGuide/Components/Sensors/index.md
-                            - NPCs: UserGuide/Components/NPCs/index.md
+                            - External Libraries:
+                                      - RGLUnityPlugin: UserGuide/ProjectGuide/ExternalLibraries/RGLUnityPlugin/index.md
+                                      - Ros2Unity: UserGuide/ProjectGuide/ExternalLibraries/Ros2Unity/index.md
         - Developer guide:
                   - Tutorials:
                             - Add a new Environment:
@@ -83,5 +84,6 @@ nav:
                             - How to Contribute: DeveloperGuide/Contributing/HowToContribute/index.md
                   - Documentation generation: DeveloperGuide/DocumentationGeneration/index.md
                   - Trouble shooting: DeveloperGuide/TroubleShooting/index.md
-        - License: License/index.md
-        - Contact: Contact/index.md
+        - Other:
+                  - License: License/index.md
+                  - Contact: Contact/index.md
