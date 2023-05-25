@@ -1,16 +1,13 @@
-Every Traffic Intersection on the scene needs to be added as a Game Object.
-Best practice is to create a parent object `TrafficIntersections` and add all instances of Traffic Intersection as its children.
+Every `TrafficIntersection` on the scene needs to be added as a GameObject.
+Best practice is to create a parent object `TrafficIntersections` and add all instances of `TrafficIntersection` as its children.
 You can do this the same as with [Random Traffic Simulator](../AddARandomTrafficSimulatorScript/).
 
-## Make sure that TrafficLights have added scripts
-Check all Traffic Lights for correct configuration.
-
-!!!note
-    If you want to learn how to add and configure Traffic Lights check out [this tutorial](../../AddANewEnvironment/AddTrafficLights/).
+!!! warning
+    Before performing this step, check all `TrafficLights` for correct configuration and make sure that `TrafficLights` have added scripts. If you want to learn how to add and configure it check out [this tutorial](../../AddANewEnvironment/AddTrafficLights/).
 
 ## Add a box collider
 <!-- TODO add guidelines -->
-1. Traffic intersection needs to be marked with a box collider.
+1. `TrafficIntersection` needs to be marked with a box collider.
 First click on the `Add Component` button
 
     ![Add box collider gif](traffic_intersection_add_box.gif)
