@@ -22,6 +22,9 @@ markdown_extensions:
         - pymdownx.tabbed:
                   alternate_style: true
         - attr_list
+        - pymdownx.emoji:
+                emoji_index: !!python/name:materialx.emoji.twemoji
+                emoji_generator: !!python/name:materialx.emoji.to_svg
 
 nav:
         - Introduction:
@@ -65,7 +68,7 @@ nav:
         - Developer guide:
                   - Tutorials:
                             - Add a new Environment:
-                                      - Add a Environment: DeveloperGuide/Tutorials/AddANewEnvironment/AddAEnvironment/index.md
+                                      - Add an Environment: DeveloperGuide/Tutorials/AddANewEnvironment/AddAEnvironment/index.md
                                       - Add TrafficLights: DeveloperGuide/Tutorials/AddANewEnvironment/AddTrafficLights/index.md
                                       - Add a RandomTraffic:
                                                 - Load items from lanelet2: DeveloperGuide/Tutorials/AddARandomTraffic/LoadItemsFromLanelet/index.md

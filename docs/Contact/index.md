@@ -1,6 +1,11 @@
 # Contact
-<!-- DM: tu napisalbym ze, tier4 sie tym zajmuje, dal link do publicznego repozytorium plus link do 'How to Contribute' z dopiskiem oczywisice po co tam zagladac ma ktos, jakies logo wrzucil, i ikonki do kontaktu xD czeby bylo ladnie, to English/日本語 wyglada tez zabawnie - w zdaniu mozna to napisac -->
-English/日本語 OK
+[![Tier IV logo button](logo.svg)](https://tier4.jp/en/)
 
-e-mail : takatoki.makino@tier4.jp  
-twitter : [mackierx111](https://twitter.com/mackierx111)
+The AWSIM project is maintained by [Tier IV](https://tier4.jp/en/) in a [public repository](https://github.com/tier4/AWSIM).
+
+It is an open-source project, if you want to contribute to the project please visit the [How to Contribute section](../DeveloperGuide/Contributing/HowToContribute/).
+
+You can contact one of our maintainers both in English and Japanese.
+
+[Write email to a maintainer :material-email:](mailto:takatoki.makino@tier4.jp){ .md-button }
+[Contact mackierx111 on Twitter :simple-twitter:](https://twitter.com/mackierx111){ .md-button }
