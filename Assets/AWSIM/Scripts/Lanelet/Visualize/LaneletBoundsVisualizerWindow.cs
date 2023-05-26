@@ -16,6 +16,7 @@ using AWSIM.Lanelet;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 namespace AWSIM.Lanelet
 {
     public class LaneletBoundsVisualizerWindow : EditorWindow
@@ -68,3 +69,4 @@ namespace AWSIM.Lanelet
         }
     }
 }
+#endif

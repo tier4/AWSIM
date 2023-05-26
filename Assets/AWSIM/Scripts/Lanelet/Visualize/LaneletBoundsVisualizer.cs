@@ -6,7 +6,7 @@ using UnityEngine;
 
 // TODO: think of a better place to put this
 // TODO: think of a better name
-
+#if UNITY_EDITOR
 namespace AWSIM.Lanelet
 {
     /// <summary>
@@ -121,3 +121,4 @@ namespace AWSIM.Lanelet
         }
     }
 }
+#endif
