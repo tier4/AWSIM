@@ -12,11 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using AWSIM.Lanelet;
 using UnityEditor;
 using UnityEngine;
 
-#if UNITY_EDITOR
 namespace AWSIM.Lanelet
 {
     public class LaneletBoundsVisualizerWindow : EditorWindow
@@ -69,4 +67,3 @@ namespace AWSIM.Lanelet
         }
     }
 }
-#endif
