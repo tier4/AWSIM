@@ -1,4 +1,3 @@
-using AWSIM.Lanelet;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
