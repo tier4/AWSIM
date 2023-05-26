@@ -1,31 +1,87 @@
-# Add a Environment
-<!-- TODO: here you should add a short introduction to what the environment is and a link to Components/Environment -->
-## Create a Lanelet2
-<!-- TODO: here you should add information that the lanelet2 should be developed using MGRS coordinates and the origin of the system in which it is defined should be known -->
-Create a *Lanelet2* using [VectorMapBuilder](https://tools.tier4.jp/feature/vector_map_builder/) from the *PCD* obtained from real-life *LiDAR* sensor.
-## Create 3D models
-<!-- TODO here you should add a description that models can be prepared in the form of fbx files that load textures and materials from separate folders (as it is in External) -->
-To properly create 3D models of the environment please keep in mind the following notes:
+Environment is an important part of a Scene in AWSIM.
+Every aspect of the simulated surrounding world needs to be included in an Environment.
 
-- Creating a 3D model based on actual point cloud data makes it more realistic.
-- *AWSIM* is created using *HDRP* (High Definition Rendering Pipeline) which performs better when object meshes are merged.
-- Occlusion culling and flutter culling cannot be used because the sensors detection target will disappear.
-- Each traffic light should have a separate GameObject. Also, each light in the traffic light should be split into separate materials.
+If you want to learn more about en Environment please visit [this page](../../../../UserGuide/ProjectGuide/Components/Environment/).
+
+## Create a Lanelet2
+Create a *Lanelet2* using [VectorMapBuilder](https://tools.tier4.jp/feature/vector_map_builder/) from the *PCD* obtained from real-life *LiDAR* sensor.
+
+!!! warning "*lanelet2* origin"
+    *Lanetet2* should be created in the [MGRS coordinates](https://en.wikipedia.org/wiki/Military_Grid_Reference_System) with a known and well defined origin.
+    It is important to remember the origin in which it is created as it will be needed later.
+    If you forget the origin of *lanelet2* you will not be able to align it with the rest of the [Environment](../../../../UserGuide/ProjectGuide/Components/Environment/) accurately.
+
+## Create 3D models
+!!! info
+    To properly create 3D models of the environment please keep in mind the following notes:
+
+    - Creating a 3D model based on actual point cloud data makes it more realistic.
+    - *AWSIM* is created using *HDRP* (High Definition Rendering Pipeline) which performs better when object meshes are merged.
+    - Occlusion culling and flutter culling cannot be used because the sensors detection target will disappear.
+    - Each traffic light should have a separate GameObject. Also, each light in the traffic light should be split into separate materials.
+
+You can create 3D models of an Environment as you wish.
+It is advised however, to prepare the models in form of `.fbx` files.
+Additionally you should include materials and textures in separate directories.
+
+Many models are delivered in this format.
+This file format allows you to import models into Unity with materials and replace materials while importing.
+
+You can learn more about it [here](https://unity.com/how-to/work-assets-between-unity-and-autodesk).
 
 ### Guidelines
 <!-- TODO: here you should add tips in consultation with Piotr Rząd and report from Unity -->
+
 ## Create a Environment prefab
 ### Add a 3D models
-<!-- TODO: here you should describe how to create a prefab using models in fbx, you should mention about creating a hierarchy (groups) and about setting materials and textures, gifs/screens -->
-Add roads, buildings, greenery, signs, road markings…
+In this section we will add roads, buildings, greenery, signs, road markings etc. to our scene.
 
-In `AWSIM` all objects are located with their real world coordinates.
-This way the real world is represented accurately.
+!!! tip "Position alignment with *lanelet2*"
+    When adding elements to the Scene that are part of the static world (like 3D models of buildings, traffic lights etc.) it is good practice to collect them in one parent *Object* called `Map` or something similar.
 
-!!! tip
-    When adding some static element to your scene that is a part of the world (like 3D models of buildings, lights etc.) it is a good practice to aggregate them in one parent *Object* called `Map` or something similar.
+    By doing this you can set a transformation of the parent *Object* `Map` to adjust the world position in reference to loaded objects from *lanelet2*.
 
-    Then you can set a transformation of the parent Object `Map` to adjust the world position in reference to loaded objects from `Lanelet2`.
+    That is because *Environment* has to align with objects from *lanelet2* and the latter cannot be moved after importing.
+
+    If you are developing an *Environment* prefab in common origin with *lanelet2* it should not matter, but it is rarely the case.
+
+Most often your models will be saved in the `.fbx` format.
+If so, you can customize the materials in the imported model just before importing it.
+Sometimes it is necessary as models come with placeholder materials.
+
+!!! note
+    You can either
+
+    - replace materials for every added *Object* into the Scene
+    - or replace materials for one *Object* and save this object as a prefab to easily load it later
+
+In order to add 3D models from the `.fbx` file to the Scene please do the following
+
+1. In the *Project* view navigate to directory where the model is located and click on the model file.
+2. Now you can customize the materials used in the model in the *Inspector* view.
+3. Drag the model into the Scene where you want to position it.
+4. Move the *Object* in the *Hierarchy* tree appropriately.
+5. (optional) Now you can save this model configuration as a *prefab* to easily reuse it.
+    Do this by dragging the *Object* from the Scene into the *Project* view.
+    When you get a warning make sure to select you want to create an original new prefab.
+
+!!! warning "Remember to unpack"
+    Please remember to unpack all *Object* added into the scene.
+    If you don't they will change materials together with the `.fbx` model file as demonstrated in the example below.
+
+??? example
+    In this example we will first position the model on the Scene and only then change the materials to visualize the difference.
+
+    ![drag model](fbx_drag.gif)
+
+    ![change material in model](fbx_change.gif)
+
+When creating a complex *Environment* with many elements you should group them appropriately in the Hierarchy view.
+This depends on the individual style you like more, but it is a good practice to add all repeating elements into one common *Object*.
+E.g. all identical traffic lights grouped in *TrafficLights* Object.
+The same can be done with trees, buildings, signs etc.
+
+You can group Objects as you like, but at the end remember to group all top level Environment Objects into a *Map* object as explained in the beginning.
 
 ### Add a Environment Script
 Add an `Environment Script` as component in the `Environment` object.
