@@ -47,6 +47,7 @@ nav:
       - AWSIM Environment: Components/Environment/AWSIMEnvironment/index.md
       - Add New Environment: Components/Environment/AddNewEnvironment/index.md
       - PointCloudMapper: Components/Environment/PointCloudMapper/index.md
+      - LaneletBoundsVisualizer: Components/Environment/LaneletBoundsVisualizer/index.md
     - Traffic:
       - Random Traffic:
         - Random Traffic Simulator: Components/Traffic/RandomTraffic/RandomTrafficSimulator/index.md
