@@ -51,7 +51,7 @@ namespace RGLUnityPlugin
         /// </summary>
         public LidarNoiseParams noiseParams;
 
-        public int HorizontalSteps => Math.Max((int)((maxHAngle - minHAngle) / horizontalResolution), 1);
+        public int HorizontalSteps => Math.Max((int)Math.Round(((maxHAngle - minHAngle) / horizontalResolution)), 1);
         public int PointCloudSize => laserArray.lasers.Length * HorizontalSteps;
 
         public Matrix4x4[] GetRayPoses()
