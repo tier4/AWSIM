@@ -105,31 +105,31 @@ This depends on the individual style you like more, but it is a good practice to
 E.g. all identical traffic lights grouped in *TrafficLights* Object.
 The same can be done with trees, buildings, signs etc.
 
-You can group Objects as you like, but at the end remember to group all top level Environment Objects into a *Map* object as explained in the beginning.
+You can group Objects as you like, but at the end remember to group all top level Environment Objects into a *Map* object as explained in the beginning of this section.
 
 ### Add an Environment Script
 Add an `Environment Script` as component in the `Environment` object.
 
-1. Click on the *Add Component* button in the `Environment` object
+1. Click on the *Add Component* button in the `Environment` object.
 
     ![Add environment script gif](add_environment_script.gif)
 
-1. Search for `Environment` and select it
+1. Search for `Environment` and select it.
 
     ![Search for environment script](search_environment_script.png)
 
-1. Set the [`MGRS`](https://en.wikipedia.org/wiki/Military_Grid_Reference_System) offset to the origin position of the coordinate system where the *Lanelet2* used is defined.
+1. Set the [`MGRS`](https://en.wikipedia.org/wiki/Military_Grid_Reference_System) to the offset of your Environment as explained [in this section](../../../../UserGuide/ProjectGuide/Components/Environment/#environment-script).
 
     ![environment mgrs](environment_mgrs.png)
 
-1. Due to the differences in the coordinate systems between *VectorMapBuilder* and *Unity*, it is sometimes necessary to appropriately complete and transform the `Environment` object.
-The transform in Environment should be set in such a way that the Traffic Lanes match the modeled roads. Most often it is necessary to set the positive `90` degree rotation over `Y` axis
+2. Due to the differences between *VectorMapBuilder* and *Unity*, it may be necessary to set the transform of the `Environment` object.
+The transform in Environment should be set in such a way that the Traffic Lanes match the modeled roads. Most often it is necessary to set the positive `90` degree rotation over `Y` axis.
 
     ![environment transformation](environment_transformation.png)
 
 ### Add a Directional Light
 
-1. Create a new child Object of the Environment and name it `Directional Light`
+1. Create a new child Object of the Environment and name it `Directional Light`.
 
     ![add directional light](directional_light_add_object.gif)
 
@@ -146,7 +146,7 @@ The transform in Environment should be set in such a way that the Traffic Lanes 
     For more details on lighting check out [official Unity documentation](https://docs.unity3d.com/Manual/Lighting.html).
 ### Add a Volume
 
-1. Create a new child object of the Environment and name it `Volume`
+1. Create a new child object of the Environment and name it `Volume`.
 
     ![volume add object](volume_add_object.gif)
 
@@ -167,7 +167,7 @@ The transform in Environment should be set in such a way that the Traffic Lanes 
 
     ![npcpedestrians make parent](npcpedestrian_add_parent.gif)
 
-2. Open `Assets/AWSIM/Prefabs/NPCs/Pedestrians` in Project view and drag a humanElegant into the NPCPedestrians parent object
+2. Open `Assets/AWSIM/Prefabs/NPCs/Pedestrians` in Project view and drag a humanElegant into the NPCPedestrians parent object.
 
     ![npcpedestrian find prefab](npcpedestrian_find_prefab2.gif)
 
@@ -179,7 +179,7 @@ The transform in Environment should be set in such a way that the Traffic Lanes 
     You can configure pedestrian behavior with 2 parameters.
 
     - Duration: how long will the pedestrian walk straight
-    - Speed: how fat will the pedestrian walk straight
+    - Speed: how fast will the pedestrian walk straight
 
     !!!tip
         The `Simple Pedestrian Walker Controller` Script is best suited to be used on pavements.
@@ -194,4 +194,5 @@ The transform in Environment should be set in such a way that the Traffic Lanes 
         Remember to set correct orientation, as the NPCPedestrian will walk straight from the starting position with the starting orientation.
 
 !!! success
-    Once you've added the environment, you need to add and configure TrafficLights to it, details about it are described here.
+    Once you've added the Environment, you need to add and configure Traffic Lights.
+    For details please visit [this tutorial](../AddTrafficLights/).
