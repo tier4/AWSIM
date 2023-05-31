@@ -1,19 +1,47 @@
 Environment is an important part of a Scene in AWSIM.
 Every aspect of the simulated surrounding world needs to be included in an Environment.
 
-If you want to learn more about en Environment please visit [this page](../../../../UserGuide/ProjectGuide/Components/Environment/).
+If you want to learn more about an Environment please visit [this page](../../../../UserGuide/ProjectGuide/Components/Environment/).
 
-## Create a Lanelet2
+## Create a *lanelet2*
+<!-- TODO how to use a Vector Map Builder -->
 Create a *Lanelet2* using [VectorMapBuilder](https://tools.tier4.jp/feature/vector_map_builder/) from the *PCD* obtained from real-life *LiDAR* sensor.
 
-!!! warning "*lanelet2* origin"
-    *Lanetet2* should be created in the [MGRS coordinates](https://en.wikipedia.org/wiki/Military_Grid_Reference_System) with a known and well defined origin.
-    It is important to remember the origin in which it is created as it will be needed later.
-    If you forget the origin of *lanelet2* you will not be able to align it with the rest of the [Environment](../../../../UserGuide/ProjectGuide/Components/Environment/) accurately.
+!!! warning "*lanelet2* positioning"
+    *Lanetet2* should be created in [MGRS coordinates](https://en.wikipedia.org/wiki/Military_Grid_Reference_System) of the real place you are recreating.
+    Please position your *lanelet2* relative to the origin (bottom left corner) of the MGRS Grid Zone with the 100 km Square ID in which the location lays.
+
+    You can think of the *Grid Zone* as a local coordinate system.
+    Instead of making global (0,0) point (crossing of Equator and Prime Median) our coordinate system origin we take a closer one.
+    The MGRS Grid Zone with 100 km Square ID code designates a 100x100 km square on the map and we take its bottom left corner as our local origin.
+
+    Lets examine one node from an example *lanelet2* map:
+
+    ```xml
+    <node id="4" lat="35.68855194431519" lon="139.69142711058254">
+        <tag k="mgrs_code" v="54SUE815501"/>
+        <tag k="local_x" v="81596.1357"/>
+        <tag k="local_y" v="50194.0803"/>
+        <tag k="ele" v="34.137"/>
+    </node>
+    ```
+
+    The node *4* position is described as absolute coordinates given in the `<node>`.
+    In this example the coordinates are as follows `lat="35.68855194431519" lon="139.69142711058254`.
+
+    It is also described as local transformation defined as a translation relative to the origin of the MGRS Grid Zone with 100 km Square ID (bottom left corner).
+    The MGRS Grid Zone Designation with 100 km Square ID in this case is equal to `54SUE` (check [this page](https://en.wikipedia.org/wiki/Military_Grid_Reference_System) for more details on MGRS coordinates).
+    In this example the offset in the *X axis* is as follows `k="local_x" v="81596.1357"`
+    and the offset in the *Y axis* is as follows `k="local_y" v="50194.0803"`.
+
+    Note that elevation information is also included.
+
+    <!-- It is important to remember the origin in which it is created as it will be needed later.
+    If you forget the origin of *lanelet2* you will not be able to align it with the rest of the [Environment](../../../../UserGuide/ProjectGuide/Components/Environment/) accurately. -->
 
 ## Create 3D models
-!!! info
-    To properly create 3D models of the environment please keep in mind the following notes:
+!!! info "Notes for creating 3D models of the environment"
+    <!-- To properly create 3D models of the environment please keep in mind the following notes: -->
 
     - Creating a 3D model based on actual point cloud data makes it more realistic.
     - *AWSIM* is created using *HDRP* (High Definition Rendering Pipeline) which performs better when object meshes are merged.
@@ -32,18 +60,14 @@ You can learn more about it [here](https://unity.com/how-to/work-assets-between-
 ### Guidelines
 <!-- TODO: here you should add tips in consultation with Piotr Rząd and report from Unity -->
 
-## Create a Environment prefab
+## Create na Environment prefab
 ### Add a 3D models
 In this section we will add roads, buildings, greenery, signs, road markings etc. to our scene.
 
-!!! tip "Position alignment with *lanelet2*"
+!!! tip "Positioning"
     When adding elements to the Scene that are part of the static world (like 3D models of buildings, traffic lights etc.) it is good practice to collect them in one parent *Object* called `Map` or something similar.
 
-    By doing this you can set a transformation of the parent *Object* `Map` to adjust the world position in reference to loaded objects from *lanelet2*.
-
-    That is because *Environment* has to align with objects from *lanelet2* and the latter cannot be moved after importing.
-
-    If you are developing an *Environment* prefab in common origin with *lanelet2* it should not matter, but it is rarely the case.
+    By doing this you can set a transformation of the parent *Object* `Map` to adjust the world pose in reference to e.g. loaded objects from *lanelet2*.
 
 Most often your models will be saved in the `.fbx` format.
 If so, you can customize the materials in the imported model just before importing it.
@@ -83,7 +107,7 @@ The same can be done with trees, buildings, signs etc.
 
 You can group Objects as you like, but at the end remember to group all top level Environment Objects into a *Map* object as explained in the beginning.
 
-### Add a Environment Script
+### Add an Environment Script
 Add an `Environment Script` as component in the `Environment` object.
 
 1. Click on the *Add Component* button in the `Environment` object

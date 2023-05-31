@@ -2,7 +2,7 @@
 To add `RandomTraffic` to the `Environment`, it is necessary to load elements from the *lanelet2*. As a result of loading, `TrafficLanes` and `StopLines` will be added to the scene. Details of these components can be found here:
 <!-- TODO -->
 !!!warning
-    Before following this tutorial make sure you have added an [Environment Script](../../AddANewEnvironment/#add-a-environment-script) and set a proper `MGRS` offset position. This position is used when loading elements from the *lanelet2*!
+    Before following this tutorial make sure you have added an [Environment Script](../../AddANewEnvironment/AddAEnvironment/#add-an-environment-script) and set a proper `MGRS` offset position. This position is used when loading elements from the *lanelet2*!
 
 1. Click on the `AWSIM` button in the top menu of the Unity editor and navigate to `AWSIM -> Random Traffic -> Load Lanelet`
 
