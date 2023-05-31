@@ -103,4 +103,4 @@ The Traffic Light Script will enable you to control how the Traffic Light lights
     ![traffic light bulb config](traffic_light_bulb_config.gif)
 
 !!! success
-    Once you have added Traffic Lights to your environment, you can start configuring Random Traffic which will add moving vehicles to it! Details here:
+    Once you have added Traffic Lights to your environment, you can start configuring Random Traffic which will add moving vehicles to it! Details [here](../../AddARandomTraffic/AddARandomTrafficSimulatorScript/).

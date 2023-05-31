@@ -8,11 +8,11 @@ You can do this the same as with [Random Traffic Simulator](../AddARandomTraffic
 ## Add a box collider
 <!-- TODO add guidelines -->
 1. `TrafficIntersection` needs to be marked with a box collider.
-First click on the `Add Component` button
+First click on the `Add Component` button.
 
     ![Add box collider gif](traffic_intersection_add_box.gif)
 
-1. In the window that popped up search for `Box Collider` and select it
+1. In the window that popped up search for `Box Collider` and select it.
 
     ![Search for box collider](box_collider_search.png)
 
@@ -51,7 +51,7 @@ From the drop-down menu select the Traffic Lights you want to add.
     <!-- ![Traffic intersection add traffic light 2 gif](traffic_intersection_add_traffic_light2.gif) -->
     <img src="traffic_intersection_add_traffic_light2.gif" alt="Traffic intersection add traffic light 2 gif" width="600"/>
 
-    !!!note
+    !!! tip "Select Traffic Lights visually"
         If you have a lot of Traffic Lights it can be challenging to add them from the list.
         You can select them visually from the Scene the same as you had selected Traffic Lanes in the [Random Traffic Simulator](../AddARandomTrafficSimulatorScript/#add-spawnable-lanes).
 

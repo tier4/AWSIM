@@ -4,7 +4,7 @@ To add a Random Traffic to your scene you need the Random Traffic Simulator Scri
 
     ![create_random_traffic_simulator](add_random_traffic_simulator.gif)
 
-1. Click a button `Add Component` in the `Inspector` to add a script
+1. Click a button `Add Component` in the `Inspector` to add a script.
 
     ![add_component_random_traffic_simulator](add_component_random_traffic_simulator.gif)
 
@@ -14,7 +14,7 @@ Search for `RandomTrafficSimulator` script and add it by double clicking it or b
     ![add_component_random_traffic_simulator](add_component_random_traffic_simulator.png)
 
 ## Basic Configuration
-After clicking on the newly created `RandomTrafficSimulator` object in the Scene tree you should see something like this in the `Inspector` view
+After clicking on the newly created `RandomTrafficSimulator` object in the Scene tree you should see something like this in the `Inspector` view.
 
 ![random_traffic_simulator_inspector](random_traffic_simulator_inspector.png)
 
@@ -117,4 +117,4 @@ You can specify acceleration rate  of vehicles and three values of deceleration.
     This configuration is common for all vehicles managed by the `Random Traffic Simulator Script`.
 
 !!! success
-    The last thing that needs to be done for `RandomTraffic` to work properly is to add intersections with traffic lights and configure their sequences. Details here:
+    The last thing that needs to be done for `RandomTraffic` to work properly is to add intersections with traffic lights and configure their sequences. Details [here](../AddATrafficIntersection/).
