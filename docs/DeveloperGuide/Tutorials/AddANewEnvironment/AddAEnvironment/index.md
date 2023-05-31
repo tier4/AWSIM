@@ -41,8 +41,6 @@ Especially important are Traffic Lanes created in VMB as connected Road Nodes an
 
 ## Create 3D models
 !!! info "Notes for creating 3D models of the environment"
-    <!-- To properly create 3D models of the environment please keep in mind the following notes: -->
-
     - Creating a 3D model based on actual point cloud data makes it more realistic.
     - *AWSIM* is created using *HDRP* (High Definition Rendering Pipeline) which performs better when object meshes are merged.
     - Occlusion culling and flutter culling cannot be used because the sensors detection target will disappear.
@@ -59,6 +57,19 @@ You can learn more about it [here](https://unity.com/how-to/work-assets-between-
 
 ### Guidelines
 <!-- TODO: here you should add tips in consultation with Piotr Rząd and report from Unity -->
+To improve performance of the simulation in your Environment please keep in mind some of these tips when creating 3D models.
+
+1. Prefer more smaller models over a few big ones.
+
+    In general it is beneficial for performance when you make one small mesh of a object like tree and reuse it on the scene placing many prefabs instead of making one giant mesh containing all trees on the given scene.
+    Even in situations when you are not reusing meshes it is beneficial.
+    Lets say you have a city with many buildings - and every one of those buildings is different - it is still advised to model those building individually and make them separate Game Objects.
+
+2. Choose texture resolution appropriately.
+
+    Always have in mind what is the target usage of your texture.
+    Avoid making a high resolution texture for a small object or the one that will always be far away from the camera.
+    This way you can save some computing power by not calculating the details that will not be seen because of the screen resolution.
 
 ## Create an Environment prefab
 ### Add a 3D models
