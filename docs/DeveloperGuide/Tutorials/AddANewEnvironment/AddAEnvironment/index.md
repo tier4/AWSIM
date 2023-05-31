@@ -4,8 +4,8 @@ Every aspect of the simulated surrounding world needs to be included in an Envir
 If you want to learn more about an Environment please visit [this page](../../../../UserGuide/ProjectGuide/Components/Environment/).
 
 ## Create a *lanelet2*
-<!-- TODO how to use a Vector Map Builder -->
 Create a *Lanelet2* using [VectorMapBuilder](https://tools.tier4.jp/feature/vector_map_builder/) from the *PCD* obtained from real-life *LiDAR* sensor.
+For details please visit the [official guide](https://tools.tier4.jp/vector_map_builder/user_guide/).
 
 !!! warning "*lanelet2* positioning"
     *Lanetet2* should be created in [MGRS coordinates](https://en.wikipedia.org/wiki/Military_Grid_Reference_System) of the real place you are recreating.
@@ -36,8 +36,8 @@ Create a *Lanelet2* using [VectorMapBuilder](https://tools.tier4.jp/feature/vect
 
     Note that elevation information is also included.
 
-    <!-- It is important to remember the origin in which it is created as it will be needed later.
-    If you forget the origin of *lanelet2* you will not be able to align it with the rest of the [Environment](../../../../UserGuide/ProjectGuide/Components/Environment/) accurately. -->
+The most important in this step to accurately represent the road situation with elements available in the Builder.
+Especially important are Traffic Lanes created in VMB as connected Road Nodes and Stop Lines created in VMB as Road Surface Stoplines.
 
 ## Create 3D models
 !!! info "Notes for creating 3D models of the environment"
