@@ -60,7 +60,7 @@ You can learn more about it [here](https://unity.com/how-to/work-assets-between-
 ### Guidelines
 <!-- TODO: here you should add tips in consultation with Piotr Rząd and report from Unity -->
 
-## Create na Environment prefab
+## Create an Environment prefab
 ### Add a 3D models
 In this section we will add roads, buildings, greenery, signs, road markings etc. to our scene.
 
