@@ -61,6 +61,7 @@ The `TrafficLightSample` was developed to conduct a quick test for the developed
 </video>
 
 ## RGL test scenes
+The scenes described below are used for tests related to the external library `RGLUnityPlugin` (`RGL`) - you can read more about it in this [section](../ExternalLibraries/RGLUnityPlugin/).
 
 ### LidarSceneDevelop
 The scene `LidarSceneDevelop` can be used as a complete, minimalistic example of how to setup `RGL`. It contains `RGLSceneManager` component, four lidars, and an environment composed of floor and walls.
@@ -70,6 +71,7 @@ The scene `LidarSceneDevelop` can be used as a complete, minimalistic example of
 </video>
 
 ### LidarSkinnedStress
+The scene `LidarSkinnedStress` can be used to test the performance of `RGL` - for example, how performance is affected by using `Regular Meshes` compared to `Skinned Meshes`. The scene contains a large number of animated models that require meshes to be updated every frame, thus requiring more resources (*CPU* and data exchange with *GPU*).
 <!-- TODO: description -->
 <video width="1920" controls>
 <source src="skinned_stress.mp4" type="video/mp4">
@@ -78,7 +80,8 @@ The scene `LidarSceneDevelop` can be used as a complete, minimalistic example of
 
 
 ### LidarDisablingTest
-<!-- TODO: description -->
+The scene `LidarDisablingTest` can be used to test `RGL` performance with similar objects but with different configurations. Allows you to check if `RGL` works correctly when various components that can be sources of `Meshes` are disabled (`Colliders`, `Regular Meshes`, `Skinned Meshes`, ...).
+![disabled](disabled.png)
 <video width="1920" controls>
 <source src="disabling_test.mp4" type="video/mp4">
 </video>
