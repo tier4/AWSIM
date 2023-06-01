@@ -35,7 +35,7 @@ To run the demo, please follow the steps below.
 
 #### Demo configuration
     
-The simulation provided in the `AWSIM` demo is configured as follows:
+The simulation provided in the *AWSIM* demo is configured as follows:
 
 | Demo Settings     |                                                     |
 | :---------------- | :-------------------------------------------------- |
