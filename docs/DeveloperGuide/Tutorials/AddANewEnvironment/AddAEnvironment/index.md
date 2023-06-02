@@ -52,9 +52,11 @@ Many models are delivered in this format.
 This file format allows you to import models into Unity with materials and replace materials while importing. You can learn more about it [here](https://unity.com/how-to/work-assets-between-unity-and-autodesk).
 
 <!-- TODO: Here are still missing examples of fbx as added to prefab and how to set materials/textures - unless it is/will be in the next part -->
+<!-- I really think that this section is more about creating the model saved as fbx. Usage, so importing and changing materials is shown later. -->
 
 ### Guidelines
 <!-- TODO: here you should add tips in consultation with Piotr Rząd and report from Unity -->
+<!-- I have added as many tips as I could come up with after consulting Piotr and reading the Unity report. As for me this part is done, but please confirm this is enough. -->
 To improve the simulation performance of a scene containing your  `Environment` prefab, please keep in mind some of these tips when creating *3D* models:
 
 1. Prefer more smaller models over a few big ones.
@@ -82,6 +84,7 @@ To improve the simulation performance of a scene containing your  `Environment` 
 
 What's more, consider these tips related directly to the use of 3D models in *AWSIM*:
 <!-- TODO: what is flutter culling - i can't find it -->
+<!-- Does it even exist? the only reference to fluttering in whole documentation is here: https://docs.unity3d.com/Manual/terrain-Trees.html (use search) -->
  1. Creating a *3D* model based on actual point cloud data makes it more realistic.
  1. *AWSIM* is created using *HDRP* ([*High Definition Rendering Pipeline*](https://unity.com/srp/High-Definition-Render-Pipeline)) which performs better when object meshes are merged.
  1. [Occlusion culling](https://docs.unity3d.com/Manual/OcclusionCulling.html) and flutter culling cannot be used because the sensors detection target will disappear.
@@ -90,7 +93,7 @@ What's more, consider these tips related directly to the use of 3D models in *AW
 ## Create an Environment prefab
 <!-- TODO: please add after each step the effect (screen of scene elements) that the reader should achieve -->
 In this part, you will learn how to create a `Environment` prefab - that is, develop a *GameObject* containing all the necessary elements and save it as a prefab.
-### 1. Add a 3D models
+### 1. Add 3D models
 In this section we will add roads, buildings, greenery, signs, road markings etc. to our scene.
 
 Most often your models will be saved in the `.fbx` format.
@@ -102,7 +105,7 @@ Sometimes it is necessary as models come with placeholder materials.
  - or replace materials for one *GameObject* and save this object as a prefab to easily load it later.
 
 In order to add *3D* models from the `.fbx` file to the *Scene* please do the following steps:
-<!-- TODO: gif/video -->
+
 1. In the *Project* view navigate to directory where the model is located and click on the model file.
 2. Now you can customize the materials used in the model in the *Inspector* view.
 3. Drag the model into the *Scene* where you want to position it.
@@ -110,6 +113,12 @@ In order to add *3D* models from the `.fbx` file to the *Scene* please do the fo
 5. (optional) Now you can save this model configuration as a *prefab* to easily reuse it.
     Do this by dragging the *Object* from the *Scene* into the *Project* view.
     When you get a warning make sure to select you want to create an original new prefab.
+
+!!! example
+    An example video of the full process of importing a model, changing the materials, saving new model as a prefab and importing the new prefab.
+    <video width="1920" controls>
+    <source src="model_configure_save.mp4" type="video/mp4">
+    </video>
 
 When creating a complex *Environment* with many elements you should group them appropriately in the Hierarchy view.
 This depends on the individual style you like more, but it is a good practice to add all repeating elements into one common *Object*.
@@ -126,13 +135,29 @@ You can group Objects as you like.
 !!! warning "Remember to unpack"
     Please remember to unpack all *Object* added into the scene.
     If you don't they will change materials together with the `.fbx` model file as demonstrated in the example below.
-    In this example we will first position the model on the Scene and only then change the materials to visualize the difference.
-    <!-- TODO: but there is no unpacking here - so should we do it or not, write to me because I don't understand something here-->
-    ![drag model](fbx_drag.gif)
-    ![change material in model](fbx_change.gif)
+
+    This is unwanted behavior.
+    When you import a model and change some materials, but leave the rest default and don't unpack the model, then your instances of this model on the scene may change when you change the original fbx model settings.
+
+    See the example below to visualize what is the problem.
+
+    ??? example
+        In this example we will
+        
+        - Place the model on the Scene.
+        - Then intentionally *not* unpack the model
+        - Only then change the materials of the original fbx model, **not** the instance on the scene
+        
+        ![drag model](fbx_drag.gif)
+
+        Watch what happens, the instance on the Scene changes the materials together with the model.
+        This only happens if you don't unpack the model.
+        
+        ![change material in model](fbx_change.gif)
 
 ### 2. Add an Environment Script
 <!-- TODO: maybe in the section above, write what should be the final result - with a screenshot, so that you can see where you need to add this component -->
+<!-- Section above meaning what? 'Add an Environment Script' or 'Add 3D models'? -->
 Add an `Environment Script` as component in the `Environment` object.
 
 1. Click on the *Add Component* button in the `Environment` object.
@@ -147,9 +172,13 @@ Add an `Environment Script` as component in the `Environment` object.
 
     ![environment mgrs](environment_mgrs.png)
 
-2. Due to the differences between *VectorMapBuilder* and *Unity*, it may be necessary to set the transform of the `Environment` object.
-The transform in `Environment` should be set in such a way that the `TrafficLanes` match the modeled roads. Most often it is necessary to set the positive `90` degree rotation over `Y` axis.
-    <!-- TODO: here you have to add that this action should be done after loading traffic lanes, and here we only inform -->
+!!! info
+    Due to the differences between *VectorMapBuilder* and *Unity*, it may be necessary to set the transform of the `Environment` object.
+    The transform in `Environment` should be set in such a way that the `TrafficLanes` match the modeled roads. Most often it is necessary to set the positive `90` degree rotation over `Y` axis.
+
+    This step should be done after [importing items from *lanelet2*](../../AddARandomTraffic/LoadItemsFromLanelet/).
+    Only then will you know if you have Environment misaligned with items from *lanelet2*.
+
     ![environment transformation](environment_transformation.png)
 
 ### 3. Add a Directional Light
@@ -200,6 +229,10 @@ The transform in `Environment` should be set in such a way that the `TrafficLane
 
 1. Click `Add Component` in the humanElegant object and search for `Simple Pedestrian Walker Controller` Script and select it.
 
+    ![npcpedestrian configure](npcpedestrian_config.gif)
+
+    ![npcpedestrian simple script search](npcpedestrian_search.png)
+
     This is a simple *Script* that makes the pedestrian indefinitely walk straight and turn around.
     You can configure pedestrian behavior with 2 parameters.
 
@@ -208,10 +241,6 @@ The transform in `Environment` should be set in such a way that the `TrafficLane
 
     !!!tip
         The `Simple Pedestrian Walker Controller` Script is best suited to be used on pavements.
-    <!-- TODO: here's something wrong with the screenshots -->
-    ![npcpedestrian configure](npcpedestrian_config.gif)
-
-    ![npcpedestrian simple script search](npcpedestrian_search.png)
 
 2. Finally position the `NPCPedestrian` on the scene where you want it to start walking.
 
