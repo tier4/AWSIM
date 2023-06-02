@@ -50,6 +50,12 @@ namespace AWSIM
         /// </summary>
         public OnOutputDataDelegate OnOutputData;
 
+        /// <summary>
+        /// The bool value determines whether to gravity is considered or not
+        ///</summary>
+        public bool EnableGravity;
+
+
         Vector3 lastPosition;           // Previous frame position used for acceleration calculation.
         Vector3 lastVelocity;           // Previous frame velocity used for acceleration calculation in global coordinate system.
         Vector3 lastLocalVelocity;      // Previous frame velocity used for acceleration calculation.
@@ -57,10 +63,21 @@ namespace AWSIM
         float timer = 0;
         OutputData outputData = new OutputData();
 
+        Vector3 g;                      // Gravity considered in measuring of acceleration and angular velocity
+
         void Start()
         {
             lastRotation = new QuaternionD(transform.rotation);
             lastPosition = transform.position;
+
+            if (EnableGravity == true)
+            {
+                g = Physics.gravity;
+            }
+            else
+            {
+                g = Vector3.zero;
+            }
         }
 
         void FixedUpdate()
@@ -79,7 +96,7 @@ namespace AWSIM
             // Compute acceleration.
             var Velocity = (transform.position - lastPosition) / Time.deltaTime;
             var localVelocity = (transform.InverseTransformDirection(transform.position - lastPosition)) / Time.deltaTime;
-            var localAcceleration = transform.InverseTransformDirection((Velocity - lastVelocity) / Time.deltaTime + Physics.gravity);
+            var localAcceleration = transform.InverseTransformDirection((Velocity - lastVelocity) / Time.deltaTime + g);
             lastPosition = transform.position;
             lastVelocity = Velocity;
             lastLocalVelocity = localVelocity;

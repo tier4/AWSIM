@@ -139,7 +139,7 @@ namespace AWSIM
             bool IsBrakeLight()
             {
                 return (vehicle.AutomaticShiftInput == Vehicle.Shift.DRIVE && vehicle.AccelerationInput < 0)
-                    || (vehicle.AutomaticShiftInput == Vehicle.Shift.REVERSE && vehicle.AccelerationInput > 0);
+                    || (vehicle.AutomaticShiftInput == Vehicle.Shift.REVERSE && vehicle.AccelerationInput < 0);
             }
 
             bool IsReverseLight()

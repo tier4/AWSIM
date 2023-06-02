@@ -39,3 +39,6 @@ The following is a summary of the *ROS2* topics that the *AWSIM* node subscribes
 |                          Gear                           | `/vehicle/status/gear_status`               |      `autoware_auto_vehicle_msgs/GearReport`      |                    -                    | `30`  |  `Reliable`,<br>`Volatile`,<br>`Keep last/1`   |
 |                     Turn Indicators                     | `/vehicle/status/turn_indicators_status`    | `autoware_auto_vehicle_msgs/TurnIndicatorsReport` |                    -                    | `30`  |  `Reliable`,<br>`Volatile`,<br>`Keep last/1`   |
 |                      Hazard Lights                      | `/vehicle/status/hazard_lights_status`      |  `autoware_auto_vehicle_msgs/HazardLightsReport`  |                    -                    | `30`  |  `Reliable`,<br>`Volatile`,<br>`Keep last/1`   |
+| <p style="color:rgb(144,255,144);">**Ground Truth**</p> |                                             |                                                   |                                         |       |                                                |
+|                          Pose                           | `/awsim/ground_truth/vehicle/pose`          |            `geometry_msgs/PoseStamped`            |               `base_link`               | `100` |  `Reliable`,<br>`Volatile`,<br>`Keep last/1`   |
+

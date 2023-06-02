@@ -27,19 +27,19 @@ namespace RGLUnityPlugin
         public LaserArray laserArray;
 
         /// <summary>
-        /// The number of laser array firings between minHAngle and maxHAngle
+        /// The horiontal resolution of laser array firings (in degrees)
         /// </summary>
-        [Min(1)] public int horizontalSteps;
+        [Min(0)] public float horizontalResolution;
 
         /// <summary>
         /// Min horizontal angle (left)
         /// </summary>
-        public float minHAngle;
+        [Range(-360.0f, 360.0f)] public float minHAngle;
 
         /// <summary>
         /// Max horizontal angle (right)
         /// </summary>
-        public float maxHAngle;
+        [Range(-360.0f, 360.0f)] public float maxHAngle;
 
         /// <summary>
         /// Maximum range of the sensor.
@@ -51,7 +51,8 @@ namespace RGLUnityPlugin
         /// </summary>
         public LidarNoiseParams noiseParams;
 
-        public int PointCloudSize => laserArray.lasers.Length * horizontalSteps;
+        public int HorizontalSteps => Math.Max((int)((maxHAngle - minHAngle) / horizontalResolution), 1);
+        public int PointCloudSize => laserArray.lasers.Length * HorizontalSteps;
 
         public Matrix4x4[] GetRayPoses()
         {
@@ -61,22 +62,27 @@ namespace RGLUnityPlugin
                     "Minimum angle must be lower or equal to maximum angle");
             }
 
-            if (!(horizontalSteps > 0))
+            if (maxHAngle - minHAngle > 360.0f)
             {
-                throw new ArgumentOutOfRangeException(nameof(horizontalSteps),
-                    "Number of horizontal steps must be positive");
+                throw new ArgumentOutOfRangeException(nameof(maxHAngle),
+                    "Horizontal range must be lower than 360 degrees");
+            }
+
+            if (!(horizontalResolution > 0.0f))
+            {
+                throw new ArgumentOutOfRangeException(nameof(horizontalResolution),
+                    "Horizontal resolution must be positive");
             }
 
             Matrix4x4[] rayPose = new Matrix4x4[PointCloudSize];
-            float azimuthDelta = (maxHAngle - minHAngle) / horizontalSteps;
 
             Matrix4x4[] laserPoses = laserArray.GetLaserPoses();
-            for (int hStep = 0; hStep < horizontalSteps; hStep++)
+            for (int hStep = 0; hStep < HorizontalSteps; hStep++)
             {
                 for (int laserId = 0; laserId < laserPoses.Length; laserId++)
                 {
                     int idx = laserId + hStep * laserPoses.Length;
-                    float azimuth = minHAngle + hStep * azimuthDelta;
+                    float azimuth = minHAngle + hStep * horizontalResolution;
                     rayPose[idx] = Matrix4x4.Rotate(Quaternion.Euler(0.0f, azimuth, 0.0f)) * laserPoses[laserId];
                 }
             }
