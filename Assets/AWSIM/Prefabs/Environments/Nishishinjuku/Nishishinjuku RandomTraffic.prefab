@@ -44164,6 +44164,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Version: 11
+  m_ObsoleteShadowResolutionTier: 1
+  m_ObsoleteUseShadowQualitySettings: 0
+  m_ObsoleteCustomShadowResolution: 512
+  m_ObsoleteContactShadows: 0
+  m_PointlightHDType: 0
+  m_SpotLightShape: 0
+  m_AreaLightShape: 0
   m_Intensity: 73123.09
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
@@ -44267,14 +44275,6 @@ MonoBehaviour:
   m_AreaLightEmissiveMeshShadowCastingMode: 0
   m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
   m_AreaLightEmissiveMeshLayer: -1
-  m_Version: 11
-  m_ObsoleteShadowResolutionTier: 1
-  m_ObsoleteUseShadowQualitySettings: 0
-  m_ObsoleteCustomShadowResolution: 512
-  m_ObsoleteContactShadows: 0
-  m_PointlightHDType: 0
-  m_SpotLightShape: 0
-  m_AreaLightShape: 0
 --- !u!1 &9027057599864262960
 GameObject:
   m_ObjectHideFlags: 0
@@ -54807,7 +54807,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9027057600357292003}
-  - component: {fileID: 9027057600357292012}
+  - component: {fileID: 445656315769820269}
   m_Layer: 0
   m_Name: RandomTrafficSimulator
   m_TagString: Untagged
@@ -54829,7 +54829,7 @@ Transform:
   m_Father: {fileID: 7194879542207918461}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9027057600357292012
+--- !u!114 &445656315769820269
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54838,57 +54838,60 @@ MonoBehaviour:
   m_GameObject: {fileID: 9027057600357292013}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10eb9a13ed7b37341bfce160dfea81ce, type: 3}
+  m_Script: {fileID: 11500000, guid: 0004da06b69044905bc1db0ab38531a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 255
-  egoVehicle: {fileID: 0}
+  seed: 0
+  vehicleConfig:
+    Acceleration: 3
+    Deceleration: 2
+    SuddenDeceleration: 4
+    AbsoluteDeceleration: 20
   vehicleLayerMask:
     serializedVersion: 2
     m_Bits: 64
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 128
-  cullingDistance: 100
-  cullingHz: 1
   maxVehicleCount: 130
-  npcPrefabs:
-  - {fileID: 714549001370495616, guid: d0094c5a0e9fb6148873c658dbc61a89, type: 3}
-  - {fileID: 6850358619771218631, guid: 9bc315af95865dd4bbf4a8f716791609, type: 3}
-  - {fileID: 536101250511469494, guid: 433e715a84edbae418fe585f802f3918, type: 3}
-  - {fileID: 3333523281254186578, guid: 589cf2e451adab34eb1332da5701195a, type: 3}
-  - {fileID: 6604874415271597525, guid: 7e772e9ad7eb79040be629d8d04542ab, type: 3}
-  spawnableLanes:
-  - {fileID: 9027057599743323132}
-  - {fileID: 9027057599674077183}
-  - {fileID: 9027057599210076045}
-  - {fileID: 9027057599210076045}
-  - {fileID: 9027057598815769928}
-  - {fileID: 9027057600183560098}
-  - {fileID: 9027057599285330909}
-  - {fileID: 9027057598842397506}
-  - {fileID: 9027057599777832477}
-  - {fileID: 9027057600446549292}
-  - {fileID: 9027057600256985585}
-  - {fileID: 9027057600544199505}
-  - {fileID: 9027057600063261617}
-  - {fileID: 9027057600043014580}
-  - {fileID: 9027057599140105141}
-  - {fileID: 9027057600724358592}
-  - {fileID: 9027057600626081569}
-  - {fileID: 9027057600817331932}
-  - {fileID: 9027057599875708367}
-  - {fileID: 9027057600798885185}
-  - {fileID: 9027057600696620636}
-  - {fileID: 9027057598912826827}
-  - {fileID: 9027057599488937841}
-  - {fileID: 9027057599970784273}
-  - {fileID: 9027057600411674006}
-  vehicleConfig:
-    Acceleration: 3
-    Deceleration: 2
-    SuddenDeceleration: 4
+  _egoVehicle: {fileID: 0}
   showGizmos: 1
+  randomTrafficSims:
+  - npcPrefabs:
+    - {fileID: 714549001370495616, guid: d0094c5a0e9fb6148873c658dbc61a89, type: 3}
+    - {fileID: 6850358619771218631, guid: 9bc315af95865dd4bbf4a8f716791609, type: 3}
+    - {fileID: 536101250511469494, guid: 433e715a84edbae418fe585f802f3918, type: 3}
+    - {fileID: 3333523281254186578, guid: 589cf2e451adab34eb1332da5701195a, type: 3}
+    - {fileID: 6604874415271597525, guid: 7e772e9ad7eb79040be629d8d04542ab, type: 3}
+    spawnableLanes:
+    - {fileID: 9027057599743323132}
+    - {fileID: 9027057599674077183}
+    - {fileID: 9027057599210076045}
+    - {fileID: 9027057599210076045}
+    - {fileID: 9027057598815769928}
+    - {fileID: 9027057600183560098}
+    - {fileID: 9027057599285330909}
+    - {fileID: 9027057598842397506}
+    - {fileID: 9027057599777832477}
+    - {fileID: 9027057600446549292}
+    - {fileID: 9027057600256985585}
+    - {fileID: 9027057600544199505}
+    - {fileID: 9027057600063261617}
+    - {fileID: 9027057600043014580}
+    - {fileID: 9027057599140105141}
+    - {fileID: 9027057600724358592}
+    - {fileID: 9027057600626081569}
+    - {fileID: 9027057600817331932}
+    - {fileID: 9027057599875708367}
+    - {fileID: 9027057600798885185}
+    - {fileID: 9027057600696620636}
+    - {fileID: 9027057598912826827}
+    - {fileID: 9027057599488937841}
+    - {fileID: 9027057599970784273}
+    - {fileID: 9027057600411674006}
+    maximumSpawns: 0
+    enabled: 1
+  routeTrafficSims: []
 --- !u!1 &9027057600357747993
 GameObject:
   m_ObjectHideFlags: 0

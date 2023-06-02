@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using AWSIM.RandomTraffic;
+using AWSIM.TrafficSimulation;
 
 namespace AWSIM.Samples
 {

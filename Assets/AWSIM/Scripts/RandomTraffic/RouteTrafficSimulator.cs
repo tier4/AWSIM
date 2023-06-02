@@ -1,19 +1,19 @@
 using UnityEngine;
 using System;
+using System.Linq;
 
 namespace AWSIM.TrafficSimulation
 {
     [Serializable]
-    public struct RandomTrafficSimulatorConfiguration 
-    {
+    public struct RouteTrafficSimulatorConfiguration {
         /// <summary>
         /// Available NPC prefabs
         /// </summary>
         [Tooltip("NPCs to be spawned.")]
         public GameObject[] npcPrefabs;
-        
-        [Tooltip("TrafficLanes where NPC vehicles can spawn.")]
-        public TrafficLane[] spawnableLanes;
+
+        [Tooltip("Route to follow. The first element also acts as a spawn lane.")]
+        public TrafficLane[] route;
 
         [Tooltip("Describes the lifetime of a traffic simulator instance by specifying how many vehicles this traffic simulator will spawn. Setting it makes the spawner live longer or shorter, while it can also be set to infinity if needed (endless lifetime).")]
         public int maximumSpawns;
@@ -21,28 +21,22 @@ namespace AWSIM.TrafficSimulation
         [Tooltip("Is this traffic simulation enabled.")]
         public bool enabled;
     }
-
     /// <summary>
-    /// Randomly simulate NPC traffic. (Currently only Vehicle is supported)
-    /// - Automatic generation of NPC routes from VectorMap
-    /// - Random NPC traffic
+    /// Simulate NPC traffic. (Currently only Vehicle is supported)
+    /// - Use provided route
+    /// - Continue driving randomly when the route ends 
     /// - Traffic light control based on the Vienna Convention
-    /// - Reproducibility by Seed value
     /// </summary>
-    public class RandomTrafficSimulator : ITrafficSimulator
+    public class RouteTrafficSimulator : ITrafficSimulator
     {
-        [SerializeField, Tooltip("Is the traffic enabled")]
         public bool enabled = true;
 
+        private TrafficLane[] route;
         private int maximumSpawns = 0;
-
         private NPCVehicleSimulator npcVehicleSimulator;
-
         private NPCVehicleSpawner npcVehicleSpawner;
         private int currentSpawnNumber = 0;
-
         private int spawnPriority = 0;
-
         private GameObject nextPrefabToSpawn = null;
 
         public void IncreasePriority(int priority)
@@ -50,33 +44,33 @@ namespace AWSIM.TrafficSimulation
             spawnPriority += priority;
         }
 
+        public void ResetPriority() 
+        {
+            spawnPriority = 0;
+        }
+
         public int GetCurrentPriority()
         {
             return spawnPriority;
         }
 
-        public void ResetPriority() {
-            spawnPriority = 0;
-        }
-
         public bool IsEnabled()
         {
-            // TODO an interface to disable random traffic
+            // TODO additional interface to disable route traffic
             return enabled && !IsMaximumSpawnsNumberReached();
         }
 
-        public RandomTrafficSimulator(GameObject parent,
-            GameObject[]
-            prefabs,
-            TrafficLane[]
-            spawnableLanes,
-            NPCVehicleSimulator
-            vehicleSimulator,
+        public RouteTrafficSimulator(GameObject parent,
+            GameObject[] npcPrefabs,
+            TrafficLane[] npcRoute,
+            NPCVehicleSimulator vehicleSimulator,
             int maxSpawns = 0)
         {
+            route = npcRoute;
             maximumSpawns = maxSpawns;
             npcVehicleSimulator = vehicleSimulator;
-            npcVehicleSpawner = new NPCVehicleSpawner(parent, prefabs, spawnableLanes);
+            TrafficLane[] spawnableLane = {route[0]};
+            npcVehicleSpawner = new NPCVehicleSpawner(parent, npcPrefabs, spawnableLane); 
         }
 
         public void GetRandomSpawnInfo(out NPCVehicleSpawnPoint spawnPoint, out GameObject prefab)
@@ -97,25 +91,25 @@ namespace AWSIM.TrafficSimulation
 
         public bool Spawn(GameObject prefab, NPCVehicleSpawnPoint spawnPoint, out NPCVehicle spawnedVehicle)
         {
-            if(IsMaximumSpawnsNumberReached()) { 
-                spawnedVehicle = null;
+            if(IsMaximumSpawnsNumberReached()) {
+                spawnedVehicle = null; 
                 return false;
             };
 
             if (npcVehicleSimulator.VehicleStates.Count >= npcVehicleSimulator.maxVehicleCount)
             {
-                spawnedVehicle = null;
+                spawnedVehicle = null; 
                 return false;
             }
 
             var vehicle = npcVehicleSpawner.Spawn(prefab, SpawnIdGenerator.Generate(), spawnPoint);
-            npcVehicleSimulator.Register(vehicle, spawnPoint.Lane, spawnPoint.WaypointIndex);
+            npcVehicleSimulator.Register(vehicle, route.ToList<TrafficLane>(), spawnPoint.WaypointIndex);
             nextPrefabToSpawn = null;
-
+            
             if(maximumSpawns > 0)
                 currentSpawnNumber++;
-
-            spawnedVehicle = vehicle;
+            
+            spawnedVehicle = vehicle; 
             return true;
         }
 

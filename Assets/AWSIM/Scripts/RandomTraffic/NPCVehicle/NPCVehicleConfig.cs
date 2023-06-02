@@ -1,4 +1,4 @@
-namespace AWSIM.RandomTraffic
+namespace AWSIM.TrafficSimulation
 {
     /// <summary>
     /// Config of vehicle behaviors in <see cref="NPCVehicleSimulator"/>.
