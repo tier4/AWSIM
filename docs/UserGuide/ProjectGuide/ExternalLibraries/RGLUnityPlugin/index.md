@@ -50,11 +50,22 @@ Creating a point cloud is based on the use of a *Scene* with meshes, placing an 
 ## RGLSceneManager
 Each scene needs `RGLSceneManager` component to synchronize models between *Unity* and `RGL`. On every frame, it detects changes in the *Unity's* scene and propagates the changes to native `RGL` code. When necessary, it obtains *3D* models from *GameObjects* on the scene, and when they are no longer needed, it removes them.
 
-Three different strategies to interact with in-simulation *3D* models are implemented. `RGLSceneManager` uses executes one of the following policies to obtain raycast hit:
+Three different strategies to interact with in-simulation *3D* models are implemented. `RGLSceneManager` uses one of the following policies to obtain raycast hit:
 
 - `Only Colliders` - active colliders only,
 - `Regular Meshes And Colliders Instead Of Skinned` - mesh for non-skinned [`MeshRenderers`](https://docs.unity3d.com/Manual/class-MeshRenderer.html) or set of colliders (if provided) attached to the rootBone and below for [`SkinnedMeshRenderers`](https://docs.unity3d.com/Manual/class-SkinnedMeshRenderer.html),
 - `Regular Meshes And Skinned Meshes` - mesh for both [`MeshRenderer`](https://docs.unity3d.com/Manual/class-MeshRenderer.html) and [`SkinnedMeshRenderer`](https://docs.unity3d.com/Manual/class-SkinnedMeshRenderer.html).
+
+<!-- Notes from Piotr Rybicki that may be useful (I also have 2 screenshots that are potentially usable but I don't know whether they would be helpful for readers):
+- Only Colliders - LiDAR data is computed based on the colliders, which are geometrical primitives or simplified meshes. This is the fastest option, but will produce less accurate results, especially for the animated entities.
+- Regular Meshes And Colliders Instead Of Skinned - Uses regular meshes for static entities and colliders for animated entities. This improves accuracy for static entities with a negligible additional performance cost. For animated meshes, this will still use only colliders.
+- Regular Meshes And Skinned Meshes - Uses regular meshes for both static and animated meshes. This incurs additional performance, but produces the most realistic results.
+
+|  | Static Entity | Animated Entity (NPC) |
+| --- | --- | --- |
+| Only Colliders | Collider | Collider |
+| Regular Meshes And Colliders Instead Of Skinned | Visual Mesh | Collider |
+| Regular Meshes And Skinned Meshes | Visual Mesh | Visual Mesh | -->
 
 Mesh source can be changed in the `SceneManager` script properties:
 <img src="scene_manager.png" width="55%">
