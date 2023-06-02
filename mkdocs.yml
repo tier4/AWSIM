@@ -3,98 +3,98 @@ site_name: AWSIM document
 repo_url: https://github.com/tier4/AWSIM
 
 theme:
-  name: material
-  palette:
-    primary: indigo
-  features:
-    - navigation.sections
-    # - navigation.indexes  # adds section index pages
-    - navigation.footer
-    - content.tabs.link
-  icon:
-    repo: fontawesome/brands/github
+    name: material
+    palette:
+        primary: indigo
+    features:
+        - navigation.sections
+        # - navigation.indexes  # adds section index pages
+        - navigation.footer
+        - content.tabs.link
+    icon:
+        repo: fontawesome/brands/github
 
 markdown_extensions:
-  - tables
-  - admonition
-  - pymdownx.superfences
-  - pymdownx.details
-  - pymdownx.tabbed:
-      alternate_style: true
-  - attr_list
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+    - tables
+    - admonition
+    - pymdownx.superfences
+    - pymdownx.details
+    - pymdownx.tabbed:
+          alternate_style: true
+    - attr_list
+    - pymdownx.emoji:
+          emoji_index: !!python/name:materialx.emoji.twemoji
+          emoji_generator: !!python/name:materialx.emoji.to_svg
 
 nav:
-  - Introduction:
-      - AWSIM: Introduction/AWSIM/index.md
-      - Autoware: Introduction/Autoware/index.md
-      - AWSIM & Autoware:
-          - AWSIM & Autoware: Introduction/AWSIMAutoware/index.md
-          - Features: Introduction/AWSIMAutoware/Features/index.md
-      - AWSIM & Autoware & Scenario simulator v2:
-          - AWSIM & Autoware & Scenario simulator v2: Introduction/AWSIMAutowareScenarioSimulatorV2/index.md
-          - Features: Introduction/AWSIMAutowareScenarioSimulatorV2/Features/index.md
-  - User guide:
-      - Installation:
-          - Prerequisites: UserGuide/Installation/Prerequisites/index.md
-          - Run demo: UserGuide/Installation/RunDemo/index.md
-          - Troubleshooting: DeveloperGuide/TroubleShooting/index.md
-      - First steps:
-          - Set the initialization position: UserGuide/FirstSteps/SetTheInitializationPosition/index.md
-          - Set a single goal: UserGuide/FirstSteps/SetASingleGoal/index.md
-          - Add checkpoints on the way to the goal: UserGuide/FirstSteps/AddCheckpointsOnTheWayToTheGoal/index.md
-          - Enable self-driving: UserGuide/FirstSteps/EnableSelf-driving/index.md
-          - Set a list of goals: UserGuide/FirstSteps/SetGoalList/index.md
-      - Build from source:
-          - Prerequisites: UserGuide/BuildFromSource/Prerequisites/index.md
-          - Unity installation: UserGuide/BuildFromSource/UnityInstallation/index.md
-          - Setup Unity Project: UserGuide/BuildFromSource/SetupUnityProject/index.md
-          - Run scene: UserGuide/BuildFromSource/RunScene/index.md
-          - Troubleshooting: DeveloperGuide/TroubleShooting/index.md
-      - Project guide:
-          - Introduction: UserGuide/ProjectGuide/Introduction/index.md
-          - Components:
-              - Sensors:
-                  - Vehicle Status: UserGuide/ProjectGuide/Components/Sensors/VehicleStatus/index.md
-                  - GNSS: UserGuide/ProjectGuide/Components/Sensors/Gnss/index.md
-                  - LiDAR: UserGuide/ProjectGuide/Components/Sensors/Lidar/index.md
-                  - IMU: UserGuide/ProjectGuide/Components/Sensors/Imu/index.md
-                  - Camera: UserGuide/ProjectGuide/Components/Sensors/Camera/index.md
-              - Ego Vehicle: UserGuide/ProjectGuide/Components/Vehicle/index.md
-              - Environment: UserGuide/ProjectGuide/Components/Environment/index.md
-              - NPCs: UserGuide/ProjectGuide/Components/NPCs/index.md
-              - Random Traffic Simulator: UserGuide/ProjectGuide/Components/RandomTrafficSimulator/index.md
-              - LaneletBoundsVisualizer: Components/Environment/LaneletBoundsVisualizer/index.md
-          - Default existing scenes: UserGuide/ProjectGuide/DefaultExistingScenes/index.md
-          - External libraries:
-              - RGLUnityPlugin: UserGuide/ProjectGuide/ExternalLibraries/RGLUnityPlugin/index.md
-              - Ros2Unity: UserGuide/ProjectGuide/ExternalLibraries/Ros2Unity/index.md
-          - ROS2 topic list: UserGuide/ProjectGuide/Ros2TopicList/index.md
-  - Developer guide:
-      - Tutorials:
-          - Add a new Environment:
-              - Add an Environment: DeveloperGuide/Tutorials/AddANewEnvironment/AddAEnvironment/index.md
-              - Add TrafficLights: DeveloperGuide/Tutorials/AddANewEnvironment/AddTrafficLights/index.md
-              - Add a RandomTraffic:
-                  - Load items from lanelet2: DeveloperGuide/Tutorials/AddARandomTraffic/LoadItemsFromLanelet/index.md
-                  - Add a RandomTraffic: DeveloperGuide/Tutorials/AddARandomTraffic/AddARandomTrafficSimulatorScript/index.md
-                  - Add a TrafficIntersection: DeveloperGuide/Tutorials/AddARandomTraffic/AddATrafficIntersection/index.md
-          - Add a new Vehicle: DeveloperGuide/Tutorials/AddANewVehicle/index.md
-          - Add a new Scene:
-              - Add a Scene: DeveloperGuide/Tutorials/AddANewScene/AddANewScene/index.md
-              - Add a SceneManager: DeveloperGuide/Tutorials/AddANewScene/AddASceneManager/index.md
-              - Test a Scene: DeveloperGuide/Tutorials/AddANewScene/TestAScene/index.md
-          - Add a new LiDAR model: DeveloperGuide/Tutorials/AddANewLiDARModel/index.md
-          - Create a PCD: DeveloperGuide/Tutorials/CreateAPCDFromMesh/index.md
-          - Add a custom ROS2 message: DeveloperGuide/Tutorials/AddACustomMessage/index.md
-      - API: DeveloperGuide/API/index.md
-      - Contributing:
-          - Git Branch: DeveloperGuide/Contributing/GitBranch/index.md
-          - How to Contribute: DeveloperGuide/Contributing/HowToContribute/index.md
-      - Documentation generation: DeveloperGuide/DocumentationGeneration/index.md
-      - Trouble shooting: DeveloperGuide/TroubleShooting/index.md
-  - Other:
-      - License: License/index.md
-      - Contact: Contact/index.md
+    - Introduction:
+          - AWSIM: Introduction/AWSIM/index.md
+          - Autoware: Introduction/Autoware/index.md
+          - AWSIM & Autoware:
+                - AWSIM & Autoware: Introduction/AWSIMAutoware/index.md
+                - Features: Introduction/AWSIMAutoware/Features/index.md
+          - AWSIM & Autoware & Scenario simulator v2:
+                - AWSIM & Autoware & Scenario simulator v2: Introduction/AWSIMAutowareScenarioSimulatorV2/index.md
+                - Features: Introduction/AWSIMAutowareScenarioSimulatorV2/Features/index.md
+    - User guide:
+          - Installation:
+                - Prerequisites: UserGuide/Installation/Prerequisites/index.md
+                - Run demo: UserGuide/Installation/RunDemo/index.md
+                - Troubleshooting: DeveloperGuide/TroubleShooting/index.md
+          - First steps:
+                - Set the initialization position: UserGuide/FirstSteps/SetTheInitializationPosition/index.md
+                - Set a single goal: UserGuide/FirstSteps/SetASingleGoal/index.md
+                - Add checkpoints on the way to the goal: UserGuide/FirstSteps/AddCheckpointsOnTheWayToTheGoal/index.md
+                - Enable self-driving: UserGuide/FirstSteps/EnableSelf-driving/index.md
+                - Set a list of goals: UserGuide/FirstSteps/SetGoalList/index.md
+          - Build from source:
+                - Prerequisites: UserGuide/BuildFromSource/Prerequisites/index.md
+                - Unity installation: UserGuide/BuildFromSource/UnityInstallation/index.md
+                - Setup Unity Project: UserGuide/BuildFromSource/SetupUnityProject/index.md
+                - Run scene: UserGuide/BuildFromSource/RunScene/index.md
+                - Troubleshooting: DeveloperGuide/TroubleShooting/index.md
+          - Project guide:
+                - Introduction: UserGuide/ProjectGuide/Introduction/index.md
+                - Components:
+                      - Sensors:
+                            - Vehicle Status: UserGuide/ProjectGuide/Components/Sensors/VehicleStatus/index.md
+                            - GNSS: UserGuide/ProjectGuide/Components/Sensors/Gnss/index.md
+                            - LiDAR: UserGuide/ProjectGuide/Components/Sensors/Lidar/index.md
+                            - IMU: UserGuide/ProjectGuide/Components/Sensors/Imu/index.md
+                            - Camera: UserGuide/ProjectGuide/Components/Sensors/Camera/index.md
+                      - Ego Vehicle: UserGuide/ProjectGuide/Components/Vehicle/index.md
+                      - Environment: UserGuide/ProjectGuide/Components/Environment/index.md
+                      - NPCs: UserGuide/ProjectGuide/Components/NPCs/index.md
+                      - Random Traffic Simulator: UserGuide/ProjectGuide/Components/RandomTrafficSimulator/index.md
+                      - LaneletBoundsVisualizer: UserGuide/ProjectGuide/Components/LaneletBoundsVisualizer/index.md
+                - Default existing scenes: UserGuide/ProjectGuide/DefaultExistingScenes/index.md
+                - External libraries:
+                      - RGLUnityPlugin: UserGuide/ProjectGuide/ExternalLibraries/RGLUnityPlugin/index.md
+                      - Ros2Unity: UserGuide/ProjectGuide/ExternalLibraries/Ros2Unity/index.md
+                - ROS2 topic list: UserGuide/ProjectGuide/Ros2TopicList/index.md
+    - Developer guide:
+          - Tutorials:
+                - Add a new Environment:
+                      - Add an Environment: DeveloperGuide/Tutorials/AddANewEnvironment/AddAEnvironment/index.md
+                      - Add TrafficLights: DeveloperGuide/Tutorials/AddANewEnvironment/AddTrafficLights/index.md
+                      - Add a RandomTraffic:
+                            - Load items from lanelet2: DeveloperGuide/Tutorials/AddARandomTraffic/LoadItemsFromLanelet/index.md
+                            - Add a RandomTraffic: DeveloperGuide/Tutorials/AddARandomTraffic/AddARandomTrafficSimulatorScript/index.md
+                            - Add a TrafficIntersection: DeveloperGuide/Tutorials/AddARandomTraffic/AddATrafficIntersection/index.md
+                - Add a new Vehicle: DeveloperGuide/Tutorials/AddANewVehicle/index.md
+                - Add a new Scene:
+                      - Add a Scene: DeveloperGuide/Tutorials/AddANewScene/AddANewScene/index.md
+                      - Add a SceneManager: DeveloperGuide/Tutorials/AddANewScene/AddASceneManager/index.md
+                      - Test a Scene: DeveloperGuide/Tutorials/AddANewScene/TestAScene/index.md
+                - Add a new LiDAR model: DeveloperGuide/Tutorials/AddANewLiDARModel/index.md
+                - Create a PCD: DeveloperGuide/Tutorials/CreateAPCDFromMesh/index.md
+                - Add a custom ROS2 message: DeveloperGuide/Tutorials/AddACustomMessage/index.md
+          - API: DeveloperGuide/API/index.md
+          - Contributing:
+                - Git Branch: DeveloperGuide/Contributing/GitBranch/index.md
+                - How to Contribute: DeveloperGuide/Contributing/HowToContribute/index.md
+          - Documentation generation: DeveloperGuide/DocumentationGeneration/index.md
+          - Trouble shooting: DeveloperGuide/TroubleShooting/index.md
+    - Other:
+          - License: License/index.md
+          - Contact: Contact/index.md
