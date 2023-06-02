@@ -32,7 +32,7 @@ To setup the *AWSIM* project in *Unity* *Editor*:
     - Navigate the directory where the AWSIM repository was cloned to, select it and click `Open` in file explorer:
 ![](open_unity_project2.gif)
 
-    - The project should open automatically, if it doesn't it still should be added to `Projects` tab in Unity Hub. To launch the project in Unity Editor simply click the `AWSIM` item:
+    - The project should open automatically, if it doesn't it still should be added to `Projects` tab in Unity Hub. To launch the project in Unity Editor simply click the *AWSIM* item:
 ![](launch_unity_project.gif)
 
     !!! tip

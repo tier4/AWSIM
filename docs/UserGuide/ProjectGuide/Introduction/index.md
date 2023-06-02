@@ -63,17 +63,17 @@ AWSIM       //  root directory.
  │  │  │
  │  │  ├─Materials                  // Materials used commonly in Project.
  │  │  │
- │  │  ├─Models                     // 3D models
- │  │  │  │                         // Textures and materials for 3D models
+ │  │  ├─Models                     // *3D* models
+ │  │  │  │                         // Textures and materials for *3D* models
  │  │  │  │                         // are also included.
  │  │  │  │
- │  │  │  └─<3D Model>              // Directory of each 3D model.
+ │  │  │  └─<*3D* Model>              // Directory of each *3D* model.
  │  │  │     │
  │  │  │     │
- │  │  │     ├─Materials            // Materials used in 3D model.
+ │  │  │     ├─Materials            // Materials used in *3D* model.
  │  │  │     │
  │  │  │     │
- │  │  │     └─Textures             // Textures used in 3D model.
+ │  │  │     └─Textures             // Textures used in *3D* model.
  │  │  │
  │  │  │
  │  │  ├─Prefabs                    // Prefabs not dependent on a specific scene.
