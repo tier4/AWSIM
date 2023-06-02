@@ -2,7 +2,7 @@
 
 ### What is Autoware
 
-[Autoware](https://www.autoware.org/autoware) is an open source software project for autonomous driving.
+[Autoware](https://autoware.org/autoware-overview/) is an open source software project for autonomous driving.
 Autoware is build using ROS 2.
 
 ### Why use AWSIM with Autoware

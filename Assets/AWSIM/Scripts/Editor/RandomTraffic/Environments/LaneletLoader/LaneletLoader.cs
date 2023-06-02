@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using GeometryUtility = AWSIM.Lanelet.GeometryUtility;
 
-namespace AWSIM.RandomTraffic
+namespace AWSIM.TrafficSimulation
 {
     /// <summary>
     /// A class that provides capability to convert Lanelet2 data into environment components.
@@ -93,6 +93,8 @@ namespace AWSIM.RandomTraffic
             SetTrafficLightsOfStopLines();
 
             SetStopLineOfLanes();
+
+            AssignLaneletElementIdToTrafficSignalGameObjects();
         }
 
         private void CreateTrafficLanes()
@@ -278,6 +280,38 @@ namespace AWSIM.RandomTraffic
                     ? closest
                     : next;
             });
+        }
+
+        private void AssignLaneletElementIdToTrafficSignalGameObjects()
+        {
+            TrafficLight[] trafficLights = GameObject.FindObjectsOfType<TrafficLight>();
+            var regElems = laneletMap.RegulatoryElements.Values
+                    .Where(regElem => regElem.Type == RegulatoryElementType.TRAFFIC_LIGHT);
+
+            foreach (var regElem in regElems)
+            {
+                foreach (var line in regElem.Refers)
+                {
+                    var trafficLightPosition = line.Points[1];
+                    var trafficLight = FindClosestTrafficLight(trafficLights, trafficLightPosition);
+                    if (trafficLight == null)
+                    {
+                        continue;
+                    }
+                    EditorUtility.SetDirty(trafficLight);
+                    Undo.RecordObject(trafficLight, "Assigning lanelet id");
+                    var trafficLightLaneletID = trafficLight.GetComponentInParent<TrafficLightLaneletID>();
+                    if (trafficLightLaneletID == null)
+                    {
+                        trafficLight.gameObject.AddComponent<TrafficLightLaneletID>();
+                    }
+                    else
+                    {
+                        trafficLightLaneletID.LaneletElementID = line.ID;
+                    }
+                    PrefabUtility.RecordPrefabInstancePropertyModifications(trafficLight);
+                }
+            }
         }
     }
 }

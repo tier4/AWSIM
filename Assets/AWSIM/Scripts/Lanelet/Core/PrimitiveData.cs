@@ -171,6 +171,20 @@ namespace AWSIM.Lanelet
             return centerPoints;
         }
 
+        public Vector3[] CalculateLeftLine(float resolution = 1f, float minDeltaLength = 30f, float minDeltaAngle = 15f)
+        {
+            var leftPoints = this.LeftBound.Select(p => p.Value).ToArray();
+            var reducedLeftPoints = GeometryUtility.CalculateSideLine(leftPoints, resolution, minDeltaLength, minDeltaAngle);
+            return reducedLeftPoints;
+        }
+
+        public Vector3[] CalculateRightLine(float resolution = 1f, float minDeltaLength = 30f, float minDeltaAngle = 15f)
+        {
+            var rightPoints = this.RightBound.Select(p => p.Value).ToArray();
+            var reducedRightPoints = GeometryUtility.CalculateSideLine(rightPoints, resolution, minDeltaLength, minDeltaAngle);
+            return reducedRightPoints;
+        }
+
         public bool IsNextTo(LaneletData other)
         {
             return this.LeftBound.Any() && this.RightBound.Any() &&

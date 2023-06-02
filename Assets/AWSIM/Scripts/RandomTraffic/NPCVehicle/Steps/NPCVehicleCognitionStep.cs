@@ -5,7 +5,7 @@ using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.Profiling;
 
-namespace AWSIM.RandomTraffic
+namespace AWSIM.TrafficSimulation
 {
     /// <summary>
     /// Cognition step implementation for a NPC vehicle simulation.
@@ -316,14 +316,14 @@ namespace AWSIM.RandomTraffic
                                 var currentLine = state.FollowingLanes[0];
                                 if (currentLine.RightOfWayLanes.Count > 0)
                                 {
-                                    state.YieldPhase = NPCVehicleYieldPhase.ON_YELDING_LANE;
+                                    state.YieldPhase = NPCVehicleYieldPhase.ON_YIELDING_LANE;
                                     state.YieldPoint = GetStopPoint(currentLine, 1);
                                     state.YieldLane = currentLine;
                                     break;
                                 }
                             }
                             break;
-                        case NPCVehicleYieldPhase.ON_YELDING_LANE:
+                        case NPCVehicleYieldPhase.ON_YIELDING_LANE:
                         case NPCVehicleYieldPhase.ENTERING_YIELDING_LANE:
                             // Do nothing if the vehicle is far from stop line
                             var signedDistanceToStopLine = state.SignedDistanceToPointOnLane(state.YieldPoint);

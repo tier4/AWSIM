@@ -32,14 +32,14 @@ To setup the *AWSIM* project in *Unity* *Editor*:
     - Navigate the directory where the AWSIM repository was cloned to, select it and click `Open` in file explorer:
 ![](open_unity_project2.gif)
 
-    - The project should open automatically, if it doesn't it still should be added to `Projects` tab in Unity Hub. To launch the project in Unity Editor simply click the `AWSIM` item:
+    - The project should open automatically, if it doesn't it still should be added to `Projects` tab in Unity Hub. To launch the project in Unity Editor simply click the *AWSIM* item:
 ![](launch_unity_project.gif)
 
     !!! tip
         If you get the safe mode dialog when starting *UnityEditor*, you may need to install openssl.
 
           1. Download *libssl*:
-          `$ wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.11_amd64.deb`
+          `$ wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.12_amd64.deb`
           2. Install it:  
           `sudo dpkg -i libssl1.0.0_1.0.2n-1ubuntu5.11_amd64.deb`
 

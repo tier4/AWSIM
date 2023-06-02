@@ -385,7 +385,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 647779b37f094ba6a14de782b2b6ab4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leafSize: 0.1
+  enableDownsampling: 1
+  leafSize: 0.2
 --- !u!114 &1451191435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,7 +401,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AutomaticCaptureHz: 10
   modelPreset: 4
-  applyGaussianNoise: 0
+  applyDistanceGaussianNoise: 0
+  applyAngularGaussianNoise: 0
   configuration:
     laserArray:
       centerOfMeasurementVerticalLinearOffsetMm: 66.11

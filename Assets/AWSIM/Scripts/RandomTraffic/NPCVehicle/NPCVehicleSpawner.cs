@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace AWSIM.RandomTraffic
+namespace AWSIM.TrafficSimulation
 {
     /// <summary>
     /// Spawn point information of NPC vehicles.
@@ -55,6 +55,13 @@ namespace AWSIM.RandomTraffic
         /// <returns>NPC vehicle prefab</returns>
         public GameObject GetRandomPrefab()
             => prefabs[Random.Range(0, prefabs.Length)];
+
+        /// <summary>
+        /// Get random spawn point.
+        /// </summary>
+        /// <returns>Spawn point</returns>
+        public NPCVehicleSpawnPoint GetRandomSpawnPoint()
+            => spawnPoints[Random.Range(0, spawnPoints.Length)];
 
         /// <summary>
         /// Get a <see cref="NPCVehicleSpawnPoint"/> from spawnable lanes.
