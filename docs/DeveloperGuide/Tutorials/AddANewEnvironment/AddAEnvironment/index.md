@@ -10,7 +10,7 @@ Every aspect of the simulated surrounding world needs to be included in the `Env
 Before you start creating *Lanelet2*, we encourage you to read the [documentation](https://github.com/fzi-forschungszentrum-informatik/Lanelet2/tree/master) to find out what *Lanelet2* is all about.
 
 *Lanelet2* can be created using [*VectorMapBuilder*](https://tools.tier4.jp/feature/vector_map_builder/) (`VMP`) based on the *PCD* obtained from real-life *LiDAR* sensor.
-For details please visit the [basic operation](https://tools.tier4.jp/vector_map_builder/user_guide/) and [official user guide](https://tools.tier4.jp/static/manuals/vector_map_builder_ll2_user_guide.pdf).
+For details please visit the [basic operation](http://tools.tier4.jp/vector_map_builder/user_guide/) and [official user guide](https://tools.tier4.jp/static/manuals/vector_map_builder_ll2_user_guide.pdf).
 
 When working with the `VMP`, it is necessary to ensure the most accurate mapping of the road situation using the available elements.
 Especially important are `TrafficLanes` created in `VMB` as connected `Road Nodes` and `StopLines` created in VMB as `Road Surface Stoplines`.
