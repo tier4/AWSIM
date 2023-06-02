@@ -1,5 +1,5 @@
-
-To add `RandomTraffic` to the `Environment`, it is necessary to load elements from the *lanelet2*. As a result of loading, `TrafficLanes` and `StopLines` will be added to the scene. Details of these components can be found here:
+To add `RandomTraffic` to the `Environment`, it is necessary to load elements from the *lanelet2*.
+As a result of loading, `TrafficLanes` and `StopLines` will be added to the scene. Details of these components can be found here:
 <!-- TODO -->
 !!!warning
     Before following this tutorial make sure you have added an [Environment Script](../../AddANewEnvironment/AddAEnvironment/#add-an-environment-script) and set a proper `MGRS` offset position. This position is used when loading elements from the *lanelet2*!
@@ -22,13 +22,61 @@ To add `RandomTraffic` to the `Environment`, it is necessary to load elements fr
 If they appear somewhere else in your Hierarchy tree, then move them into the `Environment` object
 
 ## Complete loaded TrafficLanes
-<!-- TODO -->
+The Traffic Lanes that were loaded should be configures accordingly to the road situation.
 
 ## How to test
 <!-- TODO -->
 
 ## Add a StopLine manually
 <!-- TODO -->
+When something goes wrong when loading data from *lanelet2* or you just want to add another StopLine manually please do the following
+
+1. Add a new GameObject *StopLine* in the *StopLines* parent object.
+
+    ![add stop line object](add_stop_line.gif)
+
+1. Add a StopLine Script by clicking 'Add Component' and searching for `Stop Line`.
+
+    ![add component](add_stop_line_add_script.gif)
+
+    ![search stop line](stop_line_search.png)
+
+    So far your Stop Line should look like the following
+
+    ![stop line inspector view](stop_line_inspector.png)
+
+1. Set the position of `Element 0` and `Element 1`
+
+    These Elements are the two end points of a Stop Line.
+    The Stop Line will span between these points.
+
+    You don't need to set any data in the 'Transform' section as it is not used anyway.
+
+    !!! warning "StopLine coordinate system"
+        Please note that the Stop Line Script operates in the global coordinate system.
+        The transformations of StopLine *Object* and its parent *Objects* won't affect the Stop Line.
+
+        ??? example
+            In this example you can see that the Position of the *Game Object* does not affect the position and orientation of the Stop Line.
+
+            For a Game Object in the center of the coordinate system.
+
+            ![stop line in default position](stop_line_position11.png)
+
+            The stop Line is in the specified position.
+
+            ![stop line in default position](stop_line_position12.png)
+
+            However with the *Game Object* shifted in X axis.
+
+            ![stop line in new position](stop_line_position21.png)
+
+            The Stop Line stays in the same position as before, not affected by any transformations happening to the *Game Object*.
+
+            ![stop line in new position](stop_line_position22.png)
+
+Now you should move the whole object into the location you would like to place the 
+FIXME continue here
 
 ## Add a TrafficLane manually
 <!-- TODO -->
