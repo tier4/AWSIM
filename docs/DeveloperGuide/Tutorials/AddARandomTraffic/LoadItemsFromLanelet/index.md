@@ -1,6 +1,6 @@
 To add `RandomTraffic` to the `Environment`, it is necessary to load elements from the *lanelet2*.
-As a result of loading, `TrafficLanes` and `StopLines` will be added to the scene. Details of these components can be found here:
-<!-- TODO -->
+As a result of loading, `TrafficLanes` and `StopLines` will be added to the scene. Details of these components can be found [here](../../../../UserGuide/ProjectGuide/Components/RandomTrafficSimulator/).
+
 !!!warning
     Before following this tutorial make sure you have added an [Environment Script](../../AddANewEnvironment/AddAEnvironment/#add-an-environment-script) and set a proper `MGRS` offset position. This position is used when loading elements from the *lanelet2*!
 
@@ -28,7 +28,6 @@ The Traffic Lanes that were loaded should be configures accordingly to the road 
 <!-- TODO -->
 
 ## Add a StopLine manually
-<!-- TODO -->
 When something goes wrong when loading data from *lanelet2* or you just want to add another StopLine manually please do the following
 
 1. Add a new GameObject *StopLine* in the *StopLines* parent object.
@@ -75,8 +74,23 @@ When something goes wrong when loading data from *lanelet2* or you just want to 
 
             ![stop line in new position](stop_line_position22.png)
 
-Now you should move the whole object into the location you would like to place the 
-FIXME continue here
+1. Select whether there is a Stop Sign.
+
+    Select the `Has Stop Sign` tick-box confirming that this Stop Line has a Stop Sign.
+    The Stop Sign can be either vertical or horizontal.
+
+1. Configure is selection of a Traffic Light.
+
+    The last thing to configure is a Traffic Light.
+    You need to select one only when the Stop Line is right in front of a [Traffic Intersection](../../../../UserGuide/ProjectGuide/Components/RandomTrafficSimulator/) that has a Traffic Lights.
+
+    Select from the drop-down menu the Traffic Light that is on the Traffic Intersection and is facing the vehicle that would be driving on the Traffic Lane connected with the Stop Line you are configuring.
+
+    In other words select the right Traffic Light for the Lane on which your Stop Line is placed.
+
+    !!! tip "Select Traffic Lights visually"
+        If you have a lot of Traffic Lights it can be challenging to add them from the list.
+        You can select them visually from the Scene the same as you had selected Traffic Lanes in the [Random Traffic Simulator](../AddARandomTrafficSimulatorScript/#add-spawnable-lanes).
 
 ## Add a TrafficLane manually
 <!-- TODO -->
