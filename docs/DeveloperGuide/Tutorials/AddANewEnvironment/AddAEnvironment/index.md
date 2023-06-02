@@ -71,6 +71,17 @@ To improve performance of the simulation in your Environment please keep in mind
     Avoid making a high resolution texture for a small object or the one that will always be far away from the camera.
     This way you can save some computing power by not calculating the details that will not be seen because of the screen resolution.
 
+    !!! tip "Practical advice"
+        You can follow these simple rules when deciding on texture quality (texel density)
+
+        - For general objects choose 512px/m (so the minimum size of texture is 512/512)
+        - For important objects that are close to the camera choose 1024px/m (so the minimum size of texture is 1024/1024)
+
+1. (optional) Add animation.
+
+    Add animations to correct objects.
+    If some element in the 3D model are interactive they should be divided into separate parts.
+
 ## Create an Environment prefab
 ### Add a 3D models
 In this section we will add roads, buildings, greenery, signs, road markings etc. to our scene.
