@@ -99,7 +99,6 @@ When something goes wrong when loading data from *lanelet2* or you just want to 
     For this reason please check the [Traffic Lane section](#add-a-trafficlane-manually) for more details.
 
 ## Add a TrafficLane manually
-<!-- TODO -->
 It is possible that something may go wring when reading a *lanelet2* and you need to add an additional Traffic Lane or you just want to add it.
 To add a Traffic Lane manually please follow the steps below.
 
@@ -107,7 +106,7 @@ To add a Traffic Lane manually please follow the steps below.
 
     ![traffic lane add object](traffic_lane_add_object.gif)
 
-1. Click the 'Add Component' button and search for the `Traffic lane` script and select it.
+2. Click the 'Add Component' button and search for the `Traffic lane` script and select it.
 
     ![traffic lane add component](traffic_lane_add_component.gif)
 
@@ -117,7 +116,7 @@ To add a Traffic Lane manually please follow the steps below.
 
     ![traffic lane configuration](traffic_lane_configuration.png)
 
-1. Configure the 'Waypoints' list.
+3. Configure the 'Waypoints' list.
 
     This list is an ordered list of nest points defining the Traffic Lane.
     When you want to add a waypoint to a Traffic Lane just click on the `+` button or specify the number of waypoints on the list in the field with number to the right from 'Waypoints' identifier.
@@ -135,7 +134,7 @@ To add a Traffic Lane manually please follow the steps below.
         - When creating a turn that is a curvature please keep in mind the angle that is created between two next waypoints connected.
             The angles should be fairly small - this will translate to a smooth motion of vehicles.
 
-1. Select The Turn Direction.
+4. Select The Turn Direction.
 
     This field describes what are the vehicles traveling on ths Traffic Lane doing in reference to other Traffic Lanes.
     You need to select whether the vehicles are
@@ -144,7 +143,7 @@ To add a Traffic Lane manually please follow the steps below.
     - Turning right (`RIGHT`)
     - Turning left (`LEFT`)
 
-1. Configure Next Lanes.
+5. Configure Next Lanes.
 
     Into the Next Lanes list you need to add all Traffic Lanes that have their beginning in the end of this Traffic Lane.
     In other words if the vehicle can choose where he wants to drive (e.g. drive straight or drive left with choice of two different Traffic Lines)
@@ -166,13 +165,13 @@ To add a Traffic Lane manually please follow the steps below.
         If you have a lot of Traffic Lanes it can be challenging to add them from the list.
         You can select them visually from the Scene the same as you had selected Traffic Lanes in the [Random Traffic Simulator](../AddARandomTrafficSimulatorScript/#add-spawnable-lanes).
 
-1. Configure Previous Lanes.
+6. Configure Previous Lanes.
 
     Traffic Lane has to have previous Traffic Lanes configured.
     This is done in the exact same way as configuring next lanes which was shown in the previous step.
     Please do the same but add Traffic Lanes that are before the configured one instead of the ones after.
 
-1. Configure Right Of Way Lanes.
+7. Configure Right Of Way Lanes.
 
     The Right Of Way Lanes is a list of Traffic Lanes that have a priority over the configured one.
     The process of adding the Right of way lanes is the same as with adding Nest Lanes.
@@ -188,7 +187,7 @@ To add a Traffic Lane manually please follow the steps below.
 
         ![right of way configuration](traffic_lane_right_of_way_configuration.png)
 
-1. Add Stop Line.
+8. Add Stop Line.
 
     This step is necessary only when at the end of the configured Traffic Lane the Stop Line is present.
     If so please select the correct Stop Line from the drop-down list.
@@ -197,10 +196,10 @@ To add a Traffic Lane manually please follow the steps below.
         If you have a lot of Stop Lines it can be challenging to add them from the list.
         You can select them visually from the Scene the same as you had selected Traffic Lanes in the [Random Traffic Simulator](../AddARandomTrafficSimulatorScript/#add-spawnable-lanes).
 
-1. Add Speed Limit.
+9. Add Speed Limit.
 
     In the field called `Speed limit` simply write the speed limit that is in effect on the configured Traffic Lane.
 
-1. Set the Right of Ways
+10. Set the Right of Ways
 
     To make the Right Of Ways list you configured earlier take effect simply click the 'Set RightOfWays' button.
