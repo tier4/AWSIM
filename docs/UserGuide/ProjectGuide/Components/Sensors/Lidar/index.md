@@ -170,11 +170,3 @@ The following table describes the most essential lidar simulation scripts:
 | PointCloudVisualization.cs | Visualize point cloud collected by lidar.                          | `Assets/RGLUnityPlugin/Scripts/PointCloudVisualization.cs` |
 | RglLidarPublisher.cs       | Convert the data output from LidarSensor to ROS2 msg and publish.  | `Assets/AWSIM/Scripts/Sensors/LiDAR/RglLidarPublisher.cs`  |
 
-
-**IMUSensor [50% current]**
-<!-- TODO copied old, needs to be adjusted (50%) -->
-
-(prefab location, purpose of existence, link, **screen**)
-
-- Imu Sensor Script (gravity, output)
-- Imu Ros Publisher Script (topics, frame_id, qos)
