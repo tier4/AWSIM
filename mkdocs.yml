@@ -53,15 +53,21 @@ nav:
                   - Project guide:
                             - Introduction: UserGuide/ProjectGuide/Introduction/index.md
                             - Components:
-                                      - Sensors: UserGuide/ProjectGuide/Components/Sensors/index.md
+                                      - Sensors:
+                                                - Vehicle Status: UserGuide/ProjectGuide/Components/Sensors/VehicleStatus/index.md
+                                                - GNSS: UserGuide/ProjectGuide/Components/Sensors/Gnss/index.md
+                                                - LiDAR: UserGuide/ProjectGuide/Components/Sensors/Lidar/index.md
+                                                - IMU: UserGuide/ProjectGuide/Components/Sensors/Imu/index.md
+                                                - Camera: UserGuide/ProjectGuide/Components/Sensors/Camera/index.md
                                       - Ego Vehicle: UserGuide/ProjectGuide/Components/Vehicle/index.md
                                       - Environment: UserGuide/ProjectGuide/Components/Environment/index.md
                                       - NPCs: UserGuide/ProjectGuide/Components/NPCs/index.md
                                       - Random Traffic Simulator: UserGuide/ProjectGuide/Components/RandomTrafficSimulator/index.md
                             - Default existing scenes: UserGuide/ProjectGuide/DefaultExistingScenes/index.md
-                            - External Libraries:
+                            - External libraries:
                                       - RGLUnityPlugin: UserGuide/ProjectGuide/ExternalLibraries/RGLUnityPlugin/index.md
                                       - Ros2Unity: UserGuide/ProjectGuide/ExternalLibraries/Ros2Unity/index.md
+                            - ROS2 topic list: UserGuide/ProjectGuide/Ros2TopicList/index.md
         - Developer guide:
                   - Tutorials:
                             - Add a new Environment:
@@ -78,6 +84,7 @@ nav:
                                       - Test a Scene: DeveloperGuide/Tutorials/AddANewScene/TestAScene/index.md
                             - Add a new LiDAR model: DeveloperGuide/Tutorials/AddANewLiDARModel/index.md
                             - Create a PCD: DeveloperGuide/Tutorials/CreateAPCDFromMesh/index.md
+                            - Add a custom ROS2 message: DeveloperGuide/Tutorials/AddACustomMessage/index.md
                   - API: DeveloperGuide/API/index.md
                   - Contributing:
                             - Git Branch: DeveloperGuide/Contributing/GitBranch/index.md
