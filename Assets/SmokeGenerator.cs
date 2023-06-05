@@ -8,15 +8,21 @@ using UnityEngine;
 [System.Serializable]
 public class SmokeGenerator : MonoBehaviour
 {
-    [SerializeField]
-    [Range(0.005f, 0.1f)]
-    private float particleSize = 0.05f;
+    [Tooltip("Specifies the maximum number of smoke particles in a scene.")]
     [SerializeField]
     [Range(1, 1000)]
-    private int maxParticle = 100;
+    private int maxParticle = 250;
+    [Tooltip("Specifies the radius of a circular region where particles are randomly generated in [m].")]
     [SerializeField]
-    [Range(0.05f, 3.0f)]
-    private float particleRangeRadius = 0.5f;
+    [Range(0.01f, 3.0f)]
+    private float particleRangeRadius = 2.0f;
+    [Tooltip("Specifies the size of a smoke particle in [m].")]
+    [SerializeField]
+    [Range(0.005f, 0.1f)]
+    private float particleSize = 0.07f;
+
+    [SerializeField]
+    private SmokeParticlePhysics physics;
 
     // Start is called before the first frame update
     public void Start()
@@ -38,15 +44,16 @@ public class SmokeGenerator : MonoBehaviour
     {
         float angleRad = Random.Range(0.0f, (float)System.Math.PI*2.0f);
         float radius = Random.Range(0.0f, particleRangeRadius);
-        float x = radius * (float)System.Math.Cos(angleRad);
-        float z = radius * (float)System.Math.Sin(angleRad);
-        float y = Random.Range(0.0f, 4.5f);
-        Vector3 pos = this.transform.position + new Vector3(x, y, z);
-        SmokeParticle.Create(gameObject, particleSize, pos);
+        SmokeParticle.Create(gameObject, particleSize, radius, angleRad);
     }
 
     public float GetParticleSize()
     {
         return this.particleSize;
+    }
+
+    public float[] GetVelAcc()
+    {
+        return new float[4] {this.physics.initialPlaneVelocity, this.physics.initialVerticalVelocity, this.physics.planeAcceleration, this.physics.verticalAcceleration};
     }
 }
