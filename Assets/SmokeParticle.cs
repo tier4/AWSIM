@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class SmokeParticle : MonoBehaviour
 {
+	float speed = 0.5f;
+	double maxHeight = 2.5;
+
     void Start()
     {
         this.CreateCube();
@@ -12,20 +15,16 @@ public class SmokeParticle : MonoBehaviour
 
     void Update()
     {
-        this.transform.position += new Vector3(0.0f, 0.005f, 0.0f);
-        if (this.transform.position.y >= 5.0)
+		float disp = speed * (float)Time.deltaTime;
+        this.transform.position += new Vector3(0.0f, disp, 0.0f);
+        if (this.transform.position.y >= maxHeight)
             Destroy(gameObject);
-        
-        /* if (Input.GetKey(KeyCode.UpArrow))
-            gameObject.transform.position += new Vector3(0.0f, 0.005f, 0.0f);
-        if (Input.GetKey(KeyCode.DownArrow))
-            gameObject.transform.position -= new Vector3(0.0f, 0.01f, 0.0f); */
-        
     }
 
     private void CreateCube ()
     {
-        float size = 0.01f;
+		var parentComp = gameObject.GetComponentInParent<SmokeGenerator>();
+		float size = parentComp.GetParticleSize();
         float height, width, depth;
         height = size; width = size; depth = size;
 
@@ -55,7 +54,7 @@ public class SmokeParticle : MonoBehaviour
 			0, 1, 6
 		};
 			
-		Mesh mesh = GetComponent<MeshFilter> ().mesh;
+		Mesh mesh = GetComponent<MeshFilter>().mesh;
 		mesh.Clear ();
 		mesh.vertices = vertices;
 		mesh.triangles = triangles;
@@ -63,17 +62,13 @@ public class SmokeParticle : MonoBehaviour
 		mesh.RecalculateNormals ();
 	}
 
-    public static GameObject Create(GameObject gameObject)
+    public static void Create(GameObject gameObject, float particle_size, Vector3 particlePos)
     {
-        float radius = 0.5f;
-
         GameObject particle = new GameObject("Particle");
         particle.transform.parent = gameObject.transform;
-        particle.transform.position = gameObject.transform.position + new Vector3(Random.Range(-radius, radius), Random.Range(0, radius), Random.Range(-radius, radius));
+        particle.transform.position = particlePos;
         particle.AddComponent(typeof(MeshFilter));
         particle.AddComponent(typeof(MeshRenderer));
         particle.AddComponent<SmokeParticle>();
-
-        return particle;
     }
 }
