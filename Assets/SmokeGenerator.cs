@@ -20,6 +20,14 @@ public class SmokeGenerator : MonoBehaviour
     [SerializeField]
     [Range(0.005f, 0.1f)]
     private float particleSize = 0.07f;
+    [Tooltip("Specifies the average lifetime of a particle in [s].")]
+    [SerializeField]
+    [Range(5.0f, 15.0f)]
+    private float averageLifetime = 7.5f;
+    [Tooltip("Specifies the variation range of lifetime of a particle in [s].")]
+    [SerializeField]
+    [Range(0.0f, 5.0f)]
+    private float variationLifetime = 2.5f;
 
     [SerializeField]
     private SmokeParticlePhysics physics;
@@ -55,5 +63,10 @@ public class SmokeGenerator : MonoBehaviour
     public float[] GetVelAcc()
     {
         return new float[4] {this.physics.initialPlaneVelocity, this.physics.initialVerticalVelocity, this.physics.planeAcceleration, this.physics.verticalAcceleration};
+    }
+
+    public double GetLifetime()
+    {
+        return (double)(averageLifetime + Random.Range(-variationLifetime, variationLifetime));
     }
 }

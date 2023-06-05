@@ -6,14 +6,14 @@ using UnityEngine;
 public class SmokeParticle : MonoBehaviour
 {
 	private SmokeGenerator parentComp;
-	private double lifeTime = 7.5;
+	private double lifeTime;
 	private Vector3 velocity = new Vector3(0.0f, -0.05f, 0.0f);
 	private Vector3 acceleration = new Vector3(0.0f, 0.05f, 0.0f);
 	
     void Start()
     {
         this.CreateCube();
-		this. lifeTime += (double)Random.Range(-2.5f, 2.5f);
+		this.lifeTime = parentComp.GetLifetime();
 
 		Material mat = this.parentComp.GetComponent<MeshRenderer>().material;
 		MeshRenderer rend = GetComponent<MeshRenderer>();
