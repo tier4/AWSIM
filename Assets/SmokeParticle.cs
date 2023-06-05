@@ -5,25 +5,31 @@ using UnityEngine;
 
 public class SmokeParticle : MonoBehaviour
 {
-	float speed = 0.5f;
-	double maxHeight = 2.5;
-
+	private SmokeGenerator parentComp;
+	private float speed = 0.5f;
+	private double maxHeight = 2.5;
+	
     void Start()
     {
         this.CreateCube();
+
+		Material mat = this.parentComp.GetComponent<MeshRenderer>().material;
+		MeshRenderer rend = GetComponent<MeshRenderer>();
+		if (rend != null)
+			rend.material = mat;
     }
 
     void Update()
     {
-		float disp = speed * (float)Time.deltaTime;
+		float disp = this.speed * (float)Time.deltaTime;
         this.transform.position += new Vector3(0.0f, disp, 0.0f);
-        if (this.transform.position.y >= maxHeight)
+        if (this.transform.position.y >= this.maxHeight)
             Destroy(gameObject);
     }
 
     private void CreateCube ()
     {
-		var parentComp = gameObject.GetComponentInParent<SmokeGenerator>();
+		this.parentComp = gameObject.GetComponentInParent<SmokeGenerator>();
 		float size = parentComp.GetParticleSize();
         float height, width, depth;
         height = size; width = size; depth = size;
