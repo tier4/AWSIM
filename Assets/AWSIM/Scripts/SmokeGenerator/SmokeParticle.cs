@@ -35,32 +35,30 @@ public class SmokeParticle : MonoBehaviour
     private void CreateCube ()
     {
 		float size = this.parentComp.GetParticleSize();
-        float height, width, depth;
-        height = size; width = size; depth = size;
 
 		Vector3[] vertices = {
 			new Vector3 (0, 0, 0),
-			new Vector3 (width, 0, 0),
-			new Vector3 (width, height, 0),
-			new Vector3 (0, height, 0),
-			new Vector3 (0, height, depth),
-			new Vector3 (width, height, depth),
-			new Vector3 (width, 0, depth),
-			new Vector3 (0, 0, depth),
+			new Vector3 (size, 0, 0),
+			new Vector3 (size, size, 0),
+			new Vector3 (0, size, 0),
+			new Vector3 (0, size, size),
+			new Vector3 (size, size, size),
+			new Vector3 (size, 0, size),
+			new Vector3 (0, 0, size),
 		};
 
 		int[] triangles = {
-			0, 2, 1, //face front
+			0, 2, 1,
 			0, 3, 2,
-			2, 3, 4, //face top
+			2, 3, 4,
 			2, 4, 5,
-			1, 2, 5, //face right
+			1, 2, 5,
 			1, 5, 6,
-			0, 7, 4, //face left
+			0, 7, 4,
 			0, 4, 3,
-			5, 4, 7, //face back
+			5, 4, 7,
 			5, 7, 6,
-			0, 6, 7, //face bottom
+			0, 6, 7,
 			0, 1, 6
 		};
 			
