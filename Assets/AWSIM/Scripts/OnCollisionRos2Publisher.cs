@@ -14,7 +14,7 @@ namespace AWSIM
         /// <summary>
         /// Topic name.
         /// </summary>
-        public string topic = "AWSIM/ground_truth/on_collision";
+        public string topic = "awsim/ground_truth/on_collision";
 
         /// <summary>
         /// Frame ID.
