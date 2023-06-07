@@ -81,7 +81,10 @@ nav:
                   - Load items from lanelet2: DeveloperGuide/Tutorials/AddARandomTraffic/LoadItemsFromLanelet/index.md
                   - Add a RandomTraffic: DeveloperGuide/Tutorials/AddARandomTraffic/AddARandomTrafficSimulatorScript/index.md
                   - Add a TrafficIntersection: DeveloperGuide/Tutorials/AddARandomTraffic/AddATrafficIntersection/index.md
-          - Add a new Vehicle: DeveloperGuide/Tutorials/AddANewVehicle/index.md
+          - Add a new Vehicle:
+            - Add a Vehicle: DeveloperGuide/Tutorials/AddANewVehicle/index.md
+            - Add Visual Elements: DeveloperGuide/Tutorials/AddANewVehicle/AddVisualElements/index.md
+            - Add Colliders: DeveloperGuide/Tutorials/AddANewVehicle/AddColliders/index.md
           - Add a new Scene:
               - Add a Scene: DeveloperGuide/Tutorials/AddANewScene/AddANewScene/index.md
               - Add a SceneManager: DeveloperGuide/Tutorials/AddANewScene/AddASceneManager/index.md
