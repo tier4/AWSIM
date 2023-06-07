@@ -1,42 +1,68 @@
-**IMUSensor [50% current]**
-<!-- TODO copied old, needs to be adjusted (50%) -->
+# IMUSensor
+`IMUSensor` is a component that simulates an *IMU* (*Inertial Measurement Unit*) sensor. Measures acceleration $\frac{m}{s^2}$ and angular velocity $\frac{rad}{s}$ based on the transformation of the *GameObject* to which this component is attached.
 
-(prefab location, purpose of existence, link, **screen**)
+#### Prefab
+Prefab can be found under the following path:<br>`Assets\AWSIM\Prefabs\Sensors\IMUSensor.prefab`
 
-- Imu Sensor Script (gravity, output)
-- Imu Ros Publisher Script (topics, frame_id, qos)
+![components](components.png)
 
-# IMU Sensor
+#### Link
 
-The document describes inertial measurement unit sensor simulation component.
+`IMUSensor` has its own frame `tamagawa/imu_link` in which its data is published, the sensor prefab is added to it. 
+All is added to the `Ego` prefab: to the `sensor_kit_base_link` in the `base_link` object located in the `URDF`.
 
-## Prefabs
-Path : `Assets\AWSIM\Prefabs\Sensors\IMUSensor.prefab`
+![link](link.png)
 
-## Scripts
+#### Scripts 
 
-All the most important scripts can be found under the `Assets\AWSIM\Scripts\Sensors\Imu\*`
+The `IMUSensor` functionality is split into two scripts:
 
-The table below describes features contained in each provided script:
+- *IMUSensor Script* - it calculates the acceleration and angular velocity as its *output* and calls the callback for it.
+- *ImuRos2Publisher Script* - provides the ability to publish `IMUSensor` output as [Imu](https://docs.ros2.org/latest/api/sensor_msgs/msg/Imu.html) message type published on a specific *ROS2* topics.
 
-| script              | feature                                                                                                                                                                                |
-| :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ImuSensor.cs        | Core Inertial Measurement Unit Sensor.<br>Measures the Acceleration(m/s^2) and AngularVelocity(rad/s) based on the Transform of the GameObject to which this component is attached to. |
-| ImuRos2Publisher.cs | Converts the data output from ImuSensor-specific struct to ROS2 message and publishes it.                                                                                              |
 
-## Output Data
+Scripts can be found under the following path:<br>`Assets\AWSIM\Scripts\Sensors\Imu\*`
 
-The following table describes `ImuSensor.OutputData` properties:
+## IMUSensor Script
+![script](script.png)
 
-| field              | type    | feature                           |
-| :----------------- | :------ | :-------------------------------- |
-| LinearAcceleration | Vector3 | Measured acceleration (m/s^2)     |
-| AungularVelocity   | Vector3 | Measured angular velocity (rad/s) |
+This is the main script in which all calculations are performed:
 
-## Published Topics
+- the angular velocity is calculated as the derivative of the orientation with respect to time,
+- acceleration is calculated as the second derivative of position with respect to time,
+- in the calculation of acceleration, the gravitational vector is considered - which is added.
 
-The data output is published to the following topics:
+!!! warning 
+    If the angular velocity about any axis is `NaN` (infinite), then  angular velocity is published as vector zero.
 
-| topic                           | msg               | frame_id            | hz   | QoS                                      |
-| :------------------------------ | :---------------- | :------------------ | :--- | :--------------------------------------- |
-| `/sensing/imu/tamagawa/imu_raw` | `sensor_msgs/Imu` | `tamagawa/imu_link` | `30` | `Reliable`, `Volatile`, `Keep last/1000` |
+#### Elements configurable from the editor level
+
+- `Output Hz` - frequency of output calculation and callback (default: `30Hz`)
+      
+#### Output Data
+
+|       Category       |  Type   | Description                       |
+| :------------------: | :-----: | :-------------------------------- |
+| *LinearAcceleration* | Vector3 | Measured acceleration (m/s^2)     |
+|  *AngularVelocity*   | Vector3 | Measured angular velocity (rad/s) |
+
+## ImuRos2Publisher Script 
+![script_ros2](script_ros2.png)
+Converts the data output from `IMUSensor` to *ROS2* [Imu](https://docs.ros2.org/latest/api/sensor_msgs/msg/Imu.html) type message and publishes it. The conversion and publication is performed using the `Publish(IMUSensor.OutputData outputData)` method, which is the `callback` triggered by *IMUSensor Script* for the current output.
+
+!!! warning
+    In each 3x3 covariance matrices the row-major representation is filled with `0` and does not change during the script run.
+    In addition, the field `orientation` is assumed to be `{1,0,0,0}` and also does not change.
+#### Elements configurable from the editor level
+- `Topic` - the *ROS2* topic on which the message is published<br>(default: `"/sensing/imu/tamagawa/imu_raw"`)
+- `Frame id` - frame in which data is published, used in [`Header`](https://docs.ros2.org/latest/api/std_msgs/msg/Header.html)<br>(default: `tamagawa/imu_link"`)
+- `Qos Settings` - Quality of service profile used in the publication<br>(default: `Reliable`, `Volatile`, `Keep last`, `1000`)
+
+
+#### Published Topics
+- Frequency: `30Hz`
+- QoS:  `Reliable`, `Volatile`, `Keep last/1000`
+
+|  Category  | Topic                           | Message type                                                                   |     `frame_id`      |
+| :--------: | :------------------------------ | :----------------------------------------------------------------------------- | :-----------------: |
+| *IMU data* | `/sensing/imu/tamagawa/imu_raw` | [`sensor_msgs/Imu`](https://docs.ros2.org/latest/api/sensor_msgs/msg/Imu.html) | `tamagawa/imu_link` |
