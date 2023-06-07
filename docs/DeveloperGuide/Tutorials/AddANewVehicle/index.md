@@ -191,9 +191,25 @@ This process is very similar to [the one before](#add-interactive-body-parts).
 
     ![wheel visuals configured](wheel_visuals_configured.png)
 
+### Move the models
+The last step to correctly configure Vehicle models is to shift them so that the `EgoVehicle` origin is in the center of **fixed** axis.
+
+This means you need to shift the whole `Models` *Object* accordingly.
+
+!!!tip
+    Add a `dummy` *Object* as a child to the `EgoVehicle` *Object* so it is located in the origin of the `EgoVehicle`.
+    
+    Now move `Models` around relative to the `dummy`.
+    The `dummy` will help you see when the fixed axis (in case of the Lexus from example it is the rear axis) is aligned with origin of `EgoVehicle`.
+
+    In the end delete the `dummy` *Object* as it is no longer needed.
+
+    ![models shift w dummy](models_shift_w_dummy.gif)
 
 ## Add a Canter of Mass
-<!-- TODO -->
+To add a center of mass to your vehicle you have to add a `CoM` child *Object* to the `EgoVehicle` *Object*.
+
+Then just set the transformation to the center of mass 
 
 ## Add a Reflection Probe
 <!-- TODO -->
