@@ -14,11 +14,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Profiling;
 using ROS2;
+using YamlDotNet.Serialization;
 
 namespace RGLUnityPlugin
 {
@@ -47,6 +49,8 @@ namespace RGLUnityPlugin
         [SerializeField]
         private MeshSource meshSource = MeshSource.RegularMeshesAndSkinnedMeshes;
 
+        [SerializeField] private string entityIdDictionaryFile;
+
         // Getting meshes strategies
         private delegate IEnumerable<RGLObject> IntoRGLObjectsStrategy(IEnumerable<GameObject> gameObjects);
 
@@ -55,6 +59,10 @@ namespace RGLUnityPlugin
         // Keeping track of the scene objects
         private HashSet<GameObject> lastFrameGameObjects = new HashSet<GameObject>();
         private readonly Dictionary<GameObject, RGLObject> uploadedRGLObjects = new Dictionary<GameObject, RGLObject>();
+
+        // This dictionary keeps tracks of identifier -> instance id of objects that were removed (e.g. temporary NPCs)
+        // This is needed to include them in the instance id dictionary yaml saved at the end of simulation.
+        private Dictionary<string, int> removedRglObjectsIds = new Dictionary<string, int>();
 
         private static Dictionary<string, RGLMesh> sharedMeshes = new Dictionary<string, RGLMesh>(); // <Identifier, RGLMesh>
         private static Dictionary<string, int> sharedMeshesUsageCount = new Dictionary<string, int>(); // <RGLMesh Identifier, count>
@@ -155,12 +163,20 @@ namespace RGLUnityPlugin
             Profiler.BeginSample("Remove despawned objects");
             foreach (var rglObject in toRemove)
             {
-                if (!(rglObject.RglMesh is RGLSkinnedMesh)) sharedMeshesUsageCount[rglObject.RglMesh.Identifier] -= 1;
-
                 if(rglObject.Texture != null)
                 {
                     sharedTexturesUsageCount[rglObject.Texture.Identifier] -=1;
                 }               
+
+                if (!(rglObject.RglMesh is RGLSkinnedMesh))
+                {
+                    sharedMeshesUsageCount[rglObject.RglMesh.Identifier] -= 1;
+                }
+
+                if (rglObject.RglEnitityId.HasValue)
+                {
+                    removedRglObjectsIds.Add(rglObject.Identifier, rglObject.RglEnitityId.Value);
+                }
 
                 rglObject.DestroyFromRGL();
                 uploadedRGLObjects.Remove(rglObject.RepresentedGO);
@@ -259,6 +275,28 @@ namespace RGLUnityPlugin
             sharedTextures.Clear();
             sharedMeshesUsageCount.Clear();
             Debug.Log("RGLSceneManager: cleared");
+        }
+
+        private void OnApplicationQuit()
+        {
+            Debug.LogWarning("END");
+            if (string.IsNullOrEmpty(entityIdDictionaryFile))
+            {
+                return;
+            }
+
+            var dict = new Dictionary<string, int>(removedRglObjectsIds);
+            foreach (var rglObject in uploadedRGLObjects.Values)
+            {
+                if (rglObject.RglEnitityId.HasValue)
+                {
+                    dict.Add(rglObject.Identifier, rglObject.RglEnitityId.Value);
+                }
+            }
+            var serializer = new SerializerBuilder().Build();
+            var yaml = serializer.Serialize(dict);
+            File.WriteAllText(entityIdDictionaryFile, yaml);
+            Debug.Log($"Saved Entity ID dictionary with {dict.Count} objects at {entityIdDictionaryFile}");
         }
 
         /// <summary>
