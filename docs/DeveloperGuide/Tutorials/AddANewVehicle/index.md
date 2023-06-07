@@ -217,7 +217,25 @@ Then just set the *position* of the `CoM` *Object* in the *Inspector* view to re
     <!-- TODO: add guidelines on how to estimate CoM -->
 
 ## Add a Reflection Probe
-<!-- TODO -->
+1. Add a new *Object* called `Reflection Probe` as a child to the `EgoVehicle` *Object*.
+
+    ![reflection probe add object](reflection_probe_add_object.gif)
+
+2. Click on the 'Add Component' button, in the windows that pops-up search for `Reflection Probe` and select it.
+
+    ![reflection probe add component](reflection_probe_add_component.gif)
+
+    !!!note
+        Please note that with `Reflection Probe` there should also be automatically added a ``HD Additional Reflection Data` Script
+
+        ![reflection probe additional script](reflection_probe_additional_script.png)
+
+3. Configure the `Reflection Probe` as you wish.
+
+    !!! example "Example Configuration"
+        Below you can see an example configuration of the `Reflection Probe`.
+
+        ![reflection probe configuration](reflection_probe_configuration.png)
 
 ## Colliders
 <!-- TODO -->
