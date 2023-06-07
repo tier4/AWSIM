@@ -1,8 +1,8 @@
 # Ros2 For Unity
 
-[Ros2ForUnity](https://github.com/RobotecAI/ros2-for-unity) module is a communication solution that effectively connects *Unity* and the *ROS2* ecosystem, maintaining a strong integration. Unlike other solutions, it doesn't rely on bridging communication but rather utilizes the *ROS2* middleware stack (specifically the `rcl` layer and below), enabling the inclusion of *ROS2* nodes within *Unity* simulations. 
+[Ros2ForUnity](https://github.com/RobotecAI/ros2-for-unity) (`R2FU`) module is a communication solution that effectively connects *Unity* and the *ROS2* ecosystem, maintaining a strong integration. Unlike other solutions, it doesn't rely on bridging communication but rather utilizes the *ROS2* middleware stack (specifically the `rcl` layer and below), enabling the inclusion of *ROS2* nodes within *Unity* simulations. 
 
-`Ros2ForUnity` is used in *AWSIM* for many reasons.
+`R2FU` is used in *AWSIM* for many reasons.
 First of all, because it offers high-performance integration between *Unity* and *ROS2*, with improved throughput and lower latencies compared to bridging solutions. It provides real *ROS2* functionality for simulation entities in *Unity*, supports standard and custom messages, and includes convenient abstractions and tools, all wrapped as a *Unity* asset. For a detailed description, please see [README](https://github.com/RobotecAI/ros2-for-unity/blob/master/README.md).
 
 ## Prerequisites
@@ -12,16 +12,16 @@ This asset can be prepared in two flavours:
 - *standalone mode* - where no *ROS2* installation is required on target machine, e.g., your *Unity* simulation server. All required dependencies are installed and can be used e.g. as a complete set of *Unity* plugins.
 - *overlay mode* - where the *ROS2* installation is required on target machine. Only asset libraries and generated messages are installed therefore *ROS2* instance must be sourced.
 
-By default, asset `Ros2ForUnity` in *AWSIM* is prepared in *standalone mode*. Thanks to this, *ROS2* instance doesn't need to be sourced - all you have to do is run the *Unity* editor.
+By default, asset `R2FU` in *AWSIM* is prepared in *standalone mode*. Thanks to this, *ROS2* instance doesn't need to be sourced - all you have to do is run the *Unity* editor.
 
 !!! question
-    There are no errors but I can't see topics published by `Ros2ForUnity`
+    There are no errors but I can't see topics published by `R2FU`
 
     - Make sure your DDS ([Localhost settings](../../../Installation/Prerequisites/)) config is correct.
     - Sometimes *ROS2* daemon brakes up when changing network interfaces or *ROS2* version. Try to stop it forcefully (`pkill -9 ros2_daemon`) and restart (`ros2 daemon start`).
 ## Concept
 
-Describing the concept of using `Ros2ForUnity` in *AWSIM*, we distinguish:
+Describing the concept of using `R2FU` in *AWSIM*, we distinguish:
 
 - *ROS2Node* - it is the equivalent of a node in *ROS2*, it has its own name, it can have any number of subscribers, publishers, service servers and service clients. In the current *AWSIM* implementation, there is only one main node.
 - *ROS2Clock* - is responsible for generating the simulation time using the selected source.
@@ -31,7 +31,7 @@ Describing the concept of using `Ros2ForUnity` in *AWSIM*, we distinguish:
 <!-- - TODO: *Service Server* -  -->
 <!-- - TODO: *Service Client* - -->
 
-The *SimulatorROS2Node* implementation, thanks to the use of `Ros2ForUnity`, allows you to add communication via *ROS2* to any Unity component.For example, we can receive control commands from any other *ROS2* node and publish the current state of *Ego*, such as its position in the environment.
+The *SimulatorROS2Node* implementation, thanks to the use of `R2FU`, allows you to add communication via *ROS2* to any Unity component.For example, we can receive control commands from any other *ROS2* node and publish the current state of *Ego*, such as its position in the environment.
 
 !!! tip
     If you want to use system time (*ROS2* time) instead of *Unity* time, use `ROS2TimeSource` instead of `UnityTimeSource` in the `SimulatorROS2Node` class.
@@ -40,8 +40,8 @@ The *SimulatorROS2Node* implementation, thanks to the use of `Ros2ForUnity`, all
 `Ros2ForUnity` asset contains:
 
 - *Plugins* - dynamically loaded libraries for *Windows* and *Linux* (`*.dll` and `*.so` files). In addition to the necessary libraries, here are the libraries created as a result of generation the types of *ROS2* messages that are used in communication.
-- *Scripts* - scripts for using `Ros2ForUnity`  in *Unity* - details [below](#scripts).
-- *Extension Scripts* - scripts for using `Ros2ForUnity` in *AWSIM*, provide abstractions of a single main *Node* and simplify the interface  - details [below](#extension-scripts). These scripts are not in the library itself, but directly in the directory `Assets/AWSIM/Scripts/ROS/**`.
+- *Scripts* - scripts for using `R2FU`  in *Unity* - details [below](#scripts).
+- *Extension Scripts* - scripts for using `R2FU` in *AWSIM*, provide abstractions of a single main *Node* and simplify the interface  - details [below](#extension-scripts). These scripts are not in the library itself, but directly in the directory `Assets/AWSIM/Scripts/ROS/**`.
 
 ### Scripts
 - `ROS2UnityCore` - the principal class for handling *ROS2* nodes and executables. Spins and executes actions (e. g. clock, sensor publish triggers) in a dedicated thread.
@@ -53,7 +53,7 @@ The *SimulatorROS2Node* implementation, thanks to the use of `Ros2ForUnity`, all
 - `ROS2PerformanceTest` - an example class provided for performance testing of *ROS2<->Unity* communication.
 - `Sensor` - an abstract base class for *ROS2*-enabled sensor.
 - `Transformations` - a set of transformation functions between coordinate systems of *Unity* and *ROS2*.
-- `PostInstall` - an internal class responsible for installing `Ros2ForUnity` metadata files. 
+- `PostInstall` - an internal class responsible for installing `R2FU` metadata files. 
 - `Time` scripts - a set of classes that provide  the ability to use different time sources:
     - `ROS2Clock` - *ROS2* clock class that for interfacing between a time source (*Unity* or *ROS2* system time) and *ROS2* messages.
     - `ROS2TimeSource` - acquires *ROS2* time (system time by default).
@@ -63,7 +63,7 @@ The *SimulatorROS2Node* implementation, thanks to the use of `Ros2ForUnity`, all
     - `TimeUtils` - utils for time conversion.
 
 ### Extension Scripts
-Additionally, in order to adapt *AWSIM* to the use of `Ros2ForUnity`, the following scripts are used:
+Additionally, in order to adapt *AWSIM* to the use of `R2FU`, the following scripts are used:
 
 - `SimulatorROS2Node` - it is a class that is directly responsible for *AWSIM<->ROS2* communication.
 - `ClockPublisher` - allows the publication of the simulation time from the clock running in the *SimulatorROS2Node*. IIt must be added as a component to the scene in order to publish the current time when the scene is run.<br>
@@ -100,7 +100,7 @@ The basic *ROS2* msgs types that are supported in *AWSIM* by default include:
     - [`tf2_msgs`](https://index.ros.org/p/tf2_msgs/github-ros2-geometry2/#humble),
     - [`unique_identifier_msgs`](https://index.ros.org/p/unique_identifier_msgs/github-ros2-unique_identifier_msgs/#humble).
 
-In order for the message package to be used in *Unity*, its `*.dll` and `*.so` libraries must be generated using `Ros2ForUnity`.
+In order for the message package to be used in *Unity*, its `*.dll` and `*.so` libraries must be generated using `R2FU`.
 
 !!! Note
     If you want to generate a custom message to allow it to be used in *AWSIM* please read this tutorial.
