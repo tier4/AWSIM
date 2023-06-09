@@ -66,7 +66,7 @@ nav:
               - Environment: UserGuide/ProjectGuide/Components/Environment/index.md
               - NPCs: UserGuide/ProjectGuide/Components/NPCs/index.md
               - Random Traffic Simulator: UserGuide/ProjectGuide/Components/RandomTrafficSimulator/index.md
-              - LaneletBoundsVisualizer: Components/Environment/LaneletBoundsVisualizer/index.md
+              - LaneletBoundsVisualizer: UserGuide/ProjectGuide/Components/LaneletBoundsVisualizer/index.md
           - Default existing scenes: UserGuide/ProjectGuide/DefaultExistingScenes/index.md
           - External libraries:
               - RGLUnityPlugin: UserGuide/ProjectGuide/ExternalLibraries/RGLUnityPlugin/index.md
@@ -82,9 +82,9 @@ nav:
                   - Add a RandomTraffic: DeveloperGuide/Tutorials/AddARandomTraffic/AddARandomTrafficSimulatorScript/index.md
                   - Add a TrafficIntersection: DeveloperGuide/Tutorials/AddARandomTraffic/AddATrafficIntersection/index.md
           - Add a new Vehicle:
-            - Add a Vehicle: DeveloperGuide/Tutorials/AddANewVehicle/index.md
-            - Add Visual Elements: DeveloperGuide/Tutorials/AddANewVehicle/AddVisualElements/index.md
-            - Add Colliders: DeveloperGuide/Tutorials/AddANewVehicle/AddColliders/index.md
+              - Add a Vehicle: DeveloperGuide/Tutorials/AddANewVehicle/index.md
+              - Add Visual Elements: DeveloperGuide/Tutorials/AddANewVehicle/AddVisualElements/index.md
+              - Add Colliders: DeveloperGuide/Tutorials/AddANewVehicle/AddColliders/index.md
           - Add a new Scene:
               - Add a Scene: DeveloperGuide/Tutorials/AddANewScene/AddANewScene/index.md
               - Add a SceneManager: DeveloperGuide/Tutorials/AddANewScene/AddASceneManager/index.md
