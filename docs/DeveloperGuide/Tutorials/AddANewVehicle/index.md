@@ -167,6 +167,15 @@ After configuring `Vehicle Visual Effect` Script it is advised to test whether e
 
     ![brake reverse lights check](brake_reverse_lights_check.gif)
 
+!!! tip "Camera tip"
+    If you have not configured a camera or configured it in such a way that you can't see the Vehicle well you can still test most of the lights by changing views.
+
+    - Turn the Light (or Signal) on by pressing the appropriate key
+    - Move to the Scene View by pressing `ctrl + 1` - now you can move the camera freely
+    - To change the Lights you need to go back to Game View by pressing `ctrl + 2`
+
+    Pleas note that this method **won't** work for testing Brake Lights, as for them to work you need to keep the `arrow down` button pressed all the time.
+
 ## Add a Vehicle Ros Input Script
 <!-- TODO -->
 
