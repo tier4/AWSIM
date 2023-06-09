@@ -1,5 +1,5 @@
 # PoseSensor
-`PoseSensor` is a component which provides access to the current position and rotation of the *GameObject* to which this component is attached as the ground truth. Due to the use of the *MGRS* offset in the [environment](../../Environment/), the position published by `PoseSensor` is also in the *MGRS* coordinate system.
+`PoseSensor` is a component which provides access to the current position and rotation of the *GameObject* to which this component is attached as the ground truth. Due to the use of the *MGRS* offset in the [environment](../../../Environment/), the position published by `PoseSensor` is also in the *MGRS* coordinate system.
 
 #### Prefab
 Prefab can be found under the following path:<br> `Assets\AWSIM\Prefabs\Sensors\PoseSensor.prefab`
