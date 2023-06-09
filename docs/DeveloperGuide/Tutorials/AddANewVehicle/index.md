@@ -130,6 +130,43 @@ To add and configure it follow the steps below.
 
     ![vehicle visual effect script configure](vehicle_visual_effect_script_configure.gif)
 
+### How to test
+After configuring `Vehicle Visual Effect` Script it is advised to test whether everything works as expected.
+
+1. Make sure you have a [`Vehicle Keyboard Input` Script](#add-a-vehicle-keyboard-input-script) added and that it is enabled.
+
+1. If your scene does not have any models yet please turn the gravity off in `Rigidbody` configuration so that the Vehicle does not fall down into infinity.
+
+    ![rigidbody turn gravity off](rigidbody_turn_gravity_off.gif)
+
+1. Start the simulation.
+
+    ![simulation start](simulation_start.gif)
+
+1. Test the Turn Signals.
+
+    You can control the Turn Signals with a `Vehicle Keyboard Input` Script.
+    Activate the Turn Signals with one of the following keys
+
+    - `1` - Left Turn Signal
+    - `2` - Right Turn Signal
+    - `3` - Hazard Lights
+    - `4` - Turn Off all Signals
+
+    ![turn signals check](turn_signals_check.gif)
+
+1. Test the Lights.
+
+    You can control the lights by "driving" the Vehicle using `Vehicle Keyboard Input` Script.
+    Although if you have an empty Environment like in this tutorial the Vehicle won't actually drive.
+
+    To test Brake Lights change the gear to Drive by pressing `D` on the keyboard and activate braking by holding `arrow down`.
+
+    To test the Reverse Light change the gear to Reverse by pressing `R` on the keyboard.
+    The Reverse Light should turn on right away.
+
+    ![brake reverse lights check](brake_reverse_lights_check.gif)
+
 ## Add a Vehicle Ros Input Script
 <!-- TODO -->
 
