@@ -177,7 +177,23 @@ After configuring `Vehicle Visual Effect` Script it is advised to test whether e
     Pleas note that this method **won't** work for testing Brake Lights, as for them to work you need to keep the `arrow down` button pressed all the time.
 
 ## Add a Vehicle Ros Input Script
-<!-- TODO -->
+For controlling your Vehicle with autonomous driving software (e.g. [Autoware](../../../Introduction/Autoware/)) you need a `Vehicle Ros Input` Script.
+
+!!! warning "Disable `Vehicle Keyboard Input` Script"
+    If you have added a `Vehicle Keyboard Input` Script in your Vehicle please disable it when using the `Vehicle Ros Input` Script.
+
+    Not doing so will lead to the vehicle receiving two different inputs which will cause many problems.
+
+    ![vehicle keyboard input disable](vehicle_keyboard_input_disable.gif)
+
+Add it to the `EgoVehicle` *Object* by clicking on the 'Add Component' button, searching for it and selecting it.
+
+![vehicle ros input add component](vehicle_ros_input_add_component.gif)
+
+The Script is configured to work with [Autoware](../../../Introduction/Autoware/) by default, but you can change the topics and Quality of Service settings as you wish.
+
+!!!note
+    The `Vehicle` should be configured correctly, but if you have many Vehicles or something goes wrong, please select the right Vehicle in the `Vehicle` field by clicking on the small arrow icon and choosing the right item from the list.
 
 ## Add Sensors
 <!-- TODO -->
