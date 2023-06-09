@@ -62,11 +62,15 @@ nav:
                   - LiDAR: UserGuide/ProjectGuide/Components/Sensors/Lidar/index.md
                   - IMU: UserGuide/ProjectGuide/Components/Sensors/Imu/index.md
                   - Camera: UserGuide/ProjectGuide/Components/Sensors/Camera/index.md
+                  - GroundTruths:
+                      - Pose: UserGuide/ProjectGuide/Components/Sensors/GroundTruths/Pose/index.md
               - Ego Vehicle: UserGuide/ProjectGuide/Components/Vehicle/index.md
               - Environment: UserGuide/ProjectGuide/Components/Environment/index.md
-              - NPCs: UserGuide/ProjectGuide/Components/NPCs/index.md
+              - NPCs:
+                  - Pedestrian: UserGuide/ProjectGuide/Components/NPCs/Pedestrian/index.md
+                  - Vehicle: UserGuide/ProjectGuide/Components/NPCs/Vehicle/index.md
               - Random Traffic Simulator: UserGuide/ProjectGuide/Components/RandomTrafficSimulator/index.md
-              - LaneletBoundsVisualizer: Components/Environment/LaneletBoundsVisualizer/index.md
+              - LaneletBoundsVisualizer: UserGuide/ProjectGuide/Components/LaneletBoundsVisualizer/index.md
           - Default existing scenes: UserGuide/ProjectGuide/DefaultExistingScenes/index.md
           - External libraries:
               - RGLUnityPlugin: UserGuide/ProjectGuide/ExternalLibraries/RGLUnityPlugin/index.md
@@ -82,14 +86,14 @@ nav:
                   - Add a RandomTraffic: DeveloperGuide/Tutorials/AddARandomTraffic/AddARandomTrafficSimulatorScript/index.md
                   - Add a TrafficIntersection: DeveloperGuide/Tutorials/AddARandomTraffic/AddATrafficIntersection/index.md
           - Add a new Vehicle:
-            - Add a Vehicle: DeveloperGuide/Tutorials/AddANewVehicle/index.md
-            - Add Visual Elements: DeveloperGuide/Tutorials/AddANewVehicle/AddVisualElements/index.md
-            - Add Colliders: DeveloperGuide/Tutorials/AddANewVehicle/AddColliders/index.md
+              - Add a Vehicle: DeveloperGuide/Tutorials/AddANewVehicle/index.md
+              - Add Visual Elements: DeveloperGuide/Tutorials/AddANewVehicle/AddVisualElements/index.md
+              - Add Colliders: DeveloperGuide/Tutorials/AddANewVehicle/AddColliders/index.md
           - Add a new Scene:
               - Add a Scene: DeveloperGuide/Tutorials/AddANewScene/AddANewScene/index.md
               - Add a SceneManager: DeveloperGuide/Tutorials/AddANewScene/AddASceneManager/index.md
               - Test a Scene: DeveloperGuide/Tutorials/AddANewScene/TestAScene/index.md
-          - Add a new LiDAR model: DeveloperGuide/Tutorials/AddANewLiDARModel/index.md
+          - Add a new LiDAR: DeveloperGuide/Tutorials/AddANewLiDARModel/index.md
           - Create a PCD: DeveloperGuide/Tutorials/CreateAPCDFromMesh/index.md
           - Add a custom ROS2 message: DeveloperGuide/Tutorials/AddACustomMessage/index.md
       - API: DeveloperGuide/API/index.md

@@ -1,180 +1,147 @@
 
-**RobotecGPULidars [70% current]**
-<!-- TODO copied old, needs to be adjusted (70%) -->
+# LidarSensor
+`LidarSensor` is the component that simulates the *LiDAR* (`Light Detection and Ranging`) sensor. *LiDAR* works by emitting laser beams that bounce off objects in the environment, and then measuring the time it takes for the reflected beams to return, allowing the sensor to create a *3D* map of the surroundings. This data is used for object detection, localization, and mapping.
 
-(prefab location, purpose of existence, RGL repository - hyperlink)
+`LiDAR` in an autonomous vehicle can be used for many purposes. Most often, one sensor is placed on top of the vehicle, mainly for its location in space, but also for recognizing objects. Such a basic task is performed by `VelodyneVLP16` sensor in the `Lexus RX450h 2015 Sample Sensor` prefab.
 
-- Note: to use RobotecGPULidar, the scene must have Scene Manager Script (hyperlink)
-- Lidar Sensor Script
-    - Available models (prefabs location, description of differences)
-    - Parameters (min/max h angle, max range, horizontal steps)
-    - Noise (type and params)
-    - Laser array configuration
-    - Output (Pcl24 vs Pcl48)
-- Rgl Lidar Ros Publisher Script (topics, frame_id, qos)
-- Point Cloud Visualization Script (points, colors, limits)
+`LidarSensor` is closely related to the external `RGL` library, which is described [here](../../../ExternalLibraries/RGLUnityPlugin/).
 
-## Lidar Sensor
-AWSIM uses Robotec GPU Lidar, which is a cross-platform (Windows and Linux), RTX-accelerated, CUDA/C++ library developed by [Robotec.AI](https://robotec.ai/). For more information about RGL library, visit [its repository](https://github.com/RobotecAI/RobotecGPULidar).
+!!! warning "Use RGL in your scene"
+    If you want to use `RGL` in your scene, make sure the scene has an [`RGLSceneManager` component](#rglscenemanager) added and all objects meet the [usage requirements](#usage-requirements).
 
-AWSIM is integrated with RGL out-of-the-box - using RGLUnityPlugin Asset.
+!!! note "RGL default scenes"
+    If you would like to see how `LidarSensor` works using `RGL` or run some tests, we encourage you to familiarize yourself with the [`RGL` test scenes section](../../../DefaultExistingScenes/).
+
+!!! note "Supported *LiDARs*"
+    The current scripts implementation allows you to configure the prefab for any mechanical *LiDAR*, you can read about how to do it [here](../../../../../DeveloperGuide/Tutorials/AddANewLiDARModel/). *MEMS-based LiDARs* due to their different design are not yet fully supported.
+#### Prefabs
+Prefabs can be found under the following path:
+<br>`Assets\AWSIM\Prefabs\RobotecGPULidars\*`<br>
+The table of available prefabs can be found below:
+
+| LiDAR                 | Path                     | Description |
+| :-------------------- | :----------------------- | :---------- |
+| *HESAI Pandar40P*     | `HesaiPandar40P.prefab`  |             |
+| *HESAI PandarQT64*    | `HesaiPandarQT64.prefab` |             |
+| *Ouster OS1-64*       | `OusterOS1-64.prefab`    |             |
+| *Velodyne VLP-16*     | `VelodyneVLP16.prefab`   |             |
+| *Velodyne VLC-32C*    | `VelodyneVLP32C.prefab`  |             |
+| *Velodyne VLS-128-AP* | `VelodyneVLS128.prefab`  |             |
+
+![components](components.png)
 
 
-### ROS2 configuration
 
-The following sections describe RGL configuration in AWSIM.
-#### Published Topics
-The table below shows topics published by `RglLidarPublisher` script.
+#### Link 
+`LidarSensor` placed on top of the vehicle does not need to have its own frame, the data it generates is defined directly in the `sensor_kit_base_link` frame, the sensor prefab is added to it.
+All is added to the `Ego` prefab, to the `base_link` object located in the `URDF`.
 
-| topic                  | msg                        | frame_id | hz   | QoS                                   |
-| :--------------------- | :------------------------- | :------- | :--- | :------------------------------------ |
-| `/lidar/pointcloud`    | `sensor_msgs/PointCloud2`  | `world`  | `10` | `Reliable`, `Volatile`, `Keep last/1` |
-| `/lidar/pointcloud_ex` | `sensor_msgs/PointCloud2 ` | `world`  | `10` | `Reliable`, `Volatile`, `Keep last/1` |
+![link](link.png)
+!!! warning "Additional LiDARs"
+    For a *LiDAR* placed on the left side, right side or rear, an additional link should be defined.
+
+#### Scripts and Resources
+The `LidarSensor` functionality is split into three scripts:
+
+- *LidarSensor Script* - provides lidar configuration and performs native *RGL* raytrace calls,
+- *RglLidarPublisher Script* - converts the data output from `LidarSensor` to *ROS2* message type and publishes it.
+- *PointCloudVisualization Script* - visualizes point cloud collected by sensor.
+
+Moreover, the scripts use `Resources` to provide configuration for prefabs of supported lidar models:
+
+- *LaserModels* - provides a list of supported models,
+- *LaserArrayLibrary* - provides data related to laser array construction for supported models,
+- *LaserConfigurationLibrary* - provides full configuration, with ranges and noise for supported models.
+These are elements of the `RGL` plugin, you can read more [here](../../../ExternalLibraries/RGLUnityPlugin/).
+## LidarSensor Script
+![script](script.png)
+This is the main script in which the entire process of collecting the point clouds from the current pose and its processing by the created sequence of `RGL` nodes takes place.
+
+At the output of the script we get 3 categories of data. Two of them: *rosPCL24* and *rosPCL48* are point clouds that are published by the *RglLidarPublisher Script*. Whereas vector *onlyHits* is used for visualization by the *PointCloudVisualization Script*.
+
+*rosPCL24* is a 24-byte point cloud format used by *Autoware*. While *rosPCL48* is its 48-byte extended version. 
+Details on the construction of these formats are available in the `PointCloudFormats` under the following path:<br>
+`AWSIM/Assets/AWSIM/Scripts/Sensors/LiDAR/PointCloudFormats.cs`
+
+!!! note "*rosPCL48* format"
+    For a better understanding of the *rosPCL48* format, we encourage you to familiarize yourself with the point cloud pre-processing process in *Autoware*, which is described [here](https://autowarefoundation.github.io/autoware-documentation/latest/design/autoware-architecture/sensing/data-types/point-cloud/#channel).
+
 
 #### Output Data
 
+|  Category  |    Type    | Description                                                                               |
+| :--------: | :--------: | :---------------------------------------------------------------------------------------- |
+| *onlyHits* | Vector3[ ] | Vertices for visualization in *Unity's* coordinate system                                 |
+| *rosPCL24* |  byte[ ]   | Vertices for publishing *Autoware* format pointcloud in *ROS2* coordinate system          |
+| *rosPCL48* |  byte[ ]   | Vertices for publishing extended *Autoware* format pointcloud in *ROS2* coordinate system |
 
-The following table describes `LidarSensor.OutputData` struct used in Unity:
 
-| field    | type        | feature                                                                              |
-| :------- | :---------- | :----------------------------------------------------------------------------------- |
-| hitCount | int         | Number of rays that hit any object                                                   |
-| hits     | Vector3 [ ] | Vertices for visualization in Unity's coordinate system                              |
-| rosPCL24 | byte [ ]    | Vertices for publishing Autoware format pointcloud in ROS coordinate system          |
-| rosPCL48 | byte [ ]    | Vertices for publishing extended Autoware format pointcloud in ROS coordinate system |
 
-### Minimal scene example
+#### Elements configurable from the editor level
 
-The scene `Assets/AWSIM/Scenes/Samples/LidarSceneDevelop.unity` can be used as a complete, minimalistic example of how to setup RGL. It contains `RGLSceneManager` component, four lidars, and an environment composed of floor and walls.
+- `Automatic Capture Hz` - the rate of sensor processing (default: `10Hz`)
+- `Model Preset` - allows selecting one of the built-in *LiDAR* models (default: `RangeMeter`)
+- `Apply Distance Gaussian Noise` - enable/disable distance gaussian noise (default: `true`)
+- `Apply Angular Gaussian Noise` - enable/disable angular gaussian noise (default: `true`)
+- *Configuration*:
+    - `Laser Array` - geometry description of lidar array, should be prepared on the basis of the manual for a given model of *LiDAR* (default: loaded from `LaserArrayLibrary`)
+    - `Horizontal Steps` - the number of laser array firings between `Min H Angle` and `Max H Angle` (default: `1`)
+    - `Min H Angle` - minimum horizontal angle, left (default: `0`)
+    - `Max H Angle` - maximum horizontal angle, right (default: `0`)
+    - `Max Range` - maximum range of the sensor (default: `40`)
+    - *Noise Params*: 
+        - `Angular Noise Type` - angular noise type<br>(default: `Ray Based`)
+        - `Angular Noise St Dev` - angular noise standard deviation in degree<br>(default: `0.05729578`)
+        - `Angular Noise Mean` - angular noise mean in degrees<br>(default: `0`)
+        - `Distance Noise St Dev Base` - distance noise standard deviation base in meters<br>(default: `0.02`)
+        - `Distance Noise Rise Per Meter` - distance noise standard deviation rise per meter<br>(default: `0`)
+        - `Distance Noise Mean` - distance noise mean in meters<br>(default: `0`)
 
-<img src="img/LidarSceneDevelop.png" width="700">
 
-### RGLSceneManager
+## RglLidarPublisher Script
+![script_ros2](script_ros2.png)
 
-Each scene needs `RGLSceneManager` component to synchronize models between Unity and RGL. On every frame, it detects changes in the Unity's scene  and propagates the changes to native RGL code. Three different strategies to interact with in-simulation *3D* models are implemented. `RGLSceneManager` uses executes one of the following policies to obtain raycast hit:
+This is a script developed to directly integrate `R2FU` with `RGL`. 
+It ensures the creation of a separate *ROS2* node named `/RobotecGPULidar` with publishers for point clouds generated by `RGL`.
 
-- `Only Colliders` - active colliders only,
-- `Regular Meshes And Colliders Instead Of Skinned` - mesh for non-skinned MeshRenderers or set of colliders (if provided) attached to the rootBone and below for SkinnedMeshRenderers,
-- `RegularMeshesAndSkinnedMeshes` - mesh for both MeshRenderer and SkinnedMeshRenderer.
+Thanks to this integration, such a large amount of data can be published with sufficient frequency without causing large performance overheads.
+!!! note "R2FU"
+    We encourage you to read more about `R2FU` in this [section](../../../ExternalLibraries/Ros2Unity/).
 
-Mesh source can be changed in the Scene Manager (Script) properties:
+#### Published Topics
+- Frequency: `10Hz`
+- QoS:  `Reliable`, `Volatile`, `Keep last/1`
 
-<img src="img/RGLSceneManagerModes.png" width="300">
+|         Category          | Topic                  | Message type               | `frame_id` |
+| :-----------------------: | :--------------------- | :------------------------- | :--------: |
+| PointCloud 24-byte format | `/lidar/pointcloud`    | `sensor_msgs/PointCloud2`  |  `world`   |
+| PointCloud 48-byte format | `/lidar/pointcloud_ex` | `sensor_msgs/PointCloud2 ` |  `world`   |
 
-*Note: RGLSceneManager performance depends on mesh source option selected.*
+#### Elements configurable from the editor level
+- `Pcl 24 Topic` - the *ROS2* topic on which the [`PointCloud2`](https://docs.ros2.org/latest/api/sensor_msgs/msg/PointCloud.html) message is published<br>(default: `"/sensing/lidar/top/pointcloud_raw"`)
+- `Pcl 48 Topic` - the *ROS2* topic on which the [`PointCloud2`](https://docs.ros2.org/latest/api/sensor_msgs/msg/PointCloud.html) message is published<br>(default: `"/sensing/lidar/top/pointcloud_raw_ex"`)
+- `Frame ID` - frame in which data are published, used in [`Header`](https://docs.ros2.org/latest/api/std_msgs/msg/Header.html) (default: `"world"`)
+- `Publish PCL24` - if publish cloud *PCL24* (default: `true`)
+- `Publish PCL48` - if publish cloud *PCL48* (default: `true`)
+- `Qos Settings` - Quality of service profile used in the publication<br>(default: `Best effort`, `Volatile`, `Keep last`, `5`)
 
-#### Setup instruction
 
-To configure RGL for new scenes, please:
+## PointCloudVisualization Script
+![script_visualization](script_visualization.png)
 
-1. Create an empty object (name it RGLSceneManager).
-2. Attach script `SceneManager.cs` to the RGLSceneManager object.
+A script visualizing a point cloud obtained from `RGL` in the form of a [`Vector3`](https://docs.unity3d.com/ScriptReference/Vector3.html) list as colored points in the *Unity* scene.
+Based on the defined color table, it colors the points depending on the height at which they are located.
 
-### Lidar models
-
-Lidar prefabs typically consist of three scripts:
-
-- `LidarSensor` - provides lidar configuration and performs native RGL raytrace calls
-- `PointCloudVisualization` - visualizes point cloud collected by sensor
-- `RglLidarPublisher` - converts the data output from LidarSensor to ROS2 msg and publishes it
-
-To use one of the prepared prefab lidars, drag the prefab file and drop it into a scene:
-
-<img src="img/AddPrefabLidar.png" width="700">
-
-A lidar GameObject should be instantiated automatically:
-
-<img src="img/PrefabLidarObject.png" width="700">
-
-Next, you can modify scripts parameters in Unity Inspector:
-
-In `LidarSensor` script, the following configuration can be changed:
-
-- `Automatic Capture Hz` - the rate of sensor processing
-- `Model Preset` - allows selecting one of the built-in LiDAR models
-- `Apply Gaussian Noise` - enable/disable gaussian noise
-- `Configuration` - advanced lidar configuration (in most cases no need to change)
-    - `Laser Array` - geometry description of lidar array
-    - `Horizontal Steps` - the number of laser array firings between `Min H Angle` and `Max H Angle`
-    - `Min H Angle` - minimum horizontal angle (left)
-    - `Max H Angle` - maximum horizontal angle (right)
-    - `Max Range` - maximum range of the sensor
-    - `Noise Params` - lidar noise paramteres
-
-<img src="img/LidarSensorProp.png" width="500">
-
-In the script `Point Cloud Visualization` the material of points can be changed. If material is `None` then `PointCloudMaterial` from `Assets/RGLUnityPlugin/Resources` will be automatically loaded. You can disable visualization by deactivating the component.
-
-<img src="img/VisualizationProp.png" width="500">
+The obtained points are displayed as the vertices of mesh, and their coloring is possible thanks to the use of `PointCloudMaterial` material which can be found in the following path:<br>
+`AWSIM/Assets/RGLUnityPlugin/Resources/PointCloudMaterial.mat`
 
 `Point Cloud Visualization` preview:
+<img src="LidarVisualizationOnScene.png" width="700">
 
-<img src="img/LidarVisualizationOnScene.png" width="700">
-
-In the last script - `RglLidarPublisher` - ROS properties such as topics names, frame IDs, publish activation or QoS settings can be modified:
-
-<img src="img/PublisherProp.png" width="500">
-
-#### Adding new lidar models
-
-To add a new lidar model, perform the following steps:
-
-1. Add its name to the `LidarModels.cs`
-2. If the Lidar has a non-uniform laser array construction (e.g. different linear/angular spacing between lasers), add an entry to the `LaserArrayLibrary`.
-3. Add an entry to `LidarConfigurationLibrary`. Use the provided laser array or generate a uniform one using static method `LaserArray.Uniform()`.
-4. Done. New lidar preset should be available via Unity Inspector.
-
-#### Creating Lidar GameObject
-
-To create GameObject (or prefab) containing lidar sensor, please perform the following steps:
-
-1. Create an empty object
-2. Attach script `LidarSensor.cs`.
-3. `PointCloudVisualization.cs` will be added automatically, however, you can disable it.
-4. Now you can add a callback from another script to receive a notification when data is ready:
-   ```cs
-   lidarSensor = GetComponent<LidarSensor>();
-   lidarSensor.OnOutputData += HandleLidarDataMethod;
-   ```
-5. For publishing point cloud via ROS2 attach script `RglLidarPublisher.cs`
-
-##### Prefabs
-
-The list of available prefabs can be found below.
-
-| LiDAR               | Path                                                                   |
-| :------------------ | :--------------------------------------------------------------------- |
-| HESAI Pandar40P     | `Assets/AWSIM/Prefabs/Sensors/RobotecGPULidars/HesaiPandar40P.prefab`  |
-| HESAI PandarQT64    | `Assets/AWSIM/Prefabs/Sensors/RobotecGPULidars/HesaiPandarQT64.prefab` |
-| Ouster OS1-64       | `Assets/AWSIM/Prefabs/Sensors/RobotecGPULidars/OusterOS1-64.prefab`    |
-| Velodyne VLP-16     | `Assets/AWSIM/Prefabs/Sensors/RobotecGPULidars/VelodyneVLP16.prefab`   |
-| Velodyne VLC-32C    | `Assets/AWSIM/Prefabs/Sensors/RobotecGPULidars/VelodyneVLP32C.prefab`  |
-| Velodyne VLS-128-AP | `Assets/AWSIM/Prefabs/Sensors/RobotecGPULidars/VelodyneVLS128.prefab`  |
-
-### Usage requirements
-Objects, to be detectable by Robotec GPU lidar, must fulfill the following requirements:
-
-1. Contain one of the components: `Collider`, `Mesh Renderer`, or `Skinned Mesh Renderer`. It depends on RGLSceneManager mesh source parameter.
-2. Be readable from CPU-accessible memory. It can be achieved using the “Read/Write Enabled” checkbox in mesh settings. *Note: Primitive Objects are readable by default.*
-
-<img src="img/ReadableMeshSetting.png" width="400">
-
-### RGL Unity side scripts
-
-The following table describes the most essential lidar simulation scripts:
-
-| script                     | feature                                                            | path                                                       |
-| :------------------------- | :----------------------------------------------------------------- | :--------------------------------------------------------- |
-| SceneManager.cs            | Synchronize the scene between Unity and RGL.                       | `Assets/RGLUnityPlugin/Scripts/SceneManager.cs`            |
-| LidarSensor.cs             | Lidar Sensor. Provide lidar configuration and collect point cloud. | `Assets/RGLUnityPlugin/Scripts/LidarSensor.cs`             |
-| PointCloudVisualization.cs | Visualize point cloud collected by lidar.                          | `Assets/RGLUnityPlugin/Scripts/PointCloudVisualization.cs` |
-| RglLidarPublisher.cs       | Convert the data output from LidarSensor to ROS2 msg and publish.  | `Assets/AWSIM/Scripts/Sensors/LiDAR/RglLidarPublisher.cs`  |
-
-
-**IMUSensor [50% current]**
-<!-- TODO copied old, needs to be adjusted (50%) -->
-
-(prefab location, purpose of existence, link, **screen**)
-
-- Imu Sensor Script (gravity, output)
-- Imu Ros Publisher Script (topics, frame_id, qos)
+#### Elements configurable from the editor level
+- `Point Shape` - the shape of the displayed points (default: `Box`)
+- `Point Size` - the size of the displayed points (default: `0.05`)
+- `Colors` - color list used depending on height<br>(default: `6` colors: `red, orange, yellow, green, blue, violet`)
+- `Auto Compute Coloring Heights` - automatic calculation of heights limits for a list of colors (default: `false`)
+- `Min Coloring Height` - minimum height value from which color matching is performed, below this value all points have the first color from the list (default: `0`)
+- `Max Coloring Height` - maximum height value from which color matching is performed, above this value all points have the last color from the list (default: `20`)
