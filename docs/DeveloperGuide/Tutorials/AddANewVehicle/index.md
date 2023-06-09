@@ -84,3 +84,47 @@ Then just set the *position* of the `CoM` *Object* in the *Inspector* view to re
 
 ## Add Colliders
 For a detailed explanation how to add colliders to your Vehicle check out this [dedicated tutorial](./AddColliders/).
+
+## Add a base for sensors (URDF)
+You will most certainly want to add some sensors to your Ego Vehicle.
+First you need to create a parent *Object* for all those sensors called `URDF`.
+To do this we will add a child *Object* `URDF` to the `EgoVehicle` *Object*.
+
+![urdf add object](urdf_add_object.gif)
+
+This *Object* will be used as a base for all sensors we will add later.
+
+## Add a Vehicle Script
+To be able to control your Ego Vehicle you need a `Vehicle` Script.
+
+1. Add the `Vehicle` Script to the `EgoVehicle` *Object*.
+
+    ![vehicle script add component](vehicle_script_add_component.gif)
+
+    ![vehicle script search](vehicle_script_search.png)
+
+1. Configure the `Vehicle` Script *Axle Settings* and *Center Of Mass Transform*.
+
+    ![vehicle script configure](vehicle_script_configure.gif)
+
+## Add a Vehicle Keyboard Input Script
+If, for any reason, you would like to control your Ego Vehicle in the simulation by hand you can do that with just one Script called `Vehicle Keyboard Input`.
+
+If you want to add it just click the 'Add Component' button on the `EgoVehicle` *Object* and search for `Vehicle Keyboard Input` Script and select it.
+
+![vehicle keyboard input script add](vehicle_keyboard_input_script.gif)
+
+## Add a Vehicle Visual Effect Script
+<!-- TODO -->
+
+## Add a Vehicle Ros Input Script
+<!-- TODO -->
+
+## Add Sensors
+<!-- TODO -->
+
+### AWSIM Sensors
+<!-- TODO: ad links to sensors -->
+
+## Add a Vehicle to Scene
+<!-- TODO -->
