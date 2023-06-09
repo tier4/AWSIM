@@ -5,7 +5,7 @@ First in `EgoVehicle` *Object* add a child *Object* called `Models`.
 
 ![ego vehicle add models](ego_vehicle_add_models.gif)
 
-Inside `Models` *Object* we will add all visual models of out Ego Vehicle.
+Inside `Models` *Object* we will add all visual models of our Ego Vehicle.
 
 ### Add a Body
 First you will need to add a Body of your Vehicle.
@@ -22,6 +22,7 @@ Next we will need to add Car Body
 1. To the `CarBody` *Object* add a Mesh Filter.
 
     Click on the 'Add Component' button, search for `Mesh Filter` and select it.
+    Next search for *mesh* of your vehicle and select it in the `Mesh` field.
 
     ![body car add mesh filter](body_car_add_mesh_filter.gif)
 

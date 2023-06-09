@@ -71,7 +71,7 @@ Then just set the *position* of the `CoM` *Object* in the *Inspector* view to re
     ![reflection probe add component](reflection_probe_add_component.gif)
 
     !!!note
-        Please note that with `Reflection Probe` there should also be automatically added a ``HD Additional Reflection Data` Script
+        Please note that with `Reflection Probe` there should also be automatically added a ``HD Additional Reflection Data` Script.
 
         ![reflection probe additional script](reflection_probe_additional_script.png)
 
@@ -83,4 +83,4 @@ Then just set the *position* of the `CoM` *Object* in the *Inspector* view to re
         ![reflection probe configuration](reflection_probe_configuration.png)
 
 ## Add Colliders
-For a detailed explanation hwo to add colliders to your Vehicle check out this [dedicated tutorial](./AddColliders/).
+For a detailed explanation how to add colliders to your Vehicle check out this [dedicated tutorial](./AddColliders/).
