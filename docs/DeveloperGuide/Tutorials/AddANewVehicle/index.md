@@ -1,4 +1,4 @@
-<!-- TODO everything -->
+<!-- TODO remaining -->
 
 !!! Draft-note
     (highlight the part required by ego - not needed in npc)
@@ -23,3 +23,64 @@
         - Add a Camera (camera preview, fov, how prepare distorsion shader, ros image shader, parameters, frame_id, Autoware topics, qos, how to test - **screens** - including traffic light recognition)
     - Add a Vehicle Ros Input Script (disable keyboard input, Autoware topics, qos, how to test - hyperlink)
     - Add a Vehicle to scene (hyperlink)
+
+!!! info "Ego Vehicle Component"
+    In this tutorial we will create a new Ego Vehicle.
+    To learn more about what an Ego Vehicle is in AWSIM please visit [Ego Vehicle description page](../../../UserGuide/ProjectGuide/Components/Vehicle/).
+
+## Cerate an Object
+Add a child *Object* to the *Simulation* called `EgoVehicle`.
+
+![ego vehicle add object](ego_vehicle_add_object.gif)
+
+## Add a Rigidbody
+1. While having a newly created *Ego Vehicle* *Object* selected, in the *Inspector* view click on the 'Add Component' button, search for `Rigidbody` and select it.
+
+    ![rigidbody add component](rigidbody_add_component.gif)
+
+    ![rigidbody search](rigidbody_search.png)
+
+1. Configure Mass and Drag with the correct values for your Vehicle.
+
+    ![rigidbody configure 1](rigidbody_configure1.gif)
+
+1. Configure Interpolation and Collision Detection.
+
+    ![rigidbody configure 2](rigidbody_configure2.gif)
+
+## Add visual elements
+For a detailed explanation hwo to add visual elements of your Vehicle check out this [dedicated tutorial](./AddVisualElements/).
+
+## Add a Canter of Mass
+To add a center of mass to your vehicle you have to add a `CoM` child *Object* to the `EgoVehicle` *Object* (the same as in steps before).
+
+Then just set the *position* of the `CoM` *Object* in the *Inspector* view to represent real-world center of mass of the Vehicle.
+
+![center of mass](com_all.gif)
+
+??? question "How to get to know the center of mass of my Vehicle"
+    <!-- TODO: add guidelines on how to estimate CoM -->
+
+## Add a Reflection Probe
+1. Add a new *Object* called `Reflection Probe` as a child to the `EgoVehicle` *Object*.
+
+    ![reflection probe add object](reflection_probe_add_object.gif)
+
+2. Click on the 'Add Component' button, in the windows that pops-up search for `Reflection Probe` and select it.
+
+    ![reflection probe add component](reflection_probe_add_component.gif)
+
+    !!!note
+        Please note that with `Reflection Probe` there should also be automatically added a ``HD Additional Reflection Data` Script.
+
+        ![reflection probe additional script](reflection_probe_additional_script.png)
+
+3. Configure the `Reflection Probe` as you wish.
+
+    !!! example "Example Configuration"
+        Below you can see an example configuration of the `Reflection Probe`.
+
+        ![reflection probe configuration](reflection_probe_configuration.png)
+
+## Add Colliders
+For a detailed explanation how to add colliders to your Vehicle check out this [dedicated tutorial](./AddColliders/).
