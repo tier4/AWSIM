@@ -115,7 +115,20 @@ If you want to add it just click the 'Add Component' button on the `EgoVehicle` 
 ![vehicle keyboard input script add](vehicle_keyboard_input_script.gif)
 
 ## Add a Vehicle Visual Effect Script
-<!-- TODO -->
+For a visual indication of a Vehicle status you will need a `Vehicle Visual Effect` Script.
+To add and configure it follow the steps below.
+
+1. Add a `Vehicle Visual Effect` Script by clicking 'Add Component' button, searching for it and selecting it.
+
+    ![vehicle visual effect script add component](vehicle_visual_effect_script_add_component.gif)
+
+1. Configure the lights.
+
+    !!!note
+        In this step we will configure only `Brake Lights`, but should repeat this for every Light.
+        The process is almost the same for all Lights - just change the mesh renderer and lighting settings according to your preference.
+
+    ![vehicle visual effect script configure](vehicle_visual_effect_script_configure.gif)
 
 ## Add a Vehicle Ros Input Script
 <!-- TODO -->
