@@ -196,10 +196,7 @@ The Script is configured to work with [Autoware](../../../Introduction/Autoware/
     The `Vehicle` should be configured correctly, but if you have many Vehicles or something goes wrong, please select the right Vehicle in the `Vehicle` field by clicking on the small arrow icon and choosing the right item from the list.
 
 ## Add Sensors
-<!-- TODO -->
-
-### AWSIM Sensors
-<!-- TODO: ad links to sensors -->
+For a detailed explanation how to add sensors to your Vehicle check out this [dedicated tutorial](./AddSensors/).
 
 ## Add a Vehicle to Scene
 <!-- TODO -->
