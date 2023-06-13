@@ -32,7 +32,8 @@ namespace RGLUnityPlugin
         public RGLTexture Texture;
         public Func<Matrix4x4> GetLocalToWorld;
         public GameObject RepresentedGO;
-        public int? RglEnitityId = null;
+        public int? categoryId;
+        public string categoryName;
 
         private IntPtr rglEntityPtr;
 
@@ -45,11 +46,11 @@ namespace RGLUnityPlugin
 
             UploadToRGL();
 
-            SemanticCategory sc = RepresentedGO.GetComponentInParent<SemanticCategory>();
-            if (sc != null)
+            var semanticCategory = RepresentedGO.GetComponentInParent<SemanticCategory>();
+            if (semanticCategory != null)
             {
-                sc.onCategoryIdChange += SetRGLEntityId;
-                SetRGLEntityId(sc.CategoryId);
+                semanticCategory.onCategoryIdChange += UpdateSemanticCategory;
+                UpdateSemanticCategory(semanticCategory);
             }
         }
 
@@ -116,19 +117,20 @@ namespace RGLUnityPlugin
             }
         }
 
-        protected void SetRGLEntityId(int entityId)
+        private void UpdateSemanticCategory(SemanticCategory semanticCategory)
         {
+            if (semanticCategory == null)
+            {
+                return;
+            }
             if (rglEntityPtr == IntPtr.Zero)
             {
                 throw new RGLException($"Attempted to set id to entity '{Identifier}' that is not uploaded.");
             }
 
-            RglEnitityId = entityId;
-            unsafe
-            {
-                RGLNativeAPI.CheckErr(
-                    RGLNativeAPI.rgl_entity_set_id(rglEntityPtr, entityId));
-            }
+            categoryId = semanticCategory.CategoryId;
+            categoryName = semanticCategory.gameObject.name;
+            RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_entity_set_id(rglEntityPtr, categoryId.Value));
         }
 
         public void SetIntensityTexture(RGLTexture texture)

@@ -18,7 +18,7 @@ namespace RGLUnityPlugin
 {
     public class SemanticCategory : MonoBehaviour
     {
-        public delegate void OnCategoryIdChangeDelegate(int categoryId);
+        public delegate void OnCategoryIdChangeDelegate(SemanticCategory sc);
 
         public OnCategoryIdChangeDelegate onCategoryIdChange;
 
@@ -36,7 +36,7 @@ namespace RGLUnityPlugin
                 categoryId = value;
                 if (onCategoryIdChange != null)
                 {
-                    onCategoryIdChange.Invoke(categoryId);
+                    onCategoryIdChange.Invoke(this);
                 }
             }
         }

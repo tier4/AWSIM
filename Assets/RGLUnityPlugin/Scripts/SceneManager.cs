@@ -62,7 +62,8 @@ namespace RGLUnityPlugin
 
         // This dictionary keeps tracks of identifier -> instance id of objects that were removed (e.g. temporary NPCs)
         // This is needed to include them in the instance id dictionary yaml saved at the end of simulation.
-        private Dictionary<string, int> removedRglObjectsIds = new Dictionary<string, int>();
+        // Since categoryId can be changed in the runtime, this is filled only on object removal / simulation end.
+        private Dictionary<string, int> semanticDict = new Dictionary<string, int>();
 
         private static Dictionary<string, RGLMesh> sharedMeshes = new Dictionary<string, RGLMesh>(); // <Identifier, RGLMesh>
         private static Dictionary<string, int> sharedMeshesUsageCount = new Dictionary<string, int>(); // <RGLMesh Identifier, count>
@@ -172,12 +173,8 @@ namespace RGLUnityPlugin
                 {
                     sharedMeshesUsageCount[rglObject.RglMesh.Identifier] -= 1;
                 }
-
-                if (rglObject.RglEnitityId.HasValue)
-                {
-                    removedRglObjectsIds.Add(rglObject.Identifier, rglObject.RglEnitityId.Value);
-                }
-
+                
+                updateSemanticDict(rglObject);
                 rglObject.DestroyFromRGL();
                 uploadedRGLObjects.Remove(rglObject.RepresentedGO);
             }
@@ -277,26 +274,32 @@ namespace RGLUnityPlugin
             Debug.Log("RGLSceneManager: cleared");
         }
 
+        private void updateSemanticDict(RGLObject rglObject)
+        {
+            if (rglObject.categoryId.HasValue)
+            {
+                if (!semanticDict.ContainsKey(rglObject.categoryName))
+                {
+                    semanticDict.Add(rglObject.categoryName, rglObject.categoryId.Value);
+                }
+            }
+        }
+
         private void OnApplicationQuit()
         {
-            Debug.LogWarning("END");
             if (string.IsNullOrEmpty(entityIdDictionaryFile))
             {
                 return;
             }
 
-            var dict = new Dictionary<string, int>(removedRglObjectsIds);
             foreach (var rglObject in uploadedRGLObjects.Values)
             {
-                if (rglObject.RglEnitityId.HasValue)
-                {
-                    dict.Add(rglObject.Identifier, rglObject.RglEnitityId.Value);
-                }
+                updateSemanticDict(rglObject);
             }
             var serializer = new SerializerBuilder().Build();
-            var yaml = serializer.Serialize(dict);
+            var yaml = serializer.Serialize(semanticDict);
             File.WriteAllText(entityIdDictionaryFile, yaml);
-            Debug.Log($"Saved Entity ID dictionary with {dict.Count} objects at {entityIdDictionaryFile}");
+                Debug.Log($"Saved Entity ID dictionary with {semanticDict.Count} objects at {entityIdDictionaryFile}");
         }
 
         /// <summary>
