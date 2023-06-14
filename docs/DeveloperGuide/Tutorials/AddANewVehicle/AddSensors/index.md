@@ -207,7 +207,6 @@ When adding sensors almost all of them will have some common fields.
     You can adjust these settings to suit your needs.
 
 ### Add a Vehicle Status Sensor
-
 1. First add a `VehicleStatusSensor` *Object* as a child to the `URDF` *Object*.
 
     ![vehicle status sensor add object](vehicle_status_sensor_add_object.gif)
@@ -224,7 +223,268 @@ When adding sensors almost all of them will have some common fields.
 
     ![vehicle report ros2 publisher configuration](vehicle_report_ros2_publisher_script_configured.png)
 
-    If you need to, you can change the topics of communication with your autonomous driving software stack.
+### Add a LiDAR
+!!! info "Scene Manager"
+    Before continuing with this tutorial please check out a [dedicated one focused on Scene Manager](../../AddANewScene/AddASceneManager/).
+
+To add a LiDAR to your Vehicle you will have to drag a model of the LiDAR to the link tree you have created in the [earlier step](#add-links-for-sensors).
+
+You can use the predefined RGL LiDAR models or any other LiDAR models.
+In this tutorial we will be using RGL `VelodyneVLP16` LiDAR model.
+
+Simply locate the following directory in the *Project* view and drag the prefab into the designated sensor link.
+
+```
+Assets/AWSIM/Prefabs/Sensors/RobotecGPULidars
+```
+
+![sensors add lidar](sensors_add_lidar.gif)
+
+??? example "ROS message example"
+    In this example you can see what a valid message from the LiDAR Sensor can look like.
+
+    ```log
+    $ ros2 topic echo --once /lidar/pointcloud
+    header:
+      stamp:
+        sec: 20
+        nanosec: 589999539
+      frame_id: world
+    height: 1
+    width: 14603
+    fields:
+    - name: x
+      offset: 0
+      datatype: 7
+      count: 1
+    - name: y
+      offset: 4
+      datatype: 7
+      count: 1
+    - name: z
+      offset: 8
+      datatype: 7
+      count: 1
+    - name: intensity
+      offset: 16
+      datatype: 7
+      count: 1
+    - name: ring
+      offset: 20
+      datatype: 4
+      count: 1
+    is_bigendian: false
+    point_step: 24
+    row_step: 350472
+    data:
+    - 156
+    - 218
+    - 183
+    - 62
+    - 0
+    - 189
+    - 167
+    - 187
+    - 32
+    - 58
+    - 173
+    - 189
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 200
+    - 66
+    - 1
+    - 0
+    - 0
+    - 0
+    - 198
+    - 129
+    - 28
+    - 63
+    - 0
+    - 6
+    - 230
+    - 58
+    - 128
+    - 184
+    - 93
+    - 61
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 200
+    - 66
+    - 9
+    - 0
+    - 0
+    - 0
+    - 92
+    - 2
+    - 194
+    - 62
+    - 0
+    - 141
+    - 42
+    - 187
+    - 128
+    - 89
+    - 139
+    - 189
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 200
+    - 66
+    - 2
+    - 0
+    - 0
+    - 0
+    - 187
+    - 168
+    - 42
+    - 63
+    - 0
+    - 159
+    - 175
+    - 59
+    - 160
+    - 243
+    - 185
+    - 61
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 200
+    - 66
+    - 10
+    - 0
+    - 0
+    - 0
+    - 119
+    - 186
+    - 204
+    - 62
+    - 0
+    - 254
+    - 23
+    - 59
+    - 128
+    - 143
+    - 41
+    - 189
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 200
+    - 66
+    - 3
+    - 0
+    - 0
+    - 0
+    - 65
+    - 241
+    - 59
+    - 63
+    - 128
+    - 0
+    - 252
+    - 187
+    - '...'
+    is_dense: true
+    ---
+    ```
+
+### Add an IMU
+To add an IMU to your Vehicle you will have to drag a model of the IMU to the link tree you have created in the [earlier step](#add-links-for-sensors).
+
+You can use the provided or your own IMU Sensor .
+In this tutorial we will be using IMU Sensor provided with *AWSIM*.
+
+Simply locate the following directory in the *Project* view and drag the prefab into the designated sensor link.
+
+```
+Assets/AWSIM/Prefabs/Sensors
+```
+
+![sensors add imu](sensors_add_imu.gif)
+
+??? example "ROS message example"
+    In this example you can see what a valid message from the IMU Sensor can look like.
+
+    ```log
+    $ ros2 topic echo --once /sensing/imu/tamagawa/imu_raw 
+    header:
+      stamp:
+        sec: 20
+        nanosec: 589999539
+      frame_id: tamagawa/imu_link
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1.0
+    orientation_covariance:
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    angular_velocity:
+      x: 0.014335081912577152
+      y: 0.008947336114943027
+      z: -0.008393825963139534
+    angular_velocity_covariance:
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    linear_acceleration:
+      x: 0.006333829835057259
+      y: -0.005533283110707998
+      z: -0.0018753920448943973
+    linear_acceleration_covariance:
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    ---
+    ```
+
+### Add a GNSS
+<!-- TODO -->
+
+### Add a Camera
+<!-- TODO -->
 
 ### Add a Pose Sensor
 Drag a prefab called the same into the `base_link` *Object*.
