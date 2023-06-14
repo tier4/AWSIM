@@ -234,3 +234,88 @@ You can locate it in the `Assets/AWSIM/Prefabs/Sensors` directory.
 
 The `PoseSensor` is configured to work with *Autoware* by default.
 If you wish to use different autonomous driving software stack you will have to change the configuration.
+
+## Test a Sensor
+
+You can test if the Sensor works correctly in several ways.
+
+1. Check whether the configuration is correct.
+
+    In terminal source ROS with the following line.
+
+    ```
+    source /opt/ros/humble/setup.bash
+    ```
+
+    Check the details about the topic that your Sensor is broadcasting to with the following command.
+
+    ```
+    ros2 topic info -v <topic_name>
+    ```
+
+    !!!example
+        In this example we can see that the message is broadcasted by *AWSIM* and nobody is listening.
+        We can also examine the Quality of Service settings.
+
+        ```log
+        $ ros2 topic info -v /awsim/ground_truth/vehicle/pose
+        Type: geometry_msgs/msg/PoseStamped
+
+        Publisher count: 1
+
+        Node name: AWSIM
+        Node namespace: /
+        Topic type: geometry_msgs/msg/PoseStamped
+        Endpoint type: PUBLISHER
+        GID: 01.10.13.11.98.7a.b1.2a.ee.a3.5a.11.00.00.07.03.00.00.00.00.00.00.00.00
+        QoS profile:
+          Reliability: RELIABLE
+          History (Depth): KEEP_LAST (1)
+          Durability: VOLATILE
+          Lifespan: Infinite
+          Deadline: Infinite
+          Liveliness: AUTOMATIC
+          Liveliness lease duration: Infinite
+
+        Subscription count: 0
+
+        ```
+
+2. Check whether correct information is broadcasted.
+
+    In terminal source ROS with the following line.
+
+    ```
+    source /opt/ros/humble/setup.bash
+    ```
+
+    View one transmitted message.
+
+    ```
+    ros2 topic echo --once <topic_name>
+    ```
+
+    !!!example
+        In this example we can see the Vehicles location at the moment of executing the command.
+
+        **NOTE:** The position and orientation are relative to the frame in the `header/frame_id` field.
+
+        ```log
+        $ ros2 topic echo --once /awsim/ground_truth/vehicle/pose
+        header:
+          stamp:
+            sec: 46
+            nanosec: 959998950
+          frame_id: base_link
+        pose:
+          position:
+            x: 81655.7265625
+            y: 50137.4296875
+            z: 42.53997802734375
+          orientation:
+            x: 0.0
+            y: -9.313260163068549e-10
+            z: -6.36646204504876e-12
+            w: 1.0
+        ---
+        ```
