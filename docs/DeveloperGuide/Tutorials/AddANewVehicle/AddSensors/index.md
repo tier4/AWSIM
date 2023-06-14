@@ -3,12 +3,12 @@
 There is a number of different sensors available in *AWSIM*.
 Below we present a list of sensors with links to their individual pages
 
-- [Vehicle Status Sensor](../../../UserGuide/ProjectGuide/Components/Sensors/VehicleStatus/)
-- [GNSS](../../../UserGuide/ProjectGuide/Components/Sensors/Gnss/)
-- [LiDAR](../../../UserGuide/ProjectGuide/Components/Sensors/Lidar/)
-- [IMU](../../../UserGuide/ProjectGuide/Components/Sensors/Imu/)
-- [Camera](../../../UserGuide/ProjectGuide/Components/Sensors/Camera/)
-- [Pose Sensor](../../../UserGuide/ProjectGuide/Components/Sensors/GroundTruths/Pose/)
+- [Vehicle Status Sensor](../../../../UserGuide/ProjectGuide/Components/Sensors/VehicleStatus/)
+- [GNSS](../../../../UserGuide/ProjectGuide/Components/Sensors/Gnss/)
+- [LiDAR](../../../../UserGuide/ProjectGuide/Components/Sensors/Lidar/)
+- [IMU](../../../../UserGuide/ProjectGuide/Components/Sensors/Imu/)
+- [Camera](../../../../UserGuide/ProjectGuide/Components/Sensors/Camera/)
+- [Pose Sensor](../../../../UserGuide/ProjectGuide/Components/Sensors/GroundTruths/Pose/)
 
 ## Add links for sensors
 Best practice is to replicate a *ROS* sensors transformations tree in Unity using *Objects*.
