@@ -1,5 +1,4 @@
 ## AWSIM Sensors
-<!-- TODO: ad links to sensors -->
 There is a number of different sensors available in *AWSIM*.
 Below we present a list of sensors with links to their individual pages
 
