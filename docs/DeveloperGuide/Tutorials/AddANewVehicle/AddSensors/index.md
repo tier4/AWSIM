@@ -203,3 +203,8 @@ Now the same has to be done with the `velodyne_right_base_link`.
     The final `velodyne_right_base_link` *Object* transformation is shown below.
 
     ![velodyne right base link configuration](velodyne_right_base_link_configured.png)
+
+!!!success
+    If you have done everything right, your `URDF` *Object* tree should look something like the one following.
+
+    ![urdf sample configuration](urdf_example_configuration.png)
