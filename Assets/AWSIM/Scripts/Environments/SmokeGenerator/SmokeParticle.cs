@@ -3,6 +3,9 @@ using UnityEngine;
 [RequireComponent(typeof (MeshFilter))]
 [RequireComponent(typeof (MeshRenderer))]
 
+/// <summary>
+/// Smoke Particle class.
+/// </summary>
 public class SmokeParticle : MonoBehaviour
 {
 	private SmokeGenerator parentComp;
@@ -70,11 +73,19 @@ public class SmokeParticle : MonoBehaviour
 		mesh.RecalculateNormals ();
 	}
 
+	/// <summary>
+	/// Gets and sets the SmokeGenerator component of the parent GameObject.
+	/// </summary>
+	/// <param name="gameObject">Parent GameObject of the Smoke Particle.</param>
 	public void SetParentComp(GameObject gameObject)
 	{
 		this.parentComp = gameObject.GetComponentInParent<SmokeGenerator>();
 	}
 
+	/// <summary>
+	/// Sets the initial velocity and acceleration of Smoke Particle.
+	/// </summary>
+	/// <param name="angleRad">Angular location of Smoke Particle in radians.</param>
 	public void SetVelAcc(float angleRad)
 	{
 		float[] velAcc = this.parentComp.GetVelAcc();
@@ -92,6 +103,13 @@ public class SmokeParticle : MonoBehaviour
 		this.acceleration = new Vector3(accX, accY, accZ);
 	}
 
+	/// <summary>
+	/// Creates a new Smoke Particle GameObject of specified properties.
+	/// </summary>
+	/// <param name="gameObject">Parent GameObject of the Smoke Particle.</param>
+	/// <param name="particle_size">Edge length of the Smoke Particle in [m].</param>
+	/// <param name="radius">Radius of a circle which defines the region where the Smoke Particle is generated in.</param>
+	/// <param name="angleRad">Angular location of the Smoke Particle to be generated at.</param>
     public static void Create(GameObject gameObject, float particle_size, float radius, float angleRad)
     {
         GameObject particle = new GameObject("Particle");

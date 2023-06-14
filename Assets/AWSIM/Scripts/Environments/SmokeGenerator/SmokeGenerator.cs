@@ -5,6 +5,9 @@ using UnityEngine;
 
 [RequireComponent(typeof (MeshRenderer))]
 
+/// <summary>
+/// Smoke Generator class.
+/// </summary>
 [System.Serializable]
 public class SmokeGenerator : MonoBehaviour
 {
@@ -55,16 +58,25 @@ public class SmokeGenerator : MonoBehaviour
         SmokeParticle.Create(gameObject, particleSize, radius, angleRad);
     }
 
+	/// <summary>
+	/// Returns particle size.
+	/// </summary>
     public float GetParticleSize()
     {
         return this.particleSize;
     }
 
+	/// <summary>
+	/// Returns initial velocity and acceleration of particle.
+	/// </summary>
     public float[] GetVelAcc()
     {
         return new float[4] {this.physics.initialPlaneVelocity, this.physics.initialVerticalVelocity, this.physics.planeAcceleration, this.physics.verticalAcceleration};
     }
 
+	/// <summary>
+	/// Returns lifetime of particle.
+	/// </summary>
     public double GetLifetime()
     {
         return (double)(averageLifetime + Random.Range(-variationLifetime, variationLifetime));

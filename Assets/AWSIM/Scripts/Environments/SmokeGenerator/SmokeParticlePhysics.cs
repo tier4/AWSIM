@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Struct for storing Smoke Particle class-related parameters.
+/// </summary>
 [Serializable]
 public struct SmokeParticlePhysics
 {
