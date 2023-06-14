@@ -185,6 +185,27 @@ Now the same has to be done with the `velodyne_right_base_link`.
 ## Add sensors
 After [adding links for all sensors](#add-links-for-sensors) you need to add the actual sensors into your Vehicle.
 
+### General sensor information
+When adding sensors almost all of them will have some common fields.
+
+- Frame Id
+    
+    Frame Id is the name of frame of reference against which the received data will be interpreted by the autonomous driving software stack.
+
+    Remember that the Frame Id must exist internally in the ROS transformations tree.
+
+- Topics
+
+    Topics are names of broadcasting channels.
+    You can set the names of topics as you like and the data from sensors will be broadcasted on these topics.
+    
+    Remember to configure your receiving end to listen on the same topics as broadcasting ones.
+
+- Quality Of Service settings (QOS settings)
+
+    Quality of service settings allow you to configure the behavior of the source node while broadcasting the sensor data.
+    You can adjust these settings to suit your needs.
+
 ### Add a Vehicle Status Sensor
 
 1. First add a `VehicleStatusSensor` *Object* as a child to the `URDF` *Object*.
@@ -204,13 +225,6 @@ After [adding links for all sensors](#add-links-for-sensors) you need to add the
     ![vehicle report ros2 publisher configuration](vehicle_report_ros2_publisher_script_configured.png)
 
     If you need to, you can change the topics of communication with your autonomous driving software stack.
-
-    !!! note "Frame Id"
-        Please note that in this example we did not change the *Frame Id* field.
-        This is the Frame Id used in the Header of the velocity messages.
-
-        Frame Id is the name of frame of reference in which the received velocity will be interpreted by the autonomous driving software stack.
-        Remember that the Frame Id must exist internally in the ROS transformations tree.
 
 ### Add a Pose Sensor
 Drag a prefab called the same into the `base_link` *Object*.
