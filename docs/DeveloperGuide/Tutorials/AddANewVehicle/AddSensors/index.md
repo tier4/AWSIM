@@ -1,4 +1,4 @@
-### AWSIM Sensors
+## AWSIM Sensors
 <!-- TODO: ad links to sensors -->
 There is a number of different sensors available in *AWSIM*.
 Below we present a list of sensors with links to their individual pages
@@ -10,10 +10,10 @@ Below we present a list of sensors with links to their individual pages
 - [Camera](../../../UserGuide/ProjectGuide/Components/Sensors/Camera/)
 - [Pose Sensor](../../../UserGuide/ProjectGuide/Components/Sensors/GroundTruths/Pose/)
 
-### Add links for sensors
+## Add links for sensors
 Best practice is to replicate a *ROS* sensors transformations tree in Unity using *Objects*.
 
-#### Coordinate system conversion
+### Coordinate system conversion
 Please note that Unity uses less common *left-handed* coordinate system.
 Please keep this in mind while defining transformations.
 More details about right-handed and left-handed systems can be found [here](https://en.wikipedia.org/wiki/Right-hand_rule).
@@ -23,43 +23,21 @@ To simplify the conversion process always remember that any point in ROS coordin
 The same can be done with the rotation.
 ROS orientation described with roll, pitch and yaw `(r, p, y)` can be translated to Unity Rotation as follows `(p, -y, -r)`.
 
-!!!note
+!!! danger "Unit conversion"
     Please remember to convert the rotation units.
     *ROS* uses radians and *Unity* uses degrees.
+    The conversion from radians (`rad`) to degrees (`deg`) is as follows.
+    
+    ```
+    deg = rad * 180 / PI
+    ```
 
-#### Add URDF base
-To add sensors, first you need to make sure you have an `URDF` *Object* added like shown in [this section](../#add-a-base-for-sensors-urdf).
+### Add transformations tree
+!!! warning "URDF"
+    Before following this tutorial please make sure you have an `URDF` *Object* like it is shown shown in [this section](../#add-a-base-for-sensors-urdf).
 
-Next you will need to add a `Vehicle Status Sensor`.
+First we will have to add a `base_link` which is the root of all transformations.
 
-1. To do this add an `VehicleStatusSensor` *Object* as a child to the `URDF` *Object*.
-
-    ![vehicle status sensor add object](vehicle_status_sensor_add_object.gif)
-
-2. Next add a `Vehicle Report Ros 2 Publisher` Script by clicking 'Add Component' button in the `VehicleStatusSensor` *Object*, searching for the script and selecting it like shown below.
-    You will also need to specify your Vehicle in the Script.
-
-    ![vehicle report ros2 publisher add all](vehicle_report_ros2_publisher_script_all.gif)
-
-    ![vehicle report ros2 publisher search](vehicle_report_ros2_publisher_script_search.png)
-
-3. The Script should be configured to work with *Autoware* by default.
-    Such a configuration is shown below.
-
-    ![vehicle report ros2 publisher configuration](vehicle_report_ros2_publisher_script_configured.png)
-
-    If you need to, you can change the topics of communication with your autonomous driving software stack.
-
-    !!! note "Frame Id"
-        Please note that in this example we did not change the *Frame Id* field.
-        This is the Frame Id used in the Header of the velocity messages.
-
-        Frame Id is the name of frame of reference in which the received velocity will be interpreted by the autonomous driving software stack.
-        Remember that the Frame Id must exist internally in the ROS transformations tree in the first place.
-
-After that we need to start adding real sensors.
-This means we will represent the transformations tree from the *ROS* into the Unity Scene.
-Transformations thee always begins with a `base_link`.
 Add a `base_link` *Object* as a child to the `URDF` *Object*.
 
 ![base link add object](base_link_add_object.gif)
@@ -69,17 +47,7 @@ Add a `base_link` *Object* as a child to the `URDF` *Object*.
     
     This is very important, as a mistake here will result in all subsequent sensors being misplaced.
 
-Now add one additional sensor called `PoseSensor`.
-Just drag a prefab called the same into the `base_link` *Object*.
-You can locate it in the `Assets/AWSIM/Prefabs/Sensors` directory.
-
-![pose sensor add prefab](pose_sensor_add_prefab.gif)
-
-Again, the `PoseSensor` is configured to work with *Autoware* by default.
-If you wish to use different autonomous driving software stack you will have to change the configuration.
-
-#### Add transformations tree
-In the `base_link` we will represent all transformations contained in the *ROS* tf tree.
+Inside the `base_link` we will represent all transformations contained in the *ROS* transformations tree.
 
 You will have to check your Vehicle specific configuration.
 You can do this in many ways, for example:
@@ -124,10 +92,10 @@ You can do this in many ways, for example:
     0.000  0.000  0.000  1.000
     ```
 
-##### Add one sensor link
+#### Add one sensor link
 !!!note
     In this step we will only add one sensor link.
-    You will need to repeat this step for every sensor you want to add to your Vehicle.
+    You will have to repeat this step for every sensor you want to add to your Vehicle.
 
 Let's say we want to add a LiDAR that is facing right.
 
@@ -156,9 +124,14 @@ sensor_kit_base_link:
 ```
 
 We can clearly see the structure of transformation tree.
-The transformations are as follow `base_link -> sensor_kit_base_link -> velodyne_right_base_link`.
+The transformations are as follows.
 
-We need to start adding these transformation from the root of the tree, so we will start with the `sensor_kit_base_link`, as the `base_link` already exists in our tree.
+```
+base_link -> sensor_kit_base_link -> velodyne_right_base_link
+```
+
+We need to start adding these transformation from the root of the tree.
+We will start with the `sensor_kit_base_link`, as the `base_link` already exists in our tree.
 
 1. The first step is to add an *Object* named the same as the transformation frame (`sensor_kit_base_link`).
 
@@ -205,6 +178,45 @@ Now the same has to be done with the `velodyne_right_base_link`.
     ![velodyne right base link configuration](velodyne_right_base_link_configured.png)
 
 !!!success
-    If you have done everything right, your `URDF` *Object* tree should look something like the one following.
+    If you have done everything right, after adding all of the sensor links your `URDF` *Object* tree should look something like the one following.
 
     ![urdf sample configuration](urdf_example_configuration.png)
+
+## Add sensors
+After [adding links for all sensors](#add-links-for-sensors) you need to add the actual sensors into your Vehicle.
+
+### Add a Vehicle Status Sensor
+
+1. First add a `VehicleStatusSensor` *Object* as a child to the `URDF` *Object*.
+
+    ![vehicle status sensor add object](vehicle_status_sensor_add_object.gif)
+
+2. Next add a `Vehicle Report Ros 2 Publisher` Script by clicking 'Add Component' button in the `VehicleStatusSensor` *Object*, searching for the script and selecting it like shown below.
+    You will also need to specify your Vehicle in the Script.
+
+    ![vehicle report ros2 publisher add all](vehicle_report_ros2_publisher_script_all.gif)
+
+    ![vehicle report ros2 publisher search](vehicle_report_ros2_publisher_script_search.png)
+
+3. The Script should be configured to work with *Autoware* by default.
+    Such a configuration is shown below.
+
+    ![vehicle report ros2 publisher configuration](vehicle_report_ros2_publisher_script_configured.png)
+
+    If you need to, you can change the topics of communication with your autonomous driving software stack.
+
+    !!! note "Frame Id"
+        Please note that in this example we did not change the *Frame Id* field.
+        This is the Frame Id used in the Header of the velocity messages.
+
+        Frame Id is the name of frame of reference in which the received velocity will be interpreted by the autonomous driving software stack.
+        Remember that the Frame Id must exist internally in the ROS transformations tree.
+
+### Add a Pose Sensor
+Drag a prefab called the same into the `base_link` *Object*.
+You can locate it in the `Assets/AWSIM/Prefabs/Sensors` directory.
+
+![pose sensor add prefab](pose_sensor_add_prefab.gif)
+
+The `PoseSensor` is configured to work with *Autoware* by default.
+If you wish to use different autonomous driving software stack you will have to change the configuration.
