@@ -197,8 +197,7 @@ namespace RGLUnityPlugin
                 }
                 
                 if(uvOK)
-                {
-                    
+                {                    
                     fixed(Vector2* pUVs = UVs)
                     {
                         try
@@ -210,7 +209,8 @@ namespace RGLUnityPlugin
                         }
                         catch (RGLException)
                         {
-
+                            throw new NotSupportedException(
+                                $"Could not assign UVs to mesh: {Identifier}.");            
                         }                        
                     }   
                 }
@@ -271,7 +271,7 @@ namespace RGLUnityPlugin
             UploadToRGL();
         }
 
-         ~RGLTexture()
+        ~RGLTexture()
         {
             DestroyFromRGL();
         }
@@ -281,14 +281,14 @@ namespace RGLUnityPlugin
             if (rglTexturePtr != IntPtr.Zero)
             {
                 RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_texture_destroy(out rglTexturePtr));
-                rglTexturePtr = IntPtr.Zero;
+                rglTexturePtr = IntPtr.Zero;                
             }
         }
 
-         protected void UploadToRGL()
+        protected void UploadToRGL()
         {
             bool resolutionOK = Texture.width > 0 && Texture.height > 0;
-            bool grapghicsFormatOK = Texture.graphicsFormat == GraphicsFormat.R8_UNorm;
+            bool grapghicsFormatOK = Texture.graphicsFormat == GraphicsFormat.R16_UNorm;
 
             if (!resolutionOK)
             {
@@ -298,13 +298,11 @@ namespace RGLUnityPlugin
                if (!grapghicsFormatOK)
             {
                 throw new NotSupportedException(
-                    $"Could not get texture data. Texture format has to be equal to R8_UNorm.");
+                    $"Could not get texture data. Texture format has to be equal to R16_UNorm.");
             }
            
-
             unsafe
-            {         
-                var textureData = Texture.GetRawTextureData();
+            {
                 fixed (void* textureDataPtr = Texture.GetRawTextureData())
                 {
                     try

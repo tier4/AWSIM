@@ -76,9 +76,6 @@ namespace RGLUnityPlugin
 
         void OnValidate()
         {
-            if(textureReading)
-            {
-            }
             UpdateMeshSource();
         }
 
@@ -103,9 +100,6 @@ namespace RGLUnityPlugin
             };
             Debug.Log($"RGL mesh source: {meshSource.ToString()}");
         }
-
-
-
 
         /// <summary>
         /// Find out what changes happened on the scene since the last update and update RGL data.
@@ -142,8 +136,11 @@ namespace RGLUnityPlugin
             toAddGOs.ExceptWith(lastFrameGameObjects);
             RGLObject[] toAdd = IntoRGLObjects(toAddGOs).ToArray();
 
-            // Add textures
-            AddTextures(toAdd);
+            if(textureReading)
+            {
+                // Add textures
+                AddTextures(toAdd);
+            }
 
             // Removed
             var toRemoveGOs = new HashSet<GameObject>(lastFrameGameObjects);
@@ -217,7 +214,7 @@ namespace RGLUnityPlugin
             Profiler.EndSample();
 
             Profiler.BeginSample("Destroy unused textures");
-            foreach(var textureUsageCounter in sharedMeshesUsageCount.Where(x =>x.Value < 1).ToList())
+            foreach(var textureUsageCounter in sharedTexturesUsageCount.Where(x =>x.Value < 1).ToList())
             {
                 sharedTextures[textureUsageCounter.Key].DestroyFromRGL();
                 sharedTextures.Remove(textureUsageCounter.Key);
@@ -469,6 +466,12 @@ namespace RGLUnityPlugin
             foreach (var mr in mrs) yield return mr;
         }
 
+        /// <summary>
+        /// Searches through new rglObjects for ones containing IntensityTexture component.
+        /// If present, check if the found texture was already sent to RGL. 
+        /// If not, send it and write its identifier to sharedTextures dictionary.
+        /// After that assign rglTexture to the proper rglObject.
+        /// </summary>
         private static void AddTextures(IEnumerable<RGLObject> rglObjects)
         {
             foreach (var rglObject in rglObjects)
@@ -477,29 +480,28 @@ namespace RGLUnityPlugin
 
                 if( intensityTextureComponent != null)
                 {
-                    string textureID = $"r#{intensityTextureComponent.texture.GetInstanceID()}";
-                    Debug.Log($"RGL add texture: {textureID}.");
+                    if( intensityTextureComponent.texture != null)
+                    {
+                        string textureID = $"r#{intensityTextureComponent.texture.GetInstanceID()}";
 
-                    RGLTexture rglTextureToAdd = new RGLTexture();
+                        RGLTexture rglTextureToAdd = new RGLTexture();
                     
-                    if(!sharedTextures.ContainsKey(textureID))
-                    {
-                         rglTextureToAdd = new RGLTexture(intensityTextureComponent.texture);
-                    }
+                        if(!sharedTextures.ContainsKey(textureID))
+                        {
+                            rglTextureToAdd = new RGLTexture(intensityTextureComponent.texture);
+                        }
                     
-                    if (rglTextureToAdd.rglTexturePtr != IntPtr.Zero)
-                    {
-                        rglObject.SetIntensityTexture(rglTextureToAdd);
-                    }
-                    else
-                    {                        
-                        Debug.LogWarning($"RGL Cannot assign texture. Not created yet!");
-                    } 
-                                                                 
+                        if (rglTextureToAdd.rglTexturePtr != IntPtr.Zero)
+                        {
+                            rglObject.SetIntensityTexture(rglTextureToAdd);
+                        }
+                        else
+                        {                         
+                            Debug.LogWarning($"RGL Cannot assign texture. Not created yet!");
+                        }   
+                    }                                        
                 }
             }
         }
-
-       
     }
 }
