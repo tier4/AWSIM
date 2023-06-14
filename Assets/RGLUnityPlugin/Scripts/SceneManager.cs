@@ -47,6 +47,9 @@ namespace RGLUnityPlugin
         [SerializeField]
         private MeshSource meshSource = MeshSource.RegularMeshesAndSkinnedMeshes;
 
+        [SerializeField]
+        private bool textureReading = false;
+
         // Getting meshes strategies
         private delegate IEnumerable<RGLObject> IntoRGLObjectsStrategy(IEnumerable<GameObject> gameObjects);
 
@@ -59,6 +62,9 @@ namespace RGLUnityPlugin
         private static Dictionary<string, RGLMesh> sharedMeshes = new Dictionary<string, RGLMesh>(); // <Identifier, RGLMesh>
         private static Dictionary<string, int> sharedMeshesUsageCount = new Dictionary<string, int>(); // <RGLMesh Identifier, count>
 
+        private static Dictionary<string, RGLTexture> sharedTextures = new Dictionary<string, RGLTexture>(); // <Identifier, RGLTexture>
+        private static Dictionary<string, int> sharedTexturesUsageCount = new Dictionary<string, int>(); // <RGLTexture Identifier, count>
+
         public static ITimeSource TimeSource { get; set; } = new UnityTimeSource();
 
         private int lastUpdateFrame = -1;
@@ -70,6 +76,9 @@ namespace RGLUnityPlugin
 
         void OnValidate()
         {
+            if(textureReading)
+            {
+            }
             UpdateMeshSource();
         }
 
@@ -80,6 +89,7 @@ namespace RGLUnityPlugin
                 UpdateMeshSource();
             }
         }
+
 
         private void UpdateMeshSource()
         {
@@ -93,6 +103,9 @@ namespace RGLUnityPlugin
             };
             Debug.Log($"RGL mesh source: {meshSource.ToString()}");
         }
+
+
+
 
         /// <summary>
         /// Find out what changes happened on the scene since the last update and update RGL data.
@@ -128,6 +141,9 @@ namespace RGLUnityPlugin
             var toAddGOs = new HashSet<GameObject>(thisFrameGOs);
             toAddGOs.ExceptWith(lastFrameGameObjects);
             RGLObject[] toAdd = IntoRGLObjects(toAddGOs).ToArray();
+
+            // Add textures
+            AddTextures(toAdd);
 
             // Removed
             var toRemoveGOs = new HashSet<GameObject>(lastFrameGameObjects);
@@ -199,6 +215,16 @@ namespace RGLUnityPlugin
             }
 
             Profiler.EndSample();
+
+            Profiler.BeginSample("Destroy unused textures");
+            foreach(var textureUsageCounter in sharedMeshesUsageCount.Where(x =>x.Value < 1).ToList())
+            {
+                sharedTextures[textureUsageCounter.Key].DestroyFromRGL();
+                sharedTextures.Remove(textureUsageCounter.Key);
+                sharedTexturesUsageCount.Remove(textureUsageCounter.Key);
+            }
+
+            Profiler.EndSample();
         }
 
         private void SynchronizeSceneTime()
@@ -224,9 +250,16 @@ namespace RGLUnityPlugin
                 rglObject.Value.DestroyFromRGL();
             }
 
+            foreach ( var rglTexture in sharedTextures)
+            {
+                rglTexture.Value.DestroyFromRGL();
+            }
+
             uploadedRGLObjects.Clear();
             lastFrameGameObjects.Clear();
             sharedMeshes.Clear();
+            sharedMeshesUsageCount.Clear();
+            sharedTextures.Clear();
             sharedMeshesUsageCount.Clear();
             Debug.Log("RGLSceneManager: cleared");
         }
@@ -435,5 +468,38 @@ namespace RGLUnityPlugin
             foreach (var smr in smrs) yield return smr;
             foreach (var mr in mrs) yield return mr;
         }
+
+        private static void AddTextures(IEnumerable<RGLObject> rglObjects)
+        {
+            foreach (var rglObject in rglObjects)
+            {                
+                var intensityTextureComponent = rglObject.RepresentedGO.GetComponent<IntensityTexture>();
+
+                if( intensityTextureComponent != null)
+                {
+                    string textureID = $"r#{intensityTextureComponent.texture.GetInstanceID()}";
+                    Debug.Log($"RGL add texture: {textureID}.");
+
+                    RGLTexture rglTextureToAdd = new RGLTexture();
+                    
+                    if(!sharedTextures.ContainsKey(textureID))
+                    {
+                         rglTextureToAdd = new RGLTexture(intensityTextureComponent.texture);
+                    }
+                    
+                    if (rglTextureToAdd.rglTexturePtr != IntPtr.Zero)
+                    {
+                        rglObject.SetIntensityTexture(rglTextureToAdd);
+                    }
+                    else
+                    {                        
+                        Debug.LogWarning($"RGL Cannot assign texture. Not created yet!");
+                    } 
+                                                                 
+                }
+            }
+        }
+
+       
     }
 }

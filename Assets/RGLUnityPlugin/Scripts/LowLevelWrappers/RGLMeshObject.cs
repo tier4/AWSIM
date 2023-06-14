@@ -15,6 +15,8 @@
 using System;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Experimental.Rendering;
+using Unity.Collections;
 
 namespace RGLUnityPlugin
 {
@@ -103,6 +105,22 @@ namespace RGLUnityPlugin
                 }
             }
         }
+
+        public void SetIntensityTexture(RGLTexture texture)
+        {
+             unsafe
+            {
+                try
+                {
+                    RGLNativeAPI.CheckErr(
+                        RGLNativeAPI.rgl_entity_set_intensity_texture(rglEntityPtr, texture.rglTexturePtr));
+                }
+                catch (RGLException)
+                {
+                    Debug.LogWarning($"Cannot assign texture to entity.");
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -145,8 +163,11 @@ namespace RGLUnityPlugin
         {
             Vector3[] vertices = Mesh.vertices;
             int[] indices = Mesh.triangles;
+            Vector2[] UVs = Mesh.uv;
+
             bool verticesOK = vertices != null && vertices.Length > 0;
             bool indicesOK = indices != null && indices.Length > 0;
+            bool uvOK = UVs != null && UVs.Length > 0;
 
             if (!verticesOK || !indicesOK)
             {
@@ -174,6 +195,26 @@ namespace RGLUnityPlugin
                         }
                     }
                 }
+                
+                if(uvOK)
+                {
+                    
+                    fixed(Vector2* pUVs = UVs)
+                    {
+                        try
+                        {
+                            RGLNativeAPI.CheckErr(
+                                RGLNativeAPI.rgl_mesh_set_texture_coords(rglMeshPtr,
+                                    (IntPtr)pUVs,
+                                    UVs.Length));
+                        }
+                        catch (RGLException)
+                        {
+
+                        }                        
+                    }   
+                }
+                
             }
         }
     }
@@ -210,6 +251,78 @@ namespace RGLUnityPlugin
                         RGLNativeAPI.rgl_mesh_update_vertices(rglMeshPtr, (IntPtr) pVertices, Mesh.vertices.Length));
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// RGL counterpart of Unity Texture.
+    /// Contains information about RGL texture.
+    /// </summary>
+    public class RGLTexture
+    {
+        public Texture2D Texture;
+        public IntPtr rglTexturePtr = IntPtr.Zero;
+
+        public RGLTexture(){}
+        
+        public RGLTexture(Texture2D texture)
+        {
+            Texture = texture;
+            UploadToRGL();
+        }
+
+         ~RGLTexture()
+        {
+            DestroyFromRGL();
+        }
+
+        public void DestroyFromRGL()
+        {
+            if (rglTexturePtr != IntPtr.Zero)
+            {
+                RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_texture_destroy(out rglTexturePtr));
+                rglTexturePtr = IntPtr.Zero;
+            }
+        }
+
+         protected void UploadToRGL()
+        {
+            bool resolutionOK = Texture.width > 0 && Texture.height > 0;
+            bool grapghicsFormatOK = Texture.graphicsFormat == GraphicsFormat.R8_UNorm;
+
+            if (!resolutionOK)
+            {
+                throw new NotSupportedException(
+                    $"Could not get texture data. Resolution seems to be broken.");
+            }
+               if (!grapghicsFormatOK)
+            {
+                throw new NotSupportedException(
+                    $"Could not get texture data. Texture format has to be equal to R8_UNorm.");
+            }
+           
+
+            unsafe
+            {         
+                var textureData = Texture.GetRawTextureData();
+                fixed (void* textureDataPtr = Texture.GetRawTextureData())
+                {
+                    try
+                    {     
+                        RGLNativeAPI.CheckErr(
+                            RGLNativeAPI.rgl_texture_create(
+                            out rglTexturePtr,
+                            (IntPtr) textureDataPtr,
+                            Texture.width,
+                            Texture.height));
+                    }
+                    catch (RGLException)
+                    {
+                        if (rglTexturePtr != IntPtr.Zero) RGLNativeAPI.rgl_texture_destroy(out rglTexturePtr);
+                            throw;
+                    }
+               }  
+            }       
         }
     }
 }
