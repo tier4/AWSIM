@@ -2,7 +2,7 @@
 # LidarSensor
 `LidarSensor` is the component that simulates the *LiDAR* (`Light Detection and Ranging`) sensor. *LiDAR* works by emitting laser beams that bounce off objects in the environment, and then measuring the time it takes for the reflected beams to return, allowing the sensor to create a *3D* map of the surroundings. This data is used for object detection, localization, and mapping.
 
-`LiDAR` in an autonomous vehicle can be used for many purposes. Most often, one sensor is placed on top of the vehicle, mainly for its location in space, but also for recognizing objects. Such a basic task is performed by `VelodyneVLP16` sensor in the `Lexus RX450h 2015 Sample Sensor` prefab.
+`LiDAR` in an autonomous vehicle can be used for many purposes. The ones mounted on the top of autonomous vehicles are primarily used scan the environment for localization in space and to detect and identify obstacles such as approaching vehicles, pedestrians or other objects in the driving path. `LiDARs` placed on the left and right sides of the vehicle are mainly used to monitor the traffic lane and detect vehicles moving in adjacent lanes, enabling safe maneuvers such as lane changing or turning.
 
 `LidarSensor` is closely related to the external `RGL` library, which is described [here](../../../ExternalLibraries/RGLUnityPlugin/).
 
@@ -19,14 +19,14 @@ Prefabs can be found under the following path:
 <br>`Assets\AWSIM\Prefabs\RobotecGPULidars\*`<br>
 The table of available prefabs can be found below:
 
-| LiDAR                 | Path                     | Description |
-| :-------------------- | :----------------------- | :---------- |
-| *HESAI Pandar40P*     | `HesaiPandar40P.prefab`  |             |
-| *HESAI PandarQT64*    | `HesaiPandarQT64.prefab` |             |
-| *Ouster OS1-64*       | `OusterOS1-64.prefab`    |             |
-| *Velodyne VLP-16*     | `VelodyneVLP16.prefab`   |             |
-| *Velodyne VLC-32C*    | `VelodyneVLP32C.prefab`  |             |
-| *Velodyne VLS-128-AP* | `VelodyneVLS128.prefab`  |             |
+| LiDAR                 | Path                     | Appearance                                       |
+| :-------------------- | :----------------------- | :----------------------------------------------- |
+| *HESAI Pandar40P*     | `HesaiPandar40P.prefab`  | <img src=imgs_prefabs/pandar40p.png width=150px> |
+| *HESAI PandarQT64*    | `HesaiPandarQT64.prefab` | <img src=imgs_prefabs/pandarqt.png width=150px>  |
+| *Ouster OS1-64*       | `OusterOS1-64.prefab`    | <img src=imgs_prefabs/os1-64.png width=150px>    |
+| *Velodyne VLP-16*     | `VelodyneVLP16.prefab`   | <img src=imgs_prefabs/vlp16.png width=150px>     |
+| *Velodyne VLC-32C*    | `VelodyneVLP32C.prefab`  | <img src=imgs_prefabs/vlp32.png width=150px>     |
+| *Velodyne VLS-128-AP* | `VelodyneVLS128.prefab`  | <img src=imgs_prefabs/vls128.png width=150px>    |
 
 ![components](components.png)
 
