@@ -1,5 +1,5 @@
 To add `RandomTraffic` to the `Environment`, it is necessary to load elements from the *lanelet2*.
-As a result of loading, `TrafficLanes` and `StopLines` will be added to the scene. Details of these components can be found [here](../../../../UserGuide/ProjectGuide/Components/TrafficComponents/).
+As a result of loading, `TrafficLanes` and `StopLines` will be added to the scene. Details of these components can be found [here](../../../../UserGuide/ProjectGuide/Components/Environment/TrafficComponents/).
 
 !!!warning
     Before following this tutorial make sure you have added an [Environment Script](../../AddANewEnvironment/AddAEnvironment/#add-an-environment-script) and set a proper `MGRS` offset position. This position is used when loading elements from the *lanelet2*!
