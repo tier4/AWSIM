@@ -93,6 +93,7 @@ nav:
               - Add a Vehicle: DeveloperGuide/Tutorials/AddANewVehicle/index.md
               - Add Visual Elements: DeveloperGuide/Tutorials/AddANewVehicle/AddVisualElements/index.md
               - Add Colliders: DeveloperGuide/Tutorials/AddANewVehicle/AddColliders/index.md
+              - Add Sensors: DeveloperGuide/Tutorials/AddANewVehicle/AddSensors/index.md
           - Add a new Scene:
               - Add a Scene: DeveloperGuide/Tutorials/AddANewScene/AddANewScene/index.md
               - Add a SceneManager: DeveloperGuide/Tutorials/AddANewScene/AddASceneManager/index.md
