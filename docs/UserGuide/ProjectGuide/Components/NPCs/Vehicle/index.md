@@ -1,6 +1,6 @@
 # NPC Vehicle
 
-`NPCVehicle` is a non-playable object that simulates a vehicle that is stationary or moving around the scene. It can move on roads, more specifically `TrafficLanes`, thanks to the use of `RandomTrafficSimulator` - which you can read more about [here](../../RandomTrafficSimulator/). Vehicles moving on the scene take into account each other - avoiding collisions, follow traffic lights and have an implemented mechanism of yielding the right of way.
+`NPCVehicle` is a non-playable object that simulates a vehicle that is stationary or moving around the scene. It can move on roads, more specifically `TrafficLanes`, thanks to the use of `RandomTrafficSimulator` - which you can read more about [here](../../../Components/Environment/TrafficComponents/). Vehicles moving on the scene take into account each other - avoiding collisions, follow traffic lights and have an implemented mechanism of yielding the right of way.
 
 ![vehicles](vehicles.png)
 

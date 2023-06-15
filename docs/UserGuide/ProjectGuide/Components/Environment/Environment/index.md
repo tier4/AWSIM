@@ -158,7 +158,7 @@ The strength of the Light (`Intensity`) is set to `73123.09 Lux`. In addition, a
 ![directional_light](directional_light.png)
 
 ## NPCPedestrians
-`NPCPedestrians` is an aggregating object for `NPCPedestrian` objects placed in the environment. Prefab `Nishishinjuku RandomTraffic` has 7 `NPCPedestrian` (`humanElegant`) prefabs defined in selected places. More about this `NPCPedestrian` prefab you can read in this [section](../../Components/NPCs/Pedestrian/).
+`NPCPedestrians` is an aggregating object for `NPCPedestrian` objects placed in the environment. Prefab `Nishishinjuku RandomTraffic` has 7 `NPCPedestrian` (`humanElegant`) prefabs defined in selected places. More about this `NPCPedestrian` prefab you can read in this [section](../../../Components/NPCs/Pedestrian/).
 
 
 
