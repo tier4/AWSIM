@@ -108,7 +108,7 @@ namespace RGLUnityPlugin
 
         public void SetIntensityTexture(RGLTexture texture)
         {
-             unsafe
+            unsafe
             {
                 try
                 {
@@ -288,7 +288,6 @@ namespace RGLUnityPlugin
         protected void UploadToRGL()
         {
             bool resolutionOK = Texture.width > 0 && Texture.height > 0;
-             Debug.Log($"Texture format:{Texture.graphicsFormat}");
             bool grapghicsFormatOK = Texture.graphicsFormat == GraphicsFormat.R8_UNorm;
 
             if (!resolutionOK)
@@ -296,7 +295,8 @@ namespace RGLUnityPlugin
                 throw new NotSupportedException(
                     $"Could not get texture data. Resolution seems to be broken.");
             }
-               if (!grapghicsFormatOK)
+            
+            if (!grapghicsFormatOK)
             {
                 throw new NotSupportedException(
                     $"Could not get texture data. Texture format has to be equal to R8_UNorm.");

@@ -28,5 +28,4 @@ namespace RGLUnityPlugin
         [SerializeField]
         public Texture2D texture;
     }
-
 }
