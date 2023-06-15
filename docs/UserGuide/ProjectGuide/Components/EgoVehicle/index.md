@@ -6,7 +6,7 @@ The default prefab `EgoVehicle` was developed using a *Lexus RX450h 2015* vehicl
 ![vehicle](vehicle.png)
 
 !!! tip "Own EgoVehicle prefab"
-    If you would like to develop your own  `EgoVehicle` prefab, we encourage you to read this [tutorial](../../../../../DeveloperGuide/Tutorials/AddANewVehicle/).
+    If you would like to develop your own  `EgoVehicle` prefab, we encourage you to read this [tutorial](../../../../DeveloperGuide/Tutorials/AddANewVehicle/).
 
 #### Supported features
 
@@ -21,7 +21,7 @@ The default prefab `EgoVehicle` was developed using a *Lexus RX450h 2015* vehicl
 - 3D *Mesh* (fbx) as road surface for vehicle driving, gradient resistance.
 
 !!! note "AutowareSimulation"
-    If you would like to see how `EgoVehicle` works or run some tests, we encourage you to familiarize yourself with the `AutowareSimulation` scene described in this [section](../../../DefaultExistingScenes/).
+    If you would like to see how `EgoVehicle` works or run some tests, we encourage you to familiarize yourself with the `AutowareSimulation` scene described in this [section](../../../ProjectGuide/DefaultExistingScenes/).
 
 
 #### *Lexus RX450h 2015* parameters

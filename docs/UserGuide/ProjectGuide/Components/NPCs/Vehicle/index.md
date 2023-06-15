@@ -8,7 +8,7 @@
     If you would like to see how `NPCVehicle` works or run some tests, we encourage you to familiarize yourself with the `NPCVehicleSample` default scene described in this [section](../../../DefaultExistingScenes/).
 
 !!! tip "Ego Vehicle"
-    If you are interested in the most important vehicle on the scene - `Ego Vehicle`, we encourage you to read this [section](../../Vehicle/).
+    If you are interested in the most important vehicle on the scene - `Ego Vehicle`, we encourage you to read this [section](../../EgoVehicle/).
 
 #### Prefabs and Fbxs
 
@@ -122,7 +122,7 @@ To prevent inspector entry for `WheelCollider`. `WheelColliderConfig` has been d
 The script takes the `Rightbody` and provides an inputs that allows the `NPCVehicle` to move. 
 Script inputs give the ability to set the position and orientation of the vehicle, taking into account the effects of suspension and gravity. In addition, the script uses the [`CoM`](#com) link reference to assign the center of mass of the vehicle to the `Rightbody`.
 
-Script inputs are used by `RandomTrafficSimulator`, which controls the vehicles on the scene - it is described [here](../../RandomTrafficSimulator/).
+Script inputs are used by `RandomTrafficSimulator`, which controls the vehicles on the scene - it is described [here](../../../Components/Environment/TrafficComponents/).
 
 #### Input Data
 

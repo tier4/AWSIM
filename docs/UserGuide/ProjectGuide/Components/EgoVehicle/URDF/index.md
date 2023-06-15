@@ -44,7 +44,7 @@ In the `Lexus RX450h 2015 Sample Sensor` prefab, it is added to the `base_link` 
 ![velodyne_right](urdf_links/velodyne_right.png)
 
 #### IMU
-`IMUSensor` is a component that simulates an *IMU* (*Inertial Measurement Unit*) sensor. Measures acceleration and angular velocity of the `EgoVehicle`. A detailed description of this sensor is available in this [section](../../Sensors/IMU/).
+`IMUSensor` is a component that simulates an *IMU* (*Inertial Measurement Unit*) sensor. Measures acceleration and angular velocity of the `EgoVehicle`. A detailed description of this sensor is available in this [section](../../../Components/Sensors/Imu/).
 
 `Lexus RX450h 2015 Sample Sensor` has one such sensor located on the top of the vehicle. It is added to an object `tamagawa/imu_link` that matches its `frame_id` and contains its transform with respect to `sensor_kit_base_link`. This transformation has no transition, but only rotation around the `Oy` and `Oz` axes. The transform is defined in such a way that its axis `Oy` points downwards - in accordance with the gravity vector.
 

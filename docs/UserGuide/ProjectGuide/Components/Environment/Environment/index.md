@@ -36,7 +36,7 @@ As you can see it contains:
 
 - `SJK*` objects - which are aggregators for visual models.
 - `RandomTrafficSimulator`, `TrafficIntersections`, `TrafficLanes`, `StopLines` - which are responsible for random traffic of [`NPCVehicles`](../../NPCs/Vehicle/).
-- `NPCPedestrians` - which is an aggregator of [`NPCPedestrian`](../../NPCs/Pedestrian). prefabs added to the scene.
+- `NPCPedestrians` - which is an aggregator of [`NPCPedestrian`](../../../Components/NPCs/Pedestrian/). prefabs added to the scene.
 - `Volume`, `Directional Light` - which are components that affect the appearance of objects on the scene.
 
 All of these objects are described later in this section.
