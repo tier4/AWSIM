@@ -1,5 +1,5 @@
 To add `RandomTraffic` to the `Environment`, it is necessary to load elements from the *lanelet2*.
-As a result of loading, `TrafficLanes` and `StopLines` will be added to the scene. Details of these components can be found [here](../../../../UserGuide/ProjectGuide/Components/RandomTrafficSimulator/).
+As a result of loading, `TrafficLanes` and `StopLines` will be added to the scene. Details of these components can be found [here](../../../../UserGuide/ProjectGuide/Components/Environment/TrafficComponents/).
 
 !!!warning
     Before following this tutorial make sure you have added an [Environment Script](../../AddANewEnvironment/AddAEnvironment/#add-an-environment-script) and set a proper `MGRS` offset position. This position is used when loading elements from the *lanelet2*!
@@ -82,7 +82,7 @@ When something goes wrong when loading data from *lanelet2* or you just want to 
 1. Configure is selection of a Traffic Light.
 
     The last thing to configure is a Traffic Light.
-    You need to select one only when the Stop Line is right in front of a [Traffic Intersection](../../../../UserGuide/ProjectGuide/Components/RandomTrafficSimulator/) that has a Traffic Lights.
+    You need to select one only when the Stop Line is right in front of a [Traffic Intersection](../../../../UserGuide/ProjectGuide/Components/Environment/TrafficComponents/) that has a Traffic Lights.
 
     Select from the drop-down menu the Traffic Light that is on the Traffic Intersection and is facing the vehicle that would be driving on the Traffic Lane connected with the Stop Line you are configuring.
 
@@ -92,7 +92,7 @@ When something goes wrong when loading data from *lanelet2* or you just want to 
         If you have a lot of Traffic Lights it can be challenging to add them from the list.
         You can select them visually from the Scene the same as you had selected Traffic Lanes in the [Random Traffic Simulator](../AddARandomTrafficSimulatorScript/#add-spawnable-lanes).
 
-1. Configure the Traffic Lane,
+2. Configure the Traffic Lane,
 
     Every Stop Line has to be connected to a Traffic Lane.
     This is done in the Traffic Lane configuration.

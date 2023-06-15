@@ -56,6 +56,9 @@ nav:
       - Project guide:
           - Introduction: UserGuide/ProjectGuide/Introduction/index.md
           - Components:
+              - Ego Vehicle:
+                  Ego Vehicle: UserGuide/ProjectGuide/Components/EgoVehicle/index.md
+                  Sensors (URDF): UserGuide/ProjectGuide/Components/EgoVehicle/URDF/index.md
               - Sensors:
                   - Vehicle Status: UserGuide/ProjectGuide/Components/Sensors/VehicleStatus/index.md
                   - GNSS: UserGuide/ProjectGuide/Components/Sensors/Gnss/index.md
@@ -64,13 +67,14 @@ nav:
                   - Camera: UserGuide/ProjectGuide/Components/Sensors/Camera/index.md
                   - GroundTruths:
                       - Pose: UserGuide/ProjectGuide/Components/Sensors/GroundTruths/Pose/index.md
-              - Ego Vehicle: UserGuide/ProjectGuide/Components/Vehicle/index.md
-              - Environment: UserGuide/ProjectGuide/Components/Environment/index.md
+              - Environment:
+                  - Environment: UserGuide/ProjectGuide/Components/Environment/Environment/index.md
+                  - Traffic Components: UserGuide/ProjectGuide/Components/Environment/TrafficComponents/index.md
               - NPCs:
                   - Pedestrian: UserGuide/ProjectGuide/Components/NPCs/Pedestrian/index.md
                   - Vehicle: UserGuide/ProjectGuide/Components/NPCs/Vehicle/index.md
-              - Random Traffic Simulator: UserGuide/ProjectGuide/Components/RandomTrafficSimulator/index.md
               - LaneletBoundsVisualizer: UserGuide/ProjectGuide/Components/LaneletBoundsVisualizer/index.md
+              - Scene: UserGuide/ProjectGuide/Components/Scene/index.md
           - Default existing scenes: UserGuide/ProjectGuide/DefaultExistingScenes/index.md
           - External libraries:
               - RGLUnityPlugin: UserGuide/ProjectGuide/ExternalLibraries/RGLUnityPlugin/index.md

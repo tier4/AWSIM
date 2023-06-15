@@ -1,6 +1,5 @@
 # CameraSensor
-`CameraSensor` is a component that simulates an *RGB* camera. `Ego` multiple cameras and use them for different purposes. 
-However, currently in *AWSIM*, `Ego` usually has one camera, which is used for *Autoware* traffic light recognition.
+`CameraSensor` is a component that simulates an *RGB* camera. Autonomous vehicles can be equipped with many cameras used for various purposes. In the current version of *AWSIM*, the camera is used primarily to provide the image to the traffic light recognition module in *Autoware*.
 
 #### Prefab
 Prefab can be found under the following path:<br> `Assets\AWSIM\Prefabs\Sensors\CameraSensor.prefab`

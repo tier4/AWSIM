@@ -62,16 +62,7 @@ Three different strategies to interact with in-simulation *3D* models are implem
 | `Regular Meshes And Colliders Instead Of Skinned` | Regular Mesh    | Collider                |
 | `Regular Meshes And Skinned Meshes`               | Regular Mesh    | Regular Mesh            |
 
-<!-- Notes from Piotr Rybicki that may be useful (I also have 2 screenshots that are potentially usable but I don't know whether they would be helpful for readers):
-- Only Colliders - LiDAR data is computed based on the colliders, which are geometrical primitives or simplified meshes. This is the fastest option, but will produce less accurate results, especially for the animated entities.
-- Regular Meshes And Colliders Instead Of Skinned - Uses regular meshes for static entities and colliders for animated entities. This improves accuracy for static entities with a negligible additional performance cost. For animated meshes, this will still use only colliders.
-- Regular Meshes And Skinned Meshes - Uses regular meshes for both static and animated meshes. This incurs additional performance, but produces the most realistic results.
 
-|  | Static Entity | Animated Entity (NPC) |
-| --- | --- | --- |
-| Only Colliders | Collider | Collider |
-| Regular Meshes And Colliders Instead Of Skinned | Visual Mesh | Collider |
-| Regular Meshes And Skinned Meshes | Visual Mesh | Visual Mesh | -->
 
 Mesh source can be changed in the `SceneManager` script properties:
 <img src="scene_manager.png" width="55%">
