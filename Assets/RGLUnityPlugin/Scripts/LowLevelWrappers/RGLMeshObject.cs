@@ -288,7 +288,8 @@ namespace RGLUnityPlugin
         protected void UploadToRGL()
         {
             bool resolutionOK = Texture.width > 0 && Texture.height > 0;
-            bool grapghicsFormatOK = Texture.graphicsFormat == GraphicsFormat.R16_UNorm;
+             Debug.Log($"Texture format:{Texture.graphicsFormat}");
+            bool grapghicsFormatOK = Texture.graphicsFormat == GraphicsFormat.R8_UNorm;
 
             if (!resolutionOK)
             {
@@ -298,7 +299,7 @@ namespace RGLUnityPlugin
                if (!grapghicsFormatOK)
             {
                 throw new NotSupportedException(
-                    $"Could not get texture data. Texture format has to be equal to R16_UNorm.");
+                    $"Could not get texture data. Texture format has to be equal to R8_UNorm.");
             }
            
             unsafe
