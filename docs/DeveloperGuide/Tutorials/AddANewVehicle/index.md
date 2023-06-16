@@ -1,6 +1,5 @@
-<!-- TODO remaining -->
-
 !!! Draft-note
+    <!-- TODO: remove this note when done -->
     (highlight the part required by ego - not needed in npc)
 
     - Create a prefab (**gif**)
