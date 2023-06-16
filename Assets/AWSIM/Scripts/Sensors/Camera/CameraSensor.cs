@@ -126,12 +126,6 @@ namespace AWSIM
             [Range(0, 2048)] public uint yAxis = 0;
         }
 
-        /// <summary>
-        /// Data output hz.
-        /// Sensor processing and callbacks are called in this hz.
-        /// </summary>
-        [Range(0, 30)][SerializeField] uint publishHz = 10;
-
         [SerializeField] ImageOnGui imageOnGui = new ImageOnGui();
 
         [SerializeField] CameraParameters cameraParameters;
@@ -162,7 +156,6 @@ namespace AWSIM
         int rosShaderKernelIdx = -1;
         ComputeBuffer computeBuffer;
 
-        float timer = 0;
         OutputData outputData = new OutputData();
 
         private enum FocalLengthName
@@ -217,17 +210,9 @@ namespace AWSIM
             rosImageShaderGroupSizeX = (((cameraParameters.width * cameraParameters.height) * sizeof(uint)) / ((int)rosImageShaderThreadsPerGroupX * sizeof(uint)));
         }
 
-        void FixedUpdate()
+        public void DoRender()
         {
-            // Update timer.
-            timer += Time.deltaTime;
-
-            // Matching output to hz.
-            var interval = 1.0f / (int)publishHz;
-            if (timer < interval)
-                return;
-            timer = 0;
-
+            // Reander Unity Camera
             cameraObject.Render();
 
             // Set data to shader
