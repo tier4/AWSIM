@@ -562,7 +562,29 @@ Assets/AWSIM/Prefabs/Sensors
 
 ![sensors add camera](sensors_add_camera.gif)
 
-<!-- TODO: add camera preview, fov, how prepare distorsion shader, ros image shader, parameters, how to test - screens - including traffic light recognition -->
+You can configure some aspects of the Camera to your liking.
+
+E.g. you can set the field of view (fov) of the camera by changing the `Field of View` field or manipulating the physical camera parameters like `Focal Length`.
+
+![camera component](camera_component.png)
+
+The **important** thing is to configure the `Camera Sensor` Script correctly.
+
+**Always** check whether the correct `Camera Object` is selected and make sure that `Distortion Shader` and `Ros Image Shader` are selected.
+
+You can add the live Camera preview onto the Scene.
+To do this select the `Show` checkbox.
+Additionally you can change how the preview is displayed.
+Change the `Scale` value to control the size of the preview (how many times smaller the preview will be compared to the actual screen size).
+
+Move the preview on the screen by changing the `X Axis` and `Y Axis` values on the `Image On Gui` section.
+
+!!! example
+    ![camera preview configuration](camera_preview_example.gif)
+
+![camera sensor script](camera_sensor_script.png)
+
+<!-- TODO: how to test - screens - including traffic light recognition -->
 
 ??? example "ROS message example"
     In this example you can see what a valid message from the Camera Sensor can look like.
