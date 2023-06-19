@@ -49,7 +49,8 @@ namespace RGLUnityPlugin
         [SerializeField]
         private MeshSource meshSource = MeshSource.RegularMeshesAndSkinnedMeshes;
 
-        [SerializeField] private string entityIdDictionaryFile;
+        [field: SerializeField, Tooltip("File to save dictionary for GameObjects and their SemanticCategories")]
+        private string semanticCategoryDictionaryFile;
 
         // Getting meshes strategies
         private delegate IEnumerable<RGLObject> IntoRGLObjectsStrategy(IEnumerable<GameObject> gameObjects);
@@ -95,15 +96,20 @@ namespace RGLUnityPlugin
 
         private void UpdateMeshSource()
         {
-            Clear();
-            IntoRGLObjects = meshSource switch
+            IntoRGLObjectsStrategy UpdatedIntoRGLObjects = meshSource switch
             {
                 MeshSource.OnlyColliders => IntoRGLObjectsUsingCollider,
                 MeshSource.RegularMeshesAndCollidersInsteadOfSkinned => IntoRGLObjectsHybrid,
                 MeshSource.RegularMeshesAndSkinnedMeshes => IntoRGLObjectsUsingMeshes,
                 _ => throw new ArgumentOutOfRangeException()
             };
-            Debug.Log($"RGL mesh source: {meshSource.ToString()}");
+
+            if (IntoRGLObjects != UpdatedIntoRGLObjects)
+            {
+                Clear();
+                IntoRGLObjects = UpdatedIntoRGLObjects;
+                Debug.Log($"RGL mesh source: {meshSource.ToString()}");
+            }
         }
 
         /// <summary>
@@ -287,7 +293,7 @@ namespace RGLUnityPlugin
 
         private void OnApplicationQuit()
         {
-            if (string.IsNullOrEmpty(entityIdDictionaryFile))
+            if (string.IsNullOrEmpty(semanticCategoryDictionaryFile))
             {
                 return;
             }
@@ -298,8 +304,8 @@ namespace RGLUnityPlugin
             }
             var serializer = new SerializerBuilder().Build();
             var yaml = serializer.Serialize(semanticDict);
-            File.WriteAllText(entityIdDictionaryFile, yaml);
-                Debug.Log($"Saved Entity ID dictionary with {semanticDict.Count} objects at {entityIdDictionaryFile}");
+            File.WriteAllText(semanticCategoryDictionaryFile, yaml);
+                Debug.Log($"Saved semantic category dictionary with {semanticDict.Count} objects at {Application.dataPath}/{semanticCategoryDictionaryFile}");
         }
 
         /// <summary>

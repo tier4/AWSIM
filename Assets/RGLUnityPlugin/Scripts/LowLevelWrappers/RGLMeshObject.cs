@@ -123,10 +123,6 @@ namespace RGLUnityPlugin
             {
                 return;
             }
-            if (rglEntityPtr == IntPtr.Zero)
-            {
-                throw new RGLException($"Attempted to set id to entity '{Identifier}' that is not uploaded.");
-            }
 
             categoryId = semanticCategory.CategoryId;
             categoryName = semanticCategory.gameObject.name;

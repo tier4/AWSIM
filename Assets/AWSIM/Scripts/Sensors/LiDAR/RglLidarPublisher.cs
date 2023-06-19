@@ -71,8 +71,8 @@ namespace AWSIM
             if (publishInstanceId)
             {
                 rglSubgraphInstanceId = new RGLNodeSequence()
-                    .AddNodePointsFormat("INSTANCE_FORMAT", FormatInstanceId.GetRGLFields())
-                    .AddNodePointsRos2Publish("INSTANCE_PUB", instanceIdTopic, frameID, reliabilityPolicy, durabilityPolicy, historyPolicy, historyDepth);
+                    .AddNodePointsFormat("ML_FORMAT", FormatMLInstanceSegmentation.GetRGLFields())
+                    .AddNodePointsRos2Publish("ML_PUB", instanceIdTopic, frameID, reliabilityPolicy, durabilityPolicy, historyPolicy, historyDepth);
                 RGLNodeSequence.Connect(rglSubgraphUnity2Ros, rglSubgraphInstanceId);
             }
         }

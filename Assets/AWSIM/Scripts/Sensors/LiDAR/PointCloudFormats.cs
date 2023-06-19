@@ -64,16 +64,15 @@ namespace AWSIM.PointCloudFormats
     }
 
     /// <summary>
-    /// Instance ID format
+    /// Machine learning format for instance/semantic segmentation tasks
     /// </summary>
-    public static class FormatInstanceId
+    public static class FormatMLInstanceSegmentation
     {
         public static RGLField[] GetRGLFields()
         {
             return new[]
             {
                 RGLField.XYZ_F32,
-                RGLField.PADDING_32,
                 RGLField.ENTITY_ID_I32,
                 RGLField.INTENSITY_F32
             };
