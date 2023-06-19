@@ -103,67 +103,67 @@ MonoBehaviour:
       lasers:
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: 15
-        verticalLinearOffsetMm: -11.2
+        verticalLinearOffsetMm: 11.2
         ringId: 1
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: -1
-        verticalLinearOffsetMm: 0.7
+        verticalLinearOffsetMm: -0.7
         ringId: 9
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: 13
-        verticalLinearOffsetMm: -9.7
+        verticalLinearOffsetMm: 9.7
         ringId: 2
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: -3
-        verticalLinearOffsetMm: 2.2
+        verticalLinearOffsetMm: -2.2
         ringId: 10
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: 11
-        verticalLinearOffsetMm: -8.1
+        verticalLinearOffsetMm: 8.1
         ringId: 3
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: -5
-        verticalLinearOffsetMm: 3.7
+        verticalLinearOffsetMm: -3.7
         ringId: 11
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: 9
-        verticalLinearOffsetMm: -6.6
+        verticalLinearOffsetMm: 6.6
         ringId: 4
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: -7
-        verticalLinearOffsetMm: 5.1
+        verticalLinearOffsetMm: -5.1
         ringId: 12
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: 7
-        verticalLinearOffsetMm: -5.1
+        verticalLinearOffsetMm: 5.1
         ringId: 5
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: -9
-        verticalLinearOffsetMm: 6.6
+        verticalLinearOffsetMm: -6.6
         ringId: 13
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: 5
-        verticalLinearOffsetMm: -3.7
+        verticalLinearOffsetMm: 3.7
         ringId: 6
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: -11
-        verticalLinearOffsetMm: 8.1
+        verticalLinearOffsetMm: -8.1
         ringId: 14
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: 3
-        verticalLinearOffsetMm: -2.2
+        verticalLinearOffsetMm: 2.2
         ringId: 7
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: -13
-        verticalLinearOffsetMm: 9.7
+        verticalLinearOffsetMm: -9.7
         ringId: 15
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: 1
-        verticalLinearOffsetMm: -0.7
+        verticalLinearOffsetMm: 0.7
         ringId: 8
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: -15
-        verticalLinearOffsetMm: 11.2
+        verticalLinearOffsetMm: -11.2
         ringId: 16
     horizontalResolution: 0.2
     minHAngle: 0
