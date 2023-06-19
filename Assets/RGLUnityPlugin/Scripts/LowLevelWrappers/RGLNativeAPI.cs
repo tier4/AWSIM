@@ -58,7 +58,7 @@ namespace RGLUnityPlugin
         public static extern int rgl_texture_create(out IntPtr texture, IntPtr texels, int width, int height);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_texture_destroy(out IntPtr texture);
+        public static extern int rgl_texture_destroy(IntPtr texture);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_scene_set_time(IntPtr scene, UInt64 nanoseconds);

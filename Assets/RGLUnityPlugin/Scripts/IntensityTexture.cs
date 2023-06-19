@@ -25,7 +25,6 @@ namespace RGLUnityPlugin
 {
     public class IntensityTexture : MonoBehaviour
     {
-        [SerializeField]
         public Texture2D texture;
     }
 }

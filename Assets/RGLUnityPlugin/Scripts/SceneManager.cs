@@ -48,7 +48,7 @@ namespace RGLUnityPlugin
         private MeshSource meshSource = MeshSource.RegularMeshesAndSkinnedMeshes;
 
         [SerializeField]
-        private bool textureReading = false;
+        public bool textureReading = false;
 
         // Getting meshes strategies
         private delegate IEnumerable<RGLObject> IntoRGLObjectsStrategy(IEnumerable<GameObject> gameObjects);
@@ -138,7 +138,6 @@ namespace RGLUnityPlugin
 
             if(textureReading)
             {
-                // Add textures
                 AddTextures(toAdd);
             }
 
@@ -478,29 +477,28 @@ namespace RGLUnityPlugin
             {                
                 var intensityTextureComponent = rglObject.RepresentedGO.GetComponent<IntensityTexture>();
 
-                if( intensityTextureComponent != null)
+                if( intensityTextureComponent == null)
                 {
-                    if( intensityTextureComponent.texture != null)
-                    {
-                        string textureID = $"r#{intensityTextureComponent.texture.GetInstanceID()}";
-
-                        RGLTexture rglTextureToAdd = new RGLTexture();
-                    
-                        if(!sharedTextures.ContainsKey(textureID))
-                        {
-                            rglTextureToAdd = new RGLTexture(intensityTextureComponent.texture);
-                        }
-                    
-                        if (rglTextureToAdd.rglTexturePtr != IntPtr.Zero)
-                        {
-                            rglObject.SetIntensityTexture(rglTextureToAdd);
-                        }
-                        else
-                        {                         
-                            Debug.LogWarning($"RGL Cannot assign texture. Not created yet!");
-                        }   
-                    }                                        
+                    continue;
                 }
+
+                if( intensityTextureComponent.texture == null)
+                {
+                    continue;
+                }
+
+                string textureID = $"{intensityTextureComponent.texture.GetInstanceID()}";
+
+                RGLTexture rglTextureToAdd = new RGLTexture();
+                    
+                if(!sharedTextures.ContainsKey(textureID))
+                {
+                    rglTextureToAdd = new RGLTexture(intensityTextureComponent.texture);
+                }
+                    
+                
+                rglObject.SetIntensityTexture(rglTextureToAdd);                                                       
+                
             }
         }
     }

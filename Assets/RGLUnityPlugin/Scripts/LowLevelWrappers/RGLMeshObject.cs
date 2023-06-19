@@ -197,6 +197,7 @@ namespace RGLUnityPlugin
                 }
                 
                 if(uvOK)
+                //if(uvOK && SceneManager.textureReading)
                 {                    
                     fixed(Vector2* pUVs = UVs)
                     {
@@ -209,8 +210,8 @@ namespace RGLUnityPlugin
                         }
                         catch (RGLException)
                         {
-                            throw new NotSupportedException(
-                                $"Could not assign UVs to mesh: {Identifier}.");            
+                            Debug.LogWarning($"Could not assign UVs to mesh: {Identifier}.");
+                            throw;        
                         }                        
                     }   
                 }
@@ -280,7 +281,7 @@ namespace RGLUnityPlugin
         {
             if (rglTexturePtr != IntPtr.Zero)
             {
-                RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_texture_destroy(out rglTexturePtr));
+                RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_texture_destroy(rglTexturePtr));
                 rglTexturePtr = IntPtr.Zero;                
             }
         }
@@ -288,7 +289,7 @@ namespace RGLUnityPlugin
         protected void UploadToRGL()
         {
             bool resolutionOK = Texture.width > 0 && Texture.height > 0;
-            bool grapghicsFormatOK = Texture.graphicsFormat == GraphicsFormat.R8_UNorm;
+            bool graphicsFormatOK = Texture.graphicsFormat == GraphicsFormat.R8_UNorm;
 
             if (!resolutionOK)
             {
@@ -296,7 +297,7 @@ namespace RGLUnityPlugin
                     $"Could not get texture data. Resolution seems to be broken.");
             }
             
-            if (!grapghicsFormatOK)
+            if (!graphicsFormatOK)
             {
                 throw new NotSupportedException(
                     $"Could not get texture data. Texture format has to be equal to R8_UNorm.");
@@ -317,8 +318,12 @@ namespace RGLUnityPlugin
                     }
                     catch (RGLException)
                     {
-                        if (rglTexturePtr != IntPtr.Zero) RGLNativeAPI.rgl_texture_destroy(out rglTexturePtr);
-                            throw;
+                        if (rglTexturePtr != IntPtr.Zero) 
+                        {
+                            RGLNativeAPI.rgl_texture_destroy(rglTexturePtr);
+                            rglTexturePtr = IntPtr.Zero;                            
+                        }      
+                        throw;                      
                     }
                }  
             }       
