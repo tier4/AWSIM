@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 633b470faedc9c8d99855fdf74a93973
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - cameraObject: {instanceID: 0}
+  - edgeMaterial: {fileID: 2100000, guid: 576e1f963e0f3b460b76c41f23edfbbd, type: 2}
+  - fillMaterial: {fileID: 2100000, guid: 34da8b7c02784d581850197a95c24a7d, type: 2}
+  - depthMaterial: {fileID: 2100000, guid: 576e1f963e0f3b460b76c41f23edfbbd, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
