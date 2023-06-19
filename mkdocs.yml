@@ -1,4 +1,4 @@
-site_name: AWSIM document
+site_name: AWSIM Document
 
 repo_url: https://github.com/tier4/AWSIM
 
@@ -56,6 +56,7 @@ nav:
       - Project guide:
           - Introduction: UserGuide/ProjectGuide/Introduction/index.md
           - Components:
+              - Scene: UserGuide/ProjectGuide/Components/Scene/index.md
               - Ego Vehicle:
                   Ego Vehicle: UserGuide/ProjectGuide/Components/EgoVehicle/index.md
                   Sensors (URDF): UserGuide/ProjectGuide/Components/EgoVehicle/URDF/index.md
@@ -69,12 +70,11 @@ nav:
                       - Pose: UserGuide/ProjectGuide/Components/Sensors/GroundTruths/Pose/index.md
               - Environment:
                   - Environment: UserGuide/ProjectGuide/Components/Environment/Environment/index.md
-                  - Traffic Components: UserGuide/ProjectGuide/Components/Environment/TrafficComponents/index.md
+                  - Traffic Simulation: UserGuide/ProjectGuide/Components/Environment/TrafficSimulation/index.md
               - NPCs:
                   - Pedestrian: UserGuide/ProjectGuide/Components/NPCs/Pedestrian/index.md
                   - Vehicle: UserGuide/ProjectGuide/Components/NPCs/Vehicle/index.md
               - LaneletBoundsVisualizer: UserGuide/ProjectGuide/Components/LaneletBoundsVisualizer/index.md
-              - Scene: UserGuide/ProjectGuide/Components/Scene/index.md
           - Default existing scenes: UserGuide/ProjectGuide/DefaultExistingScenes/index.md
           - External libraries:
               - RGLUnityPlugin: UserGuide/ProjectGuide/ExternalLibraries/RGLUnityPlugin/index.md
