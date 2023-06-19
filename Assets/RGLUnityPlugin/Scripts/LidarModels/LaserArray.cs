@@ -33,6 +33,7 @@ namespace RGLUnityPlugin
         //  |                     |        v
         //  ._____________________.  - - - -
         //             |
+        // This offset is not considered when generating laser poses. To be applied manually when setting the pose of the lidar.
         public float centerOfMeasurementVerticalLinearOffsetMm;
 
         //             |           /
@@ -55,7 +56,7 @@ namespace RGLUnityPlugin
         public Laser[] lasers;
 
         /// <summary>
-        /// Returns poses of lasers relative to the LiDAR origin.
+        /// Returns poses of lasers relative to the attached game object origin.
         /// </summary>
         public Matrix4x4[] GetLaserPoses()
         {
@@ -65,8 +66,7 @@ namespace RGLUnityPlugin
             // expression, local function or query expression and using the local instead.
             LaserArray self = this;
             return lasers.Select(
-                laser => Matrix4x4.Translate(Vector3.up * mmToMeters(self.centerOfMeasurementVerticalLinearOffsetMm) +
-                                             Vector3.up * mmToMeters(laser.verticalLinearOffsetMm) +
+                laser => Matrix4x4.Translate(Vector3.up * mmToMeters(laser.verticalLinearOffsetMm) +
                                              Vector3.forward *
                                              mmToMeters(self.centerOfMeasurementHorizontalLinearOffsetMm))
                          * Matrix4x4.Rotate(Quaternion.Euler(laser.verticalAngularOffsetDeg,
