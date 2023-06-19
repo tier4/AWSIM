@@ -679,19 +679,19 @@ MonoBehaviour:
   brakeLight:
     meshRenderer: {fileID: 8072732537936238770}
     materialIndex: 3
-    lightingIntensity: 1000
+    lightingIntensity: 15
     lightingColor: {r: 1, g: 0, b: 0, a: 1}
     lightingExposureWeight: 0.5
   leftTurnSignalLight:
     meshRenderer: {fileID: 8072732537936238770}
     materialIndex: 2
-    lightingIntensity: 1000
+    lightingIntensity: 20
     lightingColor: {r: 1, g: 1, b: 0, a: 1}
     lightingExposureWeight: 0.6
   rightTurnSignalLight:
     meshRenderer: {fileID: 8072732537936238770}
     materialIndex: 5
-    lightingIntensity: 1000
+    lightingIntensity: 20
     lightingColor: {r: 1, g: 1, b: 0, a: 1}
     lightingExposureWeight: 0.6
 --- !u!205 &7948141583298997655
