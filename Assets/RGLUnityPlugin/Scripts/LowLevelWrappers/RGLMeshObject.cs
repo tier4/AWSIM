@@ -14,7 +14,8 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.Assertions;
+using UnityEngine.Assertions;to 
+// Experimental is necessary for gathering GraphicsFormat of the texture.
 using UnityEngine.Experimental.Rendering;
 using Unity.Collections;
 
