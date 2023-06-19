@@ -84,7 +84,7 @@ To open the Unity AWSIM project in Unity Editor:
     If you get the safe mode dialog when starting UnityEditor, you may need to install openssl.
 
     1. download libssl  
-    `$ wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.12_amd64.deb`
+    `$ wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb`
     2. install  
     `sudo dpkg -i libssl1.0.0_1.0.2n-1ubuntu5.11_amd64.deb`
 

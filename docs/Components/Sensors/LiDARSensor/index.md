@@ -104,7 +104,7 @@ In the last script - `RglLidarPublisher` - ROS properties such as topics names, 
 To add a new lidar model, perform the following steps:
 
 1. Add its name to the `LidarModels.cs`
-2. If the Lidar has a non-uniform laser array construction (e.g. different linear/angular spacing between lasers), add an entry to the `LaserArrayLibrary`.
+2. If the Lidar has a non-uniform laser array construction (e.g. different linear/angular spacing between lasers), add an entry to the `LaserArrayLibrary`. Keep in mind that Unity has a left-handed coordinate system, while most of the lidar's manuals use a right-handed coordinate system. In that case, reverse sign of the values of the angles.
 3. Add an entry to `LidarConfigurationLibrary`. Use the provided laser array or generate a uniform one using static method `LaserArray.Uniform()`.
 4. Done. New lidar preset should be available via Unity Inspector.
 

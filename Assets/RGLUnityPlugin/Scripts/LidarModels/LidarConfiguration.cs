@@ -51,7 +51,7 @@ namespace RGLUnityPlugin
         /// </summary>
         public LidarNoiseParams noiseParams;
 
-        public int HorizontalSteps => Math.Max((int)((maxHAngle - minHAngle) / horizontalResolution), 1);
+        public int HorizontalSteps => Math.Max((int)Math.Round(((maxHAngle - minHAngle) / horizontalResolution)), 1);
         public int PointCloudSize => laserArray.lasers.Length * HorizontalSteps;
 
         public Matrix4x4[] GetRayPoses()
@@ -88,6 +88,14 @@ namespace RGLUnityPlugin
             }
 
             return rayPose;
+        }
+
+        /// <summary>
+        /// Returns transform from the attached game object to the LiDAR origin.
+        /// </summary>
+        public Matrix4x4 GetLidarOriginTransfrom()
+        {
+            return Matrix4x4.Translate(Vector3.up * (laserArray.centerOfMeasurementVerticalLinearOffsetMm / 1000.0f));
         }
 
         public static LidarNoiseParams TypicalNoiseParams => new LidarNoiseParams
