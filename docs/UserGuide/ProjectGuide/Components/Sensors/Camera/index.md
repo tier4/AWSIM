@@ -30,7 +30,7 @@ For the `CameraSensor` to work properly, the *GameObject* to which the scripts a
 The `CameraSensor` functionality is split into two scripts:
 
 - *CameraSensor Script* - acquires the image from the *Unity* [camera](https://docs.unity3d.com/ScriptReference/Camera.html), transforms it and saves to the  *BGR8* format, this format along with the camera parameters is its script output - script also calls the callback for it.
-- *CameraSensor Script* - provides the ability to publish `CameraSensor` output as [Image](https://docs.ros2.org/latest/api/sensor_msgs/msg/Image.html) and [CameraInfo](https://docs.ros2.org/latest/api/sensor_msgs/msg/CameraInfo.html) messages type published on a specific *ROS2* topics.
+- *CameraRos2Publisher Script* - provides the ability to publish `CameraSensor` output as [Image](https://docs.ros2.org/latest/api/sensor_msgs/msg/Image.html) and [CameraInfo](https://docs.ros2.org/latest/api/sensor_msgs/msg/CameraInfo.html) messages type published on a specific *ROS2* topics.
 
 
 Scripts can be found under the following path:<br>`Assets\AWSIM\Scripts\Sensors\CameraSensor\*`<br>
