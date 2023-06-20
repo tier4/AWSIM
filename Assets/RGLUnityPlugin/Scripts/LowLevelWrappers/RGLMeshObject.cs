@@ -174,7 +174,7 @@ namespace RGLUnityPlugin
             int[] indices = Mesh.triangles;
 
             bool verticesOK = vertices != null && vertices.Length > 0;
-            bool indicesOK = indices != null && indices.Length > 0;            
+            bool indicesOK = indices != null && indices.Length > 0;
 
             if (!verticesOK || !indicesOK)
             {
