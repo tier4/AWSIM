@@ -305,7 +305,7 @@ namespace RGLUnityPlugin
             var serializer = new SerializerBuilder().Build();
             var yaml = serializer.Serialize(semanticDict);
             File.WriteAllText(semanticCategoryDictionaryFile, yaml);
-                Debug.Log($"Saved semantic category dictionary with {semanticDict.Count} objects at {Application.dataPath}/{semanticCategoryDictionaryFile}");
+                Debug.Log($"Saved semantic category dictionary with {semanticDict.Count} objects at {semanticCategoryDictionaryFile}");
         }
 
         /// <summary>
