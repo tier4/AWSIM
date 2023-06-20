@@ -109,7 +109,6 @@ namespace RGLUnityPlugin
 
         public void SetIntensityTexture(RGLTexture texture)
         {
-            var id = texture.Identifier;
             unsafe
             {
                 try
@@ -119,7 +118,7 @@ namespace RGLUnityPlugin
                 }
                 catch (RGLException)
                 {
-                    Debug.LogError($"Cannot assign texture: {id}, to entity: {Identifier}");
+                    Debug.LogError($"Cannot assign texture: {texture.Identifier}, to entity: {Identifier}");
                     throw;
                 }
 
