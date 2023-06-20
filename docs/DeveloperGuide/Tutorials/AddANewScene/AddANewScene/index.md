@@ -85,4 +85,16 @@ To add a Vehicle to the Scene do the following
 Tutorial on how to add a `SceneManager` Script can be found [here](../AddASceneManager/).
 
 ## Add an Environment prefab
-<!-- TODO -->
+!!! note "Environment creation"
+    Environment is a very important part of your scene.
+    If you haven't created your Environment yet, please visit a [dedicated tutorial](../../AddANewEnvironment/AddAEnvironment/).
+
+To add add an Environment prefab into your Scene please
+
+1. Locate and open Environments directory in the *Project* view (`Assets/AWSIM/Prefabs/Environments`).
+2. Drag the Environment of your choice into the Simulation *Object* in the *Hierarchy* view.
+
+    **NOTE**: It is important to drag the Environment into a Hierarchy view and **not** a Scene view.
+    This way no offset will be applied - which is a desired behavior.
+
+![scene add environment prefab](scene_add_environment.gif)
