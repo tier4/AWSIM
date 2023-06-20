@@ -46,6 +46,8 @@ The code consists of the following parts:
     - Displays PointCloud on the Unity Scene
   - `RGLDebugger.cs`
     - Provides configuration for Native RGL debug tools (logging and tape)
+  - `SemanticCategory.cs`
+    - Allows to add category ID to game objects for instance/semantic segmentation tasks
   - `IntensityTexture.cs`
     - Provides input component that can be assigned to any GameObject. It contains a slot for intensity texture.
 - A set of classes providing tools to define LiDAR specification (mostly: ray poses)
