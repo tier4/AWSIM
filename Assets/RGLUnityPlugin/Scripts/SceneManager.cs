@@ -84,7 +84,6 @@ namespace RGLUnityPlugin
             }
         }
 
-
         private void UpdateMeshSource()
         {
             Clear();
