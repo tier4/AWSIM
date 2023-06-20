@@ -47,9 +47,6 @@ namespace RGLUnityPlugin
         [SerializeField]
         private MeshSource meshSource = MeshSource.RegularMeshesAndSkinnedMeshes;
 
-        [SerializeField]
-        public bool textureReading = false;
-
         // Getting meshes strategies
         private delegate IEnumerable<RGLObject> IntoRGLObjectsStrategy(IEnumerable<GameObject> gameObjects);
 
@@ -136,10 +133,7 @@ namespace RGLUnityPlugin
             toAddGOs.ExceptWith(lastFrameGameObjects);
             RGLObject[] toAdd = IntoRGLObjects(toAddGOs).ToArray();
 
-            if(textureReading)
-            {
-                AddTextures(toAdd);
-            }
+            AddTextures(toAdd);
 
             // Removed
             var toRemoveGOs = new HashSet<GameObject>(lastFrameGameObjects);
