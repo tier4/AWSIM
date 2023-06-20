@@ -262,6 +262,15 @@ It does not change the appearance of the Environment, but is necessary for the s
 !!! example "Example Environment after adding NPC Pedestrians"
     ![environment add npc pedestrians](environment_add_npc_pedestrianl.png)
 
+### 6. Save an Environment prefab
+After doing all the previous steps and having your Environment finished you can save it to prefab format.
+
+1. Find a *Environments* directory in the *Project* view (`Assets/AWSIM/Prefabs/Environments`).
+2. Drag the `Environment` *Object* into the *Project* view.
+3. (optional) Change the prefab name to recognize it easily later.
+
+![environment save prefab](environment_save_prefab.gif)
+
 !!! success
     Once you've added the `Environment`, you need to add and configure `TrafficLights`.
     For details please visit [this tutorial](../AddTrafficLights/).
