@@ -14,7 +14,7 @@ namespace AWSIM
     {
         [SerializeField] string turnIndicatorsCommandTopic = "/control/command/turn_indicators_cmd";
         [SerializeField] string hazardLightsCommandTopic = "/control/command/hazard_lights_cmd";
-        [SerializeField] string ackermannControlCommandTopic = "/control/command/control_cmd";
+        [SerializeField] string ackermannControlCommandTopic = "/control/command/control_cmd_auto";
         [SerializeField] string gearCommandTopic = "/control/command/gear_cmd";
         [SerializeField] string vehicleEmergencyStampedTopic = "/control/command/emergency_cmd";
 

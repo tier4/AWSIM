@@ -1849,7 +1849,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnIndicatorsCommandTopic: /control/command/turn_indicators_cmd
   hazardLightsCommandTopic: /control/command/hazard_lights_cmd
-  ackermannControlCommandTopic: /control/command/control_cmd
+  ackermannControlCommandTopic: /control/command/control_cmd_auto
   gearCommandTopic: /control/command/gear_cmd
   vehicleEmergencyStampedTopic: /control/command/emergency_cmd
   qosSettings:

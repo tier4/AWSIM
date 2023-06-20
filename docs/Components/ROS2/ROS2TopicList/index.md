@@ -24,11 +24,11 @@ To see how to custom messages type for ROS2, please refer to [Add custom ROS2 me
 
 
 ## Subscriber list
-|category|topic|msg|frame_id|hz|QoS|
-|:--|:--|:--|:--|:--|:--|
-|control|`/control/command/turn_indicators_cmd`|`autoware_auto_vehicle_msgs/TurnIndicatorsCommand`|none|`10`|`Reliable`,<br> `TransientLocal`,<br> `KeepLast/1`|
-|control|`/control/command/hazard_lights_cmd`|`autoware_auto_vehicle_msgs/HazardLightsCommand`|none|`10`|`Reliable`,<br> `TransientLocal`,<br> `KeepLast/1`|
-|control|`/control/command/control_cmd`|`autoware_auto_control_msgs/AckermannControlCommand`|none|`60`|`Reliable`,<br> `TransientLocal`,<br> `KeepLast/1`|
-|control|`/control/command/gear_cmd`|`autoware_auto_vehicle_msgs/GearCommand`|none|`10`|`Reliable`,<br> `TransientLocal`,<br> `KeepLast/1`|
-|control|`/control/command/emergency_cmd`|`tier4_vehicle_msgs/msg/VehicleEmergencyStamped`|none|`60`|`Reliable`,<br> `TransientLocal`,<br> `KeepLast/1`|
+|category| topic                                  |msg|frame_id|hz|QoS|
+|:--|:---------------------------------------|:--|:--|:--|:--|
+|control| `/control/command/turn_indicators_cmd` |`autoware_auto_vehicle_msgs/TurnIndicatorsCommand`|none|`10`|`Reliable`,<br> `TransientLocal`,<br> `KeepLast/1`|
+|control| `/control/command/hazard_lights_cmd`   |`autoware_auto_vehicle_msgs/HazardLightsCommand`|none|`10`|`Reliable`,<br> `TransientLocal`,<br> `KeepLast/1`|
+|control| `/control/command/control_cmd_auto`    |`autoware_auto_control_msgs/AckermannControlCommand`|none|`60`|`Reliable`,<br> `TransientLocal`,<br> `KeepLast/1`|
+|control| `/control/command/gear_cmd`            |`autoware_auto_vehicle_msgs/GearCommand`|none|`10`|`Reliable`,<br> `TransientLocal`,<br> `KeepLast/1`|
+|control| `/control/command/emergency_cmd`       |`tier4_vehicle_msgs/msg/VehicleEmergencyStamped`|none|`60`|`Reliable`,<br> `TransientLocal`,<br> `KeepLast/1`|
 
