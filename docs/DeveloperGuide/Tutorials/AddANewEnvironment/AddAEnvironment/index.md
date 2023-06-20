@@ -151,13 +151,17 @@ You can group Objects as you like.
         
         ![change material in model](fbx_change.gif)
 
-!!! example "Example Environment after adding 3d models"
+!!! example "Example Environment after adding 3D models"
+    After completing this step you should have an `Environment` *Object* that looks similar to the one presented below.
+
+    ![environment hierarchy view](environment_environment.png)
+
+    The `Environment` with 3D models can look similar to the one presented below.
+
     ![environment add 3d models](environment_add_3d_models.png)
 
 ### 2. Add an Environment Script
-<!-- TODO: maybe in the section above, write what should be the final result - with a screenshot, so that you can see where you need to add this component -->
-<!-- Section above meaning what? 'Add an Environment Script' or 'Add 3D models'? -->
-Add an `Environment Script` as component in the `Environment` object.
+Add an `Environment Script` as component in the `Environment` object (see the last example in [section before](#1-add-3d-models)).
 It does not change the appearance of the Environment, but is necessary for the simulation to work correctly.
 
 1. Click on the *Add Component* button in the `Environment` object.
