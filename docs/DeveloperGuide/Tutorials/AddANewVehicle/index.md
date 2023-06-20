@@ -57,8 +57,18 @@ Then just set the *position* of the `CoM` *Object* in the *Inspector* view to re
 
 ![center of mass](com_all.gif)
 
-??? question "How to get to know the center of mass of my Vehicle"
-    <!-- TODO: add guidelines on how to estimate CoM -->
+??? question "How do I know what is the Center of Mass of my Vehicle"
+    The best way is to obtain a Center of Mass information from your Vehicle documentation.
+
+    However, if this is not possible, you can try to estimate the Center of Mass of your vehicle.
+    Best practice is to set the estimated Center of Mass as the following
+
+    - Evenly between the axles of the Vehicle
+    - Right in the middle of the Vehicles width
+    - Somewhere in the neighborhood of a quarter of the Vehicle height
+
+    **Note**: This will vary very much depending on your Vehicle construction.
+    For the best possible result please follow the Vehicle specifications.
 
 ## Add a Reflection Probe
 1. Add a new *Object* called `Reflection Probe` as a child to the `EgoVehicle` *Object*.
