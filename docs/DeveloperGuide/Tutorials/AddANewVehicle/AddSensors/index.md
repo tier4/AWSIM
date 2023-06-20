@@ -584,7 +584,23 @@ Move the preview on the screen by changing the `X Axis` and `Y Axis` values on t
 
 ![camera sensor script](camera_sensor_script.png)
 
-<!-- TODO: how to test - screens - including traffic light recognition -->
+!!! tip "Testing camera with traffic light recognition"
+    You can test the Camera Sensor traffic light recognition by positioning the vehicle on the *Unity* Scene in such a way that on the *Camera preview* you can see the traffic lights.
+    
+    Remember to lock the *Inspector* view on Camera *Object* before dragging the whole Vehicle - this way you can see the preview while moving the vehicle.
+
+    <!-- ![position the vehicle](vehicle_position.gif) -->
+
+    ![position the vehicle](vehicle_position.gif)
+    
+    Run the *Scene* the same as [on this page](../../../../UserGuide/BuildFromSource/RunScene/).
+
+    Launch **only** the *Autoware* like [on this page](../../../../UserGuide/Installation/RunDemo/index.md#2-run-demo-with-autoware).
+
+    By default you should see the preview of traffic light recognition visualization in the bottom left corner of *Autoware*.
+
+    !!! example "Traffic lights recognition example in *Autoware*"
+        ![traffic light recognition preview](traffic_light_recognition.png)
 
 ??? example "ROS message example"
     In this example you can see what a valid message from the Camera Sensor can look like.
