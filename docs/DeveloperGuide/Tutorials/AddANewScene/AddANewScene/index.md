@@ -73,7 +73,13 @@ To add a Main Camera please do the following
     ![main camera example configuration](main_camera_example_configuration.png)
 
 ## Add a Vehicle
-<!-- TODO -->
+To add a Vehicle to the Scene do the following
+
+1. Locate the directory containing a Vehicle *prefab* in the *Project* view (`Assets/AWSIM/Prefabs/Vehicles`)
+2. Drag the Vehicle from the *Project* view to the Scene
+3. Move the Vehicle *Object* in the *Hierarchy* view to make it s child of the Simulation *Object*
+
+![vehicle add prefab to the scene](vehicle_add_to_scene.gif)
 
 ## Add a Scene Manager Script
 Tutorial on how to add a `SceneManager` Script can be found [here](../AddASceneManager/).

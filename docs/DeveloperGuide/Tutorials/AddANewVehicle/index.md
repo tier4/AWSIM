@@ -226,10 +226,4 @@ First you will have to save the Vehicle you created as a *prefab*, to easily add
 ![save vehicle as prefab](vehicle_save_prefab.gif)
 
 ### Add to Scene
-Now you will add the Vehicle you have just saved to the Scene.
-
-1. Locate the directory in which you saved the Vehicle *prefab* in the *Project* view (`Assets/AWSIM/Prefabs/Vehicles`)
-2. Drag the Vehicle from the *Project* view to the Scene
-3. Move the Vehicle *Object* in the *Hierarchy* view to make it s child of the Simulation *Object*
-
-![vehicle add prefab to the scene](vehicle_add_to_scene.gif)
+To add a Vehcile to the Scene please see [this tutorial](../AddANewScene/AddANewScene/#add-a-vehicle).
