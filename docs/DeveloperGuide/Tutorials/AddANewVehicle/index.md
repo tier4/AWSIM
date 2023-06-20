@@ -116,7 +116,7 @@ To be able to control your Ego Vehicle you need a `Vehicle` Script.
 
     ![vehicle script configure](vehicle_script_configure.gif)
 
-<!-- TODO: how to test -->
+<!-- TODO: how to test (it is in the notes, but is there really a way to do this?) -->
 
 ## Add a Vehicle Keyboard Input Script
 If, for any reason, you would like to control your Ego Vehicle in the simulation by hand you can do that with just one Script called `Vehicle Keyboard Input`.

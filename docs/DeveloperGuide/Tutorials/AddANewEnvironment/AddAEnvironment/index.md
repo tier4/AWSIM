@@ -51,18 +51,15 @@ Additionally you should include materials and textures in separate directories.
 Many models are delivered in this format.
 This file format allows you to import models into Unity with materials and replace materials while importing. You can learn more about it [here](https://unity.com/how-to/work-assets-between-unity-and-autodesk).
 
-<!-- TODO: Here are still missing examples of fbx as added to prefab and how to set materials/textures - unless it is/will be in the next part -->
-<!-- I really think that this section is more about creating the model saved as fbx. Usage, so importing and changing materials is shown later. -->
+You can see a `.fbx` model added and modified on the fly in the example of [this section](#1-add-3d-models).
 
 ### Guidelines
-<!-- TODO: here you should add tips in consultation with Piotr Rząd and report from Unity -->
-<!-- I have added as many tips as I could come up with after consulting Piotr and reading the Unity report. As for me this part is done, but please confirm this is enough. -->
 To improve the simulation performance of a scene containing your  `Environment` prefab, please keep in mind some of these tips when creating *3D* models:
 
 1. Prefer more smaller models over a few big ones.
 
     In general it is beneficial for performance when you make one small mesh of a object like tree and reuse it on the scene placing many prefabs instead of making one giant mesh containing all trees on the given scene.
-    Even in situations when you are not reusing meshes it is beneficial.
+    It is beneficial even in situations when you are not reusing the meshes.
     Lets say you have a city with many buildings - and every one of those buildings is different - it is still advised to model those building individually and make them separate *GameObjects*.
 
 1. Choose texture resolution appropriately.
@@ -83,16 +80,15 @@ To improve the simulation performance of a scene containing your  `Environment` 
     If some element in the 3D model are interactive they should be divided into separate parts.
 
 What's more, consider these tips related directly to the use of 3D models in *AWSIM*:
-<!-- TODO: what is flutter culling - i can't find it -->
-<!-- Does it even exist? the only reference to fluttering in whole documentation is here: https://docs.unity3d.com/Manual/terrain-Trees.html (use search) -->
- 1. Creating a *3D* model based on actual point cloud data makes it more realistic.
- 1. *AWSIM* is created using *HDRP* ([*High Definition Rendering Pipeline*](https://unity.com/srp/High-Definition-Render-Pipeline)) which performs better when object meshes are merged.
- 1. [Occlusion culling](https://docs.unity3d.com/Manual/OcclusionCulling.html) and flutter culling cannot be used because the sensors detection target will disappear.
- 1. Each traffic light should have a separate `GameObject`. Also, each light in the traffic light should be split into separate materials.
+
+1. Creating a *3D* model based on actual point cloud data makes it more realistic.
+1. *AWSIM* is created using *HDRP* ([*High Definition Rendering Pipeline*](https://unity.com/srp/High-Definition-Render-Pipeline)) which performs better when object meshes are merged.
+1. [Occlusion culling](https://docs.unity3d.com/Manual/OcclusionCulling.html) and flutter culling cannot be used because the sensors detection target will disappear.
+1. Each traffic light should have a separate `GameObject`. Also, each light in the traffic light should be split into separate materials.
 
 ## Create an Environment prefab
-<!-- TODO: please add after each step the effect (screen of scene elements) that the reader should achieve -->
 In this part, you will learn how to create a `Environment` prefab - that is, develop a *GameObject* containing all the necessary elements and save it as a prefab.
+
 ### 1. Add 3D models
 In this section we will add roads, buildings, greenery, signs, road markings etc. to our scene.
 
@@ -106,7 +102,7 @@ Sometimes it is necessary as models come with placeholder materials.
 
 In order to add *3D* models from the `.fbx` file to the *Scene* please do the following steps:
 
-1. In the *Project* view navigate to directory where the model is located and click on the model file.
+1. In the *Project* view navigate to the directory where the model is located and click on the model file.
 2. Now you can customize the materials used in the model in the *Inspector* view.
 3. Drag the model into the *Scene* where you want to position it.
 4. Move the *Object* in the *Hierarchy* tree appropriately.
@@ -155,10 +151,14 @@ You can group Objects as you like.
         
         ![change material in model](fbx_change.gif)
 
+!!! example "Example Environment after adding 3d models"
+    ![environment add 3d models](environment_add_3d_models.png)
+
 ### 2. Add an Environment Script
 <!-- TODO: maybe in the section above, write what should be the final result - with a screenshot, so that you can see where you need to add this component -->
 <!-- Section above meaning what? 'Add an Environment Script' or 'Add 3D models'? -->
 Add an `Environment Script` as component in the `Environment` object.
+It does not change the appearance of the Environment, but is necessary for the simulation to work correctly.
 
 1. Click on the *Add Component* button in the `Environment` object.
 
@@ -187,35 +187,43 @@ Add an `Environment Script` as component in the `Environment` object.
 
     ![add directional light](directional_light_add_object.gif)
 
-1. Click `Add Component` button, search for `light` and select it. 
+2. Click `Add Component` button, search for `light` and select it. 
 
     ![directional light search](directional_light_search.png)
 
-2. Change light Type to `Directional`.
-3. Now you can configure the directional light as you wish. E.g. change the intensity or orientation.
+3. Change light Type to `Directional`.
+4. Now you can configure the directional light as you wish. E.g. change the intensity or orientation.
 
     ![directional light configure](directional_light_config.gif)
 
 !!!tip
     For more details on lighting check out [official Unity documentation](https://docs.unity3d.com/Manual/Lighting.html).
+
+!!! example "Example Environment after adding Directional Light"
+    ![environment add directional light](environment_add_directional_light.png)
+
 ### 4. Add a Volume
 
 1. Create a new child object of the Environment and name it `Volume`.
 
     ![volume add object](volume_add_object.gif)
 
-1. Click `Add Component` search for `volume` and select it.
+2. Click `Add Component` search for `volume` and select it.
 
     ![select volume](volume_search.png)
 
-1. Change the Profile to `Volume Profile` and wait for changes to take effect.
+3. Change the Profile to `Volume Profile` and wait for changes to take effect.
 
     ![volume configure](volume_config.gif)
 
-1. Now you can configure the *Volume* individually as you wish.
+4. Now you can configure the *Volume* individually as you wish.
 
 !!!tip
     For more details on volumes checkout [official Unity documentation](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@11.0/manual/Volumes.html).
+
+!!! example "Example Environment after adding Volume"
+    ![environment add volume](environment_add_volume.png)
+
 ### 5. Add NPCPedestrians
 1. Make `NPCPedestrians` parent object.
 
@@ -246,6 +254,9 @@ Add an `Environment Script` as component in the `Environment` object.
 
     !!! warning
         Remember to set correct orientation, as the `NPCPedestrian` will walk straight from the starting position with the starting orientation.
+
+!!! example "Example Environment after adding NPC Pedestrians"
+    ![environment add npc pedestrians](environment_add_npc_pedestrianl.png)
 
 !!! success
     Once you've added the `Environment`, you need to add and configure `TrafficLights`.
