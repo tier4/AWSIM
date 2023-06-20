@@ -157,10 +157,10 @@ namespace RGLUnityPlugin
             {
                 if (!(rglObject.RglMesh is RGLSkinnedMesh)) sharedMeshesUsageCount[rglObject.RglMesh.Identifier] -= 1;
 
-                if(sharedTextures.ContainsKey(rglObject.TextureID))
+                if(rglObject.Texture != null)
                 {
-                    sharedTexturesUsageCount[rglObject.TextureID] -=1;
-                }                
+                    sharedTexturesUsageCount[rglObject.Texture.Identifier] -=1;
+                }               
 
                 rglObject.DestroyFromRGL();
                 uploadedRGLObjects.Remove(rglObject.RepresentedGO);
@@ -492,7 +492,7 @@ namespace RGLUnityPlugin
                 
                 if(!sharedTextures.ContainsKey(textureID))
                 {
-                    var rglTextureToAdd = new RGLTexture(intensityTextureComponent.texture);
+                    var rglTextureToAdd = new RGLTexture(intensityTextureComponent.texture, textureID);
                     sharedTextures.Add(textureID, rglTextureToAdd);
                     sharedTexturesUsageCount.Add(textureID, 0);                    
                 }                    

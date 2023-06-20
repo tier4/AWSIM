@@ -29,7 +29,7 @@ namespace RGLUnityPlugin
     {
         public string Identifier;
         public RGLMesh RglMesh;
-        public int TextureID = 0;
+        public RGLTexture Texture;
         public Func<Matrix4x4> GetLocalToWorld;
         public GameObject RepresentedGO;
 
@@ -116,7 +116,7 @@ namespace RGLUnityPlugin
                 {
                     RGLNativeAPI.CheckErr(
                         RGLNativeAPI.rgl_entity_set_intensity_texture(rglEntityPtr, texture.rglTexturePtr));
-                        TextureID = texture.Identifier;
+                        Texture = texture;
                 }
                 catch (RGLException)
                 {
@@ -124,9 +124,8 @@ namespace RGLUnityPlugin
                     throw;
                 }
 
-                // Mesh and entity should be uploaded before assigning UVs.
+                // Mesh should be uploaded before assigning UVs.
                 Assert.IsFalse(RglMesh.rglMeshPtr == IntPtr.Zero);
-                Assert.IsFalse(rglEntityPtr == IntPtr.Zero);
 
                 RglMesh.UploadUVs();
             }
@@ -211,9 +210,13 @@ namespace RGLUnityPlugin
             Vector2[] UVs = Mesh.uv;
             bool uvOK = UVs != null && UVs.Length > 0;
 
-            unsafe
+            if(!uvOK)
             {
-                if(uvOK)
+                Debug.LogWarning($"Could not assign UVs to mesh: {Identifier}. Mash has no UV, or UV are empty.");
+            }
+            else
+            {
+               unsafe
                 {                    
                     fixed(Vector2* pUVs = UVs)
                     {
@@ -282,9 +285,9 @@ namespace RGLUnityPlugin
 
         public RGLTexture(){}
         
-        public RGLTexture(Texture2D texture)
+        public RGLTexture(Texture2D texture, int identifier)
         {
-            Identifier = texture.GetInstanceID();
+            Identifier = identifier;
             Texture = texture;
             UploadToRGL();
         }
