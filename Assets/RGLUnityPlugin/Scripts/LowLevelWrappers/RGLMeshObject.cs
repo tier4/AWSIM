@@ -29,6 +29,7 @@ namespace RGLUnityPlugin
     {
         public string Identifier;
         public RGLMesh RglMesh;
+        public int TextureID = 0;
         public Func<Matrix4x4> GetLocalToWorld;
         public GameObject RepresentedGO;
 
@@ -115,6 +116,7 @@ namespace RGLUnityPlugin
                 {
                     RGLNativeAPI.CheckErr(
                         RGLNativeAPI.rgl_entity_set_intensity_texture(rglEntityPtr, texture.rglTexturePtr));
+                        TextureID = texture.Identifier;
                 }
                 catch (RGLException)
                 {

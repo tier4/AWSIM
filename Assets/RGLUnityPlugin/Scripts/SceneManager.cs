@@ -133,8 +133,6 @@ namespace RGLUnityPlugin
             toAddGOs.ExceptWith(lastFrameGameObjects);
             RGLObject[] toAdd = IntoRGLObjects(toAddGOs).ToArray();
 
-            AddTextures(toAdd);
-
             // Removed
             var toRemoveGOs = new HashSet<GameObject>(lastFrameGameObjects);
             toRemoveGOs.ExceptWith(thisFrameGOs);
@@ -151,10 +149,20 @@ namespace RGLUnityPlugin
             lastFrameGameObjects = new HashSet<GameObject>(thisFrameGOs);
             Profiler.EndSample();
 
+            Profiler.BeginSample("Add new textures");
+            AddTextures(toAdd);
+            Profiler.EndSample();
+
             Profiler.BeginSample("Remove despawned objects");
             foreach (var rglObject in toRemove)
             {
                 if (!(rglObject.RglMesh is RGLSkinnedMesh)) sharedMeshesUsageCount[rglObject.RglMesh.Identifier] -= 1;
+
+                if(sharedTextures.ContainsKey(rglObject.TextureID))
+                {
+                    sharedTexturesUsageCount[rglObject.TextureID] -=1;
+                }                
+
                 rglObject.DestroyFromRGL();
                 uploadedRGLObjects.Remove(rglObject.RepresentedGO);
             }
@@ -487,9 +495,11 @@ namespace RGLUnityPlugin
                 {
                     var rglTextureToAdd = new RGLTexture(intensityTextureComponent.texture);
                     sharedTextures.Add(textureID, rglTextureToAdd);
+                    sharedTexturesUsageCount.Add(textureID, 0);                    
                 }                    
                 
                 rglObject.SetIntensityTexture(sharedTextures[textureID]);
+                sharedTexturesUsageCount[textureID] += 1;
             }
         }
     }
