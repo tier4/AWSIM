@@ -116,6 +116,8 @@ To be able to control your Ego Vehicle you need a `Vehicle` Script.
 
     ![vehicle script configure](vehicle_script_configure.gif)
 
+<!-- TODO: how to test -->
+
 ## Add a Vehicle Keyboard Input Script
 If, for any reason, you would like to control your Ego Vehicle in the simulation by hand you can do that with just one Script called `Vehicle Keyboard Input`.
 
@@ -203,6 +205,13 @@ The Script is configured to work with [Autoware](../../../Introduction/Autoware/
 
 !!!note
     The `Vehicle` should be configured correctly, but if you have many Vehicles or something goes wrong, please select the right Vehicle in the `Vehicle` field by clicking on the small arrow icon and choosing the right item from the list.
+
+### How to test
+The best way to test the Vehicle Ros Input Script is to run *Autoware*.
+
+1. Run the *Scene*the same as on [this page](../../../UserGuide/BuildFromSource/RunScene/).
+2. Launch **only** the *Autoware* like on [this page](../../../UserGuide/Installation/RunDemo/#2-run-demo-with-autoware)
+3. Plan a path in *Autoware* like [here](../../../UserGuide/FirstSteps/SetASingleGoal/), if the Vehicle moves in *AWSIM* correctly then the Script is configured well.
 
 ## Add Sensors
 For a detailed explanation how to add sensors to your Vehicle check out this [dedicated tutorial](./AddSensors/).
