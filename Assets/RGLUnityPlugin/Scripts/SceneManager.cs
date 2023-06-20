@@ -62,8 +62,8 @@ namespace RGLUnityPlugin
         private static Dictionary<string, RGLMesh> sharedMeshes = new Dictionary<string, RGLMesh>(); // <Identifier, RGLMesh>
         private static Dictionary<string, int> sharedMeshesUsageCount = new Dictionary<string, int>(); // <RGLMesh Identifier, count>
 
-        private static Dictionary<string, RGLTexture> sharedTextures = new Dictionary<string, RGLTexture>(); // <Identifier, RGLTexture>
-        private static Dictionary<string, int> sharedTexturesUsageCount = new Dictionary<string, int>(); // <RGLTexture Identifier, count>
+        private static Dictionary<int, RGLTexture> sharedTextures = new Dictionary<int, RGLTexture>(); // <Identifier, RGLTexture>
+        private static Dictionary<int, int> sharedTexturesUsageCount = new Dictionary<int, int>(); // <RGLTexture Identifier, count>
 
         public static ITimeSource TimeSource { get; set; } = new UnityTimeSource();
 
@@ -487,18 +487,15 @@ namespace RGLUnityPlugin
                     continue;
                 }
 
-                string textureID = $"{intensityTextureComponent.texture.GetInstanceID()}";
-
-                RGLTexture rglTextureToAdd = new RGLTexture();
-                    
+                int textureID = intensityTextureComponent.texture.GetInstanceID();
+                
                 if(!sharedTextures.ContainsKey(textureID))
                 {
-                    rglTextureToAdd = new RGLTexture(intensityTextureComponent.texture);
-                }
-                    
+                    var rglTextureToAdd = new RGLTexture(intensityTextureComponent.texture);
+                    sharedTextures.Add(textureID, rglTextureToAdd);
+                }                    
                 
-                rglObject.SetIntensityTexture(rglTextureToAdd);                                                       
-                
+                rglObject.SetIntensityTexture(sharedTextures[textureID]);
             }
         }
     }

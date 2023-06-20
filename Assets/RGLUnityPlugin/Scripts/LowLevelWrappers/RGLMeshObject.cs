@@ -14,7 +14,7 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.Assertions;to 
+using UnityEngine.Assertions;
 // Experimental is necessary for gathering GraphicsFormat of the texture.
 using UnityEngine.Experimental.Rendering;
 using Unity.Collections;
@@ -109,6 +109,7 @@ namespace RGLUnityPlugin
 
         public void SetIntensityTexture(RGLTexture texture)
         {
+            var id = texture.Identifier;
             unsafe
             {
                 try
@@ -118,8 +119,15 @@ namespace RGLUnityPlugin
                 }
                 catch (RGLException)
                 {
-                    Debug.LogWarning($"Cannot assign texture to entity.");
+                    Debug.LogError($"Cannot assign texture: {id}, to entity: {Identifier}");
+                    throw;
                 }
+
+                // Mesh and entity should be uploaded before assigning UVs.
+                Assert.IsFalse(RglMesh.rglMeshPtr == IntPtr.Zero);
+                Assert.IsFalse(rglEntityPtr == IntPtr.Zero);
+
+                RglMesh.UploadUVs();
             }
         }
     }
@@ -164,11 +172,9 @@ namespace RGLUnityPlugin
         {
             Vector3[] vertices = Mesh.vertices;
             int[] indices = Mesh.triangles;
-            Vector2[] UVs = Mesh.uv;
 
             bool verticesOK = vertices != null && vertices.Length > 0;
-            bool indicesOK = indices != null && indices.Length > 0;
-            bool uvOK = UVs != null && UVs.Length > 0;
+            bool indicesOK = indices != null && indices.Length > 0;            
 
             if (!verticesOK || !indicesOK)
             {
@@ -196,9 +202,17 @@ namespace RGLUnityPlugin
                         }
                     }
                 }
-                
+            }
+        }
+
+        public void UploadUVs()
+        {
+            Vector2[] UVs = Mesh.uv;
+            bool uvOK = UVs != null && UVs.Length > 0;
+
+            unsafe
+            {
                 if(uvOK)
-                //if(uvOK && SceneManager.textureReading)
                 {                    
                     fixed(Vector2* pUVs = UVs)
                     {
@@ -206,8 +220,8 @@ namespace RGLUnityPlugin
                         {
                             RGLNativeAPI.CheckErr(
                                 RGLNativeAPI.rgl_mesh_set_texture_coords(rglMeshPtr,
-                                    (IntPtr)pUVs,
-                                    UVs.Length));
+                                (IntPtr)pUVs,
+                                UVs.Length));
                         }
                         catch (RGLException)
                         {
@@ -216,7 +230,6 @@ namespace RGLUnityPlugin
                         }                        
                     }   
                 }
-                
             }
         }
     }
@@ -262,6 +275,7 @@ namespace RGLUnityPlugin
     /// </summary>
     public class RGLTexture
     {
+        public int Identifier;
         public Texture2D Texture;
         public IntPtr rglTexturePtr = IntPtr.Zero;
 
@@ -269,6 +283,7 @@ namespace RGLUnityPlugin
         
         public RGLTexture(Texture2D texture)
         {
+            Identifier = texture.GetInstanceID();
             Texture = texture;
             UploadToRGL();
         }

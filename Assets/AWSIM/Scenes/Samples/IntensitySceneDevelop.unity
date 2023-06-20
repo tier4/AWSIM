@@ -424,7 +424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bb48826306807eb38d52f5f52ef6c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: 61d75a46917b4400385f925a82f781ef, type: 3}
+  texture: {fileID: 2800000, guid: 38a74e47d147174549fda0ccb1caeddb, type: 3}
 --- !u!1 &960880256 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7072217863731950089, guid: cc197478b1787bffa8b1b92eb7e455e7, type: 3}
@@ -1465,7 +1465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bb48826306807eb38d52f5f52ef6c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: c21325396a4a6c282b3ab541cb7a0a36, type: 3}
+  texture: {fileID: 2800000, guid: 38a74e47d147174549fda0ccb1caeddb, type: 3}
 --- !u!1001 &1395691211
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1824,7 +1824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bb48826306807eb38d52f5f52ef6c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 0}
+  texture: {fileID: 2800000, guid: 34a5f12ab5176bab89604e842e708985, type: 3}
 --- !u!1 &1751736607
 GameObject:
   m_ObjectHideFlags: 0
@@ -2087,7 +2087,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bb48826306807eb38d52f5f52ef6c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: c21325396a4a6c282b3ab541cb7a0a36, type: 3}
+  texture: {fileID: 2800000, guid: 34a5f12ab5176bab89604e842e708985, type: 3}
 --- !u!1 &2097678709
 GameObject:
   m_ObjectHideFlags: 0
