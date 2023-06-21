@@ -14,6 +14,8 @@ In order to change the planned route using checkpoints, follow these steps:
 ![](checkpoint_set_checkpoint.gif)
 
 !!! success
-    Now the *Ego* vehicle will first reach the checkpoint and then proceed to reaching the goal.<br>
+    Now the *Ego* vehicle will first reach the checkpoint and then proceed to reaching the goal.
+
     Now you can proceed to the next step: [enable self-driving](../EnableSelf-driving/).
+
     ![](checkpoint_change_lane.gif)
