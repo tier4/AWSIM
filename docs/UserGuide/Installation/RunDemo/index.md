@@ -1,6 +1,5 @@
-<!-- DM: trzeba dodac sprawdzenie czy demo ma topicki w rosie (gif z termianla) -->
-
-Before following through with this section make sure to check [prerequisites](../Prerequisites/).
+!!! note
+    Before following through with this section make sure to check [prerequisites](../Prerequisites/).
 
 ## Ubuntu
 ### 1. Download demo and run
@@ -51,27 +50,45 @@ The simulation provided in the *AWSIM* demo is configured as follows:
 
     ![Running system image](awsim.png)
 
-
-
 ### 2. Run demo with Autoware
 To run *AWSIM* with *Autoware* follow these steps:
 !!! warning
     The *AWSIM*-compatible version of *Autoware* is developed for the [***ROS2 Humble distribution***](https://docs.ros.org/en/rolling/Releases/Release-Humble-Hawksbill.html)
 
+!!! info "Communication test"
+    Before launching *Autoware* please check whether the demo has started the communication.
+    To do that
+    
+    - Source ROS (if you haven't already)
+
+        ```bash
+        source /opt/ros/humble/setup.bash
+        ```
+    - Run the following command and inspect te output.
+    If topics are listed correctly then the communication should be working.
+    Otherwise please visit the [troubleshooting page](../../../DeveloperGuide/TroubleShooting/).
+
+        ```bash
+        ros2 topic list
+        ```
+
+        ![demo topic list](demo_topic_list.gif)
+    
+
 1. Download `map files (pcd, osm)` and unzip them to the desired location<br> (keep the path to the folder - it will be needed).
 
     [Download Map files (pcd, osm)](https://github.com/tier4/AWSIM/releases/download/v1.1.0/nishishinjuku_autoware_map.zip){.md-button .md-button--primary}
 
-1. Launch *AWSIM* demo like in [section before](#download-and-run)
+2. Launch *AWSIM* demo like in [section before](#download-and-run)
 
-1. Open new terminal and source *ROS2* and the *Autoware* workspace by executing:
+3. Open new terminal and source *ROS2* and the *Autoware* workspace by executing:
 
     ```
     source /opt/ros/humble/setup.bash
     source <autoware_workspace_path>/install/setup.bash
     ```
 
-1. In the same terminal launch the *Autoware* by executing the commands with your own path to the `map files`:
+4. In the same terminal launch the *Autoware* by executing the commands with your own path to the `map files`:
 
     ```
     ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=<mapfiles_dir_path>
