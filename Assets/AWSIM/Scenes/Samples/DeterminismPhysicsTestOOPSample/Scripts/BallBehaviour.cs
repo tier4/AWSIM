@@ -70,7 +70,7 @@ namespace AWSIM.PhysicsTest
         private string SaveData()
         {
             string jsonData = JsonUtility.ToJson(_output);
-            string jsonPath = Application.persistentDataPath + "/reg_scenario_.json";
+            string jsonPath = Application.persistentDataPath + "/oop_scenario_.json";
             System.IO.File.WriteAllText(jsonPath, jsonData);
             return jsonPath;
         }
