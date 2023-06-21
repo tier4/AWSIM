@@ -1,10 +1,11 @@
 # Add an Environment
 
 *Environment* is an important part of a *Scene* in *AWSIM*.
-Every aspect of the simulated surrounding world needs to be included in the `Environment` prefab - in this section you will learn how to develop it. However, first [Lanelet2](https://github.com/fzi-forschungszentrum-informatik/Lanelet2) needs to be developed along with *3D* models of the world, which will be the main elements of this prefab.
+Every aspect of the simulated surrounding world needs to be included in the `Environment` prefab - in this section you will learn how to develop it. 
+However, first [Lanelet2](https://github.com/fzi-forschungszentrum-informatik/Lanelet2) needs to be developed along with *3D* models of the world, which will be the main elements of this prefab.
 
 !!! tip
-    If you want to learn more about the *Environment* at *AWSIM*, please visit [this page](../../../../UserGuide/ProjectGuide/Components/Environment/).
+    If you want to learn more about the *Environment* at *AWSIM*, please visit [this page](../../../../UserGuide/ProjectGuide/Components/Environment/Environment/).
 
 ## Create a *Lanelet2*
 Before you start creating *Lanelet2*, we encourage you to read the [documentation](https://github.com/fzi-forschungszentrum-informatik/Lanelet2/tree/master) to find out what *Lanelet2* is all about.
@@ -23,26 +24,27 @@ Especially important are `TrafficLanes` created in `VMB` as connected `Road Node
     Instead of making global *(0,0)* point (crossing of *Equator* and *Prime Median*) our coordinate system origin we take a closer one.
     The *MGRS Grid Zone* with 100 km *Square ID* code designates a 100x100 [kmxkm] square on the map and we take its bottom left corner as our local origin.
 
-    Lets examine one node from an example *Lanelet2* map:
+    !!! example
+        Lets examine one node from an example *Lanelet2* map:
 
-    ```xml
-    <node id="4" lat="35.68855194431519" lon="139.69142711058254">
-        <tag k="mgrs_code" v="54SUE815501"/>
-        <tag k="local_x" v="81596.1357"/>
-        <tag k="local_y" v="50194.0803"/>
-        <tag k="ele" v="34.137"/>
-    </node>
-    ```
+        ```xml
+        <node id="4" lat="35.68855194431519" lon="139.69142711058254">
+            <tag k="mgrs_code" v="54SUE815501"/>
+            <tag k="local_x" v="81596.1357"/>
+            <tag k="local_y" v="50194.0803"/>
+            <tag k="ele" v="34.137"/>
+        </node>
+        ```
 
-    The node with `id="4"` position is described as absolute coordinates given in the `<node>`.
-    In this example the coordinates are as follows `lat="35.68855194431519" lon="139.69142711058254`.
+        The node with `id="4"` position is described as absolute coordinates given in the `<node>`.
+        In this example the coordinates are as follows `lat="35.68855194431519" lon="139.69142711058254`.
 
-    It is also described as local transformation defined as a translation relative to the origin of the *MGRS Grid Zone* with 100 km *Square ID* (bottom left corner).
-    The *MGRS Grid Zone* designation with 100 km *Square ID* in this case is equal to `54SUE`.
-    In this example the offset in the *X axis* is as follows `k="local_x" v="81596.1357"`
-    and the offset in the *Y axis* is as follows `k="local_y" v="50194.0803"`.
+        It is also described as local transformation defined as a translation relative to the origin of the *MGRS Grid Zone* with 100 km *Square ID* (bottom left corner).
+        The *MGRS Grid Zone* designation with 100 km *Square ID* in this case is equal to `54SUE`.
+        In this example the offset in the *X axis* is as follows `k="local_x" v="81596.1357"`
+        and the offset in the *Y axis* is as follows `k="local_y" v="50194.0803"`.
 
-    Note that elevation information is also included.
+        Note that elevation information is also included.
 
 ## Create 3D models
 You can create `3D` models of an `Environment` as you wish.
@@ -69,7 +71,7 @@ To improve the simulation performance of a scene containing your  `Environment` 
     This way you can save some computing power by not calculating the details that will not be seen because of the screen resolution.
 
     !!! tip "Practical advice"
-        You can follow these simple rules when deciding on texture quality (texel density)
+        You can follow these simple rules when deciding on texture quality (texel density):
 
         - For general objects choose 512px/m (so the minimum size of texture is 512/512)
         - For important objects that are close to the camera choose 1024px/m (so the minimum size of texture is 1024/1024)
@@ -95,10 +97,10 @@ In this section we will add roads, buildings, greenery, signs, road markings etc
 Most often your models will be saved in the `.fbx` format.
 If so, you can customize the materials in the imported model just before importing it.
 Sometimes it is necessary as models come with placeholder materials.
- You can either:
+You can either
 
- - replace materials for every added *GameObject* into the *Scene*,
- - or replace materials for one *GameObject* and save this object as a prefab to easily load it later.
+- replace materials for every added *GameObject* into the *Scene*,
+- or replace materials for one *GameObject* and save this object as a prefab to easily load it later.
 
 In order to add *3D* models from the `.fbx` file to the *Scene* please do the following steps:
 
@@ -141,7 +143,7 @@ You can group Objects as you like.
         In this example we will
         
         - Place the model on the Scene.
-        - Then intentionally *not* unpack the model
+        - Then intentionally **not** unpack the model
         - Only then change the materials of the original fbx model, **not** the instance on the scene
         
         ![drag model](fbx_drag.gif)
@@ -191,7 +193,7 @@ It does not change the appearance of the Environment, but is necessary for the s
 
     ![add directional light](directional_light_add_object.gif)
 
-2. Click `Add Component` button, search for `light` and select it. 
+2. Click `Add Component` button, search for `Light` and select it. 
 
     ![directional light search](directional_light_search.png)
 
@@ -212,7 +214,7 @@ It does not change the appearance of the Environment, but is necessary for the s
 
     ![volume add object](volume_add_object.gif)
 
-2. Click `Add Component` search for `volume` and select it.
+2. Click `Add Component` search for `Volume` and select it.
 
     ![select volume](volume_search.png)
 
@@ -245,7 +247,7 @@ It does not change the appearance of the Environment, but is necessary for the s
 
     ![npcpedestrian simple script search](npcpedestrian_search.png)
 
-    This is a simple *Script* that makes the pedestrian indefinitely walk straight and turn around.
+    This is a simple *Script* that makes the pedestrian walk straight and turn around indefinitely.
     You can configure pedestrian behavior with 2 parameters.
 
     - *Duration* - how long will the pedestrian walk straight
@@ -265,7 +267,7 @@ It does not change the appearance of the Environment, but is necessary for the s
 ### 6. Save an Environment prefab
 After doing all the previous steps and having your Environment finished you can save it to prefab format.
 
-1. Find a *Environments* directory in the *Project* view (`Assets/AWSIM/Prefabs/Environments`).
+1. Find an *Environments* directory in the *Project* view (`Assets/AWSIM/Prefabs/Environments`).
 2. Drag the `Environment` *Object* into the *Project* view.
 3. (optional) Change the prefab name to recognize it easily later.
 
