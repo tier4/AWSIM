@@ -205,7 +205,7 @@ The Right Of Way Lanes is a list of Traffic Lanes that have a priority over the 
 The process of adding the Right Of Way Lanes is the same as with adding Next Lanes.
 For this reason we ask you to [see the aforementioned step](#5-configure-next-lanes) for detailed description on how to do this (the only difference is that you add Traffic Lanes to the *Right Of Way Lanes* list).
 
-??? example
+??? example "Right of way example"
     In this example lets consider the Traffic Lane highlighted in blue from the Traffic Intersection below.
 
     ![right of way situation](traffic_lane_right_of_way_situation.png)
