@@ -53,18 +53,20 @@ You can do this in many ways, for example:
 
 - Check the ROS specific `.yaml` parameter files containing information about each transformation.
 
-    Here we see an example `.yaml` file containing transformation from the `base_link` to the `sensor_kit_base_link`:
+    
+    !!! example
+        Here we see an example `.yaml` file containing transformation from the `base_link` to the `sensor_kit_base_link`:
 
-    ```yaml
-    base_link:
-        sensor_kit_base_link:
-            x: 0.9
-            y: 0.0
-            z: 2.0
-            roll: -0.001
-            pitch: 0.015
-            yaw: -0.0364
-    ```
+        ```yaml
+        base_link:
+            sensor_kit_base_link:
+                x: 0.9
+                y: 0.0
+                z: 2.0
+                roll: -0.001
+                pitch: 0.015
+                yaw: -0.0364
+        ```
 
 - Check the values with *ROS* command line tools (for more information on these please visit [official ROS 2 documentation](https://docs.ros.org/en/foxy/Tutorials/Intermediate/Tf2/Introduction-To-Tf2.html)).
 
@@ -74,22 +76,23 @@ You can do this in many ways, for example:
     ros2 run tf2_ros tf2_echo [source_frame] [target_frame]
     ```
 
-    Here we see an example command with the output containing transformation from the `base_link` to the `sensor_kit_base_link` (note that the line after `$` sign is the executed command):
+    !!! example
+        Here we see an example command with the output containing transformation from the `base_link` to the `sensor_kit_base_link` (note that the line after `$` sign is the executed command):
 
-    ```log
-    $ ros2 run tf2_ros tf2_echo base_link sensor_kit_base_link
-    [INFO] [1686654712.339110702] [tf2_echo]: Waiting for transform base_link ->  sensor_kit_base_link: Invalid frame ID "base_link" passed to canTransform argument target_frame - frame does not exist
-    At time 0.0
-    - Translation: [0.900, 0.000, 2.000]
-    - Rotation: in Quaternion [-0.000, 0.008, -0.018, 1.000]
-    - Rotation: in RPY (radian) [-0.001, 0.015, -0.036]
-    - Rotation: in RPY (degree) [-0.057, 0.859, -2.086]
-    - Matrix:
-    0.999  0.036  0.015  0.900
-    -0.036  0.999  0.000  0.000
-    -0.015 -0.001  1.000  2.000
-    0.000  0.000  0.000  1.000
-    ```
+        ```log
+        $ ros2 run tf2_ros tf2_echo base_link sensor_kit_base_link
+        [INFO] [1686654712.339110702] [tf2_echo]: Waiting for transform base_link ->  sensor_kit_base_link: Invalid frame ID "base_link" passed to canTransform argument target_frame - frame does not exist
+        At time 0.0
+        - Translation: [0.900, 0.000, 2.000]
+        - Rotation: in Quaternion [-0.000, 0.008, -0.018, 1.000]
+        - Rotation: in RPY (radian) [-0.001, 0.015, -0.036]
+        - Rotation: in RPY (degree) [-0.057, 0.859, -2.086]
+        - Matrix:
+        0.999  0.036  0.015  0.900
+        -0.036  0.999  0.000  0.000
+        -0.015 -0.001  1.000  2.000
+        0.000  0.000  0.000  1.000
+        ```
 
 #### Add one sensor link
 !!!note
@@ -196,14 +199,14 @@ When adding sensors almost all of them will have some common fields.
     
     Frame Id is the name of frame of reference against which the received data will be interpreted by the autonomous driving software stack.
 
-    Remember that the Frame Id must exist internally in the ROS transformations tree.
+    **Remember** that the Frame Id must exist internally in the ROS transformations tree.
 
 - Topics
 
     Topics are names of broadcasting channels.
     You can set the names of topics as you like and the data from sensors will be broadcasted on these topics.
     
-    Remember to configure your receiving end to listen on the same topics as broadcasting ones.
+    **Remember** to configure your receiving end to listen on the same topics as broadcasting ones.
 
 - Quality Of Service settings (QOS settings)
 
@@ -572,6 +575,9 @@ The **important** thing is to configure the `Camera Sensor` Script correctly.
 
 **Always** check whether the correct `Camera Object` is selected and make sure that `Distortion Shader` and `Ros Image Shader` are selected.
 
+!!! example "Example Camera Sensor Script configuration"
+    ![camera sensor script](camera_sensor_script.png)
+
 You can add the live Camera preview onto the Scene.
 To do this select the `Show` checkbox.
 Additionally you can change how the preview is displayed.
@@ -579,10 +585,8 @@ Change the `Scale` value to control the size of the preview (how many times smal
 
 Move the preview on the screen by changing the `X Axis` and `Y Axis` values on the `Image On Gui` section.
 
-!!! example
+!!! example "Camera preview example"
     ![camera preview configuration](camera_preview_example.gif)
-
-![camera sensor script](camera_sensor_script.png)
 
 !!! tip "Testing camera with traffic light recognition"
     You can test the Camera Sensor traffic light recognition by positioning the vehicle on the *Unity* Scene in such a way that on the *Camera preview* you can see the traffic lights.
@@ -784,11 +788,11 @@ Assets/AWSIM/Prefabs/Sensors
 
 ## Test a Sensor
 
-You can test if the Sensor works correctly in several ways.
+You can test whether the Sensor works correctly in several ways.
 
 1. Check whether the configuration is correct.
 
-    In terminal source ROS with the following line.
+    In terminal source ROS with the following line (only if you haven't done so already).
 
     ```
     source /opt/ros/humble/setup.bash
@@ -830,7 +834,7 @@ You can test if the Sensor works correctly in several ways.
 
 2. Check whether correct information is broadcasted.
 
-    In terminal source ROS with the following line.
+    In terminal source ROS with the following line (only if you haven't done so already).
 
     ```
     source /opt/ros/humble/setup.bash
@@ -845,7 +849,7 @@ You can test if the Sensor works correctly in several ways.
     !!!example
         In this example we can see the Vehicles location at the moment of executing the command.
 
-        **NOTE:** The position and orientation are relative to the frame in the `header/frame_id` field.
+        **NOTE:** The position and orientation are relative to the frame in the `header/frame_id` field (`base_link` in this example).
 
         ```log
         $ ros2 topic echo --once /awsim/ground_truth/vehicle/pose

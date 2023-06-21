@@ -1,28 +1,3 @@
-!!! Draft-note
-    <!-- TODO: remove this note when done -->
-    (highlight the part required by ego - not needed in npc)
-
-    - Create a prefab (**gif**)
-    - Add a Rightbody (**gif**)
-    - Add visual elements (Body, Wheels, Sensor Kit) (what is needed, how to divide the model, how to import, **gifs**)
-    - Add a center of mass (how to estimate, **screen**)
-    - Add a reflection probe (sample configuration, **screen**)
-    - Add a vehicle collider (what is needed, sample configuration, **screen**)
-    - Add wheel colliders (how to properly configure, sample **screen**)
-    - Add a base for sensors (URDF) (where to define, **screen**)
-    - Add a Vehicle Keyboard Input Script (input limits)
-    - Add a Vehicle Visual Effect (brake, turn signal, reverse lights, how to test - **gifs**)
-    - Add a Vehicle Script (axes and physics settings, input limits, how to test - **video**)
-    - Add links for sensors (how to define - reference to *sensors_calibration*, difference in right-handed and left-handed coordinate systems, **screens**)
-    - Adding sensors
-        - Add a VehicleStatusSensor (frame_id, Autoware topics, qos, how to test - **screens**)
-        - Add a LiDAR (scene manager - hyperlink to 7.1.1, model selection, frame_id, Autoware topics, qos, visualization, ranges, gaussian noise, how to test - **screen**)
-        - Add a IMU (frame_id, Autoware topics, qos, how to test - **screens**)
-        - Add a GNSS (frame_id, Autoware topics, qos, how to test - **screens**)
-        - Add a Camera (camera preview, fov, how prepare distorsion shader, ros image shader, parameters, frame_id, Autoware topics, qos, how to test - **screens** - including traffic light recognition)
-    - Add a Vehicle Ros Input Script (disable keyboard input, Autoware topics, qos, how to test - hyperlink)
-    - Add a Vehicle to scene (hyperlink)
-
 !!! info "Ego Vehicle Component"
     In this tutorial we will create a new Ego Vehicle.
     To learn more about what an Ego Vehicle is in AWSIM please visit [Ego Vehicle description page](../../../UserGuide/ProjectGuide/Components/EgoVehicle/).
@@ -116,10 +91,17 @@ To be able to control your Ego Vehicle you need a `Vehicle` Script.
 
     ![vehicle script configure](vehicle_script_configure.gif)
 
-<!-- TODO: how to test (it is in the notes, but is there really a way to do this?) -->
+!!! note "Testing"
+    It is not possible to test this Script alone, but you can test the following
+    
+    - [Vehicle Keyboard Input Script](#add-a-vehicle-keyboard-input-script)
+    - [Vehicle Visual Effects Script](#add-a-vehicle-visual-effect-script)
+    - [Vehicle Ros Input Script](#add-a-vehicle-ros-input-script)
+    
+    If components listed above work correctly this means the `Vehicle` Script works correctly too.
 
 ## Add a Vehicle Keyboard Input Script
-If, for any reason, you would like to control your Ego Vehicle in the simulation by hand you can do that with just one Script called `Vehicle Keyboard Input`.
+You can control your Ego Vehicle in the simulation manually with just one Script called `Vehicle Keyboard Input`.
 
 If you want to add it just click the 'Add Component' button on the `EgoVehicle` *Object* and search for `Vehicle Keyboard Input` Script and select it.
 
