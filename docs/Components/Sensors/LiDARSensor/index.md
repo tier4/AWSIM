@@ -224,3 +224,21 @@ To enable saving dictionary mapping set output file path to the `Semantic Catego
 <center><img src="img/InstanceSegDictMapping.png" width="400"></center>
 
 The dictionary mapping file will be saved at the end of the simulation.
+
+### Demo scene
+
+In the AWSIM project, you can find a demo scene for instance segmentation feature. It contains a set of game objects with ID assigned and sample lidar that publishes output to the ROS2 topic. The game objects are grouped to present different methods to assign IDs.
+
+To run demo scene:
+
+1. Open scene: `Assets/AWSIM/Scenes/Samples/LidarInstanceSegmentationDemo.unity`
+2. Run simulation
+3. Open rviz2
+4. Setup rviz2 as follows:
+    - Fixed frame: world
+    - PointCloud2 topic: lidar/instance_id
+    - Topic QoS as in the sceen below
+    - Channel name: enitity_id
+    - To better visualization disable Autocompute intensity and set min to 0 and max to 50
+
+<center><img src="img/InstanceSegmentationDemo.png"></center>
