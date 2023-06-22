@@ -81,8 +81,8 @@ To add a Vehicle to the Scene do the following
 
 ![vehicle add prefab to the scene](vehicle_add_to_scene.gif)
 
-## Add a Scene Manager Script
-Tutorial on how to add a `SceneManager` Script can be found [here](../AddASceneManager/).
+## Add a Scene Manager Component
+If your simulation uses a *LiDAR* sensor it is required to add `SceneManager` component. Please follow [the tutorial](../AddASceneManager/).
 
 ## Add an Environment prefab
 !!! note "Environment creation"
