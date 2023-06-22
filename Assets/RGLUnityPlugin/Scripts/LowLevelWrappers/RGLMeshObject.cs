@@ -15,6 +15,9 @@
 using System;
 using UnityEngine;
 using UnityEngine.Assertions;
+// Experimental is necessary for gathering GraphicsFormat of the texture.
+using UnityEngine.Experimental.Rendering;
+using Unity.Collections;
 
 namespace RGLUnityPlugin
 {
@@ -26,6 +29,7 @@ namespace RGLUnityPlugin
     {
         public string Identifier;
         public RGLMesh RglMesh;
+        public RGLTexture Texture;
         public Func<Matrix4x4> GetLocalToWorld;
         public GameObject RepresentedGO;
 
@@ -103,6 +107,29 @@ namespace RGLUnityPlugin
                 }
             }
         }
+
+        public void SetIntensityTexture(RGLTexture texture)
+        {
+            unsafe
+            {
+                try
+                {
+                    RGLNativeAPI.CheckErr(
+                        RGLNativeAPI.rgl_entity_set_intensity_texture(rglEntityPtr, texture.rglTexturePtr));
+                        Texture = texture;
+                }
+                catch (RGLException)
+                {
+                    Debug.LogError($"Cannot assign texture: {texture.Identifier}, to entity: {Identifier}");
+                    throw;
+                }
+
+                // Mesh should be uploaded before assigning UVs.
+                Assert.IsFalse(RglMesh.rglMeshPtr == IntPtr.Zero);
+
+                RglMesh.UploadUVs();
+            }
+        }
     }
 
     /// <summary>
@@ -145,6 +172,7 @@ namespace RGLUnityPlugin
         {
             Vector3[] vertices = Mesh.vertices;
             int[] indices = Mesh.triangles;
+
             bool verticesOK = vertices != null && vertices.Length > 0;
             bool indicesOK = indices != null && indices.Length > 0;
 
@@ -173,6 +201,38 @@ namespace RGLUnityPlugin
                             throw;
                         }
                     }
+                }
+            }
+        }
+
+        public void UploadUVs()
+        {
+            Vector2[] UVs = Mesh.uv;
+            bool uvOK = UVs != null && UVs.Length > 0;
+
+            if(!uvOK)
+            {
+                Debug.LogWarning($"Could not assign UVs to mesh: {Identifier}. Mash has no UV, or UV are empty.");
+            }
+            else
+            {
+               unsafe
+                {                    
+                    fixed(Vector2* pUVs = UVs)
+                    {
+                        try
+                        {
+                            RGLNativeAPI.CheckErr(
+                                RGLNativeAPI.rgl_mesh_set_texture_coords(rglMeshPtr,
+                                (IntPtr)pUVs,
+                                UVs.Length));
+                        }
+                        catch (RGLException)
+                        {
+                            Debug.LogWarning($"Could not assign UVs to mesh: {Identifier}.");
+                            throw;        
+                        }                        
+                    }   
                 }
             }
         }
@@ -210,6 +270,83 @@ namespace RGLUnityPlugin
                         RGLNativeAPI.rgl_mesh_update_vertices(rglMeshPtr, (IntPtr) pVertices, Mesh.vertices.Length));
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// RGL counterpart of Unity Texture.
+    /// Contains information about RGL texture.
+    /// </summary>
+    public class RGLTexture
+    {
+        public int Identifier;
+        public Texture2D Texture;
+        public IntPtr rglTexturePtr = IntPtr.Zero;
+
+        public RGLTexture(){}
+        
+        public RGLTexture(Texture2D texture, int identifier)
+        {
+            Identifier = identifier;
+            Texture = texture;
+            UploadToRGL();
+        }
+
+        ~RGLTexture()
+        {
+            DestroyFromRGL();
+        }
+
+        public void DestroyFromRGL()
+        {
+            if (rglTexturePtr != IntPtr.Zero)
+            {
+                RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_texture_destroy(rglTexturePtr));
+                rglTexturePtr = IntPtr.Zero;                
+            }
+        }
+
+        protected void UploadToRGL()
+        {
+            bool resolutionOK = Texture.width > 0 && Texture.height > 0;
+            bool graphicsFormatOK = Texture.graphicsFormat == GraphicsFormat.R8_UNorm;
+
+            if (!resolutionOK)
+            {
+                throw new NotSupportedException(
+                    $"Could not get texture data. Resolution seems to be broken.");
+            }
+            
+            if (!graphicsFormatOK)
+            {
+                throw new NotSupportedException(
+                    $"Could not get texture data. Texture format has to be equal to R8_UNorm.");
+            }
+           
+            unsafe
+            {
+                fixed (void* textureDataPtr = Texture.GetRawTextureData())
+                {
+                    try
+                    {     
+                        RGLNativeAPI.CheckErr(
+                            RGLNativeAPI.rgl_texture_create(
+                            out rglTexturePtr,
+                            (IntPtr) textureDataPtr,
+                            Texture.width,
+                            Texture.height));
+                    }
+                    catch (RGLException)
+                    {
+                        if (rglTexturePtr != IntPtr.Zero) 
+                        {
+                            RGLNativeAPI.rgl_texture_destroy(rglTexturePtr);
+                            rglTexturePtr = IntPtr.Zero;                            
+                        }      
+                        throw;                      
+                    }
+               }  
+            }       
         }
     }
 }

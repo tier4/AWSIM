@@ -59,6 +59,9 @@ namespace RGLUnityPlugin
         private static Dictionary<string, RGLMesh> sharedMeshes = new Dictionary<string, RGLMesh>(); // <Identifier, RGLMesh>
         private static Dictionary<string, int> sharedMeshesUsageCount = new Dictionary<string, int>(); // <RGLMesh Identifier, count>
 
+        private static Dictionary<int, RGLTexture> sharedTextures = new Dictionary<int, RGLTexture>(); // <Identifier, RGLTexture>
+        private static Dictionary<int, int> sharedTexturesUsageCount = new Dictionary<int, int>(); // <RGLTexture Identifier, count>
+
         public static ITimeSource TimeSource { get; set; } = new UnityTimeSource();
 
         private int lastUpdateFrame = -1;
@@ -145,10 +148,20 @@ namespace RGLUnityPlugin
             lastFrameGameObjects = new HashSet<GameObject>(thisFrameGOs);
             Profiler.EndSample();
 
+            Profiler.BeginSample("Add new textures");
+            AddTextures(toAdd);
+            Profiler.EndSample();
+
             Profiler.BeginSample("Remove despawned objects");
             foreach (var rglObject in toRemove)
             {
                 if (!(rglObject.RglMesh is RGLSkinnedMesh)) sharedMeshesUsageCount[rglObject.RglMesh.Identifier] -= 1;
+
+                if(rglObject.Texture != null)
+                {
+                    sharedTexturesUsageCount[rglObject.Texture.Identifier] -=1;
+                }               
+
                 rglObject.DestroyFromRGL();
                 uploadedRGLObjects.Remove(rglObject.RepresentedGO);
             }
@@ -199,6 +212,16 @@ namespace RGLUnityPlugin
             }
 
             Profiler.EndSample();
+
+            Profiler.BeginSample("Destroy unused textures");
+            foreach(var textureUsageCounter in sharedTexturesUsageCount.Where(x =>x.Value < 1).ToList())
+            {
+                sharedTextures[textureUsageCounter.Key].DestroyFromRGL();
+                sharedTextures.Remove(textureUsageCounter.Key);
+                sharedTexturesUsageCount.Remove(textureUsageCounter.Key);
+            }
+
+            Profiler.EndSample();
         }
 
         private void SynchronizeSceneTime()
@@ -224,9 +247,16 @@ namespace RGLUnityPlugin
                 rglObject.Value.DestroyFromRGL();
             }
 
+            foreach ( var rglTexture in sharedTextures)
+            {
+                rglTexture.Value.DestroyFromRGL();
+            }
+
             uploadedRGLObjects.Clear();
             lastFrameGameObjects.Clear();
             sharedMeshes.Clear();
+            sharedMeshesUsageCount.Clear();
+            sharedTextures.Clear();
             sharedMeshesUsageCount.Clear();
             Debug.Log("RGLSceneManager: cleared");
         }
@@ -434,6 +464,42 @@ namespace RGLUnityPlugin
 
             foreach (var smr in smrs) yield return smr;
             foreach (var mr in mrs) yield return mr;
+        }
+
+        /// <summary>
+        /// Searches through new rglObjects for ones containing IntensityTexture component.
+        /// If present, check if the found texture was already sent to RGL. 
+        /// If not, send it and write its identifier to sharedTextures dictionary.
+        /// After that assign rglTexture to the proper rglObject.
+        /// </summary>
+        private static void AddTextures(IEnumerable<RGLObject> rglObjects)
+        {
+            foreach (var rglObject in rglObjects)
+            {                
+                var intensityTextureComponent = rglObject.RepresentedGO.GetComponent<IntensityTexture>();
+
+                if( intensityTextureComponent == null)
+                {
+                    continue;
+                }
+
+                if( intensityTextureComponent.texture == null)
+                {
+                    continue;
+                }
+
+                int textureID = intensityTextureComponent.texture.GetInstanceID();
+                
+                if(!sharedTextures.ContainsKey(textureID))
+                {
+                    var rglTextureToAdd = new RGLTexture(intensityTextureComponent.texture, textureID);
+                    sharedTextures.Add(textureID, rglTextureToAdd);
+                    sharedTexturesUsageCount.Add(textureID, 0);                    
+                }                    
+                
+                rglObject.SetIntensityTexture(sharedTextures[textureID]);
+                sharedTexturesUsageCount[textureID] += 1;
+            }
         }
     }
 }
