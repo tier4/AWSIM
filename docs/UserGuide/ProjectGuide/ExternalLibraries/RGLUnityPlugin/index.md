@@ -16,11 +16,11 @@ Describing the concept of using `RGL` in *AWSIM*, we distinguish:
 
 - *Scene* - a location where raytracing occurs. It is a set of entites uploaded by `SceneManager` script to the RGL Native Library.
 
-- *Node* - performs specific operations such as setting rays for raytracing, transforming rays, performing raytracing, and manipulating output formats. In *AWSIM*, the main sequence of RGL nodes that simulates LiDAR is created in the `LidarSensor` script. Other scripts usually create nodes to get requested output or preprocess point cloud, and then connect those nodes to the `LidarSensor`.
+- *Node* - performs specific operations such as setting rays for raytracing, transforming rays, performing raytracing, and manipulating output formats. In *AWSIM*, the main sequence of `RGL` nodes that simulates *LiDAR* is created in the `LidarSensor` script. Other scripts usually create nodes to get requested output or preprocess point cloud, and then connect those nodes to the `LidarSensor`.
 
 - *Graph* - a collection of connected *Nodes* that can be run to calculate results. It allows users to customize functionality and output format by adding or removing *Nodes*.
 
-Producing a point cloud is based on the use of a *Scene* containing *Entities* with *Meshes*, and placing an *Ego* *Entity* with *LiDAR* sensor that creates a Graph describing ray pattern and performing raytracing. In subsequent frames of the simulation, `SceneManager` synchronizes the scene between Unity and RGL, and *LiDAR* sensor updates rays pose on the scene and triggers Graph to perform raytracing and format desired output.
+Producing a point cloud is based on the use of a *Scene* containing *Entities* with *Meshes*, and placing an *Ego* *Entity* with *LiDAR* sensor that creates a *Graph* describing ray pattern and performing raytracing. In subsequent frames of the simulation, `SceneManager` synchronizes the scene between *Unity* and `RGL`, and *LiDAR* sensor updates rays pose on the scene and triggers *Graph* to perform raytracing and format desired output.
 
 ## Package structure
 
@@ -32,7 +32,7 @@ Producing a point cloud is based on the use of a *Scene* containing *Entities* w
 
 ### Scripts
   - `SceneManager` - responsible for syncing the scene between *Unity* and `RGL`.
-  - `LidarSensor` - provide lidar configuration and create RGL pipeline to simulate lidar.
+  - `LidarSensor` - provide lidar configuration and create `RGL` pipeline to simulate lidar.
   - `PointCloudVisualization` - visualize point cloud on the *Unity* scene.
   - `RGLDebugger` - provides configuration for Native `RGL` debug tools (logging and tape).
   - A set of classes providing tools to define *LiDAR* specification (mostly: ray poses):
@@ -49,7 +49,7 @@ Producing a point cloud is based on the use of a *Scene* containing *Entities* w
 ## SceneManager
 Each scene needs `SceneManager` component to synchronize models between *Unity* and `RGL`. On every frame, it detects changes in the *Unity's* scene and propagates the changes to native `RGL` code. When necessary, it obtains *3D* models from *GameObjects* on the scene, and when they are no longer needed, it removes them.
 
-Three different strategies to interact with in-simulation *3D* models are implemented. `SceneManager` uses one of the following policies to construct the scene in RGL:
+Three different strategies to interact with in-simulation *3D* models are implemented. `SceneManager` uses one of the following policies to construct the scene in `RGL`:
 
 - `Only Colliders` - data is computed based on the colliders only, which are geometrical primitives or simplified *Meshes*. This is the fastest option, but will produce less accurate results, especially for the animated entities.
 - `Regular Meshes And Colliders Instead Of Skinned` - data is computed based on the regular meshes for static *Entities* (with [`MeshRenderers`](https://docs.unity3d.com/Manual/class-MeshRenderer.html) component) and the colliders for animated *Entities* (with [`SkinnedMeshRenderer`](https://docs.unity3d.com/Manual/class-SkinnedMeshRenderer.html) component). This improves accuracy for static *Entities* with a negligible additional performance cost.

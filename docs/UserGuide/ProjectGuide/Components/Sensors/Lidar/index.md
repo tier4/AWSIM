@@ -4,7 +4,7 @@
 
 `LiDAR` in an autonomous vehicle can be used for many purposes. The ones mounted on the top of autonomous vehicles are primarily used scan the environment for localization in space and to detect and identify obstacles such as approaching vehicles, pedestrians or other objects in the driving path. `LiDARs` placed on the left and right sides of the vehicle are mainly used to monitor the traffic lane and detect vehicles moving in adjacent lanes, enabling safe maneuvers such as lane changing or turning.
 
-`LidarSensor` component is a part of [RGLUnityPlugin](../../../ExternalLibraries/RGLUnityPlugin/) that integrates the external [RobotecGPULidar](https://github.com/RobotecAI/RobotecGPULidar) (RGL) library with *Unity*.
+`LidarSensor` component is a part of [`RGLUnityPlugin`](../../../ExternalLibraries/RGLUnityPlugin/) that integrates the external [*RobotecGPULidar*](https://github.com/RobotecAI/RobotecGPULidar) (`RGL`) library with *Unity*.
 
 !!! warning "Use RGL in your scene"
     If you want to use `RGL` in your scene, make sure the scene has an [`SceneManager` component](../../../../../DeveloperGuide/Tutorials/AddANewScene/AddASceneManager) added and all objects meet the [usage requirements](../../../../ProjectGuide/ExternalLibraries/RGLUnityPlugin/#usage-requirements).
@@ -30,8 +30,15 @@ The table of available prefabs can be found below:
 
 ![components](components.png)
 
+
+#### Link 
+`LidarSensor` is configured in default vehicle `EgeVehicle` prefab, it is added to `URDF` object as a child of `sensor_kit_base_link`. `LidarSensor` placed in this way does not have its own frame, and the data is published relative to `sensor_kit_base_link`. More details about the location of the sensors in the vehicle can be found [`here`](../../EgoVehicle/URDF/).<br>
+![link](link.png)
+!!! warning "Additional LiDARs"
+    For a *LiDAR* placed on the left side, right side or rear, an additional link should be defined.
+
 #### Components and Resources
-The LiDAR sensor simulation functionality is split into three components:
+The *LiDAR* sensor simulation functionality is split into three components:
 
 - *LidarSensor* - provides lidar configuration, creates *RGL* pipeline to simulate lidar, and performs native *RGL* raytrace calls,
 - *RglLidarPublisher* - extends *RGL* pipeline with nodes to publish *ROS2* messages.
@@ -46,16 +53,27 @@ These are elements of the `RGLUnityPlugin`, you can read more [here](../../../Ex
 
 ## LidarSensor Component
 ![script](script.png)
-This is the main component that creates the RGL node pipeline for the LiDAR simulation. The pipeline consists of:
+This is the main component that creates the `RGL` node pipeline for the *LiDAR* simulation. The pipeline consists of:
 
-- setting ray pattern
-- transforming rays to represent pose of the sensor on the scene
-- applying gaussian noise
-- performing raytracing
-- removing non-hits from the result point cloud
-- transforming point cloud to sensor frame coordinate system
+- setting ray pattern,
+- transforming rays to represent pose of the sensor on the scene,
+- applying gaussian noise,
+- performing raytracing,
+- removing non-hits from the result point cloud,
+- transforming point cloud to sensor frame coordinate system.
 
-`LidarSensor` provides public methods to extend this pipeline with additional RGL nodes. In this way, other components can request point cloud processing operations and receive data in the desired format.
+`LidarSensor` provides public methods to extend this pipeline with additional `RGL` nodes. In this way, other components can request point cloud processing operations and receive data in the desired format.
+
+`LidarSensor` component in the output provides 3 types of data. Two of them: *rosPCL24* and *rosPCL48* are point clouds that are published by the [*RglLidarPublisher*](#rgllidarpublisher-component) component. Whereas vector *onlyHits* is used for visualization by the [*PointCloudVisualization*](#pointcloudvisualization-component) component.
+
+
+#### Output Data
+
+|  Category  |    Type    | Description                                                                               |
+| :--------: | :--------: | :---------------------------------------------------------------------------------------- |
+| *onlyHits* | Vector3[ ] | Vertices for visualization in *Unity's* coordinate system                                 |
+| *rosPCL24* |  byte[ ]   | Vertices for publishing *Autoware* format pointcloud in *ROS2* coordinate system          |
+| *rosPCL48* |  byte[ ]   | Vertices for publishing extended *Autoware* format pointcloud in *ROS2* coordinate system |
 
 #### Elements configurable from the editor level
 
@@ -80,7 +98,7 @@ This is the main component that creates the RGL node pipeline for the LiDAR simu
 ## RglLidarPublisher Component
 ![script_ros2](script_ros2.png)
 
-`RglLidarPublisher` extends the main RGL pipeline created in `LidarSensor` with RGL nodes that produce point clouds in specific format and publish them to the *ROS2* topic. Thanks to the *ROS2* integration with `RGL`, point clouds can be published directly from the native library. `RGL` creates *ROS2* node named `/RobotecGPULidar` with publishers generated by RGL nodes.
+`RglLidarPublisher` extends the main `RGL` pipeline created in `LidarSensor` with `RGL` nodes that produce point clouds in specific format and publish them to the *ROS2* topic. Thanks to the *ROS2* integration with `RGL`, point clouds can be published directly from the native library. `RGL` creates *ROS2* node named `/RobotecGPULidar` with publishers generated by `RGL` nodes.
 
 Currently, `RglLidarPublisher` implements two ROS2 publishers:
 

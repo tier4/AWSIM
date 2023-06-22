@@ -76,7 +76,7 @@ To add a Main Camera please do the following
 <!-- TODO -->
 
 ## Add a Scene Manager Component
-If your simulation uses a LiDAR sensor it is required to add `SceneManager` component. Please follow [the tutorial](../AddASceneManager/).
+If your simulation uses a *LiDAR* sensor it is required to add `SceneManager` component. Please follow [the tutorial](../AddASceneManager/).
 
 ## Add an Environment prefab
 <!-- TODO -->
