@@ -46,6 +46,11 @@ namespace RGLUnityPlugin
         public OnNewDataDelegate onNewData;
 
         /// <summary>
+        /// Called when lidar model configuration has changed.
+        /// </summary>
+        public OnNewDataDelegate onLidarModelChange;
+
+        /// <summary>
         /// Allows to select one of built-in LiDAR models.
         /// Defaults to a range meter to ensure the choice is conscious.
         /// </summary>
@@ -67,6 +72,7 @@ namespace RGLUnityPlugin
         public LidarConfiguration configuration = LidarConfigurationLibrary.ByModel[LidarModel.RangeMeter];
 
         private RGLNodeSequence rglGraphLidar;
+        private RGLNodeSequence rglSubgraphCompact;
         private RGLNodeSequence rglSubgraphToLidarFrame;
         private RGLNodeSequence rglSubgraphVisualizationOutput;
         private SceneManager sceneManager;
@@ -93,9 +99,11 @@ namespace RGLUnityPlugin
                 .AddNodeRaysTransform(lidarPoseNodeId, Matrix4x4.identity)
                 .AddNodeGaussianNoiseAngularRay(noiseLidarRayNodeId, 0, 0)
                 .AddNodeRaytrace(lidarRangeNodeId, Mathf.Infinity)
-                .AddNodePointsCompact(pointsCompactNodeId)
                 .AddNodeGaussianNoiseAngularHitpoint(noiseHitpointNodeId, 0, 0)
                 .AddNodeGaussianNoiseDistance(noiseDistanceNodeId, 0, 0, 0);
+
+            rglSubgraphCompact = new RGLNodeSequence()
+                .AddNodePointsCompact(pointsCompactNodeId);
 
             rglSubgraphToLidarFrame = new RGLNodeSequence()
                 .AddNodePointsTransform(toLidarFrameNodeId, Matrix4x4.identity);
@@ -103,8 +111,9 @@ namespace RGLUnityPlugin
             rglSubgraphVisualizationOutput = new RGLNodeSequence()
                 .AddNodePointsYield(visualizationOutputNodeId, RGLField.XYZ_F32);
 
-            RGLNodeSequence.Connect(rglGraphLidar, rglSubgraphToLidarFrame);
-            RGLNodeSequence.Connect(rglGraphLidar, rglSubgraphVisualizationOutput);
+            RGLNodeSequence.Connect(rglGraphLidar, rglSubgraphCompact);
+            RGLNodeSequence.Connect(rglSubgraphCompact, rglSubgraphToLidarFrame);
+            RGLNodeSequence.Connect(rglSubgraphCompact, rglSubgraphVisualizationOutput);
         }
 
         public void Start()
@@ -138,6 +147,11 @@ namespace RGLUnityPlugin
             if (rglGraphLidar == null)
             {
                 return;
+            }
+
+            if (onLidarModelChange != null)
+            {
+                onLidarModelChange.Invoke();
             }
 
             rglGraphLidar.UpdateNodeRaysFromMat3x4f(lidarRaysNodeId, newConfig.GetRayPoses())
@@ -179,11 +193,24 @@ namespace RGLUnityPlugin
             }
         }
 
-        public void ConnectToWorldFrame(RGLNodeSequence nodeSequence)
+        /// <summary>
+        /// Connect to point cloud in world coordinate frame.
+        /// </summary>
+        public void ConnectToWorldFrame(RGLNodeSequence nodeSequence, bool compacted = true)
         {
-            RGLNodeSequence.Connect(rglGraphLidar, nodeSequence);
+            if (compacted)
+            {
+                RGLNodeSequence.Connect(rglSubgraphCompact, nodeSequence);
+            }
+            else
+            {
+                RGLNodeSequence.Connect(rglGraphLidar, nodeSequence);
+            }
         }
 
+        /// <summary>
+        /// Connect to compacted point cloud in lidar coordinate frame.
+        /// </summary>
         public void ConnectToLidarFrame(RGLNodeSequence nodeSequence)
         {
             RGLNodeSequence.Connect(rglSubgraphToLidarFrame, nodeSequence);

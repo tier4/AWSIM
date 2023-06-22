@@ -86,4 +86,12 @@ namespace RGLUnityPlugin
 		QOS_POLICY_HISTORY_KEEP_LAST = 1,
 		QOS_POLICY_HISTORY_KEEP_ALL = 2,
 	};
+	
+	public enum RGLExtension
+	{
+		RGL_EXTENSION_PCL = 0,
+		RGL_EXTENSION_ROS2 = 1,
+		RGL_EXTENSION_UDP = 2,
+		RGL_EXTENSION_COUNT
+	};
 }
