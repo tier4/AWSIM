@@ -15,7 +15,7 @@ The default prefab `EgoVehicle` was developed using a *Lexus RX450h 2015* vehicl
 
 - Longitudinal control by acceleration (m/s^2).
 - Lateral control by two-wheel model.
-- Yaw, roll and pitch controlled by [*PhysX*](https://docs.unity3d.com/Manual/UpgradeGuide5-Physics.html) engine.
+- Yaw, roll and pitch controlled by [*Physics*](https://docs.unity3d.com/Manual/PhysicsSection.html) engine.
 - Mass-spring-damper suspension model ([`WheelColliders`](#wheels-colliders)).
 - Logical, not mechanical, automatic gears change.
 - 3D *Mesh* (fbx) as road surface for vehicle driving, gradient resistance.
