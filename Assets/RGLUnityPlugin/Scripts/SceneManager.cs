@@ -14,11 +14,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Profiling;
 using ROS2;
+using YamlDotNet.Serialization;
 
 namespace RGLUnityPlugin
 {
@@ -47,6 +49,9 @@ namespace RGLUnityPlugin
         [SerializeField]
         private MeshSource meshSource = MeshSource.RegularMeshesAndSkinnedMeshes;
 
+        [field: SerializeField, Tooltip("File to save dictionary for GameObjects and their SemanticCategories")]
+        private string semanticCategoryDictionaryFile;
+
         // Getting meshes strategies
         private delegate IEnumerable<RGLObject> IntoRGLObjectsStrategy(IEnumerable<GameObject> gameObjects);
 
@@ -55,6 +60,11 @@ namespace RGLUnityPlugin
         // Keeping track of the scene objects
         private HashSet<GameObject> lastFrameGameObjects = new HashSet<GameObject>();
         private readonly Dictionary<GameObject, RGLObject> uploadedRGLObjects = new Dictionary<GameObject, RGLObject>();
+
+        // This dictionary keeps tracks of identifier -> instance id of objects that were removed (e.g. temporary NPCs)
+        // This is needed to include them in the instance id dictionary yaml saved at the end of simulation.
+        // Since categoryId can be changed in the runtime, this is filled only on object removal / simulation end.
+        private Dictionary<string, int> semanticDict = new Dictionary<string, int>();
 
         private static Dictionary<string, RGLMesh> sharedMeshes = new Dictionary<string, RGLMesh>(); // <Identifier, RGLMesh>
         private static Dictionary<string, int> sharedMeshesUsageCount = new Dictionary<string, int>(); // <RGLMesh Identifier, count>
@@ -86,15 +96,20 @@ namespace RGLUnityPlugin
 
         private void UpdateMeshSource()
         {
-            Clear();
-            IntoRGLObjects = meshSource switch
+            IntoRGLObjectsStrategy UpdatedIntoRGLObjects = meshSource switch
             {
                 MeshSource.OnlyColliders => IntoRGLObjectsUsingCollider,
                 MeshSource.RegularMeshesAndCollidersInsteadOfSkinned => IntoRGLObjectsHybrid,
                 MeshSource.RegularMeshesAndSkinnedMeshes => IntoRGLObjectsUsingMeshes,
                 _ => throw new ArgumentOutOfRangeException()
             };
-            Debug.Log($"RGL mesh source: {meshSource.ToString()}");
+
+            if (IntoRGLObjects != UpdatedIntoRGLObjects)
+            {
+                Clear();
+                IntoRGLObjects = UpdatedIntoRGLObjects;
+                Debug.Log($"RGL mesh source: {meshSource.ToString()}");
+            }
         }
 
         /// <summary>
@@ -155,13 +170,17 @@ namespace RGLUnityPlugin
             Profiler.BeginSample("Remove despawned objects");
             foreach (var rglObject in toRemove)
             {
-                if (!(rglObject.RglMesh is RGLSkinnedMesh)) sharedMeshesUsageCount[rglObject.RglMesh.Identifier] -= 1;
-
                 if(rglObject.Texture != null)
                 {
                     sharedTexturesUsageCount[rglObject.Texture.Identifier] -=1;
                 }               
 
+                if (!(rglObject.RglMesh is RGLSkinnedMesh))
+                {
+                    sharedMeshesUsageCount[rglObject.RglMesh.Identifier] -= 1;
+                }
+                
+                updateSemanticDict(rglObject);
                 rglObject.DestroyFromRGL();
                 uploadedRGLObjects.Remove(rglObject.RepresentedGO);
             }
@@ -259,6 +278,34 @@ namespace RGLUnityPlugin
             sharedTextures.Clear();
             sharedMeshesUsageCount.Clear();
             Debug.Log("RGLSceneManager: cleared");
+        }
+
+        private void updateSemanticDict(RGLObject rglObject)
+        {
+            if (rglObject.categoryId.HasValue)
+            {
+                if (!semanticDict.ContainsKey(rglObject.categoryName))
+                {
+                    semanticDict.Add(rglObject.categoryName, rglObject.categoryId.Value);
+                }
+            }
+        }
+
+        private void OnApplicationQuit()
+        {
+            if (string.IsNullOrEmpty(semanticCategoryDictionaryFile))
+            {
+                return;
+            }
+
+            foreach (var rglObject in uploadedRGLObjects.Values)
+            {
+                updateSemanticDict(rglObject);
+            }
+            var serializer = new SerializerBuilder().Build();
+            var yaml = serializer.Serialize(semanticDict);
+            File.WriteAllText(semanticCategoryDictionaryFile, yaml);
+                Debug.Log($"Saved semantic category dictionary with {semanticDict.Count} objects at {semanticCategoryDictionaryFile}");
         }
 
         /// <summary>

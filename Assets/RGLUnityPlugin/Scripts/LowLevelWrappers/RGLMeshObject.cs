@@ -32,8 +32,10 @@ namespace RGLUnityPlugin
         public RGLTexture Texture;
         public Func<Matrix4x4> GetLocalToWorld;
         public GameObject RepresentedGO;
+        public int? categoryId;
+        public string categoryName;
 
-        public IntPtr rglEntityPtr;
+        private IntPtr rglEntityPtr;
 
         public RGLObject(string identifier, RGLMesh rglMesh, Func<Matrix4x4> getLocalToWorld, GameObject representedGO)
         {
@@ -43,6 +45,13 @@ namespace RGLUnityPlugin
             RepresentedGO = representedGO;
 
             UploadToRGL();
+
+            var semanticCategory = RepresentedGO.GetComponentInParent<SemanticCategory>();
+            if (semanticCategory != null)
+            {
+                semanticCategory.onCategoryIdChange += UpdateSemanticCategory;
+                UpdateSemanticCategory(semanticCategory);
+            }
         }
 
         ~RGLObject()
@@ -106,6 +115,18 @@ namespace RGLUnityPlugin
                     throw;
                 }
             }
+        }
+
+        private void UpdateSemanticCategory(SemanticCategory semanticCategory)
+        {
+            if (semanticCategory == null)
+            {
+                return;
+            }
+
+            categoryId = semanticCategory.CategoryId;
+            categoryName = semanticCategory.gameObject.name;
+            RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_entity_set_id(rglEntityPtr, categoryId.Value));
         }
 
         public void SetIntensityTexture(RGLTexture texture)
