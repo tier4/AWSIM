@@ -38,9 +38,7 @@ nav:
   - Introduction:
       - AWSIM: Introduction/AWSIM/index.md
       - Autoware: Introduction/Autoware/index.md
-      - AWSIM & Autoware:
-          - AWSIM & Autoware: Introduction/AWSIMAutoware/index.md
-          - Features: Introduction/AWSIMAutoware/Features/index.md
+      - AWSIM & Autoware: Introduction/AWSIMAutoware/index.md
       - AWSIM & Autoware & Scenario simulator v2:
           - AWSIM & Autoware & Scenario simulator v2: Introduction/AWSIMAutowareScenarioSimulatorV2/index.md
           - Features: Introduction/AWSIMAutowareScenarioSimulatorV2/Features/index.md
