@@ -1,18 +1,36 @@
 # AWSIM
-(what is AWSIM, why was it created, features, advantages, simple description of the architecture - **screen**)
+<video width="1920" controls autoplay muted loop>
+<source src="awsim_video.mp4" type="video/mp4">
+</video>
+*AWSIM* is an open-source simulator made with [*Unity*](https://unity.com/) for autonomous driving research and development. 
+It is developed for self-driving software like [Autoware](https://github.com/autowarefoundation/autoware). This simulator aims to bridge the gap between the virtual and real worlds, enabling users to train and evaluate their autonomous agents in a safe and controlled environment before deploying them on real vehicles. It provides a realistic virtual environment for training, testing, and evaluating various aspects of autonomous driving systems. 
 
-### What is AWSIM and for what purpose was it created
-AWSIM is a simulation developed for self-driving software like [Autoware](https://github.com/autowarefoundation/autoware).
-<!-- TODO -->
+*AWSIM* simulates a variety of real-world scenarios, with accurate physics and sensor models. It offers a wide range of sensors, *Cameras*, *GNSS*, *IMU* and  *LiDARs*, allowing developers to simulate their interactions with the environment accurately. The simulator also models dynamic objects, such as pedestrians, other vehicles, and traffic lights, making it possible to study interactions and decision-making in complex traffic scenarios. This enables the testing and evaluation of perception, planning, and control algorithms under different sensor configurations and scenarios.
 
-### Features and advantages
+*AWSIM* supports a flexible and modular architecture, making it easy to customize and extend its capabilities. Users can modify the current or add a new environment with their own assets and traffic rules to create custom scenarios to suit their specific research needs. This allows for the development and testing of advanced algorithms in diverse driving conditions.
 
-- Support for Ubuntu 22.04 and Windows 10/11
-- [ROS 2](https://docs.ros.org/en/humble/index.html) communication (humble)
-- Open source
-- Made with [Unity](https://unity.com/)
+Because *AWSIM* was developed mainly to work with *Autoware*, it supports:
 
-### Introduction to architecture
+- *Ubuntu 22.04* and *Windows 10/11*
+- [*ROS2*](https://docs.ros.org/en/humble/index.html) Humble distribution
+
+!!! note "Prerequisites"
+    You can read more about the prerequisites and running *AWSIM* [here](../UserGuide/Installation/Prerequisites/).
+
+### Why was it developed?
+
+The main objectives of *AWSIM* are to facilitate research and development in autonomous driving, enable benchmarking of algorithms and systems, and foster collaboration and knowledge exchange within the autonomous driving community. By providing a realistic and accessible platform, *AWSIM* aims to accelerate the progress and innovation in the field of autonomous driving.
+
+## Architecture
+![](awsim.png)
+
+To describe the architecture of *AWSIM*, first of all, it is necessary to mention the `Scene`, which contains all the objects occurring in the simulation of a specific scenario and their configurations. The default *AWSIM* scene that is developed to work with *Autoware* is called *AutowareSimulation*.
+
+In the scene we can distinguish individual elements like `MainCamera`, `ClockPublisher`, `Volume`, `Directional Ligh`t, `EventSystem` and `Canvas` a detailed description of each of these scene elements can be read here.
+
+![](egovehicle.png)
+
+![](environment.png)
 <!-- TODO -->
 <!-- DM: Tutaj wstęp, ze ma komponenty, ze sa pojazdy, jest ego, ze jest environment, po kroce o kazdym i hyperlinki do szczegolow -->
 
@@ -31,6 +49,9 @@ The primary purpose of *Autoware* is to enable the development of self-driving t
 Additionally, simulators enable developers to recreate complex driving scenarios, including difficult conditions or rare events, which may be difficult to replicate in real-world testing with such high fidelity. *Autoware's* compatibility with a *AWSIM* allows seamless integration between the software and the simulated vehicle, enabling comprehensive testing and validation of autonomous driving capabilities. By utilizing a simulator, Autoware can be extensively tested under various scenarios to ensure its robustness and reliability.
 
 ## Architecture
+![](autoware.png)
+
+
 
 In terms of architecture, *Autoware* follows a modular approach. It consists of multiple independent modules that communicate with each other through a *ROS2*. This modular structure allowing users to select and combine different modules based on their specific needs and requirements. The software stack comprises multiple components, including perception, localization, planning, and control modules. Here's a brief overview of each module:
 
@@ -49,6 +70,7 @@ In terms of architecture, *Autoware* follows a modular approach. It consists of 
 - *Map* - the map module creates and maintains  a representation of the environment in which the autonomous vehicle operates. It combines data from *Lanelet2* (`*.osm`) and *PointCloud* (`*.pcd`) to generate a detailed map. The map contains information about road geometries, lane markings, traffic lights, rules, and other relevant features. Map serves as a crucial reference for planning and decision-making processes.
   
 # AWSIM & Autoware
+![](awsim_autoware.png)
 
 Autoware is a powerful open-source software platform for autonomous driving. Its modular architecture, encompassing perception, localization, planning, and control modules, provides a comprehensive framework for developing self-driving vehicles. When combined with a vehicle simulator, Autoware facilitates safe testing, validation, and optimization of autonomous driving algorithms in diverse scenarios.
 
@@ -93,6 +115,8 @@ AWSIM allows Autoware to recognize traffic lights and act accordingly
 
 
 # AWSIM & Autoware & Scenario simulator 2
+![](awsim_ss2.png)
+![](awsim_ss2_sequence.png)
 (how the AWSIM-autoware-ss2 connection architecture look like - **screens**)
 <!-- TODO everything -->
 <!-- DM: tutaj tez nie rodzielalbym tego, mozesz sprobowac podpytac Piotra Z. czy nie ma jakich grafow do tego i kiedy wgl bedzie to skonczone bo mozliwe ze trzeba ta sekcje oznaczyc jako FUTURE -->
