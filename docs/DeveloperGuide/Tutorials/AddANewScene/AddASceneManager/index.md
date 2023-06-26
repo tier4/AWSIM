@@ -51,5 +51,3 @@ There are three possible interaction strategies for obtaining *3D* models from *
 Please see the following on how to select the preferred strategy.
 
 ![scene_manager_only_colliders](scene_manager_only_colliders.gif)
-
-
