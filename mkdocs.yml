@@ -60,6 +60,7 @@ nav:
                   - Project guide:
                             - Introduction: UserGuide/ProjectGuide/Introduction/index.md
                             - Components:
+                                      - Scene: UserGuide/ProjectGuide/Components/Scene/index.md
                                       - Ego Vehicle:
                                                 Ego Vehicle: UserGuide/ProjectGuide/Components/EgoVehicle/index.md
                                                 Sensors (URDF): UserGuide/ProjectGuide/Components/EgoVehicle/URDF/index.md
@@ -78,7 +79,6 @@ nav:
                                                 - Pedestrian: UserGuide/ProjectGuide/Components/NPCs/Pedestrian/index.md
                                                 - Vehicle: UserGuide/ProjectGuide/Components/NPCs/Vehicle/index.md
                                       - LaneletBoundsVisualizer: UserGuide/ProjectGuide/Components/LaneletBoundsVisualizer/index.md
-                                      - Scene: UserGuide/ProjectGuide/Components/Scene/index.md
                             - Default existing scenes: UserGuide/ProjectGuide/DefaultExistingScenes/index.md
                             - External libraries:
                                       - RGLUnityPlugin: UserGuide/ProjectGuide/ExternalLibraries/RGLUnityPlugin/index.md

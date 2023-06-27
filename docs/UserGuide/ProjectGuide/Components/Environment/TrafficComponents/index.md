@@ -1,4 +1,4 @@
-# TrafficComponents
+# TrafficSimulation
 This is a section that describes in detail all objects related to simulated traffic in the `Environment` prefab.
 
 The random traffic system consists of the following components:
@@ -11,11 +11,16 @@ The random traffic system consists of the following components:
 
 ## Lanelet2
 
+### Traffic Light Script
+![light_script](light_script.png)
+
+
 ## Random Traffic Simulator
 The `RandomTrafficSimulator` simulates city traffic with respect to all traffic rules. The system allows for random selection of car models and the paths they follow. It also allows adding static vehicles in the simulation.
 
 #### Link
 ![random_traffic_link](random_traffic_link.png)
+![pedestrian_lights_materials](pedestrian_lights_materials.png)
 
 #### Traffic Manager Script
 ![random_traffic_script](random_traffic_script.png)
