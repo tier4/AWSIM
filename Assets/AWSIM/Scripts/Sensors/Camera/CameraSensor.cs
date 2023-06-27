@@ -221,6 +221,7 @@ namespace AWSIM
             distortionShader.SetTexture(shaderKernelIdx, "_DistortedTexture", distortedRenderTexture);
             distortionShader.Dispatch(shaderKernelIdx, distortionShaderGroupSizeX, distortionShaderGroupSizeY, 1);
             rosImageShader.SetTexture(rosShaderKernelIdx, "_InputTexture", distortedRenderTexture);
+            rosImageShader.SetBuffer(rosShaderKernelIdx, "_RosImageBuffer", computeBuffer);
             rosImageShader.Dispatch(rosShaderKernelIdx, rosImageShaderGroupSizeX, 1, 1);
 
             // Get data from shader
@@ -253,7 +254,6 @@ namespace AWSIM
             if (computeBuffer == null || computeBuffer.count != rosImageBufferSize)
             {
                 computeBuffer = new ComputeBuffer(rosImageBufferSize, sizeof(uint));
-                rosImageShader.SetBuffer(rosShaderKernelIdx, "_RosImageBuffer", computeBuffer);
                 outputData.imageDataBuffer = new byte[cameraParameters.width * cameraParameters.height * bytesPerPixel];
             }
         }
