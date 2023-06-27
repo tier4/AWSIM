@@ -1,12 +1,3 @@
-!!! Draft-note
-    - Add a ClockPublisher (ros2 topic, qos)
-    - Add MainCamera
-        - Camera component (**screen**, hyperlinks, configure fov)
-        - Follow Camera Script (target, parameters, example - **screen**)
-    - Add a Vehicle (exists prefabs, positioning on the scene, **gifs**)
-    - Add a Scene Manager Script (hyperlink)
-    - Add a Environment prefab (hyperlink)
-
 ## Add a ClockPublisher
 1. Add a child *Object* to a *Simulation*.
 
@@ -21,10 +12,10 @@
 
 1. Finally you can configure your Clock Publisher by changing the topic or Quality of Service (qos) settings.
 
-    !!!danger
-        Change these settings only when you know what you are doing, otherwise you can break the communication between the simulation and autonomous driving software.
+    !!! danger
+        Change these settings only when you know what you are doing, otherwise you can break the communication between the simulation and self-driving software.
 
-## Add MainCamera
+## Add a MainCamera
 To add a Main Camera please do the following
 
 1. Add a child *Object* to a *Simulation* called 'Main Camera'
@@ -44,8 +35,9 @@ To add a Main Camera please do the following
 
         ![additional camera data](hd_additional_camera_data.png)
 
-    In this step you can adjust some of the camera setting if you wish.
-    For more information please visit the [official Unity documentation](https://docs.unity3d.com/Manual/class-Camera.html).
+    !!! info "Further configuration"
+        In this step you can adjust some of the camera setting if you wish.
+        For more information please visit the [official Unity documentation](https://docs.unity3d.com/Manual/class-Camera.html).
 
 1. Click 'Add Component' button, search for `Audio Listener` and select it.
 
@@ -75,14 +67,21 @@ To add a Main Camera please do the following
 ## Add a Vehicle
 To add a Vehicle to the Scene do the following
 
-1. Locate the directory containing a Vehicle *prefab* in the *Project* view (`Assets/AWSIM/Prefabs/Vehicles`)
-2. Drag the Vehicle from the *Project* view to the Scene
-3. Move the Vehicle *Object* in the *Hierarchy* view to make it s child of the Simulation *Object*
+1. Locate the following directory containing a Vehicle *prefab* in the *Project* view.
+    
+    ```
+    Assets/AWSIM/Prefabs/Vehicles
+    ```
+
+1. Drag the Vehicle from the *Project* view to the Scene.
+
+1. Move the Vehicle *Object* in the *Hierarchy* view to make it s child of the Simulation *Object*.
 
 ![vehicle add prefab to the scene](vehicle_add_to_scene.gif)
 
 ## Add a Scene Manager Component
-If your simulation uses a *LiDAR* sensor it is required to add `SceneManager` component. Please follow [the tutorial](../AddASceneManager/).
+If your simulation uses a *LiDAR* sensor it is required to add `SceneManager` component.
+In such a case please follow [the tutorial](../AddASceneManager/).
 
 ## Add an Environment prefab
 !!! note "Environment creation"
@@ -91,10 +90,16 @@ If your simulation uses a *LiDAR* sensor it is required to add `SceneManager` co
 
 To add add an Environment prefab into your Scene please
 
-1. Locate and open Environments directory in the *Project* view (`Assets/AWSIM/Prefabs/Environments`).
-2. Drag the Environment of your choice into the Simulation *Object* in the *Hierarchy* view.
+1. Locate the following directory  containing an Environment *prefab* in the *Project* view.
 
-    **NOTE**: It is important to drag the Environment into a Hierarchy view and **not** a Scene view.
-    This way no offset will be applied - which is a desired behavior.
+    ```
+    Assets/AWSIM/Prefabs/Environments
+    ```
+
+1. Drag the Environment of your choice into the Simulation *Object* in the *Hierarchy* view.
+
+    !!! note
+        It is important to drag the Environment into a Hierarchy view and **not** a Scene view.
+        This way no offset will be applied - which is a desired behavior.
 
 ![scene add environment prefab](scene_add_environment.gif)

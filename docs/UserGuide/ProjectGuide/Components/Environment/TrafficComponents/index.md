@@ -7,9 +7,16 @@ The random traffic system consists of the following components:
 - `TrafficLane`, `TrafficIntersection` and `StopLine`: represent traffic entities
 - `NPCVehicle`: vehicle models (NPCs) controlled by `RandomTrafficSimulator`
 
-![](overview.png)
+![overview](overview.png)
 
 ## Lanelet2
+*Lanelet2* is a library created for handling a map focused on automated driving.
+It also supports ROS and ROS2 natively.
+In *AWSIM* lanelet2 is used for reading and handling a map of all roads.
+You may also see us referring to the actual map data file (`*.osm`) as a *lanelet2*.
+
+!!! info
+    If you want to learn more we encourage to visit the [official project page](https://github.com/fzi-forschungszentrum-informatik/Lanelet2/tree/master).
 
 ### Traffic Light Script
 ![light_script](light_script.png)
@@ -19,13 +26,47 @@ The random traffic system consists of the following components:
 The `RandomTrafficSimulator` simulates city traffic with respect to all traffic rules. The system allows for random selection of car models and the paths they follow. It also allows adding static vehicles in the simulation.
 
 #### Link
+The `RandomTrafficSimulator` consists of several *GameObjects*.
+
+- `RandomTrafficSimulator` - this is an *Object* consisting of a `Traffic Manager` Script.<br>
+    You can learn more about it [here](#traffic-intersection-script).
+- `TrafficIntersections` - this is a parent *Object* for all `Traffic Lanes`.<br>
+    You can learn more about it [here](#trafficintersections).
+- `TrafficLanes` - this is a parent *Object* for all `Traffic Lanes`.<br>
+    You can learn more about it [here](#trafficlanes).
+- `StopLines` - this is a parent *Object* for all `Stop Lines`.<br>
+    You can learn more about it [here](#stoplines).
+
 ![random_traffic_link](random_traffic_link.png)
 ![pedestrian_lights_materials](pedestrian_lights_materials.png)
 
 #### Traffic Manager Script
+The `Traffic Manager` Script is responsible for all of top level management of the [NPC Vehicles](../../NPCs/Vehicle/).
+It does spawn NPC Vehicles on the Traffic Lanes.
+This Script also configures all of the spawned NPC Vehicles, so that they all have common parameters.
+
+`Traffic Manager` Script can operate in two modes separately or simultaneously.
+
 ![random_traffic_script](random_traffic_script.png)
+
+##### Random Traffic 
+In the Random Traffic mode the NPC Vehicle prefabs (*NPC Prefabs*) can be chosen as well as *Spawnable Lanes*.
+The later are the only Traffic Lanes on which the NPC Vehicles can spawn.
+After that the NPC Vehicle takes a random route until it drives out of the map - then it is destroyed.
+
 ![random_traffic_sims](random_traffic_sims.png)
 
+##### Route Traffic
+In the Route Traffic mode one of the NPC Vehicle prefabs (*NPC Prefabs*) spawns on the first Route Element (`Element 0`) and then drives on the specified route.
+After the first vehicle drove off the next one spawns according to the configuration.
+It is **important** for all *Route* section elements to be connected an to be arranged in order of appearance on the map.
+The NPC Vehicle disappears after completing the Route.
+
+Many different *Routes* can be added and they will operate independently.
+
+![route traffic sims](route_traffic_sims.png)
+
+#### Parameter explanation
 | Parameter                | Description                                                                                                 |
 | ------------------------ | ----------------------------------------------------------------------------------------------------------- |
 | **General Settings**     |                                                                                                             |
@@ -44,108 +85,222 @@ The `RandomTrafficSimulator` simulates city traffic with respect to all traffic 
 | Show Gizmos              | Enable the checkbox to show editor gizmos that visualize behaviours of NPCs                                 |
 
 ## TrafficIntersections
+Traffic Intersection is a representation of a road intersection.
+It consists of several components.
+Traffic Intersection is used in the Scene for managing Traffic Lights.
+All Traffic Lights present on one Traffic Intersection must be synchronized and that is why the logic of Traffic Light operation is included in the Traffic Intersection.
+
 ![intersection](intersections/intersection.png)
 
 #### Link
+Every Traffic Intersection has its own *GameObject* and is added as a child of the aggregate `TrafficIntersections` *Object*.
+Traffic Intersections are an element of an Environment, so they should be placed as children of an appropriate Environment *Object*.
+
 ![intersections_link](intersections/intersections_link.png)
 
 #### Prefab
+Traffic Intersection prefab consists of
+
+- Box Collider - marks the area of the Traffic Intersection, it should cover the whole intersection area
+- `Traffic Intersection` Script - controls all Traffic Lights on the given intersection according to the configuration
+
 ![intersection_prefab](intersections/intersection_prefab.png)
 
 #### Traffic Intersection Script
+The `Traffic Intersection` Script is used for controlling all Traffic Lights on a given intersection.
+The `Collider Mask` field is a mask on which all Vehicle Colliders are present.
+It - together with Box Collider - is used for keeping track of how many Vehicles are currently present on the Traffic Intersection.
+The [`Traffic Light Groups`](#traffic-lights-groups) and [`Lighting Sequences`](#lighting-sequences) are described below.
+
 ![intersection_script](intersections/intersection_script.png)
 
-Traffic Lights Groups
+##### Traffic Light Groups
+The Traffic Light Group is a collection of all Traffic Lights that are in the same state at all times.
+This includes all redundant Traffic Lights shining in one direction as well as the ones in the opposite direction - in the case they should indicate exactly the same thing.
+This grouping simplifies the creation of [Lighting Sequences](#lighting-sequences).
 
 ![light_groups](intersections/light_groups.png)
 
-Lighting Sequences
+##### Lighting Sequences
+Lighting Sequences is the field in which the whole intersection Traffic Lights logic is defined.
+It consists of different *Elements*.
+Each *Element* is a collection of *Orders* that should take an effect for the period of time specified in the `Interval Sec` field.
+`Lighting Sequences` *Elements* are executed sequentially, in order of definition and looped  - after the last element sequence goes back to the first element.
+
+The `Group Lighting Orders` field defines which [Traffic Light Groups](#traffic-light-groups) should change their state and how.
+For every `Group Lighting Orders` *Element* the [Traffic Lights Group](#traffic-light-groups) is specified with the exact description of the goal state for all Traffic Lights in that group - which bulb should light up and with what color.
+
+One `Lighting Sequences` *Element* has many `Group Lighting Orders`, which means that for one period of time many different orders can be given.
+E.g. when Traffic Lights in one direction change color to green - Traffic Lights in the parallel direction change color to red.
+
+!!! info "Traffic Light state persistance"
+    If in a given `Lighting Sequences` *Element* no order is given to some [Traffic Light Group](#traffic-light-groups) - this Group will keep its current state into the next `Lighting Sequences` *Element*.
 
 ![lights_sequence](intersections/lights_sequence.png)
 
-<details>
-    <summary>Lighting Sequence Sample - details</summary>
+??? info "Lighting Sequence Sample - details"
     <table>
-    <tr>
-        <td>Description</td>
-        <td>Editor</td>
-    </tr>
-    <tr>
-        <td>AAA</td>
-        <td><img src="lights_sequence/lights_sequence_1.png" width="400"></td>
-    </tr>
-    <tr>
-        <td>AAA</td>
-        <td><img src="lights_sequence/lights_sequence_2.png" width="400"></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td><img src="lights_sequence/lights_sequence_3.png" width="400"></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td><img src="lights_sequence/lights_sequence_4.png" width="400"></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td><img src="lights_sequence/lights_sequence_5.png" width="400"></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td><img src="lights_sequence/lights_sequence_6.png" width="400"></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td><img src="lights_sequence/lights_sequence_7.png" width="400"></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td><img src="lights_sequence/lights_sequence_8.png" width="400"></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td><img src="lights_sequence/lights_sequence_9.png" width="400"></td>
-    </tr>
-</table>
-</details>
-
-
+        <tr>
+            <td>Description</td>
+            <td>Editor</td>
+        </tr>
+        <tr>
+            <td>
+                Traffic Lights in Pedestrian Group 1<br>change color to flashing green.<br><br>
+                Other Groups keep their<br>current state.<br><br>
+                This state lasts for 5 seconds.
+            </td>
+            <td><img src="lights_sequence/lights_sequence_1.png" width="400"></td>
+        </tr>
+        <tr>
+            <td>
+                Traffic Lights in Pedestrian Group 1<br>change color to solid red.<br><br>
+                Other Groups keep their<br>current state.<br><br>
+                This state lasts for 1 second.
+            </td>
+            <td><img src="lights_sequence/lights_sequence_2.png" width="400"></td>
+        </tr>
+        <tr>
+            <td>
+                Traffic Lights in Vehicle Group 1<br>change color to solid yellow.<br><br>
+                Other Groups keep their<br>current state.<br><br>
+                This state lasts for 5 seconds.
+            </td>
+            <td><img src="lights_sequence/lights_sequence_3.png" width="400"></td>
+        </tr>
+        <tr>
+            <td>
+                Traffic Lights in Vehicle Group 1<br>change color to solid red.<br><br>
+                Other Groups keep their<br>current state.<br><br>
+                This state lasts for 3 seconds.
+            </td>
+            <td><img src="lights_sequence/lights_sequence_4.png" width="400"></td>
+        </tr>
+        <tr>
+            <td>
+                Traffic Lights in Vehicle Group 2<br>change color to solid green.<br><br>
+                Traffic Lights in Pedestrian Group 2<br>change color to solid green.<br><br>
+                Other Groups keep their<br>current state.<br><br>
+                This state lasts for 15 seconds.
+            </td>
+            <td><img src="lights_sequence/lights_sequence_5.png" width="400"></td>
+        </tr>
+        <tr>
+            <td>
+                Traffic Lights in Pedestrian Group 2<br>change color to flashing green.<br><br>
+                Other Groups keep their<br>current state.<br><br>
+                This state lasts for 5 seconds.
+            </td>
+            <td><img src="lights_sequence/lights_sequence_6.png" width="400"></td>
+        </tr>
+        <tr>
+            <td>
+                Traffic Lights in Pedestrian Group 2<br>change color to solid red.<br><br>
+                Other Groups keep their<br>current state.<br><br>
+                This state lasts for 1 second.
+            </td>
+            <td><img src="lights_sequence/lights_sequence_7.png" width="400"></td>
+        </tr>
+        <tr>
+            <td>
+                Traffic Lights in Vehicle Group 2<br>change color to solid yellow.<br><br>
+                Other Groups keep their<br>current state.<br><br>
+                This state lasts for 5 seconds.
+            </td>
+            <td><img src="lights_sequence/lights_sequence_8.png" width="400"></td>
+        </tr>
+        <tr>
+            <td>
+                Traffic Lights in Vehicle Group 2<br>change color to solid red.<br><br>
+                Other Groups keep their<br>current state.<br><br>
+                This state lasts for 3 second.<br><br>
+                Sequence **loops back** to the<br>first element of the list.
+            </td>
+            <td><img src="lights_sequence/lights_sequence_9.png" width="400"></td>
+        </tr>
+    </table>
 
 #### Collider
+Every Traffic Intersection contains a Box Collider element.
+It needs to accurately cover the whole area of the Traffic Intersection.
+The Box Collider - together with the [Traffic Intersection Script](#traffic-intersection-script) - is used for detecting Vehicles entering the Traffic Intersection.
+
 ![intersection_collider](intersections/intersection_collider.png)
 
-## TrafficLanes 
+## TrafficLanes
+Traffic Lane is a representation of a short road segment.
+It consists of several waypoints that are connected by straight lines.
+The Traffic Lanes are used as a base for a [Random Traffic Simulator](#random-traffic-simulator).
+They allow [NPC Vehicles](../../NPCs/Vehicle/) to drive on the specific lanes on the road, perform different maneuvers with respect to the traffic rules.
+
 ![lanes](traffic_lanes/lanes.png)
 
 #### Link
+Every Traffic Lane has its own *GameObject* and is added as a child of the aggregate `TrafficLanes` *Object*.
+Traffic Lanes are an element of an Environment, so they should be placed as children of an appropriate Environment *Object*.
+
+Traffic Lanes can be imported from the [*lanelet2*](#lanelet2) `*.osm` file.
+
 ![lanes_link](traffic_lanes/lanes_link.png)
 
 #### Prefab
+Traffic Lane consists of an *Object* containing [`Traffic Lane` Script](#traffic-lane-script).
+
+Traffic Lane has a transformation as every *Object* in Unity, but it is not used.
+All details are configured in the `Traffic Lane` Script, the information in *Object* transformation is ignored.
+
 ![lanes_prefab](traffic_lanes/lanes_prefab.png)
 
 #### Traffic Lane Script
+`Traffic Lane` Script defines the Traffic Lane structure.
+The `Waypoints` field is an ordered list of points that - when connected with straight lines - create a Traffic Lane.
+
+!!! note
+    `Waypoints` are defined in the Environment coordinate system, the transformation of *GameObject* is ignored.
+
+`Turn Direction` field contains information on what is the direction of this Traffic Lane - whether it is a right or left turn or straight road.
+
+Traffic lanes are connected using `Next Lanes` and `Prev Lanes` fields.
+This way individual Traffic Lanes can create a connected road network.
+One Traffic Lane can have many `Next Lanes` and `Prev Lanes`.
+This represents the situation of multiple lanes connecting to one or one lane splitting into many - e.g. the possibility to turn and to drive straight.
+
+[Right Of Way Lanes](#right-of-way-lanes) are described below.
+
+Every Traffic Lane has to have a `Stop Line` field configured when the [Stop Line](#stoplines) is present on the end of the Traffic Lane.
+Additionally the `Speed Limit` field contains the highest allowed speed on given Traffic Lane.
+
 ![lanes_script](traffic_lanes/lanes_script.png)
 
-Right Of Way Lanes
+##### Right Of Way Lanes
+<!-- TODO -->
 
 ![lanes_yield](traffic_lanes/lanes_yield.png)
+
 ![lanes_yield_2](traffic_lanes/lanes_yield_2.png)
 
 
 
 ## StopLines
+<!-- TODO -->
 ![stop](stop_lines/stop.png)
+
 ![stop_lines_link](stop_lines/stop_lines_link.png)
 
 #### Link
+<!-- TODO -->
 
 #### Prefab
+<!-- TODO -->
 ![stop_prefab](stop_lines/stop_prefab.png)
+
 ![stop_script](stop_lines/stop_script.png)
 
 ## Gizmos
+<!-- TODO -->
 Gizmos are useful for checking current behavior of NPCs and its causes.
 Gizmos have a high computational load so please disable them if the simulation is laggy.
+
 ![gizmos](gizmos.png)
 
 
