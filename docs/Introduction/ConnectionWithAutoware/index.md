@@ -45,19 +45,53 @@ The order of information exchange presented in the diagram is a simplification. 
 Autoware in combination with AWSIM can participate in common road situations
 
 - Drive straight in lane on an intersection
-![go straight](straight_green.gif)
+
+    <!-- ![go straight](straight_green.gif) -->
+
+    <video width="1920" controls autoplay muted loop>
+    <source src="DRIVE_STRAIGHT.mp4" type="video/mp4">
+    </video>
+
 - Turn on an intersection
-![turn](turn_green.gif)
+
+    <!-- ![turn](turn_green.gif) -->
+
+    <video width="1920" controls autoplay muted loop>
+    <source src="DRIVE_TURN.mp4" type="video/mp4">
+    </video>
 
 #### Traffic light recognition
 AWSIM allows Autoware to recognize traffic lights and act accordingly
 
 - Stop at a red light
-![stop on red](stop_red.gif)
+
+    <!-- ![stop on red](stop_red.gif) -->
+
+    <video width="1920" controls autoplay muted loop>
+    <source src="WAIT_RED.mp4" type="video/mp4">
+    </video>
+
 - Drive at green light
-![run on green](straight_green.gif)
-- Still drive at a yellow light
-![run on yellow](straight_yellow.gif)
+
+    <!-- ![run on green](straight_green.gif) -->
+
+    <video width="1920" controls autoplay muted loop>
+    <source src="DRIVE_GREEN.mp4" type="video/mp4">
+    </video>
+
+- Stop at yellow light
+
+    <video width="1920" controls autoplay muted loop>
+    <source src="WAIT_YELLOW2.mp4" type="video/mp4">
+    </video>
+
+- Still drive at yellow light (only when it is too late to stop)
+
+    <!-- ![run on yellow](straight_yellow.gif) -->
+
+    <video width="1920" controls autoplay muted loop>
+    <source src="DRIVE_YELLOW2.mp4" type="video/mp4">
+    </video>
 
 #### Interaction with vehicles
 <!-- TODO -->
