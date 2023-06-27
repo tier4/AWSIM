@@ -25,7 +25,7 @@ Into your `Map` object in the *Hierarchy* view add a new *Child Object* and name
 
 ## 3.Add a Mesh Renderer and specify materials
 
-1. The same way as above search for `Mesh renderer` and select it.
+1. The same way as above search for `Mesh Renderer` and select it.
 
     ![search mesh renderer](mesh_renderer_search.png)
 
@@ -43,28 +43,29 @@ Into your `Map` object in the *Hierarchy* view add a new *Child Object* and name
 
     ![too many traffic materials](traffic_light_too_many_materials.png)
 
-    !!! warning
-        When specifying materials remember the order in which they are used in the mesh.
-        Especially remember what `Materials Elements` are associated with every `Bulb` in the `TrafficLight`.
-        This information will be needed later.
-
-    ![bulb 1](traffic_light_1_bulb.png)
-
-    ![bulb 2](traffic_light_2_bulb.png)
-
-    ![bulb 3](traffic_light_3_bulb.png)
-
-    In the case of `Traffic.Lights.001` the bulb materials are ordered starting from the left side with index 1 and increasing to the right.
-    
-    !!!warning
+    !!! info
         Different material for every bulb is necessary for the color changing behavior that we expect from traffic lights.
         Even though in most cases you will use the same material for every `Bulb`, having them as different elements is necessary.
         Please only use models of `TrafficLights` that have different `Materials Elements` for every `Bulb`.
 
+    !!! warning "Materials order"
+        When specifying materials remember the order in which they are used in the mesh.
+        Especially remember what `Materials Elements` are associated with every `Bulb` in the `TrafficLight`.
+        This information will be needed later.
+
+        !!! example
+            In the case of `Traffic.Lights.001` the bulb materials are ordered starting from the left side with index 1 and increasing to the right.
+
+            ![bulb 1](traffic_light_1_bulb.png)
+
+            ![bulb 2](traffic_light_2_bulb.png)
+
+            ![bulb 3](traffic_light_3_bulb.png)
+
 ## 4. Add a Mesh Collider
-The same way as above search for `Mesh collider` and select it.
+The same way as above search for `Mesh Collider` and select it.
 Collider may not seem useful, as the `TrafficLight` in many cases will be out of reach of vehicles.
-It is however used for Lidar simulation, so it is advised to always add colliders to Objects that should be detected by Lidars.
+It is however used for LiDAR simulation, so it is advised to always add colliders to Objects that should be detected by LiDARs.
 
 ![search mesh collider](mesh_collider_search.png)
 
@@ -90,11 +91,12 @@ The `Traffic Light` Script will enable you to control how the `TrafficLight` lig
 
     - `Material Index` - Index of the material that you want to be associated with the Bulb Type. This is where you need to use the knowledge from earlier where we said you have to remember what Materials Element corresponds to which bulb sub-mesh.
 
-    In the example below we specify an element Type as `RED_BULB` and associate it with Material that has an index 3.
-    This will result in associating the right most bulb with the name `RED_BULB`.
-    This information will be of use to us when specifying `TrafficLights` sequences.
+    !!! example "Bulb configuration example"
+        Here we specify an element Type as `RED_BULB` and associate it with Material that has an index 3.
+        This will result in associating the right most bulb with the name `RED_BULB`.
+        This information will be of use to us when specifying `TrafficLights` sequences.
 
-    ![traffic light bulb config](traffic_light_bulb_config.gif)
+        ![traffic light bulb config](traffic_light_bulb_config.gif)
 
 !!! success
     Once you have added `TrafficLights` to your `Environment`, you can start configuring `RandomTraffic` which will add moving vehicles to it! Details [here](../../AddARandomTraffic/AddARandomTrafficSimulatorScript/).
