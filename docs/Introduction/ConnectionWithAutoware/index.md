@@ -9,6 +9,103 @@
     If you would like to know how to run AWSIM with Autoware, we encourage you to read this [section](../../UserGuide/Installation/RunDemo/).
 
 
+## Features
+The combination of *Autoware* and *AWSIM* provides the opportunity to check the correctness of the vehicle's behavior in various traffic situations. Below are presented some typical features provided by this combination. Moreover, examples of detecting several bad behaviors are included.
+
+### Engagement
+
+- Driving straight through an intersection with priority
+  
+    <video width="1920" controls autoplay muted loop>
+    <source src="features/DRIVE_STRAIGHT.mp4" type="video/mp4">
+    </video>
+
+- Turning at the intersection
+ 
+    <video width="1920" controls autoplay muted loop>
+    <source src="features/DRIVE_TURN.mp4" type="video/mp4">
+    </video>
+
+### Traffic light recognition
+
+- Stopping at a red light
+  
+    <video width="1920" controls autoplay muted loop>
+    <source src="features/WAIT_RED.mp4" type="video/mp4">
+    </video>
+
+- Driving on a green light
+ 
+    <video width="1920" controls autoplay muted loop>
+    <source src="features/DRIVE_GREEN.mp4" type="video/mp4">
+    </video>
+
+- Stopping at yellow light
+
+    <video width="1920" controls autoplay muted loop>
+    <source src="features/WAIT_YELLOW2.mp4" type="video/mp4">
+    </video>
+
+- Still driving at yellow light (only when it is too late to stop)
+
+    <video width="1920" controls autoplay muted loop>
+    <source src="features/DRIVE_YELLOW2.mp4" type="video/mp4">
+    </video>
+
+### Interaction with vehicles
+- Yield right-of-way when turning right
+
+    <video width="1920" controls autoplay muted loop>
+    <source src="features/vehicle_right_of_way.mp4" type="video/mp4">
+    </video>
+
+- Following the vehicles ahead
+ 
+    <video width="1920" controls autoplay muted loop>
+    <source src="features/vehicle_following.mp4" type="video/mp4">
+    </video>
+
+- Stopping behind the vehicles ahead 
+ 
+    <video width="1920" controls autoplay muted loop>
+    <source src="features/vehicle_sudden.mp4" type="video/mp4">
+    </video>
+
+- Cutting-in to a different traffic lane
+  
+    <video width="1920" controls autoplay muted loop>
+    <source src="features/vehicle_cut_in.mp4" type="video/mp4">
+    </video>
+
+
+### Interaction with pedestrians
+- Giving right of way to a pedestrian crossing at a red light
+
+    <video width="1920" controls autoplay muted loop>
+    <source src="features/pedestrian_crosswalk.mp4" type="video/mp4">
+    </video>
+
+- Giving way to a pedestrian crossing beyond a crosswalk
+
+    <video width="1920" controls autoplay muted loop>
+    <source src="features/pedestrian_road.mp4" type="video/mp4">
+    </video>
+
+
+### Detecting bad behaviors
+- Incorrect and dangerous execution of a lane change
+
+    <video width="1920" controls autoplay muted loop>
+    <source src="features/bad_cut_in.mp4" type="video/mp4">
+    </video>
+
+- Too late detection of a pedestrian entering the roadway
+
+    <video width="1920" controls autoplay muted loop>
+    <source src="features/bad_pedestrian_detection.mp4" type="video/mp4">
+    </video>
+
+
 ## Combination Architecture
 ![](awsim_autoware.png)
 
@@ -38,82 +135,3 @@ The order of information exchange presented in the diagram is a simplification. 
 
 ![](autoware_awsim_sequence.png)
 
-
-## Features
-
-#### Engagement
-Autoware in combination with AWSIM can participate in common road situations
-
-- Drive straight in lane on an intersection
-
-    <!-- ![go straight](straight_green.gif) -->
-
-    <video width="1920" controls autoplay muted loop>
-    <source src="DRIVE_STRAIGHT.mp4" type="video/mp4">
-    </video>
-
-- Turn on an intersection
-
-    <!-- ![turn](turn_green.gif) -->
-
-    <video width="1920" controls autoplay muted loop>
-    <source src="DRIVE_TURN.mp4" type="video/mp4">
-    </video>
-
-#### Traffic light recognition
-AWSIM allows Autoware to recognize traffic lights and act accordingly
-
-- Stop at a red light
-
-    <!-- ![stop on red](stop_red.gif) -->
-
-    <video width="1920" controls autoplay muted loop>
-    <source src="WAIT_RED.mp4" type="video/mp4">
-    </video>
-
-- Drive at green light
-
-    <!-- ![run on green](straight_green.gif) -->
-
-    <video width="1920" controls autoplay muted loop>
-    <source src="DRIVE_GREEN.mp4" type="video/mp4">
-    </video>
-
-- Stop at yellow light
-
-    <video width="1920" controls autoplay muted loop>
-    <source src="WAIT_YELLOW2.mp4" type="video/mp4">
-    </video>
-
-- Still drive at yellow light (only when it is too late to stop)
-
-    <!-- ![run on yellow](straight_yellow.gif) -->
-
-    <video width="1920" controls autoplay muted loop>
-    <source src="DRIVE_YELLOW2.mp4" type="video/mp4">
-    </video>
-
-#### Interaction with vehicles
-<!-- TODO -->
-
-#### Interaction with pedestrians
-<!-- TODO -->
-
-
-
-
-!!! node "draft"
-
-    - Engagement (driving straight, turning - with a view of the intersection shape, **gifs**)
-    - Traffic light recognition
-        - Stopping at a red and yellow lights (**gifs**)
-        - Running a green and yellow lights (**gifs**)
-    - Interaction with vehicles
-        - Following (with suddenly stop, **gifs**)
-        - Right-of-way at the intersection (turning right, forcing->stopping, **gifs**)
-        - Cut-in situation (**gifs**)
-    - Interaction with pedestrians
-        - Right-of-way at a crosswalk (with red light and forcing, **gifs**)
-        - Pedestrian on the road beyond the crosswalk (**gifs**)
-    - Detecting bad behaviors (**Future**, **gifs)**
-    <!-- TODO everything -->
