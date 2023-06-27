@@ -223,22 +223,52 @@ The Box Collider - together with the [Traffic Intersection Script](#traffic-inte
 ![intersection_collider](intersections/intersection_collider.png)
 
 ## TrafficLanes
-<!-- TODO -->
+Traffic Lane is a representation of a short road segment.
+It consists of several waypoints that are connected by straight lines.
+The Traffic Lanes are used as a base for a [Random Traffic Simulator](#random-traffic-simulator).
+They allow [NPC Vehicles](../../NPCs/Vehicle/) to drive on the specific lanes on the road, perform different maneuvers with respect to the traffic rules.
+
 ![lanes](traffic_lanes/lanes.png)
 
 #### Link
-<!-- TODO -->
+Every Traffic Lane has its own *GameObject* and is added as a child of the aggregate `TrafficLanes` *Object*.
+Traffic Lanes are an element of an Environment, so they should be placed as children of an appropriate Environment *Object*.
+
+Traffic Lanes can be imported from the [*lanelet2*](#lanelet2) `*.osm` file.
+
 ![lanes_link](traffic_lanes/lanes_link.png)
 
 #### Prefab
-<!-- TODO -->
+Traffic Lane consists of an *Object* containing [`Traffic Lane` Script](#traffic-lane-script).
+
+Traffic Lane has a transformation as every *Object* in Unity, but it is not used.
+All details are configured in the `Traffic Lane` Script, the information in *Object* transformation is ignored.
+
 ![lanes_prefab](traffic_lanes/lanes_prefab.png)
 
 #### Traffic Lane Script
-<!-- TODO -->
+`Traffic Lane` Script defines the Traffic Lane structure.
+The `Waypoints` field is an ordered list of points that - when connected with straight lines - create a Traffic Lane.
+
+!!! note
+    `Waypoints` are defined in the Environment coordinate system, the transformation of *GameObject* is ignored.
+
+`Turn Direction` field contains information on what is the direction of this Traffic Lane - whether it is a right or left turn or straight road.
+
+Traffic lanes are connected using `Next Lanes` and `Prev Lanes` fields.
+This way individual Traffic Lanes can create a connected road network.
+One Traffic Lane can have many `Next Lanes` and `Prev Lanes`.
+This represents the situation of multiple lanes connecting to one or one lane splitting into many - e.g. the possibility to turn and to drive straight.
+
+[Right Of Way Lanes](#right-of-way-lanes) are described below.
+
+Every Traffic Lane has to have a `Stop Line` field configured when the [Stop Line](#stoplines) is present on the end of the Traffic Lane.
+Additionally the `Speed Limit` field contains the highest allowed speed on given Traffic Lane.
+
 ![lanes_script](traffic_lanes/lanes_script.png)
 
-Right Of Way Lanes
+##### Right Of Way Lanes
+<!-- TODO -->
 
 ![lanes_yield](traffic_lanes/lanes_yield.png)
 
