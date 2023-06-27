@@ -80,79 +80,146 @@ Many different *Routes* can be added and they will operate independently.
 | Show Gizmos              | Enable the checkbox to show editor gizmos that visualize behaviours of NPCs                                 |
 
 ## TrafficIntersections
-<!-- TODO -->
+Traffic Intersection is a representation of a road intersection.
+It consists of several components.
+Traffic Intersection is used in the Scene for managing Traffic Lights.
+All Traffic Lights present on one Traffic Intersection must be synchronized and that is why the logic of Traffic Light operation is included in the Traffic Intersection.
+
 ![intersection](intersections/intersection.png)
 
 #### Link
-<!-- TODO -->
+Every Traffic Intersection has its own *GameObject* and is added as a child of the aggregate `TrafficIntersections` *Object*.
+Traffic Intersections are an element of an Environment, so they should be placed as children of an appropriate Environment *Object*.
+
 ![intersections_link](intersections/intersections_link.png)
 
 #### Prefab
-<!-- TODO -->
+Traffic Intersection prefab consists of
+
+- Box Collider - marks the area of the Traffic Intersection, it should cover the whole intersection area
+- `Traffic Intersection` Script - controls all Traffic Lights on the given intersection according to the configuration
+
 ![intersection_prefab](intersections/intersection_prefab.png)
 
 #### Traffic Intersection Script
-<!-- TODO -->
+The `Traffic Intersection` Script is used for controlling all Traffic Lights on a given intersection.
+The `Collider Mask` field is a mask on which all Vehicle Colliders are present.
+It - together with Box Collider - is used for keeping track of how many Vehicles are currently present on the Traffic Intersection.
+The [`Traffic Light Groups`](#traffic-lights-groups) and [`Lighting Sequences`](#lighting-sequences) are described below.
+
 ![intersection_script](intersections/intersection_script.png)
 
-Traffic Lights Groups
+##### Traffic Light Groups
+The Traffic Light Group is a collection of all Traffic Lights that are in the same state at all times.
+This includes all redundant Traffic Lights shining in one direction as well as the ones in the opposite direction - in the case they should indicate exactly the same thing.
+This grouping simplifies the creation of [Lighting Sequences](#lighting-sequences).
 
 ![light_groups](intersections/light_groups.png)
 
-Lighting Sequences
+##### Lighting Sequences
+Lighting Sequences is the field in which the whole intersection Traffic Lights logic is defined.
+It consists of different *Elements*.
+Each *Element* is a collection of *Orders* that should take an effect for the period of time specified in the `Interval Sec` field.
+`Lighting Sequences` *Elements* are executed sequentially, in order of definition and looped  - after the last element sequence goes back to the first element.
+
+The `Group Lighting Orders` field defines which [Traffic Light Groups](#traffic-light-groups) should change their state and how.
+For every `Group Lighting Orders` *Element* the [Traffic Lights Group](#traffic-light-groups) is specified with the exact description of the goal state for all Traffic Lights in that group - which bulb should light up and with what color.
+
+One `Lighting Sequences` *Element* has many `Group Lighting Orders`, which means that for one period of time many different orders can be given.
+E.g. when Traffic Lights in one direction change color to green - Traffic Lights in the parallel direction change color to red.
+
+!!! info "Traffic Light state persistance"
+    If in a given `Lighting Sequences` *Element* no order is given to some [Traffic Light Group](#traffic-light-groups) - this Group will keep its current state into the next `Lighting Sequences` *Element*.
 
 ![lights_sequence](intersections/lights_sequence.png)
 
-<details>
-    <summary>Lighting Sequence Sample - details</summary>
+??? info "Lighting Sequence Sample - details"
     <table>
         <tr>
             <td>Description</td>
             <td>Editor</td>
         </tr>
         <tr>
-            <td>AAA</td>
+            <td>
+                Traffic Lights in Pedestrian Group 1<br>change color to flashing green.<br><br>
+                Other Groups keep their<br>current state.<br><br>
+                This state lasts for 5 seconds.
+            </td>
             <td><img src="lights_sequence/lights_sequence_1.png" width="400"></td>
         </tr>
         <tr>
-            <td>AAA</td>
+            <td>
+                Traffic Lights in Pedestrian Group 1<br>change color to solid red.<br><br>
+                Other Groups keep their<br>current state.<br><br>
+                This state lasts for 1 second.
+            </td>
             <td><img src="lights_sequence/lights_sequence_2.png" width="400"></td>
         </tr>
         <tr>
-            <td></td>
+            <td>
+                Traffic Lights in Vehicle Group 1<br>change color to solid yellow.<br><br>
+                Other Groups keep their<br>current state.<br><br>
+                This state lasts for 5 seconds.
+            </td>
             <td><img src="lights_sequence/lights_sequence_3.png" width="400"></td>
         </tr>
         <tr>
-            <td></td>
+            <td>
+                Traffic Lights in Vehicle Group 1<br>change color to solid red.<br><br>
+                Other Groups keep their<br>current state.<br><br>
+                This state lasts for 3 seconds.
+            </td>
             <td><img src="lights_sequence/lights_sequence_4.png" width="400"></td>
         </tr>
         <tr>
-            <td></td>
+            <td>
+                Traffic Lights in Vehicle Group 2<br>change color to solid green.<br><br>
+                Traffic Lights in Pedestrian Group 2<br>change color to solid green.<br><br>
+                Other Groups keep their<br>current state.<br><br>
+                This state lasts for 15 seconds.
+            </td>
             <td><img src="lights_sequence/lights_sequence_5.png" width="400"></td>
         </tr>
         <tr>
-            <td></td>
+            <td>
+                Traffic Lights in Pedestrian Group 2<br>change color to flashing green.<br><br>
+                Other Groups keep their<br>current state.<br><br>
+                This state lasts for 5 seconds.
+            </td>
             <td><img src="lights_sequence/lights_sequence_6.png" width="400"></td>
         </tr>
         <tr>
-            <td></td>
+            <td>
+                Traffic Lights in Pedestrian Group 2<br>change color to solid red.<br><br>
+                Other Groups keep their<br>current state.<br><br>
+                This state lasts for 1 second.
+            </td>
             <td><img src="lights_sequence/lights_sequence_7.png" width="400"></td>
         </tr>
         <tr>
-            <td></td>
+            <td>
+                Traffic Lights in Vehicle Group 2<br>change color to solid yellow.<br><br>
+                Other Groups keep their<br>current state.<br><br>
+                This state lasts for 5 seconds.
+            </td>
             <td><img src="lights_sequence/lights_sequence_8.png" width="400"></td>
         </tr>
         <tr>
-            <td></td>
+            <td>
+                Traffic Lights in Vehicle Group 2<br>change color to solid red.<br><br>
+                Other Groups keep their<br>current state.<br><br>
+                This state lasts for 3 second.<br><br>
+                Sequence **loops back** to the<br>first element of the list.
+            </td>
             <td><img src="lights_sequence/lights_sequence_9.png" width="400"></td>
         </tr>
     </table>
-</details>
-
-
 
 #### Collider
-<!-- TODO -->
+Every Traffic Intersection contains a Box Collider element.
+It needs to accurately cover the whole area of the Traffic Intersection.
+The Box Collider - together with the [Traffic Intersection Script](#traffic-intersection-script) - is used for detecting Vehicles entering the Traffic Intersection.
+
 ![intersection_collider](intersections/intersection_collider.png)
 
 ## TrafficLanes
