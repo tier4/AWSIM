@@ -1,6 +1,6 @@
 # NPC Vehicle
 
-`NPCVehicle` is a non-playable object that simulates a vehicle that is stationary or moving around the scene. It can move on roads, more specifically `TrafficLanes`, thanks to the use of `RandomTrafficSimulator` - which you can read more about [here](../../../Components/Environment/TrafficSimulation/). Vehicles moving on the scene take into account each other - avoiding collisions, follow traffic lights and have an implemented mechanism of yielding the right of way.
+`NPCVehicle` is a non-playable object that simulates a vehicle that is stationary or moving around the scene. It can move on roads, more specifically `TrafficLanes`, thanks to the use of `RandomTrafficSimulator` - which you can read more about [here](../../../Components/Environment/TrafficComponents/). Vehicles moving on the scene take into account each other - avoiding collisions, follow traffic lights and have an implemented mechanism of yielding the right of way.
 
 ![vehicles](vehicles.png)
 
@@ -122,7 +122,7 @@ To prevent inspector entry for `WheelCollider`. `WheelColliderConfig` has been d
 The script takes the `Rightbody` and provides an inputs that allows the `NPCVehicle` to move. 
 Script inputs give the ability to set the position and orientation of the vehicle, taking into account the effects of suspension and gravity. In addition, the script uses the [`CoM`](#com) link reference to assign the center of mass of the vehicle to the `Rightbody`.
 
-Script inputs are used by `RandomTrafficSimulator`, which controls the vehicles on the scene - it is described [here](../../../Components/Environment/TrafficSimulation/).
+Script inputs are used by `RandomTrafficSimulator`, which controls the vehicles on the scene - it is described [here](../../../Components/Environment/TrafficComponents/).
 
 #### Input Data
 

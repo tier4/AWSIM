@@ -1,5 +1,5 @@
 To add `RandomTraffic` to the `Environment`, it is necessary to load elements from the *lanelet2*.
-As a result of loading, `TrafficLanes` and `StopLines` will be added to the scene. Details of these components can be found [here](../../../../UserGuide/ProjectGuide/Components/Environment/TrafficSimulation/).
+As a result of loading, `TrafficLanes` and `StopLines` will be added to the scene. Details of these components can be found [here](../../../../UserGuide/ProjectGuide/Components/Environment/TrafficComponents/).
 
 !!! warning
     Before following this tutorial make sure you have added an [Environment Script](../../AddANewEnvironment/AddAEnvironment/#add-an-environment-script) and set a proper `MGRS` offset position. This position is used when loading elements from the *lanelet2*!
@@ -101,7 +101,7 @@ The Stop Sign can be either vertical or horizontal.
 ![stop line has stop sigh](stop_line_has_stop_sign.gif)
 
 ### 5. Select a Traffic Light
-Select from the drop-down menu the Traffic Light that is on the [Traffic Intersection](../../../../UserGuide/ProjectGuide/Components/Environment/TrafficSimulation/) and is facing the vehicle that would be driving on the Traffic Lane connected with the Stop Line you are configuring.
+Select from the drop-down menu the Traffic Light that is on the [Traffic Intersection](../../../../UserGuide/ProjectGuide/Components/Environment/TrafficComponents/) and is facing the vehicle that would be driving on the Traffic Lane connected with the Stop Line you are configuring.
 
 In other words select the right Traffic Light for the Lane on which your Stop Line is placed.
 

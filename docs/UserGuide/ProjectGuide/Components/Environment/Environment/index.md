@@ -77,7 +77,7 @@ In the project physics settings, it is ensured that collisions between objects i
 
 ## Traffic Simulation
 
-Due to the specificity of the use of `RandomTrafficSimulator`, `TrafficIntersections`, `TrafficLanes`, `StopLines` objects, they have been described in a separate section [*Traffic Simulation*](../TrafficSimulation) - where all the elements necessary in simulated random traffic are presented.
+Due to the specificity of the use of `RandomTrafficSimulator`, `TrafficIntersections`, `TrafficLanes`, `StopLines` objects, they have been described in a separate section [*Traffic Simulation*](../TrafficComponents/) - where all the elements necessary in simulated random traffic are presented.
 
 ## Visual Elements (SJK)
 The visuals elements have been loaded and organized using the `*.fbx` files which can be found under the path: `Assets/AWSIM/Externals/Nishishinjuku/Nishishinjuku_opimized/Models/*`.
@@ -132,7 +132,7 @@ In the environment there are many classic lights with different signaling config
 - *Traffic Light Script* - provides an interface to control signaling by changing the emission of materials. This script is used for simulated traffic, so it is described.
 
 ##### Materials
-An important element that is configured in the `TrafficLights` object are the materials in the `Mesh Renderer` component. Material with index 0 always applies to the housing of the lights. Subsequent elements 1-6 correspond to successive slots of light sources (round luminous objects) - starting from the upper left corner of the object in the right direction, to the bottom and back to the left corner. These indexes are used in script *Traffic Light Script* - described [here](../TrafficSimulation/).
+An important element that is configured in the `TrafficLights` object are the materials in the `Mesh Renderer` component. Material with index 0 always applies to the housing of the lights. Subsequent elements 1-6 correspond to successive slots of light sources (round luminous objects) - starting from the upper left corner of the object in the right direction, to the bottom and back to the left corner. These indexes are used in script *Traffic Light Script* - described [here](../TrafficComponents/).
 
 ![lights_mesh](lights/lights_materials.png)<br>
 Materials for lighting slots that are assigned in `Mesh Renderer` can be found in the following path:
@@ -149,7 +149,7 @@ Materials for lighting slots that are assigned in `Mesh Renderer` can be found i
 In the environment there are many pedestrian lights - they have the same components as classic `TrafficLights`, but the main difference is the configuration of their materials.
 
 ##### Materials
-An important element that is configured in the `PedestrianLights` object are the materials in the `Mesh Renderer` component. Material with index 0 always applies to the housing of the lights. Subsequent elements 1-2 correspond to successive slots of light sources (round luminous objects) - starting from top to bottom. These indexes are used in script *Traffic Light Script* - described [here](../TrafficSimulation/).
+An important element that is configured in the `PedestrianLights` object are the materials in the `Mesh Renderer` component. Material with index 0 always applies to the housing of the lights. Subsequent elements 1-2 correspond to successive slots of light sources (round luminous objects) - starting from top to bottom. These indexes are used in script *Traffic Light Script* - described [here](../TrafficComponents/).
 
 ![pedestrian_lights_mesh](lights/pedestrian_lights_materials.png)<br>
 Materials for lighting slots that are assigned in `Mesh Renderer` can be found in the following path:

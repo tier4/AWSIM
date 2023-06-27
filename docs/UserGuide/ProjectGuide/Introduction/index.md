@@ -20,7 +20,7 @@ In the *AWSIM Unity* project, there are several types of prefabs that have pre-c
   
 - [*NpcPedestrians*](../Components/NPCs/Pedestrian/) - these are prefabs of humans that have configured elements responsible for cyclic movement and animations.
   
-- [*RandomTrafficSimulator*](../Components/Environment/TrafficSimulation/) - it is a prefab that is responsible for controlling random traffic using other objects in the environment.
+- [*RandomTrafficSimulator*](../Components/Environment/TrafficComponents/) - it is a prefab that is responsible for controlling random traffic using other objects in the environment.
   
 - [*Environment*](../Components/Environment/Environment/) - it is a prefab that contains all the visual objects in the world, as well as elements responsible for controlling road intersections - their lights and a map of traffic lanes on which vehicles can move. It contains `NPCs` and `RandomTrafficSimulator` prefabs.
 
