@@ -15,11 +15,11 @@ It will contain many parts, so first lets create a `Body` parent *Object*.
 
 Next we will need to add Car Body
 
-1. Add a child *Object* `CarBody` to the `Body` *Object*.
+1. Add a child *Object* `BodyCar` to the `Body` *Object*.
 
     ![body car add object](body_car_add_object.gif)
 
-1. To the `CarBody` *Object* add a Mesh Filter.
+1. To the `BodyCar` *Object* add a Mesh Filter.
 
     Click on the 'Add Component' button, search for `Mesh Filter` and select it.
     Next search for *mesh* of your vehicle and select it in the `Mesh` field.
@@ -28,7 +28,7 @@ Next we will need to add Car Body
 
     ![mesh filter add component](mesh_filter_search.png)
 
-1. To the `CarBody` *Object* add a Mesh Renderer.
+1. To the `BodyCar` *Object* add a Mesh Renderer.
 
     Click on the 'Add Component' button, search for `Mesh Filter` and select it
 
@@ -65,7 +65,8 @@ In this step we will add the following parts
 
     Other good reason for having different meshes for Vehicle parts is that you have a Vehicle model, but for the simulation you need to add e.g. a roof rack with sensors - which can be achieved by adding more meshes.
 
-We will illustrate this step only for Break Light, but you should repeat this step of the tutorial for each element of the list above.
+!!! note
+    We will illustrate this step only for Break Light, but you should repeat this step of the tutorial for each element of the list above.
 
 1. Add a child *Object* to the `Body` *Object*.
 
@@ -126,7 +127,7 @@ This process is very similar to [the one before](#add-interactive-body-parts).
 5. Repeat the steps before to add Breaks.
 
     The same way you have added the `WheelFrontL` *Object* now add the `WheelFrontLBreaks`.
-    Naturally you will have to adjust the mesh and materials used as they will be different for breaks that for the wheel.
+    Naturally you will have to adjust the mesh and materials used as they will be different for breaks than for the wheel.
 
     Your final break configuration should look similar to the one following.
 
