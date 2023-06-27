@@ -12,7 +12,7 @@ The random traffic system consists of the following components:
 ## Lanelet2
 
 ### Traffic Light Script
-![light_script](lights/light_script.png)
+![light_script](light_script.png)
 
 
 ## Random Traffic Simulator
@@ -20,7 +20,7 @@ The `RandomTrafficSimulator` simulates city traffic with respect to all traffic 
 
 #### Link
 ![random_traffic_link](random_traffic_link.png)
-![pedestrian_lights_materials](lights/pedestrian_lights_materials.png)
+![pedestrian_lights_materials](pedestrian_lights_materials.png)
 
 #### Traffic Manager Script
 ![random_traffic_script](random_traffic_script.png)
