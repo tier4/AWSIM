@@ -1,4 +1,4 @@
-# TrafficComponents
+# TrafficSimulation
 This is a section that describes in detail all objects related to simulated traffic in the `Environment` prefab.
 
 The random traffic system consists of the following components:
@@ -18,6 +18,10 @@ You may also see us referring to the actual map data file (`*.osm`) as a *lanele
 !!! info
     If you want to learn more we encourage to visit the [official project page](https://github.com/fzi-forschungszentrum-informatik/Lanelet2/tree/master).
 
+### Traffic Light Script
+![light_script](light_script.png)
+
+
 ## Random Traffic Simulator
 The `RandomTrafficSimulator` simulates city traffic with respect to all traffic rules. The system allows for random selection of car models and the paths they follow. It also allows adding static vehicles in the simulation.
 
@@ -34,6 +38,7 @@ The `RandomTrafficSimulator` consists of several *GameObjects*.
     You can learn more about it [here](#stoplines).
 
 ![random_traffic_link](random_traffic_link.png)
+![pedestrian_lights_materials](pedestrian_lights_materials.png)
 
 #### Traffic Manager Script
 The `Traffic Manager` Script is responsible for all of top level management of the [NPC Vehicles](../../NPCs/Vehicle/).

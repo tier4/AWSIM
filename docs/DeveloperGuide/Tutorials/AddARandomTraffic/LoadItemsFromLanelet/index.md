@@ -101,10 +101,7 @@ The Stop Sign can be either vertical or horizontal.
 ![stop line has stop sigh](stop_line_has_stop_sign.gif)
 
 ### 5. Select a Traffic Light
-The last thing to configure is a Traffic Light.
-You need to select one only when the Stop Line is right in front of a [Traffic Intersection](../../../../UserGuide/ProjectGuide/Components/Environment/TrafficComponents/) that has a Traffic Lights.
-
-Select from the drop-down menu the Traffic Light that is on the Traffic Intersection and is facing the vehicle that would be driving on the Traffic Lane connected with the Stop Line you are configuring.
+Select from the drop-down menu the Traffic Light that is on the [Traffic Intersection](../../../../UserGuide/ProjectGuide/Components/Environment/TrafficComponents/) and is facing the vehicle that would be driving on the Traffic Lane connected with the Stop Line you are configuring.
 
 In other words select the right Traffic Light for the Lane on which your Stop Line is placed.
 
