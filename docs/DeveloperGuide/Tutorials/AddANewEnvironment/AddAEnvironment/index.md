@@ -1,10 +1,11 @@
 # Add an Environment
 
 *Environment* is an important part of a *Scene* in *AWSIM*.
-Every aspect of the simulated surrounding world needs to be included in the `Environment` prefab - in this section you will learn how to develop it. However, first [Lanelet2](https://github.com/fzi-forschungszentrum-informatik/Lanelet2) needs to be developed along with *3D* models of the world, which will be the main elements of this prefab.
+Every aspect of the simulated surrounding world needs to be included in the `Environment` prefab - in this section you will learn how to develop it. 
+However, first [Lanelet2](https://github.com/fzi-forschungszentrum-informatik/Lanelet2) needs to be developed along with *3D* models of the world, which will be the main elements of this prefab.
 
 !!! tip
-    If you want to learn more about the *Environment* at *AWSIM*, please visit [this page](../../../../UserGuide/ProjectGuide/Components/Environment/).
+    If you want to learn more about the *Environment* at *AWSIM*, please visit [this page](../../../../UserGuide/ProjectGuide/Components/Environment/Environment/).
 
 ## Create a *Lanelet2*
 Before you start creating *Lanelet2*, we encourage you to read the [documentation](https://github.com/fzi-forschungszentrum-informatik/Lanelet2/tree/master) to find out what *Lanelet2* is all about.
@@ -23,26 +24,27 @@ Especially important are `TrafficLanes` created in `VMB` as connected `Road Node
     Instead of making global *(0,0)* point (crossing of *Equator* and *Prime Median*) our coordinate system origin we take a closer one.
     The *MGRS Grid Zone* with 100 km *Square ID* code designates a 100x100 [kmxkm] square on the map and we take its bottom left corner as our local origin.
 
-    Lets examine one node from an example *Lanelet2* map:
+    !!! example
+        Lets examine one node from an example *Lanelet2* map:
 
-    ```xml
-    <node id="4" lat="35.68855194431519" lon="139.69142711058254">
-        <tag k="mgrs_code" v="54SUE815501"/>
-        <tag k="local_x" v="81596.1357"/>
-        <tag k="local_y" v="50194.0803"/>
-        <tag k="ele" v="34.137"/>
-    </node>
-    ```
+        ```xml
+        <node id="4" lat="35.68855194431519" lon="139.69142711058254">
+            <tag k="mgrs_code" v="54SUE815501"/>
+            <tag k="local_x" v="81596.1357"/>
+            <tag k="local_y" v="50194.0803"/>
+            <tag k="ele" v="34.137"/>
+        </node>
+        ```
 
-    The node with `id="4"` position is described as absolute coordinates given in the `<node>`.
-    In this example the coordinates are as follows `lat="35.68855194431519" lon="139.69142711058254`.
+        The node with `id="4"` position is described as absolute coordinates given in the `<node>`.
+        In this example the coordinates are as follows `lat="35.68855194431519" lon="139.69142711058254`.
 
-    It is also described as local transformation defined as a translation relative to the origin of the *MGRS Grid Zone* with 100 km *Square ID* (bottom left corner).
-    The *MGRS Grid Zone* designation with 100 km *Square ID* in this case is equal to `54SUE`.
-    In this example the offset in the *X axis* is as follows `k="local_x" v="81596.1357"`
-    and the offset in the *Y axis* is as follows `k="local_y" v="50194.0803"`.
+        It is also described as local transformation defined as a translation relative to the origin of the *MGRS Grid Zone* with 100 km *Square ID* (bottom left corner).
+        The *MGRS Grid Zone* designation with 100 km *Square ID* in this case is equal to `54SUE`.
+        In this example the offset in the *X axis* is as follows `k="local_x" v="81596.1357"`
+        and the offset in the *Y axis* is as follows `k="local_y" v="50194.0803"`.
 
-    Note that elevation information is also included.
+        Note that elevation information is also included.
 
 ## Create 3D models
 You can create `3D` models of an `Environment` as you wish.
@@ -51,18 +53,15 @@ Additionally you should include materials and textures in separate directories.
 Many models are delivered in this format.
 This file format allows you to import models into Unity with materials and replace materials while importing. You can learn more about it [here](https://unity.com/how-to/work-assets-between-unity-and-autodesk).
 
-<!-- TODO: Here are still missing examples of fbx as added to prefab and how to set materials/textures - unless it is/will be in the next part -->
-<!-- I really think that this section is more about creating the model saved as fbx. Usage, so importing and changing materials is shown later. -->
+You can see a `.fbx` model added and modified on the fly in the example of [this section](#1-add-3d-models).
 
 ### Guidelines
-<!-- TODO: here you should add tips in consultation with Piotr Rząd and report from Unity -->
-<!-- I have added as many tips as I could come up with after consulting Piotr and reading the Unity report. As for me this part is done, but please confirm this is enough. -->
 To improve the simulation performance of a scene containing your  `Environment` prefab, please keep in mind some of these tips when creating *3D* models:
 
 1. Prefer more smaller models over a few big ones.
 
     In general it is beneficial for performance when you make one small mesh of a object like tree and reuse it on the scene placing many prefabs instead of making one giant mesh containing all trees on the given scene.
-    Even in situations when you are not reusing meshes it is beneficial.
+    It is beneficial even in situations when you are not reusing the meshes.
     Lets say you have a city with many buildings - and every one of those buildings is different - it is still advised to model those building individually and make them separate *GameObjects*.
 
 1. Choose texture resolution appropriately.
@@ -72,7 +71,7 @@ To improve the simulation performance of a scene containing your  `Environment` 
     This way you can save some computing power by not calculating the details that will not be seen because of the screen resolution.
 
     !!! tip "Practical advice"
-        You can follow these simple rules when deciding on texture quality (texel density)
+        You can follow these simple rules when deciding on texture quality (texel density):
 
         - For general objects choose 512px/m (so the minimum size of texture is 512/512)
         - For important objects that are close to the camera choose 1024px/m (so the minimum size of texture is 1024/1024)
@@ -83,30 +82,29 @@ To improve the simulation performance of a scene containing your  `Environment` 
     If some element in the 3D model are interactive they should be divided into separate parts.
 
 What's more, consider these tips related directly to the use of 3D models in *AWSIM*:
-<!-- TODO: what is flutter culling - i can't find it -->
-<!-- Does it even exist? the only reference to fluttering in whole documentation is here: https://docs.unity3d.com/Manual/terrain-Trees.html (use search) -->
- 1. Creating a *3D* model based on actual point cloud data makes it more realistic.
- 1. *AWSIM* is created using *HDRP* ([*High Definition Rendering Pipeline*](https://unity.com/srp/High-Definition-Render-Pipeline)) which performs better when object meshes are merged.
- 1. [Occlusion culling](https://docs.unity3d.com/Manual/OcclusionCulling.html) and flutter culling cannot be used because the sensors detection target will disappear.
- 1. Each traffic light should have a separate `GameObject`. Also, each light in the traffic light should be split into separate materials.
+
+1. Creating a *3D* model based on actual point cloud data makes it more realistic.
+1. *AWSIM* is created using *HDRP* ([*High Definition Rendering Pipeline*](https://unity.com/srp/High-Definition-Render-Pipeline)) which performs better when object meshes are merged.
+1. [Occlusion culling](https://docs.unity3d.com/Manual/OcclusionCulling.html) and flutter culling cannot be used because the sensors detection target will disappear.
+1. Each traffic light should have a separate `GameObject`. Also, each light in the traffic light should be split into separate materials.
 
 ## Create an Environment prefab
-<!-- TODO: please add after each step the effect (screen of scene elements) that the reader should achieve -->
 In this part, you will learn how to create a `Environment` prefab - that is, develop a *GameObject* containing all the necessary elements and save it as a prefab.
+
 ### 1. Add 3D models
 In this section we will add roads, buildings, greenery, signs, road markings etc. to our scene.
 
 Most often your models will be saved in the `.fbx` format.
 If so, you can customize the materials in the imported model just before importing it.
 Sometimes it is necessary as models come with placeholder materials.
- You can either:
+You can either
 
- - replace materials for every added *GameObject* into the *Scene*,
- - or replace materials for one *GameObject* and save this object as a prefab to easily load it later.
+- replace materials for every added *GameObject* into the *Scene*,
+- or replace materials for one *GameObject* and save this object as a prefab to easily load it later.
 
 In order to add *3D* models from the `.fbx` file to the *Scene* please do the following steps:
 
-1. In the *Project* view navigate to directory where the model is located and click on the model file.
+1. In the *Project* view navigate to the directory where the model is located and click on the model file.
 2. Now you can customize the materials used in the model in the *Inspector* view.
 3. Drag the model into the *Scene* where you want to position it.
 4. Move the *Object* in the *Hierarchy* tree appropriately.
@@ -145,7 +143,7 @@ You can group Objects as you like.
         In this example we will
         
         - Place the model on the Scene.
-        - Then intentionally *not* unpack the model
+        - Then intentionally **not** unpack the model
         - Only then change the materials of the original fbx model, **not** the instance on the scene
         
         ![drag model](fbx_drag.gif)
@@ -155,10 +153,18 @@ You can group Objects as you like.
         
         ![change material in model](fbx_change.gif)
 
+!!! example "Example Environment after adding 3D models"
+    After completing this step you should have an `Environment` *Object* that looks similar to the one presented below.
+
+    ![environment hierarchy view](environment_environment.png)
+
+    The `Environment` with 3D models can look similar to the one presented below.
+
+    ![environment add 3d models](environment_add_3d_models.png)
+
 ### 2. Add an Environment Script
-<!-- TODO: maybe in the section above, write what should be the final result - with a screenshot, so that you can see where you need to add this component -->
-<!-- Section above meaning what? 'Add an Environment Script' or 'Add 3D models'? -->
-Add an `Environment Script` as component in the `Environment` object.
+Add an `Environment Script` as component in the `Environment` object (see the last example in [section before](#1-add-3d-models)).
+It does not change the appearance of the Environment, but is necessary for the simulation to work correctly.
 
 1. Click on the *Add Component* button in the `Environment` object.
 
@@ -187,35 +193,43 @@ Add an `Environment Script` as component in the `Environment` object.
 
     ![add directional light](directional_light_add_object.gif)
 
-1. Click `Add Component` button, search for `light` and select it. 
+2. Click `Add Component` button, search for `Light` and select it. 
 
     ![directional light search](directional_light_search.png)
 
-2. Change light Type to `Directional`.
-3. Now you can configure the directional light as you wish. E.g. change the intensity or orientation.
+3. Change light Type to `Directional`.
+4. Now you can configure the directional light as you wish. E.g. change the intensity or orientation.
 
     ![directional light configure](directional_light_config.gif)
 
 !!!tip
     For more details on lighting check out [official Unity documentation](https://docs.unity3d.com/Manual/Lighting.html).
+
+!!! example "Example Environment after adding Directional Light"
+    ![environment add directional light](environment_add_directional_light.png)
+
 ### 4. Add a Volume
 
 1. Create a new child object of the Environment and name it `Volume`.
 
     ![volume add object](volume_add_object.gif)
 
-1. Click `Add Component` search for `volume` and select it.
+2. Click `Add Component` search for `Volume` and select it.
 
     ![select volume](volume_search.png)
 
-1. Change the Profile to `Volume Profile` and wait for changes to take effect.
+3. Change the Profile to `Volume Profile` and wait for changes to take effect.
 
     ![volume configure](volume_config.gif)
 
-1. Now you can configure the *Volume* individually as you wish.
+4. Now you can configure the *Volume* individually as you wish.
 
 !!!tip
     For more details on volumes checkout [official Unity documentation](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@11.0/manual/Volumes.html).
+
+!!! example "Example Environment after adding Volume"
+    ![environment add volume](environment_add_volume.png)
+
 ### 5. Add NPCPedestrians
 1. Make `NPCPedestrians` parent object.
 
@@ -233,7 +247,7 @@ Add an `Environment Script` as component in the `Environment` object.
 
     ![npcpedestrian simple script search](npcpedestrian_search.png)
 
-    This is a simple *Script* that makes the pedestrian indefinitely walk straight and turn around.
+    This is a simple *Script* that makes the pedestrian walk straight and turn around indefinitely.
     You can configure pedestrian behavior with 2 parameters.
 
     - *Duration* - how long will the pedestrian walk straight
@@ -246,6 +260,18 @@ Add an `Environment Script` as component in the `Environment` object.
 
     !!! warning
         Remember to set correct orientation, as the `NPCPedestrian` will walk straight from the starting position with the starting orientation.
+
+!!! example "Example Environment after adding NPC Pedestrians"
+    ![environment add npc pedestrians](environment_add_npc_pedestrianl.png)
+
+### 6. Save an Environment prefab
+After doing all the previous steps and having your Environment finished you can save it to prefab format.
+
+1. Find an *Environments* directory in the *Project* view (`Assets/AWSIM/Prefabs/Environments`).
+2. Drag the `Environment` *Object* into the *Project* view.
+3. (optional) Change the prefab name to recognize it easily later.
+
+![environment save prefab](environment_save_prefab.gif)
 
 !!! success
     Once you've added the `Environment`, you need to add and configure `TrafficLights`.

@@ -1,6 +1,6 @@
 To add a Random Traffic to your scene you need the Random Traffic Simulator Script.
 
-1. Create a new Game Object as a child of `Environment` and call it `RandomTrafficSimulator`.
+1. Create a new *Game Object* as a child of `Environment` and call it `RandomTrafficSimulator`.
 
     ![create_random_traffic_simulator](add_random_traffic_simulator.gif)
 
@@ -55,8 +55,9 @@ These settings can to be adjusted to your preference.
 
     Available NPC prefabs are shown in the [NPC Vehicle section](../../../../UserGuide/ProjectGuide/Components/NPCs/#npc-vehicle).
 
-    !!!note
+    !!! tip "Control NPC Vehicle spawning"
         Random Traffic Simulator Script will **on random** select one prefab from `Npc Prefabs` list every time when there  are not enough vehicles on the scene (the number of vehicles on the scene is smaller than the number specified in the `Max Vehicle Count` field).
+        
         You can control the odds of selecting one vehicle prefab over another by adding more than one instance of the same prefab to this list.
 
 ## Add spawnable lanes
@@ -73,7 +74,7 @@ Adding spawnable lanes is similar to [Adding NPC Prefabs](#add-npc-vehicles).
 
     <img src="add_traffic_lane1.gif" alt="Add npc list element gif" width="500"/>
 
-2. Now you can click on the small icon on the right of the list element and select a Traffic Lane you are interested in.
+2. Now you can click on the small icon on the right of the list element and select a *Traffic Lane* you are interested in.
 
     <img src="add_traffic_lane2.gif" alt="Select traffic lane gif" width="500"/>
 
@@ -84,7 +85,7 @@ Adding spawnable lanes is similar to [Adding NPC Prefabs](#add-npc-vehicles).
 
         <img src="add_traffic_lane3.gif" alt="Lock inspector view gif" width="500"/>
 
-    - Select Traffic Lane you are interested in on the Scene and as it gets highlighted in the Hierarchy view you can now drag and drop this Traffic Lane into the appropriate list element.
+    - Select the *Traffic Lane* you are interested in on the Scene and as it gets highlighted in the Hierarchy view you can now drag and drop this Traffic Lane into the appropriate list element.
 
         ![Select traffic lane and drag it to the list gif](add_traffic_lane4.gif)
 
@@ -105,7 +106,7 @@ You can specify acceleration rate  of vehicles and three values of deceleration.
 
 - Sudden Deceleration
 
-    This deceleration rate is used for emergency situations, so when using standard deceleration rate is not enough to prevent some accident from happening (e.g. vehicle on the intersection didn't give way when it was supposed to).
+    This deceleration rate is used for emergency situations - when using standard deceleration rate is not enough to prevent some accident from happening (e.g. vehicle on the intersection didn't give way when it was supposed to).
 
 - Absolute Deceleration
 

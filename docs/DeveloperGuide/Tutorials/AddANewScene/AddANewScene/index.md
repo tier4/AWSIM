@@ -73,10 +73,28 @@ To add a Main Camera please do the following
     ![main camera example configuration](main_camera_example_configuration.png)
 
 ## Add a Vehicle
-<!-- TODO -->
+To add a Vehicle to the Scene do the following
 
-## Add a Scene Manager Script
-Tutorial on how to add a `SceneManager` Script can be found [here](../AddASceneManager/).
+1. Locate the directory containing a Vehicle *prefab* in the *Project* view (`Assets/AWSIM/Prefabs/Vehicles`)
+2. Drag the Vehicle from the *Project* view to the Scene
+3. Move the Vehicle *Object* in the *Hierarchy* view to make it s child of the Simulation *Object*
+
+![vehicle add prefab to the scene](vehicle_add_to_scene.gif)
+
+## Add a Scene Manager Component
+If your simulation uses a *LiDAR* sensor it is required to add `SceneManager` component. Please follow [the tutorial](../AddASceneManager/).
 
 ## Add an Environment prefab
-<!-- TODO -->
+!!! note "Environment creation"
+    Environment is a very important part of your scene.
+    If you haven't created your Environment yet, please visit a [dedicated tutorial](../../AddANewEnvironment/AddAEnvironment/).
+
+To add add an Environment prefab into your Scene please
+
+1. Locate and open Environments directory in the *Project* view (`Assets/AWSIM/Prefabs/Environments`).
+2. Drag the Environment of your choice into the Simulation *Object* in the *Hierarchy* view.
+
+    **NOTE**: It is important to drag the Environment into a Hierarchy view and **not** a Scene view.
+    This way no offset will be applied - which is a desired behavior.
+
+![scene add environment prefab](scene_add_environment.gif)
