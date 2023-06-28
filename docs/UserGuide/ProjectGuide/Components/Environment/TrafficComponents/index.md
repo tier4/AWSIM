@@ -38,7 +38,8 @@ Every bulb has the following aspects configured
 
 - `Bulb Type` - the name that will be usd to reference the configured bulb
 - `Material Index` - The index of a material of the configured bulb.
-    This is a index of a sub-mesh of the configured bulb in the Traffic Light mesh.
+    This is an index of a sub-mesh of the configured bulb in the Traffic Light mesh.
+    The material indices are described in detail [here](../Environment/#materials) and [here](../Environment/#materials_1).
 
 ![light_script](light_script.png)
 
