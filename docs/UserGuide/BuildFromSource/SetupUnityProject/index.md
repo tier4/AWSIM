@@ -29,7 +29,7 @@ To setup the *AWSIM* project in *Unity* *Editor*:
 
         ![](open_unity_project1.gif)
 
-    - Navigate the directory where the AWSIM repository was cloned to, select it and click `Open` in file explorer:
+    - Navigate the directory where the *AWSIM* repository was cloned to, select it and click `Open` in file explorer:
 
         ![](open_unity_project2.gif)
 

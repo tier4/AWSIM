@@ -6,7 +6,7 @@
 [*Autoware*](../Autoware/) is a powerful open-source software platform for autonomous driving. Its modular architecture, including perception, localization, planning, and control modules, provides a comprehensive framework for developing self-driving vehicles. [*Autoware*](../Autoware/) combined with  [*AWSIM*](../AWSIM/) simulator provides safe testing, validation, and optimization of autonomous driving algorithms in diverse scenarios.
 
 !!! note "Run with Autoware"
-    If you would like to know how to run AWSIM with Autoware, we encourage you to read this [section](../../UserGuide/Installation/RunDemo/).
+    If you would like to know how to run *AWSIM* with *Autoware*, we encourage you to read this [section](../../UserGuide/Installation/RunDemo/).
 
 
 ## Features

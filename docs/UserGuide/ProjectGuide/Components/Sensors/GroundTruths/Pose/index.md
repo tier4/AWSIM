@@ -12,7 +12,7 @@ Assets\AWSIM\Prefabs\Sensors\PoseSensor.prefab
 ![components](components.png)
 
 ## Link
-The `PoseSensor` is added to the `Ego` prefab, to the `base_link` object located in the `URDF`.
+The `PoseSensor` is added to the `EgoVehicle` prefab, to the `base_link` object located in the `URDF`.
 Thanks to this, the published position is the position of the `base_link` in the *Scene*.
 
 ![link](link.png)

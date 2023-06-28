@@ -1,4 +1,8 @@
 # Add a checkpoint on the way to goal 
+
+!!! note "Before this section"
+    Before performing this step, make sure you know how to set a single goal - it's described in this [section](../SetASingleGoal/).
+
 Often, a goal selected on a map can be reached through many different paths.
 Checkpoints can be used to ensure that the planned path will pass through a given place.
 

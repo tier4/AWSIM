@@ -1,6 +1,6 @@
 !!! info "Ego Vehicle Component"
-    In this tutorial we will create a new Ego Vehicle.
-    To learn more about what an Ego Vehicle is in AWSIM please visit [Ego Vehicle description page](../../../UserGuide/ProjectGuide/Components/EgoVehicle/).
+    In this tutorial we will create a new `EgoVehicle`.
+    To learn more about what an `EgoVehicle` is in *AWSIM* please visit [Ego Vehicle description page](../../../UserGuide/ProjectGuide/Components/EgoVehicle/).
 
 ## Cerate an Object
 Add a child *Object* to the *Simulation* called `EgoVehicle`.
@@ -70,7 +70,7 @@ Then just set the *position* of the `CoM` *Object* in the *Inspector* view to re
 For a detailed explanation how to add colliders to your Vehicle check out this [dedicated tutorial](./AddColliders/).
 
 ## Add a base for sensors (URDF)
-You will most certainly want to add some sensors to your Ego Vehicle.
+You will most certainly want to add some sensors to your `EgoVehicle`.
 First you need to create a parent *Object* for all those sensors called `URDF`.
 To do this we will add a child *Object* `URDF` to the `EgoVehicle` *Object*.
 
@@ -79,7 +79,7 @@ To do this we will add a child *Object* `URDF` to the `EgoVehicle` *Object*.
 This *Object* will be used as a base for all sensors we will add later.
 
 ## Add a Vehicle Script
-To be able to control your Ego Vehicle you need a `Vehicle` Script.
+To be able to control your `EgoVehicle` you need a `Vehicle` Script.
 
 1. Add the `Vehicle` Script to the `EgoVehicle` *Object*.
 
@@ -101,7 +101,7 @@ To be able to control your Ego Vehicle you need a `Vehicle` Script.
     If components listed above work correctly this means the `Vehicle` Script works correctly too.
 
 ## Add a Vehicle Keyboard Input Script
-You can control your Ego Vehicle in the simulation manually with just one Script called `Vehicle Keyboard Input`.
+You can control your `EgoVehicle` in the simulation manually with just one Script called `Vehicle Keyboard Input`.
 
 If you want to add it just click the 'Add Component' button on the `EgoVehicle` *Object* and search for `Vehicle Keyboard Input` Script and select it.
 

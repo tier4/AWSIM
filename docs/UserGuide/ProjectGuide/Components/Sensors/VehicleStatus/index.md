@@ -21,7 +21,7 @@ Assets\AWSIM\Prefabs\Sensors\VehicleStatusSensor.prefab
 
 ## Link
 
-This sensor is added directly to the [*URDF*](https://docs.ros.org/en/humble/Tutorials/Intermediate/URDF/URDF-Main.html)  link in the `Ego` prefab.
+This sensor is added directly to the [*URDF*](https://docs.ros.org/en/humble/Tutorials/Intermediate/URDF/URDF-Main.html) link in the `EgoVehicle` prefab.
 
 ![link](link.png)
 
@@ -45,9 +45,9 @@ Therefore, it has 6 publishers publishing the appropriate type of message with a
 !!! warning
     An important element of the script configuration that **must** be set is the scene *Object* (`Vehicle`).
     It will be used for reading all the data needed.
-    The appropriate `Ego` object should be selected.
+    The appropriate `EgoVehicle` object should be selected.
 
-    If you can't select the right object, make sure it's set up correctly - it has got added all the scripts needed for `Ego`.
+    If you can't select the right object, make sure it's set up correctly - it has got added all the scripts needed for `EgoVehicle`.
 
 ### Published topics
 - Frequency: `30Hz`

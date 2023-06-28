@@ -1,12 +1,12 @@
-The document presents the rules of branching adopted in the AWSIM development process.
+The document presents the rules of branching adopted in the *AWSIM* development process.
 
 ## Branches
 
-|branch|explain|
-|:--|:--|
-|main|Stable branch. Contains all the latest releases.|
-|feature/***|Feature implementation branch created from `main`. <br>After implementation, it is merged into `main`.|
-|gh-pages|Documentation hosted on GitHub pages.|
+| branch      | explain                                                                                                |
+| :---------- | :----------------------------------------------------------------------------------------------------- |
+| main        | Stable branch. Contains all the latest releases.                                                       |
+| feature/*** | Feature implementation branch created from `main`. <br>After implementation, it is merged into `main`. |
+| gh-pages    | Documentation hosted on GitHub pages.                                                                  |
 
 ## Branch flow
 

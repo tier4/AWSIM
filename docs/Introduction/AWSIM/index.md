@@ -18,7 +18,7 @@ Because *AWSIM* was developed mainly to work with [*Autoware*](../Autoware/), it
     You can read more about the prerequisites and running *AWSIM* [here](../../UserGuide/Installation/Prerequisites/).
 
 
-!!! note "Connection with AWSIM"
+!!! note "Connection with Autoware"
     Introduction about how the connection between *AWSIM* and *Autoware* works can be read [here](../ConnectionWithAutoware/).
 
 #### Why was AWSIM developed?

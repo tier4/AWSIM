@@ -36,7 +36,7 @@ Project *AWSIM Unity* consists of several main groups:
   
 - *Prefabs* - this group contains prefabs of: `Environment`, `EgoVehicle`, `NPCVehicles` and `NPCPedestrian` that have pre-configured components (also scripts) and can be added to the scene.
   
-- *Scripts* - this group contains scripts used for `Environment` objects, `Ego` and its sensors, `NPCVehicle`, `NPCPedestrian`, and others.
+- *Scripts* - this group contains scripts used for `Environment` objects, `EgoVehicle` and its sensors, `NPCVehicle`, `NPCPedestrian`, and others.
   
 - *Models* - this group contains visual models (`*.fbx` files) of objects used in their prefabs (except `Environment` prefab) - each model contains materials and textures.
   

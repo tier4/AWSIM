@@ -31,7 +31,7 @@ All objects are described in the sections below.
 ![](scene/sim_link.png)<br>
 Each of these elements is described below in this section.
 
-`AutowareSimulation` contains only one component - *Scene Manager Script*, it is extremely important from the point of view of using the [`RGL`](../../ExternalLibraries/RGLUnityPlugin/) library in AWSIM.<br>
+`AutowareSimulation` contains only one component - *Scene Manager Script*, it is extremely important from the point of view of using the [`RGL`](../../ExternalLibraries/RGLUnityPlugin/) library in *AWSIM*.<br>
 ![](scene/sim_script.png)<br>
 More about this component can be found [here](../../ExternalLibraries/RGLUnityPlugin/#rglscenemanager).
 

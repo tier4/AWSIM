@@ -27,38 +27,37 @@ If you have encountered any problems please go to section [Troubleshooting](./De
 Other quick links to the most important parts of the documentation are listed below.
 
 #### Demo
-- Prerequisites 
-- Run demo
-- Set the initialization position 
-- Set a single goal 
-- Add checkpoints on the way to the goal 
-- Enable self-driving 
-- Set a list of goals 
+- [Prerequisites](./UserGuide/Installation/Prerequisites/) 
+- [Run demo](./UserGuide/Installation/RunDemo/) 
+- [Set the initialization position](./UserGuide/FirstSteps/SetTheInitializationPosition/)
+- [Set a single goal](./UserGuide/FirstSteps/SetASingleGoal/)
+- [Add checkpoints on the way to the goal](./UserGuide/FirstSteps/AddCheckpointsOnTheWayToTheGoal/) 
+- [Enable self-driving](./UserGuide/FirstSteps/EnableSelf-driving/) 
+- [Set a list of goals](./UserGuide/FirstSteps/SetGoalList/) 
   
 #### Unity project
-- Prerequisites 
-- Unity installation 
-- Setup Unity Project
-- Run scene 
+- [Prerequisites](./UserGuide/BuildFromSource/Prerequisites/)
+- [Unity installation ](./UserGuide/BuildFromSource/UnityInstallation/)
+- [Setup Unity Project](./UserGuide/BuildFromSource/SetupUnityProject/)
+- [Run scene](./UserGuide/BuildFromSource/RunScene/)
 
 #### Project Guide
-- Introduction
-- EgoVehicle
-- Sensors: Vehicle Status, GNSS, LiDAR, IMU, Camera, GroundTruth Pose
-- Environment
-- Traffic Components
-- NPCPedestrian
-- NPCVehicle
-- Scene
-- RGLUnityPlugin
-- Ros2Unity
-- ROS2 topics list
-- LaneletBoundsVisualizer 
+- [Introduction](./UserGuide/ProjectGuide/Introduction/)
+- [Scene](./UserGuide/ProjectGuide/Components/Scene/)
+- [EgoVehicle](./UserGuide/ProjectGuide/Components/EgoVehicle/)
+- Sensors: [Vehicle Status](./UserGuide/ProjectGuide/Components/Sensors/VehicleStatus/), [GNSS](./UserGuide/ProjectGuide/Components/Sensors/Gnss/), [LiDAR](./UserGuide/ProjectGuide/Components/Sensors/Lidar/), [IMU](./UserGuide/ProjectGuide/Components/Sensors/Imu/), [Camera](./UserGuide/ProjectGuide/Components/Sensors/Camera/), [GroundTruth Pose](./UserGuide/ProjectGuide/Components/Sensors/GroundTruths/Pose/)
+- [Environment](./UserGuide/ProjectGuide/Components/Environment/Environment/)
+- [Traffic Components](./UserGuide/ProjectGuide/Components/Environment/TrafficComponents/)
+- NPCs: [NPCPedestrian](./UserGuide/ProjectGuide/Components/NPCs/Pedestrian/), [NPCVehicle](./UserGuide/ProjectGuide/Components/NPCs/Vehicle/)
+- [LaneletBoundsVisualizer](./UserGuide/ProjectGuide/Components/LaneletBoundsVisualizer/) 
+- [RGLUnityPlugin](./UserGuide/ProjectGuide/ExternalLibraries/RGLUnityPlugin/)
+- [Ros2Unity](./UserGuide/ProjectGuide/ExternalLibraries/Ros2Unity/)
+- [ROS2 topics list](./UserGuide/ProjectGuide/Ros2TopicList/)
 
 #### Tutorials
-- New Environment: Add an Environment, Add an TrafficLights, Add a RandomTraffic
-- New Vehicle: Add a Vehicle, Add Visual Elements, Add Colliders, Add Sensors
-- New Scene: Add a Scene, Add a SceneManager, Test a Scene
-- New Lidar
-- New custom ROS2 Message
-- Create a PCD
+- New Environment: [Add an Environment](./DeveloperGuide/Tutorials/AddANewEnvironment/), [Add an TrafficLights](./DeveloperGuide/Tutorials/AddANewEnvironment/AddTrafficLights/), [Load Lanelet2](./DeveloperGuide/Tutorials/AddARandomTraffic/LoadItemsFromLanelet/), [Add a TrafficIntersection](./DeveloperGuide/Tutorials/AddARandomTraffic/AddATrafficIntersection/), [Add a RandomTraffic](./DeveloperGuide/Tutorials/AddARandomTraffic/AddARandomTrafficSimulatorScript//)
+- New Vehicle: [Add a Vehicle](./DeveloperGuide/Tutorials/AddANewVehicle/), [Add Visual Elements](./DeveloperGuide/Tutorials/AddANewVehicle/AddVisualElements/), [Add Colliders](./DeveloperGuide/Tutorials/AddANewVehicle/AddColliders/), [Add Sensors](./DeveloperGuide/Tutorials/AddANewVehicle/AddSensors/)
+- New Scene: [Add a Scene](./DeveloperGuide/Tutorials/AddANewScene/AddANewScene/), [Add a SceneManager](./DeveloperGuide/Tutorials/AddANewScene/AddASceneManager/)
+- [New Lidar](./DeveloperGuide/Tutorials/AddANewLiDARModel/)
+- [New custom ROS2 Message](./DeveloperGuide/Tutorials/AddACustomMessage/)
+- [Create a PCD](./DeveloperGuide/Tutorials/CreateAPCDFromMesh/)

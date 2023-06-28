@@ -117,7 +117,7 @@ One-way motion is performed with a fixed time as parameter `Duration` and a cons
 ## Collider
 <img src=collider.png width=500px>
 
-`Collider` is an optional pedestrian component. By default, `NPCPedestrian` doesn't have this component added, It can be added if you want to detect a collision, e.g. with an `Ego` vehicle.
+`Collider` is an optional pedestrian component. By default, `NPCPedestrian` doesn't have this component added, It can be added if you want to detect a collision, e.g. with an `EgoVehicle`.
 There are several types of [colliders](https://docs.unity3d.com/ScriptReference/Collider.html), choose the right one and configure it for your own requirements.
 
 !!! example "Capsule Collider"
