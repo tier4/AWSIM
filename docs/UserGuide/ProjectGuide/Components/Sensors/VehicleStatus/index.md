@@ -1,4 +1,6 @@
 # VehicleStatusSensor
+
+## Introduction
 `VehicleStatusSensor` is a component that is designed to aggregate information about the current state of the vehicle.
 It aggregates information about:
 
@@ -10,46 +12,52 @@ It aggregates information about:
 - *Velocity status* - current lateral, longitudinal and heading velocities values, e.g `{0.2, 0.0, 0.0}`.
  script do everything.
 
-## Prefab
+### Prefab
 Prefab can be found under the following path:
 
 ```
-Assets\AWSIM\Prefabs\Sensors\VehicleStatusSensor.prefab
+Assets/AWSIM/Prefabs/Sensors/VehicleStatusSensor.prefab
 ```
 
-![components](components.png)
 
-## Link
+### Link in the default Scene
 
 This sensor is added directly to the [*URDF*](https://docs.ros.org/en/humble/Tutorials/Intermediate/URDF/URDF-Main.html) link in the `EgoVehicle` prefab.
 
 ![link](link.png)
 
-## Scripts 
+A detailed description of the `URDF` structure and sensors added to prefab `Lexus RX450h 2015` is available in this [section](../../EgoVehicle/URDF/).
 
-All features are implemented within the *VehicleReportRos2Publisher Script* which can be found under the following path: `Assets\AWSIM\Prefabs\Sensors\*`
+### Components 
+![components](components.png)
 
-## VehicleReportRos2Publisher Script
+All features are implemented within the *VehicleReportRos2Publisher* (script) which can be found under the following path: 
+
+```
+Assets/AWSIM/Prefabs/Sensors/*
+```
+
+## VehicleReportRos2Publisher (script)
 ![script](script.png)
 
 The script is responsible for updating and publishing each of the aggregated data on a separate topic.
 Therefore, it has 6 publishers publishing the appropriate type of message with a constant frequency - one common for all data.
 
-### Elements configurable from the editor level
+#### Elements configurable from the editor level
 - `* Report Topic` - topic on which suitable type of information is published<br>(default: listed in the [table below](#published-topics))
 - `Publish Hz` - frequency of publications on each topic<br>(default: `30Hz`)
 - `Frame ID` - frame in which data is published, used in [`Header`](https://docs.ros2.org/latest/api/std_msgs/msg/Header.html)<br>(default: `base_link`)
 - `QoS`- Quality of service profile used in the publication<br>(default assumed as [`"system_default"`](https://docs.ros.org/en/humble/Concepts/About-Quality-of-Service-Settings.html): `Reliable`, `Volatile`, `Keep last/1`)
 - `Vehicle` - the object from which all published data are read<br>(default: `None`)
 
-!!! warning
+!!! warning "Vehicle configuration"
     An important element of the script configuration that **must** be set is the scene *Object* (`Vehicle`).
     It will be used for reading all the data needed.
     The appropriate `EgoVehicle` object should be selected.
 
     If you can't select the right object, make sure it's set up correctly - it has got added all the scripts needed for `EgoVehicle`.
 
-### Published topics
+#### Published topics
 - Frequency: `30Hz`
 - QoS: `Reliable`, `Volatile`, `Keep last/1`
 

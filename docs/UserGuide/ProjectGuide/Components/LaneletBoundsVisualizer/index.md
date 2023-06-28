@@ -1,10 +1,10 @@
 # Lanelet Bounds Visualizer
 
-Lanelet Bounds Visualizer is an Unity Editor extension allowing the user to load the left and right bounds of Lanelet to the Unity scene.
+*Lanelet Bounds Visualizer* is an *Unity Editor* extension allowing the user to load the left and right bounds of Lanelet to the Unity scene.
 
 ## Usage
 
-The lanelet bounds load process can be performed by opening `AWSIM -> Visualize -> Load Lanelet Bounds` at the top toolbar of Unity Editor.
+The lanelet bounds load process can be performed by opening `AWSIM -> Visualize -> Load Lanelet Bounds` at the top toolbar of *Unity Editor*.
 
 <img src=image_0.png>
 
@@ -38,6 +38,6 @@ It is also important to note that no matter how high you set the resolution to b
 In short, `Waypoint Setting` parameters should be thought of as parameters to decrease the resolution from the original Lanelet to decrease the computational load and thus, reducing the lag of the simulation.
 
 
-| Higher Resolution                | Raw Lanelet		              | Lower Resolution          		 |
-| -------------------------------- | -------------------------------- | -------------------------------- |
-|<img src=image_3.png width=250px> |<img src=image_4.png width=250px> |<img src=image_5.png width=250px> |
+| Higher Resolution                 | Raw Lanelet                       | Lower Resolution                  |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| <img src=image_3.png width=250px> | <img src=image_4.png width=250px> | <img src=image_5.png width=250px> |

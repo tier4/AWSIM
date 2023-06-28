@@ -10,21 +10,25 @@ The example shows the addition of a *LiDAR* named `NewLidarModel`.
 To add a new *LiDAR* model, perform the following steps:
 
 1. Add its name to the `LidarModels.cs` at the end of the enumeration. The order of enums must not be changed to keep existing prefabs working.
-![lidar_models](lidar_models.png)
+
+    ![lidar_models](lidar_models.png)
 
 1. If the *LiDAR* has a non-uniform laser array construction (e.g. different linear / angular spacing between lasers), add an entry to the `LaserArrayLibrary`, otherwise, skip this step.
    
     !!! warning "Coordinate system"
         Keep in mind that *Unity* has a left-handed coordinate system, while most of the lidar's manuals use a right-handed coordinate system. In that case, reverse sign of the values of the angles.
-![lidar_array](lidar_array.png)
+
+    ![lidar_array](lidar_array.png)
 
 
 
 1. Add an entry to `LidarConfigurationLibrary`. If the *LiDAR* has a uniform laser generate a uniform one using static method `LaserArray.Uniform()` - just like the `RangeMeter`.
-![lidar_configuration](lidar_configuration.png)
+
+    ![lidar_configuration](lidar_configuration.png)
 
 1. Done. New *LiDAR* preset should be available via *Unity Inspector*.
-![done](done.png)
+
+    ![done](done.png)
 
 ## 2. Create new LiDAR prefab
 
@@ -40,9 +44,13 @@ To add a new *LiDAR* model, perform the following steps:
 
 1. Create [a new scene](../AddANewScene/AddANewScene) (remember to add the [`SceneManager`](../AddANewScene/AddASceneManager)) or use one of [the existing sample scenes](../../../UserGuide/ProjectGuide/DefaultExistingScenes/#rgl-test-scenes).
 1. Add the prepared *LiDAR* prefab by drag the prefab file and drop it into a scene
-<img src="img/AddPrefabLidar.png" width="700">
+
+    <img src="img/AddPrefabLidar.png" width="700">
+
 1. A *LiDAR* *GameObject* should be instantiated automatically
-<img src="img/PrefabLidarObject.png" width="700">
+
+    <img src="img/PrefabLidarObject.png" width="700">
+
 1. Now you can run the scene and check how your *LiDAR* works.
 
 !!! success

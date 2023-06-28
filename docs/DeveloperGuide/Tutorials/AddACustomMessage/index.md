@@ -1,9 +1,9 @@
 # Add a custom ROS2 message
 If you want to use custom message in *AWSIM*, you need to generate the appropriate files, to do this you have to build `ROS2ForUnity` yourself - please follow the steps below. Remember to start with [prerequisities](#prerequisites) though.
 
-!!! tip
+!!! tip "ROS2ForUnity role"
     For a better understanding of the role of `ROS2ForUnity` and the messages used, we encourage you to read this [section](../../../UserGuide/ProjectGuide/ExternalLibraries/Ros2Unity/).
-!!! warning
+!!! warning "custom_msgs"
     In order to simplify this tutorial, the name of the package containing the custom message is assumed to be `custom_msgs` - remember to replace it with the name of your package.
 ## Prerequisites
 

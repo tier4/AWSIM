@@ -1,15 +1,17 @@
 # LidarSensor
-`LidarSensor` is the component that simulates the *LiDAR* (`Light Detection and Ranging`) sensor.
+
+## Introduction
+`LidarSensor` is the component that simulates the *LiDAR* (*Light Detection and Ranging*) sensor.
 *LiDAR* works by emitting laser beams that bounce off objects in the environment, and then measuring the time it takes for the reflected beams to return, allowing the sensor to create a *3D* map of the surroundings.
 This data is used for object detection, localization, and mapping.
 
-`LiDAR` in an autonomous vehicle can be used for many purposes.
+*LiDAR* in an autonomous vehicle can be used for many purposes.
 The ones mounted on the top of autonomous vehicles are primarily used
 
 - to scan the environment for localization in space
 - to detect and identify obstacles such as approaching vehicles, pedestrians or other objects in the driving path.
 
-`LiDARs` placed on the left and right sides of the vehicle are mainly used to monitor the traffic lane and detect vehicles moving in adjacent lanes, enabling safe maneuvers such as lane changing or turning.
+*LiDARs* placed on the left and right sides of the vehicle are mainly used to monitor the traffic lane and detect vehicles moving in adjacent lanes, enabling safe maneuvers such as lane changing or turning.
 
 `LidarSensor` component is a part of [`RGLUnityPlugin`](../../../ExternalLibraries/RGLUnityPlugin/) that integrates the external [*RobotecGPULidar*](https://github.com/RobotecAI/RobotecGPULidar) (`RGL`) library with *Unity*.
 
@@ -24,12 +26,14 @@ The ones mounted on the top of autonomous vehicles are primarily used
     You can read about how to do it [here](../../../../../DeveloperGuide/Tutorials/AddANewLiDARModel/).
     *MEMS-based LiDARs* due to their different design are not yet fully supported.
 
-## Prefabs
+### Prefabs
 Prefabs can be found under the following path:
 
 ```
-Assets\AWSIM\Prefabs\RobotecGPULidars\*
+Assets/AWSIM/Prefabs/RobotecGPULidars/*
 ```
+
+
 
 The table of available prefabs can be found below:
 
@@ -42,25 +46,28 @@ The table of available prefabs can be found below:
 | *Velodyne VLC-32C*    | `VelodyneVLP32C.prefab`  | <img src=imgs_prefabs/vlp32.png width=150px>     |
 | *Velodyne VLS-128-AP* | `VelodyneVLS128.prefab`  | <img src=imgs_prefabs/vls128.png width=150px>    |
 
-![components](components.png)
 
 
-## Link
+### Link in the default Scene
 `LidarSensor` is configured in default vehicle `EgeVehicle` prefab, it is added to `URDF` object as a child of `sensor_kit_base_link`.
 `LidarSensor` placed in this way does not have its own frame, and the data is published relative to `sensor_kit_base_link`.
 More details about the location of the sensors in the vehicle can be found [`here`](../../EgoVehicle/URDF/).
 
 ![link](link.png)
 
+A detailed description of the `URDF` structure and sensors added to prefab `Lexus RX450h 2015` is available in this [section](../../EgoVehicle/URDF/).
+
 !!! warning "Additional LiDARs"
     For a *LiDAR* placed on the left side, right side or rear, an additional link should be defined.
 
-## Components and Resources
+### Components and Resources
+![components](components.png)
+
 The *LiDAR* sensor simulation functionality is split into three components:
 
-- *LidarSensor* - provides lidar configuration, creates *RGL* pipeline to simulate lidar, and performs native *RGL* raytrace calls,
-- *RglLidarPublisher* - extends *RGL* pipeline with nodes to publish *ROS2* messages.
-- *PointCloudVisualization* - visualizes point cloud collected by sensor.
+- *LidarSensor* (script) - provides lidar configuration, creates *RGL* pipeline to simulate lidar, and performs native *RGL* raytrace calls,
+- *RglLidarPublisher* (script)  - extends *RGL* pipeline with nodes to publish *ROS2* messages.
+- *PointCloudVisualization* (script) - visualizes point cloud collected by sensor.
 
 Moreover, the scripts use `Resources` to provide configuration for prefabs of supported lidar models:
 
@@ -69,7 +76,7 @@ Moreover, the scripts use `Resources` to provide configuration for prefabs of su
 - *LaserConfigurationLibrary* - provides full configuration, with ranges and noise for supported models.
 These are elements of the `RGLUnityPlugin`, you can read more [here](../../../ExternalLibraries/RGLUnityPlugin/).
 
-## LidarSensor Component
+## LidarSensor (script)
 ![script](script.png)
 This is the main component that creates the `RGL` node pipeline for the *LiDAR* simulation.
 The pipeline consists of:
@@ -88,14 +95,7 @@ In this way, other components can request point cloud processing operations and 
 Two of them: *rosPCL24* and *rosPCL48* are point clouds that are published by the [*RglLidarPublisher*](#rgllidarpublisher-component) component.
 Whereas vector *onlyHits* is used for visualization by the [*PointCloudVisualization*](#pointcloudvisualization-component) component.
 
-### Output Data
-|  Category  |    Type    | Description                                                                               |
-| :--------: | :--------: | :---------------------------------------------------------------------------------------- |
-| *onlyHits* | Vector3[ ] | Vertices for visualization in *Unity's* coordinate system                                 |
-| *rosPCL24* |  byte[ ]   | Vertices for publishing *Autoware* format pointcloud in *ROS2* coordinate system          |
-| *rosPCL48* |  byte[ ]   | Vertices for publishing extended *Autoware* format pointcloud in *ROS2* coordinate system |
-
-### Elements configurable from the editor level
+#### Elements configurable from the editor level
 
 - `Automatic Capture Hz` - the rate of sensor processing (default: `10Hz`)
 - `Model Preset` - allows selecting one of the built-in *LiDAR* models (default: `RangeMeter`)
@@ -115,7 +115,14 @@ Whereas vector *onlyHits* is used for visualization by the [*PointCloudVisualiza
         - `Distance Noise Rise Per Meter` - distance noise standard deviation rise per meter<br>(default: `0`)
         - `Distance Noise Mean` - distance noise mean in meters<br>(default: `0`)
 
-## RglLidarPublisher Component
+#### Output Data
+|  Category  |    Type    | Description                                                                               |
+| :--------: | :--------: | :---------------------------------------------------------------------------------------- |
+| *onlyHits* | Vector3[ ] | Vertices for visualization in *Unity's* coordinate system                                 |
+| *rosPCL24* |  byte[ ]   | Vertices for publishing *Autoware* format pointcloud in *ROS2* coordinate system          |
+| *rosPCL48* |  byte[ ]   | Vertices for publishing extended *Autoware* format pointcloud in *ROS2* coordinate system |
+
+## RglLidarPublisher (script)
 ![script_ros2](script_ros2.png)
 
 `RglLidarPublisher` extends the main `RGL` pipeline created in `LidarSensor` with `RGL` nodes that produce point clouds in specific format and publish them to the *ROS2* topic.
@@ -129,16 +136,24 @@ Currently, `RglLidarPublisher` implements two ROS2 publishers:
 
 Details on the construction of these formats are available in the `PointCloudFormats` under the following path:
 
-[
+
 ```
-AWSIM/Assets/AWSIM/Scripts/Sensors/LiDAR/PointCloudFormats.cs
+Assets/AWSIM/Scripts/Sensors/LiDAR/PointCloudFormats.cs
 ```
-](https://github.com/tier4/AWSIM/blob/main/Assets/AWSIM/Scripts/Sensors/LiDAR/PointCloudFormats.cs)
+
 
 !!! note "*rosPCL48* format"
     For a better understanding of the *rosPCL48* format, we encourage you to familiarize yourself with the point cloud pre-processing process in *Autoware*, which is described [here](https://autowarefoundation.github.io/autoware-documentation/latest/design/autoware-architecture/sensing/data-types/point-cloud/#channel).
 
-### Published Topics
+#### Elements configurable from the editor level
+- `Pcl 24 Topic` - the *ROS2* topic on which the [`PointCloud2`](https://docs.ros2.org/latest/api/sensor_msgs/msg/PointCloud.html) message is published<br>(default: `"lidar/pointcloud"`)
+- `Pcl 48 Topic` - the *ROS2* topic on which the [`PointCloud2`](https://docs.ros2.org/latest/api/sensor_msgs/msg/PointCloud.html) message is published<br>(default: `"lidar/pointcloud_ex"`)
+- `Frame ID` - frame in which data are published, used in [`Header`](https://docs.ros2.org/latest/api/std_msgs/msg/Header.html) (default: `"world"`)
+- `Publish PCL24` - if publish cloud *PCL24* (default: `true`)
+- `Publish PCL48` - if publish cloud *PCL48* (default: `true`)
+- `Qos Settings` - Quality of service profile used in the publication<br>(default: `Best effort`, `Volatile`, `Keep last`, `5`)
+
+#### Published Topics
 - Frequency: `10Hz`
 - QoS:  `Best effort`, `Volatile`, `Keep last/5`
 
@@ -147,15 +162,7 @@ AWSIM/Assets/AWSIM/Scripts/Sensors/LiDAR/PointCloudFormats.cs
 | PointCloud 24-byte format | `/lidar/pointcloud`    | `sensor_msgs/PointCloud2`  |  `world`   |
 | PointCloud 48-byte format | `/lidar/pointcloud_ex` | `sensor_msgs/PointCloud2 ` |  `world`   |
 
-### Elements configurable from the editor level
-- `Pcl 24 Topic` - the *ROS2* topic on which the [`PointCloud2`](https://docs.ros2.org/latest/api/sensor_msgs/msg/PointCloud.html) message is published<br>(default: `"lidar/pointcloud"`)
-- `Pcl 48 Topic` - the *ROS2* topic on which the [`PointCloud2`](https://docs.ros2.org/latest/api/sensor_msgs/msg/PointCloud.html) message is published<br>(default: `"lidar/pointcloud_ex"`)
-- `Frame ID` - frame in which data are published, used in [`Header`](https://docs.ros2.org/latest/api/std_msgs/msg/Header.html) (default: `"world"`)
-- `Publish PCL24` - if publish cloud *PCL24* (default: `true`)
-- `Publish PCL48` - if publish cloud *PCL48* (default: `true`)
-- `Qos Settings` - Quality of service profile used in the publication<br>(default: `Best effort`, `Volatile`, `Keep last`, `5`)
-
-## PointCloudVisualization Component
+## PointCloudVisualization (script)
 ![script_visualization](script_visualization.png)
 
 A component visualizing a point cloud obtained from `RGL` in the form of a [`Vector3`](https://docs.unity3d.com/ScriptReference/Vector3.html) list as colored points in the *Unity* scene.
@@ -163,7 +170,7 @@ Based on the defined color table, it colors the points depending on the height a
 
 The obtained points are displayed as the vertices of mesh, and their coloring is possible thanks to the use of `PointCloudMaterial` material which can be found in the following path:
 ```
-AWSIM/Assets/RGLUnityPlugin/Resources/PointCloudMaterial.mat
+Assets/RGLUnityPlugin/Resources/PointCloudMaterial.mat
 ```
 
 `Point Cloud Visualization` preview:

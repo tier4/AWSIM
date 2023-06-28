@@ -1,6 +1,6 @@
-Before following through with this section make sure you setup *AWSIM* *Unity* project in accordance with section [Setup Unity Project](../SetupUnityProject/).
-
 # Run the scene
+!!! note "Before this section"
+    Before following through with this section make sure you setup *AWSIM* *Unity* project in accordance with section [Setup Unity Project](../SetupUnityProject/).
 
 To run the *AWSIM* scene in *Unity* with *Autoware* follow these steps:
 
@@ -37,7 +37,7 @@ To run the *AWSIM* scene in *Unity* with *Autoware* follow these steps:
 
             For specific information on possible fixes please visit [the trouble shooting page](../../../DeveloperGuide/TroubleShooting/).
 
-1. Launch the *Autoware* (the same way as [with AWSIM Demo](../../Installation/RunDemo/#run-with-autoware)) by executing the commands with your own path to the `map files` and `Autoware workspace`:
+1. Launch the *Autoware* (the same way as [with AWSIM Demo](../../Installation/RunDemo/#run-with-autoware)) by executing the commands with your own path to the `<mapfiles_dir_path>` and `<autoware_workspace_path>`:
 
     ```bash
     source /opt/ros/humble/setup.bash

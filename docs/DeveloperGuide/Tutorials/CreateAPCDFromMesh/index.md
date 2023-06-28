@@ -1,6 +1,8 @@
 # Create a PCD from Mesh
 
-!!! Draft-note
+!!! warning "This section"
+    This section is still under development!
+<!-- !!! Draft-note
     - Reasons for making pcd from mesh instead of using real world pcd.
     - Usage requirements (osm file, 3d model (prefab))
     - Create a scene with 3D model map of the area (**gif**)
@@ -17,7 +19,7 @@
 
     Remember to add pcd downsampling:<br>
     `pcl_voxel_grid output_mgrs_local.pcd output_leaf_0_2_mgrs_local.pcd -leaf 0.2 0.2 0.2`
-    `pcl_convert_pcd_ascii_binary output_leaf_0_2_mgrs_local.pcd output_ascii_mgrs_local.pcd 0`
+    `pcl_convert_pcd_ascii_binary output_leaf_0_2_mgrs_local.pcd output_ascii_mgrs_local.pcd 0` -->
 
 
 # PointCloudMapper

@@ -1,13 +1,10 @@
 In case of encountering problems with running the *AWSIM*, we encourage you to read this section.
 
-If you encounter another problem that you can't handle, we encourage you to submit an issue on the official [AWSIM repository](https://github.com/tier4/AWSIM/issues):
-
-![issue](issue.png)
 
 
-# Troubleshooting
+## Troubleshooting Table
 
-This document describes the most common errors encountered when working with AWSIm or autoware.
+This table describes the most common errors encountered when working with *AWSIM* or *Autoware*.
 
 | Trouble                                                                                                                  | Solution                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | :----------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -22,3 +19,9 @@ This document describes the most common errors encountered when working with AWS
 | Initial pose does not match automatically.                                                                               | Set initial pose manually. <br>![](Image_Initial_0.png)<br>![](Image_Initial_1.png)                                                                                                                                                                                                                                                                                                                                                                                                 |
 | Unity crashes and check the log for the cause of the error.                                                              | **Editor log file location**<br>Windows :<br> `C:\Users\username\AppData\Local\Unity\Editor\Editor.log`<br>Linux :<br> `~/.config/unity3d/.Editor.log` <br><br> **Player log file location**<br> Windows : `C:\Users\username\AppData\LocalLow\CompanyName\ProductName\output_log.txt`<br>Linux :<br>`~/.config/unity3d/CompanyName/ProductName/Player.log`<br><br>See also : [Unity Documentation - Log Files](https://docs.unity3d.com/2021.1/Documentation/Manual/LogFiles.html) |
 | Safe mode dialog appears when starting UnityEditor. <br><br> or <br><br> error : `No usable version of libssl was found` | 1. download libssl <br> `$ wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.12_amd64.deb` <br><br> 2. install <br> `sudo dpkg -i libssl1.0.0_1.0.2n-1ubuntu5.11_amd64.deb`                                                                                                                                                                                                                                                                 |
+
+## Another problem
+
+If you run into another problem you can't handle, we encourage you to look at the [How to Contribute](../Contributing/HowToContribute/) section and create an issue if necessary.
+
+

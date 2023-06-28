@@ -1,9 +1,11 @@
 # Environment
+
+## Introduction
 `Environment` is an object that contains all the elements visible on the scene along with components that affect how they are rendered. It contains several objects aggregating static environment objects in terms of their type. Moreover, it contains elements responsible for controlling random traffic.
 
 ![environment](environment.png)
 
-Prefab `Environment` is used to create a point cloud (`*.pcd` file) needed to locate the `EgoVehicle` in the simulated *AWSIM* scene. The point cloud is developed using the [`RGL`](../../../ExternalLibraries/RGLUnityPlugin/) plugin and then used in *Autoware*. We encourage you to familiarize yourself with an example scene of creating a point cloud - described [here](../../../DefaultExistingScenes/).
+Prefab `Environment` is used to create a point cloud (`*.pcd` file) needed to locate the `EgoVehicle` in the simulated *AWSIM* scene. The point cloud is created using the [`RGL`](../../../ExternalLibraries/RGLUnityPlugin/) plugin and then used in *Autoware*. We encourage you to familiarize yourself with an example scene of creating a point cloud - described [here](../../../DefaultExistingScenes/).
 
 !!! tip "Create PointCloud (*.pcd file)"
     If you would like to learn how to create a point cloud in *AWSIM* using `Environment` prefab, we encourage you to read this [tutorial](../../../../../DeveloperGuide/Tutorials/CreateAPCDFromMesh/).
@@ -14,7 +16,7 @@ Prefab `Environment` is used to create a point cloud (`*.pcd` file) needed to lo
 !!! note "AutowareSimulation scene"
     If you would like to see how `Environment` with random traffic works or run some tests, we encourage you to familiarize yourself with the `AutowareSimulation` scene described in this [section](../../../DefaultExistingScenes/).
 
-#### Prefabs
+### Prefabs
 
 Prefabs can be found under the following path: 
 
@@ -42,26 +44,26 @@ As you can see it contains:
 
 All of these objects are described below in this section.
 
-#### Visual elements
+### Visual elements
 `Nishishinjuku RandomTraffic` prefab contains many visual elements which are described [here](#visual-elements-sjk).
 
-#### Link
+### Link in the default Scene
 `Nishishinjuku RandomTraffic` prefab is added to the `Environment` object - between which there is rotation about the `Oy` axis by 90 degrees. This rotation is added because of the differences in coordinate alignments between the `Nishishinjuku RandomTraffic` prefab objects (which have been modeled as `*.fbx` files) and the specifics of the *GridZone* definition (more on this is described [here](#components-and-scripts)).
 
 Object `Environment` is added to `AutowareSimulation` which is added directly to the main parent of the scene - there are no transformations between these objects.
 
 ![environment_link_2](environment_link_2.png)
 
-#### Components and Scripts
+### Components
 
 ![environment_prefab](environment_prefab.png)
 
 `Nishishinjuku RandomTraffic` (`Environment`) prefab contains only one component:
 
- - [*Environment Script*](#environment-script) - which is important for communicating with *Autoware* and loading elements from *Lanelet2*. Because it allows to define the location of the environment in relation to the world.
+ - [*Environment* (script)](#environment-script) - which is important for communicating with *Autoware* and loading elements from *Lanelet2*. Because it allows to define the location of the environment in relation to the world.
 
 
-#### Layers
+### Layers
 In order to enable the movement of vehicles around the environment, additional layers have been added to the project: `Ground` and `Vehicle`. 
 
 ![layers](layers.png)
@@ -75,12 +77,16 @@ For this purpose, `NPCVehicles` and `EgoVehicle` have been added to the `Vehicle
 In the project physics settings, it is ensured that collisions between objects in the `Vehicle` layer are disabled (this applies to `EgoVehicle` and `NPCVehicles` - they do not collide with each other):
 ![layers_physis](layers_physis.png)
 
-## Traffic Simulation
+## Traffic Components
 
-Due to the specificity of the use of `RandomTrafficSimulator`, `TrafficIntersections`, `TrafficLanes`, `StopLines` objects, they have been described in a separate section [*Traffic Simulation*](../TrafficComponents/) - where all the elements necessary in simulated random traffic are presented.
+Due to the specificity of the use of `RandomTrafficSimulator`, `TrafficIntersections`, `TrafficLanes`, `StopLines` objects, they have been described in a separate section [*Traffic Components*](../TrafficComponents/) - where all the elements necessary in simulated random traffic are presented.
 
 ## Visual Elements (SJK)
-The visuals elements have been loaded and organized using the `*.fbx` files which can be found under the path: `Assets/AWSIM/Externals/Nishishinjuku/Nishishinjuku_opimized/Models/*`.
+The visuals elements have been loaded and organized using the `*.fbx` files which can be found under the path: 
+
+```
+Assets/AWSIM/Externals/Nishishinjuku/Nishishinjuku_optimized/Models/*
+```
 
 `Environment` prefab contains several objects aggregating stationary visual elements of space by their category:
 
@@ -100,7 +106,7 @@ The visuals elements have been loaded and organized using the `*.fbx` files whic
 !!! warning "Scene Manager"
     For models (visual elements) added to the prefab to work properly with the [`LidarSensor`](../../Sensors/Lidar/) sensor using [`RGL`](../../../ExternalLibraries/RGLUnityPlugin/), make sure that the `SceneManager` component is added to the scene - more about it is described in this [section](../../../ExternalLibraries/RGLUnityPlugin/#rglscenemanager).
 
-    In the scene containing `Nishishinjuku RandomTraffic`prefab *Scene Manager Script* is added as a component to the `AutowareSimulation` object containing the `Environment`.
+    In the scene containing `Nishishinjuku RandomTraffic`prefab *Scene Manager* (script) is added as a component to the `AutowareSimulation` object containing the `Environment`.
     ![scene_manager](scene_manager.png)
 
 ### TrafficLights
@@ -116,7 +122,7 @@ while lights used by pedestrians are aggregated at object `TrafficLightB01_Root0
 `Assets/AWSIM/Externals/Nishishinjuku/Nishishinjuku_opimized/Models/TrafficLights/Models/*`<br>
 
 
-#### TrafficLights
+#### Classic TrafficLights
 ![light](lights/light.png) 
 
 `TrafficLights` lights, outside their housing, always contain 3 signaling light sources of different colors  - from left to right: green, yellow, red. Optionally, they can have additional sources of signaling the ability to drive in a specific direction in the form of one or three signaling arrows.
@@ -129,10 +135,10 @@ In the environment there are many classic lights with different signaling config
 - *Mesh Filter* - contains a reference to the `Mesh` of the object.
 - *Mesh Renderer* - enables the rendering of `Mesh`, including its geometry, textures, and materials, giving it a visual appearance in the scene.
 - *Mesh Collider* - allows an object to have collision detection based on `Mesh`.
-- *Traffic Light Script* - provides an interface to control signaling by changing the emission of materials. This script is used for simulated traffic, so it is described.
+- *Traffic Light* (script) - provides an interface to control signaling by changing the emission of materials. This script is used for simulated traffic, so it is described.
 
 ##### Materials
-An important element that is configured in the `TrafficLights` object are the materials in the `Mesh Renderer` component. Material with index 0 always applies to the housing of the lights. Subsequent elements 1-6 correspond to successive slots of light sources (round luminous objects) - starting from the upper left corner of the object in the right direction, to the bottom and back to the left corner. These indexes are used in script *Traffic Light Script* - described [here](../TrafficComponents/).
+An important element that is configured in the `TrafficLights` object are the materials in the `Mesh Renderer` component. Material with index 0 always applies to the housing of the lights. Subsequent elements 1-6 correspond to successive slots of light sources (round luminous objects) - starting from the upper left corner of the object in the right direction, to the bottom and back to the left corner. These indexes are used in script *Traffic Light* (script) - described [here](../TrafficComponents/).
 
 ![lights_mesh](lights/lights_materials.png)<br>
 Materials for lighting slots that are assigned in `Mesh Renderer` can be found in the following path:
@@ -149,7 +155,7 @@ Materials for lighting slots that are assigned in `Mesh Renderer` can be found i
 In the environment there are many pedestrian lights - they have the same components as classic `TrafficLights`, but the main difference is the configuration of their materials.
 
 ##### Materials
-An important element that is configured in the `PedestrianLights` object are the materials in the `Mesh Renderer` component. Material with index 0 always applies to the housing of the lights. Subsequent elements 1-2 correspond to successive slots of light sources (round luminous objects) - starting from top to bottom. These indexes are used in script *Traffic Light Script* - described [here](../TrafficComponents/).
+An important element that is configured in the `PedestrianLights` object are the materials in the `Mesh Renderer` component. Material with index 0 always applies to the housing of the lights. Subsequent elements 1-2 correspond to successive slots of light sources (round luminous objects) - starting from top to bottom. These indexes are used in script *Traffic Light* (script) - described [here](../TrafficComponents/).
 
 ![pedestrian_lights_mesh](lights/pedestrian_lights_materials.png)<br>
 Materials for lighting slots that are assigned in `Mesh Renderer` can be found in the following path:
@@ -177,11 +183,11 @@ The strength of the Light (`Intensity`) is set to `73123.09 Lux`. In addition, a
 ## NPCPedestrians
 `NPCPedestrians` is an aggregating object for `NPCPedestrian` objects placed in the environment. Prefab `Nishishinjuku RandomTraffic` has 7 `NPCPedestrian` (`humanElegant`) prefabs defined in selected places. More about this `NPCPedestrian` prefab you can read in this [section](../../../Components/NPCs/Pedestrian/).
 
-## Environment Script
+## Environment (script)
 
 ![environment_script](environment_script.png)
 
-*Environment Script* contains the information about how a simulated `Environment` is positioned in real world.
+*Environment* (script) contains the information about how a simulated `Environment` is positioned in real world.
 That means it describes what is the real world position of a simulated `Environment`. 
 
 *AWSIM* uses part of a [*Military Grid Reference System*][mgrs] (*MGRS*).
@@ -195,8 +201,8 @@ In the `Nishishinjuku RandomTraffic` prefab, the simulated `Environment` is posi
 
 This means that the *3D* models were created in reference to this exact point and because of that the *3D* models of `Environment` align perfectly with the data from *Lanelet2*.
 
-!!! warning "The essence of Environment Script"
-    The *Environment Script* configuration is necessary at the moment of loading data from *Lanelet2*.
+!!! warning "The essence of Environment (script)"
+    The *Environment* (script) configuration is necessary at the moment of loading data from *Lanelet2*.
 
     Internally it shifts the elements from *Lanelet2* by the given offset so that they align with the `Environment` that is located at the local origin with no offset.
 

@@ -18,7 +18,7 @@ You may also see us referring to the actual map data file (`*.osm`) as a *lanele
 !!! info
     If you want to learn more we encourage to visit the [official project page](https://github.com/fzi-forschungszentrum-informatik/Lanelet2/tree/master).
 
-### Traffic Light Script
+### Traffic Light (script)
 ![light_script](light_script.png)
 
 
@@ -28,7 +28,7 @@ The `RandomTrafficSimulator` simulates city traffic with respect to all traffic 
 #### Link
 The `RandomTrafficSimulator` consists of several *GameObjects*.
 
-- `RandomTrafficSimulator` - this is an *Object* consisting of a `Traffic Manager` Script.<br>
+- `RandomTrafficSimulator` - this is an *Object* consisting of a `Traffic Manager` (script).<br>
     You can learn more about it [here](#traffic-intersection-script).
 - `TrafficIntersections` - this is a parent *Object* for all `Traffic Lanes`.<br>
     You can learn more about it [here](#trafficintersections).
@@ -40,12 +40,12 @@ The `RandomTrafficSimulator` consists of several *GameObjects*.
 ![random_traffic_link](random_traffic_link.png)
 ![pedestrian_lights_materials](pedestrian_lights_materials.png)
 
-#### Traffic Manager Script
-The `Traffic Manager` Script is responsible for all of top level management of the [NPC Vehicles](../../NPCs/Vehicle/).
+#### Traffic Manager (script)
+`Traffic Manager` (script) is responsible for all of top level management of the [NPC Vehicles](../../NPCs/Vehicle/).
 It does spawn NPC Vehicles on the Traffic Lanes.
-This Script also configures all of the spawned NPC Vehicles, so that they all have common parameters.
+This (script) also configures all of the spawned NPC Vehicles, so that they all have common parameters.
 
-`Traffic Manager` Script can operate in two modes separately or simultaneously.
+`Traffic Manager` (script) can operate in two modes separately or simultaneously.
 
 ![random_traffic_script](random_traffic_script.png)
 
@@ -102,12 +102,12 @@ Traffic Intersections are an element of an Environment, so they should be placed
 Traffic Intersection prefab consists of
 
 - Box Collider - marks the area of the Traffic Intersection, it should cover the whole intersection area
-- `Traffic Intersection` Script - controls all Traffic Lights on the given intersection according to the configuration
+- `Traffic Intersection` (script) - controls all Traffic Lights on the given intersection according to the configuration
 
 ![intersection_prefab](intersections/intersection_prefab.png)
 
-#### Traffic Intersection Script
-The `Traffic Intersection` Script is used for controlling all Traffic Lights on a given intersection.
+#### Traffic Intersection (script)
+The `Traffic Intersection` (script) is used for controlling all Traffic Lights on a given intersection.
 The `Collider Mask` field is a mask on which all Vehicle Colliders are present.
 It - together with Box Collider - is used for keeping track of how many Vehicles are currently present on the Traffic Intersection.
 The [`Traffic Light Groups`](#traffic-lights-groups) and [`Lighting Sequences`](#lighting-sequences) are described below.
@@ -223,7 +223,7 @@ E.g. when Traffic Lights in one direction change color to green - Traffic Lights
 #### Collider
 Every Traffic Intersection contains a Box Collider element.
 It needs to accurately cover the whole area of the Traffic Intersection.
-The Box Collider - together with the [Traffic Intersection Script](#traffic-intersection-script) - is used for detecting Vehicles entering the Traffic Intersection.
+The Box Collider - together with the [Traffic Intersection (script)](#traffic-intersection-script) - is used for detecting Vehicles entering the Traffic Intersection.
 
 ![intersection_collider](intersections/intersection_collider.png)
 
@@ -244,15 +244,15 @@ Traffic Lanes can be imported from the [*lanelet2*](#lanelet2) `*.osm` file.
 ![lanes_link](traffic_lanes/lanes_link.png)
 
 #### Prefab
-Traffic Lane consists of an *Object* containing [`Traffic Lane` Script](#traffic-lane-script).
+Traffic Lane consists of an *Object* containing [`Traffic Lane` (script)](#traffic-lane-script).
 
 Traffic Lane has a transformation as every *Object* in Unity, but it is not used.
-All details are configured in the `Traffic Lane` Script, the information in *Object* transformation is ignored.
+All details are configured in the `Traffic Lane` (script), the information in *Object* transformation is ignored.
 
 ![lanes_prefab](traffic_lanes/lanes_prefab.png)
 
-#### Traffic Lane Script
-`Traffic Lane` Script defines the Traffic Lane structure.
+#### Traffic Lane (script)
+`Traffic Lane` (script) defines the Traffic Lane structure.
 The `Waypoints` field is an ordered list of points that - when connected with straight lines - create a Traffic Lane.
 
 !!! note
@@ -321,7 +321,7 @@ Gizmos have a high computational load so please disable them if the simulation i
     (description of what it is and where it occurs in the environment, **screen**)
 
     - Traffic Lights (description, bulbs, dependence of the location on the lanelet, impact on the recognition of traffic lights in Autoware, **screens**)
-    - Traffic Intersection Script
+    - Traffic Intersection (script)
         - Collider Mask (probably out of date)
         - Traffic Light Groups (what they are and the result of adding traffic lights to them)
         - Lighting Sequences (description, how it works - **gifs**)
@@ -330,7 +330,7 @@ Gizmos have a high computational load so please disable them if the simulation i
 
     (description of what it is and where it occurs in the environment **screen**, impact on Random Traffic)
 
-    - Stop Line Script
+    - Stop Line (script)
         - Points
         - Stop sign (why this association occurs)
         - Traffic light (why this association occurs)
@@ -339,7 +339,7 @@ Gizmos have a high computational load so please disable them if the simulation i
 
     (description of what it is and where it occurs in the environment **screen**, impact on Random Traffic)
 
-    - Traffic Lane Script
+    - Traffic Lane (script)
         - Waypoints (**screen**)
         - Turn Direction (**screens**)
         - Next and Prev Lanes (**screens**)

@@ -1,14 +1,14 @@
-# License
+# AWSIM Licenses
 
-AWSIM Licenses
+*AWSIM License* applies to [tier4/AWSIM repositories](https://github.com/tier4/AWSIM) and all content contained in the [Releases](https://github.com/tier4/AWSIM/releases).
 
-AWSIM License Applies to [tier4/AWSIM repositories](https://github.com/tier4/AWSIM) and all content contained in the [Releases](https://github.com/tier4/AWSIM/releases).
-
-- *AWSIM* specific code is distributed under Apache2.0 License.  
+- *AWSIM* specific code is distributed under *Apache2.0 License*.  
 The following extensions are included (`*.cs` `*.compute` `*.xml`)
-- *AWSIM* specific assets are distributed under CC BY-NC License.  
+- *AWSIM* specific assets are distributed under *CC BY-NC License*.  
 The following extensions are included (`*.fbx` `*.pcd` `*.osm` `*.png` `*.anim` `*.unitypackage` `*.x86_64`)
 
+##### Apache2.0 License
+```
 **********************************************************************************
 
                                  Apache License
@@ -213,7 +213,11 @@ The following extensions are included (`*.fbx` `*.pcd` `*.osm` `*.png` `*.anim` 
    See the License for the specific language governing permissions and
    limitations under the License.
 
+```
 
+##### CC BY-NC License
+
+```
 **********************************************************************************
 
 Attribution-NonCommercial 4.0 International
@@ -623,3 +627,4 @@ the avoidance of doubt, this paragraph does not form part of the
 public licenses.
 
 Creative Commons may be contacted at creativecommons.org
+```

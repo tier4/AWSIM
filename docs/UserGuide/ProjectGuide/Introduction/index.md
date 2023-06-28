@@ -1,33 +1,37 @@
 
 # AWSIM Unity project
+This section briefly describes what a *Unity* project is, what it can consist of and what are the basic components of the *AWSIM* *Unity* project.
 ## Introduction to Unity
-The basic element in the *Unity* project is the scene - it's where all the objects are located and it's the scene that is run for simulation. The scene consists of various *Gameobjects*, such as the main camera, the canvas (with UI elements) or the environment.
+The basic element in *Unity* project is the scene - it's where all the objects are located and it's the scene that is run for simulation. The scene consists of various *Gameobjects*, such as the main camera, the canvas (with *UI* elements) or the environment.
 
-Gameobjects can contain other *Gameobjects* (called children), it can be, for example, several gameobjects  that are separate visual models of parts of one object, in total giving one large model - for example a vehicle. What's more, these objects can be saved as pre-configured (then called prefabs) and used many times.
+*Gameobjects* can contain other *Gameobjects* (called children), it can be, for example, several objects that are separate visual models of parts of one object, in total giving one large model - for example a vehicle. What's more, these objects can be saved as pre-configured (then called prefabs) and used many times.
 
 *Gameobjects* can have pre-configured components attached - also in their children. An attached component can be an object animation, a collider or a just developed script.
-Components are an essential part of the objects used in the simulation. They make it possible to adjust the object in order to control it by physics ([Rigidbody](https://docs.unity3d.com/ScriptReference/Rigidbody.html) component) or configure and detect collisions ([MeshCollider](https://docs.unity3d.com/Manual/class-MeshCollider.html) component).
+Components are an essential part of the objects used in the simulation. They make it possible to adjust the object in order to control it by physics ([*Rigidbody*](https://docs.unity3d.com/ScriptReference/Rigidbody.html) component) or configure and detect collisions ([*MeshCollider*](https://docs.unity3d.com/Manual/class-MeshCollider.html) component).
 
 
-### Prefabs with components
+## Prefabs with components
 In the *AWSIM Unity* project, there are several types of prefabs that have pre-configured components, these are:
 
-- [*Sensors*](../Components/Sensors/VehicleStatus/) - these are prefabs that simulate sensors in an autonomous vehicle. They allow to obtain data on the current situation (e.g. the state of the environment) in order to use them.
+- [`Sensors`](../Components/Sensors/VehicleStatus/) - these are prefabs that simulate sensors in an autonomous vehicle. They allow to obtain data on the current situation (e.g. the state of the environment) in order to use them.
   
-- [*EgoVehicle*](../Components/EgoVehicle/) - it is a prefab of an autonomous vehicle that contains configured sensors, elements responsible for collisions and scripts that enable control.
+- [`EgoVehicle`](../Components/EgoVehicle/) - it is a prefab of an autonomous vehicle that contains configured sensors, components responsible for collisions and scripts that enable control.
   
-- [*NPCVehicles*](../Components/NPCs/Vehicle/) - these are prefabs of vehicles that have configured elements responsible for collisions and traffic control. They can be used by `RandomTrafficSimulator`.
+- [`NPCVehicles`](../Components/NPCs/Vehicle/) - these are prefabs of vehicles that have configured elements responsible for collisions and traffic control. They can be used by `TrafficSimulator`.
   
-- [*NpcPedestrians*](../Components/NPCs/Pedestrian/) - these are prefabs of humans that have configured elements responsible for cyclic movement and animations.
+- [`NpcPedestrians`](../Components/NPCs/Pedestrian/) - these are prefabs of humans that have configured elements responsible for cyclic movement and animations.
   
-- [*RandomTrafficSimulator*](../Components/Environment/TrafficComponents/) - it is a prefab that is responsible for controlling random traffic using other objects in the environment.
+- [`TrafficSimulator`](../Components/Environment/TrafficComponents/) - it is a prefab that is responsible for controlling simulated traffic using other objects ([`Traffic Components`](../Components/Environment/TrafficComponents/)) added to the environment.
   
-- [*Environment*](../Components/Environment/Environment/) - it is a prefab that contains all the visual objects in the world, as well as elements responsible for controlling road intersections - their lights and a map of traffic lanes on which vehicles can move. It contains `NPCs` and `RandomTrafficSimulator` prefabs.
+- [`Environment`](../Components/Environment/Environment/) - it is a prefab that contains all the visual objects in the world, map of traffic lanes on which vehicles can move, as well as elements responsible for controlling road intersections - their lights. It contains `NPCs` and `TrafficSimulator` prefabs.
+
+!!! note "AWSIM architecture"
+    To better understand the components of *AWSIM* and its architecture, we recommend that you read the [introduction to AWSIM](../../../Introduction/AWSIM/).
 
 !!! tip "Default scene"
-    Description of each of the above prefabs can be found in the appropriate sections of the Components group. However, in order to better understand the whole project, we encourage you to run the default scene `AutowareSimulation` and read this [section](../Components/Scene/) first.
+    Description of each of the above prefabs can be found in the sections of *Components*. However, in order to better understand the whole project, we encourage you to run the default scene `AutowareSimulation` and read this [section](../Components/Scene/) first.
 
-### Project arrangement
+## Project arrangement
 ![awsim_project](awsim_project.png)
 
 Project *AWSIM Unity* consists of several main groups:
@@ -48,7 +52,7 @@ In addition, it contains two external libraries as assets groups:
   
 - [*Ros2ForUnity*](../ExternalLibraries/Ros2Unity/) - it is library developed by [Robotec.AI](https://robotec.ai/) for a high-performance communication solution to connect *Unity* and *ROS2* ecosystem in a *ROS2* "native" way.
 
-#### Directory structure
+### Directory structure
 
 Project *AWSIM Unity*  has the following directory structure. Mostly they are grouped by file type.
 

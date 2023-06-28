@@ -1,9 +1,9 @@
 # Ros2 For Unity
 
-[Ros2ForUnity](https://github.com/RobotecAI/ros2-for-unity) (`R2FU`) module is a communication solution that effectively connects *Unity* and the *ROS2* ecosystem, maintaining a strong integration. Unlike other solutions, it doesn't rely on bridging communication but rather utilizes the *ROS2* middleware stack (specifically the `rcl` layer and below), enabling the inclusion of *ROS2* nodes within *Unity* simulations. 
+[*Ros2ForUnity*](https://github.com/RobotecAI/ros2-for-unity) (`R2FU`) module is a communication solution that effectively connects *Unity* and the *ROS2* ecosystem, maintaining a strong integration. Unlike other solutions, it doesn't rely on bridging communication but rather utilizes the *ROS2* middleware stack (specifically the `rcl` layer and below), enabling the inclusion of *ROS2* nodes within *Unity* simulations. 
 
 `R2FU` is used in *AWSIM* for many reasons.
-First of all, because it offers high-performance integration between *Unity* and *ROS2*, with improved throughput and lower latencies compared to bridging solutions. It provides real *ROS2* functionality for simulation entities in *Unity*, supports standard and custom messages, and includes convenient abstractions and tools, all wrapped as a *Unity* asset. For a detailed description, please see [README](https://github.com/RobotecAI/ros2-for-unity/blob/master/README.md).
+First of all, because it offers high-performance integration between *Unity* and *ROS2*, with improved throughput and lower latencies compared to bridging solutions. It provides real *ROS2* functionality for simulation entities in *Unity*, supports standard and custom messages, and includes convenient abstractions and tools, all wrapped as a *Unity* asset. For a detailed description, please see [*README*](https://github.com/RobotecAI/ros2-for-unity/blob/master/README.md).
 
 ## Prerequisites
 
@@ -14,7 +14,7 @@ This asset can be prepared in two flavours:
 
 By default, asset `R2FU` in *AWSIM* is prepared in *standalone mode*. Thanks to this, *ROS2* instance doesn't need to be sourced - all you have to do is run the *Unity* editor.
 
-!!! question
+!!! question "Can't see topics"
     There are no errors but I can't see topics published by `R2FU`
 
     - Make sure your DDS ([Localhost settings](../../../Installation/Prerequisites/)) config is correct.
@@ -31,9 +31,9 @@ Describing the concept of using `R2FU` in *AWSIM*, we distinguish:
 <!-- - TODO: *Service Server* -  -->
 <!-- - TODO: *Service Client* - -->
 
-The *SimulatorROS2Node* implementation, thanks to the use of `R2FU`, allows you to add communication via *ROS2* to any Unity component.For example, we can receive control commands from any other *ROS2* node and publish the current state of *Ego*, such as its position in the environment.
+The *SimulatorROS2Node* implementation, thanks to the use of `R2FU`, allows you to add communication via *ROS2* to any Unity component. For example, we can receive control commands from any other *ROS2* node and publish the current state of *Ego*, such as its position in the environment.
 
-!!! tip
+!!! tip "Simulation time"
     If you want to use system time (*ROS2* time) instead of *Unity* time, use `ROS2TimeSource` instead of `UnityTimeSource` in the `SimulatorROS2Node` class.
 ## Package structure
 
@@ -102,7 +102,7 @@ The basic *ROS2* msgs types that are supported in *AWSIM* by default include:
 
 In order for the message package to be used in *Unity*, its `*.dll` and `*.so` libraries must be generated using `R2FU`.
 
-!!! Note
+!!! tip "Custom message"
     If you want to generate a custom message to allow it to be used in *AWSIM* please read this tutorial.
 
 ## Use of generated messages in *Unity*
@@ -115,7 +115,7 @@ A good example of a complex type that is added to other complex types to specify
 builtin_interfaces/msg/Time stamp
 string frame_id
 ```
-!!! warning
+!!! warning "ROS2 directive"
     In order to work with *ROS2* in *Unity*, remember to add the directive `using ROS2;` at the top of the file to import types from this namespace.
     
 ### Create a object
@@ -135,7 +135,7 @@ header2.Frame_id = "map";
 header2.Stamp.sec = "1234567";
 Debug.Log($"StampSec: {header2.Stamp.sec} and Frame: {header2.Frame_id}");
 ```
-!!! warning
+!!! warning "Field names"
     There is one always-present difference in field names. The **first letter** of each message field in *Unity* is **always** **uppercase** - even if the base *ROS2* message from which it is generated is lowercase.
 ### Filling a time
 In order to complete the time field of the (https://docs.ros2.org/latest/api/std_msgs/msg/Header.html) message, we recommend the following methods in *AWSIM*:

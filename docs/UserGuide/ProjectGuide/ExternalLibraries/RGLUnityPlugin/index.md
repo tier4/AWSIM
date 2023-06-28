@@ -1,5 +1,5 @@
 # RGLUnityPlugin
-[Robotec GPU Lidar](https://github.com/RobotecAI/RobotecGPULidar) (`RGL`) is an open source high performance lidar simulator running on *CUDA*-enabled *GPUs*. It is a cross-platform solution compatible with both *Windows* and *Linux* operating systems. `RGL` utilizes `RTX` cores for acceleration, whenever they are accessible. 
+[*Robotec GPU Lidar*](https://github.com/RobotecAI/RobotecGPULidar) (`RGL`) is an open source high performance lidar simulator running on *CUDA*-enabled *GPUs*. It is a cross-platform solution compatible with both *Windows* and *Linux* operating systems. `RGL` utilizes `RTX` cores for acceleration, whenever they are accessible. 
 
 `RGL` is used in *AWSIM* for performance reasons, thanks to it, it is possible to perform a large number of calculations using the *GPU*, which is extremely helpful due to the size of the scenes. *AWSIM* is integrated with `RGL` out-of-the-box - using `RGLUnityPlugin` asset.
 
@@ -62,9 +62,10 @@ Three different strategies to interact with in-simulation *3D* models are implem
 | `Regular Meshes And Skinned Meshes`               | Regular Mesh    | Regular Mesh            |
 
 Mesh source can be changed in the `SceneManager` script properties:
+
 <img src="scene_manager.png" width="55%">
 
-!!! warning
+!!! warning "Performance"
     `SceneManager` performance depends on mesh source option selected.
     
 ### Usage requirements
@@ -73,12 +74,12 @@ Objects, to be detectable by `RGL`, must fulfill the following requirements:
 1. Contain one of the components: [`Collider`](https://docs.unity3d.com/ScriptReference/Collider.html), [`Mesh Renderer`](https://docs.unity3d.com/Manual/class-MeshRenderer.html), or [`Skinned Mesh Renderer`](https://docs.unity3d.com/Manual/class-SkinnedMeshRenderer.html) - it depends on `SceneManager` mesh source parameter.
 2. Be readable from *CPU*-accessible memory - it can be achieved using the `Read/Write Enabled` checkbox in mesh settings. 
 
-    !!! note
+    !!! note "Readable objects"
         [Primitive Objects](https://docs.unity3d.com/Manual/PrimitiveObjects.html) are readable by default.
 
     !!! example
         The activated *Readable* option in the mesh should look like this.<br>
-        <img src="readable.png" width="65%">
+        <img src="readable.png" width="75%">
 
 
 <!-- ### Debugging Native RGL library (*advanced*)

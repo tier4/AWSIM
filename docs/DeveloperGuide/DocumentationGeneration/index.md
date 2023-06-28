@@ -2,11 +2,11 @@ This document uses [Material for MkDocs](https://squidfunk.github.io/mkdocs-mate
 
 ## Local hosting
 
-1 Install Material for `MkDocs`.
+1. Install Material for `MkDocs`.
 ```
 $ pip install mkdocs-material
 ```
-2 Hosting on localhost.
+2. Hosting on localhost.
 ```
 $ cd AWSIM
 $ mkdocs serve
@@ -18,7 +18,7 @@ INFO     -  [03:13:22] Serving on http://127.0.0.1:8000/
 ```
 
 
-3 Access `http://127.0.0.1:8000/` with a web browser.
+3. Access `http://127.0.0.1:8000/` with a web browser.
 ![](image_0.png)
 
 For further reference see [Material for MkDocs - Getting started](https://squidfunk.github.io/mkdocs-material/getting-started/).

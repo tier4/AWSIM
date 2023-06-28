@@ -1,35 +1,40 @@
 # PoseSensor
+
+## Introduction
 `PoseSensor` is a component which provides access to the current position and rotation - of the *GameObject* to which this component is attached - as the ground truth.
 Due to the usage of the *MGRS* offset in the [environment](../../../Environment/Environment/), the position published by `PoseSensor` is also in the *MGRS* coordinate system.
 
-## Prefab
+### Prefab
 Prefab can be found under the following path:
 
 ```
-Assets\AWSIM\Prefabs\Sensors\PoseSensor.prefab
+Assets/AWSIM/Prefabs/Sensors/PoseSensor.prefab
 ```
 
-![components](components.png)
 
-## Link
+### Link in the default Scene
 The `PoseSensor` is added to the `EgoVehicle` prefab, to the `base_link` object located in the `URDF`.
 Thanks to this, the published position is the position of the `base_link` in the *Scene*.
 
 ![link](link.png)
 
-## Scripts
+A detailed description of the `URDF` structure and sensors added to prefab `Lexus RX450h 2015` is available in this [section](../../../EgoVehicle/URDF/).
+
+### Components
+![components](components.png)
+
 The `PoseSensor` functionality is split into two scripts:
 
-- *PoseSensor Script* - it calculates the position as its *output* and calls the callback for it.
-- *PoseRos2Publisher Script* - provides the ability to publish `PoseSensor` output as [`PoseStamped`](https://docs.ros2.org/latest/api/geometry_msgs/msg/PoseStamped.html) published on a specific *ROS2* topic.
+- *PoseSensor* (script) - it calculates the position as its *output* and calls the callback for it.
+- *PoseRos2Publisher* (script) - provides the ability to publish `PoseSensor` output as [`PoseStamped`](https://docs.ros2.org/latest/api/geometry_msgs/msg/PoseStamped.html) published on a specific *ROS2* topic.
 
 Scripts can be found under the following path:
 
 ```
-Assets\AWSIM\Prefabs\Sensors\Pose\*
+Assets/AWSIM/Prefabs/Sensors/Pose/*
 ```
 
-## PoseSensor Script
+## PoseSensor (script)
 ![script](script.png)
 
 This is the main script in which all calculations are performed:
@@ -39,12 +44,12 @@ This is the main script in which all calculations are performed:
 3. the result of the transformation is saved as the output of the component,
 4. for the current output a `callback` is called (which can be assigned externally).
 
-### Elements configurable from the editor level
+#### Elements configurable from the editor level
 
 - `Output Hz` - frequency of output calculation and callback calling (default: `100Hz`)
 
 
-### Output Data
+#### Output Data
 
 |  Category  |     Type     | Description                                                                    |
 | :--------: | :----------: | :----------------------------------------------------------------------------- |
@@ -52,18 +57,18 @@ This is the main script in which all calculations are performed:
 | *Rotation* | `Quaternion` | The true value of the rotation of the object                                   |
 
 
-## PoseRos2Publisher Script
+## PoseRos2Publisher (script)
 ![script_ros](script_ros.png)
 
 Converts the data output from `PoseSensor` to *ROS2* [`PoseStamped`](https://docs.ros2.org/latest/api/geometry_msgs/msg/PoseStamped.html) message and publishes it.
-The conversion and publication is performed using the `Publish(PoseSensor.OutputData outputData)` method, which is the `callback` triggered by *PoseSensor Script* for the current output.
+The conversion and publication is performed using the `Publish(PoseSensor.OutputData outputData)` method, which is the `callback` triggered by *PoseSensor* (script) for the current output.
 
-### Elements configurable from the editor level
+#### Elements configurable from the editor level
 - `Topic` - the *ROS2* topic on which the message is published<br>(default: `"/awsim/ground_truth/vehicle/pose"`)
 - `Frame ID` - frame in which data is published, used in [`Header`](https://docs.ros2.org/latest/api/std_msgs/msg/Header.html)<br>(default: `"base_link"`)
 - `Qos Settings` - Quality of service profile used in the publication<br>(default: `Reliable`, `Volatile`, `Keep last`, `1`)
 
-### Published Topics
+#### Published Topics
 - Frequency: `100Hz`
 - QoS: `Reliable`, `Volatile`, `Keep last/1`
 
