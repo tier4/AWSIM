@@ -1,3 +1,5 @@
+
+This section describes the *Unity* installation required to run the *AWSIM* project. To install *Unity*, it is necessary to install *Unity Hub*, which is described in step one.
 ## 1. Unity Hub installation
 To install *Unity* on *Linux* you need to install *Unity Hub*, run the following commands:
 
@@ -20,7 +22,7 @@ To install *Unity* on *Linux* you need to install *Unity Hub*, run the following
     sudo apt-get install unityhub
     ```
 
-!!! warning
+!!! warning "Unity Hub installation"
     To be on the safe side always check the official documentation on how to install *Unity Hub*, this manual is just for reference.
 
     Please follow [these instructions](https://docs.unity3d.com/hub/manual/InstallHub.html#install-hub-linux) if you have any problems.
@@ -31,7 +33,7 @@ To install *Unity* on *Linux* you need to install *Unity Hub*, run the following
     ![unity hub launch](unityhub.gif)
 
 ## 2. Unity installation
-!!! info
+!!! info "Unity version"
     *AWSIM's* *Unity* version is currently ***Unity 2021.1.7f1***
 
 Follow the steps below to install *Unity 2021.1.7f1* via *UnityHub*:
@@ -47,7 +49,7 @@ Follow the steps below to install *Unity 2021.1.7f1* via *UnityHub*:
 
 1. At this point, your *Unity* installation process should have started.
 
-    !!! tip "Note for Ubuntu 22"
+    !!! question "Installation process has not started (Ubuntu 22)"
         If the installation process has not started after clicking the blue button (image above), please copy the hyperlink (by rightclicking the button and selecting `Copy link address`) and add it as a argument for *UnityHub* app. An example command:
 
         ```

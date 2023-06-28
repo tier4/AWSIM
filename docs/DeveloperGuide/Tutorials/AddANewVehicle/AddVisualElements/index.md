@@ -1,11 +1,11 @@
-Your Ego Vehicle needs many individual visual parts.
+Your `EgoVehicle` needs many individual visual parts.
 Below we will add all needed visual elements.
 
 First in `EgoVehicle` *Object* add a child *Object* called `Models`.
 
 ![ego vehicle add models](ego_vehicle_add_models.gif)
 
-Inside `Models` *Object* we will add all visual models of our Ego Vehicle.
+Inside `Models` *Object* we will add all visual models of our `EgoVehicle`.
 
 ### Add a Body
 First you will need to add a Body of your Vehicle.
@@ -38,7 +38,7 @@ Next we will need to add Car Body
 
 1. Specify Materials.
 
-    You need to specify what materials will be used for rendering your Ego Vehicle model.
+    You need to specify what materials will be used for rendering your `EgoVehicle` model.
     Do this by adding elements to the `Materials` list and selecting the materials you wish to use as shown below.
 
     ![mesh renderer add materials](mesh_renderer_add_materials.gif)

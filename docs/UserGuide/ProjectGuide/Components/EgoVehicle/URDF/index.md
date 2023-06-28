@@ -1,5 +1,8 @@
 # URDF and Sensors
-`URDF` (*Unified Robot Description Format*) is equivalent to the simplified [`URDF`](https://docs.ros.org/en/humble/Tutorials/Intermediate/URDF/URDF-Main.html) format used in *ROS2*.
+
+This section describes the placement of sensors in `EgoVehicle` on the example of a `Lexus RX450h 2015 2015 Sample Sensor` prefab.
+
+`URDF` (*Unified Robot Description Format*) is equivalent to the simplified [*URDF*](https://docs.ros.org/en/humble/Tutorials/Intermediate/URDF/URDF-Main.html) format used in *ROS2*.
 This format allows to define the positions of all sensors of the vehicle in relation to its main parent prefab coordinate system.
 
 ![urdf](urdf_links/urdf_link.png)
@@ -10,11 +13,14 @@ It is built using multiple *GameObjects* as children appropriately transformed w
 ![urdf](urdf_links/urdf.png)
 
 The transforms in the `URDF` object are defined using the data from the *sensor kit* documentation used in the vehicle.
-Such data can be obtained from *sensor kit* packages for *Autoware*, for example, [`awsim_sensor_kit_launch`](https://github.com/RobotecAI/awsim_sensor_kit_launch) is used in the *AWSIM* compatible version of *Autoware*.
+Such data can be obtained from *sensor kit* packages for *Autoware*, for example: [`awsim_sensor_kit_launch`](https://github.com/RobotecAI/awsim_sensor_kit_launch) is used in the *AWSIM* compatible version of *Autoware*.
 This package contains a description of transforms between coordinate systems (frames) in the form of `*.yaml` files: [sensors_calibration](https://github.com/RobotecAI/awsim_sensor_kit_launch/blob/main/awsim_sensor_kit_description/config/sensors_calibration.yaml) and [sensor_kit_calibration](https://github.com/RobotecAI/awsim_sensor_kit_launch/blob/main/awsim_sensor_kit_description/config/sensor_kit_calibration.yaml).
 
 In the first file, the transform of the *sensor kit* frame (`sensor_kit_base_link`) relative to the local vehicle frame (`base_link`) is defined - in *Unity*, this transform is defined in the object [`Sensor Kit`](#sensor-kit).
 While the second file contains a definition of the transformations of all sensors with respect to the *sensor kit* - they are described in the [`Sensor Kit`](#sensor-kit) subsections.
+
+!!! warning "Coordinate system conventions"
+    *Unity* uses a left-handed convention for its coordinate system, while the *ROS2* uses a right-handed convention. For this reason, you should remember to perform conversions to get the correct transforms.
 
 ## Base Link
 `Base Link` (frame named `base_link`) is the formalized local coordinate system in `URDF`.
@@ -101,38 +107,3 @@ A detailed description of this sensor is available in this [section](../../Senso
 This object is not strictly related to any frame, however, it is assumed as a sensor, therefore it is added to the `URDF`.
 
 ![vehicle](urdf_links/vehicle.png)
-
-
-
-<!-- (prefab location, transform links, **screens**)
-
-**Dynamics Concept**
-
-(description, required parameters, **gifs** - dynamic presentation)
-
-**Scripts**
-
-- Vehicle (physis settings, inputs and outputs - hyperlink to ros topic list)
-- Vehicle Ros Input (limits, impact of the ros inputs on the vehicle behavior - reference to Autoware)
-- Vehicle KeyBoard Input (control description)
-- Vehicle Visual Effect (**gifs**: brake, turn signal, reverse lights)
-
-**Sensors**
-
-- VehicleStatusSensor (a short description and a hyperlink to a detailed description)
-- RobotecGPULidars (eg. VelodyneVLP16 on top, a short description and a hyperlink to a detailed description)
-- IMUSensor (a short description and a hyperlink to a detailed description)
-- GnssSensor (a short description and a hyperlink to a detailed description)
-- CameraSensor (a short description and a hyperlink to a detailed description)
-- Sensor links definition - Autoware dependency (URDF, sensor_calibration in Autoware)
-
-**Colliders**
-
-- Body (**screen**, description for what purpose it may be used)
-- Wheels (**gifs**, wheel script, wheel collider script, why are important, parameters)
-
-**Others**
-
-- Center of mass (where it is used)
-- Models (Body, Wheels, Sensor Kit, **screens**)
-- Reflection Probe (**screens**, hyperlink to unity) -->

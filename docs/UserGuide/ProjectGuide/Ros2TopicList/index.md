@@ -2,12 +2,10 @@
 
 The following is a summary of the *ROS2* topics that the *AWSIM* node subscribes to and publishes on.
 
-!!! Note
+!!! Note "Ros2ForUnity"
     *AWSIM* works with *ROS2* thanks to the use of `Ros2ForUnity` - read the details [here](../ExternalLibraries/Ros2Unity/).<br>
     If you want to generate a custom message to allow it to be used in *AWSIM* please read this [tutorial](../../../DeveloperGuide/Tutorials/AddACustomMessage/).
-!!! tip
-    The use of *ROS2* in *AWSIM* takes place within a single main `/AWSIM` node.
-    ![topic_list](topic_list.png)
+
 
 ## List of subscribers
 |                     Category                     | Topic                                  |                     Message type                     | `frame_id` | `Hz`  |                       `QoS`                        |

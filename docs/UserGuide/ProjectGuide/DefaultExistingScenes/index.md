@@ -1,6 +1,3 @@
-<!-- TODO Add descriptions -->
-<!-- DM: dokladnie, opis krotki do kazdej sceny, plus hyperlinki do opisu komponentu/tutka -->
-
 In the *AWSIM Unity* project is one main scene *AutowareSimulation* and several additional that can be helpful during development. This section describes the purpose of each scene in the project.
 
 ![main](main.png)
@@ -13,7 +10,7 @@ The description of how to do this can be found in this [section](../../BuildFrom
 ![](AutowareSimulation.png)
 
 ## PointCloudMapping
-The `PointCloudMapping` is a scene that is designed to create a point cloud using the *Unity* world. Using the [RGLUnityPlugin](../ExternalLibraries/) and prefab `Environment` on which there are models with [`Meshes`](https://docs.unity3d.com/ScriptReference/Mesh.html), we are able to obtain a `*.pcd` file of the simulated world.
+The `PointCloudMapping` is a scene that is designed to create a point cloud using the *Unity* world. Using the [*RGLUnityPlugin*](../ExternalLibraries/) and prefab `Environment` on which there are models with [`Meshes`](https://docs.unity3d.com/ScriptReference/Mesh.html), we are able to obtain a `*.pcd` file of the simulated world.
 
 <video width="1920" controls>
 <source src="mapping.mp4" type="video/mp4">
@@ -21,7 +18,7 @@ The `PointCloudMapping` is a scene that is designed to create a point cloud usin
 
 ## SensorConfig
 
-Scene `SensorConfig` was developed to perform a quick test of sensors added to the prefab of `Ego` vehicle.  Replace the `Lexus` prefab with a `Ego` vehicle prefab you developed and check if all the data that should be published are present, if they are on the appropriate topics and if all data are correct.
+Scene `SensorConfig` was developed to perform a quick test of sensors added to the prefab `EgoVehicle`. Replace the `Lexus` prefab with a vehicle prefab you developed and check if all the data that should be published are present, if they are on the appropriate topics and if all data are correct.
 
 <video width="1920" controls>
 <source src="sensor_config_test.mp4" type="video/mp4">
@@ -29,7 +26,7 @@ Scene `SensorConfig` was developed to perform a quick test of sensors added to t
 
 ## NPCVehicleSample
 
-The `NPCVehicleSample` was developed to conduct a quick test for the developed vehicle. Replace the taxi prefab with a vehicle prefab you developed (`Ego` or `NPC`) and check if the basic things are configured correctly. The description of how to develop your own vehicle and add it to the project is in this [section](../../../DeveloperGuide/Tutorials/AddANewVehicle/).
+The `NPCVehicleSample` was developed to conduct a quick test for the developed vehicle. Replace the taxi prefab with a vehicle prefab you developed (`EgoVehicle` or `NPCVehicle`) and check if the basic things are configured correctly. The description of how to develop your own vehicle and add it to the project is in this [section](../../../DeveloperGuide/Tutorials/AddANewVehicle/).
 
 <video width="1920" controls>
 <source src="vehicle_test.mp4" type="video/mp4">
@@ -72,7 +69,7 @@ The scene `LidarSceneDevelop` can be used as a complete, minimalistic example of
 
 ### LidarSkinnedStress
 The scene `LidarSkinnedStress` can be used to test the performance of `RGL` - for example, how performance is affected by using `Regular Meshes` compared to `Skinned Meshes`. The scene contains a large number of animated models that require meshes to be updated every frame, thus requiring more resources (*CPU* and data exchange with *GPU*).
-<!-- TODO: description -->
+
 <video width="1920" controls>
 <source src="skinned_stress.mp4" type="video/mp4">
 </video>

@@ -1,7 +1,10 @@
-!!! note
-    Before performing this step, make sure that the *Ego* position has been automatically initialized according to this [section](../SetTheInitializationPosition/).
 
 # Set a single goal
+
+!!! note "Before this section"
+    Before performing this step, make sure that the *Ego* position has been automatically initialized according to this [section](../SetTheInitializationPosition/).
+
+
 In order to set up a single goal to which the path should be planned, follow these steps:
 
 1. Click `2D Goal Pose` button
@@ -13,11 +16,11 @@ Planned path should appear on the road after a while.
 
     ![Click and drag goal pose](set_goal2.gif)
 
-    !!! tip
+    !!! tip "Initialization position"
         Remember that for route planning to be carried out correctly, *Ego* must have an precise location that is compatible between *Autoware* and *AWSIM*. 
         Manual setting of the *Ego* position is described in this [section](../SetTheInitializationPosition/).
 
-    !!! tip
+    !!! tip "Goal orientation"
         Remember to always set orientation aligned with road direction. Road direction is marked as small arrow marks on the road area.
 
     !!! question "Path not planned"
@@ -28,8 +31,8 @@ Planned path should appear on the road after a while.
 
     ![auto button available](auto_button_available.png)
 
-    !!! note "No goal selected"
-        If you launch *AWSIM* and *Autoware* and **can't** click the `AUTO` button, that means you haven't set any goal yet.
+    !!! question "No goal selected"
+        If you launch *AWSIM* and *Autoware* and can't click the `AUTO` button, that means you haven't set any goal yet. Probably the path from *Ego's* current position to the goal could not be found.
         
         Below you can see that the `Routing` is displaying `UNSET` on yellow background.
 

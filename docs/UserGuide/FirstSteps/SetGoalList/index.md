@@ -1,8 +1,9 @@
 # Set a list of goals
-Setting a single goal and starting the path to achieve it requires manual defining goal and starting self-driving.
-In order to simplify the execution of many goals, the `AutomaticGoalRvizPlugin` was developed.
+Setting a single goal and starting the path to achieve it requires manual defining the goal and starting self-driving. `AutomaticGoalRvizPlugin` was developed to simplify the achievement of many goals.
 
-## 1. Setup the *AutowareAutomaticGoalPlugin* in Rviz
+The following describes how to configure Autoware to work with the plugin and how to use its basic features.
+
+## 1. Setup AutowareAutomaticGoalPlugin in Rviz
 1. Open `Panels->Add New Panel`, expand `tier4_automatic_goal_rviz_plugin` and select `AutowareAutomaticGoalPanel` then press `OK`.
 
     ![select_panels](select_panels.png)
@@ -43,7 +44,7 @@ Click on `2D AppendGoal` and select the first target goal on the map. Then add m
 
 ## 3. Start sending goals automatically
 Select the first goal to achieve from the list in  `AutowareAutomaticGoalTool` and click on `Send goals automatically` to start the auto-execution.<br>
-`Ego` will reach the selected goal and then the path to the next one will be automatically planned and the movement will start.
+*Ego* will reach the selected goal and then the path to the next one will be automatically planned and the movement will start.
 
 !!! success
     A properly executed goal list should look like this.
@@ -104,7 +105,7 @@ To enable loop, click the `Loop list` for a list with at least 2 goals.
 
     ![loop](loop.png)
 
-!!! warning
+!!! warning "Lopped list"
     For the looped list to work correctly, make sure that it is possible to plan a path from the last goal in the list to the first one.
 
 ### 3.4. Save achieved goals
