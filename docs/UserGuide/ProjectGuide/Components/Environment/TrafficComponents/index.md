@@ -19,8 +19,31 @@ You may also see us referring to the actual map data file (`*.osm`) as a *lanele
     If you want to learn more we encourage to visit the [official project page](https://github.com/fzi-forschungszentrum-informatik/Lanelet2/tree/master).
 
 ### Traffic Light Script
+The Traffic Light Script is a component added to every Traffic Light *Object* on the scene.
+It is responsible for configuring the Traffic Light behavior - the bulbs and their colors.
+
+The `Renderer` filed points to the renderer that should be configured, so the Traffic Light renderer.
+
+`Bulbs Emission Config` is a list describing available colors for this Traffic Light.
+Every element of this list configures the following
+
+- `Bulb Color` - the name of the configured color that will be used to reference this color
+- `Color` - the actual color with which the bulb should light up
+- `Intensity` - the intensity of the color
+- `Exposure Weight` - how bright should the color be when lighting up
+
+The `Bulb Material Config` is a list of available bulbs in a given Traffic Light.
+Every element describes a different bulb.
+Every bulb has the following aspects configured
+
+- `Bulb Type` - the name that will be usd to reference the configured bulb
+- `Material Index` - The index of a material of the configured bulb.
+    This is an index of a sub-mesh of the configured bulb in the Traffic Light mesh.
+    The material indices are described in detail [here](../Environment/#materials) and [here](../Environment/#materials_1).
+
 ![light_script](light_script.png)
 
+![pedestrian_lights_materials](pedestrian_lights_materials.png)
 
 ## Random Traffic Simulator
 The `RandomTrafficSimulator` simulates city traffic with respect to all traffic rules. The system allows for random selection of car models and the paths they follow. It also allows adding static vehicles in the simulation.
@@ -38,14 +61,35 @@ The `RandomTrafficSimulator` consists of several *GameObjects*.
     You can learn more about it [here](#stoplines).
 
 ![random_traffic_link](random_traffic_link.png)
-![pedestrian_lights_materials](pedestrian_lights_materials.png)
 
 #### Traffic Manager Script
 The `Traffic Manager` Script is responsible for all of top level management of the [NPC Vehicles](../../NPCs/Vehicle/).
 It does spawn NPC Vehicles on the Traffic Lanes.
-This Script also configures all of the spawned NPC Vehicles, so that they all have common parameters.
 
-`Traffic Manager` Script can operate in two modes separately or simultaneously.
+If a random mode is selected then [NPC Vehicles](../../NPCs/Vehicle/) will spawn in random places (from the selected list) and drive in random directions.
+To be able to reproduce the behavior of the Random Traffic Simulator a `Seed` can be specified - which is used in the pseudo-random number generation.
+
+This Script also configures all of the spawned NPC Vehicles, so that they all have common parameters
+
+- `Acceleration` - the acceleration used by the vehicles at all times when accelerating
+- `Deceleration` - the value of deceleration used in ordinary situations
+- `Sudden Deceleration` - deceleration used when standard `Deceleration` is not sufficient to avoid accident
+- `Absolute Deceleration` - value of deceleration used when no other deceleration allows to avoid the accident
+
+The `Vehicle Layer Mask` and `Ground Layer Mask` are used to make sure all vehicles can correctly interact with the ground to guarantee simulation accuracy.
+
+`Max Vehicle Count` specifies how many [NPC Vehicles](../../NPCs/Vehicle/) can be present on the scene at once.
+When the number of NPC Vehicles on the scene is equal to this value the [Random Traffic Simulator](#random-traffic-simulator) stops spawning new vehicles until some existing vehicles drive away and disappear.
+
+The `Ego Vehicle` field provides the information about Ego vehicle used for correct behavior of NPC Vehicles when interacting with Ego.
+
+`Show Gizmos` checkbox specifies whether the [Gizmos](#gizmos) visualization should be displayed when running the simulation.
+
+!!! note "Gizmos performance"
+    Gizmos have a high computational load.
+    Enabling them may cause the simulation to lag.
+
+`Traffic Manager` Script can operate in two modes ([Random Traffic](#random-traffic) and [Route Traffic](#route-traffic)) separately or simultaneously.
 
 ![random_traffic_script](random_traffic_script.png)
 
@@ -246,7 +290,7 @@ Traffic Lanes can be imported from the [*lanelet2*](#lanelet2) `*.osm` file.
 #### Prefab
 Traffic Lane consists of an *Object* containing [`Traffic Lane` Script](#traffic-lane-script).
 
-Traffic Lane has a transformation as every *Object* in Unity, but it is not used.
+Traffic Lane has a transformation property as every *Object* in Unity, but it is not used.
 All details are configured in the `Traffic Lane` Script, the information in *Object* transformation is ignored.
 
 ![lanes_prefab](traffic_lanes/lanes_prefab.png)
@@ -255,7 +299,7 @@ All details are configured in the `Traffic Lane` Script, the information in *Obj
 `Traffic Lane` Script defines the Traffic Lane structure.
 The `Waypoints` field is an ordered list of points that - when connected with straight lines - create a Traffic Lane.
 
-!!! note
+!!! note "Traffic Lane Script coordinate system"
     `Waypoints` are defined in the Environment coordinate system, the transformation of *GameObject* is ignored.
 
 `Turn Direction` field contains information on what is the direction of this Traffic Lane - whether it is a right or left turn or straight road.
@@ -273,78 +317,61 @@ Additionally the `Speed Limit` field contains the highest allowed speed on given
 ![lanes_script](traffic_lanes/lanes_script.png)
 
 ##### Right Of Way Lanes
-<!-- TODO -->
+Right Of Way Lanes is a collection of Traffic Lanes.
+Vehicle moving on the given Traffic Lane has to give way to all vehicles moving on every Right Of Way Lane.
+It is determined based on basic traffic rules.
+Setting Right Of Way Lanes allows [Random Traffic Simulator](#random-traffic-simulator) to manage all [NPC Vehicles](../../NPCs/Vehicle/) so they follow traffic rules and drive safely.
+
+In the *Unity* editor - when a Traffic Lane is selected - aside from the selected Traffic Lane highlighted in blue, all Right Of Way Lanes are highlighted in yellow.
 
 ![lanes_yield](traffic_lanes/lanes_yield.png)
 
-![lanes_yield_2](traffic_lanes/lanes_yield_2.png)
+!!! example "Right Of Way Lanes Sample - details"
+    The selected Traffic Lane (blue) is a right turn on an intersection.
+    This means, that before turning right the vehicle must give way to all vehicles driving from ahead - the ones driving straight as well as the ones turning left.
+    This can be observed as Traffic Lanes highlighted in yellow.
 
-
+    ![lanes_yield_2](traffic_lanes/lanes_yield_2.png)
 
 ## StopLines
-<!-- TODO -->
+Stop Line is a representation of a place on the road where vehicles giving way to other vehicles should stop and wait.
+They allow [Random Traffic Simulator](#random-traffic-simulator) to manage [NPC Vehicles](../../NPCs/Vehicle/) in safe and correct way - according to the traffic rules.
+
 ![stop](stop_lines/stop.png)
+
+#### Link
+Every Stop Line has its own *GameObject* and is added as a child of the aggregate `StopLines` *Object*.
+Stop Lines are an element of an Environment, so they should be placed as children of an appropriate Environment *Object*.
 
 ![stop_lines_link](stop_lines/stop_lines_link.png)
 
-#### Link
-<!-- TODO -->
-
 #### Prefab
-<!-- TODO -->
+Stop Line consists of an *Object* containing [`Stop Line` Script](#stop-line-script).
+
+Stop Line has a transformation property as every *Object* in Unity, but it is not used.
+All details are configured in the `Traffic Lane` Script, the information in *Object* transformation is ignored.
+
 ![stop_prefab](stop_lines/stop_prefab.png)
+
+#### Stop Line Script
+The Stop Line Script defines Stop Line configuration.
+The `Points` field is an ordered list of points that - when connected - create a Stop Line.
+The list of points should always have two elements that create a straight Stop Line.
+
+!!! note "Stop Line Script coordinate system"
+    `Points` are defined in the Environment coordinate system, the transformation of *GameObject* is ignored.
+
+The `Has Stop Sign` field contains information whether the configured Stop Line has a corresponding Stop Sign on the scene.
+
+Every Stop Line needs to have a `Traffic Light` field configured with the corresponding [Traffic Light](../Environment/#trafficlights).
+This information allows the [Random Traffic Simulator](#random-traffic-simulator) to manage the [NPC Vehicles](../../NPCs/Vehicle/) in such a way that they respect the Traffic Lights and behave on the [Traffic Intersections](#trafficintersections) correctly.
 
 ![stop_script](stop_lines/stop_script.png)
 
 ## Gizmos
-<!-- TODO -->
-Gizmos are useful for checking current behavior of NPCs and its causes.
+Gizmos are a simulation-time visualization showing current and short-time future moves of the [NPC Vehicles](../../NPCs/Vehicle/).
+They are useful for checking current behavior of NPCs and its causes.
+
 Gizmos have a high computational load so please disable them if the simulation is laggy.
 
 ![gizmos](gizmos.png)
-
-
-!!! node "Draft note"
-    (description of what it is and how spawned NPCs behave in the environment)
-
-    - Architecture description [30% current] (**graph**)
-    - Seed, Spawnable Lanes, Max Vehicle Count, Spawning process (description, **gif**: example of spawning on a specific line)
-    - Vehicle Prefabs (**screens** - examples of vehicles and the impact of boundaries)
-    - Vehicle and Ground Layer masks (impact on spawning and behavior)
-    - Vehicle Config (an explanation of each and a reference to SpeedMode)
-    - Simulator steps (cognition, decision, control -> SpeedMode and Yielding states, **graph**)
-    - Yielding process (stop lines, **gifs**)
-    - Visualization description (**screens**: yielding, SpeedMode)
-
-    **TrafficIntersection**
-
-    (description of what it is and where it occurs in the environment, **screen**)
-
-    - Traffic Lights (description, bulbs, dependence of the location on the lanelet, impact on the recognition of traffic lights in Autoware, **screens**)
-    - Traffic Intersection Script
-        - Collider Mask (probably out of date)
-        - Traffic Light Groups (what they are and the result of adding traffic lights to them)
-        - Lighting Sequences (description, how it works - **gifs**)
-
-    **StopLine**
-
-    (description of what it is and where it occurs in the environment **screen**, impact on Random Traffic)
-
-    - Stop Line Script
-        - Points
-        - Stop sign (why this association occurs)
-        - Traffic light (why this association occurs)
-
-    **TrafficLane**
-
-    (description of what it is and where it occurs in the environment **screen**, impact on Random Traffic)
-
-    - Traffic Lane Script
-        - Waypoints (**screen**)
-        - Turn Direction (**screens**)
-        - Next and Prev Lanes (**screens**)
-        - Right of Way Lanes (**gifs**: a few examples with explanations regarding to Random Traffic)
-        - Stop Line (**screen**)
-        - Speed Limit
-
-
