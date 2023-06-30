@@ -95,6 +95,12 @@ Add a Camera component for enhanced visuals by adding a `Main Camera` *Object* a
     ![vehicle camera transform](vehicle_camera_transform.gif)
 
 ### Setup Vehicle Sensors [RGL]
+This part of the tutorial shows how to add a LiDAR Sensor using [RGL](https://github.com/RobotecAI/RobotecGPULidar).
+
+!!! warning "RGL Scene Manager"
+    Please make sure that `RGLSceneManager` is added to the scene.
+    For more details and instruction how to do it please visit [this tutorial page](../AddANewScene/AddASceneManager/).
+
 1. Create an empty `Sensors` *GameObject* as a child of the `Vehicle` *Object*.
 
     ![add sensors object](point_cloud_mapping_add_sensors.gif)
@@ -165,10 +171,6 @@ A `Leaf Size` of 10.0 results in a reasonable PCD in the given example.
     !!! example "Example Point Cloud Mapper configuration"
         ![point cloud mapper configuration example](point_cloud_mapper_configuration2.png)
 
-!!! warning "RGL Scene Manager"
-    If using RGL, make sure that `RGLSceneManager` is added to the scene.
-    For more details please visit [this page](../AddANewScene/AddASceneManager/).
-
 ### Effect of `Capture Location Interval` to PCD generation
 
 If the `Capture Location Interval` is too small, it could result in a sparse PCD where some region of the map is captured well but the other regions aren't captured at all.
@@ -205,13 +207,13 @@ Therefore you need to down-sample it.
 1. Change directory to the one you specified [earlier](#setup-pointcloudmapper).
 
     ```
-    cd <path to your *.pcd file>
+    cd <PATH_TO_PCD_FILE>
     ```
 
 1. Down-sample the PCD `output.pcd` generated in simulation.
 
     ```
-    pcl_voxel_grid output.pcd downsampled.pcd -leaf 0.2 0.2 0.2
+    pcl_voxel_grid <PCD_FILE_NAME> downsampled.pcd -leaf 0.2 0.2 0.2
     ```
 
 1. Convert the down-sampled file into an ASCII format.
@@ -220,20 +222,22 @@ Therefore you need to down-sample it.
     pcl_convert_pcd_ascii_binary downsampled.pcd final.pcd 0
     ```
 
+1. The `final.pcd` is a ready to use point cloud file.
+
 ## Verify the PCD
 To verify your PCD you can launch the [*Autoware*](https://github.com/autowarefoundation/autoware) with the PCD file specified.
 
 1. Copy your PCD from the *AWSIM* project directory to the *Autoware* map directory.
 
     ```
-    cp <path to the *.pcd file> <path to Autoware map directory>/
+    cp <PATH_TO_PCD_FILE> <PATH_TO_AUTOWARE_MAP>/
     ```
 
 1. Source the ROS and Autoware
 
     ```
     source /opt/ros/humble/setup.bash
-    source <path to Autoware directory>/install/setup.bash
+    source <PATH_TO_AUTOWARE>/install/setup.bash
     ```
 
 1. Launch the planning simulation with the map directory path (`map_path`) and PCD file (`pointcloud_map_file`) specified.
@@ -246,7 +250,7 @@ To verify your PCD you can launch the [*Autoware*](https://github.com/autowarefo
         Either write the full absolute path ot use `$HOME` environmental variable.
 
     ```
-    ros2 launch autoware_launch planning_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=sample_sensor_kit map_path:=<absolute path to Autoware map directory> pointcloud_map_file:=<PCD file name>
+    ros2 launch autoware_launch planning_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=sample_sensor_kit map_path:=<ABSOLUTE_PATH_TO_AUTOWARE_MAP> pointcloud_map_file:=<PCD_FILE_NAME>
     ```
 
 2. Wait for the Autoware to finish loading and inspect the PCD visually given the [Effect of Leaf Size](#effect-of-leaf-size-to-point-cloud-data-pcd-generation) and [Effect of Capture Location Interval](#effect-of-capture-location-interval-to-pcd-generation).
