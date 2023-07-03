@@ -4,13 +4,50 @@
 
 This is a section that describes in detail all components related to simulated traffic in the `Environment` prefab.
 
+## Architecture
+<!-- ![overview](overview.png) -->
+
+![traffic components diagram](traffic_components.png)
+
 The random traffic system consists of the following components:
 
-- `TrafficSimulator` (`RandomTrafficSimulator`):  manages lifecycle of `NPCs` and simulates NPC behaviours.
-- `TrafficLane`, `TrafficIntersection` and `StopLine`: represent traffic entities
-- `NPCVehicle`: vehicle models (NPCs) controlled by `TrafficSimulator`
+- [`TrafficManager`](#traffic-manager-script)
 
-![overview](overview.png)
+    It is a top level interface meant to be used on the Unity Scene.
+    `TrafficManager` runs all elements needed for a successful traffic simulation.
+    This component manages all `TrafficSimulators` so they don't work against each other.
+    It gives you the possibility to configure the `TrafficSimulators`.
+    
+    Although `TrafficSimulator` technically is not a component it is crucial to understand what it is and what it does in order to correctly configure the `TrafficManager`.
+    `TrafficSimulator` manages lifecycle of `NPCs` and simulates NPC behaviors.
+    There can be many `TrafficSimulators` on the Scene.
+    They are added and configured in the `TrafficManager` component.
+    Every Traffic Simulator manages some part of the traffic it is responsible for - meaning it has spawned the NPC Vehicles and set their configuration.
+
+    - `RandomTrafficSimulator` - Spawns and controls NPC Vehicles driving randomly
+    - `RouteTrafficSimulator` - Spawns and controls NPC Vehicles driving on a defined route
+
+    !!! info "Traffic Simulator inaccessibility"
+        It is not possible to get direct access to the `TrafficSimulator`.
+        It can be added and configured through the `TrafficManager` component.
+
+- [`TrafficLane`](#trafficlanes), [`TrafficIntersection`](#trafficintersections) and [`StopLine`](#stoplines)
+
+    These components represent traffic entities.
+    They are used to control and manage the traffic with respect to traffic rules and current road situation.
+
+- [`NPCVehicle`](../../NPCs/Vehicle/)
+
+    The vehicle models (NPCs) controlled by one of the `TrafficSimulators`.
+    They are spawned according to the `TrafficSimulator` configuration and either drive around the map randomly (when spawned by a `RandomTrafficSimulator`) or follow the predefined path (when spawned by a `RouteTrafficSimulator`).
+    NPC Vehicles are managed by one central knowledge base.
+
+The process of spawning a `NPCVehicle` and its later behavior is presented on the following sequence diagram.
+
+!!! note "Sequence Diagram Composition"
+    Please note that the diagram composition has been simplified to the level of *GameObjects* for the purpose of improving readability.
+
+![traffic components sequence diagram](traffic_components_sequence.png)
 
 ## Lanelet2
 *Lanelet2* is a library created for handling a map focused on automated driving.
@@ -19,7 +56,7 @@ In *AWSIM* *Lanelet2* is used for reading and handling a map of all roads.
 You may also see us referring to the actual map data file (`*.osm`) as a *Lanelet2*.
 
 !!! info "Lanelet2 official page"
-    If you want to learn more we encourage to visit the [official project page](https://github.com/fzi-forschungszentrum-informatik/Lanelet2/tree/master).
+    If you want to learn more we encourage to visit the [official project page](https://github.com/fzi-forschungszentrum-informatik/Lanelet2/tree/master#readme).
 
 ## RandomTrafficSimulator
 `RandomTrafficSimulator` simulates city traffic with respect to all traffic rules. The system allows for random selection of car models and the paths they follow. It also allows adding static vehicles in the simulation.
