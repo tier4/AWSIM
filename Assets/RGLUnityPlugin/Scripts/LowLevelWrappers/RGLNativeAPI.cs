@@ -23,6 +23,9 @@ namespace RGLUnityPlugin
         // Public RGL API
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_get_version_info(out int major, out int minor, out int patch);
+        
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_get_extension_info(RGLExtension extension, out int available);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_configure_logging(RGLLogLevel log_level, [MarshalAs(UnmanagedType.LPStr)] string log_file_path, bool use_stdout);
@@ -32,6 +35,9 @@ namespace RGLUnityPlugin
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_mesh_create(out IntPtr mesh, IntPtr vertices, int vertexCount, IntPtr indices, int indexCount);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_mesh_set_texture_coords(IntPtr mesh, IntPtr uvs, int uvCount);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_mesh_destroy(IntPtr mesh);
@@ -47,6 +53,18 @@ namespace RGLUnityPlugin
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_entity_set_pose(IntPtr entity, IntPtr local_to_world_tf);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_entity_set_id(IntPtr entity, int id);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_entity_set_intensity_texture(IntPtr entity, IntPtr texture);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_texture_create(out IntPtr texture, IntPtr texels, int width, int height);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_texture_destroy(IntPtr texture);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_scene_set_time(IntPtr scene, UInt64 nanoseconds);
@@ -85,6 +103,11 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_points_ros2_publish_with_qos(
             ref IntPtr node, [MarshalAs(UnmanagedType.LPStr)] string topic_name, [MarshalAs(UnmanagedType.LPStr)] string frame_id,
             RGLQosPolicyReliability qos_reliability, RGLQosPolicyDurability qos_durability, RGLQosPolicyHistory qos_history, int qos_depth);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_udp_publish_vlp16(
+            ref IntPtr node, [MarshalAs(UnmanagedType.LPStr)] string device_ip,
+            [MarshalAs(UnmanagedType.LPStr)] string dest_ip, int dest_port);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_gaussian_noise_angular_ray(ref IntPtr node, float mean, float st_dev, RGLAxis rotation_axis);
@@ -155,7 +178,7 @@ namespace RGLUnityPlugin
         public static void CheckVersion()
         {
             int expectedMajor = 0;
-            int expectedMinor = 13;
+            int expectedMinor = 14;
             int expectedPatch = 0;
             CheckErr(rgl_get_version_info(out var major, out var minor, out var patch));
             if (major != expectedMajor || minor < expectedMinor || (minor == expectedMinor && patch < expectedPatch))
@@ -187,6 +210,12 @@ namespace RGLUnityPlugin
             rgl_get_last_error_string(out var errStrPtr);
             string errStr = Marshal.PtrToStringAnsi(errStrPtr);
             throw new RGLException(errStr);
+        }
+
+        public static bool HasExtension(RGLExtension extension)
+        {
+            CheckErr(rgl_get_extension_info(extension, out var available));
+            return available != 0;
         }
 
         public static void TapeRecordBegin(string path)
@@ -345,6 +374,11 @@ namespace RGLUnityPlugin
             RGLQosPolicyReliability qos_reliability, RGLQosPolicyDurability qos_durability, RGLQosPolicyHistory qos_history, int qos_depth)
         {
             CheckErr(rgl_node_points_ros2_publish_with_qos(ref node, topicName, frameId, qos_reliability, qos_durability, qos_history, qos_depth));
+        }
+
+        public static void NodePointsUdpPublishVlp16(ref IntPtr node, string deviceIp, string destIp, int destPort)
+        {
+            CheckErr(rgl_node_points_udp_publish_vlp16(ref node, deviceIp, destIp, destPort));
         }
 
         public static void NodeGaussianNoiseAngularRay(ref IntPtr node, float mean, float stDev)
