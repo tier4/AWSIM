@@ -1,5 +1,4 @@
 ## Introduction
-
 `EgoVehicle` is a playable object that simulates a vehicle that can autonomously move around the scene.
 It has components (scripts) that make it possible to control it by keyboard or by *Autoware* (using *ROS2* communication). Moreover, it provides sensory data needed for self-localization in space and detection of objects in the surrounding environment.
 
@@ -9,6 +8,9 @@ The default prefab `EgoVehicle` was developed using a *Lexus RX450h 2015* vehicl
 
 !!! tip "Own EgoVehicle prefab"
     If you would like to develop your own  `EgoVehicle` prefab, we encourage you to read this [tutorial](../../../../DeveloperGuide/Tutorials/AddANewVehicle/).
+
+![ego vehicle sequence](ego_vehicle_sequence.png)
+<!-- TODO: write something about the diagram -->
 
 ### Supported features
 
@@ -26,20 +28,18 @@ It has the following features:
 !!! note "AutowareSimulation"
     If you would like to see how `EgoVehicle` works or run some tests, we encourage you to familiarize yourself with the `AutowareSimulation` scene described in this [section](../../../ProjectGuide/DefaultExistingScenes/).
 
-
 ### *Lexus RX450h 2015* parameters
-
-|         Parameter         | Value                                  | Unit          |
-| :-----------------------: | :------------------------------------- | :------------ |
-|          *Mass*           | $1500$                                 | $kg$          |
-|       *Wheel base*        | $2.5$                                  | $m$           |
-|       *Tread width*       | $Ft : 1.8, Rr : 1.8$                   | $m$           |
-| *Center of Mass position* | $x : 0, y : 0.5, z : 0$                | $m$           |
-|    *Moment of inertia*    | $yaw : 2000, roll : 2000, pitch : 700$ | $kg*m^2$      |
-|       *Spring rate*       | $Ft : 55000, Rr : 48000$               | $N$           |
-|       *Damper rate*       | $Ft : 3000, Rr : 2500$                 | $\frac{N}{s}$ |
-|    *Suspension stroke*    | $Ft : 0.2, Rr 0.2$                     | $m$           |
-|      *Wheel radius*       | $0.365$                                | $m$           |
+|         Parameter         | Value                                                             | Unit           |
+| :-----------------------: | :---------------------------------------------------------------- | :------------- |
+|          *Mass*           | $1500$                                                            | $kg$           |
+|       *Wheel base*        | $2.5$                                                             | $m$            |
+|       *Tread width*       | $Ft = 1.8; Rr = 1.8$                                              | $m$            |
+| *Center of Mass position* | $x = 0; y = 0.5; z = 0$                                           | $m$            |
+|    *Moment of inertia*    | $\mathrm{yaw} = 2000; \mathrm{roll} = 2000; \mathrm{pitch} = 700$ | $kg \cdot m^2$ |
+|       *Spring rate*       | $Ft = 55000; Rr = 48000$                                          | $N$            |
+|       *Damper rate*       | $Ft = 3000; Rr = 2500$                                            | $\frac{N}{s}$  |
+|    *Suspension stroke*    | $Ft = 0.2; Rr = 0.2$                                              | $m$            |
+|      *Wheel radius*       | $0.365$                                                           | $m$            |
 
 !!! info "Vehicle inertia"
 
@@ -70,7 +70,6 @@ As you can see, it consists of 3 parents for *GameObjects*:
 All objects are described in the sections below.
 
 ### Visual elements
-
 Prefab is developed using models available in the form of `*.fbx` files.
 The visuals elements have been loaded from the appropriate `*.fbx` file and are aggregated and added in object `Models`.
 
