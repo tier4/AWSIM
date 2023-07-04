@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Body
+    second: {fileID: 2100000, guid: ab7f3f884ee1c904d95e88ba2ac51b74, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Isusu_body_black
     second: {fileID: 2100000, guid: 0509ef33b3a6d1a45881c6411432d32d, type: 2}
   - first:
@@ -62,13 +67,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Window
+    second: {fileID: 2100000, guid: 59c99b31e144bc4428352f9e571f7200, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: brake_Light
-    second: {fileID: 2100000, guid: 3fabfbea0a8a57b4d94abacbead88546, type: 2}
+    second: {fileID: 2100000, guid: abf5b375104496544b0b7548ddd8802e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: head_Light
-    second: {fileID: 2100000, guid: c0a05158585935c4ba9de3bb46e5d3a5, type: 2}
+    second: {fileID: 2100000, guid: 5a50e876e431d344fb11474c3c3518a6, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -88,7 +98,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: reverse_Light
-    second: {fileID: 2100000, guid: 3b19c789267d34c48a809f2e87108e95, type: 2}
+    second: {fileID: 2100000, guid: 10bef9e09183e41499c50b5673b7d282, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -98,12 +108,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: turn_signal_L
-    second: {fileID: 2100000, guid: 1f9fe796d9fa0ae4c8604a4e602e2376, type: 2}
+    second: {fileID: 2100000, guid: 85172c20669c4a04684b79b522f5f041, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: turn_signal_R
-    second: {fileID: 2100000, guid: 0ab9e27fec64e9645bc24cc0b35602d7, type: 2}
+    second: {fileID: 2100000, guid: 65cca2b0ef9b66e498851db09e02a0f0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

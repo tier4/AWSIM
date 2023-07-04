@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Driver
+    second: {fileID: 2100000, guid: 2d005f2392195074cb2591e0adccf211, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Face
     second: {fileID: 2100000, guid: 4289c55881d175e42b55bef704117c8a, type: 2}
   - first:
