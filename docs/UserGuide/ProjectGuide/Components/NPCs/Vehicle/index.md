@@ -79,7 +79,7 @@ In each `NPCVehicle` prefab, the local coordinate system of the vehicle (main pr
 There are several components responsible for the full functionality of `NPCVehicle`:
 
 - *[LOD Group](https://docs.unity3d.com/Manual/class-LODGroup.html)* - provides level of detail configuration for shaders - affects *GPU* usage.
-- *[Rightbody](https://docs.unity3d.com/ScriptReference/Rigidbody.html)* - ensures that the object is controlled by the physics engine in *Unity* - e.g. pulled downward by gravity.
+- *[Rigidbody](https://docs.unity3d.com/ScriptReference/Rigidbody.html)* - ensures that the object is controlled by the physics engine in *Unity* - e.g. pulled downward by gravity.
 - *NPCVehicle* (script) - provides the ability to change the position and orientation of the vehicle, as well as to control the turn signals and brake light.
 
 Script can be found under the following path:
@@ -90,7 +90,7 @@ Assets/AWSIM/Scripts/NPCs/Vehicles
 
 
 ## CoM
-`CoM` (*Center of Mass*) is an additional link that is defined to set the center of mass in the `Rightbody`. The *NPC Vehicle* (script) is responsible for its assignment. This measure should be defined in accordance with reality. Most often, the center of mass of the vehicle is located in its center, at the height of its wheel axis - as shown below.
+`CoM` (*Center of Mass*) is an additional link that is defined to set the center of mass in the `Rigidbody`. The *NPC Vehicle* (script) is responsible for its assignment. This measure should be defined in accordance with reality. Most often, the center of mass of the vehicle is located in its center, at the height of its wheel axis - as shown below.
 
 <img src=com_2.png width=500px> <img src=com.png width=500px>
 
@@ -127,17 +127,17 @@ To prevent inspector entry for `WheelCollider`. `WheelColliderConfig` has been d
 
 `LOD` provides dependence of the level of detail of the object depending on the ratio of the *GameObject’s* screen space height to the total screen height. Vehicle models have only one `LOD0` group, therefore there is no reduction in model complexity when it does not occupy a large part of the screen. It is only culled when it occupies less than 2% of the height.
 
-## Rightbody
+## Rigidbody
 
-![rightbody](rightbody.png)
+![rigidbody](rigidbody.png)
 
-`RightBody` ensures that the object is controlled by the physics engine. The `Mass` of the vehicle should approximate its actual weight. In order for the vehicle to physically interact with other objects - react to collisions, `Is Kinematic` must be turned off. The `Use Gravity` should be turned on - to ensure the correct behavior of the body during movement. In addition, `Interpolate` should be turned on to ensure the physics engine's effects are smoothed out.
+`Rigidbody` ensures that the object is controlled by the physics engine. The `Mass` of the vehicle should approximate its actual weight. In order for the vehicle to physically interact with other objects - react to collisions, `Is Kinematic` must be turned off. The `Use Gravity` should be turned on - to ensure the correct behavior of the body during movement. In addition, `Interpolate` should be turned on to ensure the physics engine's effects are smoothed out.
 
 ## NPC Vehicle (script)
 ![script](script.png)
 
-The script takes the `Rightbody` and provides an inputs that allows the `NPCVehicle` to move. 
-Script inputs give the ability to set the position and orientation of the vehicle, taking into account the effects of suspension and gravity. In addition, the script uses the [`CoM`](#com) link reference to assign the center of mass of the vehicle to the `Rightbody`.
+The script takes the `Rigidbody` and provides an inputs that allows the `NPCVehicle` to move. 
+Script inputs give the ability to set the position and orientation of the vehicle, taking into account the effects of suspension and gravity. In addition, the script uses the [`CoM`](#com) link reference to assign the center of mass of the vehicle to the `Rigidbody`.
 
 Script inputs are used by `RandomTrafficSimulator`, which controls the vehicles on the scene - it is described [here](../../../Components/Environment/TrafficComponents/).
 

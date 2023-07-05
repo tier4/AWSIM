@@ -44,7 +44,7 @@ There are several components responsible for the full functionality of `NPCPedes
 
 - *[Animator](https://docs.unity3d.com/Manual/class-Animator.html)* - provides motion animations in the scene, which are composed of clips controlled by the controller.
 - *[LOD Group](https://docs.unity3d.com/Manual/class-LODGroup.html)* - provides level of detail configuration for shaders - affects *GPU* usage.
-- *[Rightbody](https://docs.unity3d.com/ScriptReference/Rigidbody.html)* - ensures that the object is controlled by the physics engine in *Unity* - e.g. pulled downward by gravity.
+- *[Rigidbody](https://docs.unity3d.com/ScriptReference/Rigidbody.html)* - ensures that the object is controlled by the physics engine in *Unity* - e.g. pulled downward by gravity.
 - *NPCPedestrian* (script) - ensures that the movement of the object is combined with animation.
 - *SimplePedestrianWalkerController* (script) - provides pedestrian movement in a specific direction and distance in a cyclical manner.
 
@@ -55,10 +55,10 @@ Assets/AWSIM/Scripts/NPCs/Pedestrians/*
 ```
 
 
-## RightBody
-![](rightbody.png)
+## Rigidbody
+![rigidbody pedestrian](rigidbody.png)
 
-`RightBody` ensures that the object is controlled by the physics engine. In order to connect the animation to the object, the `Is Kinematic` option must be enabled. By setting  `Is Kinematic`, each `NPCPedestrian` object will have no physical interaction with other objects - it will not react to a vehicle that hits it. The `Use Gravity` should be turned off - the correct position of the pedestrian in relation to the ground is ensured by the *NPCPedestrian* (script). In addition, `Interpolate` should be turned on to ensure the physics engine's effects are smoothed out.
+`Rigidbody` ensures that the object is controlled by the physics engine. In order to connect the animation to the object, the `Is Kinematic` option must be enabled. By setting  `Is Kinematic`, each `NPCPedestrian` object will have no physical interaction with other objects - it will not react to a vehicle that hits it. The `Use Gravity` should be turned off - the correct position of the pedestrian in relation to the ground is ensured by the *NPCPedestrian* (script). In addition, `Interpolate` should be turned on to ensure the physics engine's effects are smoothed out.
 
 ## LOD (Level of Detail)
 ![](lod.png)
@@ -95,7 +95,7 @@ Developed controller can be found in the following path:<br>
 ## NPCPedestrian (script)
 ![](script.png)
 
-The script takes the `Rightbody` and `Animator` components and combines them in such a way that the actual animation depends on the movement of `Rightbody`. It provides an inputs that allows the pedestrian to move - change his position and orientation. In addition, the `ReferencePoint` point is used to ensure that the pedestrian follows the ground plane correctly.
+The script takes the `Rigidbody` and `Animator` components and combines them in such a way that the actual animation depends on the movement of `Rigidbody`. It provides an inputs that allows the pedestrian to move - change his position and orientation. In addition, the `ReferencePoint` point is used to ensure that the pedestrian follows the ground plane correctly.
 
 #### Elements configurable from the editor level
  - `Ray Cast Max Distance` - ray-cast max distance for locating the ground.
