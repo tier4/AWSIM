@@ -163,7 +163,8 @@ In `EgoVehicle`, the main `Collider` collider and colliders in `Wheels` `GameObj
 ### BodyCollider
 ![collider](collider.png)
 
-`Collider` is a vehicle object responsible for ensuring collision with other objects, in addition, it can be used to detect these collisions.
+`Collider` is a vehicle object responsible for ensuring collision with other objects.
+Additionally, it can be used to detect these collisions.
 The `MeshCollider` takes a *Mesh* of object and builds its `Collider` based on it.
 The *Mesh* for the `Collider` was also loaded from the `*.fbx` file similarly to the visual elements.
 
@@ -176,7 +177,7 @@ The *Mesh* for the `Collider` was also loaded from the `*.fbx` file similarly to
 They are the only ones that have contact with the roads and it is important that they are properly configured.
 Each vehicle, apart from the visual elements related to the wheels, should also have 4 colliders - one for each wheel.
 
-*Wheel* (script) provides a reference to the collider and visual object for the particular wheel
+*Wheel* (script) provides a reference to the collider and visual object for the particular wheel.
 Thanks to this, the [*Vehicle* (script)](#vehicle-script) has the ability to perform certain actions on each of the wheels, such as:
 
 - update the steering angle in `WheelCollider`,
@@ -229,7 +230,7 @@ A detailed description of the `URDF` structure and sensors added to prefab `Lexu
 *Vehicle* (script) provides an inputs that allows the `EgoVehicle` to move.
 Script inputs provides the ability to set the acceleration of the vehicle and the steering angle of its wheels, taking into account the effects of suspension and gravity.
 It also provides an input to set the gear in the gearbox and to control the turn signals.
-Script inputs can be set by one of the following scripts: [*Vehicle Ros* (script)](#vehicle-ros-script) or [*Vehicle Keyboard* (script)](#vehicle-keyboard-script).
+Script inputs can be set by one of the following scripts: [*Vehicle Ros Input* (script)](#vehicle-ros-script) or [*Vehicle Keyboard Input* (script)](#vehicle-keyboard-script).
 
 The script performs several steps periodically:
 
@@ -384,7 +385,7 @@ In the case of `EgoVehicle`, each light type has its own *GameObject* which cont
 
 ![material](material.png)
 
-For each type of light, the appropriate `Material Index` (equivalent of element index in mesh) and `Lighting Color` are assigned - yellow for `Turn Signals`, red for `Break` and white for `Reverse`
+For each type of light, the appropriate `Material Index` (equivalent of element index in mesh) and `Lighting Color` are assigned - yellow for `Turn Signals`, red for `Break` and white for `Reverse`.
 
 `Lighting Intensity` values are also configured - the greater the value, the more light will be emitted.
 This value is related to `Lighting Exposure Weight` parameter that is a exposure weight - the lower the value, the more light is emitted.
@@ -392,5 +393,5 @@ This value is related to `Lighting Exposure Weight` parameter that is a exposure
 All types of lighting are switched on and off depending on the values obtained from the *Vehicle* (script) of the vehicle, which is assigned in the `Vehicle` field.
 
 #### Elements configurable from the editor level
-- `Turn Signal Timer Interval Sec` - time interval for flashing lights - value $0.5$ means that the light will be on for $0.5s$, then it will be turned off for $0.5s$ and turned on again<br>
+- `Turn Signal Timer Interval Sec` - time interval for flashing lights - value $0.5$ means that the light will be on for $0.5s$, then it will be turned off for $0.5s$ and turned on again.<br>
 (default: `0.5`)
