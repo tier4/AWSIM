@@ -129,12 +129,11 @@ Assets/AWSIM/Scripts/Vehicles/*
 On the following diagrams the architecture of communication is presented.
 Two different diagrams are shown for clarity - a flow diagram and a sequence diagram.
 
-The flow diagram presents a flow of information between components listed above and other elements essential to understand the topic.
-The general interactions between the components can be observed.
+The flow diagram presents a flow of information between the *Ego Vehicle* components.
 
 ![ego vehicle flow diagram](ego_vehicle_flow.png)
 
-The sequence diagram provides a deeper insight in how the communication is structured and what are the steps taken by each element.
+The sequence diagram provides a deeper insight in how the communication is structured and what are the steps taken by each component.
 Some tasks performed by the elements are presented for clarification.
 
 ![ego vehicle sequence diagram](ego_vehicle_sequence.png)
