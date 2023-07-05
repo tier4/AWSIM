@@ -9,9 +9,6 @@ The default prefab `EgoVehicle` was developed using a *Lexus RX450h 2015* vehicl
 !!! tip "Own EgoVehicle prefab"
     If you would like to develop your own  `EgoVehicle` prefab, we encourage you to read this [tutorial](../../../../DeveloperGuide/Tutorials/AddANewVehicle/).
 
-![ego vehicle sequence](ego_vehicle_sequence.png)
-<!-- TODO: write something about the diagram -->
-
 ### Supported features
 
 This vehicle model was created for *Autoware* simulation, and assuming that [*Autoware*](https://autowarefoundation.github.io/autoware-documentation/main/design/autoware-architecture/vehicle/) has already created a gas pedal map,
@@ -126,6 +123,25 @@ Scripts can be found under the following path:
 ```
 Assets/AWSIM/Scripts/Vehicles/*
 ```
+
+**Architecture**
+
+On the following diagrams the architecture of communication is presented.
+Two different diagrams are shown for clarity - a flow diagram and a sequence diagram.
+
+The flow diagram presents a flow of information between components listed above and other elements essential to understand the topic.
+The general interactions between the components can be observed.
+
+![ego vehicle flow diagram](ego_vehicle_flow.png)
+
+The sequence diagram provides a deeper insight in how the communication is structured and what are the steps taken by each element.
+Some tasks performed by the elements are presented for clarification.
+
+![ego vehicle sequence diagram](ego_vehicle_sequence.png)
+
+!!! info "Sequence diagram loops"
+    Please keep in mind, that [Ros topic](https://docs.ros.org/en/humble/Concepts/Basic/About-Topics.html#publish-subscribe) subscription callbacks and the update loop present on the diagram are executed independently and concurrently.
+    The connection point between these loops are shared resources - the *Vehicle* Script.
 
 ## CoM
 `CoM` (*Center of Mass*) is an additional link that is defined to set the center of mass in the `Rigidbody`.
