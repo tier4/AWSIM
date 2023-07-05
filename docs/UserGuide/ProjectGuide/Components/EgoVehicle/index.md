@@ -124,10 +124,14 @@ Scripts can be found under the following path:
 Assets/AWSIM/Scripts/Vehicles/*
 ```
 
-**Architecture**
+### Architecture
+The *Ego Vehicle* architecture - with dependencies - is presented on the following diagram.
 
-On the following diagrams the architecture of communication is presented.
-Two different diagrams are shown for clarity - a flow diagram and a sequence diagram.
+![ego vehicle structure diagram](../../../../Introduction/AWSIM/egovehicle.png)
+
+**Communication**
+
+The communication between *Ego Vehicle* components is presented on two different diagrams - a flow diagram and a sequence diagram.
 
 The flow diagram presents a flow of information between the *Ego Vehicle* components.
 
@@ -138,8 +142,8 @@ Some tasks performed by the elements are presented for clarification.
 
 ![ego vehicle sequence diagram](ego_vehicle_sequence.png)
 
-!!! info "Sequence diagram loops"
-    Please keep in mind, that *Autoware* message callbacks and the update loop present on the diagram are executed independently and concurrently.
+!!! info "Sequence diagram"
+    Please keep in mind, that *Autoware* message callbacks and the update loop present on the sequence diagram are executed independently and concurrently.
     One thing they have in common are resources - the *Vehicle* Script.
 
 ## CoM
