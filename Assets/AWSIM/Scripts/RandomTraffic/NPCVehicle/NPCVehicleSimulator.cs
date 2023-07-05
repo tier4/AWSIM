@@ -105,7 +105,13 @@ namespace AWSIM.TrafficSimulation
         /// </summary>
         public void RemoveInvalidVehicles()
         {
-            (VehicleStates as List<NPCVehicleInternalState>)?.RemoveAll(state => state.Vehicle == null);
+            (VehicleStates as List<NPCVehicleInternalState>)?.RemoveAll(IsVehicleNull);
+
+            // check if vehicle is null
+            bool IsVehicleNull(NPCVehicleInternalState state)
+            {
+                return state.Vehicle == null;
+            }
         }
 
         /// <summary>
