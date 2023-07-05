@@ -16,6 +16,11 @@ Prefab `Environment` is used to create a point cloud (`*.pcd` file) needed to lo
 !!! note "AutowareSimulation scene"
     If you would like to see how `Environment` with random traffic works or run some tests, we encourage you to familiarize yourself with the `AutowareSimulation` scene described in this [section](../../../DefaultExistingScenes/).
 
+### Architecture
+The architecture of an `Environment` - with dependencies between components - is presented on the following diagram.
+
+![environment diagram](../../../../../Introduction/AWSIM//environment.png)
+
 ### Prefabs
 
 Prefabs can be found under the following path: 
