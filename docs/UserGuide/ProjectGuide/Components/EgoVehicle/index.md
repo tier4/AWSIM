@@ -115,7 +115,7 @@ This aspect holds significance when characterizing the dynamics of the object, a
 
 There are several components responsible for the full functionality of `Vehicle`:
 
-- *[Rightbody](https://docs.unity3d.com/ScriptReference/Rigidbody.html)* - ensures that the object is controlled by the physics engine in *Unity* - e.g. pulled downward by gravity.
+- *[Rigidbody](https://docs.unity3d.com/ScriptReference/Rigidbody.html)* - ensures that the object is controlled by the physics engine in *Unity* - e.g. pulled downward by gravity.
 - [*Vehicle* (script)](#vehicle-script) - provides the ability to set the acceleration of the vehicle and the steering angle of its wheels.
 - [*Vehicle Keyboard Input* (script)](#vehicle-keyboard-script) - provides the ability to set inputs in the *Vehicle* (script) via the keyboard.
 - [*Vehicle Ros Input* (script)](#vehicle-ros-script) - provides the ability to set inputs in the *Vehicle* (script) via subscribed *ROS2* topics (outputs from *Autoware*).
@@ -128,7 +128,7 @@ Assets/AWSIM/Scripts/Vehicles/*
 ```
 
 ## CoM
-`CoM` (*Center of Mass*) is an additional link that is defined to set the center of mass in the `Rightbody`.
+`CoM` (*Center of Mass*) is an additional link that is defined to set the center of mass in the `Rigidbody`.
 The *Vehicle* (script) is responsible for its assignment.
 This measure should be defined in accordance with reality.
 Most often, the center of mass of the vehicle is located in its center, at the height of its wheel axis - as shown below.
@@ -180,10 +180,10 @@ Thanks to this, the [*Vehicle* (script)](#vehicle-script) has the ability to per
 !!! tip "Wheel Collider Config"
     For a better understanding of the meaning of `WheelCollider` we encourage you to read [this manual](https://docs.unity3d.com/Manual/class-WheelCollider.html).
 
-## Rightbody
-![rightbody](rightbody.png)
+## Rigidbody
+![rigidbody](rigidbody.png)
 
-`RightBody` ensures that the object is controlled by the physics engine.
+`Rigidbody` ensures that the object is controlled by the physics engine.
 The `Mass` of the vehicle should approximate its actual weight.
 In order for the vehicle to physically interact with other objects - react to collisions, `Is Kinematic` must be turned off.
 The `Use Gravity` should be turned on - to ensure the correct behavior of the body during movement.
@@ -220,12 +220,12 @@ The script performs several steps periodically:
 - checks whether the current inputs meet the set limits and adjusts them within them,
 - calculates the current linear velocity, angular velocity vector and local acceleration vector,
 - set the current steering angle in the script for each wheel and perform their updates,
-- if the current gear is `PARKING` and the vehicle is stopped (its speed and acceleration are below the set thresholds), it puts the vehicle ([`Rightbody`](https://docs.unity3d.com/ScriptReference/Rigidbody.Sleep.html)) and its wheels ([*Wheel* (script)](#wheels-colliders)) to sleep,
+- if the current gear is `PARKING` and the vehicle is stopped (its speed and acceleration are below the set thresholds), it puts the vehicle ([`Rigidbody`](https://docs.unity3d.com/ScriptReference/Rigidbody.Sleep.html)) and its wheels ([*Wheel* (script)](#wheels-colliders)) to sleep,
 - if the vehicle has not been put to sleep, it sets the current acceleration to each with the appropriate sign depending on the `DRIVE` and `REVERSE` gear.
 
 #### Elements configurable from the editor level
-The script uses the [`CoM`](#com) link reference to assign the center of mass of the vehicle to the `Rightbody`.
-In addiction, `Use inertia` allows to define the [`inertia`](https://docs.unity3d.com/ScriptReference/Rigidbody-inertiaTensor.html) tensor for component `Rightbody` - by default it is disabled.
+The script uses the [`CoM`](#com) link reference to assign the center of mass of the vehicle to the `Rigidbody`.
+In addiction, `Use inertia` allows to define the [`inertia`](https://docs.unity3d.com/ScriptReference/Rigidbody-inertiaTensor.html) tensor for component `Rigidbody` - by default it is disabled.
 
 `Physics Settings` - allows to set values used to control vehicle physics:
 
