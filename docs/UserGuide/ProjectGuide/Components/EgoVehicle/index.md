@@ -140,8 +140,8 @@ Some tasks performed by the elements are presented for clarification.
 ![ego vehicle sequence diagram](ego_vehicle_sequence.png)
 
 !!! info "Sequence diagram loops"
-    Please keep in mind, that [Ros topic](https://docs.ros.org/en/humble/Concepts/Basic/About-Topics.html#publish-subscribe) subscription callbacks and the update loop present on the diagram are executed independently and concurrently.
-    The connection point between these loops are shared resources - the *Vehicle* Script.
+    Please keep in mind, that *Autoware* message callbacks and the update loop present on the diagram are executed independently and concurrently.
+    One thing they have in common are resources - the *Vehicle* Script.
 
 ## CoM
 `CoM` (*Center of Mass*) is an additional link that is defined to set the center of mass in the `Rigidbody`.
