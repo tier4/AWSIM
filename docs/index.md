@@ -33,7 +33,7 @@ Other quick links to the most important parts of the documentation are listed be
 - [Set a single goal](./UserGuide/FirstSteps/SetASingleGoal/)
 - [Add checkpoints on the way to the goal](./UserGuide/FirstSteps/AddCheckpointsOnTheWayToTheGoal/) 
 - [Enable self-driving](./UserGuide/FirstSteps/EnableSelf-driving/) 
-- [Set a list of goals](./UserGuide/FirstSteps/SetGoalList/) 
+- [Set a list of goals](./UserGuide/FirstSteps/SetAListOfGoals/) 
   
 #### Unity project
 - [Prerequisites](./UserGuide/BuildFromSource/Prerequisites/)

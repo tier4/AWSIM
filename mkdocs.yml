@@ -50,7 +50,7 @@ nav:
                             - Set a single goal: UserGuide/FirstSteps/SetASingleGoal/index.md
                             - Add checkpoints on the way to the goal: UserGuide/FirstSteps/AddCheckpointsOnTheWayToTheGoal/index.md
                             - Enable self-driving: UserGuide/FirstSteps/EnableSelf-driving/index.md
-                            - Set a list of goals: UserGuide/FirstSteps/SetGoalList/index.md
+                            - Set a list of goals: UserGuide/FirstSteps/SetAListOfGoals/index.md
                   - Build from source:
                             - Prerequisites: UserGuide/BuildFromSource/Prerequisites/index.md
                             - Unity installation: UserGuide/BuildFromSource/UnityInstallation/index.md

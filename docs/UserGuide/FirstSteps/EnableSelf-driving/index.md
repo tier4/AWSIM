@@ -24,7 +24,7 @@ To start autonomous-driving, follow these steps:
 3. An examples of tracking a path to a single goal and with an added checkpoint are shown below.
 
 !!! success 
-    You already know how to move the *Ego* to one planned goal. In order to create a list of goals, you can use the `AutomaticGoal` plugin - it is described in this [section](../SetGoalList/).
+    You already know how to move the *Ego* to one planned goal. In order to create a list of goals, you can use the `AutomaticGoal` plugin - it is described in this [section](../SetAListOfGoals/).
 
 !!! example
     An example of drive to single goal.
