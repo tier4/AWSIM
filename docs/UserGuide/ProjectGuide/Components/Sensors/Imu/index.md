@@ -11,7 +11,6 @@ Prefab can be found under the following path:
 Assets/AWSIM/Prefabs/Sensors/IMUSensor.prefab
 ```
 
-
 ### Link in the default Scene
 `IMUSensor` has its own frame `tamagawa/imu_link` in which its data is published.
 The sensor prefab is added to this frame.
@@ -28,7 +27,6 @@ The `IMUSensor` functionality is split into two scripts:
 
 - *IMUSensor* (script) - it calculates the acceleration and angular velocity as its *output* and calls the callback for it.
 - *ImuRos2Publisher* (script) - provides the ability to publish `IMUSensor` output as [Imu](https://docs.ros2.org/latest/api/sensor_msgs/msg/Imu.html) message type published on a specific *ROS2* topics.
-
 
 Scripts can be found under the following path:
 

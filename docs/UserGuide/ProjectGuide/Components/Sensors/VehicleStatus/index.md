@@ -10,7 +10,6 @@ It aggregates information about:
 - *Turn indicators status* - current status of the direction indicators, e.g. `DISABLE` or `ENABLE_LEFT`.
 - *Hazard lights status* - current status of the hazard lights, e.g. `DISABLE` or `ENABLE`.
 - *Velocity status* - current lateral, longitudinal and heading velocities values, e.g `{0.2, 0.0, 0.0}`.
- script do everything.
 
 ### Prefab
 Prefab can be found under the following path:

@@ -36,11 +36,10 @@ This Component should be added automatically together with [*Camera component*](
 !!! tip "Camera settings"
     If you would like to adjust the image captured by the camera, we encourage you to read [this manual](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@11.0/manual/HDRP-Camera.html).
 
-
 The `CameraSensor` functionality is split into two scripts:
 
 - *CameraSensor* (script) - acquires the image from the *Unity* [camera](https://docs.unity3d.com/ScriptReference/Camera.html), transforms it and saves to the  *BGR8* format, this format along with the camera parameters is its script output - script also calls the callback for it.
-- *CameraRos2Publisher* (script) - provides the ability to publish `CameraSensor` output as [Image](https://docs.ros2.org/latest/api/sensor_msgs/msg/Image.html) and [CameraInfo](https://docs.ros2.org/latest/api/sensor_msgs/msg/CameraInfo.html) messages type published on a specific *ROS2* topics.
+- *CameraRos2Publisher* (script) - provides the ability to publish `CameraSensor` output as [Image][image_msg] and [CameraInfo][camera_info_msg] messages type published on a specific *ROS2* topics.
 
 Scripts can be found under the following path:
 
@@ -93,8 +92,8 @@ The sensor computation output format is presented below:
 ## CameraRos2Publisher (script) 
 ![script_ros2](script_ros2.png)
 
-Converts the data output from `CameraSensor` to *ROS2* [Image](https://docs.ros2.org/latest/api/sensor_msgs/msg/Image.html) 
-and [CameraInfo](https://docs.ros2.org/latest/api/sensor_msgs/msg/CameraInfo.html) type messages and publishes them.
+Converts the data output from `CameraSensor` to *ROS2* [Image][image_msg] 
+and [CameraInfo][camera_info_msg] type messages and publishes them.
 The conversion and publication is performed using the `Publish(CameraSensor.OutputData outputData)` method,
 which is the `callback` triggered by *CameraSensor* (script) for the current output.
 
@@ -105,8 +104,8 @@ The script also ensures that `binning` is assumed to be zero and the rectificati
     The script uses the camera parameters set in the *CameraSensor script* - remember to configure them depending on the camera you are using.
 
 #### Elements configurable from the editor level
-- `Image Topic` - the *ROS2* topic on which the [`Image`](https://docs.ros2.org/latest/api/sensor_msgs/msg/Image.html) message is published<br>(default: `"/sensing/camera/traffic_light/image_raw"`)
-- `Camera Info Topic` - the *ROS2* topic on which the [`CameraInfo`](https://docs.ros2.org/latest/api/sensor_msgs/msg/CameraInfo.html) message is published<br>(default: `"/sensing/camera/traffic_light/camera_info"`)
+- `Image Topic` - the *ROS2* topic on which the [`Image`][image_msg] message is published<br>(default: `"/sensing/camera/traffic_light/image_raw"`)
+- `Camera Info Topic` - the *ROS2* topic on which the [`CameraInfo`][camera_info_msg] message is published<br>(default: `"/sensing/camera/traffic_light/camera_info"`)
 - `Frame id` - frame in which data is published, used in [`Header`](https://docs.ros2.org/latest/api/std_msgs/msg/Header.html)<br>(default: `"traffic_light_left_camera/camera_link"`)
 - `Qos Settings` - Quality of service profile used in the publication<br>(default: `Best effort`, `Volatile`, `Keep last`, `1`)
 
@@ -114,7 +113,10 @@ The script also ensures that `binning` is assumed to be zero and the rectificati
 - Frequency: `10Hz`
 - QoS: `Best effort`, `Volatile`, `Keep last/1`
 
-|    Category    | Topic                                       | Message type             |               `frame_id`                |
-| :------------: | :------------------------------------------ | :----------------------- | :-------------------------------------: |
-| *Camera info*  | `/sensing/camera/traffic_light/camera_info` | `sensor_msgs/CameraInfo` | `traffic_light_left_camera/camera_link` |
-| *Camera image* | `/sensing/camera/traffic_light/image_raw`   | `sensor_msgs/Image`      | `traffic_light_left_camera/camera_link` |
+|    Category    | Topic                                       | Message type                                |               `frame_id`                |
+| :------------: | :------------------------------------------ | :------------------------------------------ | :-------------------------------------: |
+| *Camera info*  | `/sensing/camera/traffic_light/camera_info` | [`sensor_msgs/CameraInfo`][camera_info_msg] | `traffic_light_left_camera/camera_link` |
+| *Camera image* | `/sensing/camera/traffic_light/image_raw`   | [`sensor_msgs/Image`][image_msg]            | `traffic_light_left_camera/camera_link` |
+
+[image_msg]: https://docs.ros2.org/latest/api/sensor_msgs/msg/Image.html
+[camera_info_msg]: https://docs.ros2.org/latest/api/sensor_msgs/msg/CameraInfo.html

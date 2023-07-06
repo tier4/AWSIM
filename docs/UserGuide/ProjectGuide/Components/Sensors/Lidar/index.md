@@ -33,8 +33,6 @@ Prefabs can be found under the following path:
 Assets/AWSIM/Prefabs/RobotecGPULidars/*
 ```
 
-
-
 The table of available prefabs can be found below:
 
 | LiDAR                 | Path                     | Appearance                                       |
@@ -46,14 +44,13 @@ The table of available prefabs can be found below:
 | *Velodyne VLC-32C*    | `VelodyneVLP32C.prefab`  | <img src=imgs_prefabs/vlp32.png width=150px>     |
 | *Velodyne VLS-128-AP* | `VelodyneVLS128.prefab`  | <img src=imgs_prefabs/vls128.png width=150px>    |
 
-
-
 ### Link in the default Scene
-`LidarSensor` is configured in default vehicle `EgeVehicle` prefab, it is added to `URDF` object as a child of `sensor_kit_base_link`.
-`LidarSensor` placed in this way does not have its own frame, and the data is published relative to `sensor_kit_base_link`.
-More details about the location of the sensors in the vehicle can be found [`here`](../../EgoVehicle/URDF/).
-
 ![link](link.png)
+
+`LidarSensor` is configured in default vehicle `EgeVehicle` prefab.
+It is added to `URDF` object as a child of `sensor_kit_base_link`.
+`LidarSensor` placed in this way does not have its own frame, and the data is published relative to `sensor_kit_base_link`.
+More details about the location of the sensors in the vehicle can be found [here](../../EgoVehicle/URDF/).
 
 A detailed description of the `URDF` structure and sensors added to prefab `Lexus RX450h 2015` is available in this [section](../../EgoVehicle/URDF/).
 
@@ -74,10 +71,12 @@ Moreover, the scripts use `Resources` to provide configuration for prefabs of su
 - *LaserModels* - provides a list of supported models,
 - *LaserArrayLibrary* - provides data related to laser array construction for supported models,
 - *LaserConfigurationLibrary* - provides full configuration, with ranges and noise for supported models.
+
 These are elements of the `RGLUnityPlugin`, you can read more [here](../../../ExternalLibraries/RGLUnityPlugin/).
 
 ## LidarSensor (script)
 ![script](script.png)
+
 This is the main component that creates the `RGL` node pipeline for the *LiDAR* simulation.
 The pipeline consists of:
 
@@ -92,11 +91,10 @@ The pipeline consists of:
 In this way, other components can request point cloud processing operations and receive data in the desired format.
 
 `LidarSensor` component in the output provides 3 types of data.
-Two of them: *rosPCL24* and *rosPCL48* are point clouds that are published by the [*RglLidarPublisher*](#rgllidarpublisher-component) component.
-Whereas vector *onlyHits* is used for visualization by the [*PointCloudVisualization*](#pointcloudvisualization-component) component.
+Two of them: *rosPCL24* and *rosPCL48* are point clouds that are published by the [*RglLidarPublisher*](#rgllidarpublisher-script) component.
+Whereas vector *onlyHits* is used for visualization by the [*PointCloudVisualization*](#pointcloudvisualization-script) component.
 
 #### Elements configurable from the editor level
-
 - `Automatic Capture Hz` - the rate of sensor processing (default: `10Hz`)
 - `Model Preset` - allows selecting one of the built-in *LiDAR* models (default: `RangeMeter`)
 - `Apply Distance Gaussian Noise` - enable/disable distance gaussian noise (default: `true`)
@@ -136,18 +134,16 @@ Currently, `RglLidarPublisher` implements two ROS2 publishers:
 
 Details on the construction of these formats are available in the `PointCloudFormats` under the following path:
 
-
 ```
 Assets/AWSIM/Scripts/Sensors/LiDAR/PointCloudFormats.cs
 ```
-
 
 !!! note "*rosPCL48* format"
     For a better understanding of the *rosPCL48* format, we encourage you to familiarize yourself with the point cloud pre-processing process in *Autoware*, which is described [here](https://autowarefoundation.github.io/autoware-documentation/latest/design/autoware-architecture/sensing/data-types/point-cloud/#channel).
 
 #### Elements configurable from the editor level
-- `Pcl 24 Topic` - the *ROS2* topic on which the [`PointCloud2`](https://docs.ros2.org/latest/api/sensor_msgs/msg/PointCloud.html) message is published<br>(default: `"lidar/pointcloud"`)
-- `Pcl 48 Topic` - the *ROS2* topic on which the [`PointCloud2`](https://docs.ros2.org/latest/api/sensor_msgs/msg/PointCloud.html) message is published<br>(default: `"lidar/pointcloud_ex"`)
+- `Pcl 24 Topic` - the *ROS2* topic on which the [`PointCloud2`][pointcloud2] message is published<br>(default: `"lidar/pointcloud"`)
+- `Pcl 48 Topic` - the *ROS2* topic on which the [`PointCloud2`][pointcloud2] message is published<br>(default: `"lidar/pointcloud_ex"`)
 - `Frame ID` - frame in which data are published, used in [`Header`](https://docs.ros2.org/latest/api/std_msgs/msg/Header.html) (default: `"world"`)
 - `Publish PCL24` - if publish cloud *PCL24* (default: `true`)
 - `Publish PCL48` - if publish cloud *PCL48* (default: `true`)
@@ -157,10 +153,10 @@ Assets/AWSIM/Scripts/Sensors/LiDAR/PointCloudFormats.cs
 - Frequency: `10Hz`
 - QoS:  `Best effort`, `Volatile`, `Keep last/5`
 
-|         Category          | Topic                  | Message type               | `frame_id` |
-| :-----------------------: | :--------------------- | :------------------------- | :--------: |
-| PointCloud 24-byte format | `/lidar/pointcloud`    | `sensor_msgs/PointCloud2`  |  `world`   |
-| PointCloud 48-byte format | `/lidar/pointcloud_ex` | `sensor_msgs/PointCloud2 ` |  `world`   |
+|         Category          | Topic                  | Message type                              | `frame_id` |
+| :-----------------------: | :--------------------- | :---------------------------------------- | :--------: |
+| PointCloud 24-byte format | `/lidar/pointcloud`    | [`sensor_msgs/PointCloud2`][pointcloud2]  |  `world`   |
+| PointCloud 48-byte format | `/lidar/pointcloud_ex` | [`sensor_msgs/PointCloud2`][pointcloud2]  |  `world`   |
 
 ## PointCloudVisualization (script)
 ![script_visualization](script_visualization.png)
@@ -169,6 +165,7 @@ A component visualizing a point cloud obtained from `RGL` in the form of a [`Vec
 Based on the defined color table, it colors the points depending on the height at which they are located.
 
 The obtained points are displayed as the vertices of mesh, and their coloring is possible thanks to the use of `PointCloudMaterial` material which can be found in the following path:
+
 ```
 Assets/RGLUnityPlugin/Resources/PointCloudMaterial.mat
 ```
@@ -184,3 +181,5 @@ Assets/RGLUnityPlugin/Resources/PointCloudMaterial.mat
 - `Auto Compute Coloring Heights` - automatic calculation of heights limits for a list of colors (default: `false`)
 - `Min Coloring Height` - minimum height value from which color matching is performed, below this value all points have the first color from the list (default: `0`)
 - `Max Coloring Height` - maximum height value from which color matching is performed, above this value all points have the last color from the list (default: `20`)
+
+[pointcloud2]: https://docs.ros2.org/latest/api/sensor_msgs/msg/PointCloud2.html
