@@ -86,7 +86,7 @@ In such a case please follow [the tutorial](../AddASceneManager/).
 ## Add an Environment prefab
 !!! note "Environment creation"
     Environment is a very important part of your scene.
-    If you haven't created your Environment yet, please visit a [dedicated tutorial](../../AddANewEnvironment/AddAEnvironment/).
+    If you haven't created your Environment yet, please visit a [dedicated tutorial](../../AddANewEnvironment/AddAnEnvironment/).
 
 To add add an Environment prefab into your Scene please
 

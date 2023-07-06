@@ -87,7 +87,7 @@ nav:
         - Developer guide:
                   - Tutorials:
                             - Add a new Environment:
-                                      - Add an Environment: DeveloperGuide/Tutorials/AddANewEnvironment/AddAEnvironment/index.md
+                                      - Add an Environment: DeveloperGuide/Tutorials/AddANewEnvironment/AddAnEnvironment/index.md
                                       - Add TrafficLights: DeveloperGuide/Tutorials/AddANewEnvironment/AddTrafficLights/index.md
                                       - Add a RandomTraffic:
                                                 - Load items from lanelet2: DeveloperGuide/Tutorials/AddARandomTraffic/LoadItemsFromLanelet/index.md
