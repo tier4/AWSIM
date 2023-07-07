@@ -54,4 +54,4 @@ To add a new *LiDAR* model, perform the following steps:
 1. Now you can run the scene and check how your *LiDAR* works.
 
 !!! success
-    We encourage you to develop a vehicle using the new *LiDAR* you have added - learn how to do this [here](../../Tutorials/AddANewVehicle/).
+    We encourage you to develop a vehicle using the new *LiDAR* you have added - learn how to do this [here](../../Tutorials/AddANewVehicle/AddAVehicle/).

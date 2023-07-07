@@ -94,7 +94,7 @@ nav:
                                                 - Add a RandomTraffic: DeveloperGuide/Tutorials/AddANewEnvironment/AddARandomTraffic/AddARandomTrafficSimulatorScript/index.md
                                                 - Add a TrafficIntersection: DeveloperGuide/Tutorials/AddANewEnvironment/AddARandomTraffic/AddATrafficIntersection/index.md
                             - Add a new Vehicle:
-                                      - Add a Vehicle: DeveloperGuide/Tutorials/AddANewVehicle/index.md
+                                      - Add a Vehicle: DeveloperGuide/Tutorials/AddANewVehicle/AddAVehicle/index.md
                                       - Add Visual Elements: DeveloperGuide/Tutorials/AddANewVehicle/AddVisualElements/index.md
                                       - Add Colliders: DeveloperGuide/Tutorials/AddANewVehicle/AddColliders/index.md
                                       - Add Sensors: DeveloperGuide/Tutorials/AddANewVehicle/AddSensors/index.md

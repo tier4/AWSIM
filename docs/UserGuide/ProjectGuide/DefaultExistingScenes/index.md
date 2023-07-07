@@ -26,7 +26,7 @@ Scene `SensorConfig` was developed to perform a quick test of sensors added to t
 
 ## NPCVehicleSample
 
-The `NPCVehicleSample` was developed to conduct a quick test for the developed vehicle. Replace the taxi prefab with a vehicle prefab you developed (`EgoVehicle` or `NPCVehicle`) and check if the basic things are configured correctly. The description of how to develop your own vehicle and add it to the project is in this [section](../../../DeveloperGuide/Tutorials/AddANewVehicle/).
+The `NPCVehicleSample` was developed to conduct a quick test for the developed vehicle. Replace the taxi prefab with a vehicle prefab you developed (`EgoVehicle` or `NPCVehicle`) and check if the basic things are configured correctly. The description of how to develop your own vehicle and add it to the project is in this [section](../../../DeveloperGuide/Tutorials/AddANewVehicle/AddAVehicle/).
 
 <video width="1920" controls>
 <source src="vehicle_test.mp4" type="video/mp4">

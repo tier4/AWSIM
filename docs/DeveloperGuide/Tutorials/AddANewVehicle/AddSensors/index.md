@@ -33,7 +33,7 @@ ROS orientation described with roll, pitch and yaw `(r, p, y)` can be translated
 
 ### Add transformations tree
 !!! warning "URDF"
-    Before following this tutorial please make sure you have an `URDF` *Object* like it is shown shown in [this section](../#add-a-base-for-sensors-urdf).
+    Before following this tutorial please make sure you have an `URDF` *Object* like it is shown shown in [this section](../AddAVehicle/#add-a-base-for-sensors-urdf).
 
 First we will have to add a `base_link` which is the root of all transformations.
 

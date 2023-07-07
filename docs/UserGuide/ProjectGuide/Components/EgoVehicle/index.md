@@ -8,7 +8,7 @@ The default prefab `EgoVehicle` was developed using a *Lexus RX450h 2015* vehicl
 ![vehicle](vehicle.png)
 
 !!! tip "Own EgoVehicle prefab"
-    If you would like to develop your own  `EgoVehicle` prefab, we encourage you to read this [tutorial](../../../../DeveloperGuide/Tutorials/AddANewVehicle/).
+    If you would like to develop your own  `EgoVehicle` prefab, we encourage you to read this [tutorial](../../../../DeveloperGuide/Tutorials/AddANewVehicle/AddAVehicle/).
 
 ### Supported features
 

@@ -1,6 +1,6 @@
 !!! info "Ego Vehicle Component"
     In this tutorial we will create a new `EgoVehicle`.
-    To learn more about what an `EgoVehicle` is in *AWSIM* please visit [Ego Vehicle description page](../../../UserGuide/ProjectGuide/Components/EgoVehicle/).
+    To learn more about what an `EgoVehicle` is in *AWSIM* please visit [Ego Vehicle description page](../../../../UserGuide/ProjectGuide/Components/EgoVehicle/).
 
 ## Cerate an Object
 Add a child *Object* to the *Simulation* called `EgoVehicle`.
@@ -23,7 +23,7 @@ Add a child *Object* to the *Simulation* called `EgoVehicle`.
     ![rigidbody configure 2](rigidbody_configure2.gif)
 
 ## Add visual elements
-For a detailed explanation hwo to add visual elements of your Vehicle check out this [dedicated tutorial](./AddVisualElements/).
+For a detailed explanation hwo to add visual elements of your Vehicle check out this [dedicated tutorial](../AddVisualElements/).
 
 ## Add a Canter of Mass
 To add a center of mass to your vehicle you have to add a `CoM` child *Object* to the `EgoVehicle` *Object* (the same as in steps before).
@@ -67,7 +67,7 @@ Then just set the *position* of the `CoM` *Object* in the *Inspector* view to re
         ![reflection probe configuration](reflection_probe_configuration.png)
 
 ## Add Colliders
-For a detailed explanation how to add colliders to your Vehicle check out this [dedicated tutorial](./AddColliders/).
+For a detailed explanation how to add colliders to your Vehicle check out this [dedicated tutorial](../AddColliders/).
 
 ## Add a base for sensors (URDF)
 You will most certainly want to add some sensors to your `EgoVehicle`.
@@ -170,7 +170,7 @@ After configuring `Vehicle Visual Effect` Script it is advised to test whether e
     Pleas note that this method **won't** work for testing Brake Lights, as for them to work you need to keep the `arrow down` button pressed all the time.
 
 ## Add a Vehicle Ros Input Script
-For controlling your Vehicle with autonomous driving software (e.g. [Autoware](../../../Introduction/Autoware/)) you need a `Vehicle Ros Input` Script.
+For controlling your Vehicle with autonomous driving software (e.g. [Autoware](../../../../Introduction/Autoware/)) you need a `Vehicle Ros Input` Script.
 
 !!! warning "Disable `Vehicle Keyboard Input` Script"
     If you have added a `Vehicle Keyboard Input` Script in your Vehicle please disable it when using the `Vehicle Ros Input` Script.
@@ -183,7 +183,7 @@ Add it to the `EgoVehicle` *Object* by clicking on the 'Add Component' button, s
 
 ![vehicle ros input add component](vehicle_ros_input_add_component.gif)
 
-The Script is configured to work with [Autoware](../../../Introduction/Autoware/) by default, but you can change the topics and Quality of Service settings as you wish.
+The Script is configured to work with [Autoware](../../../../Introduction/Autoware/) by default, but you can change the topics and Quality of Service settings as you wish.
 
 !!!note
     The `Vehicle` should be configured correctly, but if you have many Vehicles or something goes wrong, please select the right Vehicle in the `Vehicle` field by clicking on the small arrow icon and choosing the right item from the list.
@@ -191,12 +191,12 @@ The Script is configured to work with [Autoware](../../../Introduction/Autoware/
 ### How to test
 The best way to test the Vehicle Ros Input Script is to run *Autoware*.
 
-1. Run the *Scene*the same as on [this page](../../../UserGuide/BuildFromSource/RunScene/).
-2. Launch **only** the *Autoware* like on [this page](../../../UserGuide/Installation/RunDemo/#2-run-demo-with-autoware)
-3. Plan a path in *Autoware* like [here](../../../UserGuide/FirstSteps/SetASingleGoal/), if the Vehicle moves in *AWSIM* correctly then the Script is configured well.
+1. Run the *Scene*the same as on [this page](../../../../UserGuide/BuildFromSource/RunScene/).
+2. Launch **only** the *Autoware* like on [this page](../../../../UserGuide/Installation/RunDemo/#2-run-demo-with-autoware)
+3. Plan a path in *Autoware* like [here](../../../../UserGuide/FirstSteps/SetASingleGoal/), if the Vehicle moves in *AWSIM* correctly then the Script is configured well.
 
 ## Add Sensors
-For a detailed explanation how to add sensors to your Vehicle check out this [dedicated tutorial](./AddSensors/).
+For a detailed explanation how to add sensors to your Vehicle check out this [dedicated tutorial](../AddSensors/).
 
 ## Add a Vehicle to Scene
 ### Save as prefab
@@ -208,4 +208,4 @@ First you will have to save the Vehicle you created as a *prefab*, to easily add
 ![save vehicle as prefab](vehicle_save_prefab.gif)
 
 ### Add to Scene
-To add a Vehcile to the Scene please see [this tutorial](../AddANewScene/AddANewScene/#add-a-vehicle).
+To add a Vehcile to the Scene please see [this tutorial](../../AddANewScene/AddANewScene/#add-a-vehicle).
