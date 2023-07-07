@@ -11,7 +11,6 @@ Prefab can be found under the following path:
 Assets/AWSIM/Prefabs/Sensors/PoseSensor.prefab
 ```
 
-
 ### Link in the default Scene
 The `PoseSensor` is added to the `EgoVehicle` prefab, to the `base_link` object located in the `URDF`.
 Thanks to this, the published position is the position of the `base_link` in the *Scene*.
@@ -45,17 +44,13 @@ This is the main script in which all calculations are performed:
 4. for the current output a `callback` is called (which can be assigned externally).
 
 #### Elements configurable from the editor level
-
 - `Output Hz` - frequency of output calculation and callback calling (default: `100Hz`)
 
-
 #### Output Data
-
 |  Category  |     Type     | Description                                                                    |
 | :--------: | :----------: | :----------------------------------------------------------------------------- |
 | *Position* |  `Vector3`   | The true value of the position of the object - in the *MGRS* coordinate system |
 | *Rotation* | `Quaternion` | The true value of the rotation of the object                                   |
-
 
 ## PoseRos2Publisher (script)
 ![script_ros](script_ros.png)

@@ -40,7 +40,7 @@ Assets/AWSIM/Prefabs/Sensors/Gnss/*
 
 This is the main script in which all calculations are performed:
 
-1. the position of the object in *Unity* are read,
+1. the position of the *Object* in *Unity* is read,
 2. this position is transformed to the *ROS2* coordinate system (*MGRS* offset is added here),
 3. the result of the transformation is saved as the output of the component,
 4. for the current output a `callback` is called (which can be assigned externally).
