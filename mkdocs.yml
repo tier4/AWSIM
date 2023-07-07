@@ -103,7 +103,7 @@ nav:
                                       - Add a SceneManager: DeveloperGuide/Tutorials/AddANewScene/AddASceneManager/index.md
                             - Add a new LiDAR: DeveloperGuide/Tutorials/AddANewLiDAR/index.md
                             - Create a PCD: DeveloperGuide/Tutorials/CreateAPCDFromMesh/index.md
-                            - Add a custom ROS2 message: DeveloperGuide/Tutorials/AddACustomMessage/index.md
+                            - Add a custom ROS2 message: DeveloperGuide/Tutorials/AddACustomROS2Message/index.md
                   - API: DeveloperGuide/API/index.md
                   - Contributing:
                             - How to Contribute: DeveloperGuide/Contributing/HowToContribute/index.md

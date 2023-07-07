@@ -4,7 +4,7 @@ The following is a summary of the *ROS2* topics that the *AWSIM* node subscribes
 
 !!! Note "Ros2ForUnity"
     *AWSIM* works with *ROS2* thanks to the use of `Ros2ForUnity` - read the details [here](../ExternalLibraries/Ros2Unity/).<br>
-    If you want to generate a custom message to allow it to be used in *AWSIM* please read this [tutorial](../../../DeveloperGuide/Tutorials/AddACustomMessage/).
+    If you want to generate a custom message to allow it to be used in *AWSIM* please read this [tutorial](../../../DeveloperGuide/Tutorials/AddACustomROS2Message/).
 
 
 ## List of subscribers

@@ -59,5 +59,5 @@ Other quick links to the most important parts of the documentation are listed be
 - New Vehicle: [Add a Vehicle](./DeveloperGuide/Tutorials/AddANewVehicle/AddAVehicle/), [Add Visual Elements](./DeveloperGuide/Tutorials/AddANewVehicle/AddVisualElements/), [Add Colliders](./DeveloperGuide/Tutorials/AddANewVehicle/AddColliders/), [Add Sensors](./DeveloperGuide/Tutorials/AddANewVehicle/AddSensors/)
 - New Scene: [Add a Scene](./DeveloperGuide/Tutorials/AddANewScene/AddAScene/), [Add a SceneManager](./DeveloperGuide/Tutorials/AddANewScene/AddASceneManager/)
 - [New Lidar](./DeveloperGuide/Tutorials/AddANewLiDAR/)
-- [New custom ROS2 Message](./DeveloperGuide/Tutorials/AddACustomMessage/)
+- [New custom ROS2 Message](./DeveloperGuide/Tutorials/AddACustomROS2Message/)
 - [Create a PCD](./DeveloperGuide/Tutorials/CreateAPCDFromMesh/)
