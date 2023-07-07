@@ -59,7 +59,7 @@ To add a Main Camera please do the following
 
         ![follow camera configuration](follow_camera_configuration.png)
 
-??? example "Example configuration"
+??? example "Example Camera configuration"
     After following all the steps above your Main Camera should look similar to the one below.
 
     ![main camera example configuration](main_camera_example_configuration.png)
@@ -88,7 +88,7 @@ In such a case please follow [the tutorial](../AddASceneManager/).
     Environment is a very important part of your scene.
     If you haven't created your Environment yet, please visit a [dedicated tutorial](../../AddANewEnvironment/AddAnEnvironment/).
 
-To add add an Environment prefab into your Scene please
+To add an Environment prefab into your Scene please
 
 1. Locate the following directory  containing an Environment *prefab* in the *Project* view.
 
@@ -96,9 +96,9 @@ To add add an Environment prefab into your Scene please
     Assets/AWSIM/Prefabs/Environments
     ```
 
-1. Drag the Environment of your choice into the Simulation *Object* in the *Hierarchy* view.
+2. Drag the Environment of your choice into the Simulation *Object* in the *Hierarchy* view.
 
-    !!! note
+    !!! note "Drag Environment correctly"
         It is important to drag the Environment into a Hierarchy view and **not** a Scene view.
         This way no offset will be applied - which is a desired behavior.
 
