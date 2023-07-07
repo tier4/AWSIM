@@ -21,14 +21,14 @@ The framework uses [*ZeroMQ*](https://tier4.github.io/scenario_simulator_v2-docs
 *AWSIM* scene architecture used in combination with *SS2* changes considerably compared to the [default scene](../AWSIM/). Here `traffic_simulator` from *SS2* replaces `TrafficSimulator` implementation in *AWSIM* - for this reason it and its `StopLines`, `TrafficLanes` and `TrafficIntersection` components are removed. Also, `NPCPedestrian` and `NPCVehicles` are not added as aggregators of *NPCs* in `Environment`.
 
 Instead, their counterparts are added in `ScenarioSimulatorConnector` object that is responsible for spawning `Entities` of the scenario. `Entity` can be: `Pedestrian`, `Vehicle`, `MiscObject` and `Ego`. 
-`EgoEntity` is the equivalent of `EgoVehicle` - which is also removed from the default scene. However, it has the same components - it still communicates with *Autoware* as described [here](../ConnectionWithAutoware/). So it can be considered that `EgoVehicle` has not changed and `NPCPedestrians` and `NPCVehicles` are now controlled directly by the *SS2*.
+`EgoEntity` is the equivalent of `EgoVehicle` - which is also removed from the default scene. However, it has the same components - it still communicates with *Autoware* as described [here](../CombinationWithAutoware/). So it can be considered that `EgoVehicle` has not changed and `NPCPedestrians` and `NPCVehicles` are now controlled directly by the *SS2*.
 
 
 A detailed description of the *SS2* architecture is available [here](https://tier4.github.io/scenario_simulator_v2-docs/developer_guide/SystemArchitecture/). A description of the communication via *ROS2* between *SS2* and *Autoware* can be found [here](https://tier4.github.io/scenario_simulator_v2-docs/developer_guide/Communication/).
 
 
 ## Sequence diagram
-In the sequence diagram, the part responsible for *AWSIM* communication with *Autoware* also remained unchanged. The description available [here](../ConnectionWithAutoware/) is the valid description of the reference shown in the diagram below.
+In the sequence diagram, the part responsible for *AWSIM* communication with *Autoware* also remained unchanged. The description available [here](../CombinationWithAutoware/) is the valid description of the reference shown in the diagram below.
 
 Communication between *SS2* and *AWSIM* takes place via *Request-Response* messages, and is as follows:
 

@@ -19,7 +19,7 @@ Because *AWSIM* was developed mainly to work with [*Autoware*](../Autoware/), it
 
 
 !!! note "Connection with Autoware"
-    Introduction about how the connection between *AWSIM* and *Autoware* works can be read [here](../ConnectionWithAutoware/).
+    Introduction about how the connection between *AWSIM* and *Autoware* works can be read [here](../CombinationWithAutoware/).
 
 #### Why was AWSIM developed?
 

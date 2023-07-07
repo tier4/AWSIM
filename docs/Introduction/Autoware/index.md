@@ -13,7 +13,7 @@ The primary purpose of [*Autoware*](https://github.com/autowarefoundation/autowa
 Additionally, simulators enable developers to recreate complex driving scenarios, including difficult conditions or rare events, which may be difficult to replicate in real-world testing with such high fidelity. *Autoware's* compatibility with a *AWSIM* allows seamless integration between the software and the simulated vehicle, enabling comprehensive testing and validation of autonomous driving capabilities. By utilizing a simulator, [*Autoware*](https://github.com/autowarefoundation/autoware) can be extensively tested under various scenarios to ensure its robustness and reliability.
 
 !!! note "Connection with Autoware"
-    Introduction about how the connection between *AWSIM* and *Autoware* works can be read [here](../ConnectionWithAutoware/).
+    Introduction about how the connection between *AWSIM* and *Autoware* works can be read [here](../CombinationWithAutoware/).
 
 ## Architecture
 ![](autoware.png)
