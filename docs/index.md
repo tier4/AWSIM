@@ -60,4 +60,4 @@ Other quick links to the most important parts of the documentation are listed be
 - New Scene: [Add a Scene](./DeveloperGuide/Tutorials/AddANewScene/AddAScene/), [Add a SceneManager](./DeveloperGuide/Tutorials/AddANewScene/AddASceneManager/)
 - [New Lidar](./DeveloperGuide/Tutorials/AddANewLiDAR/)
 - [New custom ROS2 Message](./DeveloperGuide/Tutorials/AddACustomROS2Message/)
-- [Create a PCD](./DeveloperGuide/Tutorials/CreateAPCDFromMesh/)
+- [Create a PCD](./DeveloperGuide/Tutorials/CreateAPCD/)

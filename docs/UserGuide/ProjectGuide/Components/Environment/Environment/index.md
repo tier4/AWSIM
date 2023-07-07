@@ -12,7 +12,7 @@ The point cloud is created using the [`RGL`](../../../ExternalLibraries/RGLUnity
 We encourage you to familiarize yourself with an example scene of creating a point cloud - described [here](../../../DefaultExistingScenes/).
 
 !!! tip "Create PointCloud (*.pcd file)"
-    If you would like to learn how to create a point cloud in *AWSIM* using `Environment` prefab, we encourage you to read this [tutorial](../../../../../DeveloperGuide/Tutorials/CreateAPCDFromMesh/).
+    If you would like to learn how to create a point cloud in *AWSIM* using `Environment` prefab, we encourage you to read this [tutorial](../../../../../DeveloperGuide/Tutorials/CreateAPCD/).
 
 !!! tip "Own Environment prefab"
     If you would like to develop your own prefab `Environment` for *AWSIM*, we encourage you to read this [tutorial](../../../../../DeveloperGuide/Tutorials/AddANewEnvironment/AddAnEnvironment/).

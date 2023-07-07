@@ -1,4 +1,4 @@
-# Create a PCD from Mesh
+# Create a PCD
 
 !!! warning "This section"
     This section is still under development!
