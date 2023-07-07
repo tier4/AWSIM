@@ -1,5 +1,4 @@
 ## Introduction
-
 `EgoVehicle` is a playable object that simulates a vehicle that can autonomously move around the scene.
 It has components (scripts) that make it possible to control it by keyboard or by *Autoware* (using *ROS2* communication). Moreover, it provides sensory data needed for self-localization in space and detection of objects in the surrounding environment.
 
@@ -26,20 +25,18 @@ It has the following features:
 !!! note "AutowareSimulation"
     If you would like to see how `EgoVehicle` works or run some tests, we encourage you to familiarize yourself with the `AutowareSimulation` scene described in this [section](../../../ProjectGuide/DefaultExistingScenes/).
 
-
 ### *Lexus RX450h 2015* parameters
-
-|         Parameter         | Value                                  | Unit          |
-| :-----------------------: | :------------------------------------- | :------------ |
-|          *Mass*           | $1500$                                 | $kg$          |
-|       *Wheel base*        | $2.5$                                  | $m$           |
-|       *Tread width*       | $Ft : 1.8, Rr : 1.8$                   | $m$           |
-| *Center of Mass position* | $x : 0, y : 0.5, z : 0$                | $m$           |
-|    *Moment of inertia*    | $yaw : 2000, roll : 2000, pitch : 700$ | $kg*m^2$      |
-|       *Spring rate*       | $Ft : 55000, Rr : 48000$               | $N$           |
-|       *Damper rate*       | $Ft : 3000, Rr : 2500$                 | $\frac{N}{s}$ |
-|    *Suspension stroke*    | $Ft : 0.2, Rr 0.2$                     | $m$           |
-|      *Wheel radius*       | $0.365$                                | $m$           |
+|         Parameter         | Value                                                             | Unit           |
+| :-----------------------: | :---------------------------------------------------------------- | :------------- |
+|          *Mass*           | $1500$                                                            | $kg$           |
+|       *Wheel base*        | $2.5$                                                             | $m$            |
+|       *Tread width*       | $Ft = 1.8; Rr = 1.8$                                              | $m$            |
+| *Center of Mass position* | $x = 0; y = 0.5; z = 0$                                           | $m$            |
+|    *Moment of inertia*    | $\mathrm{yaw} = 2000; \mathrm{roll} = 2000; \mathrm{pitch} = 700$ | $kg \cdot m^2$ |
+|       *Spring rate*       | $Ft = 55000; Rr = 48000$                                          | $N$            |
+|       *Damper rate*       | $Ft = 3000; Rr = 2500$                                            | $\frac{N}{s}$  |
+|    *Suspension stroke*    | $Ft = 0.2; Rr = 0.2$                                              | $m$            |
+|      *Wheel radius*       | $0.365$                                                           | $m$            |
 
 !!! info "Vehicle inertia"
 
@@ -70,7 +67,6 @@ As you can see, it consists of 3 parents for *GameObjects*:
 All objects are described in the sections below.
 
 ### Visual elements
-
 Prefab is developed using models available in the form of `*.fbx` files.
 The visuals elements have been loaded from the appropriate `*.fbx` file and are aggregated and added in object `Models`.
 
@@ -116,7 +112,7 @@ This aspect holds significance when characterizing the dynamics of the object, a
 
 There are several components responsible for the full functionality of `Vehicle`:
 
-- *[Rightbody](https://docs.unity3d.com/ScriptReference/Rigidbody.html)* - ensures that the object is controlled by the physics engine in *Unity* - e.g. pulled downward by gravity.
+- *[Rigidbody](https://docs.unity3d.com/ScriptReference/Rigidbody.html)* - ensures that the object is controlled by the physics engine in *Unity* - e.g. pulled downward by gravity.
 - [*Vehicle* (script)](#vehicle-script) - provides the ability to set the acceleration of the vehicle and the steering angle of its wheels.
 - [*Vehicle Keyboard Input* (script)](#vehicle-keyboard-script) - provides the ability to set inputs in the *Vehicle* (script) via the keyboard.
 - [*Vehicle Ros Input* (script)](#vehicle-ros-script) - provides the ability to set inputs in the *Vehicle* (script) via subscribed *ROS2* topics (outputs from *Autoware*).
@@ -128,8 +124,30 @@ Scripts can be found under the following path:
 Assets/AWSIM/Scripts/Vehicles/*
 ```
 
+### Architecture
+The *Ego Vehicle* architecture - with dependencies - is presented on the following diagram.
+
+![ego vehicle structure diagram](../../../../Introduction/AWSIM/egovehicle.png)
+
+**Communication**
+
+The communication between *Ego Vehicle* components is presented on two different diagrams - a flow diagram and a sequence diagram.
+
+The flow diagram presents a flow of information between the *Ego Vehicle* components.
+
+![ego vehicle flow diagram](ego_vehicle_flow.png)
+
+The sequence diagram provides a deeper insight in how the communication is structured and what are the steps taken by each component.
+Some tasks performed by the elements are presented for clarification.
+
+![ego vehicle sequence diagram](ego_vehicle_sequence.png)
+
+!!! info "Sequence diagram"
+    Please keep in mind, that *Autoware* message callbacks and the update loop present on the sequence diagram are executed independently and concurrently.
+    One thing they have in common are resources - the *Vehicle* Script.
+
 ## CoM
-`CoM` (*Center of Mass*) is an additional link that is defined to set the center of mass in the `Rightbody`.
+`CoM` (*Center of Mass*) is an additional link that is defined to set the center of mass in the `Rigidbody`.
 The *Vehicle* (script) is responsible for its assignment.
 This measure should be defined in accordance with reality.
 Most often, the center of mass of the vehicle is located in its center, at the height of its wheel axis - as shown below.
@@ -148,7 +166,8 @@ In `EgoVehicle`, the main `Collider` collider and colliders in `Wheels` `GameObj
 ### BodyCollider
 ![collider](collider.png)
 
-`Collider` is a vehicle object responsible for ensuring collision with other objects, in addition, it can be used to detect these collisions.
+`Collider` is a vehicle object responsible for ensuring collision with other objects.
+Additionally, it can be used to detect these collisions.
 The `MeshCollider` takes a *Mesh* of object and builds its `Collider` based on it.
 The *Mesh* for the `Collider` was also loaded from the `*.fbx` file similarly to the visual elements.
 
@@ -161,7 +180,7 @@ The *Mesh* for the `Collider` was also loaded from the `*.fbx` file similarly to
 They are the only ones that have contact with the roads and it is important that they are properly configured.
 Each vehicle, apart from the visual elements related to the wheels, should also have 4 colliders - one for each wheel.
 
-*Wheel* (script) provides a reference to the collider and visual object for the particular wheel
+*Wheel* (script) provides a reference to the collider and visual object for the particular wheel.
 Thanks to this, the [*Vehicle* (script)](#vehicle-script) has the ability to perform certain actions on each of the wheels, such as:
 
 - update the steering angle in `WheelCollider`,
@@ -181,10 +200,10 @@ Thanks to this, the [*Vehicle* (script)](#vehicle-script) has the ability to per
 !!! tip "Wheel Collider Config"
     For a better understanding of the meaning of `WheelCollider` we encourage you to read [this manual](https://docs.unity3d.com/Manual/class-WheelCollider.html).
 
-## Rightbody
-![rightbody](rightbody.png)
+## Rigidbody
+![rigidbody](rigidbody.png)
 
-`RightBody` ensures that the object is controlled by the physics engine.
+`Rigidbody` ensures that the object is controlled by the physics engine.
 The `Mass` of the vehicle should approximate its actual weight.
 In order for the vehicle to physically interact with other objects - react to collisions, `Is Kinematic` must be turned off.
 The `Use Gravity` should be turned on - to ensure the correct behavior of the body during movement.
@@ -214,19 +233,19 @@ A detailed description of the `URDF` structure and sensors added to prefab `Lexu
 *Vehicle* (script) provides an inputs that allows the `EgoVehicle` to move.
 Script inputs provides the ability to set the acceleration of the vehicle and the steering angle of its wheels, taking into account the effects of suspension and gravity.
 It also provides an input to set the gear in the gearbox and to control the turn signals.
-Script inputs can be set by one of the following scripts: [*Vehicle Ros* (script)](#vehicle-ros-script) or [*Vehicle Keyboard* (script)](#vehicle-keyboard-script).
+Script inputs can be set by one of the following scripts: [*Vehicle Ros Input* (script)](#vehicle-ros-script) or [*Vehicle Keyboard Input* (script)](#vehicle-keyboard-script).
 
 The script performs several steps periodically:
 
 - checks whether the current inputs meet the set limits and adjusts them within them,
 - calculates the current linear velocity, angular velocity vector and local acceleration vector,
 - set the current steering angle in the script for each wheel and perform their updates,
-- if the current gear is `PARKING` and the vehicle is stopped (its speed and acceleration are below the set thresholds), it puts the vehicle ([`Rightbody`](https://docs.unity3d.com/ScriptReference/Rigidbody.Sleep.html)) and its wheels ([*Wheel* (script)](#wheels-colliders)) to sleep,
+- if the current gear is `PARKING` and the vehicle is stopped (its speed and acceleration are below the set thresholds), it puts the vehicle ([`Rigidbody`](https://docs.unity3d.com/ScriptReference/Rigidbody.Sleep.html)) and its wheels ([*Wheel* (script)](#wheels-colliders)) to sleep,
 - if the vehicle has not been put to sleep, it sets the current acceleration to each with the appropriate sign depending on the `DRIVE` and `REVERSE` gear.
 
 #### Elements configurable from the editor level
-The script uses the [`CoM`](#com) link reference to assign the center of mass of the vehicle to the `Rightbody`.
-In addiction, `Use inertia` allows to define the [`inertia`](https://docs.unity3d.com/ScriptReference/Rigidbody-inertiaTensor.html) tensor for component `Rightbody` - by default it is disabled.
+The script uses the [`CoM`](#com) link reference to assign the center of mass of the vehicle to the `Rigidbody`.
+In addiction, `Use inertia` allows to define the [`inertia`](https://docs.unity3d.com/ScriptReference/Rigidbody-inertiaTensor.html) tensor for component `Rigidbody` - by default it is disabled.
 
 `Physics Settings` - allows to set values used to control vehicle physics:
 
@@ -369,7 +388,7 @@ In the case of `EgoVehicle`, each light type has its own *GameObject* which cont
 
 ![material](material.png)
 
-For each type of light, the appropriate `Material Index` (equivalent of element index in mesh) and `Lighting Color` are assigned - yellow for `Turn Signals`, red for `Break` and white for `Reverse`
+For each type of light, the appropriate `Material Index` (equivalent of element index in mesh) and `Lighting Color` are assigned - yellow for `Turn Signals`, red for `Break` and white for `Reverse`.
 
 `Lighting Intensity` values are also configured - the greater the value, the more light will be emitted.
 This value is related to `Lighting Exposure Weight` parameter that is a exposure weight - the lower the value, the more light is emitted.
@@ -377,5 +396,5 @@ This value is related to `Lighting Exposure Weight` parameter that is a exposure
 All types of lighting are switched on and off depending on the values obtained from the *Vehicle* (script) of the vehicle, which is assigned in the `Vehicle` field.
 
 #### Elements configurable from the editor level
-- `Turn Signal Timer Interval Sec` - time interval for flashing lights - value $0.5$ means that the light will be on for $0.5s$, then it will be turned off for $0.5s$ and turned on again<br>
+- `Turn Signal Timer Interval Sec` - time interval for flashing lights - value $0.5$ means that the light will be on for $0.5s$, then it will be turned off for $0.5s$ and turned on again.<br>
 (default: `0.5`)
