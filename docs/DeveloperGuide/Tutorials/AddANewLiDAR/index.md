@@ -1,4 +1,4 @@
-# Add new LiDAR
+# Add a new LiDAR
 `RGLUnityPlugin` (`RGL`) comes with a number of the most popular *LiDARs* model definitions and [ready-to-use prefabs](../../../UserGuide/ProjectGuide/Components/Sensors/Lidar/#prefabs). However, there is a way to create your custom *LiDAR*. This section describes how to add a new *LiDAR* model that works with `RGL`, then create a prefab for it and add it to the scene.
 
 !!! warning "Supported LiDARs"

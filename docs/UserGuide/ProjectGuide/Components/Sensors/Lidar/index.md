@@ -23,7 +23,7 @@ The ones mounted on the top of autonomous vehicles are primarily used
 
 !!! note "Supported *LiDARs*"
     The current scripts implementation allows you to configure the prefab for any mechanical *LiDAR*.
-    You can read about how to do it [here](../../../../../DeveloperGuide/Tutorials/AddANewLiDARModel/).
+    You can read about how to do it [here](../../../../../DeveloperGuide/Tutorials/AddANewLiDAR/).
     *MEMS-based LiDARs* due to their different design are not yet fully supported.
 
 ### Prefabs

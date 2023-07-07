@@ -101,7 +101,7 @@ nav:
                             - Add a new Scene:
                                       - Add a Scene: DeveloperGuide/Tutorials/AddANewScene/AddAScene/index.md
                                       - Add a SceneManager: DeveloperGuide/Tutorials/AddANewScene/AddASceneManager/index.md
-                            - Add a new LiDAR: DeveloperGuide/Tutorials/AddANewLiDARModel/index.md
+                            - Add a new LiDAR: DeveloperGuide/Tutorials/AddANewLiDAR/index.md
                             - Create a PCD: DeveloperGuide/Tutorials/CreateAPCDFromMesh/index.md
                             - Add a custom ROS2 message: DeveloperGuide/Tutorials/AddACustomMessage/index.md
                   - API: DeveloperGuide/API/index.md
