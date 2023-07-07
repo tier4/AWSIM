@@ -37,7 +37,7 @@ To properly perform the mapping, make sure you have the following files download
 
     !!! question "How to obtain a map"
         You can obtain the 3D model of the area by downloading a *prefab* prepared for *AWSIM* or by creating your own.
-        You can learn how to create you own Environment *prefab* in [this tutorial](../AddANewEnvironment/AddAEnvironment/).
+        You can learn how to create you own Environment *prefab* in [this tutorial](../AddANewEnvironment/AddAnEnvironment/).
 
 - Configured in-simulation vehicle object with sensors attached (only the [LiDAR](../AddANewVehicle/AddSensors/#add-a-lidar) is necessary)
 

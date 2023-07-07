@@ -174,7 +174,7 @@ It does not change the appearance of the Environment, but is necessary for the s
 
     ![Search for environment script](search_environment_script.png)
 
-1. Set the [`MGRS`](https://en.wikipedia.org/wiki/Military_Grid_Reference_System) to the offset of your Environment as explained [in this section](../../../../UserGuide/ProjectGuide/Components/Environment/#environment-script).
+1. Set the [`MGRS`](https://en.wikipedia.org/wiki/Military_Grid_Reference_System) to the offset of your Environment as explained [in this section](../../../../UserGuide/ProjectGuide/Components/Environment/Environment/#environment-script).
 
     ![environment mgrs](environment_mgrs.png)
 
