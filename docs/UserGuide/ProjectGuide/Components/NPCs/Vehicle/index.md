@@ -11,7 +11,7 @@ Vehicles moving on the scene take into account each other - avoiding collisions,
     If you would like to see how `NPCVehicle` works or run some tests, we encourage you to familiarize yourself with the `NPCVehicleSample` default scene described in this [section](../../../DefaultExistingScenes/).
 
 !!! tip "Ego Vehicle"
-    If you are interested in the most important vehicle on the scene - `Ego Vehicle`, we encourage you to read this [section](../../EgoVehicle/).
+    If you are interested in the most important vehicle on the scene - `Ego Vehicle`, we encourage you to read this [section](../../EgoVehicle/EgoVehicle/).
 
 ### Prefabs and Fbxs
 Prefabs can be found under the following path:

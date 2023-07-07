@@ -62,7 +62,7 @@ nav:
                             - Components:
                                       - Scene: UserGuide/ProjectGuide/Components/Scene/index.md
                                       - Ego Vehicle:
-                                                Ego Vehicle: UserGuide/ProjectGuide/Components/EgoVehicle/index.md
+                                                Ego Vehicle: UserGuide/ProjectGuide/Components/EgoVehicle/EgoVehicle/index.md
                                                 Sensors (URDF): UserGuide/ProjectGuide/Components/EgoVehicle/URDF/index.md
                                       - Sensors:
                                                 - Vehicle Status: UserGuide/ProjectGuide/Components/Sensors/VehicleStatus/index.md

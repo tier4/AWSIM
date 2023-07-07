@@ -20,7 +20,7 @@ In the *AWSIM Unity* project, there are several types of prefabs that have pre-c
 - [`Sensors`](../Components/Sensors/VehicleStatus/) - these are prefabs that simulate sensors in an autonomous vehicle.
 They allow to obtain data on the current situation (e.g. the state of the environment) in order to use them.
   
-- [`EgoVehicle`](../Components/EgoVehicle/) - it is a prefab of an autonomous vehicle that contains configured sensors, components responsible for collisions and scripts that enable control.
+- [`EgoVehicle`](../Components/EgoVehicle/EgoVehicle/) - it is a prefab of an autonomous vehicle that contains configured sensors, components responsible for collisions and scripts that enable control.
   
 - [`NPCVehicles`](../Components/NPCs/Vehicle/) - these are prefabs of vehicles that have configured elements responsible for collisions and traffic control.
 They can be used by `TrafficSimulator`.

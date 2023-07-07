@@ -119,7 +119,7 @@ Execution of the received commands is possible thanks to `Vehicle`, which ensure
 
 The remaining data delivered from *AWSIM* to *Autoware* are sensors data, which provides information about the current state of the surrounding environment and those necessary to accurately estimate `EgoVehicle` position.
 
-More about `EgoVehicle` and its scripts is described in this [section](../../UserGuide/ProjectGuide/Components/EgoVehicle/).
+More about `EgoVehicle` and its scripts is described in this [section](../../UserGuide/ProjectGuide/Components/EgoVehicle/EgoVehicle/).
 
 ### Sequence diagram
 Below is a simplified sequential diagram of information exchange in connection between *AWSIM* and *Autoware*. As you can see, the first essential information published from *AWSIM* is `Clock` - the simulation time. Next, `EgoVehicle` is spawned and first sensors data are published, which are used in the process of automatic position initialization on *Autoware* side. At the same time, the simulation on *AWSIM* side is updated.

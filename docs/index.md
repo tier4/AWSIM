@@ -44,7 +44,7 @@ Other quick links to the most important parts of the documentation are listed be
 #### Project Guide
 - [Introduction](./UserGuide/ProjectGuide/Introduction/)
 - [Scene](./UserGuide/ProjectGuide/Components/Scene/)
-- [EgoVehicle](./UserGuide/ProjectGuide/Components/EgoVehicle/)
+- [EgoVehicle](./UserGuide/ProjectGuide/Components/EgoVehicle/EgoVehicle/)
 - Sensors: [Vehicle Status](./UserGuide/ProjectGuide/Components/Sensors/VehicleStatus/), [GNSS](./UserGuide/ProjectGuide/Components/Sensors/Gnss/), [LiDAR](./UserGuide/ProjectGuide/Components/Sensors/Lidar/), [IMU](./UserGuide/ProjectGuide/Components/Sensors/Imu/), [Camera](./UserGuide/ProjectGuide/Components/Sensors/Camera/), [GroundTruth Pose](./UserGuide/ProjectGuide/Components/Sensors/GroundTruths/Pose/)
 - [Environment](./UserGuide/ProjectGuide/Components/Environment/Environment/)
 - [Traffic Components](./UserGuide/ProjectGuide/Components/Environment/TrafficComponents/)

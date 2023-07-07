@@ -82,7 +82,7 @@ This Component should be added automatically together with [*Camera component*](
 ![](scene/ego_prefab.png)
 
 It is an object in which a prefab `EgoVehicle` is always added - as you can see, there is no transform here.
-You can read more about `EgoVehicle` [here](../EgoVehicle/).
+You can read more about `EgoVehicle` [here](../EgoVehicle/EgoVehicle/).
 
 ### Environment
 ![](scene/environment_prefab.png)

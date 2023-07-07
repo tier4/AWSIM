@@ -1,6 +1,6 @@
 !!! info "Ego Vehicle Component"
     In this tutorial we will create a new `EgoVehicle`.
-    To learn more about what an `EgoVehicle` is in *AWSIM* please visit [Ego Vehicle description page](../../../../UserGuide/ProjectGuide/Components/EgoVehicle/).
+    To learn more about what an `EgoVehicle` is in *AWSIM* please visit [Ego Vehicle description page](../../../../UserGuide/ProjectGuide/Components/EgoVehicle/EgoVehicle/).
 
 ## Cerate an Object
 Add a child *Object* to the *Simulation* called `EgoVehicle`.
