@@ -8,7 +8,7 @@
 Details about what exactly *AWSIM* is and why it was developed can be found [here](./Introduction/AWSIM/).<br> 
 You can find out what *Autoware* is by reading this [section](./Introduction/Autoware/), and how it works with *AWSIM* in this [section](./Introduction/CombinationWithAutoware/).
 
-In addition, *AWSIM* has been adapted to work with *Scenario Simulator v2* - *Autoware* testing framework - you can read about it [here](./Introduction/ConnectionWithScenarioSimulator/).
+In addition, *AWSIM* has been adapted to work with *Scenario Simulator v2* - *Autoware* testing framework - you can read about it [here](./Introduction/CombinationWithAutowareAndScenarioSimulator/).
 
 ### AWSIM Features 
 

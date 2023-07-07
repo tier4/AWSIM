@@ -39,7 +39,7 @@ nav:
                   - AWSIM: Introduction/AWSIM/index.md
                   - Autoware: Introduction/Autoware/index.md
                   - Combination with Autoware: Introduction/CombinationWithAutoware/index.md
-                  - Combination with Autoware and ScenarioSimulator: Introduction/ConnectionWithScenarioSimulator/index.md
+                  - Combination with Autoware and ScenarioSimulator: Introduction/CombinationWithAutowareAndScenarioSimulator/index.md
         - User guide:
                   - Installation:
                             - Prerequisites: UserGuide/Installation/Prerequisites/index.md
