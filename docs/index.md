@@ -39,7 +39,7 @@ Other quick links to the most important parts of the documentation are listed be
 - [Prerequisites](./UserGuide/BuildFromSource/Prerequisites/)
 - [Unity installation ](./UserGuide/BuildFromSource/UnityInstallation/)
 - [Setup Unity Project](./UserGuide/BuildFromSource/SetupUnityProject/)
-- [Run scene](./UserGuide/BuildFromSource/RunScene/)
+- [Run the scene](./UserGuide/BuildFromSource/RunTheScene/)
 
 #### Project Guide
 - [Introduction](./UserGuide/ProjectGuide/Introduction/)

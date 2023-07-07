@@ -55,7 +55,7 @@ nav:
                             - Prerequisites: UserGuide/BuildFromSource/Prerequisites/index.md
                             - Unity installation: UserGuide/BuildFromSource/UnityInstallation/index.md
                             - Setup Unity Project: UserGuide/BuildFromSource/SetupUnityProject/index.md
-                            - Run scene: UserGuide/BuildFromSource/RunScene/index.md
+                            - Run the scene: UserGuide/BuildFromSource/RunTheScene/index.md
                             - Troubleshooting: DeveloperGuide/TroubleShooting/index.md
                   - Project guide:
                             - Introduction: UserGuide/ProjectGuide/Introduction/index.md

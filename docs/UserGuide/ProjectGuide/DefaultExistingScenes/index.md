@@ -7,7 +7,7 @@ This section describes the purpose of each scene in the project.
 ## AutowareSimulation
 The `AutowareSimulation` scene is the main scene that is designed to run the *AWSIM* simulation together with *Autoware*.
 It allows for effortless operation, just run this scene, run *Autoware* with the correct map file and everything should work right out of the box.
-The description of how to do this can be found in this [section](../../BuildFromSource/RunScene/).
+The description of how to do this can be found in this [section](../../BuildFromSource/RunTheScene/).
 
 ![](AutowareSimulation.png)
 

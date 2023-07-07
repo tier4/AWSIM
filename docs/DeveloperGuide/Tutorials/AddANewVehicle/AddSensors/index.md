@@ -597,7 +597,7 @@ Move the preview on the screen by changing the `X Axis` and `Y Axis` values on t
 
     ![position the vehicle](vehicle_position.gif)
     
-    Run the *Scene* the same as [on this page](../../../../UserGuide/BuildFromSource/RunScene/).
+    Run the *Scene* the same as [on this page](../../../../UserGuide/BuildFromSource/RunTheScene/).
 
     Launch **only** the *Autoware* like [on this page](../../../../UserGuide/Installation/RunDemo/index.md#2-run-demo-with-autoware).
 

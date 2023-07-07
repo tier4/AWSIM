@@ -75,4 +75,4 @@ To setup the *AWSIM* project in *Unity* *Editor*:
     ![imported package](externals_dir.png)
 
 !!! success
-    The project is now ready to use. Now you can proceed to the next step [Run Scene](../RunScene/).
+    The project is now ready to use. Now you can proceed to the next step [Run Scene](../RunTheScene/).

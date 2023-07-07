@@ -191,7 +191,7 @@ The Script is configured to work with [Autoware](../../../../Introduction/Autowa
 ### How to test
 The best way to test the Vehicle Ros Input Script is to run *Autoware*.
 
-1. Run the *Scene*the same as on [this page](../../../../UserGuide/BuildFromSource/RunScene/).
+1. Run the *Scene*the same as on [this page](../../../../UserGuide/BuildFromSource/RunTheScene/).
 2. Launch **only** the *Autoware* like on [this page](../../../../UserGuide/Installation/RunDemo/#2-run-demo-with-autoware)
 3. Plan a path in *Autoware* like [here](../../../../UserGuide/FirstSteps/SetASingleGoal/), if the Vehicle moves in *AWSIM* correctly then the Script is configured well.
 
