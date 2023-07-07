@@ -3,7 +3,7 @@ Best practice is to create a parent object `TrafficIntersections` and add all in
 You can do this the same as with [Random Traffic Simulator](../AddARandomTrafficSimulatorScript/).
 
 !!! warning "Traffic Lights configuration"
-    Before performing this step, check all `TrafficLights` for correct configuration and make sure that `TrafficLights` have added scripts. If you want to learn how to add and configure it check out [this tutorial](../../AddANewEnvironment/AddTrafficLights/).
+    Before performing this step, check all `TrafficLights` for correct configuration and make sure that `TrafficLights` have added scripts. If you want to learn how to add and configure it check out [this tutorial](../../AddTrafficLights/).
 
 ## Add a Box Collider
 1. `TrafficIntersection` needs to be marked with a box collider.
@@ -127,7 +127,7 @@ This means that Traffic Lights in the *Vehicle Traffic Light Group 2* will hold 
 This state will be active for 5 seconds, which means that Traffic Lights in the *Vehicle Traffic Light Group 2* will be lighting solid green for the total of 20 seconds.
 
 ## How to test
-To test how your Traffic Intersection behaves simply run the Scene as shown [here](../../../../UserGuide/BuildFromSource/RunScene/) (but don't launch *Autoware*).
+To test how your Traffic Intersection behaves simply run the Scene as shown [here](../../../../../UserGuide/BuildFromSource/RunScene/) (but don't launch *Autoware*).
 To take a better look at the Traffic Lights you can change to the *Scene* view by pressing `ctrl + 1` - now you can move the camera freely (to go back to the *Game* view simply press `ctrl + 2`).
 
 As the time passes you can examine whether your Traffic Intersection is configured correctly.

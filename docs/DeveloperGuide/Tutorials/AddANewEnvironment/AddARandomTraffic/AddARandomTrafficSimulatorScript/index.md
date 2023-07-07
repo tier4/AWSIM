@@ -53,7 +53,7 @@ These settings can to be adjusted to your preference.
 
     ![add npc prefab gif](add_npc_prefab.gif)
 
-    Available NPC prefabs are shown in the [NPC Vehicle section](../../../../UserGuide/ProjectGuide/Components/NPCs/#npc-vehicle).
+    Available NPC prefabs are shown in the [NPC Vehicle section](../../../../../UserGuide/ProjectGuide/Components/NPCs/Vehicle/).
 
     !!! tip "Control NPC Vehicle spawning"
         Random Traffic Simulator Script will **on random** select one prefab from `Npc Prefabs` list every time when there  are not enough vehicles on the scene (the number of vehicles on the scene is smaller than the number specified in the `Max Vehicle Count` field).

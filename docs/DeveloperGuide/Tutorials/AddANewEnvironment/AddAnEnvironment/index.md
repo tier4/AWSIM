@@ -182,7 +182,7 @@ It does not change the appearance of the Environment, but is necessary for the s
     Due to the differences between *VectorMapBuilder* and *Unity*, it may be necessary to set the transform of the `Environment` object.
     The transform in `Environment` should be set in such a way that the `TrafficLanes` match the modeled roads. Most often it is necessary to set the positive `90` degree rotation over `Y` axis.
 
-    This step should be done after [importing items from *lanelet2*](../../AddARandomTraffic/LoadItemsFromLanelet/).
+    This step should be done after [importing items from *lanelet2*](../../AddANewEnvironment/AddARandomTraffic/LoadItemsFromLanelet/).
     Only then will you know if you have Environment misaligned with items from *lanelet2*.
 
     ![environment transformation](environment_transformation.png)

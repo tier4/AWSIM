@@ -43,7 +43,7 @@ The `NPCPedestrianSample` was developed to conduct a quick test for the develope
 
 ## TrafficIntersectionSample
 
-The `TrafficIntersectionSample` was developed to conduct a quick test for the developed traffic intersection. Replace the intersection configuration with your own and check that it works correctly. You can add additional groups of lights and create much larger, more complex sequences. A description of how to configure your own traffic intersection is in this [section](../../../DeveloperGuide/Tutorials/AddARandomTraffic/AddATrafficIntersection/).
+The `TrafficIntersectionSample` was developed to conduct a quick test for the developed traffic intersection. Replace the intersection configuration with your own and check that it works correctly. You can add additional groups of lights and create much larger, more complex sequences. A description of how to configure your own traffic intersection is in this [section](../../../DeveloperGuide/Tutorials/AddANewEnvironment/AddARandomTraffic/AddATrafficIntersection/).
 
 <video width="1920" controls>
 <source src="intersection_test.mp4" type="video/mp4">
