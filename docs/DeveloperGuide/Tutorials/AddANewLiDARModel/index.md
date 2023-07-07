@@ -42,7 +42,7 @@ To add a new *LiDAR* model, perform the following steps:
 
 ## 3. Test your prefab
 
-1. Create [a new scene](../AddANewScene/AddANewScene) (remember to add the [`SceneManager`](../AddANewScene/AddASceneManager)) or use one of [the existing sample scenes](../../../UserGuide/ProjectGuide/DefaultExistingScenes/#rgl-test-scenes).
+1. Create [a new scene](../AddANewScene/AddAScene/) (remember to add the [`SceneManager`](../AddANewScene/AddASceneManager/)) or use one of [the existing sample scenes](../../../UserGuide/ProjectGuide/DefaultExistingScenes/#rgl-test-scenes).
 1. Add the prepared *LiDAR* prefab by drag the prefab file and drop it into a scene
 
     <img src="img/AddPrefabLidar.png" width="700">

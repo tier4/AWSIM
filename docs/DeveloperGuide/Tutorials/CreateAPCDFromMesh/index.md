@@ -61,7 +61,7 @@ To properly perform the mapping, make sure you have the following files download
 ## Setup an Environment
 For a correct Point Cloud Mapping an Environment is needed.
 The easiest way is to create a new Scene and import the Environment *prefab* into it.
-Details on how to do this can be found on [this tutorial page](../AddANewScene/AddANewScene/#add-an-environment-prefab).
+Details on how to do this can be found on [this tutorial page](../AddANewScene/AddAScene/#add-an-environment-prefab).
 
 ## Setup a Vehicle
 Create a `Vehicle` *GameObject* in the *Hierarchy* view.

@@ -208,4 +208,4 @@ First you will have to save the Vehicle you created as a *prefab*, to easily add
 ![save vehicle as prefab](vehicle_save_prefab.gif)
 
 ### Add to Scene
-To add a Vehcile to the Scene please see [this tutorial](../../AddANewScene/AddANewScene/#add-a-vehicle).
+To add a Vehcile to the Scene please see [this tutorial](../../AddANewScene/AddAScene/#add-a-vehicle).

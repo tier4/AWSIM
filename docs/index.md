@@ -57,7 +57,7 @@ Other quick links to the most important parts of the documentation are listed be
 #### Tutorials
 - New Environment: [Add an Environment](./DeveloperGuide/Tutorials/AddANewEnvironment/AddAnEnvironment/), [Add an TrafficLights](./DeveloperGuide/Tutorials/AddANewEnvironment/AddTrafficLights/), [Load Lanelet2](./DeveloperGuide/Tutorials/AddANewEnvironment/AddARandomTraffic/LoadItemsFromLanelet/), [Add a TrafficIntersection](./DeveloperGuide/Tutorials/AddANewEnvironment/AddARandomTraffic/AddATrafficIntersection/), [Add a RandomTraffic](./DeveloperGuide/Tutorials/AddANewEnvironment/AddARandomTraffic/AddARandomTrafficSimulatorScript/)
 - New Vehicle: [Add a Vehicle](./DeveloperGuide/Tutorials/AddANewVehicle/AddAVehicle/), [Add Visual Elements](./DeveloperGuide/Tutorials/AddANewVehicle/AddVisualElements/), [Add Colliders](./DeveloperGuide/Tutorials/AddANewVehicle/AddColliders/), [Add Sensors](./DeveloperGuide/Tutorials/AddANewVehicle/AddSensors/)
-- New Scene: [Add a Scene](./DeveloperGuide/Tutorials/AddANewScene/AddANewScene/), [Add a SceneManager](./DeveloperGuide/Tutorials/AddANewScene/AddASceneManager/)
+- New Scene: [Add a Scene](./DeveloperGuide/Tutorials/AddANewScene/AddAScene/), [Add a SceneManager](./DeveloperGuide/Tutorials/AddANewScene/AddASceneManager/)
 - [New Lidar](./DeveloperGuide/Tutorials/AddANewLiDARModel/)
 - [New custom ROS2 Message](./DeveloperGuide/Tutorials/AddACustomMessage/)
 - [Create a PCD](./DeveloperGuide/Tutorials/CreateAPCDFromMesh/)
