@@ -38,8 +38,8 @@ The aspects you can configure
     If - for any reason - you don't have all the Stop Lines added, please follow [this dedicated section](#add-a-stopline-manually).
 
 ## How to test
-If you want to test your Traffic Lanes you have to try running a [Random Traffic](../AddARandomTrafficSimulatorScript/).
-To verify one particular Traffic Lane or Traffic Lane connection you can [make a new spawnable lane](../AddARandomTrafficSimulatorScript/#add-spawnable-lanes) next to the Traffic Lane you want to test.
+If you want to test your Traffic Lanes you have to try running a [Random Traffic](../AddARandomTraffic/).
+To verify one particular Traffic Lane or Traffic Lane connection you can [make a new spawnable lane](../AddARandomTraffic/#add-spawnable-lanes) next to the Traffic Lane you want to test.
 This way you can be sure NPC Vehicles will start driving on the Traffic Lane you are interested in at the beginning.
 
 ## Add a StopLine manually
@@ -109,7 +109,7 @@ In other words select the right Traffic Light for the Lane on which your Stop Li
 
 !!! tip "Select Traffic Lights visually"
     If you have a lot of Traffic Lights it can be challenging to add them from the list.
-    You can select them visually from the Scene the same as you had selected Traffic Lanes in the [Random Traffic Simulator](../AddARandomTrafficSimulatorScript/#add-spawnable-lanes).
+    You can select them visually from the Scene the same as you had selected Traffic Lanes in the [Random Traffic Simulator](../AddARandomTraffic/#add-spawnable-lanes).
 
 ### 6. Configure the Traffic Lane
 Every Stop Line has to be connected to a Traffic Lane.
@@ -191,7 +191,7 @@ To do this click the `+` sign in the *Next Lanes* list and in the element that a
 
 !!! tip "Select Traffic Lanes visually"
     If you have a lot of Traffic Lanes it can be challenging to add them from the list.
-    You can select them visually from the Scene the same as you had selected Traffic Lanes in the [Random Traffic Simulator](../AddARandomTrafficSimulatorScript/#add-spawnable-lanes).
+    You can select them visually from the Scene the same as you had selected Traffic Lanes in the [Random Traffic Simulator](../AddARandomTraffic/#add-spawnable-lanes).
 
 ### 6. Configure Previous Lanes
 Traffic Lane has to have previous Traffic Lanes configured.
@@ -222,7 +222,7 @@ If so, please select the correct Stop Line from the drop-down list.
 
 !!! tip "Select Stop Line visually"
     If you have a lot of Stop Lines it can be challenging to add them from the list.
-    You can select them visually from the Scene the same as you had selected Traffic Lanes in the [Random Traffic Simulator](../AddARandomTrafficSimulatorScript/#add-spawnable-lanes).
+    You can select them visually from the Scene the same as you had selected Traffic Lanes in the [Random Traffic Simulator](../AddARandomTraffic/#add-spawnable-lanes).
 
 ### 9. Add Speed Limit.
 

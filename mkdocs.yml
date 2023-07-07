@@ -91,7 +91,7 @@ nav:
                                       - Add TrafficLights: DeveloperGuide/Tutorials/AddANewEnvironment/AddTrafficLights/index.md
                                       - Add a RandomTraffic:
                                                 - Load items from lanelet2: DeveloperGuide/Tutorials/AddANewEnvironment/AddARandomTraffic/LoadItemsFromLanelet/index.md
-                                                - Add a RandomTraffic: DeveloperGuide/Tutorials/AddANewEnvironment/AddARandomTraffic/AddARandomTrafficSimulatorScript/index.md
+                                                - Add a RandomTraffic: DeveloperGuide/Tutorials/AddANewEnvironment/AddARandomTraffic/AddARandomTraffic/index.md
                                                 - Add a TrafficIntersection: DeveloperGuide/Tutorials/AddANewEnvironment/AddARandomTraffic/AddATrafficIntersection/index.md
                             - Add a new Vehicle:
                                       - Add a Vehicle: DeveloperGuide/Tutorials/AddANewVehicle/AddAVehicle/index.md

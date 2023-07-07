@@ -55,7 +55,7 @@ Other quick links to the most important parts of the documentation are listed be
 - [ROS2 topics list](./UserGuide/ProjectGuide/Ros2TopicList/)
 
 #### Tutorials
-- New Environment: [Add an Environment](./DeveloperGuide/Tutorials/AddANewEnvironment/AddAnEnvironment/), [Add an TrafficLights](./DeveloperGuide/Tutorials/AddANewEnvironment/AddTrafficLights/), [Load Lanelet2](./DeveloperGuide/Tutorials/AddANewEnvironment/AddARandomTraffic/LoadItemsFromLanelet/), [Add a TrafficIntersection](./DeveloperGuide/Tutorials/AddANewEnvironment/AddARandomTraffic/AddATrafficIntersection/), [Add a RandomTraffic](./DeveloperGuide/Tutorials/AddANewEnvironment/AddARandomTraffic/AddARandomTrafficSimulatorScript/)
+- New Environment: [Add an Environment](./DeveloperGuide/Tutorials/AddANewEnvironment/AddAnEnvironment/), [Add an TrafficLights](./DeveloperGuide/Tutorials/AddANewEnvironment/AddTrafficLights/), [Load Lanelet2](./DeveloperGuide/Tutorials/AddANewEnvironment/AddARandomTraffic/LoadItemsFromLanelet/), [Add a TrafficIntersection](./DeveloperGuide/Tutorials/AddANewEnvironment/AddARandomTraffic/AddATrafficIntersection/), [Add a RandomTraffic](./DeveloperGuide/Tutorials/AddANewEnvironment/AddARandomTraffic/AddARandomTraffic/)
 - New Vehicle: [Add a Vehicle](./DeveloperGuide/Tutorials/AddANewVehicle/AddAVehicle/), [Add Visual Elements](./DeveloperGuide/Tutorials/AddANewVehicle/AddVisualElements/), [Add Colliders](./DeveloperGuide/Tutorials/AddANewVehicle/AddColliders/), [Add Sensors](./DeveloperGuide/Tutorials/AddANewVehicle/AddSensors/)
 - New Scene: [Add a Scene](./DeveloperGuide/Tutorials/AddANewScene/AddAScene/), [Add a SceneManager](./DeveloperGuide/Tutorials/AddANewScene/AddASceneManager/)
 - [New Lidar](./DeveloperGuide/Tutorials/AddANewLiDAR/)
