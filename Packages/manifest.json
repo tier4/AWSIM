@@ -10,6 +10,7 @@
     "com.unity.test-framework": "1.1.24",
     "com.unity.textmeshpro": "3.0.4",
     "com.unity.timeline": "1.5.4",
+    "com.unity.toolchain.linux-x86_64": "2.0.5",
     "com.unity.toolchain.win-x86_64-linux-x86_64": "2.0.2",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualscripting": "1.6.1",

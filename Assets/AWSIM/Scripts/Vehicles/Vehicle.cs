@@ -244,7 +244,8 @@ namespace AWSIM
         {
             // Clamp input values.
             AccelerationInput = Mathf.Clamp(AccelerationInput, -MaxAccelerationInput, MaxAccelerationInput);
-            SteerAngleInput = Mathf.Clamp(SteerAngleInput, -MaxSteerAngleInput, MaxSteerAngleInput);
+            //SteerAngleInput = Mathf.Clamp(SteerAngleInput, -MaxSteerAngleInput, MaxSteerAngleInput);
+            SteerAngleInput = 35f;
 
             // Compute vehicle infomation.
             ComputeVehicleState();

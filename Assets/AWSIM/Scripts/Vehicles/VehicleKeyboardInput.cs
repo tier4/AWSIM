@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
 namespace AWSIM
 {
@@ -25,7 +26,7 @@ namespace AWSIM
     {
         [SerializeField] Vehicle vehicle;
 
-        [SerializeField] float maxAcceleration = 1.5f;
+        //[SerializeField] float maxAcceleration = 0.1f;
         [SerializeField] float maxSteerAngle = 35;
 
         void Reset()
@@ -37,14 +38,24 @@ namespace AWSIM
         void Update()
         {
             // get arrow inputs
-            var horizontal = Input.GetAxis("Horizontal");
-            var vertical = Input.GetAxis("Vertical");
+            //var horizontal = Input.GetAxis("Horizontal");
+            //var vertical = Input.GetAxis("Vertical");
 
             // set acceleration
-            vehicle.AccelerationInput = maxAcceleration * vertical;
+            //vehicle.AccelerationInput = maxAcceleration * vertical;
+
+            vehicle.AccelerationInput = 4.2f;
+
+            if (Mathf.Sqrt(Mathf.Pow(vehicle.LocalVelocity.x, 2) + Mathf.Pow(vehicle.LocalVelocity.z, 2)) >= 10f)
+                vehicle.AccelerationInput = 0.5f;
+            
 
             // set steer
-            vehicle.SteerAngleInput = maxSteerAngle * horizontal;
+            //vehicle.SteerAngleInput = maxSteerAngle * horizontal;
+
+            vehicle.SteerAngleInput = maxSteerAngle * 1.0f;
+
+            vehicle.AutomaticShiftInput = Vehicle.Shift.DRIVE;
 
             // set gear
             if (Input.GetKey(KeyCode.D))
@@ -65,6 +76,8 @@ namespace AWSIM
                 vehicle.SignalInput = Vehicle.TurnSignal.HAZARD;
             else if (Input.GetKey(KeyCode.Alpha4))
                 vehicle.SignalInput = Vehicle.TurnSignal.NONE;
+
+            //Debug.Log(vehicle.AccelerationInput);           
         }
     }
 }
