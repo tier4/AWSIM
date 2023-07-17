@@ -146,7 +146,7 @@ namespace AWSIM
 
         // Spawned entities
         private List<Entity> entities = new List<Entity>();
-        // Command execution queue from callbacks in main-thread
+        // Command execution queue in main-thread (for callbacks)
         private ConcurrentQueue<Action> concurrentQueue = new ConcurrentQueue<Action>();
 
         void Start()
