@@ -40,6 +40,7 @@ namespace RGLUnityPlugin
             maxHAngle = 0,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
             rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
+            minRange = 0,
             maxRange = 40,
         };
 
@@ -51,6 +52,7 @@ namespace RGLUnityPlugin
             maxHAngle = 120,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
             rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
+            minRange = 0,
             maxRange = 40,
         };
 
@@ -62,6 +64,7 @@ namespace RGLUnityPlugin
             maxHAngle = 360.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
             rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
+            minRange = 0,
             maxRange = 100.0f,
         };
 
@@ -73,6 +76,7 @@ namespace RGLUnityPlugin
             maxHAngle = 360.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
             rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
+            minRange = 0,
             maxRange = 200.0f,
         };
 
@@ -84,6 +88,7 @@ namespace RGLUnityPlugin
             maxHAngle = 360.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
             rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
+            minRange = 0,
             maxRange = 300.0f,
         };
 
@@ -95,6 +100,7 @@ namespace RGLUnityPlugin
             maxHAngle = 360.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
             rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
+            minRange = 0,
             maxRange = 20.0f, // Yes, 20 meters, this is not a typo!
         };
 
@@ -106,6 +112,7 @@ namespace RGLUnityPlugin
             maxHAngle = 360.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
             rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
+            minRange = 0,
             // documentation is unclear on max range;
             // on one hand there is "range capability" = 200m
             // on the other, in appendix beams have individual ranges assigned
@@ -122,6 +129,7 @@ namespace RGLUnityPlugin
             maxHAngle = 360.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
             rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
+            minRange = 0,
             maxRange = 120.0f,
         };
 

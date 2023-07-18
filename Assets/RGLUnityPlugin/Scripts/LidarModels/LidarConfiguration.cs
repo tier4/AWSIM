@@ -58,6 +58,11 @@ namespace RGLUnityPlugin
         [Range(-360.0f, 360.0f)] public float maxHAngle;
 
         /// <summary>
+        /// Minimum range of the sensor.
+        /// </summary>
+        [DrawIf("rayGenerateMethod", RayGenerateMethod.RotatingLidarEqualRange)] [Min(0)] public float minRange;
+
+        /// <summary>
         /// Maximum range of the sensor.
         /// </summary>
         [DrawIf("rayGenerateMethod", RayGenerateMethod.RotatingLidarEqualRange)] [Min(0)] public float maxRange;
@@ -112,7 +117,7 @@ namespace RGLUnityPlugin
         {
             return rayGenerateMethod switch
             {
-                RayGenerateMethod.RotatingLidarEqualRange => new Vector2[1] {new Vector2(0.0f, maxRange)},
+                RayGenerateMethod.RotatingLidarEqualRange => new Vector2[1] {new Vector2(minRange, maxRange)},
                 RayGenerateMethod.RotatingLidarDifferentLaserRanges => GetRayRangesFromLasers(),
                 RayGenerateMethod.HesaiAT128 => GetRayRangesHesaiAT128(),
                 _ => throw new ArgumentOutOfRangeException(),
