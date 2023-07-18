@@ -42,13 +42,3 @@ Applies to `tier4/AWSIM` repositories and all content contained in the [Releases
 - assets : CC BY-NC
 
 See also [LICENSE](./LICENSE)
-
-## Contact
-
-日本語/English OK
-
-e-mail : takatoki.makino@tier4.jp  
-twitter : [mackierx111](https://twitter.com/mackierx111)  
-discord : mackie#6141
-
-(c) 2022 TIER IV, inc
