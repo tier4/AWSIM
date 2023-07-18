@@ -2,7 +2,8 @@
 
 ![](/README_img/AWSIM.png)
 
-AWSIM is the best scene simulator for [Autoware](https://github.com/autowarefoundation/autoware).
+
+REVSIM is a fork of AWSIM (scene simulator for [Autoware](https://github.com/autowarefoundation/autoware)) by the UWA REV Team.
 
 ## Features
 
