@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2128.0264, g: 2232.5999, b: 3254.9902, a: 1}
+  m_IndirectSpecularColor: {r: 2131.7776, g: 2233.7827, b: 3077.5505, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -146,6 +146,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -1.420082
       objectReference: {fileID: 0}
+    - target: {fileID: 2963106999894261214, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
+      propertyPath: TireType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2963107000137126780, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -166,6 +170,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2963107000584003440, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963107000584003441, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
+      propertyPath: m_Radius
+      value: 0.368
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963107000584003441, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
+      propertyPath: m_SuspensionDistance
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2963107000584003455, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -185,6 +201,14 @@ PrefabInstance:
     - target: {fileID: 2963107000584003455, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963107001160131318, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
+      propertyPath: TireType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963107001926338970, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
+      propertyPath: TireType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4981081891045692864, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_Name
@@ -585,7 +609,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.099264145
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -852,7 +876,7 @@ GameObject:
   - component: {fileID: 898725313}
   - component: {fileID: 898725314}
   m_Layer: 6
-  m_Name: GameObject
+  m_Name: Trajectory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -880,7 +904,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 898725312}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1187,7 +1211,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1373451816}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

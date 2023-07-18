@@ -27,7 +27,7 @@ namespace AWSIM
         [SerializeField] Vehicle vehicle;
 
         //[SerializeField] float maxAcceleration = 0.1f;
-        [SerializeField] float maxSteerAngle = 35;
+        [SerializeField] float maxSteerAngle = 35f;
 
         void Reset()
         {
@@ -44,12 +44,11 @@ namespace AWSIM
             // set acceleration
             //vehicle.AccelerationInput = maxAcceleration * vertical;
 
-            vehicle.AccelerationInput = 4.2f;
+            vehicle.AccelerationInput = 2.0f;
 
-            if (Mathf.Sqrt(Mathf.Pow(vehicle.LocalVelocity.x, 2) + Mathf.Pow(vehicle.LocalVelocity.z, 2)) >= 10f)
-                vehicle.AccelerationInput = 0.5f;
+            if (vehicle.Speed >= 9f)
+                vehicle.AccelerationInput = 0.00001f;
             
-
             // set steer
             //vehicle.SteerAngleInput = maxSteerAngle * horizontal;
 

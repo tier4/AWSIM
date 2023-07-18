@@ -13,6 +13,7 @@ namespace AWSIM
     {
         [SerializeField] WheelCollider wheelCollider;
         [SerializeField] Transform wheelVisualTransform;
+        [SerializeField] private int TireType;
 
         /// <summary>
         /// Is the wheel in contact with the ground?
@@ -106,7 +107,16 @@ namespace AWSIM
                 steerAngle = 0.00001f;
 
             if (wheelCollider.steerAngle != steerAngle)
-                wheelCollider.steerAngle = steerAngle;
+            {
+                if (steerAngle > 0 && TireType == 0)
+                    wheelCollider.steerAngle = Mathf.Asin(1 / Mathf.Sqrt(Mathf.Pow((1 / Mathf.Tan(steerAngle * Mathf.Deg2Rad) + 1.8199022f / 2.787877f), 2) + 1)) * Mathf.Rad2Deg;
+                
+                else if (steerAngle < 0 && TireType == 1)
+                    wheelCollider.steerAngle = Mathf.Asin(1 / Mathf.Sqrt(Mathf.Pow((1 / Mathf.Tan(steerAngle * Mathf.Deg2Rad) + 1.8199022f / 2.787877f), 2) + 1)) * Mathf.Rad2Deg;
+                
+                else
+                    wheelCollider.steerAngle = steerAngle;
+            }
         }
 
         /// <summary>
@@ -146,8 +156,29 @@ namespace AWSIM
 
             // Apply drive force.
             // Apply a force that will result in the commanded acceleration.
-            var driveForce = acceleration * wheelHit.forwardDir;
-            vehicleRigidbody.AddForceAtPosition(driveForce, wheelHit.point, ForceMode.Acceleration);
+            if (SteerAngle > 0 && TireType == 1)
+            {
+                var driveForce = acceleration * wheelHit.forwardDir * Mathf.Sin(Mathf.Asin(1 / Mathf.Sqrt(Mathf.Pow((1 / Mathf.Tan(SteerAngle * Mathf.Deg2Rad) + 1.8199022f / 2.787877f), 2) + 1))) / Mathf.Sin(SteerAngle * Mathf.Deg2Rad) ;
+                vehicleRigidbody.AddForceAtPosition(driveForce, wheelHit.point, ForceMode.Acceleration);
+            }
+
+            else if (TireType == 2)
+            {
+                var driveForce = acceleration * wheelHit.forwardDir * (Mathf.Cos(Mathf.Asin(1 / Mathf.Sqrt(Mathf.Pow((1 / Mathf.Tan(SteerAngle * Mathf.Deg2Rad) + 1.8199022f / 2.787877f), 2) + 1))) + 1.8199022f * Mathf.Sin(Mathf.Asin(1 / Mathf.Sqrt(Mathf.Pow((1 / Mathf.Tan(SteerAngle * Mathf.Deg2Rad) + 1.8199022f / 2.787877f), 2) + 1))) / 2.787877f);
+                vehicleRigidbody.AddForceAtPosition(driveForce, wheelHit.point, ForceMode.Acceleration);              
+            }
+
+            else if (TireType == 3)
+            {
+                var driveForce = acceleration * wheelHit.forwardDir * Mathf.Cos(Mathf.Asin(1 / Mathf.Sqrt(Mathf.Pow((1 / Mathf.Tan(SteerAngle * Mathf.Deg2Rad) + 1.8199022f / 2.787877f), 2) + 1)));
+                vehicleRigidbody.AddForceAtPosition(driveForce, wheelHit.point, ForceMode.Acceleration);                 
+            }
+
+            else
+            {
+                var driveForce = acceleration * wheelHit.forwardDir;
+                vehicleRigidbody.AddForceAtPosition(driveForce, wheelHit.point, ForceMode.Acceleration);               
+            }
 
             // Counteracts the sideway force of the tire.
             // TODO: more accurate calculation method.
