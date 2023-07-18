@@ -157,7 +157,7 @@ namespace RGLUnityPlugin
             }
 
             rglGraphLidar.UpdateNodeRaysFromMat3x4f(lidarRaysNodeId, newConfig.GetRayPoses())
-                         .UpdateNodeRaysSetRange(lidarRangeNodeId, new Vector2[1] {new Vector2(0.0f, newConfig.maxRange)})
+                         .UpdateNodeRaysSetRange(lidarRangeNodeId, newConfig.GetRayRanges())
                          .UpdateNodeRaysSetRingIds(lidarRingsNodeId, newConfig.laserArray.GetLaserRingIds())
                          .UpdateNodeGaussianNoiseAngularRay(noiseLidarRayNodeId,
                              newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,

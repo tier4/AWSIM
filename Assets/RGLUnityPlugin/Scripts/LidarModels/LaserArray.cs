@@ -52,6 +52,7 @@ namespace RGLUnityPlugin
 
         /// <summary>
         /// List of lasers constituting this array.
+        /// Note: Set minRange and maxRange of the lasers if ranges for them differ. If not, range can be specified in the LidarConfiguration. 
         /// </summary>
         public Laser[] lasers;
 
@@ -72,6 +73,11 @@ namespace RGLUnityPlugin
                          * Matrix4x4.Rotate(Quaternion.Euler(laser.verticalAngularOffsetDeg,
                              laser.horizontalAngularOffsetDeg,
                              0.0f))).ToArray();
+        }
+
+        public Vector2[] GetLaserRanges()
+        {
+            return lasers.Select(laser => new Vector2(laser.minRange, laser.maxRange)).ToArray();
         }
 
         public int[] GetLaserRingIds()
