@@ -164,7 +164,7 @@ namespace RGLUnityPlugin
         /// </summary>
         public Matrix4x4 GetLidarOriginTransfrom()
         {
-            return Matrix4x4.Translate(Vector3.up * (laserArray.centerOfMeasurementVerticalLinearOffsetMm / 1000.0f));
+            return Matrix4x4.Translate(laserArray.centerOfMeasurementLinearOffsetMm / 1000.0f);
         }
 
         public static LidarNoiseParams TypicalNoiseParams => new LidarNoiseParams

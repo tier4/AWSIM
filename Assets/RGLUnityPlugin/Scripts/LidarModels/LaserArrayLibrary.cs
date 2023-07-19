@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using UnityEngine;
 using System.Collections.Generic;
 
 namespace RGLUnityPlugin
@@ -33,8 +34,8 @@ namespace RGLUnityPlugin
         // https://web2019.blob.core.windows.net/uploads/Pandar40P_User_Manual_402-en-211010.pdf
         public static LaserArray HesaiPandar40P => new LaserArray
         {
-            centerOfMeasurementVerticalLinearOffsetMm = 47.7f,
-            centerOfMeasurementHorizontalLinearOffsetMm = 0.0f,
+            centerOfMeasurementLinearOffsetMm = new Vector3(0.0f, 47.7f, 0.0f),
+            focalDistanceMm = 0.0f,
             lasers = new[]
             {
                 new Laser {horizontalAngularOffsetDeg = -1.042f, verticalAngularOffsetDeg = +25.0f, ringId = 1},
@@ -83,8 +84,8 @@ namespace RGLUnityPlugin
         // https://web2019.blob.core.windows.net/uploads/PandarQT_User_Manual_Q01-en-210910.pdf
         public static LaserArray HesaiPandarQT => new LaserArray
         {
-            centerOfMeasurementVerticalLinearOffsetMm = 50.4f,
-            centerOfMeasurementHorizontalLinearOffsetMm = 29.8f,
+            centerOfMeasurementLinearOffsetMm = new Vector3(0.0f, 50.4f, 0.0f),
+            focalDistanceMm = 29.8f,
             lasers = new[]
             {
                 new Laser {horizontalAngularOffsetDeg = 8.736f, verticalAngularOffsetDeg = +52.121f, ringId = 1},
@@ -157,8 +158,8 @@ namespace RGLUnityPlugin
         // https://velodynelidar.com/wp-content/uploads/2019/12/63-9243-Rev-E-VLP-16-User-Manual.pdf
         public static LaserArray VelodyneVLP16 => new LaserArray
         {
-            centerOfMeasurementVerticalLinearOffsetMm = 37.7f,
-            centerOfMeasurementHorizontalLinearOffsetMm = 0.0f,
+            centerOfMeasurementLinearOffsetMm = new Vector3(0.0f, 37.7f, 0.0f),
+            focalDistanceMm = 0.0f,
             lasers = new[]
             {
                 new Laser {verticalAngularOffsetDeg = +15.0f, verticalLinearOffsetMm = +11.2f, ringId = 1},
@@ -184,8 +185,8 @@ namespace RGLUnityPlugin
         // https://icave2.cse.buffalo.edu/resources/sensor-modeling/VLP32CManual.pdf
         public static LaserArray VelodyneVLP32C => new LaserArray
         {
-            centerOfMeasurementVerticalLinearOffsetMm = 37.34f,
-            centerOfMeasurementHorizontalLinearOffsetMm = 42.4f,
+            centerOfMeasurementLinearOffsetMm = new Vector3(0.0f, 37.34f, 0.0f),
+            focalDistanceMm = 42.4f,
             lasers = new[]
             {
                 new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = 25f, ringId = 1},
@@ -226,8 +227,8 @@ namespace RGLUnityPlugin
         // https://gpsolution.oss-cn-beijing.aliyuncs.com/manual/LiDAR/MANUAL%2CUSERS%2CVLP-128.pdf
         public static LaserArray VelodyneVLS128 => new LaserArray
         {
-            centerOfMeasurementVerticalLinearOffsetMm = 66.11f,
-            centerOfMeasurementHorizontalLinearOffsetMm = 58.63f,
+            centerOfMeasurementLinearOffsetMm = new Vector3(0.0f, 66.11f, 0.0f),
+            focalDistanceMm = 58.63f,
             lasers = new[]
             {
                 new Laser {horizontalAngularOffsetDeg = +6.354f, verticalAngularOffsetDeg = +11.742f, ringId = 5},
@@ -367,8 +368,8 @@ namespace RGLUnityPlugin
         // Assets/RGLUnityPlugin/RawData/ouster_status.txt
         public static LaserArray OusterOS1_64 => new LaserArray
         {
-            centerOfMeasurementVerticalLinearOffsetMm = 36.18f,
-            centerOfMeasurementHorizontalLinearOffsetMm = 12.163f,
+            centerOfMeasurementLinearOffsetMm = new Vector3(0.0f, 36.18f, 0.0f),
+            focalDistanceMm = 12.163f,
             lasers = new[]
             {
                 new Laser {horizontalAngularOffsetDeg = 3.057f, verticalAngularOffsetDeg = -16.352f, ringId = 1},
@@ -441,8 +442,8 @@ namespace RGLUnityPlugin
         // https://www.hesaitech.com/wp-content/uploads/2023/05/AT128E2X_User_Manual_A01-en-230510.pdf
         public static LaserArray HesaiAT128E2X => new LaserArray
         {
-            centerOfMeasurementVerticalLinearOffsetMm = 0.0f,
-            centerOfMeasurementHorizontalLinearOffsetMm = 0.0f,
+            centerOfMeasurementLinearOffsetMm = new Vector3(0.0f, 0.0f, 0.0f),
+            focalDistanceMm = 0.0f,
             lasers = new[]
             {
                 new Laser {horizontalAngularOffsetDeg = 2.4f, verticalAngularOffsetDeg = -12.93f, ringId = 1, minRange = 7.2f, maxRange = 100f},

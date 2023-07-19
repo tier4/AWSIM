@@ -33,8 +33,9 @@ namespace RGLUnityPlugin
         //  |                     |        v
         //  ._____________________.  - - - -
         //             |
-        // This offset is not considered when generating laser poses. To be applied manually when setting the pose of the lidar.
-        public float centerOfMeasurementVerticalLinearOffsetMm;
+        // Note: It is not always lay on the axis of symmetry of the device (e.g., hybrid solid-state LIDARs)
+        // This offset is not considered when generating laser poses. To be applied manually when setting the pose of the lidar (in RGL).
+        public Vector3 centerOfMeasurementLinearOffsetMm;
 
         //             |           /
         //  .--------------------/.
@@ -48,7 +49,8 @@ namespace RGLUnityPlugin
         //             .       .
         //             .<----->.
         //           this distance
-        public float centerOfMeasurementHorizontalLinearOffsetMm;
+        // Distance from the sensor center to the focal point where all laser beams intersect.
+        public float focalDistanceMm;
 
         /// <summary>
         /// List of lasers constituting this array.
@@ -69,7 +71,7 @@ namespace RGLUnityPlugin
             return lasers.Select(
                 laser => Matrix4x4.Translate(Vector3.up * mmToMeters(laser.verticalLinearOffsetMm) +
                                              Vector3.forward *
-                                             mmToMeters(self.centerOfMeasurementHorizontalLinearOffsetMm))
+                                             mmToMeters(self.focalDistanceMm))
                          * Matrix4x4.Rotate(Quaternion.Euler(laser.verticalAngularOffsetDeg,
                              laser.horizontalAngularOffsetDeg,
                              0.0f))).ToArray();
@@ -114,8 +116,8 @@ namespace RGLUnityPlugin
 
             return new LaserArray()
             {
-                centerOfMeasurementHorizontalLinearOffsetMm = 0.0f,
-                centerOfMeasurementVerticalLinearOffsetMm = 0.0f,
+                centerOfMeasurementLinearOffsetMm = new Vector3(0.0f, 0.0f, 0.0f),
+                focalDistanceMm = 0.0f,
                 lasers = lasers
             };
         }
