@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1537.1846, g: 1904.3379, b: 2519.752, a: 1}
+  m_IndirectSpecularColor: {r: 1537.125, g: 1904.5333, b: 2520.709, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -797,6 +797,10 @@ PrefabInstance:
       propertyPath: duration
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 1041813113, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 988938449032091554, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: m_LocalPosition.x
       value: 270.85
@@ -1142,146 +1146,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9027057598854022072, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[10].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.size
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[4].intervalSec
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[5].intervalSec
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[6].intervalSec
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[7].intervalSec
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[8].intervalSec
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[9].intervalSec
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[10].intervalSec
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[6].groupLightingOrders.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.data[0].group
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.data[1].group
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[6].groupLightingOrders.Array.data[0].group
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[8].groupLightingOrders.Array.data[0].group
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.data[1].bulbData.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[4].groupLightingOrders.Array.data[0].bulbData.Array.data[0].type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.data[0].bulbData.Array.data[0].type
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.data[1].bulbData.Array.data[0].type
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[7].groupLightingOrders.Array.data[0].bulbData.Array.data[0].type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[8].groupLightingOrders.Array.data[0].bulbData.Array.data[0].type
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[9].groupLightingOrders.Array.data[0].bulbData.Array.data[0].type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[10].groupLightingOrders.Array.data[0].bulbData.Array.data[0].type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[4].groupLightingOrders.Array.data[0].bulbData.Array.data[0].color
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.data[0].bulbData.Array.data[0].color
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.data[1].bulbData.Array.data[0].color
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[7].groupLightingOrders.Array.data[0].bulbData.Array.data[0].color
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[8].groupLightingOrders.Array.data[0].bulbData.Array.data[0].color
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[9].groupLightingOrders.Array.data[0].bulbData.Array.data[0].color
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[10].groupLightingOrders.Array.data[0].bulbData.Array.data[0].color
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[4].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.data[1].bulbData.Array.data[0].status
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[6].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[7].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[9].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[10].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
       value: 1
       objectReference: {fileID: 0}
@@ -2023,15 +1887,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.size
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[4].intervalSec
+      propertyPath: lightingSequences.Array.data[0].intervalSec
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[1].intervalSec
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[5].intervalSec
+      propertyPath: lightingSequences.Array.data[2].intervalSec
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[3].intervalSec
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[4].intervalSec
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[5].intervalSec
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[6].intervalSec
@@ -2039,7 +1919,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[7].intervalSec
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[8].intervalSec
@@ -2047,23 +1927,123 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[9].intervalSec
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[10].intervalSec
-      value: 3
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[11].intervalSec
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[0].groupLightingOrders.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[1].groupLightingOrders.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[2].groupLightingOrders.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[3].groupLightingOrders.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[4].groupLightingOrders.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[6].groupLightingOrders.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.data[0].group
+      propertyPath: lightingSequences.Array.data[7].groupLightingOrders.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[8].groupLightingOrders.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[9].groupLightingOrders.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[10].groupLightingOrders.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[11].groupLightingOrders.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[0].groupLightingOrders.Array.data[0].group
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[0].groupLightingOrders.Array.data[1].group
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[0].groupLightingOrders.Array.data[2].group
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[0].groupLightingOrders.Array.data[3].group
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[1].groupLightingOrders.Array.data[0].group
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[1].groupLightingOrders.Array.data[1].group
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[2].groupLightingOrders.Array.data[0].group
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[2].groupLightingOrders.Array.data[1].group
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[2].groupLightingOrders.Array.data[2].group
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[2].groupLightingOrders.Array.data[3].group
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[3].groupLightingOrders.Array.data[0].group
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[3].groupLightingOrders.Array.data[1].group
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[4].groupLightingOrders.Array.data[0].group
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[4].groupLightingOrders.Array.data[1].group
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.data[0].group
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.data[1].group
@@ -2071,10 +2051,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[6].groupLightingOrders.Array.data[0].group
-      value: 11
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[7].groupLightingOrders.Array.data[0].group
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[8].groupLightingOrders.Array.data[0].group
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[10].groupLightingOrders.Array.data[0].group
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[11].groupLightingOrders.Array.data[0].group
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[1].groupLightingOrders.Array.data[1].bulbData.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[2].groupLightingOrders.Array.data[1].bulbData.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[2].groupLightingOrders.Array.data[2].bulbData.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[2].groupLightingOrders.Array.data[3].bulbData.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[3].groupLightingOrders.Array.data[1].bulbData.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[4].groupLightingOrders.Array.data[1].bulbData.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.data[0].bulbData.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
@@ -2082,16 +2102,72 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[6].groupLightingOrders.Array.data[0].bulbData.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[0].groupLightingOrders.Array.data[0].bulbData.Array.data[0].type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[0].groupLightingOrders.Array.data[1].bulbData.Array.data[0].type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[0].groupLightingOrders.Array.data[2].bulbData.Array.data[0].type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[1].groupLightingOrders.Array.data[0].bulbData.Array.data[0].type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[1].groupLightingOrders.Array.data[1].bulbData.Array.data[0].type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[2].groupLightingOrders.Array.data[0].bulbData.Array.data[0].type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[2].groupLightingOrders.Array.data[1].bulbData.Array.data[0].type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[2].groupLightingOrders.Array.data[2].bulbData.Array.data[0].type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[2].groupLightingOrders.Array.data[3].bulbData.Array.data[0].type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[3].groupLightingOrders.Array.data[0].bulbData.Array.data[0].type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[3].groupLightingOrders.Array.data[1].bulbData.Array.data[0].type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[4].groupLightingOrders.Array.data[0].bulbData.Array.data[0].type
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.data[0].bulbData.Array.data[0].type
+      propertyPath: lightingSequences.Array.data[4].groupLightingOrders.Array.data[1].bulbData.Array.data[0].type
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.data[0].bulbData.Array.data[0].type
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.data[1].bulbData.Array.data[0].type
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[6].groupLightingOrders.Array.data[0].bulbData.Array.data[0].type
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[7].groupLightingOrders.Array.data[0].bulbData.Array.data[0].type
@@ -2099,27 +2175,75 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[8].groupLightingOrders.Array.data[0].bulbData.Array.data[0].type
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[9].groupLightingOrders.Array.data[0].bulbData.Array.data[0].type
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[0].groupLightingOrders.Array.data[0].bulbData.Array.data[0].color
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[0].groupLightingOrders.Array.data[1].bulbData.Array.data[0].color
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[0].groupLightingOrders.Array.data[2].bulbData.Array.data[0].color
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[10].groupLightingOrders.Array.data[0].bulbData.Array.data[0].type
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[1].groupLightingOrders.Array.data[0].bulbData.Array.data[0].color
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[1].groupLightingOrders.Array.data[1].bulbData.Array.data[0].color
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[2].groupLightingOrders.Array.data[0].bulbData.Array.data[0].color
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[2].groupLightingOrders.Array.data[1].bulbData.Array.data[0].color
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[2].groupLightingOrders.Array.data[2].bulbData.Array.data[0].color
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[3].groupLightingOrders.Array.data[0].bulbData.Array.data[0].color
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[3].groupLightingOrders.Array.data[1].bulbData.Array.data[0].color
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[4].groupLightingOrders.Array.data[0].bulbData.Array.data[0].color
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
-      propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.data[0].bulbData.Array.data[0].color
+      propertyPath: lightingSequences.Array.data[4].groupLightingOrders.Array.data[1].bulbData.Array.data[0].color
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.data[0].bulbData.Array.data[0].color
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.data[1].bulbData.Array.data[0].color
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[6].groupLightingOrders.Array.data[0].bulbData.Array.data[0].color
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[7].groupLightingOrders.Array.data[0].bulbData.Array.data[0].color
@@ -2127,7 +2251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[8].groupLightingOrders.Array.data[0].bulbData.Array.data[0].color
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[9].groupLightingOrders.Array.data[0].bulbData.Array.data[0].color
@@ -2138,7 +2262,47 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[1].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[1].groupLightingOrders.Array.data[1].bulbData.Array.data[0].status
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[2].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[2].groupLightingOrders.Array.data[1].bulbData.Array.data[0].status
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[2].groupLightingOrders.Array.data[2].bulbData.Array.data[0].status
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[2].groupLightingOrders.Array.data[3].bulbData.Array.data[0].status
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[3].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[3].groupLightingOrders.Array.data[1].bulbData.Array.data[0].status
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[4].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[4].groupLightingOrders.Array.data[1].bulbData.Array.data[0].status
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[5].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
@@ -2147,10 +2311,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[6].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[7].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: lightingSequences.Array.data[8].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
@@ -3961,7 +4129,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2030328704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68f25d7ce55975dbfa983ccd6f345eed, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b3257ad68697c246810c87c7b11dc28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnConfig:
@@ -3977,7 +4145,7 @@ MonoBehaviour:
       ReliabilityPolicy: 2
       DurabilityPolicy: 2
       HistoryPolicy: 1
-      Depth: 30
+      Depth: 5
   DespawnConfig:
     Topic: awsim/entity_controller/despawn
     Qos:
@@ -4023,7 +4191,7 @@ MonoBehaviour:
       ReliabilityPolicy: 2
       DurabilityPolicy: 2
       HistoryPolicy: 1
-      Depth: 30
+      Depth: 50
   DespawnConfig:
     Topic: awsim/entity_controller/despawn
     Qos:
@@ -4284,6 +4452,14 @@ PrefabInstance:
       propertyPath: EnableGravity
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2540743507290084090, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0000130832195
+      objectReference: {fileID: 0}
+    - target: {fileID: 2540743507290084090, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.4109944
+      objectReference: {fileID: 0}
     - target: {fileID: 2963106999894261215, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_Radius
       value: 0.368
@@ -4326,19 +4502,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5650763240072318842, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 220.54
+      value: -455.07
       objectReference: {fileID: 0}
     - target: {fileID: 5650763240072318842, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.72
+      value: -3.6044312
       objectReference: {fileID: 0}
     - target: {fileID: 5650763240072318842, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -278.39
+      value: -50.89
       objectReference: {fileID: 0}
     - target: {fileID: 5650763240072318842, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.95376945
+      value: 0.9952596
       objectReference: {fileID: 0}
     - target: {fileID: 5650763240072318842, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_LocalRotation.x
@@ -4346,7 +4522,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5650763240072318842, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.30053928
+      value: -0.09725447
       objectReference: {fileID: 0}
     - target: {fileID: 5650763240072318842, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_LocalRotation.z
@@ -4358,7 +4534,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5650763240072318842, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -34.98
+      value: -11.162
       objectReference: {fileID: 0}
     - target: {fileID: 5650763240072318842, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,31 @@ namespace AWSIM
     /// </summary>
     public static class ROS2Utility
     {
+
+        /// <summary>
+        /// Create Ros Quaternion from euler rotations
+        /// </summary>
+        /// <param name="roll">roll euler rotation [rad]</param>
+        /// <param name="pitch">pitch euler rotation [rad]</param>
+        /// <param name="yaw">yaw euler rotation [rad]</param>
+        /// <returns>position by Unity</returns>
+        public static geometry_msgs.msg.Quaternion RosQuaternionFromEuler(double roll, double pitch, double yaw)
+        {
+            double cy = Math.Cos(yaw * 0.5f);
+            double sy = Math.Sin(yaw * 0.5f);
+            double cp = Math.Cos(pitch * 0.5f);
+            double sp = Math.Sin(pitch * 0.5f);
+            double cr = Math.Cos(roll * 0.5f);
+            double sr = Math.Sin(roll * 0.5f);
+
+            geometry_msgs.msg.Quaternion q = new geometry_msgs.msg.Quaternion();
+            q.W = cy * cp * cr + sy * sp * sr;
+            q.X = cy * cp * sr - sy * sp * cr;
+            q.Y = sy * cp * sr + cy * sp * cr;
+            q.Z = sy * cp * cr - cy * sp * sr;
+            return q;
+        }
+
         /// <summary>
         /// Convert position from ROS to Unity.
         /// </summary>
