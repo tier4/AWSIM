@@ -79,7 +79,13 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_rays_set_ring_ids(ref IntPtr node, IntPtr ring_ids, int ring_ids_count);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_rays_set_time_offsets(ref IntPtr node, IntPtr time_offsets, int time_offsets_count);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_rays_transform(ref IntPtr node, IntPtr transform);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_rays_velocity_distort(ref IntPtr node, IntPtr velocity, IntPtr angularVelocity);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_transform(ref IntPtr node, IntPtr transform);
@@ -320,6 +326,17 @@ namespace RGLUnityPlugin
                 fixed (int* ringIdsPtr = ringIds)
                 {
                     CheckErr(rgl_node_rays_set_ring_ids(ref node, (IntPtr) ringIdsPtr, ringIds.Length));
+                }
+            }
+        }
+
+        public static void NodeRaysSetTimeOffsets(ref IntPtr node, float[] offsets)
+        {
+            unsafe
+            {
+                fixed (float* offsetsPtr = offsets)
+                {
+                    CheckErr(rgl_node_rays_set_time_offsets(ref node, (IntPtr) offsetsPtr, offsets.Length));
                 }
             }
         }

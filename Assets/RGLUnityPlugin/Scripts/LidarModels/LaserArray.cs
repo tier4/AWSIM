@@ -87,6 +87,11 @@ namespace RGLUnityPlugin
             return lasers.Select(laser => laser.ringId).ToArray();
         }
 
+        public float[] GetLaserTimeOffsets()
+        {
+            return lasers.Select(laser => laser.timeOffset).ToArray();
+        }
+
         /// <summary>
         /// Generates LaserArray with uniformly distributed vertical angular offsets.
         /// Note: angles follow Unity convention, looking above the horizon is negative angle! 
