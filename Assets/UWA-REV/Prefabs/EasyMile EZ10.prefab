@@ -91,7 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4652723520574780384}
-  - component: {fileID: 2024582104924283431}
+  - component: {fileID: 8659137451801419112}
   m_Layer: 6
   m_Name: VehicleStatusSensor
   m_TagString: Untagged
@@ -113,7 +113,7 @@ Transform:
   m_Father: {fileID: 635807138616992815}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2024582104924283431
+--- !u!114 &8659137451801419112
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1374393289830468615}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d3b64ab8c70f674e90249ef32f51e28, type: 3}
+  m_Script: {fileID: 11500000, guid: 748787bee6827749fa1543cb83db1978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   controlModeReportTopic: /vehicle/status/control_mode
@@ -134,11 +134,11 @@ MonoBehaviour:
   frameId: base_link
   PublishHz: 30
   qosSettings:
-    ReliabilityPolicy: 1
-    DurabilityPolicy: 2
-    HistoryPolicy: 1
-    Depth: 1
-  vehicle: {fileID: 4981081891045692866}
+    ReliabilityPolicy: 0
+    DurabilityPolicy: 0
+    HistoryPolicy: 0
+    Depth: 0
+  vehicle: {fileID: 6603278512200060955}
 --- !u!1 &1550303714050415478
 GameObject:
   m_ObjectHideFlags: 0
@@ -1166,10 +1166,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5650763240072318842}
   - component: {fileID: 4981081891045692865}
-  - component: {fileID: 4981081891045692866}
-  - component: {fileID: 4981081891045692867}
-  - component: {fileID: 4981081891045692868}
-  - component: {fileID: 515532636256791959}
+  - component: {fileID: 6603278512200060955}
+  - component: {fileID: 6578767225350697112}
+  - component: {fileID: 7985166364410998587}
+  - component: {fileID: 6616665147458938180}
   m_Layer: 6
   m_Name: EasyMile EZ10
   m_TagString: Untagged
@@ -1211,7 +1211,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &4981081891045692866
+--- !u!114 &6603278512200060955
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1220,7 +1220,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4981081891045692864}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80ebb0e40b62ca443ba1d8ccf61fcbda, type: 3}
+  m_Script: {fileID: 11500000, guid: 53476d73e9977448ab959b3e9d4262a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   centerOfMassTransform: {fileID: 2963107001226707149}
@@ -1235,13 +1235,13 @@ MonoBehaviour:
   rearAxle:
     leftWheel: {fileID: 2963106999894261214}
     rightWheel: {fileID: 2963107001926338970}
-  MaxSteerAngleInput: 35
-  MaxAccelerationInput: 10
+  MaxSteerAngleInput: 15
+  MaxAccelerationInput: 5
   AutomaticShiftInput: 0
   AccelerationInput: 0
   SteerAngleInput: 0
   SignalInput: 0
---- !u!114 &4981081891045692867
+--- !u!114 &6578767225350697112
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1250,13 +1250,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4981081891045692864}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a266bb6c1315a6418ca5f241f8e20e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 47e85de89bd91e136b06ab8145f81832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vehicle: {fileID: 4981081891045692866}
+  vehicle: {fileID: 6603278512200060955}
   maxAcceleration: 1.5
   maxSteerAngle: 35
---- !u!114 &4981081891045692868
+--- !u!114 &7985166364410998587
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1265,36 +1265,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 4981081891045692864}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f007404cf74b1ec4e9b45aae2bf9d900, type: 3}
+  m_Script: {fileID: 11500000, guid: 617a07cd56ffa4d2e890c14ece9aae1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vehicle: {fileID: 4981081891045692866}
+  vehicle: {fileID: 6603278512200060955}
   brakeLights:
   - meshRenderer: {fileID: 8794606528374986436}
     materialIndex: 0
-    lightingIntensity: 10
-    lightingColor: {r: 1, g: 0, b: 0, a: 1}
-    lightingExposureWeight: 0.6
+    lightingIntensity: 0
+    lightingColor: {r: 0, g: 0, b: 0, a: 0}
+    lightingExposureWeight: 0
   leftTurnSignalLights:
   - meshRenderer: {fileID: 4161163181542201040}
     materialIndex: 0
-    lightingIntensity: 10
-    lightingColor: {r: 1, g: 1, b: 0, a: 1}
-    lightingExposureWeight: 0.6
+    lightingIntensity: 0
+    lightingColor: {r: 0, g: 0, b: 0, a: 0}
+    lightingExposureWeight: 0
   rightTurnSignalLights:
   - meshRenderer: {fileID: 8262602167162004868}
     materialIndex: 0
-    lightingIntensity: 10
-    lightingColor: {r: 1, g: 1, b: 0, a: 1}
-    lightingExposureWeight: 0.6
+    lightingIntensity: 0
+    lightingColor: {r: 0, g: 0, b: 0, a: 0}
+    lightingExposureWeight: 0
   turnSignalTimerIntervalSec: 0.5
   reverseLights:
   - meshRenderer: {fileID: 2064283678226759879}
     materialIndex: 0
-    lightingIntensity: 10
-    lightingColor: {r: 1, g: 1, b: 1, a: 1}
-    lightingExposureWeight: 0.6
---- !u!114 &515532636256791959
+    lightingIntensity: 0
+    lightingColor: {r: 0, g: 0, b: 0, a: 0}
+    lightingExposureWeight: 0
+--- !u!114 &6616665147458938180
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1303,7 +1303,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4981081891045692864}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf5efb70a440286439770e3549221730, type: 3}
+  m_Script: {fileID: 11500000, guid: d2eb131a57028c0beac1c792effac90f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   turnIndicatorsCommandTopic: /control/command/turn_indicators_cmd
@@ -1316,7 +1316,7 @@ MonoBehaviour:
     DurabilityPolicy: 1
     HistoryPolicy: 1
     Depth: 1
-  vehicle: {fileID: 4981081891045692866}
+  vehicle: {fileID: 6603278512200060955}
 --- !u!1 &5080322324393241771
 GameObject:
   m_ObjectHideFlags: 0

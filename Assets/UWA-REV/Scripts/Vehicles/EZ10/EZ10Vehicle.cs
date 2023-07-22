@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+ 
 namespace AWSIM
 {
     /// <summary>
@@ -136,12 +136,12 @@ namespace AWSIM
         // Set value to clamp SteerAngleInput (degree).
         // -MaxSteerAngleInput <= SteerAngleInput <= MaxSteerAngleInput.
         [Range(0.01f, 80)]
-        [SerializeField] float MaxSteerAngleInput = 35f;
+        [SerializeField] float MaxSteerAngleInput = 15f;
 
         // Set value to clamp AccelerationInput (m/s^2).
         // -MaxAccelerationInput <= AccelerationInput <= MaxAccelerationInput.
         [Range(0.01f, 50)]
-        [SerializeField] float MaxAccelerationInput = 10;
+        [SerializeField] float MaxAccelerationInput = 5;
 
         [Header("Inputs")]
 
@@ -291,6 +291,8 @@ namespace AWSIM
                 // Steer angle is front-only.
                 frontAxle.LeftWheel.UpdateWheelSteerAngle(SteerAngle);
                 frontAxle.RightWheel.UpdateWheelSteerAngle(SteerAngle);
+                rearAxle.LeftWheel.UpdateWheelSteerAngle(-SteerAngle);
+                rearAxle.RightWheel.UpdateWheelSteerAngle(-SteerAngle);
 
                 foreach (var wheel in wheels)
                 {
