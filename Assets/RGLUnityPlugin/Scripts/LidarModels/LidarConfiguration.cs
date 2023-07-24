@@ -68,6 +68,13 @@ namespace RGLUnityPlugin
         [DrawIf("rayGenerateMethod", RayGenerateMethod.RotatingLidarEqualRange)] [Min(0)] public float maxRange;
 
         /// <summary>
+        /// The horiontal step time offset in milliseconds.
+        /// </summary>
+        [Min(0)] public float horizontalStepTimeOffset;
+        [Min(0)] public float verticalStepTimeOffset;
+        [Min(0)] public float rechargeTimeOffset;
+
+        /// <summary>
         /// Lidar noise paramteres
         /// </summary>
         public LidarNoiseParams noiseParams;
@@ -157,6 +164,23 @@ namespace RGLUnityPlugin
                 }
             }
             return rayRanges;
+        }
+
+        public float[] GetRayTimeOffsets()
+        {
+            float[] rayTimeOffsets = new float[PointCloudSize];
+            float cumulativeTimeOffset = 0.0f;
+            for (int hStep = 0; hStep < HorizontalSteps; hStep++)
+            {
+                for (int laserId = 0; laserId < laserArray.lasers.Length; laserId++)
+                {
+                    int idx = laserId + hStep * laserArray.lasers.Length;
+                    rayTimeOffsets[idx] = cumulativeTimeOffset;
+                    cumulativeTimeOffset += verticalStepTimeOffset;
+                }
+                cumulativeTimeOffset += rechargeTimeOffset;
+            }
+            return rayTimeOffsets;
         }
 
         /// <summary>
