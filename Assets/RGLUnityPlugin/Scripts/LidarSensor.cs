@@ -86,6 +86,7 @@ namespace RGLUnityPlugin
         private readonly string lidarRangeNodeId = "LIDAR_RANGE";
         private readonly string lidarRingsNodeId = "LIDAR_RINGS";
         private readonly string lidarTimeOffsetsNodeId = "LIDAR_OFFSETS";
+        private readonly string lidarVelocityDistortionNodeId = "LIDAR_DISTORT";
         private readonly string lidarPoseNodeId = "LIDAR_POSE";
         private readonly string noiseLidarRayNodeId = "NOISE_LIDAR_RAY";
         private readonly string lidarRaytraceNodeId = "LIDAR_RAYTRACE";
@@ -98,6 +99,8 @@ namespace RGLUnityPlugin
         private LidarModel? validatedPreset;
         private float timer;
 
+        private Matrix4x4 lastTransform;
+
         public void Awake()
         {
             rglGraphLidar = new RGLNodeSequence()
@@ -105,6 +108,7 @@ namespace RGLUnityPlugin
                 .AddNodeRaysSetRange(lidarRangeNodeId, new Vector2[1] {new Vector2(0.0f, Mathf.Infinity)})
                 .AddNodeRaysSetRingIds(lidarRingsNodeId, new int[1] {0})
                 .AddNodeRaysSetTimeOffsets(lidarTimeOffsetsNodeId, new float[1] {0})
+                .AddNodeRaysVelocityDistortion(lidarVelocityDistortionNodeId, Vector3.zero, Vector3.zero)
                 .AddNodeRaysTransform(lidarPoseNodeId, Matrix4x4.identity)
                 .AddNodeGaussianNoiseAngularRay(noiseLidarRayNodeId, 0, 0)
                 .AddNodeRaytrace(lidarRaytraceNodeId)
@@ -166,7 +170,7 @@ namespace RGLUnityPlugin
             rglGraphLidar.UpdateNodeRaysFromMat3x4f(lidarRaysNodeId, newConfig.GetRayPoses())
                          .UpdateNodeRaysSetRange(lidarRangeNodeId, newConfig.GetRayRanges())
                          .UpdateNodeRaysSetRingIds(lidarRingsNodeId, newConfig.laserArray.GetLaserRingIds())
-                         .UpdateNodeRaysTimeOffsets(lidarTimeOffsetsNodeId, newConfig.laserArray.GetLaserTimeOffsets())
+                         .UpdateNodeRaysTimeOffsets(lidarTimeOffsetsNodeId, newConfig.GetRayTimeOffsets())
                          .UpdateNodeGaussianNoiseAngularRay(noiseLidarRayNodeId,
                              newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,
                              newConfig.noiseParams.angularNoiseStDev * Mathf.Deg2Rad)
@@ -230,10 +234,23 @@ namespace RGLUnityPlugin
         {
             sceneManager.DoUpdate();
 
+            //Calculate delta transform of lidar.
+            Matrix4x4 currentTransform = gameObject.transform.localToWorldMatrix * configuration.GetLidarOriginTransfrom();
+            Vector3 deltaTranslation = (lastTransform.GetColumn(3) - (currentTransform).GetColumn(3)) * 0.001f;
+
+            Vector3 deltaRotation = Quaternion.LookRotation(lastTransform.GetColumn(2), lastTransform.GetColumn(1)).eulerAngles
+                                    - Quaternion.LookRotation(currentTransform.GetColumn(2), currentTransform.GetColumn(1)).eulerAngles;
+
+            // Update last known transform of lidar.
+            lastTransform = gameObject.transform.localToWorldMatrix * configuration.GetLidarOriginTransfrom();
+
             // Set lidar pose
             Matrix4x4 lidarPose = gameObject.transform.localToWorldMatrix * configuration.GetLidarOriginTransfrom();
             rglGraphLidar.UpdateNodeRaysTransform(lidarPoseNodeId, lidarPose);
             rglSubgraphToLidarFrame.UpdateNodePointsTransform(toLidarFrameNodeId, lidarPose.inverse);
+
+            // Set lidar velocity
+            rglGraphLidar.UpdateNodeRaysVelocityDistortion(lidarVelocityDistortionNodeId, deltaTranslation, Vector3.zero);
 
             rglGraphLidar.Run();
 
