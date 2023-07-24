@@ -166,8 +166,7 @@ namespace RGLUnityPlugin
             rglGraphLidar.UpdateNodeRaysFromMat3x4f(lidarRaysNodeId, newConfig.GetRayPoses())
                          .UpdateNodeRaysSetRange(lidarRangeNodeId, newConfig.GetRayRanges())
                          .UpdateNodeRaysSetRingIds(lidarRingsNodeId, newConfig.laserArray.GetLaserRingIds())
-                         .UpdateNodeRaysTimeOffsets(lidarRingsNodeId, newConfig.laserArray.GetLaserTimeOffsets())
-                         .UpdateNodeRaytrace(lidarRangeNodeId)
+                         .UpdateNodeRaysTimeOffsets(lidarTimeOffsetsNodeId, newConfig.laserArray.GetLaserTimeOffsets())
                          .UpdateNodeGaussianNoiseAngularRay(noiseLidarRayNodeId,
                              newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,
                              newConfig.noiseParams.angularNoiseStDev * Mathf.Deg2Rad)
