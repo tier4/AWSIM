@@ -258,6 +258,12 @@ namespace RGLUnityPlugin
             CheckErr(rgl_configure_logging(logLevel, path, false));
         }
 
+
+        public static float[] IntoVec3f(Vector3 vec)
+        {
+            return new[] {vec.x, vec.y, vec.z};
+        }
+
         public static float[] IntoMat3x4f(Matrix4x4[] mats)
         {
             var matFloats = new float[mats.Length * 12];
@@ -350,6 +356,21 @@ namespace RGLUnityPlugin
                 {
                     CheckErr(rgl_node_rays_transform(ref node, (IntPtr) tfFloatsPtr));
                 }
+            }
+        }
+
+        public static void NodeRaysVelocityDistortion(ref IntPtr node, Vector3 velocity, Vector3 angularVelocity)
+        {
+            var velocityFloats = IntoVec3f(velocity);
+            var angularVelocityFloats = IntoVec3f(angularVelocity);
+
+            unsafe
+            {
+                fixed (float* velocityFloatsPtr = velocityFloats)
+                   fixed (float* angularVelocityFloatsPtr = angularVelocityFloats)
+                   {
+                        CheckErr(rgl_node_rays_velocity_distort(ref node, (IntPtr) velocityFloatsPtr, (IntPtr) angularVelocityFloatsPtr));
+                   }
             }
         }
 
