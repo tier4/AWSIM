@@ -266,14 +266,7 @@ namespace AWSIM.TrafficSimulation
 
         private static TrafficLight FindClosestTrafficLight(TrafficLight[] trafficLights, Vector3 position, float radius = 3f)
         {
-            var candidates = trafficLights
-                .Where(trafficLight =>
-                {
-                    var distance2D = GeometryUtility.Distance2D(trafficLight.transform.position, position);
-                    return distance2D <= radius;
-                }).ToList();
-            if (!candidates.Any())
-                return null;
+            var candidates = FindClosestTrafficLights(trafficLights, position, radius);
             return candidates.Aggregate((closest, next) =>
             {
                 if (closest == null)
@@ -284,6 +277,19 @@ namespace AWSIM.TrafficSimulation
                     ? closest
                     : next;
             });
+        }
+
+        private static List<TrafficLight> FindClosestTrafficLights(TrafficLight[] trafficLights, Vector3 position, float radius = 3f)
+        {
+            var candidates = trafficLights
+                .Where(trafficLight =>
+                {
+                    var distance2D = GeometryUtility.Distance2D(trafficLight.transform.position, position);
+                    return distance2D <= radius;
+                }).ToList();
+            if (!candidates.Any())
+                return null;
+            return candidates;
         }
 
         private void AssignLaneletElementIdToTrafficSignalGameObjects()
@@ -297,23 +303,28 @@ namespace AWSIM.TrafficSimulation
                 foreach (var line in regElem.Refers)
                 {
                     var trafficLightPosition = line.Points[1];
-                    var trafficLight = FindClosestTrafficLight(trafficLights, trafficLightPosition);
-                    if (trafficLight == null)
+                    var closestTrafficLights = FindClosestTrafficLights(trafficLights, trafficLightPosition);
+                    if (closestTrafficLights == null)
                     {
                         continue;
                     }
-                    EditorUtility.SetDirty(trafficLight);
-                    Undo.RecordObject(trafficLight, "Assigning lanelet id");
-                    var trafficLightLaneletID = trafficLight.GetComponentInParent<TrafficLightLaneletID>();
-                    if (trafficLightLaneletID == null)
-                    {
-                        trafficLight.gameObject.AddComponent<TrafficLightLaneletID>();
+                    foreach (var trafficLight in closestTrafficLights) {
+                        EditorUtility.SetDirty(trafficLight);
+                        Undo.RecordObject(trafficLight, "Assigning lanelet id");
+                        var trafficLightLaneletID = trafficLight.GetComponentInParent<TrafficLightLaneletID>();
+                        if (trafficLightLaneletID == null)
+                        {
+                            trafficLight.gameObject.AddComponent<TrafficLightLaneletID>();
+                        }
+                        else
+                        {
+                            if (!trafficLightLaneletID.relationID.Contains(regElem.ID)) {
+                                trafficLightLaneletID.relationID.Add(regElem.ID);
+                            }
+                            trafficLightLaneletID.wayID = line.ID;
+                        }
+                        PrefabUtility.RecordPrefabInstancePropertyModifications(trafficLight);
                     }
-                    else
-                    {
-                        trafficLightLaneletID.LaneletElementID = line.ID;
-                    }
-                    PrefabUtility.RecordPrefabInstancePropertyModifications(trafficLight);
                 }
             }
         }
