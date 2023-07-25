@@ -241,6 +241,8 @@ namespace RGLUnityPlugin
             Vector3 deltaRotation = Quaternion.LookRotation(lastTransform.GetColumn(2), lastTransform.GetColumn(1)).eulerAngles
                                     - Quaternion.LookRotation(currentTransform.GetColumn(2), currentTransform.GetColumn(1)).eulerAngles;
 
+            deltaRotation *= Mathf.Deg2Rad;
+
             // Update last known transform of lidar.
             lastTransform = gameObject.transform.localToWorldMatrix * configuration.GetLidarOriginTransfrom();
 
@@ -250,7 +252,7 @@ namespace RGLUnityPlugin
             rglSubgraphToLidarFrame.UpdateNodePointsTransform(toLidarFrameNodeId, lidarPose.inverse);
 
             // Set lidar velocity
-            rglGraphLidar.UpdateNodeRaysVelocityDistortion(lidarVelocityDistortionNodeId, deltaTranslation, Vector3.zero);
+            rglGraphLidar.UpdateNodeRaysVelocityDistortion(lidarVelocityDistortionNodeId, deltaTranslation, deltaRotation);
 
             rglGraphLidar.Run();
 
