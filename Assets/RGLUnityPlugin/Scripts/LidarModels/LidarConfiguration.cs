@@ -68,10 +68,13 @@ namespace RGLUnityPlugin
         [DrawIf("rayGenerateMethod", RayGenerateMethod.RotatingLidarEqualRange)] [Min(0)] public float maxRange;
 
         /// <summary>
-        /// The horiontal step time offset in milliseconds.
+        /// The vertical step time offset in milliseconds. Thisi s the time between two consecutive lasers in the array.
         /// </summary>
-        [Min(0)] public float horizontalStepTimeOffset;
         [Min(0)] public float verticalStepTimeOffset;
+
+        /// <summary>
+        /// Time offset between two consecutive firings of the whole array.
+        /// </summary>
         [Min(0)] public float rechargeTimeOffset;
 
         /// <summary>
