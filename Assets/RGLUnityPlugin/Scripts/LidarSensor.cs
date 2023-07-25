@@ -184,6 +184,7 @@ namespace RGLUnityPlugin
             var angularNoiseType = newConfig.noiseParams.angularNoiseType;
             rglGraphLidar.SetActive(noiseLidarRayNodeId, applyAngularGaussianNoise && angularNoiseType == AngularNoiseType.RayBased);
             rglGraphLidar.SetActive(noiseHitpointNodeId, applyAngularGaussianNoise && angularNoiseType == AngularNoiseType.HitpointBased);
+            rglGraphLidar.SetActive(lidarVelocityDistortionNodeId, applyVelocityDistortion);
         }
 
         public void FixedUpdate()
@@ -252,7 +253,8 @@ namespace RGLUnityPlugin
             rglSubgraphToLidarFrame.UpdateNodePointsTransform(toLidarFrameNodeId, lidarPose.inverse);
 
             // Set lidar velocity
-            rglGraphLidar.UpdateNodeRaysVelocityDistortion(lidarVelocityDistortionNodeId, deltaTranslation, deltaRotation);
+            if(applyVelocityDistortion)
+                rglGraphLidar.UpdateNodeRaysVelocityDistortion(lidarVelocityDistortionNodeId, deltaTranslation, deltaRotation);
 
             rglGraphLidar.Run();
 
