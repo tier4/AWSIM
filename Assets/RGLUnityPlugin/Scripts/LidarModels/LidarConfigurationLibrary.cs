@@ -112,6 +112,7 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.HesaiPandar40P,
             horizontalResolution = 0.2f,
+            rechargeTimeOffset = 0.02858f,
             minHAngle = 0.0f,
             maxHAngle = 360.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
