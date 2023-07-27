@@ -162,22 +162,22 @@ namespace RGLUnityPlugin
             focalDistanceMm = 0.0f,
             lasers = new[]
             {
-                new Laser {verticalAngularOffsetDeg = +15.0f, verticalLinearOffsetMm = +11.2f, ringId = 1},
-                new Laser {verticalAngularOffsetDeg = -1.0f, verticalLinearOffsetMm = -0.7f, ringId = 9},
-                new Laser {verticalAngularOffsetDeg = +13.0f, verticalLinearOffsetMm = +9.7f, ringId = 2},
-                new Laser {verticalAngularOffsetDeg = -3.0f, verticalLinearOffsetMm = -2.2f, ringId = 10},
-                new Laser {verticalAngularOffsetDeg = +11.0f, verticalLinearOffsetMm = +8.1f, ringId = 3},
-                new Laser {verticalAngularOffsetDeg = -5.0f, verticalLinearOffsetMm = -3.7f, ringId = 11},
-                new Laser {verticalAngularOffsetDeg = +9.0f, verticalLinearOffsetMm = +6.6f, ringId = 4},
-                new Laser {verticalAngularOffsetDeg = -7.0f, verticalLinearOffsetMm = -5.1f, ringId = 12},
-                new Laser {verticalAngularOffsetDeg = +7.0f, verticalLinearOffsetMm = +5.1f, ringId = 5},
-                new Laser {verticalAngularOffsetDeg = -9.0f, verticalLinearOffsetMm = -6.6f, ringId = 13},
-                new Laser {verticalAngularOffsetDeg = +5.0f, verticalLinearOffsetMm = +3.7f, ringId = 6},
-                new Laser {verticalAngularOffsetDeg = -11.0f, verticalLinearOffsetMm = -8.1f, ringId = 14},
-                new Laser {verticalAngularOffsetDeg = +3.0f, verticalLinearOffsetMm = +2.2f, ringId = 7},
-                new Laser {verticalAngularOffsetDeg = -13.0f, verticalLinearOffsetMm = -9.7f, ringId = 15},
-                new Laser {verticalAngularOffsetDeg = +1.0f, verticalLinearOffsetMm = +0.7f, ringId = 8},
-                new Laser {verticalAngularOffsetDeg = -15.0f, verticalLinearOffsetMm = -11.2f, ringId = 16},
+                new Laser {verticalAngularOffsetDeg = +15.0f, verticalLinearOffsetMm = +11.2f, ringId = 1, timeOffset = 0.0f },
+                new Laser {verticalAngularOffsetDeg = -1.0f, verticalLinearOffsetMm = -0.7f, ringId = 9, timeOffset = 0.002304f },
+                new Laser {verticalAngularOffsetDeg = +13.0f, verticalLinearOffsetMm = +9.7f, ringId = 2, timeOffset = 0.004608f },
+                new Laser {verticalAngularOffsetDeg = -3.0f, verticalLinearOffsetMm = -2.2f, ringId = 10, timeOffset = 0.006912f },
+                new Laser {verticalAngularOffsetDeg = +11.0f, verticalLinearOffsetMm = +8.1f, ringId = 3, timeOffset = 0.009216f },
+                new Laser {verticalAngularOffsetDeg = -5.0f, verticalLinearOffsetMm = -3.7f, ringId = 11, timeOffset = 0.011520f },
+                new Laser {verticalAngularOffsetDeg = +9.0f, verticalLinearOffsetMm = +6.6f, ringId = 4, timeOffset = 0.013824f },
+                new Laser {verticalAngularOffsetDeg = -7.0f, verticalLinearOffsetMm = -5.1f, ringId = 12, timeOffset = 0.016128f },
+                new Laser {verticalAngularOffsetDeg = +7.0f, verticalLinearOffsetMm = +5.1f, ringId = 5, timeOffset = 0.018432f },
+                new Laser {verticalAngularOffsetDeg = -9.0f, verticalLinearOffsetMm = -6.6f, ringId = 13, timeOffset = 0.020736f },
+                new Laser {verticalAngularOffsetDeg = +5.0f, verticalLinearOffsetMm = +3.7f, ringId = 6, timeOffset = 0.023040f },
+                new Laser {verticalAngularOffsetDeg = -11.0f, verticalLinearOffsetMm = -8.1f, ringId = 14, timeOffset = 0.025344f },
+                new Laser {verticalAngularOffsetDeg = +3.0f, verticalLinearOffsetMm = +2.2f, ringId = 7, timeOffset = 0.027648f },
+                new Laser {verticalAngularOffsetDeg = -13.0f, verticalLinearOffsetMm = -9.7f, ringId = 15, timeOffset = 0.029952f },
+                new Laser {verticalAngularOffsetDeg = +1.0f, verticalLinearOffsetMm = +0.7f, ringId = 8, timeOffset = 0.032256f },
+                new Laser {verticalAngularOffsetDeg = -15.0f, verticalLinearOffsetMm = -11.2f, ringId = 16, timeOffset = 0.034560f },
             }
         };
 
@@ -188,38 +188,38 @@ namespace RGLUnityPlugin
             focalDistanceMm = 42.4f,
             lasers = new[]
             {
-                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = 25f, ringId = 1},
-                new Laser {horizontalAngularOffsetDeg = -4.2f, verticalAngularOffsetDeg = 1f, ringId = 2},
-                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = 1.667f, ringId = 3},
-                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = 15.639f, ringId = 4},
-                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = 11.31f, ringId = 5},
-                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = 0f, ringId = 6},
-                new Laser {horizontalAngularOffsetDeg = 4.2f, verticalAngularOffsetDeg = 0.667f, ringId = 7},
-                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = 8.843f, ringId = 8},
-                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = 7.254f, ringId = 9},
-                new Laser {horizontalAngularOffsetDeg = -4.2f, verticalAngularOffsetDeg = -0.333f, ringId = 10},
-                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = 0.333f, ringId = 11},
-                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = 6.148f, ringId = 12},
-                new Laser {horizontalAngularOffsetDeg = 4.2f, verticalAngularOffsetDeg = 5.333f, ringId = 13},
-                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = -1.333f, ringId = 14},
-                new Laser {horizontalAngularOffsetDeg = 4.2f, verticalAngularOffsetDeg = -0.667f, ringId = 15},
-                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = 4f, ringId = 16},
-                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = 4.667f, ringId = 17},
-                new Laser {horizontalAngularOffsetDeg = -4.2f, verticalAngularOffsetDeg = -1.667f, ringId = 18},
-                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = -1f, ringId = 19},
-                new Laser {horizontalAngularOffsetDeg = -4.2f, verticalAngularOffsetDeg = 3.667f, ringId = 20},
-                new Laser {horizontalAngularOffsetDeg = 4.2f, verticalAngularOffsetDeg = 3.333f, ringId = 21},
-                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = -3.333f, ringId = 22},
-                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = -2.333f, ringId = 23},
-                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = 2.667f, ringId = 24},
-                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = 3f, ringId = 25},
-                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = -7f, ringId = 26},
-                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = -4.667f, ringId = 27},
-                new Laser {horizontalAngularOffsetDeg = -4.2f, verticalAngularOffsetDeg = 2.333f, ringId = 28},
-                new Laser {horizontalAngularOffsetDeg = 4.2f, verticalAngularOffsetDeg = 2f, ringId = 29},
-                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = -15f, ringId = 30},
-                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = -10.333f, ringId = 31},
-                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = 1.333f, ringId = 32},
+                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = 25f, ringId = 1, timeOffset = 0.027648f}, //LaserID = 0
+                new Laser {horizontalAngularOffsetDeg = -4.2f, verticalAngularOffsetDeg = 1f, ringId = 2, timeOffset = 0.002304f}, //LaserID = 1
+                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = 1.667f, ringId = 3, timeOffset = 0.018432f}, //LaserID = 2
+                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = 15.639f, ringId = 4, timeOffset = 0.006912f}, //LaserID = 3
+                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = 11.31f, ringId = 5, timeOffset = 0.032256f}, //LaserID = 4
+                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = 0f, ringId = 6, timeOffset = 0.011520f}, //LaserID = 5
+                new Laser {horizontalAngularOffsetDeg = 4.2f, verticalAngularOffsetDeg = 0.667f, ringId = 7, timeOffset = 0.023040f}, //LaserID = 6
+                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = 8.843f, ringId = 8, timeOffset = 0.016128f}, //LaserID = 7
+                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = 7.254f, ringId = 9, timeOffset = 0.013824f }, //LaserID = 8
+                new Laser {horizontalAngularOffsetDeg = -4.2f, verticalAngularOffsetDeg = -0.333f, ringId = 10, timeOffset = 0.004608f}, //LaserID = 9
+                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = 0.333f, ringId = 11, timeOffset = 0.020736f}, //LaserID = 10
+                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = 6.148f, ringId = 12, timeOffset = 0.025344f}, //LaserID = 11
+                new Laser {horizontalAngularOffsetDeg = 4.2f, verticalAngularOffsetDeg = 5.333f, ringId = 13, timeOffset = 0.009216f}, //LaserID = 12
+                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = -1.333f, ringId = 14, timeOffset = 0.0f}, //LaserID = 13
+                new Laser {horizontalAngularOffsetDeg = 4.2f, verticalAngularOffsetDeg = -0.667f, ringId = 15, timeOffset = 0.029952f}, //LaserID = 14
+                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = 4f, ringId = 16, timeOffset = 0.034560f}, //LaserID = 15
+                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = 4.667f, ringId = 17, timeOffset = 0.011520f}, //LaserID = 16
+                new Laser {horizontalAngularOffsetDeg = -4.2f, verticalAngularOffsetDeg = -1.667f, ringId = 18, timeOffset = 0.002304f}, //LaserID = 17
+                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = -1f, ringId = 19, timeOffset = 0.027648f}, //LaserID = 18
+                new Laser {horizontalAngularOffsetDeg = -4.2f, verticalAngularOffsetDeg = 3.667f, ringId = 20, timeOffset = 0.032256f}, //LaserID = 19
+                new Laser {horizontalAngularOffsetDeg = 4.2f, verticalAngularOffsetDeg = 3.333f, ringId = 21, timeOffset = 0.016128f}, //LaserID = 20
+                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = -3.333f, ringId = 22, timeOffset = 0.006912f}, //LaserID = 21
+                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = -2.333f, ringId = 23, timeOffset = 0.018432f}, //LaserID = 22
+                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = 2.667f, ringId = 24, timeOffset = 0.023040f}, //LaserID = 23
+                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = 3f, ringId = 25, timeOffset = 0.025344f}, //LaserID = 24
+                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = -7f, ringId = 26, timeOffset = 0.013824f}, //LaserID = 25
+                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = -4.667f, ringId = 27, timeOffset = 0.034560f}, //LaserID = 26
+                new Laser {horizontalAngularOffsetDeg = -4.2f, verticalAngularOffsetDeg = 2.333f, ringId = 28, timeOffset = 0.009216f}, //LaserID = 27
+                new Laser {horizontalAngularOffsetDeg = 4.2f, verticalAngularOffsetDeg = 2f, ringId = 29, timeOffset = 0.020736f}, //LaserID = 28
+                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = -15f, ringId = 30, timeOffset = 0.004608f}, //LaserID = 29
+                new Laser {horizontalAngularOffsetDeg = 1.4f, verticalAngularOffsetDeg = -10.333f, ringId = 31, timeOffset = 0.029952f}, //LaserID = 30
+                new Laser {horizontalAngularOffsetDeg = -1.4f, verticalAngularOffsetDeg = 1.333f, ringId = 32, timeOffset = 0.0f}, //LaserID = 31
             }
         };
 

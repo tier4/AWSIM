@@ -60,7 +60,6 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.VelodyneVLP16,
             horizontalResolution = 0.2f,
-            verticalStepTimeOffset = 0.002304f,
             rechargeTimeOffset = 0.01843f,
             minHAngle = 0.0f,
             maxHAngle = 360.0f,
@@ -74,7 +73,6 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.VelodyneVLP32C,
             horizontalResolution = 0.2f,
-            verticalStepTimeOffset = 0.002304f,
             rechargeTimeOffset = 0.01843f,
             minHAngle = 0.0f,
             maxHAngle = 360.0f,
@@ -88,7 +86,6 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.VelodyneVLS128,
             horizontalResolution = 0.2f,
-            verticalStepTimeOffset = 0.002304f,
             rechargeTimeOffset = 0.01843f,
             minHAngle = 0.0f,
             maxHAngle = 360.0f,
