@@ -145,6 +145,11 @@ namespace RGLUnityPlugin
             var toAddGOs = new HashSet<GameObject>(thisFrameGOs);
             toAddGOs.ExceptWith(lastFrameGameObjects);
             RGLObject[] toAdd = IntoRGLObjects(toAddGOs).ToArray();
+            RGLObject[] toAddTerrain = IntoRGLTerrain(toAddGOs).ToArray();
+            if (toAddTerrain.Length != 0)
+            {
+                toAdd = toAdd.Concat(toAddTerrain).ToArray();
+            }
 
             // Removed
             var toRemoveGOs = new HashSet<GameObject>(lastFrameGameObjects);
@@ -177,6 +182,15 @@ namespace RGLUnityPlugin
                 if (!(rglObject.RglMesh is RGLSkinnedMesh))
                 {
                     sharedMeshesUsageCount[rglObject.RglMesh.Identifier] -= 1;
+                }
+
+                var terrainObject = rglObject as RGLTerrainObject;
+                if (terrainObject != null)
+                {
+                    foreach (var terrainSubObject in terrainObject.TerrainSubObjects)
+                    {
+                        sharedMeshesUsageCount[terrainSubObject.RglMesh.Identifier] -= 1;
+                    }
                 }
                 
                 updateSemanticDict(rglObject);
@@ -331,6 +345,13 @@ namespace RGLUnityPlugin
                         continue;
                     }
 
+                    if (collider.GetType() == typeof(TerrainCollider))
+                    {
+                        // terrain has to be present regardless of the type of IntoRGLObjectsStrategy,
+                        // so it is handled separately somewhere else
+                        continue;
+                    }
+
                     yield return ColliderToRGLObject(collider);
                 }
             }
@@ -417,6 +438,17 @@ namespace RGLUnityPlugin
             }
         }
 
+        private static IEnumerable<RGLObject> IntoRGLTerrain(IEnumerable<GameObject> gameObjects)
+        {
+            foreach (var gameObject in gameObjects)
+            {
+                if (gameObject.TryGetComponent<Terrain>(out var terrain))
+                {
+                    yield return TerrainToRGLObject(terrain);
+                }
+            }
+        }
+
         private static RGLObject ColliderToRGLObject(Collider collider)
         {
             var mesh = ColliderUtilities.GetMeshForCollider(collider);
@@ -452,6 +484,57 @@ namespace RGLUnityPlugin
                                  sharedMeshes[meshId],
                                  () => gameObject.transform.localToWorldMatrix,
                                  gameObject);
+        }
+
+        private static RGLObject TerrainToRGLObject(Terrain terrain)
+        {
+            var mesh = TerrainUtilities.GetTerrainMesh(terrain);
+            string meshId = $"r#{mesh.GetInstanceID()}";
+            if (!sharedMeshes.ContainsKey(meshId))
+            {
+                RGLMesh rglMesh = new RGLMesh(meshId, mesh);
+                sharedMeshes.Add(meshId, rglMesh);
+                sharedMeshesUsageCount.Add(meshId, 0);
+            }
+
+            var terrainData = terrain.terrainData;
+            var terrainGO = terrain.gameObject;
+            var terrainRGLObject = new RGLTerrainObject($"{terrainGO.name}#{terrainGO.GetInstanceID()}",
+                sharedMeshes[meshId],
+                () => terrain.transform.localToWorldMatrix,
+                terrainGO);
+
+            for (var i = 0; i < terrainData.treeInstanceCount; i++)
+            {
+                var treeMesh = TerrainUtilities.GetTreeMesh(terrain, i);
+                string treeMeshId = $"r#{treeMesh.GetInstanceID()}";
+                if (!treeMesh.isReadable)
+                {
+                    Debug.LogWarning($"Tree mesh of prefab: '" + 
+                    $"{terrainData.treePrototypes[terrainData.treeInstances[i].prototypeIndex].prefab.name}' " +
+                    $"is not readable, skipping tree {i}, please set the model's 'Read/Write Enabled' attribute to true");
+                    continue;
+                }
+                if (!sharedMeshes.ContainsKey(treeMeshId))
+                {
+                    RGLMesh rglMesh = new RGLMesh(treeMeshId, treeMesh);
+                    sharedMeshes.Add(treeMeshId, rglMesh);
+                    sharedMeshesUsageCount.Add(treeMeshId, 1);
+                } 
+                else
+                {
+                    sharedMeshesUsageCount[treeMeshId]++;
+                }
+                
+                var tree = new RGLObject($"{terrainGO.name}#{terrainGO.GetInstanceID()}#{i}",
+                    sharedMeshes[treeMeshId],
+                    () => terrain.transform.localToWorldMatrix * TerrainUtilities.GetTreePose(terrain, i),
+                    terrainGO);
+                tree.UpdateTransform();
+                terrainRGLObject.TerrainSubObjects.Add(tree);
+            }
+
+            return terrainRGLObject;
         }
 
         /// <summary>

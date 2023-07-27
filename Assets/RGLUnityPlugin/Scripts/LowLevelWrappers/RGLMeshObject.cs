@@ -17,7 +17,8 @@ using UnityEngine;
 using UnityEngine.Assertions;
 // Experimental is necessary for gathering GraphicsFormat of the texture.
 using UnityEngine.Experimental.Rendering;
-using Unity.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 
 namespace RGLUnityPlugin
 {
@@ -59,7 +60,7 @@ namespace RGLUnityPlugin
             DestroyFromRGL();
         }
 
-        public void DestroyFromRGL()
+        public virtual void DestroyFromRGL()
         {
             if (rglEntityPtr != IntPtr.Zero)
             {
@@ -150,6 +151,27 @@ namespace RGLUnityPlugin
 
                 RglMesh.UploadUVs();
             }
+        }
+    }
+
+    public class RGLTerrainObject : RGLObject
+    {
+        public List<RGLObject> TerrainSubObjects;
+
+        public RGLTerrainObject(string identifier, RGLMesh rglMesh, Func<Matrix4x4> getLocalToWorld, GameObject representedGO)
+            : base(identifier, rglMesh, getLocalToWorld, representedGO)
+        {
+            TerrainSubObjects = new List<RGLObject>();
+        }
+        
+        public override void DestroyFromRGL()
+        {
+            foreach (var terrainSubObject in TerrainSubObjects)
+            {
+                terrainSubObject.DestroyFromRGL();
+            }
+            
+            base.DestroyFromRGL();
         }
     }
 
