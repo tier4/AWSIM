@@ -99,6 +99,7 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.HesaiPandarQT,
             horizontalResolution = 0.6f,
+            rechargeTimeOffset = 0.02571f,
             minHAngle = 0.0f,
             maxHAngle = 360.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
