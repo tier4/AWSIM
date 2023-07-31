@@ -138,9 +138,8 @@ namespace RGLUnityPlugin
             SynchronizeSceneTime();
 
             Profiler.BeginSample("Find changes and make TODO list");
-            var thisFrameGOs = FindObjectsOfType<GameObject>()
-                .Where(go => go.activeInHierarchy)
-                .Where(go => go.GetComponentsInParent<LidarSensor>().Length == 0);
+            var thisFrameGOs = new HashSet<GameObject>(FindObjectsOfType<GameObject>());
+            thisFrameGOs.RemoveWhere(IsNotActiveOrParentHasLidar);
 
             // Added
             var toAddGOs = new HashSet<GameObject>(thisFrameGOs);
@@ -160,7 +159,7 @@ namespace RGLUnityPlugin
                 .Except(toRemove).ToArray();
             RGLObject[] toSkin = existingToSkin.Concat(newToSkin).ToArray();
 
-            lastFrameGameObjects = new HashSet<GameObject>(thisFrameGOs);
+            lastFrameGameObjects = thisFrameGOs;
             Profiler.EndSample();
 
             Profiler.BeginSample("Add new textures");
@@ -547,6 +546,11 @@ namespace RGLUnityPlugin
                 rglObject.SetIntensityTexture(sharedTextures[textureID]);
                 sharedTexturesUsageCount[textureID] += 1;
             }
+        }
+        
+        private static bool IsNotActiveOrParentHasLidar(GameObject gameObject)
+        {
+            return !gameObject.activeInHierarchy || gameObject.GetComponentsInParent<LidarSensor>().Length != 0;
         }
     }
 }
