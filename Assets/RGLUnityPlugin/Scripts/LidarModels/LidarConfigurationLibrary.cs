@@ -60,7 +60,7 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.VelodyneVLP16,
             horizontalResolution = 0.2f,
-            rechargeTimeOffset = 0.01843f,
+            rechargeTimeOffset = 0.018432f,
             minHAngle = 0.0f,
             maxHAngle = 360.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
@@ -73,7 +73,7 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.VelodyneVLP32C,
             horizontalResolution = 0.2f,
-            rechargeTimeOffset = 0.01843f,
+            rechargeTimeOffset = 0.018432f,
             minHAngle = 0.0f,
             maxHAngle = 360.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
@@ -86,7 +86,7 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.VelodyneVLS128,
             horizontalResolution = 0.2f,
-            rechargeTimeOffset = 0.01843f,
+            rechargeTimeOffset = 0.007995f,
             minHAngle = 0.0f,
             maxHAngle = 360.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,

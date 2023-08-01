@@ -17,6 +17,11 @@ using System.Collections.Generic;
 
 namespace RGLUnityPlugin
 {
+    // This file contains the laser array definitions for the supported lidar models.
+    // The laser array definition is a list of lasers, each laser has a horizontal and vertical angular offset, a ring id, and a time offset.
+    // The time offset is the time it takes for the laser to fire after the first laser in the array.
+    // The horizontal and vertical angular offsets are the angular offsets of the laser from the center of the lidar.
+    // The order of the lasers in the array is the order of theirs ID. They not necessarily ordered by their angular offset, ring IDs or time offset.
     public static class LaserArrayLibrary
     {
         public static readonly Dictionary<LidarModel, LaserArray> ByModel =
