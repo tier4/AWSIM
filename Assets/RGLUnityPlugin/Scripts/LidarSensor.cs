@@ -238,9 +238,6 @@ namespace RGLUnityPlugin
         {
             sceneManager.DoUpdate();
 
-            //Calculate delta transform of lidar.
-            Matrix4x4 currentTransform = gameObject.transform.localToWorldMatrix;;
-
             // Set lidar pose
             Matrix4x4 lidarPose = gameObject.transform.localToWorldMatrix * configuration.GetLidarOriginTransfrom();
             rglGraphLidar.UpdateNodeRaysTransform(lidarPoseNodeId, lidarPose);
@@ -266,7 +263,10 @@ namespace RGLUnityPlugin
 
         public void DistortSensorRays()
         {
-            Vector3 deltaTranslation = (lastTransform.GetColumn(3) - (currentTransform).GetColumn(3)) * 0.01f;
+            //Calculate delta transform of lidar.
+            Matrix4x4 currentTransform = gameObject.transform.localToWorldMatrix;
+
+            Vector3 deltaTranslation = lastTransform.GetColumn(3) - currentTransform.GetColumn(3);
 
             Vector3 deltaRotation = Quaternion.LookRotation(lastTransform.GetColumn(2), lastTransform.GetColumn(1)).eulerAngles
                                   - Quaternion.LookRotation(currentTransform.GetColumn(2), currentTransform.GetColumn(1)).eulerAngles;
