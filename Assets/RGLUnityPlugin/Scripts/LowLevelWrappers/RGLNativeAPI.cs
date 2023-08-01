@@ -85,7 +85,7 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_rays_transform(ref IntPtr node, IntPtr transform);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_rays_velocity_distort(ref IntPtr node, IntPtr velocity, IntPtr angularVelocity);
+        public static extern int rgl_node_rays_velocity_distort(ref IntPtr node, IntPtr sensor_linear_velocity, IntPtr sensor_angular_velocity);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_transform(ref IntPtr node, IntPtr transform);
@@ -359,17 +359,17 @@ namespace RGLUnityPlugin
             }
         }
 
-        public static void NodeRaysVelocityDistortion(ref IntPtr node, Vector3 velocity, Vector3 angularVelocity)
+        public static void NodeRaysVelocityDistortion(ref IntPtr node, Vector3 linearVelocity, Vector3 angularVelocity)
         {
-            var velocityFloats = IntoVec3f(velocity);
+            var linearVelocityFloats = IntoVec3f(linearVelocity);
             var angularVelocityFloats = IntoVec3f(angularVelocity);
 
             unsafe
             {
-                fixed (float* velocityFloatsPtr = velocityFloats)
+                fixed (float* linearVelocityFloatsPtr = linearVelocityFloats)
                    fixed (float* angularVelocityFloatsPtr = angularVelocityFloats)
                    {
-                        CheckErr(rgl_node_rays_velocity_distort(ref node, (IntPtr) velocityFloatsPtr, (IntPtr) angularVelocityFloatsPtr));
+                        CheckErr(rgl_node_rays_velocity_distort(ref node, (IntPtr) linearVelocityFloatsPtr, (IntPtr) angularVelocityFloatsPtr));
                    }
             }
         }

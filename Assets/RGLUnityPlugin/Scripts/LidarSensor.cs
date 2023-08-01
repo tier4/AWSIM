@@ -139,6 +139,9 @@ namespace RGLUnityPlugin
                 Destroy(this);
             }
             OnValidate();
+
+            // Apply initial transform of the sensor.
+            lastTransform = gameObject.transform.localToWorldMatrix;
         }
 
         public void OnValidate()
@@ -236,16 +239,7 @@ namespace RGLUnityPlugin
             sceneManager.DoUpdate();
 
             //Calculate delta transform of lidar.
-            Matrix4x4 currentTransform = gameObject.transform.localToWorldMatrix * configuration.GetLidarOriginTransfrom();
-            Vector3 deltaTranslation = (lastTransform.GetColumn(3) - (currentTransform).GetColumn(3)) * 0.001f;
-
-            Vector3 deltaRotation = Quaternion.LookRotation(lastTransform.GetColumn(2), lastTransform.GetColumn(1)).eulerAngles
-                                    - Quaternion.LookRotation(currentTransform.GetColumn(2), currentTransform.GetColumn(1)).eulerAngles;
-
-            deltaRotation *= Mathf.Deg2Rad;
-
-            // Update last known transform of lidar.
-            lastTransform = gameObject.transform.localToWorldMatrix * configuration.GetLidarOriginTransfrom();
+            Matrix4x4 currentTransform = gameObject.transform.localToWorldMatrix;;
 
             // Set lidar pose
             Matrix4x4 lidarPose = gameObject.transform.localToWorldMatrix * configuration.GetLidarOriginTransfrom();
@@ -254,7 +248,7 @@ namespace RGLUnityPlugin
 
             // Set lidar velocity
             if(applyVelocityDistortion)
-                rglGraphLidar.UpdateNodeRaysVelocityDistortion(lidarVelocityDistortionNodeId, deltaTranslation, deltaRotation);
+                DistortSensorRays();
 
             rglGraphLidar.Run();
 
@@ -265,6 +259,20 @@ namespace RGLUnityPlugin
                 rglSubgraphVisualizationOutput.GetResultData<Vector3>(ref onlyHits);
                 GetComponent<PointCloudVisualization>().SetPoints(onlyHits);
             }
+
+            // Update last known transform of lidar.
+            lastTransform = gameObject.transform.localToWorldMatrix;
+        }
+
+        public void DistortSensorRays()
+        {
+            Vector3 deltaTranslation = (lastTransform.GetColumn(3) - (currentTransform).GetColumn(3)) * 0.01f;
+
+            Vector3 deltaRotation = Quaternion.LookRotation(lastTransform.GetColumn(2), lastTransform.GetColumn(1)).eulerAngles
+                                  - Quaternion.LookRotation(currentTransform.GetColumn(2), currentTransform.GetColumn(1)).eulerAngles;
+            deltaRotation *= Mathf.Deg2Rad;
+
+            rglGraphLidar.UpdateNodeRaysVelocityDistortion(lidarVelocityDistortionNodeId, deltaTranslation, deltaRotation);
         }
     }
 }

@@ -68,7 +68,7 @@ namespace RGLUnityPlugin
         [DrawIf("rayGenerateMethod", RayGenerateMethod.RotatingLidarEqualRange)] [Min(0)] public float maxRange;
 
         /// <summary>
-        /// Time offset between two consecutive firings of the whole array.
+        /// Time offset between two consecutive firings of the whole laser array.
         /// </summary>
         [Min(0)] public float rechargeTimeOffset;
 
