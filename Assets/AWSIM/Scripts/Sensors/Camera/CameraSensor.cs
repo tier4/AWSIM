@@ -225,7 +225,10 @@ namespace AWSIM
             rosImageShader.Dispatch(rosShaderKernelIdx, rosImageShaderGroupSizeX, 1, 1);
 
             // Get data from shader
-            AsyncGPUReadback.Request(computeBuffer, request =>
+            AsyncGPUReadback.Request(computeBuffer, OnGPUReadbackRequest);
+
+            // Callback called once the AsyncGPUReadback request is fullfield.
+            void OnGPUReadbackRequest(AsyncGPUReadbackRequest request)
             {
                 if (request.hasError)
                 {
@@ -233,7 +236,7 @@ namespace AWSIM
                     return;
                 }
                 request.GetData<byte>().CopyTo(outputData.imageDataBuffer);
-            });
+            }
 
             // Update output data.
             outputData.cameraParameters = cameraParameters;

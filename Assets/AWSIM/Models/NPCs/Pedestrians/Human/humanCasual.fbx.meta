@@ -21,7 +21,37 @@ ModelImporter:
   - first:
       74: -705911668533398357
     second: Human_LOD0|walk
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body
+    second: {fileID: 2100000, guid: 927f6066496044f40b87247625d443a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Human1.Low-Poly.001
+    second: {fileID: 2100000, guid: 927f6066496044f40b87247625d443a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Human1.eyebrow009.004
+    second: {fileID: 2100000, guid: 927f6066496044f40b87247625d443a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Human1.male_casualsuit01
+    second: {fileID: 2100000, guid: 927f6066496044f40b87247625d443a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Human1.shoes02.005
+    second: {fileID: 2100000, guid: 927f6066496044f40b87247625d443a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Human1.short01
+    second: {fileID: 2100000, guid: 927f6066496044f40b87247625d443a7, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

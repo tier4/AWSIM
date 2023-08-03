@@ -62,4 +62,20 @@ namespace AWSIM.PointCloudFormats
             };
         }
     }
+
+    /// <summary>
+    /// Machine learning format for instance/semantic segmentation tasks
+    /// </summary>
+    public static class FormatMLInstanceSegmentation
+    {
+        public static RGLField[] GetRGLFields()
+        {
+            return new[]
+            {
+                RGLField.XYZ_F32,
+                RGLField.ENTITY_ID_I32,
+                RGLField.INTENSITY_F32
+            };
+        }
+    }
 }
