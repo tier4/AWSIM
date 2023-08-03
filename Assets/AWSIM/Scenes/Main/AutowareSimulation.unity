@@ -533,6 +533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trafficManager: {fileID: 723377035}
+  egoTransform: {fileID: 7808269042169720464}
   commandLineConfigParam: --json_path
   useJsonConfig: 0
   jsonPath: 

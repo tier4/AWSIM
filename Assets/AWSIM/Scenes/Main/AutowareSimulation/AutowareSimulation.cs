@@ -11,6 +11,7 @@ namespace AWSIM
     public class AutowareSimulation : MonoBehaviour
     {
         [SerializeField] TrafficManager trafficManager;
+        [SerializeField] Transform egoTransform;
 
         [Header("Player Config")]
         [SerializeField] string commandLineConfigParam = "--json_path";
@@ -22,11 +23,19 @@ namespace AWSIM
         [SerializeField] string jsonPath;
 
         [Serializable]
+        public class EgoConfiguration
+        {
+            public Vector3 Position;
+            public Vector3 EulerAngles;
+        }
+
+        [Serializable]
         public class Configuration
         {
             public float TimeScale;                 // Reflected in Time.timeScale
             public int RandomTrafficSeed;           // Reflected in TrafficManager.seed
             public int MaxVehicleCount;             // Reflected in TrafficManager.maxVehicleCount
+            public EgoConfiguration Ego = new EgoConfiguration();
         }
 
         void Awake()
@@ -47,6 +56,12 @@ namespace AWSIM
                 Time.timeScale = config.TimeScale;
                 trafficManager.seed = config.RandomTrafficSeed;
                 trafficManager.maxVehicleCount = config.MaxVehicleCount;
+
+                var position = config.Ego.Position - Environment.Instance.MgrsOffsetPosition;
+                egoTransform.position = ROS2Utility.RosToUnityPosition(position);
+
+                var rotation = Quaternion.Euler(config.Ego.EulerAngles);
+                egoTransform.rotation = ROS2Utility.RosToUnityRotation(rotation);
             }
         }
     }
