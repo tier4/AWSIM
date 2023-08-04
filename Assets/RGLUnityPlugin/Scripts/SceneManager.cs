@@ -486,6 +486,14 @@ namespace RGLUnityPlugin
                                  gameObject);
         }
 
+        /// <summary>
+        /// This function adds the Terrain game object with a mesh based on the heightmap of the terrain as well as
+        /// all trees of the terrain game object as separate instances in RGL.
+        /// Tree transforms are updated only once per simulation, since the terrain object is static (Cannot be moved)
+        /// while simulation is running.
+        /// This function relies on the tree prefabs having a LOD (Level Of Detail) component and
+        /// a mesh renderer of LOD0 having a mesh filter.
+        /// </summary>
         private static RGLObject TerrainToRGLObject(Terrain terrain)
         {
             var mesh = TerrainUtilities.GetTerrainMesh(terrain);
@@ -507,6 +515,10 @@ namespace RGLUnityPlugin
             for (var i = 0; i < terrainData.treeInstanceCount; i++)
             {
                 var treeMesh = TerrainUtilities.GetTreeMesh(terrain, i);
+                if (treeMesh is null)
+                {
+                    continue;
+                }
                 string treeMeshId = $"r#{treeMesh.GetInstanceID()}";
                 if (!treeMesh.isReadable)
                 {
