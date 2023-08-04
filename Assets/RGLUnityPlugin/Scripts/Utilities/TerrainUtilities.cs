@@ -67,10 +67,10 @@ namespace RGLUnityPlugin
                     return meshFilter.sharedMesh;
                 }
 
-                Debug.LogWarning($"Tree[{treeIndex}] of terrain {terrain}'s LODGroup component has no MeshFilter component, it will be ignored by LIDAR");
+                Debug.LogWarning($"Tree[{treeIndex}] of terrain {terrain}'s LODGroup component has no MeshFilter component, it will be ignored by RGL");
                 return null;
             }
-            Debug.LogWarning($"Tree[{treeIndex}] of terrain {terrain} has no LODGroup component, it will be ignored by LIDAR");
+            Debug.LogWarning($"Tree[{treeIndex}] of terrain {terrain} has no LODGroup component, it will be ignored by RGL");
             return null;
         }
 

@@ -18,7 +18,6 @@ using UnityEngine.Assertions;
 // Experimental is necessary for gathering GraphicsFormat of the texture.
 using UnityEngine.Experimental.Rendering;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 namespace RGLUnityPlugin
 {
