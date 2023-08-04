@@ -8,6 +8,13 @@ namespace AWSIM
     [RequireComponent(typeof(V2I))]
     public class V2IRos2Publisher : MonoBehaviour
     {
+        public enum TrafficSignalID{
+            RelationID,
+            WayID
+        }
+
+        public TrafficSignalID trafficSignalID;
+
         [SerializeField, Tooltip("On this topic, the traffic_signals are published (as a ")]
         string trafficSignalsTopic = "/v2x/traffic_signals";
         
@@ -50,7 +57,16 @@ namespace AWSIM
                 var trafficLightLaneletID = trafficLight.GetComponentInParent<TrafficLightLaneletID>();
                 if (trafficLightLaneletID != null)
                 {
-                    foreach (var relationID in trafficLightLaneletID.relationID)
+                    var ids = new List<long>();
+                    if (trafficSignalID == TrafficSignalID.RelationID)
+                    {
+                        ids = trafficLightLaneletID.relationID;
+                    }
+                    else if (trafficSignalID == TrafficSignalID.WayID)
+                    {
+                        ids.Add(trafficLightLaneletID.wayID);
+                    }
+                    foreach (var relationID in ids)
                     {
                         var trafficSignalMsg = new autoware_perception_msgs.msg.TrafficSignal();
                         if (allRelationID.Contains(relationID))
