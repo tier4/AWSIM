@@ -100,6 +100,7 @@ namespace RGLUnityPlugin
         private float timer;
 
         private Matrix4x4 lastTransform;
+        private Matrix4x4 currentTransform;
         private Vector3 linearVelocity;
         private Vector3 angularVelocity;
 
@@ -201,14 +202,16 @@ namespace RGLUnityPlugin
             
             timer += Time.deltaTime;
 
-
+            // Update last known transform of lidar.
+            if(applyVelocityDistortion)
+                UpdateTransforms();
 
             var interval = 1.0f / AutomaticCaptureHz;
             if (timer + 0.00001f < interval)
                 return;
 
             if(applyVelocityDistortion)
-                UpdateVelocities(timer);
+                UpdateVelocities(Time.deltaTime);
 
             timer = 0;
 
@@ -264,16 +267,17 @@ namespace RGLUnityPlugin
                 rglSubgraphVisualizationOutput.GetResultData<Vector3>(ref onlyHits);
                 GetComponent<PointCloudVisualization>().SetPoints(onlyHits);
             }
+        }
 
-            // Update last known transform of lidar.
-            lastTransform = gameObject.transform.localToWorldMatrix;
+        public void UpdateTransforms()
+        {
+            lastTransform = currentTransform;
+            currentTransform = gameObject.transform.localToWorldMatrix;
         }
 
         public void UpdateVelocities(float deltaTime)
         {
-            //Calculate delta transform of lidar.
-            Matrix4x4 currentTransform = gameObject.transform.localToWorldMatrix;
-
+            // Calculate delta transform of lidar.
             // Sensor linear velocity in m/s.
             linearVelocity = (lastTransform.GetColumn(3) - currentTransform.GetColumn(3)) / deltaTime;
 
