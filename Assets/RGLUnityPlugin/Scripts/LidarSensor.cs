@@ -203,15 +203,11 @@ namespace RGLUnityPlugin
             timer += Time.deltaTime;
 
             // Update last known transform of lidar.
-            if(applyVelocityDistortion)
-                UpdateTransforms();
+            UpdateTransforms();
 
             var interval = 1.0f / AutomaticCaptureHz;
             if (timer + 0.00001f < interval)
                 return;
-
-            if(applyVelocityDistortion)
-                UpdateVelocities(Time.deltaTime);
 
             timer = 0;
 
@@ -275,22 +271,23 @@ namespace RGLUnityPlugin
             currentTransform = gameObject.transform.localToWorldMatrix;
         }
 
-        public void UpdateVelocities(float deltaTime)
+        public void UpdateVelocities()
         {
             // Calculate delta transform of lidar.
             // Sensor linear velocity in m/s.
-            linearVelocity = (lastTransform.GetColumn(3) - currentTransform.GetColumn(3)) / deltaTime;
+            linearVelocity = (lastTransform.GetColumn(3) - currentTransform.GetColumn(3)) / Time.deltaTime;
 
             Vector3 deltaRotation = Quaternion.LookRotation(lastTransform.GetColumn(2), lastTransform.GetColumn(1)).eulerAngles
                                   - Quaternion.LookRotation(currentTransform.GetColumn(2), currentTransform.GetColumn(1)).eulerAngles;
             deltaRotation *= Mathf.Deg2Rad;
 
             // Sensor angular velocity in rad/s.
-            angularVelocity = deltaRotation / deltaTime;
+            angularVelocity = deltaRotation / Time.deltaTime;
         }
 
         public void DistortSensorRays()
         {
+            UpdateVelocities();
             rglGraphLidar.UpdateNodeRaysVelocityDistortion(lidarVelocityDistortionNodeId, linearVelocity, angularVelocity);
         }
     }
