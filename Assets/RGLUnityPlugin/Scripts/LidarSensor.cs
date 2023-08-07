@@ -287,7 +287,6 @@ namespace RGLUnityPlugin
 
             // Sensor angular velocity in rad/s.
             angularVelocity = deltaRotation / deltaTime;
-
         }
 
         public void DistortSensorRays()
