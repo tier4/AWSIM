@@ -101,8 +101,6 @@ namespace RGLUnityPlugin
 
         private Matrix4x4 lastTransform;
         private Matrix4x4 currentTransform;
-        private Vector3 linearVelocity;
-        private Vector3 angularVelocity;
 
         public void Awake()
         {
@@ -271,23 +269,17 @@ namespace RGLUnityPlugin
             currentTransform = gameObject.transform.localToWorldMatrix;
         }
 
-        public void UpdateVelocities()
+        public void DistortSensorRays()
         {
             // Calculate delta transform of lidar.
             // Sensor linear velocity in m/s.
-            linearVelocity = (lastTransform.GetColumn(3) - currentTransform.GetColumn(3)) / Time.deltaTime;
+            Vector3 linearVelocity = (lastTransform.GetColumn(3) - currentTransform.GetColumn(3)) / Time.deltaTime;
 
             Vector3 deltaRotation = Quaternion.LookRotation(lastTransform.GetColumn(2), lastTransform.GetColumn(1)).eulerAngles
                                   - Quaternion.LookRotation(currentTransform.GetColumn(2), currentTransform.GetColumn(1)).eulerAngles;
-            deltaRotation *= Mathf.Deg2Rad;
-
             // Sensor angular velocity in rad/s.
-            angularVelocity = deltaRotation / Time.deltaTime;
-        }
+            Vector3 angularVelocity = (deltaRotation * Mathf.Deg2Rad) / Time.deltaTime;
 
-        public void DistortSensorRays()
-        {
-            UpdateVelocities();
             rglGraphLidar.UpdateNodeRaysVelocityDistortion(lidarVelocityDistortionNodeId, linearVelocity, angularVelocity);
         }
     }
