@@ -38,6 +38,10 @@ namespace AWSIM
         // Coefficient for cancelling the skidding while stopping of the tire.
         float skiddingCancelRate;
 
+        // Vehicle dynamics parameters used for calculating of front wheel angles.
+        private float wheelBase = 2.787877f;
+        private float tread = 1.8199022f;
+
         void Reset()
         {
             // Initializes the value of WheelCollider.
@@ -106,7 +110,16 @@ namespace AWSIM
                 steerAngle = 0.00001f;
 
             if (wheelCollider.steerAngle != steerAngle)
-                wheelCollider.steerAngle = steerAngle;
+            {
+                if (steerAngle > 40 && name == "FrontLeftWheel")
+                    wheelCollider.steerAngle = Mathf.Asin(1 / Mathf.Sqrt(Mathf.Pow((1 / Mathf.Tan(Mathf.Abs(steerAngle) * Mathf.Deg2Rad) + tread / wheelBase), 2) + 1)) * Mathf.Rad2Deg;
+                
+                else if (steerAngle < -40 && name == "FrontRightWheel")
+                    wheelCollider.steerAngle = -Mathf.Asin(1 / Mathf.Sqrt(Mathf.Pow((1 / Mathf.Tan(Mathf.Abs(steerAngle) * Mathf.Deg2Rad) + tread / wheelBase), 2) + 1)) * Mathf.Rad2Deg;
+                
+                else
+                    wheelCollider.steerAngle = steerAngle;
+            }
         }
 
         /// <summary>
