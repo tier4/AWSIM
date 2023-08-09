@@ -105,8 +105,8 @@ namespace RGLUnityPlugin
             RGLQosPolicyReliability qos_reliability, RGLQosPolicyDurability qos_durability, RGLQosPolicyHistory qos_history, int qos_depth);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_points_udp_publish_vlp16(
-            ref IntPtr node, [MarshalAs(UnmanagedType.LPStr)] string device_ip,
+        public static extern int rgl_node_points_udp_publish_velodyne(
+            ref IntPtr node, RGLVelodyneModel velodyne_model, [MarshalAs(UnmanagedType.LPStr)] string device_ip,
             [MarshalAs(UnmanagedType.LPStr)] string dest_ip, int dest_port);
 
         [DllImport("RobotecGPULidar")]
@@ -376,9 +376,9 @@ namespace RGLUnityPlugin
             CheckErr(rgl_node_points_ros2_publish_with_qos(ref node, topicName, frameId, qos_reliability, qos_durability, qos_history, qos_depth));
         }
 
-        public static void NodePointsUdpPublishVlp16(ref IntPtr node, string deviceIp, string destIp, int destPort)
+        public static void NodePointsUdpPublishVelodyne(ref IntPtr node, RGLVelodyneModel velodyneModel, string deviceIp, string destIp, int destPort)
         {
-            CheckErr(rgl_node_points_udp_publish_vlp16(ref node, deviceIp, destIp, destPort));
+            CheckErr(rgl_node_points_udp_publish_velodyne(ref node, velodyneModel, deviceIp, destIp, destPort));
         }
 
         public static void NodeGaussianNoiseAngularRay(ref IntPtr node, float mean, float stDev)
