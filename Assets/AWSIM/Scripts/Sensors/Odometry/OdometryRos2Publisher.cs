@@ -14,7 +14,7 @@ namespace AWSIM
         /// <summary>
         /// Topic name in pose msg.
         /// </summary>
-        public string Topic = "/localization/kinematic_state";
+        public string Topic = "/awsim/ground_truth/localization/kinematic_state";
 
         /// <summary>
         /// Pose sensor frame id.
@@ -71,6 +71,7 @@ namespace AWSIM
             var rosPosition = outputData.Position;
             var rosRotation = outputData.Rotation;
 
+            // TODO: Add double[36] covariance
             msg.Pose.Pose.Position.X = rosPosition.x;
             msg.Pose.Pose.Position.Y = rosPosition.y;
             msg.Pose.Pose.Position.Z = rosPosition.z;
@@ -90,6 +91,14 @@ namespace AWSIM
             msg.Twist.Twist.Angular.X = rosAngularVelocity.x;
             msg.Twist.Twist.Angular.Y = rosAngularVelocity.y;
             msg.Twist.Twist.Angular.Z = rosAngularVelocity.z;
+
+            // Add covariance 6x6
+            const int size = 6;
+            for (int i = 0; i < size; i++)
+            {
+                msg.Pose.Covariance[i * size + i] = 1;
+                msg.Twist.Covariance[i * size + i] = 1;
+            }
 
             // Update msg header.
             var header = msg as MessageWithHeader;

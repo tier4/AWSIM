@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d38bf8600adc068b85469ec916e9330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Topic: /localization/kinematic_state
+  Topic: /awsim/ground_truth/localization/kinematic_state
   FrameID: base_link
   QosSettings:
     ReliabilityPolicy: 2
