@@ -5,13 +5,13 @@ using UnityEngine;
 namespace AWSIM
 {
     /// <summary>
-    /// Outputs the true value of pose.
+    /// Outputs the true value of odometry.
     /// TODO: Currently the Mgrs coordinate system is output, but refactor the Environment to Unity coordinate system + offset.
     /// </summary>
     public class OdometrySensor : MonoBehaviour
     {
         /// <summary>
-        /// This data is output from PoseSensor at the OutputHz cycle.
+        /// This data is output from OdometrySensor at the OutputHz cycle.
         /// </summary>
         public class OutputData
         {
