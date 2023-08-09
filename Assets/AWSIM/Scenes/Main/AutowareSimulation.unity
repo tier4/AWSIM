@@ -4242,6 +4242,9 @@ PrefabInstance:
     - target: {fileID: 2019290181275176336, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: EnableGravity
       value: 1
+    - target: {fileID: 1195138626504501105, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
+      propertyPath: Topic
+      value: /awsim/ground_truth/localization/kinematic_state
       objectReference: {fileID: 0}
     - target: {fileID: 2963106999894261215, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_Radius
