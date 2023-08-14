@@ -894,6 +894,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7375914829493357424, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: egoVehicleTransform
+      value: 
+      objectReference: {fileID: 7808269042169720464}
     - target: {fileID: 9027057598789494176, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.size
       value: 10
