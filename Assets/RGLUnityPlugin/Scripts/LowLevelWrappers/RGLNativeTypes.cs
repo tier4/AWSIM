@@ -67,6 +67,13 @@ namespace RGLUnityPlugin
 		RGL_AXIS_Z = 3,
 	};
 
+	public enum RGLVelodyneModel
+	{
+		RGL_VELODYNE_VLP16 = 1,
+		RGL_VELODYNE_VLP32C = 2,
+		RGL_VELODYNE_VLS128 = 3,
+	};
+
 	public enum RGLQosPolicyReliability
 	{
 		QOS_POLICY_RELIABILITY_SYSTEM_DEFAULT = 0,

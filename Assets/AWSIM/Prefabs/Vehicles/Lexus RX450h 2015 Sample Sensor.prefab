@@ -1741,6 +1741,7 @@ Transform:
   m_Children:
   - {fileID: 4843604171253800091}
   - {fileID: 2465439771431800668}
+  - {fileID: 1195138626504501104}
   m_Father: {fileID: 635807138616992815}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3649,6 +3650,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1001 &2465439770172797818
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5512666411487739948}
+    m_Modifications:
+    - target: {fileID: 3648756099762557962, guid: efd0c11a0617722e6ab99129b604739b, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648756099762557962, guid: efd0c11a0617722e6ab99129b604739b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648756099762557962, guid: efd0c11a0617722e6ab99129b604739b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648756099762557962, guid: efd0c11a0617722e6ab99129b604739b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648756099762557962, guid: efd0c11a0617722e6ab99129b604739b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648756099762557962, guid: efd0c11a0617722e6ab99129b604739b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648756099762557962, guid: efd0c11a0617722e6ab99129b604739b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648756099762557962, guid: efd0c11a0617722e6ab99129b604739b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648756099762557962, guid: efd0c11a0617722e6ab99129b604739b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648756099762557962, guid: efd0c11a0617722e6ab99129b604739b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648756099762557962, guid: efd0c11a0617722e6ab99129b604739b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648756099762557963, guid: efd0c11a0617722e6ab99129b604739b, type: 3}
+      propertyPath: Topic
+      value: /awsim/ground_truth/localization/kinematic_state
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648756099762559989, guid: efd0c11a0617722e6ab99129b604739b, type: 3}
+      propertyPath: m_Name
+      value: OdometrySensor
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: efd0c11a0617722e6ab99129b604739b, type: 3}
+--- !u!4 &1195138626504501104 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3648756099762557962, guid: efd0c11a0617722e6ab99129b604739b, type: 3}
+  m_PrefabInstance: {fileID: 2465439770172797818}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2465439770178020022
 PrefabInstance:
   m_ObjectHideFlags: 0
