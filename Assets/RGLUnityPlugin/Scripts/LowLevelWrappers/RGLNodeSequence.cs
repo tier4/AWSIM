@@ -204,12 +204,12 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence AddNodePointsUdpPublishVlp16(string identifier, string deviceIp, string destIp, int destPort)
+        public RGLNodeSequence AddNodePointsUdpPublishVelodyne(string identifier, RGLVelodyneModel velodyneModel, string deviceIp, string destIp, int destPort)
         {
             CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
-            RGLNativeAPI.NodePointsUdpPublishVlp16(ref handle.Node, deviceIp, destIp, destPort);
-            handle.Type = RGLNodeType.POINTS_UDP_PUBLISH_VLP16;
+            RGLNativeAPI.NodePointsUdpPublishVelodyne(ref handle.Node, velodyneModel, deviceIp, destIp, destPort);
+            handle.Type = RGLNodeType.POINTS_UDP_PUBLISH_VELODYNE;
             handle.Identifier = identifier;
             AddNode(handle);
             return this;
@@ -298,10 +298,10 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence UpdateNodePointsUdpPublishVlp16(string identifier, string deviceIp, string destIp, int destPort)
+        public RGLNodeSequence UpdateNodePointsUdpPublishVelodyne(string identifier, RGLVelodyneModel velodyneModel, string deviceIp, string destIp, int destPort)
         {
-            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_UDP_PUBLISH_VLP16);
-            RGLNativeAPI.NodePointsUdpPublishVlp16(ref handle.Node, deviceIp, destIp, destPort);
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_UDP_PUBLISH_VELODYNE);
+            RGLNativeAPI.NodePointsUdpPublishVelodyne(ref handle.Node, velodyneModel, deviceIp, destIp, destPort);
             return this;
         }
 

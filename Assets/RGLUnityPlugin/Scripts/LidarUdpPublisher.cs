@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using UnityEngine;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RGLUnityPlugin
@@ -25,11 +26,21 @@ namespace RGLUnityPlugin
         public int destinationPort = 2368;
         public bool emitRawPackets = true;
 
+        private RGLVelodyneModel currentRGLLidarModel = RGLVelodyneModel.RGL_VELODYNE_VLP16;
         private RGLNodeSequence rglSubgraphUdpPublishing;
 
         private readonly string udpPublishingNodeId = "UDP_PUBLISHING";
 
         private LidarSensor lidarSensor;
+
+        private static readonly float maxRangeForVelodyneLegacyPacketFormat = 262.14f;
+
+        private static readonly Dictionary<LidarModel, RGLVelodyneModel> UnityToRGLLidarModelsMapping = new Dictionary<LidarModel, RGLVelodyneModel>
+        {
+            { LidarModel.VelodyneVLP16, RGLVelodyneModel.RGL_VELODYNE_VLP16 },
+            { LidarModel.VelodyneVLP32C, RGLVelodyneModel.RGL_VELODYNE_VLP32C },
+            { LidarModel.VelodyneVLS128, RGLVelodyneModel.RGL_VELODYNE_VLS128 }
+        };
 
         // To be called when adding this component
         private void Reset()
@@ -44,8 +55,9 @@ namespace RGLUnityPlugin
                 return;
             }
 
+            // Velodyne model will be updated when validating lidar model
             rglSubgraphUdpPublishing = new RGLNodeSequence()
-                .AddNodePointsUdpPublishVlp16(udpPublishingNodeId, sourceIP, destinationIP, destinationPort);
+                .AddNodePointsUdpPublishVelodyne(udpPublishingNodeId, currentRGLLidarModel, sourceIP, destinationIP, destinationPort);
         }
 
         private void Start()
@@ -106,12 +118,35 @@ namespace RGLUnityPlugin
                 OnDisable();
             }
 
-            var vlp16Model = LidarConfigurationLibrary.ByModel[LidarModel.VelodyneVLP16];
-            if (!modelToValidate.laserArray.lasers.SequenceEqual(vlp16Model.laserArray.lasers))
+            LidarModel? detectedUnityLidarModel = null;
+            foreach(var unityLidarModel in UnityToRGLLidarModelsMapping.Keys)
+            {
+                var unityLidarConfig = LidarConfigurationLibrary.ByModel[unityLidarModel];
+                if (modelToValidate.laserArray.lasers.SequenceEqual(unityLidarConfig.laserArray.lasers))
+                {
+                    detectedUnityLidarModel = unityLidarModel;
+                    break;
+                }
+            }
+
+            if (detectedUnityLidarModel == null)
             {
                 Debug.LogError("Lidar model configuration not supported for UDP publishing " +
-                               "- lasers doesn't match Velodyne VLP16. Disabling component...");
+                               $"- lasers doesn't match any supported Lidar models ({string.Join(", ", UnityToRGLLidarModelsMapping.Keys)}). Disabling component...");
                 OnDisable();
+                return;
+            }
+
+            // Currently, all of the supported models use Velodyne Legacy Packet Format
+            if (modelToValidate.maxRange > maxRangeForVelodyneLegacyPacketFormat)
+            {
+                Debug.LogWarning($"Max range of lidar '{lidarSensor.name}' exceeds max range supported by Velodyne Legacy Packet Format (262.14m). Consider reducing its value to ensure proper work.");
+            }
+
+            if (currentRGLLidarModel != UnityToRGLLidarModelsMapping[detectedUnityLidarModel.Value])
+            {
+                currentRGLLidarModel = UnityToRGLLidarModelsMapping[detectedUnityLidarModel.Value];
+                rglSubgraphUdpPublishing.UpdateNodePointsUdpPublishVelodyne(udpPublishingNodeId, currentRGLLidarModel, sourceIP, destinationIP, destinationPort);
             }
         }
 

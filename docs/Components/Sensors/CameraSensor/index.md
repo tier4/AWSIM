@@ -16,6 +16,35 @@ The table below describes features contained in each provided script:
 |:--|:--|
 |CameraSensor.cs|Core camera sensor component. It is responsible for applying OpenCV distortion and encoding to bgr8 format. Uses `ComputeShader`.|
 |CameraRos2Publisher.cs|Converts the data output from CameraSensor to ROS2 message and publishes it.|
+|CameraSensorHolder.cs|Serves as parent component for the CameraSensor object(s) and controls the rendering sequence of multiple camera sensors.|
+
+## Camera Sensor API
+
+The following section describes the API of `CameraSensor.cs` script.
+
+|API|type|feature|
+|:--|:--|:--|
+|DoRender|void|Renders the Unity camera, applies OpenCV distortion to rendered image and update output data.|
+
+## Camera Sensor Holder
+
+The following section describes Camera Sensor Holder setup.
+
+### Scene Object Hierarchy
+
+`CameraSensorHolder.cs` component allows the sequential rendering of multiple camera sensors. To utilize it, each `CameraSensor` object should be attached as a child object of the `CameraSensorHolder`:
+
+<img src="img/SceneObjectHierarchy.png" width="300">
+
+### Inspector Setup
+
+In `CameraSensorHolder` script, the following configuration can be changed:
+
+- `Camere Sensors` - a collection of camera sensors used for rendering
+- `Publish Hz` - the frequency at which camera rendering, image processing and callbacks are executed
+- `Render In Queue` - camera sensors rendering sequence type: *in queue (one after another)* or *all at the same frame*
+
+<img src="img/InspectorSetup.png" width="500">
 
 ## Output Data
 
