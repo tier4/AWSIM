@@ -4,7 +4,6 @@ using UnityEditor;
 
 namespace RGLUnityPlugin
 {
-
     /// <summary>
     /// Draws the field/property ONLY if the compared property compared by the comparison type with the value of comparedValue returns true.
     /// Based on: https://forum.unity.com/threads/draw-a-field-only-if-a-condition-is-met.448855/#post-3435603
@@ -13,12 +12,12 @@ namespace RGLUnityPlugin
     public class DrawIfAttribute : PropertyAttribute
     {
         #region Fields
-    
+
         public string comparedPropertyName { get; private set; }
         public object comparedValue { get; private set; }
-    
+
         #endregion
-    
+
         /// <summary>
         /// Only draws the field only if a condition is met. Supports enum and bools.
         /// </summary>
@@ -39,15 +38,15 @@ namespace RGLUnityPlugin
     public class DrawIfPropertyDrawer : PropertyDrawer
     {
         #region Fields
-    
+
         // Reference to the attribute on the property.
         DrawIfAttribute drawIf;
     
         // Field that is being compared.
         SerializedProperty comparedField;
-    
+
         #endregion
-    
+
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             if (!ShowMe(property))
@@ -58,7 +57,7 @@ namespace RGLUnityPlugin
             // The height of the property should be defaulted to the default height.
             return base.GetPropertyHeight(property, label);
         }
-    
+
         /// <summary>
         /// Errors default to showing the property.
         /// </summary>
@@ -66,17 +65,19 @@ namespace RGLUnityPlugin
         {
             drawIf = attribute as DrawIfAttribute;
             // Replace propertyname to the value from the parameter
-            string path = property.propertyPath.Contains(".") ? System.IO.Path.ChangeExtension(property.propertyPath, drawIf.comparedPropertyName) : drawIf.comparedPropertyName;
-    
+            string path = property.propertyPath.Contains(".")
+                ? System.IO.Path.ChangeExtension(property.propertyPath, drawIf.comparedPropertyName)
+                : drawIf.comparedPropertyName;
+
             comparedField = property.serializedObject.FindProperty(path);
-    
+
             if (comparedField == null)
             {
                 Debug.LogError("Cannot find property with name: " + path);
                 return true;
             }
-    
-            // get the value & compare based on types
+
+            // Get the value & compare based on types
             switch (comparedField.type)
             { // Possible extend cases to support more types
                 case "bool":
@@ -88,7 +89,7 @@ namespace RGLUnityPlugin
                     return true;
             }
         }
-    
+
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             // If the condition is met, simply draw the field.
