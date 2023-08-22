@@ -1,4 +1,4 @@
-// Copyright 2019-2023 Robotec.ai.
+// Copyright 2019-2022 Robotec.ai.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ internal class PostInstall : IPostprocessBuildWithReport
         var execFilename = Path.GetFileNameWithoutExtension(report.summary.outputPath);
         FileUtil.CopyFileOrDirectory(
             r2fuMeta, outputDir + "/" + execFilename + "_Data/" + r2fuMetadataName);
-        if (ROS2ForUnity.GetOS() == ROS2ForUnity.Platform.Linux) {
+        if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.StandaloneLinux64) {
             FileUtil.CopyFileOrDirectory(
                 r2csMeta, outputDir + "/" + execFilename + "_Data/Plugins/" + r2csMetadataName);
 

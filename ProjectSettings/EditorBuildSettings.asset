@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Autonoma/Scenes/MenuScene.unity
+    guid: 9e6f0ff1b5021477d9ff6fe39d8198ff
+  - enabled: 1
+    path: Assets/Autonoma/Scenes/DrivingScene.unity
+    guid: 057a5ac17db38432b9922f9263e2a276
+  - enabled: 1
     path: Assets/AWSIM/Scenes/Main/AutowareSimulation.unity
     guid: 9a19a6429a390f1428320cff9d4e1f10
   m_configObjects: {}

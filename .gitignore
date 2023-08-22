@@ -64,3 +64,6 @@ crashlytics-build.properties
 # Externals directory
 [Aa]ssets/AWSIM/Externals/*
 ![Aa]ssets/AWSIM/Externals/.gitkeep
+[Aa]ssets/Autonoma/Environments/*
+
+.DS_Store
