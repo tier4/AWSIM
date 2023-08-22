@@ -102,6 +102,7 @@ nav:
                       - Add a Scene: DeveloperGuide/Tutorials/AddANewScene/AddAScene/index.md
                       - Add a SceneManager: DeveloperGuide/Tutorials/AddANewScene/AddASceneManager/index.md
                 - Add a new LiDAR: DeveloperGuide/Tutorials/AddANewLiDAR/index.md
+                - Read material information by RGL: DeveloperGuide/Tutorials/ReadMaterialInformation/index.md
                 - Create a PCD: DeveloperGuide/Tutorials/CreateAPCD/index.md
                 - Add a custom ROS2 message: DeveloperGuide/Tutorials/AddACustomROS2Message/index.md
           - API: DeveloperGuide/API/index.md

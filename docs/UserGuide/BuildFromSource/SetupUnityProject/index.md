@@ -49,7 +49,7 @@ To setup the *AWSIM* project in *Unity* *Editor*:
             1. Download *libssl*:
             
                 ```bash
-                wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.12_amd64.deb
+                wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb
                 ```
             
             2. Install it:  

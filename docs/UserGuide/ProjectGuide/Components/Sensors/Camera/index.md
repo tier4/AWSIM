@@ -21,7 +21,22 @@ The `traffic_light_left_camera/camera_link` link is added to the `base_link` obj
 
 A detailed description of the `URDF` structure and sensors added to prefab `Lexus RX450h 2015` is available in this [section](../../EgoVehicle/URDF/).
 
-### Components
+
+
+## CameraSensorHolder (script) 
+![InspectorSetup](InspectorSetup.png)
+
+*CameraSensorHolder* (script) allows the sequential rendering of multiple camera sensors. 
+To utilize it, each `CameraSensor` object should be attached as a child object of the `CameraSensorHolder`.
+![SceneObjectHierarchy](SceneObjectHierarchy.png)
+
+#### Elements configurable from the editor level
+- `Camere Sensors` - a collection of camera sensors used for rendering
+- `Publish Hz` - the frequency at which camera rendering, image processing and callbacks are executed
+- `Render In Queue` - camera sensors rendering sequence type: *in queue (one after another)* or *all at the same frame*
+
+
+### CameraSensor Components
 ![components](components.png)
 
 For the `CameraSensor` to work properly, the *GameObject* to which the scripts are added must also have:
@@ -65,6 +80,11 @@ The script uses two [`ComputeShaders`](https://docs.unity3d.com/ScriptReference/
 
     ![compute](compute.png)
 
+| API      | type | feature                                                                                       |
+| :------- | :--- | :-------------------------------------------------------------------------------------------- |
+| DoRender | void | Renders the Unity camera, applies OpenCV distortion to rendered image and update output data. |
+
+
 #### Elements configurable from the editor level
 - `Output Hz` - frequency of output calculation and callback (default: `10Hz`)
 - *Image On GUI*:
@@ -102,6 +122,7 @@ The script also ensures that `binning` is assumed to be zero and the rectificati
 
 !!! warning
     The script uses the camera parameters set in the *CameraSensor script* - remember to configure them depending on the camera you are using.
+
 
 #### Elements configurable from the editor level
 - `Image Topic` - the *ROS2* topic on which the [`Image`][image_msg] message is published<br>(default: `"/sensing/camera/traffic_light/image_raw"`)

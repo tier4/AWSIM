@@ -44,6 +44,8 @@ In subsequent frames of the simulation, `SceneManager` synchronizes the scene be
 - `SceneManager` - responsible for syncing the scene between *Unity* and `RGL`.
 - `LidarSensor` - provide lidar configuration and create `RGL` pipeline to simulate lidar.
 - `PointCloudVisualization` - visualize point cloud on the *Unity* scene.
+- `IntensityTexture` - adds slot for `Intensity Texture ID` to the *GameObject*
+- `SemanticCategory` - adds category ID to the *GameObject*
 - `RGLDebugger` - provides configuration for Native `RGL` debug tools (logging and tape).
 - A set of classes providing tools to define *LiDAR* specification (mostly: ray poses):
     - `LidarModels` - enumeration of some real-world *LiDARs* names.

@@ -13,7 +13,7 @@ The ones mounted on the top of autonomous vehicles are primarily used
 
 *LiDARs* placed on the left and right sides of the vehicle are mainly used to monitor the traffic lane and detect vehicles moving in adjacent lanes, enabling safe maneuvers such as lane changing or turning.
 
-`LidarSensor` component is a part of [`RGLUnityPlugin`](../../../ExternalLibraries/RGLUnityPlugin/) that integrates the external [*RobotecGPULidar*](https://github.com/RobotecAI/RobotecGPULidar) (`RGL`) library with *Unity*.
+`LidarSensor` component is a part of [`RGLUnityPlugin`](../../../ExternalLibraries/RGLUnityPlugin/) that integrates the external [*RobotecGPULidar*](https://github.com/RobotecAI/RobotecGPULidar) (`RGL`) library with *Unity*. `RGL` also allows to provide additional information about objects, more about it [here](#read-material-information).
 
 !!! warning "Use RGL in your scene"
     If you want to use `RGL` in your scene, make sure the scene has an [`SceneManager` component](../../../../../DeveloperGuide/Tutorials/AddANewScene/AddASceneManager) added and all objects meet the [usage requirements](../../../../ProjectGuide/ExternalLibraries/RGLUnityPlugin/#usage-requirements).
@@ -82,7 +82,7 @@ The pipeline consists of:
 
 - setting ray pattern,
 - transforming rays to represent pose of the sensor on the scene,
-- applying gaussian noise,
+- applying *Gaussian* noise,
 - performing raytracing,
 - removing non-hits from the result point cloud,
 - transforming point cloud to sensor frame coordinate system.
@@ -97,8 +97,8 @@ Whereas vector *onlyHits* is used for visualization by the [*PointCloudVisualiza
 #### Elements configurable from the editor level
 - `Automatic Capture Hz` - the rate of sensor processing (default: `10Hz`)
 - `Model Preset` - allows selecting one of the built-in *LiDAR* models (default: `RangeMeter`)
-- `Apply Distance Gaussian Noise` - enable/disable distance gaussian noise (default: `true`)
-- `Apply Angular Gaussian Noise` - enable/disable angular gaussian noise (default: `true`)
+- `Apply Distance Gaussian Noise` - enable/disable distance *Gaussian* noise (default: `true`)
+- `Apply Angular Gaussian Noise` - enable/disable angular *Gaussian* noise (default: `true`)
 - *Configuration*:
     - `Laser Array` - geometry description of lidar array, should be prepared on the basis of the manual for a given model of *LiDAR* (default: loaded from `LaserArrayLibrary`)
     - `Horizontal Steps` - the number of laser array firings between `Min H Angle` and `Max H Angle` (default: `1`)
@@ -183,3 +183,43 @@ Assets/RGLUnityPlugin/Resources/PointCloudMaterial.mat
 - `Max Coloring Height` - maximum height value from which color matching is performed, above this value all points have the last color from the list (default: `20`)
 
 [pointcloud2]: https://docs.ros2.org/latest/api/sensor_msgs/msg/PointCloud2.html
+
+
+
+## Read material information
+
+To ensure the publication of the information described in this section, *GameObjects* must be adjusted accordingly. [This](../../../../../DeveloperGuide/Tutorials/ReadMaterialInformation/) tutorial describes how to do it.
+
+### Intensity Texture
+
+`RGL Unity Plugin` allows assigning an `Intensity Texture` to the *GameObjects* to produce a point cloud containing information about the lidar ray intensity of hit. It can be used to distinguish different levels of an object's reflectivity. 
+
+#### Output data
+
+Point cloud containing intensity is published on the *ROS2* topic via `RglLidarPublisher` component. The intensity value is stored in the `intensity` field of the `sensor_msgs/PointCloud2` message.
+
+### Instance segmentation
+`RGL Unity Plugin` allows assigning an ID to *GameObjects* to produce a point cloud containing information about hit objects. It can be used for instance/semantic segmentation tasks.
+
+!!! note "LidarInstanceSegmentationDemo"
+    If you would like to see how `LidarInstanceSegmentationDemo` works using `RGL` or run some tests, we encourage you to familiarize yourself with this [section](../../../DefaultExistingScenes/#rgl-test-scenes).
+
+#### Output data
+
+Point cloud containing hit objects *IDs* is published on the *ROS2* topic via `RglLidarPublisher` component. It is disabled by default. Properties related to this feature are marked below:
+
+<img src="InstanceSegOutput.png" width="400">
+
+#### Dictionary mapping
+
+The resulting simulation data contains only the id of objects without their human-readable names. To facilitate the interpretation of such data, a function has been implemented to save a file with a dictionary mapping instance ID to *GameObject* names. It writes pairs of values in the `yaml` format:
+
+- The name of the *GameObject*
+- Category ID of `SemanticCategory` component
+
+To enable saving dictionary mapping set output file path to the `Semantic Category Dictionary File` property in the `Scene Manager` component:
+
+<img src="InstanceSegDictMapping.png" width="400">
+
+The dictionary mapping file will be saved at the end of the simulation.
+

@@ -91,3 +91,23 @@ It allows you to check whether `RGL` works correctly when various components tha
 <video width="1920" controls>
 <source src="disabling_test.mp4" type="video/mp4">
 </video>
+
+
+### LidarInstanceSegmentationDemo
+
+The `LidarInstanceSegmentationDemo` is a demo scene for instance segmentation feature. It contains a set of *GameObjects* with ID assigned and sample lidar that publishes output to the *ROS2* topic. The *GameObject*s are grouped to present different methods to assign IDs.
+
+![InstanceSegmentationDemo](InstanceSegmentationDemo.png)
+
+To run demo scene:
+
+1. Open scene: `Assets/AWSIM/Scenes/Samples/LidarInstanceSegmentationDemo.unity`
+2. Run simulation
+3. Open `rviz2`
+4. Setup `rviz2` as follows:
+    - Fixed frame: `world`,
+    - PointCloud2 topic: `lidar/instance_id`,
+    - Topic `QoS` as in the screen above.
+    - Channel name: `enitity_id`,
+    - To better visualization disable `Autocompute` intensity and set min to `0` and max to `50`.
+
