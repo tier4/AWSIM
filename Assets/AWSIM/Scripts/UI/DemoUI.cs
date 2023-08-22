@@ -13,6 +13,7 @@ namespace AWSIM
 
         private void Start()
         {
+            timeScaleSlider.value = Time.timeScale;
             timeScaleText.text = "x " + timeScaleSlider.value.ToString("F2");
             var version = Application.version;
             print(version);

@@ -14,11 +14,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Profiling;
 using ROS2;
+using YamlDotNet.Serialization;
 
 namespace RGLUnityPlugin
 {
@@ -47,6 +49,9 @@ namespace RGLUnityPlugin
         [SerializeField]
         private MeshSource meshSource = MeshSource.RegularMeshesAndSkinnedMeshes;
 
+        [field: SerializeField, Tooltip("File to save dictionary for GameObjects and their SemanticCategories")]
+        private string semanticCategoryDictionaryFile;
+
         // Getting meshes strategies
         private delegate IEnumerable<RGLObject> IntoRGLObjectsStrategy(IEnumerable<GameObject> gameObjects);
 
@@ -56,8 +61,16 @@ namespace RGLUnityPlugin
         private HashSet<GameObject> lastFrameGameObjects = new HashSet<GameObject>();
         private readonly Dictionary<GameObject, RGLObject> uploadedRGLObjects = new Dictionary<GameObject, RGLObject>();
 
+        // This dictionary keeps tracks of identifier -> instance id of objects that were removed (e.g. temporary NPCs)
+        // This is needed to include them in the instance id dictionary yaml saved at the end of simulation.
+        // Since categoryId can be changed in the runtime, this is filled only on object removal / simulation end.
+        private Dictionary<string, int> semanticDict = new Dictionary<string, int>();
+
         private static Dictionary<string, RGLMesh> sharedMeshes = new Dictionary<string, RGLMesh>(); // <Identifier, RGLMesh>
         private static Dictionary<string, int> sharedMeshesUsageCount = new Dictionary<string, int>(); // <RGLMesh Identifier, count>
+
+        private static Dictionary<int, RGLTexture> sharedTextures = new Dictionary<int, RGLTexture>(); // <Identifier, RGLTexture>
+        private static Dictionary<int, int> sharedTexturesUsageCount = new Dictionary<int, int>(); // <RGLTexture Identifier, count>
 
         public static ITimeSource TimeSource { get; set; } = new UnityTimeSource();
 
@@ -83,15 +96,20 @@ namespace RGLUnityPlugin
 
         private void UpdateMeshSource()
         {
-            Clear();
-            IntoRGLObjects = meshSource switch
+            IntoRGLObjectsStrategy UpdatedIntoRGLObjects = meshSource switch
             {
                 MeshSource.OnlyColliders => IntoRGLObjectsUsingCollider,
                 MeshSource.RegularMeshesAndCollidersInsteadOfSkinned => IntoRGLObjectsHybrid,
                 MeshSource.RegularMeshesAndSkinnedMeshes => IntoRGLObjectsUsingMeshes,
                 _ => throw new ArgumentOutOfRangeException()
             };
-            Debug.Log($"RGL mesh source: {meshSource.ToString()}");
+
+            if (IntoRGLObjects != UpdatedIntoRGLObjects)
+            {
+                Clear();
+                IntoRGLObjects = UpdatedIntoRGLObjects;
+                Debug.Log($"RGL mesh source: {meshSource.ToString()}");
+            }
         }
 
         /// <summary>
@@ -120,9 +138,8 @@ namespace RGLUnityPlugin
             SynchronizeSceneTime();
 
             Profiler.BeginSample("Find changes and make TODO list");
-            var thisFrameGOs = FindObjectsOfType<GameObject>()
-                .Where(go => go.activeInHierarchy)
-                .Where(go => go.GetComponentsInParent<LidarSensor>().Length == 0);
+            var thisFrameGOs = new HashSet<GameObject>(FindObjectsOfType<GameObject>());
+            thisFrameGOs.RemoveWhere(IsNotActiveOrParentHasLidar);
 
             // Added
             var toAddGOs = new HashSet<GameObject>(thisFrameGOs);
@@ -142,13 +159,27 @@ namespace RGLUnityPlugin
                 .Except(toRemove).ToArray();
             RGLObject[] toSkin = existingToSkin.Concat(newToSkin).ToArray();
 
-            lastFrameGameObjects = new HashSet<GameObject>(thisFrameGOs);
+            lastFrameGameObjects = thisFrameGOs;
+            Profiler.EndSample();
+
+            Profiler.BeginSample("Add new textures");
+            AddTextures(toAdd);
             Profiler.EndSample();
 
             Profiler.BeginSample("Remove despawned objects");
             foreach (var rglObject in toRemove)
             {
-                if (!(rglObject.RglMesh is RGLSkinnedMesh)) sharedMeshesUsageCount[rglObject.RglMesh.Identifier] -= 1;
+                if(rglObject.Texture != null)
+                {
+                    sharedTexturesUsageCount[rglObject.Texture.Identifier] -=1;
+                }               
+
+                if (!(rglObject.RglMesh is RGLSkinnedMesh))
+                {
+                    sharedMeshesUsageCount[rglObject.RglMesh.Identifier] -= 1;
+                }
+                
+                updateSemanticDict(rglObject);
                 rglObject.DestroyFromRGL();
                 uploadedRGLObjects.Remove(rglObject.RepresentedGO);
             }
@@ -199,6 +230,16 @@ namespace RGLUnityPlugin
             }
 
             Profiler.EndSample();
+
+            Profiler.BeginSample("Destroy unused textures");
+            foreach(var textureUsageCounter in sharedTexturesUsageCount.Where(x =>x.Value < 1).ToList())
+            {
+                sharedTextures[textureUsageCounter.Key].DestroyFromRGL();
+                sharedTextures.Remove(textureUsageCounter.Key);
+                sharedTexturesUsageCount.Remove(textureUsageCounter.Key);
+            }
+
+            Profiler.EndSample();
         }
 
         private void SynchronizeSceneTime()
@@ -224,11 +265,46 @@ namespace RGLUnityPlugin
                 rglObject.Value.DestroyFromRGL();
             }
 
+            foreach ( var rglTexture in sharedTextures)
+            {
+                rglTexture.Value.DestroyFromRGL();
+            }
+
             uploadedRGLObjects.Clear();
             lastFrameGameObjects.Clear();
             sharedMeshes.Clear();
             sharedMeshesUsageCount.Clear();
+            sharedTextures.Clear();
+            sharedMeshesUsageCount.Clear();
             Debug.Log("RGLSceneManager: cleared");
+        }
+
+        private void updateSemanticDict(RGLObject rglObject)
+        {
+            if (rglObject.categoryId.HasValue)
+            {
+                if (!semanticDict.ContainsKey(rglObject.categoryName))
+                {
+                    semanticDict.Add(rglObject.categoryName, rglObject.categoryId.Value);
+                }
+            }
+        }
+
+        private void OnApplicationQuit()
+        {
+            if (string.IsNullOrEmpty(semanticCategoryDictionaryFile))
+            {
+                return;
+            }
+
+            foreach (var rglObject in uploadedRGLObjects.Values)
+            {
+                updateSemanticDict(rglObject);
+            }
+            var serializer = new SerializerBuilder().Build();
+            var yaml = serializer.Serialize(semanticDict);
+            File.WriteAllText(semanticCategoryDictionaryFile, yaml);
+                Debug.Log($"Saved semantic category dictionary with {semanticDict.Count} objects at {semanticCategoryDictionaryFile}");
         }
 
         /// <summary>
@@ -434,6 +510,47 @@ namespace RGLUnityPlugin
 
             foreach (var smr in smrs) yield return smr;
             foreach (var mr in mrs) yield return mr;
+        }
+
+        /// <summary>
+        /// Searches through new rglObjects for ones containing IntensityTexture component.
+        /// If present, check if the found texture was already sent to RGL. 
+        /// If not, send it and write its identifier to sharedTextures dictionary.
+        /// After that assign rglTexture to the proper rglObject.
+        /// </summary>
+        private static void AddTextures(IEnumerable<RGLObject> rglObjects)
+        {
+            foreach (var rglObject in rglObjects)
+            {                
+                var intensityTextureComponent = rglObject.RepresentedGO.GetComponent<IntensityTexture>();
+
+                if( intensityTextureComponent == null)
+                {
+                    continue;
+                }
+
+                if( intensityTextureComponent.texture == null)
+                {
+                    continue;
+                }
+
+                int textureID = intensityTextureComponent.texture.GetInstanceID();
+                
+                if(!sharedTextures.ContainsKey(textureID))
+                {
+                    var rglTextureToAdd = new RGLTexture(intensityTextureComponent.texture, textureID);
+                    sharedTextures.Add(textureID, rglTextureToAdd);
+                    sharedTexturesUsageCount.Add(textureID, 0);                    
+                }                    
+                
+                rglObject.SetIntensityTexture(sharedTextures[textureID]);
+                sharedTexturesUsageCount[textureID] += 1;
+            }
+        }
+        
+        private static bool IsNotActiveOrParentHasLidar(GameObject gameObject)
+        {
+            return !gameObject.activeInHierarchy || gameObject.GetComponentsInParent<LidarSensor>().Length != 0;
         }
     }
 }

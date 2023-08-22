@@ -58,13 +58,20 @@ namespace AWSIM
 
         private TrafficLight[] FindClosestTrafficLights(TrafficLight[] trafficLights, Vector3 position, double radius = 10.0)
         {
-            return trafficLights
-                .Where(trafficLight =>
+            List<TrafficLight> filteredLights = new List<TrafficLight>();
+
+            for (int i = 0; i < trafficLights.Length; i++)
+            {
+                var distance2D = GeometryUtility.Distance2D(trafficLights[i].transform.position, position);
+                var trafficLightLaneletID = trafficLights[i].GetComponentInParent<TrafficLightLaneletID>();
+
+                if(distance2D <= radius && trafficLightLaneletID != null && trafficLightLaneletID.LaneletElementID != 0)
                 {
-                    var distance2D = GeometryUtility.Distance2D(trafficLight.transform.position, position);
-                    var trafficLightLaneletID = trafficLight.GetComponentInParent<TrafficLightLaneletID>();
-                    return distance2D <= radius && trafficLightLaneletID != null && trafficLightLaneletID.LaneletElementID != 0;
-                }).ToList().ToArray();
+                    filteredLights.Add(trafficLights[i]);
+                }
+            }
+
+            return filteredLights.ToArray();
         }
     }
 

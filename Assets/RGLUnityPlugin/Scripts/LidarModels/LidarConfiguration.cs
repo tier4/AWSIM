@@ -90,6 +90,14 @@ namespace RGLUnityPlugin
             return rayPose;
         }
 
+        /// <summary>
+        /// Returns transform from the attached game object to the LiDAR origin.
+        /// </summary>
+        public Matrix4x4 GetLidarOriginTransfrom()
+        {
+            return Matrix4x4.Translate(Vector3.up * (laserArray.centerOfMeasurementVerticalLinearOffsetMm / 1000.0f));
+        }
+
         public static LidarNoiseParams TypicalNoiseParams => new LidarNoiseParams
         {
             angularNoiseType = AngularNoiseType.RayBased,

@@ -12,7 +12,7 @@ The native RGL library needs a once-per-scene preparation to access models on th
 1. Create an empty object
 2. Attach script `LidarSensor.cs`.
 3. `PointCloudVisualization.cs` will be added automatically, however, you can disable it.
-4. Now you can add a callback from another script to receive notification when data is ready:
+4. Now you can add a callback from another script to receive a notification when data is ready:
    ```cs
    lidarSensor = GetComponent<LidarSensor>();
    lidarSensor.OnOutputData += HandleLidarDataMethod;
@@ -22,8 +22,8 @@ The native RGL library needs a once-per-scene preparation to access models on th
 
 To add a new lidar model, perform the following steps:
 1. Add its name to the `LidarModels.cs`
-2. If the Lidar has a non-uniform laser array construction (e.g. different linear / angular spacing between lasers), add an entry to the `LaserArrayLibrary`.
-3. Add an entry to `LidarConfigurationLibrary`. Use the provided laser array or generate a uniform one using static method `LaserArray.Uniform()`.
+2. If the Lidar has a non-uniform laser array construction (e.g. different linear/angular spacing between lasers), add an entry to the `LaserArrayLibrary`.
+3. Add an entry to `LidarConfigurationLibrary`. Use the provided laser array or generate a uniform one using the static method `LaserArray`.Uniform()`.
 4. Done. New lidar preset should be available via Unity Inspector.
 
 ## Package structure
@@ -37,8 +37,7 @@ Additionally, the package contains also:
   - Details below
 
 ## Scripts structure
-
-The code consist of the following parts:
+The code consists of the following parts:
   - `LidarSensor.cs`
     - Non-ROS code, most of the high-level logic, frequency control
   - `SceneManager.cs`
@@ -47,6 +46,10 @@ The code consist of the following parts:
     - Displays PointCloud on the Unity Scene
   - `RGLDebugger.cs`
     - Provides configuration for Native RGL debug tools (logging and tape)
+  - `SemanticCategory.cs`
+    - Allows to add category ID to game objects for instance/semantic segmentation tasks
+  - `IntensityTexture.cs`
+    - Provides input component that can be assigned to any GameObject. It contains a slot for intensity texture.
 - A set of classes providing tools to define LiDAR specification (mostly: ray poses)
   - `LidarModels.cs`
     - Enumeration of some real-world LiDARs names

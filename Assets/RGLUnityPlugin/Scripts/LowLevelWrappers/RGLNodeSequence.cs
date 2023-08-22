@@ -32,34 +32,36 @@ namespace RGLUnityPlugin
         //// NODESEQUENCES OPERATIONS ////
         public static void Connect(RGLNodeSequence parent, RGLNodeSequence child)
         {
-            if (parent.GetLastNodeOrNull(true) == null || child.GetFirstNodeOrNull(true) == null)
-            {
-                throw new RGLException("Attempted to connect empty NodeSequence!");
-            }
-
             if (parent.childs.Contains(child) || child.parents.Contains(parent))
             {
                 throw new RGLException("Attempted to connect NodeSequences twice!");
             }
 
-            RGLNativeAPI.GraphNodeAddChild(parent.GetLastNodeOrNull(true).Node, child.GetFirstNodeOrNull(true).Node);
+            // Connect nodes in RGL if NodeSequences have active nodes.
+            // They will be connected in RGL when activating the node or adding the new one.
+            if (parent.GetLastNodeOrNull(true) != null && child.GetFirstNodeOrNull(true) != null)
+            {
+                RGLNativeAPI.GraphNodeAddChild(parent.GetLastNodeOrNull(true).Node, child.GetFirstNodeOrNull(true).Node);
+            }
+
             parent.childs.Add(child);
             child.parents.Add(parent);
         }
 
         public static void Disconnect(RGLNodeSequence parent, RGLNodeSequence child)
         {
-            if (parent.GetLastNodeOrNull(true) == null || child.GetFirstNodeOrNull(true) == null)
-            {
-                throw new RGLException("Attempted to disconnect empty NodeSequence!");
-            }
-
             if (!parent.childs.Contains(child) || !child.parents.Contains(parent))
             {
                 throw new RGLException("Attempted to disconnect NodeSequences that are not connected!");
             }
 
-            RGLNativeAPI.GraphNodeRemoveChild(parent.GetLastNodeOrNull(true).Node, child.GetFirstNodeOrNull(true).Node);
+            // Disconnect RGL nodes if NodeSequences have active nodes.
+            // Otherwise they are already disconnected in RGL.
+            if (parent.GetLastNodeOrNull(true) != null && child.GetFirstNodeOrNull(true) != null)
+            {
+                RGLNativeAPI.GraphNodeRemoveChild(parent.GetLastNodeOrNull(true).Node, child.GetFirstNodeOrNull(true).Node);
+            }
+
             parent.childs.Remove(child);
             child.parents.Remove(parent);
         }
@@ -202,6 +204,17 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence AddNodePointsUdpPublishVelodyne(string identifier, RGLVelodyneModel velodyneModel, string deviceIp, string destIp, int destPort)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsUdpPublishVelodyne(ref handle.Node, velodyneModel, deviceIp, destIp, destPort);
+            handle.Type = RGLNodeType.POINTS_UDP_PUBLISH_VELODYNE;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
         public RGLNodeSequence AddNodeGaussianNoiseAngularRay(string identifier, float mean, float stDev)
         {
             CheckNodeNotExist(identifier);
@@ -282,6 +295,13 @@ namespace RGLUnityPlugin
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_TEMPORAL_MERGE);
             RGLNativeAPI.NodePointsTemporalMerge(ref handle.Node, fields);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodePointsUdpPublishVelodyne(string identifier, RGLVelodyneModel velodyneModel, string deviceIp, string destIp, int destPort)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_UDP_PUBLISH_VELODYNE);
+            RGLNativeAPI.NodePointsUdpPublishVelodyne(ref handle.Node, velodyneModel, deviceIp, destIp, destPort);
             return this;
         }
 

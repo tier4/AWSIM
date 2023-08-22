@@ -11,7 +11,7 @@ namespace AWSIM.TrafficSimulation
 public class TrafficManager : MonoBehaviour
 {
     [SerializeField, Tooltip("Seed value for random generator.")]
-    private int seed;
+    public int seed;
     [Header("NPC Vehicle Settings")]
     [SerializeField] private NPCVehicleConfig vehicleConfig = NPCVehicleConfig.Default();
     

@@ -335,7 +335,7 @@ namespace AWSIM
                 // Is less than sleepVelocityThreshold ?
                 bool IsCanSleepVelocity()
                 {
-                    if (Mathf.Abs(Velocity.z) < sleepVelocityThreshold)
+                    if (Mathf.Abs(LocalVelocity.z) < sleepVelocityThreshold)
                         return true;
                     else
                         return false;

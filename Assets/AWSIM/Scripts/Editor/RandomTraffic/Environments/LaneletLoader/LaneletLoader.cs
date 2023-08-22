@@ -207,13 +207,17 @@ namespace AWSIM.TrafficSimulation
             foreach (var entry in laneletMap.Lines)
             {
                 var line = entry.Value;
-                if (line.Attributes[AttributeKeys.Type] != AttributeValues.StopLine)
+                if (line.Attributes.TryGetValue(AttributeKeys.Type, out string laneType))
                 {
+                    if (laneType == AttributeValues.StopLine)
+                    {
+                        var stopLine = StopLine.Create(line[0], line[1]);
+                        stopLine.transform.parent = stopLineHolder.transform;
+                        stopLines.Add(entry.Key, stopLine);
+                    }
+                } else {
                     continue;
                 }
-                var stopLine = StopLine.Create(line[0], line[1]);
-                stopLine.transform.parent = stopLineHolder.transform;
-                stopLines.Add(entry.Key, stopLine);
             }
         }
 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1537.125, g: 1904.5333, b: 2520.709, a: 1}
+  m_IndirectSpecularColor: {r: 1520.0924, g: 1884.674, b: 2491.8425, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -481,6 +481,7 @@ GameObject:
   m_Component:
   - component: {fileID: 543989980}
   - component: {fileID: 543989981}
+  - component: {fileID: 543989982}
   m_Layer: 0
   m_Name: AutowareSimulation
   m_TagString: Untagged
@@ -519,6 +520,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshSource: 2
+--- !u!114 &543989982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543989979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbff45cdd7c84db439f1a4e2e2e66844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trafficManager: {fileID: 723377035}
+  egoTransform: {fileID: 7808269042169720464}
+  commandLineConfigParam: --json_path
+  useJsonConfig: 0
+  jsonPath: 
 --- !u!114 &553355659 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9027057600446549292, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
@@ -687,6 +705,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 830ab73cebda3db4580ebd3ece935931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &723377035 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+  m_PrefabInstance: {fileID: 813212876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0004da06b69044905bc1db0ab38531a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &797679383
@@ -2761,6 +2790,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1041813114, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
   m_PrefabInstance: {fileID: 813212876}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &836495761
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 836495763}
+  - component: {fileID: 836495762}
+  m_Layer: 0
+  m_Name: StaticLightingSky
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &836495762
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836495761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441482e8936e35048a1dffac814e3ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Profile: {fileID: 11400000, guid: 87ed1f4fcbcd01348b783774e8f29934, type: 2}
+  m_StaticLightingSkyUniqueID: 1
+--- !u!4 &836495763
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836495761}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &890457390 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9027057600411674006, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
@@ -4168,6 +4242,9 @@ PrefabInstance:
     - target: {fileID: 2019290181275176336, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: EnableGravity
       value: 1
+    - target: {fileID: 1195138626504501105, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
+      propertyPath: Topic
+      value: /awsim/ground_truth/localization/kinematic_state
       objectReference: {fileID: 0}
     - target: {fileID: 2963106999894261215, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_Radius
