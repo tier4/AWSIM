@@ -53,35 +53,29 @@ namespace RGLUnityPlugin
         private string semanticCategoryDictionaryFile;
 
         // Getting meshes strategies
-        private delegate IEnumerable<RGLObject> IntoRGLObjectsStrategy(IEnumerable<GameObject> gameObjects);
+        private delegate IEnumerable<IRGLObject> IntoRGLObjectsStrategy(IEnumerable<GameObject> gameObjects);
 
         private IntoRGLObjectsStrategy IntoRGLObjects;
 
         // Keeping track of the scene objects
         private HashSet<GameObject> lastFrameGameObjects = new HashSet<GameObject>();
-        private readonly Dictionary<GameObject, RGLObject> uploadedRGLObjects = new Dictionary<GameObject, RGLObject>();
+        private readonly Dictionary<GameObject, IRGLObject> uploadedRGLObjects = new Dictionary<GameObject, IRGLObject>();
 
         // This dictionary keeps tracks of identifier -> instance id of objects that were removed (e.g. temporary NPCs)
         // This is needed to include them in the instance id dictionary yaml saved at the end of simulation.
         // Since categoryId can be changed in the runtime, this is filled only on object removal / simulation end.
-        private Dictionary<string, int> semanticDict = new Dictionary<string, int>();
-
-        private static Dictionary<string, RGLMesh> sharedMeshes = new Dictionary<string, RGLMesh>(); // <Identifier, RGLMesh>
-        private static Dictionary<string, int> sharedMeshesUsageCount = new Dictionary<string, int>(); // <RGLMesh Identifier, count>
-
-        private static Dictionary<int, RGLTexture> sharedTextures = new Dictionary<int, RGLTexture>(); // <Identifier, RGLTexture>
-        private static Dictionary<int, int> sharedTexturesUsageCount = new Dictionary<int, int>(); // <RGLTexture Identifier, count>
+        private readonly Dictionary<string, int> semanticDict = new Dictionary<string, int>();
 
         public static ITimeSource TimeSource { get; set; } = new UnityTimeSource();
 
         private int lastUpdateFrame = -1;
 
-        void OnDisable()
+        private void OnDisable()
         {
             Clear();
         }
 
-        void OnValidate()
+        private void OnValidate()
         {
             UpdateMeshSource();
         }
@@ -98,7 +92,7 @@ namespace RGLUnityPlugin
         {
             IntoRGLObjectsStrategy UpdatedIntoRGLObjects = meshSource switch
             {
-                MeshSource.OnlyColliders => IntoRGLObjectsUsingCollider,
+                MeshSource.OnlyColliders => IntoRGLObjectsUsingColliders,
                 MeshSource.RegularMeshesAndCollidersInsteadOfSkinned => IntoRGLObjectsHybrid,
                 MeshSource.RegularMeshesAndSkinnedMeshes => IntoRGLObjectsUsingMeshes,
                 _ => throw new ArgumentOutOfRangeException()
@@ -144,8 +138,8 @@ namespace RGLUnityPlugin
             // Added
             var toAddGOs = new HashSet<GameObject>(thisFrameGOs);
             toAddGOs.ExceptWith(lastFrameGameObjects);
-            RGLObject[] toAdd = IntoRGLObjects(toAddGOs).ToArray();
-            RGLObject[] toAddTerrain = IntoRGLTerrain(toAddGOs).ToArray();
+            var toAdd = IntoRGLObjects(toAddGOs).ToArray();
+            var toAddTerrain = IntoRGLTerrainObjects(toAddGOs).ToArray();
             if (toAddTerrain.Length != 0)
             {
                 toAdd = toAdd.Concat(toAddTerrain).ToArray();
@@ -155,104 +149,38 @@ namespace RGLUnityPlugin
             var toRemoveGOs = new HashSet<GameObject>(lastFrameGameObjects);
             toRemoveGOs.ExceptWith(thisFrameGOs);
             toRemoveGOs.IntersectWith(uploadedRGLObjects.Keys);
-            RGLObject[] toRemove = toRemoveGOs.Select((o) => uploadedRGLObjects[o]).ToArray();
-
-            // Skinned
-            RGLObject[] newToSkin = toAdd.Where(o => o.RglMesh is RGLSkinnedMesh).ToArray();
-            RGLObject[] existingToSkin = uploadedRGLObjects.Values
-                .Where(o => o.RglMesh is RGLSkinnedMesh)
-                .Except(toRemove).ToArray();
-            RGLObject[] toSkin = existingToSkin.Concat(newToSkin).ToArray();
+            var toRemove = toRemoveGOs.Select((o) => uploadedRGLObjects[o]).ToArray();
 
             lastFrameGameObjects = thisFrameGOs;
-            Profiler.EndSample();
-
-            Profiler.BeginSample("Add new textures");
-            AddTextures(toAdd);
             Profiler.EndSample();
 
             Profiler.BeginSample("Remove despawned objects");
             foreach (var rglObject in toRemove)
             {
-                if(rglObject.Texture != null)
-                {
-                    sharedTexturesUsageCount[rglObject.Texture.Identifier] -=1;
-                }               
-
-                if (!(rglObject.RglMesh is RGLSkinnedMesh))
-                {
-                    sharedMeshesUsageCount[rglObject.RglMesh.Identifier] -= 1;
-                }
-
-                var terrainObject = rglObject as RGLTerrainObject;
-                if (terrainObject != null)
-                {
-                    foreach (var terrainSubObject in terrainObject.TerrainSubObjects)
-                    {
-                        sharedMeshesUsageCount[terrainSubObject.RglMesh.Identifier] -= 1;
-                    }
-                }
-                
-                updateSemanticDict(rglObject);
-                rglObject.DestroyFromRGL();
+                rglObject.DestroyInRGL();
                 uploadedRGLObjects.Remove(rglObject.RepresentedGO);
             }
-
             Profiler.EndSample();
-
-            // TODO: this can be parallelized and moved to Update()
-            Profiler.BeginSample("Update skinned meshes");
-            foreach (var rglObject in toSkin)
-            {
-                var skinnedMesh = rglObject.RglMesh as RGLSkinnedMesh;
-                Assert.IsNotNull(skinnedMesh);
-                skinnedMesh.UpdateSkinnedMesh();
-            }
-
-            Profiler.EndSample();
-
+            
             Profiler.BeginSample("Mark spawned objects as updated");
             foreach (var rglObject in toAdd)
             {
                 // Game Objects must not have duplicate representations.
                 // Occasionally, this assertion may fail due to disabled Read/Write setting of the prefab's mesh.
                 Assert.IsFalse(uploadedRGLObjects.ContainsKey(rglObject.RepresentedGO));
-
-                if (!(rglObject.RglMesh is RGLSkinnedMesh)) sharedMeshesUsageCount[rglObject.RglMesh.Identifier] += 1;
+                
                 uploadedRGLObjects.Add(rglObject.RepresentedGO, rglObject);
             }
-
             Profiler.EndSample();
 
             // TODO(prybicki): This part can take up to 8ms on Shinjuku scene, two ideas to optimize it soon:
             // - Implement batch update in RGL
             // - Use Transform.hasChanged to filter out some objects
-            Profiler.BeginSample("Update transforms");
+            Profiler.BeginSample("Update transforms and skinned meshes");
             foreach (var gameRGLObject in uploadedRGLObjects)
             {
-                gameRGLObject.Value.UpdateTransform();
+                gameRGLObject.Value.Update();
             }
-
-            Profiler.EndSample();
-
-            Profiler.BeginSample("Destroy unused meshes");
-            foreach (var meshUsageCounter in sharedMeshesUsageCount.Where(x => x.Value < 1).ToList())
-            {
-                sharedMeshes[meshUsageCounter.Key].DestroyFromRGL();
-                sharedMeshes.Remove(meshUsageCounter.Key);
-                sharedMeshesUsageCount.Remove(meshUsageCounter.Key);
-            }
-
-            Profiler.EndSample();
-
-            Profiler.BeginSample("Destroy unused textures");
-            foreach(var textureUsageCounter in sharedTexturesUsageCount.Where(x =>x.Value < 1).ToList())
-            {
-                sharedTextures[textureUsageCounter.Key].DestroyFromRGL();
-                sharedTextures.Remove(textureUsageCounter.Key);
-                sharedTexturesUsageCount.Remove(textureUsageCounter.Key);
-            }
-
             Profiler.EndSample();
         }
 
@@ -267,39 +195,25 @@ namespace RGLUnityPlugin
 
         private void Clear()
         {
-            if (!lastFrameGameObjects.Any() && !uploadedRGLObjects.Any() && !sharedMeshes.Any()) return;
-
-            foreach (var rglMesh in sharedMeshes)
-            {
-                rglMesh.Value.DestroyFromRGL();
-            }
+            if (!lastFrameGameObjects.Any() && !uploadedRGLObjects.Any()) return;
 
             foreach (var rglObject in uploadedRGLObjects)
             {
-                rglObject.Value.DestroyFromRGL();
-            }
-
-            foreach ( var rglTexture in sharedTextures)
-            {
-                rglTexture.Value.DestroyFromRGL();
+                rglObject.Value.DestroyInRGL();
             }
 
             uploadedRGLObjects.Clear();
             lastFrameGameObjects.Clear();
-            sharedMeshes.Clear();
-            sharedMeshesUsageCount.Clear();
-            sharedTextures.Clear();
-            sharedMeshesUsageCount.Clear();
             Debug.Log("RGLSceneManager: cleared");
         }
 
-        private void updateSemanticDict(RGLObject rglObject)
+        private void updateSemanticDict(IRGLObject rglObject)
         {
-            if (rglObject.categoryId.HasValue)
+            if (rglObject.CategoryId.HasValue)
             {
-                if (!semanticDict.ContainsKey(rglObject.categoryName))
+                if (!semanticDict.ContainsKey(rglObject.CategoryName))
                 {
-                    semanticDict.Add(rglObject.categoryName, rglObject.categoryId.Value);
+                    semanticDict.Add(rglObject.CategoryName, rglObject.CategoryId.Value);
                 }
             }
         }
@@ -325,7 +239,7 @@ namespace RGLUnityPlugin
         /// Yields a collection of RGL objects based on active colliders found in provided game objects.
         /// This function ignores whether gameObject is active, if filtering is needed, it should be done earlier.
         /// </summary>
-        private static IEnumerable<RGLObject> IntoRGLObjectsUsingCollider(IEnumerable<GameObject> gameObjects)
+        private static IEnumerable<IRGLObject> IntoRGLObjectsUsingColliders(IEnumerable<GameObject> gameObjects)
         {
             foreach (var gameObject in gameObjects)
             {
@@ -348,11 +262,11 @@ namespace RGLUnityPlugin
                     if (collider.GetType() == typeof(TerrainCollider))
                     {
                         // terrain has to be present regardless of the type of IntoRGLObjectsStrategy,
-                        // so it is handled separately somewhere else
+                        // so it is handled separately in the IntoRGLTerrainObjects function
                         continue;
                     }
 
-                    yield return ColliderToRGLObject(collider);
+                    yield return new RGLColliderObject(collider);
                 }
             }
         }
@@ -363,7 +277,7 @@ namespace RGLUnityPlugin
         /// - Set of colliders (if provided) attached to the rootBone and below for SkinnedMeshRenderers.
         /// This function ignores whether gameObject is active, if filtering is needed, it should be done earlier.
         /// </summary>
-        private static IEnumerable<RGLObject> IntoRGLObjectsHybrid(IEnumerable<GameObject> gameObjects)
+        private static IEnumerable<IRGLObject> IntoRGLObjectsHybrid(IEnumerable<GameObject> gameObjects)
         {
             var collidersToYield = new HashSet<Collider>();
             foreach (var renderer in GetUniqueRenderersInGameObjects(gameObjects))
@@ -383,19 +297,13 @@ namespace RGLUnityPlugin
 
                 if (renderer is MeshRenderer mr)
                 {
-                    var mf = mr.GetComponent<MeshFilter>();
-                    if (mf.sharedMesh == null)
-                    {
-                        Debug.LogWarning($"Shared mesh of {mr.gameObject} is null, skipping");
-                        continue;
-                    }
-                    yield return MeshFilterToRGLObject(mf);
+                    yield return new RGLMeshRendererObject(mr);
                 }
             }
 
             foreach (var collider in collidersToYield)
             {
-                yield return ColliderToRGLObject(collider);
+                yield return new RGLColliderObject(collider);
             }
         }
 
@@ -404,20 +312,13 @@ namespace RGLUnityPlugin
         /// based on MeshRenderer and SkinnedMeshRenderer.
         /// This function ignores whether gameObject is active, if filtering is needed, it should be done earlier.
         /// </summary>
-        private static IEnumerable<RGLObject> IntoRGLObjectsUsingMeshes(IEnumerable<GameObject> gameObjects)
+        private static IEnumerable<IRGLObject> IntoRGLObjectsUsingMeshes(IEnumerable<GameObject> gameObjects)
         {
             foreach (var renderer in GetUniqueRenderersInGameObjects(gameObjects))
             {
-                var go = renderer.gameObject;
                 if (renderer is MeshRenderer mr)
                 {
-                    var mf = mr.GetComponent<MeshFilter>();
-                    if (mf.sharedMesh == null)
-                    {
-                        Debug.LogWarning($"Shared mesh of {mr.gameObject} is null, skipping");
-                        continue;
-                    }
-                    yield return MeshFilterToRGLObject(mf);
+                    yield return new RGLMeshRendererObject(mr);
                 }
 
                 if (renderer is SkinnedMeshRenderer smr)
@@ -427,126 +328,21 @@ namespace RGLUnityPlugin
                         Debug.LogWarning($"Shared mesh of {smr.gameObject} is null, skipping");
                         continue;
                     }
-                    // SkinnedMesh cannot be shared
-                    string meshId = $"s#{go.GetInstanceID()}";
-                    RGLSkinnedMesh rglSkinnedMesh = new RGLSkinnedMesh(meshId, smr);
-                    yield return new RGLObject($"{go.name}#{go.GetInstanceID()}",
-                                               rglSkinnedMesh,
-                                               () => smr.transform.localToWorldMatrix,
-                                               go);
+
+                    yield return new RGLSkinnedMeshRendererObject(smr);
                 }
             }
         }
 
-        private static IEnumerable<RGLObject> IntoRGLTerrain(IEnumerable<GameObject> gameObjects)
+        private static IEnumerable<IRGLObject> IntoRGLTerrainObjects(IEnumerable<GameObject> gameObjects)
         {
             foreach (var gameObject in gameObjects)
             {
                 if (gameObject.TryGetComponent<Terrain>(out var terrain))
                 {
-                    yield return TerrainToRGLObject(terrain);
+                    yield return new RGLTerrainObject(terrain);
                 }
             }
-        }
-
-        private static RGLObject ColliderToRGLObject(Collider collider)
-        {
-            var mesh = ColliderUtilities.GetMeshForCollider(collider);
-            string meshId = $"r#{mesh.GetInstanceID()}";
-            if (!sharedMeshes.ContainsKey(meshId))
-            {
-                RGLMesh rglMesh = new RGLMesh(meshId, mesh);
-                sharedMeshes.Add(meshId, rglMesh);
-                sharedMeshesUsageCount.Add(meshId, 0);
-            }
-
-            var gameObject = collider.gameObject;
-            return new RGLObject($"{gameObject.name}#{gameObject.GetInstanceID()}",
-                                 sharedMeshes[meshId],
-                                 () => collider.transform.localToWorldMatrix *
-                                       ColliderUtilities.GetColliderTransformMatrix(collider),
-                                 gameObject);
-        }
-
-        private static RGLObject MeshFilterToRGLObject(MeshFilter meshFilter)
-        {
-            var mesh = meshFilter.sharedMesh;
-            string meshId = $"r#{mesh.GetInstanceID()}";
-            if (!sharedMeshes.ContainsKey(meshId))
-            {
-                RGLMesh rglMesh = new RGLMesh(meshId, mesh);
-                sharedMeshes.Add(meshId, rglMesh);
-                sharedMeshesUsageCount.Add(meshId, 0);
-            }
-
-            var gameObject = meshFilter.gameObject;
-            return new RGLObject($"{gameObject.name}#{gameObject.GetInstanceID()}",
-                                 sharedMeshes[meshId],
-                                 () => gameObject.transform.localToWorldMatrix,
-                                 gameObject);
-        }
-
-        /// <summary>
-        /// This function adds the Terrain game object with a mesh based on the heightmap of the terrain as well as
-        /// all trees of the terrain game object as separate instances in RGL.
-        /// Tree transforms are updated only once per simulation, since the terrain object is static (Cannot be moved)
-        /// while simulation is running.
-        /// This function relies on the tree prefabs having a LOD (Level Of Detail) component and
-        /// a mesh renderer of LOD0 having a mesh filter.
-        /// </summary>
-        private static RGLObject TerrainToRGLObject(Terrain terrain)
-        {
-            var mesh = TerrainUtilities.GetTerrainMesh(terrain);
-            string meshId = $"r#{mesh.GetInstanceID()}";
-            if (!sharedMeshes.ContainsKey(meshId))
-            {
-                RGLMesh rglMesh = new RGLMesh(meshId, mesh);
-                sharedMeshes.Add(meshId, rglMesh);
-                sharedMeshesUsageCount.Add(meshId, 0);
-            }
-
-            var terrainData = terrain.terrainData;
-            var terrainGO = terrain.gameObject;
-            var terrainRGLObject = new RGLTerrainObject($"{terrainGO.name}#{terrainGO.GetInstanceID()}",
-                sharedMeshes[meshId],
-                () => terrain.transform.localToWorldMatrix,
-                terrainGO);
-
-            for (var i = 0; i < terrainData.treeInstanceCount; i++)
-            {
-                var treeMesh = TerrainUtilities.GetTreeMesh(terrain, i);
-                if (treeMesh is null)
-                {
-                    continue;
-                }
-                string treeMeshId = $"r#{treeMesh.GetInstanceID()}";
-                if (!treeMesh.isReadable)
-                {
-                    Debug.LogWarning($"Tree mesh of prefab: '" + 
-                    $"{terrainData.treePrototypes[terrainData.treeInstances[i].prototypeIndex].prefab.name}' " +
-                    $"is not readable, skipping tree {i}, please set the model's 'Read/Write Enabled' attribute to true");
-                    continue;
-                }
-                if (!sharedMeshes.ContainsKey(treeMeshId))
-                {
-                    RGLMesh rglMesh = new RGLMesh(treeMeshId, treeMesh);
-                    sharedMeshes.Add(treeMeshId, rglMesh);
-                    sharedMeshesUsageCount.Add(treeMeshId, 1);
-                } 
-                else
-                {
-                    sharedMeshesUsageCount[treeMeshId]++;
-                }
-                
-                var tree = new RGLObject($"{terrainGO.name}#{terrainGO.GetInstanceID()}#{i}",
-                    sharedMeshes[treeMeshId],
-                    () => terrain.transform.localToWorldMatrix * TerrainUtilities.GetTreePose(terrain, i),
-                    terrainGO);
-                tree.UpdateTransform();
-                terrainRGLObject.TerrainSubObjects.Add(tree);
-            }
-
-            return terrainRGLObject;
         }
 
         /// <summary>
@@ -605,42 +401,6 @@ namespace RGLUnityPlugin
 
             foreach (var smr in smrs) yield return smr;
             foreach (var mr in mrs) yield return mr;
-        }
-
-        /// <summary>
-        /// Searches through new rglObjects for ones containing IntensityTexture component.
-        /// If present, check if the found texture was already sent to RGL. 
-        /// If not, send it and write its identifier to sharedTextures dictionary.
-        /// After that assign rglTexture to the proper rglObject.
-        /// </summary>
-        private static void AddTextures(IEnumerable<RGLObject> rglObjects)
-        {
-            foreach (var rglObject in rglObjects)
-            {                
-                var intensityTextureComponent = rglObject.RepresentedGO.GetComponent<IntensityTexture>();
-
-                if( intensityTextureComponent == null)
-                {
-                    continue;
-                }
-
-                if( intensityTextureComponent.texture == null)
-                {
-                    continue;
-                }
-
-                int textureID = intensityTextureComponent.texture.GetInstanceID();
-                
-                if(!sharedTextures.ContainsKey(textureID))
-                {
-                    var rglTextureToAdd = new RGLTexture(intensityTextureComponent.texture, textureID);
-                    sharedTextures.Add(textureID, rglTextureToAdd);
-                    sharedTexturesUsageCount.Add(textureID, 0);                    
-                }                    
-                
-                rglObject.SetIntensityTexture(sharedTextures[textureID]);
-                sharedTexturesUsageCount[textureID] += 1;
-            }
         }
         
         private static bool IsNotActiveOrParentHasLidar(GameObject gameObject)

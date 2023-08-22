@@ -21,30 +21,48 @@ using System.Collections.Generic;
 
 namespace RGLUnityPlugin
 {
+
+    internal interface IRGLObject
+    {
+        GameObject RepresentedGO { get; }
+        int? CategoryId { get; }
+        string CategoryName { get; }
+        
+        void Update();
+
+        void DestroyInRGL();
+    }
+    
     /// <summary>
     /// RGL counterpart of Unity GameObjects.
     /// Contains information about RGL entity and RGLMesh.
     /// </summary>
-    public class RGLObject
+    public abstract class RGLObject<T> : IRGLObject
     {
-        public string Identifier;
-        public RGLMesh RglMesh;
-        public RGLTexture Texture;
-        public Func<Matrix4x4> GetLocalToWorld;
-        public GameObject RepresentedGO;
-        public int? categoryId;
-        public string categoryName;
+        private string Identifier;
+        private RGLMesh RglMesh;
+        private RGLTexture RglTexture;
+        
+        public GameObject RepresentedGO { get; }
+        public int? CategoryId { get; private set; }
+        public string CategoryName { get; private set; }
 
         private IntPtr rglEntityPtr;
+        private bool transformInitialized;
 
-        public RGLObject(string identifier, RGLMesh rglMesh, Func<Matrix4x4> getLocalToWorld, GameObject representedGO)
+        protected abstract RGLMesh GetRGLMeshFrom(T meshSource);
+        
+        protected RGLObject(string identifier, GameObject representedGO, T meshSource)
         {
             Identifier = identifier;
-            RglMesh = rglMesh;
-            GetLocalToWorld = getLocalToWorld;
             RepresentedGO = representedGO;
-
+            RglMesh = GetRGLMeshFrom(meshSource);
+            if (RglMesh == null)
+            {
+                return;
+            }
             UploadToRGL();
+            SetIntensityTexture();
 
             var semanticCategory = RepresentedGO.GetComponentInParent<SemanticCategory>();
             if (semanticCategory != null)
@@ -56,20 +74,50 @@ namespace RGLUnityPlugin
 
         ~RGLObject()
         {
-            DestroyFromRGL();
+            DestroyInRGL();
         }
 
-        public virtual void DestroyFromRGL()
+        public virtual void DestroyInRGL()
         {
             if (rglEntityPtr != IntPtr.Zero)
             {
                 RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_entity_destroy(rglEntityPtr));
                 rglEntityPtr = IntPtr.Zero;
+                if (RglMesh is RGLSkinnedMesh)
+                {
+                    RglMesh.DestroyFromRGL();
+                }
+                else
+                {
+                    RGLMeshManager.UnregisterRGLMeshInstance(RglMesh.Identifier);
+                }
+                RglMesh = null;
+                if (RglTexture != null)
+                {
+                    RGLTextureManager.UnregisterRGLTextureInstance(RglTexture.Identifier);
+                    RglTexture = null;
+                }
             }
         }
 
-        public void UpdateTransform()
+        public void Update()
         {
+            UpdateTransform();
+            if (RglMesh is RGLSkinnedMesh rglSkinnedMesh)
+            {
+                rglSkinnedMesh.UpdateSkinnedMesh();
+            }
+        }
+
+        protected abstract Matrix4x4 GetLocalToWorld();
+        
+        protected virtual void UpdateTransform()
+        {
+            if (rglEntityPtr == IntPtr.Zero || (transformInitialized && RepresentedGO.isStatic))
+            {
+                return;
+            }
+            
             Matrix4x4 m = GetLocalToWorld();
             float[] matrix3x4 =
             {
@@ -85,6 +133,11 @@ namespace RGLUnityPlugin
                         RGLNativeAPI.rgl_entity_set_pose(rglEntityPtr, (IntPtr) pMatrix3x4));
                 }
             }
+
+            if (!transformInitialized)
+            {
+                transformInitialized = true;
+            }
         }
 
         public override int GetHashCode()
@@ -94,10 +147,10 @@ namespace RGLUnityPlugin
 
         public override bool Equals(object obj)
         {
-            return obj is RGLObject rglObject && Identifier.Equals(rglObject.Identifier);
+            return obj is RGLObject<T> rglObject && Identifier.Equals(rglObject.Identifier);
         }
 
-        protected void UploadToRGL()
+        private void UploadToRGL()
         {
             // Mesh should be uploaded.
             Assert.IsFalse(RglMesh.rglMeshPtr == IntPtr.Zero);
@@ -124,53 +177,197 @@ namespace RGLUnityPlugin
                 return;
             }
 
-            categoryId = semanticCategory.CategoryId;
-            categoryName = semanticCategory.gameObject.name;
-            RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_entity_set_id(rglEntityPtr, categoryId.Value));
+            CategoryId = semanticCategory.CategoryId;
+            CategoryName = semanticCategory.gameObject.name;
+            RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_entity_set_id(rglEntityPtr, CategoryId.Value));
         }
 
-        public void SetIntensityTexture(RGLTexture texture)
+        private void SetIntensityTexture()
         {
-            unsafe
+            var intensityTextureComponent = RepresentedGO.GetComponent<IntensityTexture>();
+
+            if( intensityTextureComponent == null || intensityTextureComponent.texture == null)
             {
-                try
-                {
-                    RGLNativeAPI.CheckErr(
-                        RGLNativeAPI.rgl_entity_set_intensity_texture(rglEntityPtr, texture.rglTexturePtr));
-                        Texture = texture;
-                }
-                catch (RGLException)
-                {
-                    Debug.LogError($"Cannot assign texture: {texture.Identifier}, to entity: {Identifier}");
-                    throw;
-                }
-
-                // Mesh should be uploaded before assigning UVs.
-                Assert.IsFalse(RglMesh.rglMeshPtr == IntPtr.Zero);
-
-                RglMesh.UploadUVs();
+                return;
             }
+
+            RglTexture = RGLTextureManager.RegisterRGLTextureInstance(intensityTextureComponent.texture);
+            try
+            {
+                RGLNativeAPI.CheckErr(
+                    RGLNativeAPI.rgl_entity_set_intensity_texture(rglEntityPtr, RglTexture.rglTexturePtr));
+            }
+            catch (RGLException)
+            {
+                Debug.LogError($"Cannot assign texture: {RglTexture.Identifier}, to entity: {Identifier}");
+                throw;
+            }
+
+            // Mesh should be uploaded before assigning UVs.
+            Assert.IsFalse(RglMesh.rglMeshPtr == IntPtr.Zero);
+
+            RglMesh.UploadUVs();
         }
     }
 
-    public class RGLTerrainObject : RGLObject
+    public class RGLMeshObject : RGLObject<Mesh>
     {
-        public List<RGLObject> TerrainSubObjects;
+        private readonly Func<Matrix4x4> getLocalToWorld;
 
-        public RGLTerrainObject(string identifier, RGLMesh rglMesh, Func<Matrix4x4> getLocalToWorld, GameObject representedGO)
-            : base(identifier, rglMesh, getLocalToWorld, representedGO)
+        public RGLMeshObject(string identifier, GameObject representedGO, Mesh mesh, Func<Matrix4x4> getLocalToWorld) :
+            base(identifier, representedGO, mesh)
         {
-            TerrainSubObjects = new List<RGLObject>();
+            this.getLocalToWorld = getLocalToWorld;
+        }
+
+        protected override RGLMesh GetRGLMeshFrom(Mesh mesh)
+        {
+            return RGLMeshManager.RegisterRGLMeshInstance(mesh);
+        }
+
+        protected override Matrix4x4 GetLocalToWorld()
+        {
+            return getLocalToWorld();
+        }
+    }
+
+    public class RGLMeshRendererObject : RGLObject<MeshRenderer>
+    {
+        private readonly Transform rendererTransform;
+
+        public RGLMeshRendererObject(MeshRenderer meshRenderer) :
+            base(
+                $"{meshRenderer.gameObject.name}#{meshRenderer.gameObject.GetInstanceID()}",
+                meshRenderer.gameObject,
+                meshRenderer
+            )
+        {
+            rendererTransform = meshRenderer.transform;
+        }
+
+        protected override RGLMesh GetRGLMeshFrom(MeshRenderer meshRenderer)
+        {
+            var meshFilter = meshRenderer.GetComponent<MeshFilter>();
+            if (meshFilter.sharedMesh == null)
+            {
+                Debug.LogWarning($"Shared mesh of {meshRenderer.gameObject} is null, skipping");
+                return null;
+            }
+
+            return RGLMeshManager.RegisterRGLMeshInstance(meshFilter.sharedMesh);
+        }
+
+        protected override Matrix4x4 GetLocalToWorld()
+        {
+            return rendererTransform.localToWorldMatrix;
+        }
+    }
+
+    public class RGLSkinnedMeshRendererObject : RGLObject<SkinnedMeshRenderer>
+    {
+        private readonly Transform skinnedMeshRendererTransform;
+
+        public RGLSkinnedMeshRendererObject(SkinnedMeshRenderer skinnedMeshRenderer) :
+            base(
+                $"{skinnedMeshRenderer.gameObject.name}#{skinnedMeshRenderer.gameObject.GetInstanceID()}",
+                skinnedMeshRenderer.gameObject,
+                skinnedMeshRenderer
+                )
+        {
+            skinnedMeshRendererTransform = skinnedMeshRenderer.transform;
+        }
+
+        protected override RGLMesh GetRGLMeshFrom(SkinnedMeshRenderer skinnedMeshRenderer)
+        {
+            return new RGLSkinnedMesh(skinnedMeshRenderer.gameObject.GetInstanceID(), skinnedMeshRenderer);
+        }
+
+        protected override Matrix4x4 GetLocalToWorld()
+        {
+            return skinnedMeshRendererTransform.localToWorldMatrix;
+        }
+    }
+
+    public class RGLColliderObject : RGLObject<Collider>
+    {
+        private readonly Collider collider;
+
+        public RGLColliderObject(Collider collider) :
+            base($"{collider.gameObject.name}#{collider.gameObject.GetInstanceID()}",
+                collider.gameObject,
+                collider
+            )
+        {
+            this.collider = collider;
+        }
+
+        protected override RGLMesh GetRGLMeshFrom(Collider collider)
+        {
+            return RGLMeshManager.RegisterRGLMeshInstance(ColliderUtilities.GetMeshForCollider(collider));
+        }
+
+        protected override Matrix4x4 GetLocalToWorld()
+        {
+            return collider.transform.localToWorldMatrix * ColliderUtilities.GetColliderTransformMatrix(collider);
+        }
+    }
+
+    public class RGLTerrainObject : RGLObject<Terrain>
+    {
+        private readonly List<RGLMeshObject> terrainSubObjects;
+        private readonly Transform terrainTransform;
+
+        public RGLTerrainObject(Terrain terrain) :
+            base($"{terrain.gameObject.name}#{terrain.gameObject.GetInstanceID()}", terrain.gameObject, terrain)
+        {
+            terrainTransform = terrain.transform;
+            terrainSubObjects = new List<RGLMeshObject>();
+            var terrainData = terrain.terrainData;
+            for (var i = 0; i < terrainData.treeInstanceCount; i++)
+            {
+                var treeMesh = TerrainUtilities.GetTreeMesh(terrain, i);
+                if (treeMesh is null)
+                {
+                    continue;
+                }
+                // we need to make a copy of the index because lambda captures use reference semantics for all captured variables
+                var treeIndex = i;
+                var tree = new RGLMeshObject($"{RepresentedGO.name}#{RepresentedGO.GetInstanceID()}#{treeIndex}",
+                    RepresentedGO,
+                    treeMesh,
+                    () => terrain.transform.localToWorldMatrix * TerrainUtilities.GetTreePose(terrain, treeIndex));
+                terrainSubObjects.Add(tree);
+            }
         }
         
-        public override void DestroyFromRGL()
+        protected override Matrix4x4 GetLocalToWorld()
         {
-            foreach (var terrainSubObject in TerrainSubObjects)
+            return terrainTransform.localToWorldMatrix;
+        }
+        
+        public override void DestroyInRGL()
+        {
+            foreach (var terrainSubObject in terrainSubObjects)
             {
-                terrainSubObject.DestroyFromRGL();
+                terrainSubObject.DestroyInRGL();
             }
             
-            base.DestroyFromRGL();
+            base.DestroyInRGL();
+        }
+
+        protected override void UpdateTransform()
+        {
+            foreach (var terrainSubObject in terrainSubObjects)
+            {
+                terrainSubObject.Update();
+            }
+            
+            base.UpdateTransform();
+        }
+
+        protected override RGLMesh GetRGLMeshFrom(Terrain terrain)
+        {
+            return RGLMeshManager.RegisterRGLMeshInstance(TerrainUtilities.GetTerrainMesh(terrain));
         }
     }
 
@@ -181,12 +378,12 @@ namespace RGLUnityPlugin
     /// </summary>
     public class RGLMesh
     {
-        public string Identifier;
+        public int Identifier;
         public Mesh Mesh;
 
         public IntPtr rglMeshPtr = IntPtr.Zero;
 
-        public RGLMesh(string identifier, Mesh mesh)
+        public RGLMesh(int identifier, Mesh mesh)
         {
             Identifier = identifier;
             Mesh = mesh;
@@ -287,7 +484,7 @@ namespace RGLUnityPlugin
     {
         public SkinnedMeshRenderer SkinnedMeshRenderer;
 
-        public RGLSkinnedMesh(string identifier, SkinnedMeshRenderer smr)
+        public RGLSkinnedMesh(int identifier, SkinnedMeshRenderer smr)
         {
             Identifier = identifier;
             Mesh = new Mesh();

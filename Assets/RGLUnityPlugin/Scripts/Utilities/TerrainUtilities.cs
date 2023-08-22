@@ -1,4 +1,3 @@
-
 using UnityEngine.Rendering;
 using UnityEngine;
 
@@ -9,48 +8,88 @@ namespace RGLUnityPlugin
         public static Mesh GetTerrainMesh(Terrain terrain)
         {
             var terrainData = terrain.terrainData;
-            var resolution = terrainData.heightmapResolution;
-            var heights = terrainData.GetHeights(0, 0, resolution, resolution);
+            var heightmapResolution = terrainData.heightmapResolution;
+            var holesResolution = terrainData.holesResolution;
+            var correctHolesResolution = holesResolution == heightmapResolution - 1;
+            var heights = terrainData.GetHeights(0, 0, heightmapResolution, heightmapResolution);
+            var solidSurfaceTiles = terrainData.GetHoles(0, 0, holesResolution, holesResolution);
             var scale = terrainData.heightmapScale;
-            var vertices = new Vector3[resolution * resolution];
-
-            for (var x = 0; x < resolution; x++)
-            {
-                for (var z = 0; z < resolution; z++)
-                {
-                    vertices[x * resolution + z].x =  x * scale.x;
-                    vertices[x * resolution + z].y = heights[z, x] * scale.y;
-                    vertices[x * resolution + z].z =  z * scale.z;
-                }
-            }
-
-            var squareResolution = resolution - 1;
-            // there are 2 triangles per square, so 6 indices
-            var triangles = new int[squareResolution * squareResolution * 2 * 3];
+            var vertices = new Vector3[heightmapResolution * heightmapResolution];
             
-            for (var x = 0; x < squareResolution; x++)
+            if (!correctHolesResolution)
             {
-                for (var z = 0; z < squareResolution; z++)
+                Debug.LogWarning($"Terrain {terrain.GetInstanceID()} holes resolution is incorrect, holes will be ignored by RGL");
+            }
+
+            for (var z = 0; z < heightmapResolution; z++)
+            {
+                for (var x = 0; x < heightmapResolution; x++)
                 {
-                    var sampleBase = x * resolution + z;
-                    var squareBase = 6 * (x * squareResolution + z);
-                    
-                    // first triangle of square
-                    triangles[squareBase] = sampleBase;
-                    triangles[squareBase + 1] = sampleBase + resolution;
-                    triangles[squareBase + 2] = sampleBase + resolution + 1;
-                    
-                    // second triangle of square
-                    triangles[squareBase + 3] = sampleBase;
-                    triangles[squareBase + 4] = sampleBase + 1;
-                    triangles[squareBase + 5] = sampleBase + 1 + resolution;
+                    vertices[x * heightmapResolution + z].x =  x * scale.x;
+                    vertices[x * heightmapResolution + z].y = heights[z, x] * scale.y;
+                    vertices[x * heightmapResolution + z].z =  z * scale.z;
                 }
             }
 
+            // this is the number of squares alongside each axis of the terrain
+            // e.g. if you have a 3x3 grid of points you can fill the space between them using a 2x2 square grid
+            var tileResolution = heightmapResolution - 1;
+            
+            
+            // count solid terrain tiles (not holes)
+            var tileCount = 0;
+            foreach (var solidSurface in solidSurfaceTiles)
+            {
+                if (solidSurface)
+                {
+                    tileCount++;
+                }
+            }
+
+            if (!correctHolesResolution)
+            {
+                tileCount = tileResolution * tileResolution;
+            }
+            
+            // there are 2 triangles per square tile, so 6 indices
+            var triangles = new int[tileCount * 2 * 3];
+
+            var trianglesIndex = 0;
+            for (var z = 0; z < tileResolution; z++)
+            {
+                for (var x = 0; x < tileResolution; x++)
+                {
+                    
+                    if (correctHolesResolution && !solidSurfaceTiles[z, x])
+                    {
+                        continue;
+                    }
+                    
+                    var sampleBase = x * heightmapResolution + z;
+                    
+                    // first triangle of tile
+                    triangles[trianglesIndex++] = sampleBase;
+                    triangles[trianglesIndex++] = sampleBase + heightmapResolution;
+                    triangles[trianglesIndex++] = sampleBase + heightmapResolution + 1;
+                    
+                    // second triangle of tile
+                    triangles[trianglesIndex++] = sampleBase;
+                    triangles[trianglesIndex++] = sampleBase + 1;
+                    triangles[trianglesIndex++] = sampleBase + 1 + heightmapResolution;
+                }
+            }
+            
+            var uv = new Vector2[vertices.Length];
+            for (var i = 0; i < vertices.Length; i++)
+            {
+                uv[i] = new Vector2(vertices[i].x / (tileResolution * scale.x), vertices[i].z / (tileResolution * scale.z));
+            }
+            
             var heightmapMesh = new Mesh();
             heightmapMesh.indexFormat = IndexFormat.UInt32;
             heightmapMesh.vertices = vertices;
             heightmapMesh.triangles = triangles;
+            heightmapMesh.uv = uv;
 
             return heightmapMesh;
         }
@@ -67,10 +106,17 @@ namespace RGLUnityPlugin
                     return meshFilter.sharedMesh;
                 }
 
-                Debug.LogWarning($"Tree[{treeIndex}] of terrain {terrain}'s LODGroup component has no MeshFilter component, it will be ignored by RGL");
+                Debug.LogWarning($"Tree[{treeIndex}] \"{treePrefab.name}\" of terrain {terrain.GetInstanceID()} has LODGroup component with no MeshFilter component, it will be ignored by RGL");
                 return null;
             }
-            Debug.LogWarning($"Tree[{treeIndex}] of terrain {terrain} has no LODGroup component, it will be ignored by RGL");
+            else if (treePrefab.TryGetComponent(out MeshFilter meshFilter))
+            {
+                Debug.LogWarning($"Tree[{treeIndex}] \"{treePrefab.name}\" of terrain {terrain.GetInstanceID()} has no LODGroup component, but it has a MeshFilter component. " +
+                                 $"The tree's rotation and scale is not going o match those in the Unity Editor, " +
+                                 $"since Unity Editor has a bug and does not rotate or scale trees without LODGroup components");
+                return meshFilter.sharedMesh;
+            }
+            Debug.LogWarning($"Tree[{treeIndex}] \"{treePrefab.name}\" of terrain {terrain.GetInstanceID()} has no LODGroup or MeshFilter component, it will be ignored by RGL");
             return null;
         }
 
