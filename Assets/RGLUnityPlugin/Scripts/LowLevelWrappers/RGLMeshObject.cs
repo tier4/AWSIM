@@ -48,7 +48,6 @@ namespace RGLUnityPlugin
         public string CategoryName { get; private set; }
 
         private IntPtr rglEntityPtr;
-        private bool transformInitialized;
 
         protected abstract RGLMesh GetRGLMeshFrom(T meshSource);
         
@@ -113,7 +112,7 @@ namespace RGLUnityPlugin
         
         protected virtual void UpdateTransform()
         {
-            if (rglEntityPtr == IntPtr.Zero || (transformInitialized && RepresentedGO.isStatic))
+            if (rglEntityPtr == IntPtr.Zero)
             {
                 return;
             }
@@ -132,11 +131,6 @@ namespace RGLUnityPlugin
                     RGLNativeAPI.CheckErr(
                         RGLNativeAPI.rgl_entity_set_pose(rglEntityPtr, (IntPtr) pMatrix3x4));
                 }
-            }
-
-            if (!transformInitialized)
-            {
-                transformInitialized = true;
             }
         }
 
