@@ -7,18 +7,18 @@ Moreover, it contains elements responsible for controlling random traffic.
 
 ![environment](environment.png)
 
-Prefab `Environment` is used to create a point cloud (`*.pcd` file) needed to locate the `EgoVehicle` in the simulated *AWSIM* scene.
-The point cloud is created using the [`RGL`](../../../ExternalLibraries/RGLUnityPlugin/) plugin and then used in *Autoware*.
-We encourage you to familiarize yourself with an example scene of creating a point cloud - described [here](../../../DefaultExistingScenes/).
-
-!!! tip "Create PointCloud (*.pcd file)"
-    If you would like to learn how to create a point cloud in *AWSIM* using `Environment` prefab, we encourage you to read this [tutorial](../../../../../DeveloperGuide/Tutorials/CreateAPCD/).
-
 !!! tip "Own Environment prefab"
     If you would like to develop your own prefab `Environment` for *AWSIM*, we encourage you to read this [tutorial](../../../../../DeveloperGuide/Tutorials/AddANewEnvironment/AddAnEnvironment/).
 
 !!! note "AutowareSimulation scene"
     If you would like to see how `Environment` with random traffic works or run some tests, we encourage you to familiarize yourself with the `AutowareSimulation` scene described in this [section](../../../DefaultExistingScenes/).
+
+Prefab `Environment` is also used to create a point cloud (`*.pcd` file) needed to locate the `EgoVehicle` in the simulated *AWSIM* scene.
+The point cloud is created using the [`RGL`](../../../ExternalLibraries/RGLUnityPlugin/) plugin and then used in *Autoware*.
+We encourage you to familiarize yourself with an example scene of creating a point cloud - described [here](../../../DefaultExistingScenes/).
+
+!!! tip "Create PointCloud (*.pcd file)"
+    If you would like to learn how to create a point cloud in *AWSIM* using `Environment` prefab, we encourage you to read this [tutorial](../../../../../DeveloperGuide/Tutorials/CreateAPCD/).
 
 ### Architecture
 The architecture of an `Environment` - with dependencies between components - is presented on the following diagram.

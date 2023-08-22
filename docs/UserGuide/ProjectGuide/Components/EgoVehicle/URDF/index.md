@@ -12,7 +12,7 @@ It is built using multiple *GameObjects* as children appropriately transformed w
 ![urdf](urdf_links/urdf.png)
 
 The transforms in the `URDF` object are defined using the data from the *sensor kit* documentation used in the vehicle.
-Such data can be obtained from *sensor kit* packages for *Autoware*, for example: [`awsim_sensor_kit_launch`](https://github.com/RobotecAI/awsim_sensor_kit_launch) is used in the *AWSIM* compatible version of *Autoware*.
+Such data can be obtained from *sensor kit* packages for *Autoware*, for example: [`awsim_sensor_kit_launch`](https://github.com/RobotecAI/awsim_sensor_kit_launch) - it is used in the *AWSIM* compatible version of *Autoware*.
 This package contains a description of transforms between coordinate systems (frames) in the form of `*.yaml` files: [sensors_calibration](https://github.com/RobotecAI/awsim_sensor_kit_launch/blob/main/awsim_sensor_kit_description/config/sensors_calibration.yaml) and [sensor_kit_calibration](https://github.com/RobotecAI/awsim_sensor_kit_launch/blob/main/awsim_sensor_kit_description/config/sensor_kit_calibration.yaml).
 
 In the first file, the transform of the *sensor kit* frame (`sensor_kit_base_link`) relative to the local vehicle frame (`base_link`) is defined.
@@ -20,8 +20,8 @@ In *Unity*, this transform is defined in the object [`Sensor Kit`](#sensor-kit).
 While the second file contains a definition of the transformations of all sensors with respect to the *sensor kit* - they are described in the [`Sensor Kit`](#sensor-kit) subsections.
 
 !!! note "Transformations"
-    Please note that the transformation *Objects* are intended to be a direct reflection of frames existing in *ROS*.
-    All *frame* *Objects* are defined as children of `base_link` and consist of nothing but a transformation - analogical to the one present in *ROS* (keep in mind the coordinate system conversion).
+    Please note that the transformation *Objects* are intended to be a direct reflection of frames existing in *ROS2*.
+    All *frame* *Objects* are defined as children of `base_link` and consist of nothing but a transformation - analogical to the one present in *ROS2* (keep in mind the coordinate system conversion).
     The sensor *Objects* are added to the transformation *Object* with **no transformation of their own**.
 
 !!! warning "Coordinate system conventions"

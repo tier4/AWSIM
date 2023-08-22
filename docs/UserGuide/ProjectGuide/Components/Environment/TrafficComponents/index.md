@@ -11,23 +11,25 @@ The random traffic system consists of the following components:
 
 - [`TrafficManager`](#traffic-manager-script)
 
-    It is a top level interface meant to be used on the Unity Scene.
+    It is a top level interface meant to be used on the *Unity* scene.
     `TrafficManager` runs all elements needed for a successful traffic simulation.
     This component manages all `TrafficSimulators` so they don't work against each other.
     It gives you the possibility to configure the `TrafficSimulators`.
     
-    Although `TrafficSimulator` technically is not a component it is crucial to understand what it is and what it does in order to correctly configure the `TrafficManager`.
-    `TrafficSimulator` manages `NPC Vehicles` spawning.
-    There can be many `TrafficSimulators` on the Scene.
+- `TrafficSimulator` 
+  
+    Technically it is not a component, it is crucial to understand what it is and what it does in order to correctly configure the `TrafficManager`.
+    `TrafficSimulator` manages `NPCVehicles` spawning.
+    There can be many `TrafficSimulators` on the scene.
     They are added and configured in the `TrafficManager` component.
-    Every Traffic Simulator manages some part of the traffic it is responsible for - meaning it has spawned the NPC Vehicles and set their configuration.
+    Every `TrafficSimulator` manages some part of the traffic it is responsible for - meaning it has spawned the `NPCVehicles` and set their configuration.
 
-    - `RandomTrafficSimulator` - Spawns and controls NPC Vehicles driving randomly
-    - `RouteTrafficSimulator` - Spawns and controls NPC Vehicles driving on a defined route
+    - `RandomTrafficSimulator` - spawns and controls `NPCVehicles` driving randomly
+    - `RouteTrafficSimulator` - spawns and controls `NPCVehicles` driving on a defined route
 
-    !!! info "Traffic Simulator inaccessibility"
+    !!! info "TrafficSimulator inaccessibility"
         It is not possible to get direct access to the `TrafficSimulator`.
-        It can be added and configured through the `TrafficManager` component.
+        It should be added and configured through the `TrafficManager` component.
 
 - [`TrafficLane`](#trafficlanes), [`TrafficIntersection`](#trafficintersections) and [`StopLine`](#stoplines)
 
@@ -36,18 +38,18 @@ The random traffic system consists of the following components:
 
 - [`NPCVehicle`](../../NPCs/Vehicle/)
 
-    The vehicle models (NPCs) spawned by one of the `TrafficSimulators`.
+    The vehicle models (*NPCs*) spawned by one of the `TrafficSimulators`.
     They are spawned according to the `TrafficSimulator` configuration and either drive around the map randomly (when spawned by a [`RandomTrafficSimulator`](#random-traffic)) or follow the predefined path (when spawned by a [`RouteTrafficSimulator`](#route-traffic)).
-    NPC Vehicles are managed by one central knowledge base.
+    `NPCVehicles` are managed by one central knowledge base.
 
 The process of spawning a `NPCVehicle` and its later behavior control is presented on the following sequence diagram.
-
-!!! note "Sequence Diagram Composition"
-    Please note that the diagram composition has been simplified to the level of *GameObjects* and chosen elements of the *GameObjects* for the purpose of improving readability.
 
 <!-- ![traffic components sequence diagram](traffic_components_sequence.png) -->
 
 ![traffic components sequence diagram](traffic_components_sequence_ext.png)
+
+!!! note "Sequence Diagram Composition"
+    Please note that the diagram composition has been simplified to the level of *GameObjects* and chosen elements of the *GameObjects* for the purpose of improving readability.
 
 ## Lanelet2
 *Lanelet2* is a library created for handling a map focused on automated driving.
@@ -64,26 +66,26 @@ You may also see us referring to the actual map data file (`*.osm`) as a *Lanele
     Please note that
     
     - a [*GameObject*](#link-in-the-default-scene)
-    - an [element spawning `NPC Vehicles` randomly](#random-traffic) and
+    - an [element spawning `NPCVehicles` randomly](#random-traffic) and
     - the [whole system of traffic control](#randomtrafficsimulator)
 
-    are named `Random Traffic Simulator`.
+    are named `RandomTrafficSimulator`.
     Keep this in mind when reading the following page - so you don't get confused.
 
-`RandomTrafficSimulator` simulates city traffic with respect to all traffic rules. The system allows for random selection of car models and the paths they follow. It also allows adding static vehicles in the simulation.
+`RandomTrafficSimulator` simulates traffic with respect to all traffic rules. The system allows for random selection of car models and the paths they follow. It also allows adding static vehicles in the simulation.
 
 ### Link in the default Scene
 ![random_traffic_link](random_traffic_link.png)
 
 The `RandomTrafficSimulator` consists of several *GameObjects*.
 
-- `RandomTrafficSimulator` - this is an *Object* consisting of a `Traffic Manager` (script).<br>
+- `RandomTrafficSimulator` - this is an *Object* consisting of a *Traffic Manager* (script).<br>
     You can learn more about it [here](#traffic-manager-script).
-- `TrafficIntersections` - this is a parent *Object* for all `Traffic Intersections`.<br>
+- `TrafficIntersections` - this is a parent *Object* for all `TrafficIntersections`.<br>
     You can learn more about it [here](#trafficintersections).
-- `TrafficLanes` - this is a parent *Object* for all `Traffic Lanes`.<br>
+- `TrafficLanes` - this is a parent *Object* for all `TrafficLanes`.<br>
     You can learn more about it [here](#trafficlanes).
-- `StopLines` - this is a parent *Object* for all `Stop Lines`.<br>
+- `StopLines` - this is a parent *Object* for all `StopLines`.<br>
     You can learn more about it [here](#stoplines).
 
 ### Components
@@ -91,35 +93,35 @@ The `RandomTrafficSimulator` consists of several *GameObjects*.
 
 `RandomTrafficSimulator` only has one component: *Traffic Manager* (script) which is described below.
 
-### Traffic Manager (script)
+### TrafficManager (script)
 ![random_traffic_script](random_traffic_script.png)
 
-`Traffic Manager` (script) is responsible for all of top level management of the [`NPC Vehicles`](../../NPCs/Vehicle/).
-It managed spawning of `NPC Vehicles` on `Traffic Lanes`.
+*Traffic Manager* (script) is responsible for all of top level management of the [`NPCVehicles`](../../NPCs/Vehicle/).
+It managed spawning of `NPCVehicles` on `TrafficLanes`.
 
-`Traffic Manager` uses the concept of `Traffic Simulators`.
-One `Traffic Simulator` is responsible for managing its set of NPC Vehicles.
-Every `Traffic Simulator` spawns its own `NPC Vehicles` independently.
-The Vehicles spawned by one `Traffic Simulator` do respect its configuration.
-`Traffic Simulators` can be interpreted as `NPC Vehicle` spawners with different configurations each.
-Many different `Traffic Simulators` can be added to the `Traffic Manager`.
+`TrafficManager` uses the concept of `TrafficSimulators`.
+One `TrafficSimulator` is responsible for managing its set of `NPCVehicles`.
+Every `TrafficSimulator` spawns its own `NPCVehicles` independently.
+The vehicles spawned by one `TrafficSimulator` do respect its configuration.
+`TrafficSimulators` can be interpreted as `NPCVehicle` spawners with different configurations each.
+Many different `TrafficSimulators` can be added to the `TrafficManager`.
 
-If a random mode is selected ([`RandomTrafficSimulator`](#random-traffic)) then [`NPC Vehicles`](../../NPCs/Vehicle/) will spawn in random places (from the selected list) and drive in random directions.
-To be able to reproduce the behavior of the Random Traffic Simulator a [`Seed`](https://en.wikipedia.org/wiki/Random_seed) can be specified - which is used for the pseudo-random numbers generation.
+If a random mode is selected ([`RandomTrafficSimulator`](#random-traffic)) then [`NPCVehicles`](../../NPCs/Vehicle/) will spawn in random places (from the selected list) and drive in random directions.
+To be able to reproduce the behavior of the `RandomTrafficSimulator` a [`Seed`](https://en.wikipedia.org/wiki/Random_seed) can be specified - which is used for the pseudo-random numbers generation.
 
-`Traffic Manager` script also configures all of the spawned `NPC Vehicles`, so that they all have common parameters
+`TrafficManager` script also configures all of the spawned `NPCVehicles`, so that they all have common parameters
 
-- `Acceleration` - the acceleration used by the vehicles at all times when accelerating
-- `Deceleration` - the value of deceleration used in ordinary situations
-- `Sudden Deceleration` - deceleration used when standard `Deceleration` is not sufficient to avoid accident
-- `Absolute Deceleration` - value of deceleration used when no other deceleration allows to avoid the accident
+- `Acceleration` - the acceleration used by the vehicles at all times when accelerating.
+- `Deceleration` - the value of deceleration used in ordinary situations.
+- `Sudden Deceleration` - deceleration used when standard `Deceleration` is not sufficient to avoid accident.
+- `Absolute Deceleration` - value of deceleration used when no other deceleration allows to avoid the accident.
 
 The `Vehicle Layer Mask` and `Ground Layer Mask` are used to make sure all vehicles can correctly interact with the ground to guarantee simulation accuracy.
 
-`Max Vehicle Count` specifies how many [NPC Vehicles](../../NPCs/Vehicle/) can be present on the scene at once.
-When the number of NPC Vehicles on the scene is equal to this value the [Random Traffic Simulator](#randomtrafficsimulator) stops spawning new vehicles until some existing vehicles drive away and disappear.
+`Max Vehicle Count` specifies how many `NPCVehicles` can be present on the scene at once.
+When the number of `NPCVehicles` on the scene is equal to this value the [`RandomTrafficSimulator`](#randomtrafficsimulator) stops spawning new vehicles until some existing vehicles drive away and disappear.
 
-The `Ego Vehicle` field provides the information about Ego vehicle used for correct behavior of NPC Vehicles when interacting with Ego.
+The `EgoVehicle` field provides the information about Ego vehicle used for correct behavior of`NPCVehicles`when interacting with Ego.
 
 `Show Gizmos` checkbox specifies whether the [Gizmos](#gizmos) visualization should be displayed when running the simulation.
 
@@ -127,55 +129,55 @@ The `Ego Vehicle` field provides the information about Ego vehicle used for corr
     Gizmos have a high computational load.
     Enabling them may cause the simulation to lag.
 
-As mentioned earlier - `Traffic Manager` may contain multiple `TrafficSimulators`.
-The two available variants of `Traffic Simulator` are described below
+As mentioned earlier - `TrafficManager` may contain multiple `TrafficSimulators`.
+The two available variants of `TrafficSimulator` are described below
 
-- [`Random Traffic Simulator`](#random-traffic)
-- [`Route Traffic Simulator`](#route-traffic)
+- [`RandomTrafficSimulator`](#random-traffic)
+- [`RouteTrafficSimulator`](#route-traffic)
 
-`Traffic Simulators` should be interpreted as spawning configurations for some group of `NPC Vehicles` on the scene.
+`TrafficSimulators` should be interpreted as spawning configurations for some group of `NPCVehicles` on the scene.
 
 #### Random Traffic
 ![random_traffic_sims](random_traffic_sims.png)
 
-When using `Random Traffic Simulator` the `NPC Vehicle` prefabs (*NPC Prefabs*) can be chosen as well as *Spawnable Lanes*.
-The later are the only `Traffic Lanes` on which the `NPC Vehicles` can spawn.
-Upon spawning one of the *Spawnabe Lanes* is chosen and - given the vehicle limits are not reached - one random NPC Vehicle from the *Npc prefabs* list is spawned on that lane.
-After spawning, the NPC Vehicle takes a random route until it drives out of the map - then it is destroyed.
+When using `RandomTrafficSimulator` the `NPCVehicle` prefabs (*NPC Prefabs*) can be chosen as well as *Spawnable Lanes*.
+The later are the only `TrafficLanes` on which the `NPCVehicles` can spawn.
+Upon spawning one of the *Spawnabe Lanes* is chosen and - given the vehicle limits are not reached - one random NPCVehicle from the *Npc prefabs* list is spawned on that lane.
+After spawning, the NPCVehicle takes a random route until it drives out of the map - then it is destroyed.
 
-The `Maximum Spawns` field specifies how many Vehicles should be spawned before this `Traffic Simulator` stops working.
+The `Maximum Spawns` field specifies how many Vehicles should be spawned before this `TrafficSimulator` stops working.
 Set to `0` to disable this restriction.
 
 #### Route Traffic
 ![route traffic sims](route_traffic_sims.png)
 
-When using `Route traffic Simulator` the `NPC Vehicle` prefabs (*NPC Prefabs*) as well as *Route* can be chosen.
-The later is an ordered list of `Traffic Lanes` that all spawned vehicles will drive on.
-Given the vehicle limit is not reached - the `Route Traffic Simulator` will spawn one of the *Npc Prefabs* chosen randomly on the first *Route* element (`Element 0`).
+When using `Route traffic Simulator` the `NPCVehicle` prefabs (*NPC Prefabs*) as well as *Route* can be chosen.
+The later is an ordered list of `TrafficLanes` that all spawned vehicles will drive on.
+Given the vehicle limit is not reached - the `RouteTrafficSimulator` will spawn one of the *Npc Prefabs* chosen randomly on the first *Route* element (`Element 0`).
 After the first vehicle drives off the next one will spawn according to the configuration.
 It is **important** for all *Route* elements to be connected and to be arranged in order of appearance on the map.
-The NPC Vehicle disappears after completing the Route.
+The NPCVehicle disappears after completing the Route.
 
-The `Maximum Spawns` field specifies how many Vehicles should be spawned before this `Traffic Simulator` stops working.
+The `Maximum Spawns` field specifies how many Vehicles should be spawned before this `TrafficSimulator` stops working.
 Set to `0` to disable this restriction.
 
 #### Parameter explanation
-| Parameter                | Description                                                                                                 |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------- |
-| **General Settings**     |                                                                                                             |
-| Seed                     | Seed value for random generator                                                                             |
-| Ego Vehicle              | Transform of ego vehicle                                                                                    |
-| Vehicle Layer Mask       | LayerMask that masks only vehicle(NPC and ego) colliders                                                    |
-| Ground Layer Mask        | LayerMask that masks only ground colliders of the map                                                       |
-| Culling Distance         | Distance at which NPCs are culled relative to EgoVehicle                                                    |
-| Culling Hz               | Culling operation cycle                                                                                     |
-| **NPC Vehicle Settings** |                                                                                                             |
-| Max Vehicle Count        | Maximum number of NPC vehicles to be spawned in simulation                                                  |
-| NPC Prefabs              | Prefabs representing controlled vehicles.<br/> They must have `NPCVehicle` component attached.              |
-| Spawnable Lanes          | `TrafficLane` components where NPC vehicles can be spawned during traffic simulation                        |
-| Vehicle Config           | Parameters for NPC vehicle control<br/>`Sudden Deceleration` is a deceleration related to emergency braking |
-| **Debug**                |                                                                                                             |
-| Show Gizmos              | Enable the checkbox to show editor gizmos that visualize behaviours of NPCs                                 |
+| Parameter               | Description                                                                                                 |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------- |
+| **General Settings**    |                                                                                                             |
+| Seed                    | Seed value for random generator                                                                             |
+| Ego Vehicle             | Transform of ego vehicle                                                                                    |
+| Vehicle Layer Mask      | LayerMask that masks only vehicle(NPC and ego) colliders                                                    |
+| Ground Layer Mask       | LayerMask that masks only ground colliders of the map                                                       |
+| Culling Distance        | Distance at which NPCs are culled relative to EgoVehicle                                                    |
+| Culling Hz              | Culling operation cycle                                                                                     |
+| **NPCVehicle Settings** |                                                                                                             |
+| Max Vehicle Count       | Maximum number of NPC vehicles to be spawned in simulation                                                  |
+| NPC Prefabs             | Prefabs representing controlled vehicles.<br/> They must have `NPCVehicle` component attached.              |
+| Spawnable Lanes         | `TrafficLane` components where NPC vehicles can be spawned during traffic simulation                        |
+| Vehicle Config          | Parameters for NPC vehicle control<br/>`Sudden Deceleration` is a deceleration related to emergency braking |
+| **Debug**               |                                                                                                             |
+| Show Gizmos             | Enable the checkbox to show editor gizmos that visualize behaviours of NPCs                                 |
 
 ## Traffic Light (script)
 ![light_script](light_script.png)
@@ -210,13 +212,13 @@ Every bulb has the following aspects configured
 `TrafficIntersection` is a representation of a road intersection.
 It consists of several components.
 `TrafficIntersection` is used in the `Scene` for managing `TrafficLights`.
-All Traffic Lights present on one Traffic Intersection must be synchronized - this is why the logic of `TrafficLight` operation is included in the `Traffic Intersection`.
+All Traffic Lights present on one `Traffic Intersection` must be synchronized - this is why the logic of `TrafficLight` operation is included in the `TrafficIntersection`.
 
 ### Link in the default Scene
 ![intersections_link](intersections/intersections_link.png)
 
 Every `TrafficIntersection` has its own *GameObject* and is added as a child of the aggregate `TrafficIntersections` *Object*.
-`Traffic Intersections` are elements of an `Environment`, so they should be placed as children of an appropriate `Environment` *Object*.
+`TrafficIntersections` are elements of an `Environment`, so they should be placed as children of an appropriate `Environment` *Object*.
 
 ### Components
 ![intersection_prefab](intersections/intersection_prefab.png)
@@ -354,56 +356,56 @@ E.g. when `Traffic Lights` in one direction change color to green - `Traffic Lig
 
 `TrafficLane` is a representation of a short road segment.
 It consists of several waypoints that are connected by straight lines.
-`TrafficLanes` are used as a base for a [Random Traffic Simulator](#random-traffic-simulator).
-They allow [`NPC Vehicles`](../../NPCs/Vehicle/) to drive on the specific lanes on the road and perform different maneuvers with respect to the traffic rules.
-Traffic Lanes create a network of drivable roads when connected.
+`TrafficLanes` are used as a base for a [RandomTrafficSimulator](#random-traffic-simulator).
+They allow [`NPCVehicles`](../../NPCs/Vehicle/) to drive on the specific lanes on the road and perform different maneuvers with respect to the traffic rules.
+TrafficLanes create a network of drivable roads when connected.
 
 ### Link in the default Scene
 ![lanes_link](traffic_lanes/lanes_link.png)
 
-Every `Traffic Lane` has its own *GameObject* and is added as a child of the aggregate `TrafficLanes` *Object*.
-`Traffic Lanes` are an element of an `Environment`, so they should be placed as children of an appropriate `Environment` *Object*.
+Every `TrafficLane` has its own *GameObject* and is added as a child of the aggregate `TrafficLanes` *Object*.
+`TrafficLanes` are an element of an `Environment`, so they should be placed as children of an appropriate `Environment` *Object*.
 
-`Traffic Lanes` can be imported from the [*lanelet2*](#lanelet2) `*.osm` file.
+`TrafficLanes` can be imported from the [*lanelet2*](#lanelet2) `*.osm` file.
 
 ### Components
 ![lanes_prefab](traffic_lanes/lanes_prefab.png)
 
 `TrafficLane` consists of an *Object* containing [*Traffic Lane* (script)](#traffic-lane-script).
 
-Traffic Lane has a transformation property - as every *Object* in Unity - however it is not used in any way.
-All details are configured in the [`Traffic Lane` (script)](#traffic-lane-script), the information in *Object* transformation is ignored.
+`TrafficLane` has a transformation property - as every *Object* in Unity - however it is not used in any way.
+All details are configured in the [*Traffic Lane* (script)](#traffic-lane-script), the information in *Object* transformation is ignored.
 
 ### Traffic Lane (script)
 ![lanes_script](traffic_lanes/lanes_script.png)
 
-`Traffic Lane` (script) defines the `Traffic Lane` structure.
-The `Waypoints` field is an ordered list of points that - when connected with straight lines - create a `Traffic Lane`.
+*Traffic Lane* (script) defines the `TrafficLane` structure.
+The `Waypoints` field is an ordered list of points that - when connected with straight lines - create a `TrafficLane`.
 
 !!! note "Traffic Lane (script) coordinate system"
     `Waypoints` are defined in the `Environment` coordinate system, the transformation of *GameObject* is ignored.
 
-`Turn Direction` field contains information on what is the direction of this `Traffic Lane` - whether it is a right or left turn or straight road.
+`Turn Direction` field contains information on what is the direction of this `TrafficLane` - whether it is a right or left turn or straight road.
 
 Traffic lanes are connected using `Next Lanes` and `Prev Lanes` fields.
-This way individual `Traffic Lanes` can create a connected road network.
+This way individual `TrafficLanes` can create a connected road network.
 One Traffic Lane can have many `Next Lanes` and `Prev Lanes`.
 This represents the situation of multiple lanes connecting to one or one lane splitting into many - e.g. the possibility to turn and to drive straight.
 
 [Right Of Way Lanes](#right-of-way-lanes) are described below.
 
-Every `Traffic Lane` has to have a `Stop Line` field configured when the [Stop Line](#stoplines) is present on the end of the `Traffic Lane`.
-Additionally the `Speed Limit` field contains the highest allowed speed on given `Traffic Lane`.
+Every `TrafficLane` has to have a `Stop Line` field configured when the [Stop Line](#stoplines) is present on the end of the `TrafficLane`.
+Additionally the `Speed Limit` field contains the highest allowed speed on given `TrafficLane`.
 
 #### Right Of Way Lanes
 ![lanes_yield](traffic_lanes/lanes_yield.png)
 
-`Right Of Way Lanes` is a collection of `Traffic Lanes`.
-Vehicle moving on the given `Traffic Lane` has to give way to all vehicles moving on every `Right Of Way Lane`.
+`Right Of Way Lanes` is a collection of `TrafficLanes`.
+Vehicle moving on the given `TrafficLane` has to give way to all vehicles moving on every `Right Of Way Lane`.
 It is determined based on basic traffic rules.
-Setting `Right Of Way Lanes` allows [`Random Traffic Simulator`](#random-traffic-simulator) to manage all [`NPC Vehicles`](../../NPCs/Vehicle/) so they follow traffic rules and drive safely.
+Setting `Right Of Way Lanes` allows [`RandomTrafficSimulator`](#random-traffic-simulator) to manage all [`NPCVehicles`](../../NPCs/Vehicle/) so they follow traffic rules and drive safely.
 
-In the *Unity* editor - when a `Traffic Lane` is selected - aside from the selected `Traffic Lane` highlighted in blue, all `Right Of Way Lanes` are highlighted in yellow.
+In the *Unity* editor - when a `TrafficLane` is selected - aside from the selected `TrafficLane` highlighted in blue, all `Right Of Way Lanes` are highlighted in yellow.
 
 !!! example "Right Of Way Lanes Sample - details"
     The selected `TrafficLane` (blue) is a right turn on an intersection.
@@ -416,8 +418,8 @@ In the *Unity* editor - when a `Traffic Lane` is selected - aside from the selec
 ![stop](stop_lines/stop.png)
 
 `StopLine` is a representation of a place on the road where vehicles giving way to other vehicles should stop and wait.
-They allow [`Random Traffic Simulator`](#random-traffic-simulator) to manage [`NPC Vehicles`](../../NPCs/Vehicle/) in safe and correct way - according to the traffic rules.
-All possible locations where a vehicle can stop in order to give way to other vehicles - that are enforced by an infrastructure, this does not include regular lane changing - need to be marked with `Stop Lines`.
+They allow [`RandomTrafficSimulator`](#random-traffic-simulator) to manage [`NPCVehicles`](../../NPCs/Vehicle/) in safe and correct way - according to the traffic rules.
+All possible locations where a vehicle can stop in order to give way to other vehicles - that are enforced by an infrastructure, this does not include regular lane changing - need to be marked with `StopLines`.
 
 ###  Link in the default Scene
 ![stop_lines_link](stop_lines/stop_lines_link.png)
@@ -425,7 +427,7 @@ All possible locations where a vehicle can stop in order to give way to other ve
 Every `StopLine` has its own *GameObject* and is added as a child of the aggregate `StopLines` *Object*.
 Stop Lines are an element of an `Environment`, so they should be placed as children of an appropriate `Environment` *Object*.
 
-`Stop Lines` can be imported from the [*lanelet2*](#lanelet2) `*.osm` file.
+`StopLines` can be imported from the [*lanelet2*](#lanelet2) `*.osm` file.
 
 ### Components
 ![stop_prefab](stop_lines/stop_prefab.png)
@@ -448,14 +450,14 @@ The list of points should always have two elements that create a straight `StopL
 The `Has Stop Sign` field contains information whether the configured `StopLine` has a corresponding `StopSign` on the scene.
 
 Every Stop Line needs to have a `Traffic Light` field configured with the corresponding [`Traffic Light`](../Environment/#trafficlights).
-This information allows the [`Random Traffic Simulator`](#random-traffic-simulator) to manage the [`NPC Vehicles`](../../NPCs/Vehicle/) in such a way that they respect the Traffic Lights and behave on the [`Traffic Intersections`](#trafficintersections) correctly.
+This information allows the [`RandomTrafficSimulator`](#random-traffic-simulator) to manage the [`NPCVehicles`](../../NPCs/Vehicle/) in such a way that they respect the Traffic Lights and behave on the [`Traffic Intersections`](#trafficintersections) correctly.
 
 ## Gizmos
 ![gizmos](gizmos.png)
 
 *Gizmos* are a in-simulation visualization showing current and future moves of the [`NPCVehicles`](../../NPCs/Vehicle/).
 They are useful for checking current behavior of NPCs and its causes.
-On the Scene they are visible as cuboid contours indicating which Traffic Lanes will be taken by each vehicle in the near future.
+On the Scene they are visible as cuboid contours indicating which TrafficLanes will be taken by each vehicle in the near future.
 
 !!! warning "Gizmos computing"
     *Gizmos* have a high computational load.
@@ -479,7 +481,7 @@ On the Scene they are visible as cuboid contours indicating which Traffic Lanes 
     (description of what it is and where it occurs in the environment, **screen**)
 
     - Traffic Lights (description, bulbs, dependence of the location on the lanelet, impact on the recognition of traffic lights in Autoware, **screens**)
-    - Traffic Intersection (script)
+    - `Traffic Intersection` (script)
         - Collider Mask (probably out of date)
         - Traffic Light Groups (what they are and the result of adding traffic lights to them)
         - Lighting Sequences (description, how it works - **gifs**)

@@ -62,9 +62,9 @@ A detailed description of the `URDF` structure and sensors added to prefab `Lexu
 
 The *LiDAR* sensor simulation functionality is split into three components:
 
-- *LidarSensor* (script) - provides lidar configuration, creates *RGL* pipeline to simulate lidar, and performs native *RGL* raytrace calls,
-- *RglLidarPublisher* (script)  - extends *RGL* pipeline with nodes to publish *ROS2* messages.
-- *PointCloudVisualization* (script) - visualizes point cloud collected by sensor.
+- *Lidar Sensor* (script) - provides lidar configuration, creates *RGL* pipeline to simulate lidar, and performs native *RGL* raytrace calls,
+- *Rgl Lidar Publisher* (script)  - extends *RGL* pipeline with nodes to publish *ROS2* messages.
+- *Point Cloud Visualization* (script) - visualizes point cloud collected by sensor.
 
 Moreover, the scripts use `Resources` to provide configuration for prefabs of supported lidar models:
 
@@ -74,7 +74,7 @@ Moreover, the scripts use `Resources` to provide configuration for prefabs of su
 
 These are elements of the `RGLUnityPlugin`, you can read more [here](../../../ExternalLibraries/RGLUnityPlugin/).
 
-## LidarSensor (script)
+## Lidar Sensor (script)
 ![script](script.png)
 
 This is the main component that creates the `RGL` node pipeline for the *LiDAR* simulation.
@@ -120,7 +120,7 @@ Whereas vector *onlyHits* is used for visualization by the [*PointCloudVisualiza
 | *rosPCL24* |  byte[ ]   | Vertices for publishing *Autoware* format pointcloud in *ROS2* coordinate system          |
 | *rosPCL48* |  byte[ ]   | Vertices for publishing extended *Autoware* format pointcloud in *ROS2* coordinate system |
 
-## RglLidarPublisher (script)
+## Rgl Lidar Publisher (script)
 ![script_ros2](script_ros2.png)
 
 `RglLidarPublisher` extends the main `RGL` pipeline created in `LidarSensor` with `RGL` nodes that produce point clouds in specific format and publish them to the *ROS2* topic.
@@ -153,12 +153,12 @@ Assets/AWSIM/Scripts/Sensors/LiDAR/PointCloudFormats.cs
 - Frequency: `10Hz`
 - QoS:  `Best effort`, `Volatile`, `Keep last/5`
 
-|         Category          | Topic                  | Message type                              | `frame_id` |
-| :-----------------------: | :--------------------- | :---------------------------------------- | :--------: |
-| PointCloud 24-byte format | `/lidar/pointcloud`    | [`sensor_msgs/PointCloud2`][pointcloud2]  |  `world`   |
-| PointCloud 48-byte format | `/lidar/pointcloud_ex` | [`sensor_msgs/PointCloud2`][pointcloud2]  |  `world`   |
+|         Category          | Topic                  | Message type                             | `frame_id` |
+| :-----------------------: | :--------------------- | :--------------------------------------- | :--------: |
+| PointCloud 24-byte format | `/lidar/pointcloud`    | [`sensor_msgs/PointCloud2`][pointcloud2] |  `world`   |
+| PointCloud 48-byte format | `/lidar/pointcloud_ex` | [`sensor_msgs/PointCloud2`][pointcloud2] |  `world`   |
 
-## PointCloudVisualization (script)
+## Point Cloud Visualization (script)
 ![script_visualization](script_visualization.png)
 
 A component visualizing a point cloud obtained from `RGL` in the form of a [`Vector3`](https://docs.unity3d.com/ScriptReference/Vector3.html) list as colored points in the *Unity* scene.

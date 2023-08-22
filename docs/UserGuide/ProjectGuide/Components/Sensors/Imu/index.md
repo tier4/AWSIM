@@ -25,8 +25,8 @@ A detailed description of the `URDF` structure and sensors added to prefab `Lexu
 
 The `IMUSensor` functionality is split into two scripts:
 
-- *IMUSensor* (script) - it calculates the acceleration and angular velocity as its *output* and calls the callback for it.
-- *ImuRos2Publisher* (script) - provides the ability to publish `IMUSensor` output as [Imu](https://docs.ros2.org/latest/api/sensor_msgs/msg/Imu.html) message type published on a specific *ROS2* topics.
+- *IMU Sensor* (script) - it calculates the acceleration and angular velocity as its *output* and calls the callback for it.
+- *Imu Ros2 Publisher* (script) - provides the ability to publish `IMUSensor` output as [Imu](https://docs.ros2.org/latest/api/sensor_msgs/msg/Imu.html) message type published on a specific *ROS2* topics.
 
 Scripts can be found under the following path:
 
@@ -34,7 +34,7 @@ Scripts can be found under the following path:
 Assets/AWSIM/Scripts/Sensors/Imu/*
 ```
 
-## IMUSensor (script)
+## IMU Sensor (script)
 ![script](script.png)
 
 This is the main script in which all calculations are performed:
@@ -55,11 +55,11 @@ This is the main script in which all calculations are performed:
 | *LinearAcceleration* | Vector3 | Measured acceleration (m/s^2)     |
 |  *AngularVelocity*   | Vector3 | Measured angular velocity (rad/s) |
 
-## ImuRos2Publisher (script) 
+## Imu Ros2 Publisher (script) 
 ![script_ros2](script_ros2.png)
 
 Converts the data output from `IMUSensor` to *ROS2* [Imu](https://docs.ros2.org/latest/api/sensor_msgs/msg/Imu.html) type message and publishes it.
-The conversion and publication is performed using the `Publish(IMUSensor.OutputData outputData)` method, which is the `callback` triggered by *IMUSensor* (script) for the current output.
+The conversion and publication is performed using the `Publish(IMUSensor.OutputData outputData)` method, which is the `callback` triggered by *IMU Sensor* (script) for the current output.
 
 !!! warning
     In each 3x3 covariance matrices the row-major representation is filled with `0` and does not change during the script run.

@@ -8,7 +8,7 @@ Add a child *Object* to the *Simulation* called `EgoVehicle`.
 ![ego vehicle add object](ego_vehicle_add_object.gif)
 
 ## Add a Rigidbody
-1. While having a newly created *Ego Vehicle* *Object* selected, in the *Inspector* view click on the 'Add Component' button, search for `Rigidbody` and select it.
+1. While having a newly created `EgoVehicle` *Object* selected, in the *Inspector* view click on the 'Add Component' button, search for `Rigidbody` and select it.
 
     ![rigidbody add component](rigidbody_add_component.gif)
 

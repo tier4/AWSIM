@@ -1,4 +1,4 @@
-# NPC Vehicle
+# NPCVehicle
 
 ## Introduction
 `NPCVehicle` is a non-playable object that simulates a vehicle that is stationary or moving around the scene.
@@ -81,7 +81,7 @@ There are several components responsible for the full functionality of `NPCVehic
 
 - *[LOD Group](https://docs.unity3d.com/Manual/class-LODGroup.html)* - provides level of detail configuration for shaders - affects *GPU* usage.
 - *[Rigidbody](https://docs.unity3d.com/ScriptReference/Rigidbody.html)* - ensures that the object is controlled by the physics engine in *Unity* - e.g. pulled downward by gravity.
-- *NPCVehicle* (script) - provides the ability to change the position and orientation of the vehicle, as well as to control the turn signals and brake light.
+- *NPC Vehicle* (script) - provides the ability to change the position and orientation of the vehicle, as well as to control the turn signals and brake light.
 
 Script can be found under the following path:
 

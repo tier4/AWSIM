@@ -30,7 +30,7 @@ Assets/AWSIM/Models/NPCs/Pedestrians/Human/humanElegant.fbx
 
 ![](prefab_link.png)
 
-The `ReferencePoint` is used by the *NPCPedestrian* (script) described [here](#npcpedestrian-script).
+The `ReferencePoint` is used by the *NPC Pedestrian* (script) described [here](#npcpedestrian-script).
 
 ### Link in the default Scene
 ![](link.png)
@@ -46,8 +46,8 @@ There are several components responsible for the full functionality of `NPCPedes
 - *[Animator](https://docs.unity3d.com/Manual/class-Animator.html)* - provides motion animations in the scene, which are composed of clips controlled by the controller.
 - *[LOD Group](https://docs.unity3d.com/Manual/class-LODGroup.html)* - provides level of detail configuration for shaders - affects *GPU* usage.
 - *[Rigidbody](https://docs.unity3d.com/ScriptReference/Rigidbody.html)* - ensures that the object is controlled by the physics engine in *Unity* - e.g. pulled downward by gravity.
-- *NPCPedestrian* (script) - ensures that the movement of the object is combined with animation.
-- *SimplePedestrianWalkerController* (script) - provides pedestrian movement in a specific direction and distance in a cyclical manner.
+- *NPC Pedestrian* (script) - ensures that the movement of the object is combined with animation.
+- *Simple Pedestrian Walker Controller* (script) - provides pedestrian movement in a specific direction and distance in a cyclical manner.
 
 Scripts can be found under the following path:
 
@@ -61,7 +61,7 @@ Assets/AWSIM/Scripts/NPCs/Pedestrians/*
 `Rigidbody` ensures that the object is controlled by the physics engine.
 In order to connect the animation to the object, the `Is Kinematic` option must be enabled.
 By setting  `Is Kinematic`, each `NPCPedestrian` object will have no physical interaction with other objects - it will not react to a vehicle that hits it.
-The `Use Gravity` should be turned off - the correct position of the pedestrian in relation to the ground is ensured by the *NPCPedestrian* (script).
+The `Use Gravity` should be turned off - the correct position of the pedestrian in relation to the ground is ensured by the *NPC Pedestrian* (script).
 In addition, `Interpolate` should be turned on to ensure the physics engine's effects are smoothed out.
 
 ## LOD (Level of Detail)
@@ -99,7 +99,7 @@ Developed controller can be found in the following path:<br>
         <source src="animator.mp4" type="video/mp4">
     </video>
 
-## NPCPedestrian (script)
+## NPC Pedestrian (script)
 ![](script.png)
 
 The script takes the `Rigidbody` and `Animator` components and combines them in such a way that the actual animation depends on the movement of `Rigidbody`.
@@ -116,12 +116,12 @@ In addition, the `ReferencePoint` point is used to ensure that the pedestrian fo
 | *SetPosition* | Vector3 | Move the `NPCPedestrian` so that the reference point is at the specified coordinates.                |
 | *SetRotation* | Vector3 | Rotate the `NPCPedestrian` so that the orientation of the reference point becomes the specified one. |
 
-## SimplePedestrianWalkerController (script)
+## Simple Pedestrian Walker Controller (script)
 ![](simple_walk.png)
 
-`SimplePedestrianWalkerController` is a script that allows the pedestrian to cyclically move back and forth along a straight line.
+*Simple Pedestrian Walker Controller* is a script that allows the pedestrian to cyclically move back and forth along a straight line.
 One-way motion is performed with a fixed time as parameter `Duration` and a constant linear velocity as parameter `Speed`.
-The script obviously uses the `NPCPedestrian` controls provided by the *NPCPedestrian* (script) inputs.
+The script obviously uses the `NPCPedestrian` controls provided by the *NPC Pedestrian* (script) inputs.
 
 !!! example "Pedestrian walking on the sidewalk"
     <video width="1920" controls>

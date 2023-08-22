@@ -125,15 +125,14 @@ Assets/AWSIM/Scripts/Vehicles/*
 ```
 
 ### Architecture
-The *Ego Vehicle* architecture - with dependencies - is presented on the following diagram.
+The `EgoVehicle` architecture - with dependencies - is presented on the following diagram.
 
 ![ego vehicle structure diagram](../../../../../Introduction/AWSIM/egovehicle.png)
 
-**Communication**
 
-The communication between *Ego Vehicle* components is presented on two different diagrams - a flow diagram and a sequence diagram.
+The communication between `EgoVehicle` components is presented on two different diagrams - a flow diagram and a sequence diagram.
 
-The flow diagram presents a flow of information between the *Ego Vehicle* components.
+The flow diagram presents a flow of information between the `EgoVehicle` components.
 
 ![ego vehicle flow diagram](ego_vehicle_flow.png)
 
@@ -144,7 +143,7 @@ Some tasks performed by the elements are presented for clarification.
 
 !!! info "Sequence diagram"
     Please keep in mind, that *Autoware* message callbacks and the update loop present on the sequence diagram are executed independently and concurrently.
-    One thing they have in common are resources - the *Vehicle* Script.
+    One thing they have in common are resources - the *Vehicle* (script).
 
 ## CoM
 `CoM` (*Center of Mass*) is an additional link that is defined to set the center of mass in the `Rigidbody`.
@@ -193,7 +192,7 @@ Thanks to this, the [*Vehicle* (script)](#vehicle-script) has the ability to per
 
 - ensure setting the tire sleep (it is impossible to put `Rigidbody` to sleep, but putting all wheels to sleep allows to get closer to this effect).
 
-*WheelColliderConfig* (script) has been developed to prevent inspector entry for `WheelCollider` which ensures that friction is set to 0 and only wheel suspension and collisions are enabled.
+*Wheel Collider Config* (script) has been developed to prevent inspector entry for `WheelCollider` which ensures that friction is set to 0 and only wheel suspension and collisions are enabled.
 
 ![wheel_collider_example](wheel_collider_example.png)
 

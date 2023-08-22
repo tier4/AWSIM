@@ -24,8 +24,8 @@ A detailed description of the `URDF` structure and sensors added to prefab `Lexu
 
 The `PoseSensor` functionality is split into two scripts:
 
-- *PoseSensor* (script) - it calculates the position as its *output* and calls the callback for it.
-- *PoseRos2Publisher* (script) - provides the ability to publish `PoseSensor` output as [`PoseStamped`](https://docs.ros2.org/latest/api/geometry_msgs/msg/PoseStamped.html) published on a specific *ROS2* topic.
+- *Pose Sensor* (script) - it calculates the position as its *output* and calls the callback for it.
+- *Pose Ros2 Publisher* (script) - provides the ability to publish `PoseSensor` output as [`PoseStamped`](https://docs.ros2.org/latest/api/geometry_msgs/msg/PoseStamped.html) published on a specific *ROS2* topic.
 
 Scripts can be found under the following path:
 
@@ -33,7 +33,7 @@ Scripts can be found under the following path:
 Assets/AWSIM/Prefabs/Sensors/Pose/*
 ```
 
-## PoseSensor (script)
+## Pose Sensor (script)
 ![script](script.png)
 
 This is the main script in which all calculations are performed:
@@ -52,7 +52,7 @@ This is the main script in which all calculations are performed:
 | *Position* |  `Vector3`   | The true value of the position of the object - in the *MGRS* coordinate system |
 | *Rotation* | `Quaternion` | The true value of the rotation of the object                                   |
 
-## PoseRos2Publisher (script)
+## Pose Ros2 Publisher (script)
 ![script_ros](script_ros.png)
 
 Converts the data output from `PoseSensor` to *ROS2* [`PoseStamped`](https://docs.ros2.org/latest/api/geometry_msgs/msg/PoseStamped.html) message and publishes it.

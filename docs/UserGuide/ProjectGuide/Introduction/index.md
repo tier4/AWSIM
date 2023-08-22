@@ -25,20 +25,17 @@ They allow to obtain data on the current situation (e.g. the state of the enviro
 - [`NPCVehicles`](../Components/NPCs/Vehicle/) - these are prefabs of vehicles that have configured elements responsible for collisions and traffic control.
 They can be used by `TrafficSimulator`.
   
-- [`NpcPedestrians`](../Components/NPCs/Pedestrian/) - these are prefabs of humans that have configured elements responsible for cyclic movement and animations.
+- [`NPCPedestrians`](../Components/NPCs/Pedestrian/) - these are prefabs of humans that have configured elements responsible for cyclic movement and animations.
   
 - [`TrafficSimulator`](../Components/Environment/TrafficComponents/#randomtrafficsimulator) - it is a prefab that is responsible for controlling simulated traffic using other objects ([`Traffic Components`](../Components/Environment/TrafficComponents/)) added to the environment.
   
 - [`Environment`](../Components/Environment/Environment/) - it is a prefab that contains all the visual objects in the world, map of traffic lanes on which vehicles can move, as well as elements responsible for controlling road intersections - their lights.
 It contains `NPCs` and `TrafficSimulator` prefabs.
 
+Description of each of the above prefabs can be found in the sections of *Components*. In order to understand the whole project, we encourage you to run the default scene `AutowareSimulation` and read section [`Scene`](../Components/Scene/)  first.
+
 !!! note "AWSIM architecture"
     To better understand the components of *AWSIM* and its architecture, we recommend that you read the [introduction to AWSIM](../../../Introduction/AWSIM/).
-
-!!! tip "Default scene"
-    Description of each of the above prefabs can be found in the sections of *Components*.
-However, in order to better understand the whole project, we encourage you to run the default scene `AutowareSimulation` and read this [section](../Components/Scene/) first.
-
 ## Project arrangement
 ![awsim_project](awsim_project.png)
 

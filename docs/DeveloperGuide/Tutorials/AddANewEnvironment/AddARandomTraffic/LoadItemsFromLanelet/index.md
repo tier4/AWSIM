@@ -40,7 +40,7 @@ The aspects you can configure
 ## How to test
 If you want to test your Traffic Lanes you have to try running a [Random Traffic](../AddARandomTraffic/).
 To verify one particular Traffic Lane or Traffic Lane connection you can [make a new spawnable lane](../AddARandomTraffic/#add-spawnable-lanes) next to the Traffic Lane you want to test.
-This way you can be sure NPC Vehicles will start driving on the Traffic Lane you are interested in at the beginning.
+This way you can be sure NPCVehicles will start driving on the Traffic Lane you are interested in at the beginning.
 
 ## Add a StopLine manually
 When something goes wrong when loading data from *lanelet2* or you just want to add another StopLine manually please do the following

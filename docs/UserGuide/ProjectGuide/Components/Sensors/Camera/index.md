@@ -27,7 +27,7 @@ A detailed description of the `URDF` structure and sensors added to prefab `Lexu
 For the `CameraSensor` to work properly, the *GameObject* to which the scripts are added must also have:
 
 - [*Camera component*](https://docs.unity3d.com/Manual/class-Camera.html) - the basic component that ensures the functionality of the camera as a device in *Unity* that capture and display the world to the player.
-- [*HDAdditionalCameraData* (script)](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@13.1/api/UnityEngine.Rendering.HighDefinition.HDAdditionalCameraData.html) - additional component that holds [*HDRP*](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@16.0/manual/index.html) specific parameters for camera.
+- [*HD Additional Camera Data* (script)](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@13.1/api/UnityEngine.Rendering.HighDefinition.HDAdditionalCameraData.html) - additional component that holds [*HDRP*](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@16.0/manual/index.html) specific parameters for camera.
 This Component should be added automatically together with [*Camera component*](https://docs.unity3d.com/Manual/class-Camera.html).
 
 !!! tip "TrafficLights recognition"
@@ -38,8 +38,8 @@ This Component should be added automatically together with [*Camera component*](
 
 The `CameraSensor` functionality is split into two scripts:
 
-- *CameraSensor* (script) - acquires the image from the *Unity* [camera](https://docs.unity3d.com/ScriptReference/Camera.html), transforms it and saves to the  *BGR8* format, this format along with the camera parameters is its script output - script also calls the callback for it.
-- *CameraRos2Publisher* (script) - provides the ability to publish `CameraSensor` output as [Image][image_msg] and [CameraInfo][camera_info_msg] messages type published on a specific *ROS2* topics.
+- *Camera Sensor* (script) - acquires the image from the *Unity* [camera](https://docs.unity3d.com/ScriptReference/Camera.html), transforms it and saves to the  *BGR8* format, this format along with the camera parameters is its script output - script also calls the callback for it.
+- *Camera Ros2 Publisher* (script) - provides the ability to publish `CameraSensor` output as [Image][image_msg] and [CameraInfo][camera_info_msg] messages type published on a specific *ROS2* topics.
 
 Scripts can be found under the following path:
 
@@ -52,7 +52,7 @@ In the same location there are also `*.compute` files containing used [`ComputeS
 ## CameraSensor (script)
 ![script](script.png)
 
-*CameraSensor* (script) is a core camera sensor component.
+*Camera Sensor* (script) is a core camera sensor component.
 It is responsible for applying *OpenCV* distortion and encoding to *BGR8* format.
 The distortion model is assumed to be *Plumb Bob*.
 The script renders the image from the [camera](https://docs.unity3d.com/ScriptReference/Camera.html) to [`Texture2D`](https://docs.unity3d.com/ScriptReference/Texture2D.html) and transforms it using the distortion parameters.
@@ -95,7 +95,7 @@ The sensor computation output format is presented below:
 Converts the data output from `CameraSensor` to *ROS2* [Image][image_msg] 
 and [CameraInfo][camera_info_msg] type messages and publishes them.
 The conversion and publication is performed using the `Publish(CameraSensor.OutputData outputData)` method,
-which is the `callback` triggered by *CameraSensor* (script) for the current output.
+which is the `callback` triggered by *Camera Sensor* (script) for the current output.
 
  Due to the fact that the entire image is always published, the [`ROI`](https://docs.ros2.org/latest/api/sensor_msgs/msg/RegionOfInterest.html) field of the message is always filled with zeros.
 The script also ensures that `binning` is assumed to be zero and the rectification matrix is the identity matrix.

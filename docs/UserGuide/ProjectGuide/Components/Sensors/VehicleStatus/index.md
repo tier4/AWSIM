@@ -30,13 +30,13 @@ A detailed description of the `URDF` structure and sensors added to prefab `Lexu
 ### Components 
 ![components](components.png)
 
-All features are implemented within the *VehicleReportRos2Publisher* (script) which can be found under the following path: 
+All features are implemented within the *Vehicle Report Ros2 Publisher* (script) which can be found under the following path: 
 
 ```
 Assets/AWSIM/Prefabs/Sensors/*
 ```
 
-## VehicleReportRos2Publisher (script)
+## Vehicle Report Ros2 Publisher (script)
 ![script](script.png)
 
 The script is responsible for updating and publishing each of the aggregated data on a separate topic.

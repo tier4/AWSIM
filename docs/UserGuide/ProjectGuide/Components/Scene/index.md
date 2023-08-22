@@ -16,12 +16,12 @@ Assets/AWSIM/Scenes/Main/AutowareSimulation.unity
 
 ![scene_link](scene/scene_link.png)
 
-As you can see, it consists of 2 parents for *GameObjects*: 
+As you can see, it consists of two parents for *GameObjects*: 
 
 - `AutowareSimulation` - aggregating all objects on the scene, those of the environment, vehicles and others,
 -  `Canvas` - aggregating all user interface (*UI*) elements in the scene, 
   
-and 1 single GameObject: 
+and one single *GameObject*: 
 
 - `EventSystem` - which manage input events and interactions with *UI* elements in the scene.
   
@@ -64,7 +64,7 @@ More about this script and communication with *ROS2* you can read [here](../../E
 The components added to this object are:
 
 - [*Camera component*](https://docs.unity3d.com/Manual/class-Camera.html) - the basic component that ensures the functionality of the camera as a device in *Unity* that capture and display the world to the player.
-- [*HDAdditionalCameraData* (script)](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@13.1/api/UnityEngine.Rendering.HighDefinition.HDAdditionalCameraData.html) - additional component that holds [*HDRP*](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@16.0/manual/index.html) specific parameters for camera.
+- [*HD Additional Camera Data* (script)](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@13.1/api/UnityEngine.Rendering.HighDefinition.HDAdditionalCameraData.html) - additional component that holds [*HDRP*](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@16.0/manual/index.html) specific parameters for camera.
 This Component should be added automatically together with [*Camera component*](https://docs.unity3d.com/Manual/class-Camera.html).
 - [*Audio Listener*](https://docs.unity3d.com/Manual/class-AudioListener.html) - it receives input from any given [*Audio Source*](https://docs.unity3d.com/Manual/class-AudioSource.html) in the scene and plays sounds through the computer speakers.
 - *Follow Camera* (script) - a script to ensure that the [*Camera component*](https://docs.unity3d.com/Manual/class-Camera.html) follows the moving `EgoVehicle`

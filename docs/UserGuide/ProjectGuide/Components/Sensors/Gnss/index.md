@@ -26,8 +26,8 @@ A detailed description of the `URDF` structure and sensors added to prefab `Lexu
 
 The `GnssSensor` functionality is split into two components:
 
-- *GnssSensor* (script) - it calculates the position as its *output* and calls the callback for it.
-- *GnssRos2Publisher* (script) - provides the ability to publish `GnssSensor` output as [`PoseStamped`](https://docs.ros2.org/latest/api/geometry_msgs/msg/PoseStamped.html) and [PoseWithCovarianceStamped](https://docs.ros2.org/latest/api/geometry_msgs/msg/PoseWithCovarianceStamped.html) published on a specific *ROS2* topics.
+- *Gnss Sensor* (script) - it calculates the position as its *output* and calls the callback for it.
+- *Gnss Ros2 Publisher* (script) - provides the ability to publish `GnssSensor` output as [`PoseStamped`](https://docs.ros2.org/latest/api/geometry_msgs/msg/PoseStamped.html) and [PoseWithCovarianceStamped](https://docs.ros2.org/latest/api/geometry_msgs/msg/PoseWithCovarianceStamped.html) published on a specific *ROS2* topics.
 
 Scripts can be found under the following path:
 
@@ -35,7 +35,7 @@ Scripts can be found under the following path:
 Assets/AWSIM/Prefabs/Sensors/Gnss/*
 ```
 
-## GnssSensor (script)
+## Gnss Sensor (script)
 ![script](script.png)
 
 This is the main script in which all calculations are performed:
@@ -56,12 +56,12 @@ This is the main script in which all calculations are performed:
 | *Position* | Vector3 | Position in the *MGRS* coordinate system. |
 
 
-## GnssRos2Publisher (script)
+## Gnss Ros2 Publisher (script)
 ![script_ros2](script_ros2.png)
 
 Converts the data output from `GnssSensor` to *ROS2* [`PoseStamped`](https://docs.ros2.org/latest/api/geometry_msgs/msg/PoseStamped.html) and [PoseWithCovarianceStamped](https://docs.ros2.org/latest/api/geometry_msgs/msg/PoseWithCovarianceStamped.html) messages.
 These messages are published on two separate topics for each type.
-The conversion and publication is performed using the `Publish(GnssSensor.OutputData outputData)` method, which is the `callback` triggered by *GnssSensor* (script) for the current output update.
+The conversion and publication is performed using the `Publish(GnssSensor.OutputData outputData)` method, which is the `callback` triggered by *Gnss Sensor* (script) for the current output update.
 
 !!! warning "Covariance matrix"
     The row-major representation of the 6x6 covariance matrix is filled with `0` and does not change during the script run.

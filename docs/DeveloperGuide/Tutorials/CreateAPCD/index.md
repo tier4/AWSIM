@@ -25,42 +25,42 @@
 <img src=image_0.png width=700px>
 
 ### Description
-PointCloudMapper is a tool for a vehicle based point cloud mapping in a simulation environment.
+`PointCloudMapper` is a tool for a vehicle based point cloud mapping in a simulation environment.
 It is very useful when you need a point cloud based on some location, but don't have the possibility to physically map the real place.
 Instead you can map the simulated environment.
 
 ### Required Data
 To properly perform the mapping, make sure you have the following files downloaded and configured:
 
-- Lanelet2 format OSM data
+- *Lanelet2* format *OSM* data (`*.osm` file)
 - 3D model map of the area
 
     !!! question "How to obtain a map"
-        You can obtain the 3D model of the area by downloading a *prefab* prepared for *AWSIM* or by creating your own.
-        You can learn how to create you own Environment *prefab* in [this tutorial](../AddANewEnvironment/AddAnEnvironment/).
+        You can obtain the 3D model of the area by using a `Environment` *prefab* prepared for *AWSIM* or by creating your own.
+        You can learn how to create you own `Environment` *prefab* in [this tutorial](../AddANewEnvironment/AddAnEnvironment/).
 
-- Configured in-simulation vehicle object with sensors attached (only the [LiDAR](../AddANewVehicle/AddSensors/#add-a-lidar) is necessary)
+- Configured in-simulation vehicle object with sensors attached (only the [*LiDAR*](../AddANewVehicle/AddSensors/#add-a-lidar) is necessary)
 
-    !!! info "LiDAR count"
-        Please note that mapping with only **one** LiDAR sensor is supported  for now.
-        If your Vehicle has more LiDAR sensors please remove them before moving on with this tutorial.
+    <!-- !!! info "LiDAR count"
+        Please note that mapping with only **one** LiDAR sensor is supported for now.
+        If your *Vehicle* has more LiDAR sensors please remove them before moving on with this tutorial. -->
 
     !!! tip "Vehicle model"
-        For the sake of creating a PCD the Vehicle model doesn't have to be accurate.
-        It will be just a carrier for LiDAR.
+        For the sake of creating a *PCD* the *vehicle* model doesn't have to be accurate.
+        It will be just a carrier for *LiDAR*.
         The model can even be a simple box as shown [earlier in this tutorial](#pointcloudmapper).
-        Make sure it is not visible to the LiDAR, so it does not break the sensor readings.
+        Make sure it is not visible to the *LiDAR*, so it does not break the sensor readings.
 
 ## Import OSM
-1. Drag and drop an OSM file into Unity project.
+1. Drag and drop an *OSM* file into *Unity* project.
 
     ![move osm file](move_osm2.gif)
 
 1. OSM file will be imported as `OsmDataContainer`.
 
 ## Setup an Environment
-For a correct Point Cloud Mapping an Environment is needed.
-The easiest way is to create a new Scene and import the Environment *prefab* into it.
+Fora mapping an `Environment` prefab is needed.
+The easiest way is to create a new *Scene* and import the `Environment` *prefab* into it.
 Details on how to do this can be found on [this tutorial page](../AddANewScene/AddAScene/#add-an-environment-prefab).
 
 ## Setup a Vehicle
@@ -94,8 +94,8 @@ Add a Camera component for enhanced visuals by adding a `Main Camera` *Object* a
 
     ![vehicle camera transform](vehicle_camera_transform.gif)
 
-### Setup Vehicle Sensors [RGL]
-This part of the tutorial shows how to add a LiDAR Sensor using [RGL](https://github.com/RobotecAI/RobotecGPULidar).
+### Setup Vehicle Sensors (RGL)
+This part of the tutorial shows how to add a *LiDAR* sensor using [RGL](https://github.com/RobotecAI/RobotecGPULidar).
 
 !!! warning "RGL Scene Manager"
     Please make sure that `RGLSceneManager` is added to the scene.
@@ -109,27 +109,27 @@ This part of the tutorial shows how to add a LiDAR Sensor using [RGL](https://gi
 
     ![add lidar object](point_cloud_mapping_add_lidar.gif)
 
-1. Attach `Lidar Sensor` script to previously created `Lidar` *Object* by clicking on the 'Add Component' button, searching for the script and selecting it.
+2. Attach *Lidar Sensor* (script) to previously created `Lidar` *Object* by clicking on the 'Add Component' button, searching for the script and selecting it.
 
     !!! note "Point Cloud Visualization"
-        Please note that `Point Cloud Visualization` Script will be added automatically with the `Lidar Sensor` Script.
+        Please note that *Point Cloud Visualization* (script) will be added automatically with the *Lidar Sensor* (script).
 
     ![add lidar sensor script](point_cloud_mapping_add_lidar_sensor_script.gif)
 
     ![lidar sensor search](lidar_sensor_search.png)
 
-1. Configure LiDAR pattern, e.g. by selecting one of the available presets.
+3. Configure *LiDAR* pattern, e.g. by selecting one of the available presets.
 
     !!! example "Example Lidar Sensor configuration"
         ![lidar sensor configuration example](lidar_sensor_configuration.png)
 
-1. Attach `RGL Mapping Adapter` script to previously created `Lidar` *Object* by clicking on the 'Add Component' button, searching for the script and selecting it.
+4. Attach *RGL Mapping Adapter* (script) to previously created `Lidar` *Object* by clicking on the 'Add Component' button, searching for the script and selecting it.
 
     ![add rgl mapping adapter script](point_cloud_mapping_add_lidar_adapter_script.gif)
 
     ![rgl mapping adapter search](rgl_mapping_adapter_search.png)
 
-1. Configure `RGL Mapping Adapter` - e.g. set `Leaf Size` for filtering.
+5. Configure `RGL Mapping Adapter` - e.g. set `Leaf Size` for filtering.
 
     !!! example "Example RGL Mapping Adapter configuration"
         ![rgl mapping adapter configuration example](rgl_mapping_adapter_configuration.png)

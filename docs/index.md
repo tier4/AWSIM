@@ -5,6 +5,12 @@
 
 *AWSIM* is the best scene simulator for [*Autoware*](https://github.com/autowarefoundation/autoware).
 
+### Try the simulation demo yourself!
+[Download AWSIM Demo for Ubuntu](https://github.com/tier4/AWSIM/releases/download/v1.1.0/AWSIM_v1.1.0.zip){.md-button .md-button--primary}
+
+If you would just like to run *AWSIM* for the first time, please go to [Prerequisites](./UserGuide/Installation/Prerequisites/) then [Run demo](./UserGuide/Installation/RunDemo/).<br>
+If you have encountered any problems please go to section [Troubleshooting](./DeveloperGuide/TroubleShooting/).<br>
+
 Details about what exactly *AWSIM* is and why it was developed can be found [here](./Introduction/AWSIM/).<br> 
 You can find out what *Autoware* is by reading this [section](./Introduction/Autoware/), and how it works with *AWSIM* in this [section](./Introduction/CombinationWithAutoware/).
 
@@ -18,13 +24,9 @@ In addition, *AWSIM* has been adapted to work with *Scenario Simulator v2* - *Au
 - [Open sourced](https://github.com/tier4/AWSIM)
 - Made with [*Unity*](https://unity.com/)
 
-### Try the simulation demo yourself!
-[Download AWSIM Demo for Ubuntu](https://github.com/tier4/AWSIM/releases/download/v1.1.0/AWSIM_v1.1.0.zip){.md-button .md-button--primary}
 
 ### Document Guide
-If you would just like to run *AWSIM* for the first time, please go to [Prerequisites](./UserGuide/Installation/Prerequisites/) then [Run demo](./UserGuide/Installation/RunDemo/).<br>
-If you have encountered any problems please go to section [Troubleshooting](./DeveloperGuide/TroubleShooting/).<br>
-Other quick links to the most important parts of the documentation are listed below.
+Quick links to the most important parts of the documentation are listed below.
 
 #### Demo
 - [Prerequisites](./UserGuide/Installation/Prerequisites/) 

@@ -27,7 +27,7 @@ If set incorrectly the vehicles may fall through the ground into the infinity.
 
 ![random_traffic_simulator_layers](random_traffic_simulator_layers.png)
 
-## Add NPC Vehicles
+## Add NPCVehicles
 Random Traffic Simulator Script moves, spawns and despawns vehicles based on the configuration.
 These settings can to be adjusted to your preference.
 
@@ -91,7 +91,7 @@ Adding spawnable lanes is similar to [Adding NPC Prefabs](#add-npc-vehicles).
 
 ## Vehicles configuration
 
-The last thing to configure is the behavior of NPC Vehicles.
+The last thing to configure is the behavior of NPCVehicles.
 You can specify acceleration rate  of vehicles and three values of deceleration.
 
 ![Vehicle configuration picture](vehicle_configuration.png)
