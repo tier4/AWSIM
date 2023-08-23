@@ -203,37 +203,12 @@ namespace RGLUnityPlugin
         }
     }
 
-    public class RGLMeshObject : RGLObject<Mesh>
-    {
-        private readonly Func<Matrix4x4> getLocalToWorld;
-
-        public RGLMeshObject(string identifier, GameObject representedGO, Mesh mesh, Func<Matrix4x4> getLocalToWorld) :
-            base(identifier, representedGO, mesh)
-        {
-            this.getLocalToWorld = getLocalToWorld;
-        }
-
-        protected override RGLMesh GetRGLMeshFrom(Mesh mesh)
-        {
-            return RGLMeshManager.RegisterRGLMeshInstance(mesh);
-        }
-
-        protected override Matrix4x4 GetLocalToWorld()
-        {
-            return getLocalToWorld();
-        }
-
-        protected override void DestroyRGLMesh(RGLMesh rglMesh)
-        {
-            RGLMeshManager.UnregisterRGLMeshInstance(rglMesh);
-        }
-    }
-
     public class RGLMeshRendererObject : RGLObject<MeshRenderer>
     {
         private readonly Transform rendererTransform;
+        private readonly Func<Matrix4x4> getLocalToWorld;
 
-        public RGLMeshRendererObject(MeshRenderer meshRenderer) :
+        public RGLMeshRendererObject(MeshRenderer meshRenderer, Func<Matrix4x4> getLocalToWorld = null):
             base(
                 $"{meshRenderer.gameObject.name}#{meshRenderer.gameObject.GetInstanceID()}",
                 meshRenderer.gameObject,
@@ -241,6 +216,7 @@ namespace RGLUnityPlugin
             )
         {
             rendererTransform = meshRenderer.transform;
+            this.getLocalToWorld = getLocalToWorld;
         }
 
         protected override RGLMesh GetRGLMeshFrom(MeshRenderer meshRenderer)
@@ -257,7 +233,7 @@ namespace RGLUnityPlugin
 
         protected override Matrix4x4 GetLocalToWorld()
         {
-            return rendererTransform.localToWorldMatrix;
+            return getLocalToWorld != null ? getLocalToWorld() : rendererTransform.localToWorldMatrix;
         }
 
         protected override void DestroyRGLMesh(RGLMesh rglMesh)
@@ -269,8 +245,9 @@ namespace RGLUnityPlugin
     public class RGLSkinnedMeshRendererObject : RGLObject<SkinnedMeshRenderer>
     {
         private readonly Transform skinnedMeshRendererTransform;
+        private readonly Func<Matrix4x4> getLocalToWorld;
 
-        public RGLSkinnedMeshRendererObject(SkinnedMeshRenderer skinnedMeshRenderer) :
+        public RGLSkinnedMeshRendererObject(SkinnedMeshRenderer skinnedMeshRenderer, Func<Matrix4x4> getLocalToWorld = null) :
             base(
                 $"{skinnedMeshRenderer.gameObject.name}#{skinnedMeshRenderer.gameObject.GetInstanceID()}",
                 skinnedMeshRenderer.gameObject,
@@ -278,6 +255,7 @@ namespace RGLUnityPlugin
                 )
         {
             skinnedMeshRendererTransform = skinnedMeshRenderer.transform;
+            this.getLocalToWorld = getLocalToWorld;
         }
 
         protected override RGLMesh GetRGLMeshFrom(SkinnedMeshRenderer skinnedMeshRenderer)
@@ -287,7 +265,7 @@ namespace RGLUnityPlugin
 
         protected override Matrix4x4 GetLocalToWorld()
         {
-            return skinnedMeshRendererTransform.localToWorldMatrix;
+            return getLocalToWorld != null ? getLocalToWorld() : skinnedMeshRendererTransform.localToWorldMatrix;
         }
         
         protected override void DestroyRGLMesh(RGLMesh rglMesh)
@@ -327,29 +305,38 @@ namespace RGLUnityPlugin
 
     public class RGLTerrainObject : RGLObject<Terrain>
     {
-        private readonly List<RGLMeshObject> terrainSubObjects;
+        private readonly List<IRGLObject> terrainSubObjects;
         private readonly Transform terrainTransform;
 
         public RGLTerrainObject(Terrain terrain) :
             base($"{terrain.gameObject.name}#{terrain.gameObject.GetInstanceID()}", terrain.gameObject, terrain)
         {
             terrainTransform = terrain.transform;
-            terrainSubObjects = new List<RGLMeshObject>();
-            var terrainData = terrain.terrainData;
-            for (var i = 0; i < terrainData.treeInstanceCount; i++)
+            terrainSubObjects = new List<IRGLObject>();
+            var treePrototypes = terrain.terrainData.treePrototypes;
+
+            for (var i = 0; i < treePrototypes.Length; i++)
             {
-                var treeMesh = TerrainUtilities.GetTreeMesh(terrain, i);
-                if (treeMesh is null)
+                var gameObjects = RendererUtilities.GetAllGameObjectsOfPrefab(treePrototypes[i].prefab);
+                var renderers = RendererUtilities.GetUniqueRenderersInGameObjects(gameObjects);
+                foreach (var renderer in renderers)
                 {
-                    continue;
+                    var treeIndex = i;
+                    if (renderer is SkinnedMeshRenderer smr)
+                    {
+                        terrainSubObjects.Add(new RGLSkinnedMeshRendererObject(smr,() =>
+                            terrain.transform.localToWorldMatrix *
+                            TerrainUtilities.GetTreePose(terrain, treeIndex) *
+                            smr.localToWorldMatrix));
+                    }
+                    if (renderer is MeshRenderer mr)
+                    {
+                        terrainSubObjects.Add(new RGLMeshRendererObject(mr,() =>
+                            terrain.transform.localToWorldMatrix *
+                            TerrainUtilities.GetTreePose(terrain, treeIndex) *
+                            mr.localToWorldMatrix));
+                    }
                 }
-                // we need to make a copy of the index because lambda captures use reference semantics for all captured variables
-                var treeIndex = i;
-                var tree = new RGLMeshObject($"{RepresentedGO.name}#{RepresentedGO.GetInstanceID()}#{treeIndex}",
-                    RepresentedGO,
-                    treeMesh,
-                    () => terrain.transform.localToWorldMatrix * TerrainUtilities.GetTreePose(terrain, treeIndex));
-                terrainSubObjects.Add(tree);
             }
         }
         

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine.Rendering;
 using UnityEngine;
 
@@ -94,31 +95,30 @@ namespace RGLUnityPlugin
             return heightmapMesh;
         }
 
-        public static Mesh GetTreeMesh(Terrain terrain, int treeIndex)
-        {
-            var terrainData = terrain.terrainData;
-            var treeInstance = terrainData.GetTreeInstance(treeIndex);
-            var treePrefab = terrainData.treePrototypes[treeInstance.prototypeIndex].prefab;
-            if (treePrefab.TryGetComponent(out LODGroup lodGroup))
-            {
-                if (lodGroup.GetLODs()[0].renderers[0].TryGetComponent(out MeshFilter meshFilter))
-                {
-                    return meshFilter.sharedMesh;
-                }
-
-                Debug.LogWarning($"Tree[{treeIndex}] \"{treePrefab.name}\" of terrain {terrain.GetInstanceID()} has LODGroup component with no MeshFilter component, it will be ignored by RGL");
-                return null;
-            }
-            else if (treePrefab.TryGetComponent(out MeshFilter meshFilter))
-            {
-                Debug.LogWarning($"Tree[{treeIndex}] \"{treePrefab.name}\" of terrain {terrain.GetInstanceID()} has no LODGroup component, but it has a MeshFilter component. " +
-                                 $"The tree's rotation and scale is not going o match those in the Unity Editor, " +
-                                 $"since Unity Editor has a bug and does not rotate or scale trees without LODGroup components");
-                return meshFilter.sharedMesh;
-            }
-            Debug.LogWarning($"Tree[{treeIndex}] \"{treePrefab.name}\" of terrain {terrain.GetInstanceID()} has no LODGroup or MeshFilter component, it will be ignored by RGL");
-            return null;
-        }
+        // public static Mesh GetTreeMesh(Terrain terrain, int treeIndex)
+        // {
+        //     var terrainData = terrain.terrainData;
+        //     
+        //     if (treePrefab.TryGetComponent(out LODGroup lodGroup))
+        //     {
+        //         if (lodGroup.GetLODs()[0].renderers[0].TryGetComponent(out MeshFilter meshFilter))
+        //         {
+        //             return meshFilter.sharedMesh;
+        //         }
+        //
+        //         Debug.LogWarning($"Tree[{treeIndex}] \"{treePrefab.name}\" of terrain {terrain.GetInstanceID()} has LODGroup component with no MeshFilter component, it will be ignored by RGL");
+        //         return null;
+        //     }
+        //     else if (treePrefab.TryGetComponent(out MeshFilter meshFilter))
+        //     {
+        //         Debug.LogWarning($"Tree[{treeIndex}] \"{treePrefab.name}\" of terrain {terrain.GetInstanceID()} has no LODGroup component, but it has a MeshFilter component. " +
+        //                          $"The tree's rotation and scale is not going o match those in the Unity Editor, " +
+        //                          $"since Unity Editor has a bug and does not rotate or scale trees without LODGroup components");
+        //         return meshFilter.sharedMesh;
+        //     }
+        //     Debug.LogWarning($"Tree[{treeIndex}] \"{treePrefab.name}\" of terrain {terrain.GetInstanceID()} has no LODGroup or MeshFilter component, it will be ignored by RGL");
+        //     return null;
+        // }
 
         public static Matrix4x4 GetTreePose(Terrain terrain, int treeIndex)
         {
