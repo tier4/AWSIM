@@ -201,7 +201,9 @@ namespace RGLUnityPlugin
             {
                 rglObject.Value.DestroyInRGL();
             }
-
+            
+            RGLMeshManager.ClearAllMeshes();
+            RGLTextureManager.ClearAllTextures();
             uploadedRGLObjects.Clear();
             lastFrameGameObjects.Clear();
             Debug.Log("RGLSceneManager: cleared");

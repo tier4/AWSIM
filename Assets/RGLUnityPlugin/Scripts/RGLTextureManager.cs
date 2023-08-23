@@ -24,8 +24,9 @@ namespace RGLUnityPlugin
             return sharedTextures[textureID];
         }
 
-        public static void UnregisterRGLTextureInstance(int textureId)
+        public static void UnregisterRGLTextureInstance(RGLTexture rglTexture)
         {
+            var textureId = rglTexture.Identifier;
             if (sharedTextures[textureId] is null)
             {
                 Debug.LogWarning($"Trying to unregister absent in RGLTextureManager texture of id: {textureId}, ignoring request");

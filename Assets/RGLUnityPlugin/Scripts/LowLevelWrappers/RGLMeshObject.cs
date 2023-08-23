@@ -39,9 +39,9 @@ namespace RGLUnityPlugin
     /// </summary>
     public abstract class RGLObject<T> : IRGLObject
     {
-        private string Identifier;
-        private RGLMesh RglMesh;
-        private RGLTexture RglTexture;
+        private readonly string identifier;
+        private RGLMesh rglMesh;
+        private RGLTexture rglTexture;
         
         public GameObject RepresentedGO { get; }
         public int? CategoryId { get; private set; }
@@ -53,10 +53,10 @@ namespace RGLUnityPlugin
         
         protected RGLObject(string identifier, GameObject representedGO, T meshSource)
         {
-            Identifier = identifier;
+            this.identifier = identifier;
             RepresentedGO = representedGO;
-            RglMesh = GetRGLMeshFrom(meshSource);
-            if (RglMesh == null)
+            rglMesh = GetRGLMeshFrom(meshSource);
+            if (rglMesh == null)
             {
                 return;
             }
@@ -76,33 +76,32 @@ namespace RGLUnityPlugin
             DestroyInRGL();
         }
 
+        protected abstract void DestroyRGLMesh(RGLMesh rglMesh);
+        
         public virtual void DestroyInRGL()
         {
-            if (rglEntityPtr != IntPtr.Zero)
+            if (rglEntityPtr == IntPtr.Zero)
             {
-                RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_entity_destroy(rglEntityPtr));
-                rglEntityPtr = IntPtr.Zero;
-                if (RglMesh is RGLSkinnedMesh)
-                {
-                    RglMesh.DestroyFromRGL();
-                }
-                else
-                {
-                    RGLMeshManager.UnregisterRGLMeshInstance(RglMesh.Identifier);
-                }
-                RglMesh = null;
-                if (RglTexture != null)
-                {
-                    RGLTextureManager.UnregisterRGLTextureInstance(RglTexture.Identifier);
-                    RglTexture = null;
-                }
+                return;
+            }
+            
+            RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_entity_destroy(rglEntityPtr));
+            rglEntityPtr = IntPtr.Zero;
+            
+            DestroyRGLMesh(rglMesh);
+            rglMesh = null;
+            
+            if (rglTexture != null)
+            {
+                RGLTextureManager.UnregisterRGLTextureInstance(rglTexture);
+                rglTexture = null;
             }
         }
 
         public void Update()
         {
             UpdateTransform();
-            if (RglMesh is RGLSkinnedMesh rglSkinnedMesh)
+            if (rglMesh is RGLSkinnedMesh rglSkinnedMesh)
             {
                 rglSkinnedMesh.UpdateSkinnedMesh();
             }
@@ -136,25 +135,25 @@ namespace RGLUnityPlugin
 
         public override int GetHashCode()
         {
-            return Identifier.GetHashCode();
+            return identifier.GetHashCode();
         }
 
         public override bool Equals(object obj)
         {
-            return obj is RGLObject<T> rglObject && Identifier.Equals(rglObject.Identifier);
+            return obj is RGLObject<T> rglObject && identifier.Equals(rglObject.identifier);
         }
 
         private void UploadToRGL()
         {
             // Mesh should be uploaded.
-            Assert.IsFalse(RglMesh.rglMeshPtr == IntPtr.Zero);
+            Assert.IsFalse(rglMesh.rglMeshPtr == IntPtr.Zero);
 
             unsafe
             {
                 try
                 {
                     RGLNativeAPI.CheckErr(
-                        RGLNativeAPI.rgl_entity_create(out rglEntityPtr, IntPtr.Zero, RglMesh.rglMeshPtr));
+                        RGLNativeAPI.rgl_entity_create(out rglEntityPtr, IntPtr.Zero, rglMesh.rglMeshPtr));
                 }
                 catch (RGLException)
                 {
@@ -185,22 +184,22 @@ namespace RGLUnityPlugin
                 return;
             }
 
-            RglTexture = RGLTextureManager.RegisterRGLTextureInstance(intensityTextureComponent.texture);
+            rglTexture = RGLTextureManager.RegisterRGLTextureInstance(intensityTextureComponent.texture);
             try
             {
                 RGLNativeAPI.CheckErr(
-                    RGLNativeAPI.rgl_entity_set_intensity_texture(rglEntityPtr, RglTexture.rglTexturePtr));
+                    RGLNativeAPI.rgl_entity_set_intensity_texture(rglEntityPtr, rglTexture.rglTexturePtr));
             }
             catch (RGLException)
             {
-                Debug.LogError($"Cannot assign texture: {RglTexture.Identifier}, to entity: {Identifier}");
+                Debug.LogError($"Cannot assign texture: {rglTexture.Identifier}, to entity: {identifier}");
                 throw;
             }
 
             // Mesh should be uploaded before assigning UVs.
-            Assert.IsFalse(RglMesh.rglMeshPtr == IntPtr.Zero);
+            Assert.IsFalse(rglMesh.rglMeshPtr == IntPtr.Zero);
 
-            RglMesh.UploadUVs();
+            rglMesh.UploadUVs();
         }
     }
 
@@ -222,6 +221,11 @@ namespace RGLUnityPlugin
         protected override Matrix4x4 GetLocalToWorld()
         {
             return getLocalToWorld();
+        }
+
+        protected override void DestroyRGLMesh(RGLMesh rglMesh)
+        {
+            RGLMeshManager.UnregisterRGLMeshInstance(rglMesh);
         }
     }
 
@@ -255,6 +259,11 @@ namespace RGLUnityPlugin
         {
             return rendererTransform.localToWorldMatrix;
         }
+
+        protected override void DestroyRGLMesh(RGLMesh rglMesh)
+        {
+            RGLMeshManager.UnregisterRGLMeshInstance(rglMesh);
+        }
     }
 
     public class RGLSkinnedMeshRendererObject : RGLObject<SkinnedMeshRenderer>
@@ -280,6 +289,11 @@ namespace RGLUnityPlugin
         {
             return skinnedMeshRendererTransform.localToWorldMatrix;
         }
+        
+        protected override void DestroyRGLMesh(RGLMesh rglMesh)
+        {
+            rglMesh.DestroyFromRGL();
+        }
     }
 
     public class RGLColliderObject : RGLObject<Collider>
@@ -303,6 +317,11 @@ namespace RGLUnityPlugin
         protected override Matrix4x4 GetLocalToWorld()
         {
             return collider.transform.localToWorldMatrix * ColliderUtilities.GetColliderTransformMatrix(collider);
+        }
+        
+        protected override void DestroyRGLMesh(RGLMesh rglMesh)
+        {
+            RGLMeshManager.UnregisterRGLMeshInstance(rglMesh);
         }
     }
 
@@ -361,7 +380,12 @@ namespace RGLUnityPlugin
 
         protected override RGLMesh GetRGLMeshFrom(Terrain terrain)
         {
-            return RGLMeshManager.RegisterRGLMeshInstance(TerrainUtilities.GetTerrainMesh(terrain));
+            return new RGLMesh(terrain.gameObject.GetInstanceID(), TerrainUtilities.GetTerrainMesh(terrain));
+        }
+        
+        protected override void DestroyRGLMesh(RGLMesh rglMesh)
+        {
+            rglMesh.DestroyFromRGL();
         }
     }
 

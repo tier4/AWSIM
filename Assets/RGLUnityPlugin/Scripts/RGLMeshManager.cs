@@ -25,8 +25,9 @@ namespace RGLUnityPlugin
             return sharedMeshes[meshId];
         }
 
-        public static void UnregisterRGLMeshInstance(int meshId)
+        public static void UnregisterRGLMeshInstance(RGLMesh rglMesh)
         {
+            var meshId = rglMesh.Identifier;
             if (sharedMeshes[meshId] is null)
             {
                 Debug.LogWarning($"Trying to unregister absent in RGLMeshManager mesh of id: {meshId}, ignoring request");
