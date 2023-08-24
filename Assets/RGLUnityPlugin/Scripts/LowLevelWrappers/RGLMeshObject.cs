@@ -143,14 +143,14 @@ namespace RGLUnityPlugin
         private void UploadToRGL()
         {
             // Mesh should be uploaded.
-            Assert.IsFalse(rglMesh.rglMeshPtr == IntPtr.Zero);
+            Assert.IsFalse(rglMesh.RGLMeshPtr == IntPtr.Zero);
 
             unsafe
             {
                 try
                 {
                     RGLNativeAPI.CheckErr(
-                        RGLNativeAPI.rgl_entity_create(out rglEntityPtr, IntPtr.Zero, rglMesh.rglMeshPtr));
+                        RGLNativeAPI.rgl_entity_create(out rglEntityPtr, IntPtr.Zero, rglMesh.RGLMeshPtr));
                 }
                 catch (RGLException)
                 {
@@ -185,16 +185,16 @@ namespace RGLUnityPlugin
             try
             {
                 RGLNativeAPI.CheckErr(
-                    RGLNativeAPI.rgl_entity_set_intensity_texture(rglEntityPtr, rglTexture.rglTexturePtr));
+                    RGLNativeAPI.rgl_entity_set_intensity_texture(rglEntityPtr, rglTexture.RGLTexturePtr));
             }
             catch (RGLException)
             {
-                Debug.LogError($"Cannot assign texture: {rglTexture.Identifier}, to entity: {identifier}");
+                Debug.LogError($"Cannot assign texture: {rglTexture.Texture.name}, to entity: {RepresentedGO.name}");
                 throw;
             }
 
             // Mesh should be uploaded before assigning UVs.
-            Assert.IsFalse(rglMesh.rglMeshPtr == IntPtr.Zero);
+            Assert.IsFalse(rglMesh.RGLMeshPtr == IntPtr.Zero);
 
             rglMesh.UploadUVs();
         }
@@ -212,8 +212,8 @@ namespace RGLUnityPlugin
                 meshRenderer
             )
         {
-            var rendererTransfrom = meshRenderer.transform;
-            getLocalToWorld = overrideGetLocalToWorld != null ? overrideGetLocalToWorld : () => rendererTransfrom.localToWorldMatrix;
+            var rendererTransform = meshRenderer.transform;
+            getLocalToWorld = overrideGetLocalToWorld != null ? overrideGetLocalToWorld : () => rendererTransform.localToWorldMatrix;
         }
 
         protected override RGLMesh GetRGLMeshFrom(MeshRenderer meshRenderer)
@@ -311,12 +311,12 @@ namespace RGLUnityPlugin
             terrainSubObjects = new List<IRGLObject>();
             var treePrototypes = terrain.terrainData.treePrototypes;
 
-            List<Renderer>[] treePrototypesRenderes = new List<Renderer>[treePrototypes.Length];
-            bool[] treePrototypesHasLODGroup = new bool[treePrototypes.Length];
+            var treePrototypesRenderers = new List<Renderer>[treePrototypes.Length];
+            var treePrototypeHasLODGroup = new bool[treePrototypes.Length];
 
             for (var i = 0; i < treePrototypes.Length; i++)
             {
-                treePrototypesRenderes[i] = new List<Renderer>();
+                treePrototypesRenderers[i] = new List<Renderer>();
                 var treePrefab = treePrototypes[i].prefab;
                 if (treePrefab.TryGetComponent<LODGroup>(out var lodGroup))
                 {
@@ -330,23 +330,23 @@ namespace RGLUnityPlugin
                     {
                         if (renderer.gameObject.TryGetComponent<MeshFilter>(out _))
                         {
-                            treePrototypesRenderes[i].Add(renderer);
+                            treePrototypesRenderers[i].Add(renderer);
                         }
                     }
-                    treePrototypesHasLODGroup[i] = true;
+                    treePrototypeHasLODGroup[i] = true;
                 } else if (treePrefab.TryGetComponent<MeshRenderer>(out var mr) && treePrefab.TryGetComponent<MeshFilter>(out _))
                 {
-                    treePrototypesRenderes[i].Add(mr);
-                    treePrototypesHasLODGroup[i] = false;
+                    treePrototypesRenderers[i].Add(mr);
+                    treePrototypeHasLODGroup[i] = false;
                 }
             }
 
             for (var treeIndex = 0; treeIndex < terrain.terrainData.treeInstanceCount; treeIndex++)
             {
-                int prototypeIndex = terrain.terrainData.GetTreeInstance(treeIndex).prototypeIndex;
-                foreach (var renderer in treePrototypesRenderes[prototypeIndex])
+                var prototypeIndex = terrain.terrainData.GetTreeInstance(treeIndex).prototypeIndex;
+                foreach (var renderer in treePrototypesRenderers[prototypeIndex])
                 {
-                    var treePose = TerrainUtilities.GetTreePose(terrain, treeIndex, treePrototypesHasLODGroup[prototypeIndex]);
+                    var treePose = TerrainUtilities.GetTreePose(terrain, treeIndex, treePrototypeHasLODGroup[prototypeIndex]);
                     if (renderer is MeshRenderer mr)
                     {
                         terrainSubObjects.Add(new RGLMeshRendererObject(mr,() =>
@@ -400,9 +400,9 @@ namespace RGLUnityPlugin
     public class RGLMesh
     {
         public int Identifier;
-        public Mesh Mesh;
+        protected Mesh Mesh;
 
-        public IntPtr rglMeshPtr = IntPtr.Zero;
+        public IntPtr RGLMeshPtr = IntPtr.Zero;
 
         public RGLMesh(int identifier, Mesh mesh)
         {
@@ -419,10 +419,10 @@ namespace RGLUnityPlugin
 
         public void DestroyInRGL()
         {
-            if (rglMeshPtr != IntPtr.Zero)
+            if (RGLMeshPtr != IntPtr.Zero)
             {
-                RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_mesh_destroy(rglMeshPtr));
-                rglMeshPtr = IntPtr.Zero;
+                RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_mesh_destroy(RGLMeshPtr));
+                RGLMeshPtr = IntPtr.Zero;
             }
         }
 
@@ -451,13 +451,13 @@ namespace RGLUnityPlugin
                         try
                         {
                             RGLNativeAPI.CheckErr(
-                                RGLNativeAPI.rgl_mesh_create(out rglMeshPtr,
+                                RGLNativeAPI.rgl_mesh_create(out RGLMeshPtr,
                                     (IntPtr) pVertices, vertices.Length,
                                     (IntPtr) pIndices, indices.Length / 3));
                         }
                         catch (RGLException)
                         {
-                            if (rglMeshPtr != IntPtr.Zero) RGLNativeAPI.rgl_mesh_destroy(rglMeshPtr);
+                            if (RGLMeshPtr != IntPtr.Zero) RGLNativeAPI.rgl_mesh_destroy(RGLMeshPtr);
                             throw;
                         }
                     }
@@ -477,13 +477,13 @@ namespace RGLUnityPlugin
             else
             {
                unsafe
-                {                    
+               {                    
                     fixed(Vector2* pUVs = UVs)
                     {
                         try
                         {
                             RGLNativeAPI.CheckErr(
-                                RGLNativeAPI.rgl_mesh_set_texture_coords(rglMeshPtr,
+                                RGLNativeAPI.rgl_mesh_set_texture_coords(RGLMeshPtr,
                                 (IntPtr)pUVs,
                                 UVs.Length));
                         }
@@ -493,7 +493,7 @@ namespace RGLUnityPlugin
                             throw;        
                         }                        
                     }   
-                }
+               }
             }
         }
     }
@@ -503,20 +503,20 @@ namespace RGLUnityPlugin
     /// </summary>
     public class RGLSkinnedMesh : RGLMesh
     {
-        public SkinnedMeshRenderer SkinnedMeshRenderer;
+        private readonly SkinnedMeshRenderer skinnedMeshRenderer;
 
         public RGLSkinnedMesh(int identifier, SkinnedMeshRenderer smr)
         {
             Identifier = identifier;
             Mesh = new Mesh();
-            SkinnedMeshRenderer = smr;
-            SkinnedMeshRenderer.BakeMesh(Mesh, true);
+            skinnedMeshRenderer = smr;
+            skinnedMeshRenderer.BakeMesh(Mesh, true);
             UploadToRGL();
         }
 
         public void UpdateSkinnedMesh()
         {
-            SkinnedMeshRenderer.BakeMesh(Mesh, true);
+            skinnedMeshRenderer.BakeMesh(Mesh, true);
             unsafe
             {
                 // Accessing .vertices perform a CPU copy!
@@ -527,7 +527,7 @@ namespace RGLUnityPlugin
                 fixed (Vector3* pVertices = Mesh.vertices)
                 {
                     RGLNativeAPI.CheckErr(
-                        RGLNativeAPI.rgl_mesh_update_vertices(rglMeshPtr, (IntPtr) pVertices, Mesh.vertices.Length));
+                        RGLNativeAPI.rgl_mesh_update_vertices(RGLMeshPtr, (IntPtr) pVertices, Mesh.vertices.Length));
                 }
             }
         }
@@ -539,9 +539,9 @@ namespace RGLUnityPlugin
     /// </summary>
     public class RGLTexture
     {
-        public int Identifier;
-        public Texture2D Texture;
-        public IntPtr rglTexturePtr = IntPtr.Zero;
+        public readonly int Identifier;
+        public readonly Texture2D Texture;
+        public IntPtr RGLTexturePtr = IntPtr.Zero;
 
         public RGLTexture(){}
         
@@ -559,10 +559,10 @@ namespace RGLUnityPlugin
 
         public void DestroyInRGL()
         {
-            if (rglTexturePtr != IntPtr.Zero)
+            if (RGLTexturePtr != IntPtr.Zero)
             {
-                RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_texture_destroy(rglTexturePtr));
-                rglTexturePtr = IntPtr.Zero;                
+                RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_texture_destroy(RGLTexturePtr));
+                RGLTexturePtr = IntPtr.Zero;                
             }
         }
 
@@ -591,21 +591,21 @@ namespace RGLUnityPlugin
                     {     
                         RGLNativeAPI.CheckErr(
                             RGLNativeAPI.rgl_texture_create(
-                            out rglTexturePtr,
+                            out RGLTexturePtr,
                             (IntPtr) textureDataPtr,
                             Texture.width,
                             Texture.height));
                     }
                     catch (RGLException)
                     {
-                        if (rglTexturePtr != IntPtr.Zero) 
+                        if (RGLTexturePtr != IntPtr.Zero) 
                         {
-                            RGLNativeAPI.rgl_texture_destroy(rglTexturePtr);
-                            rglTexturePtr = IntPtr.Zero;                            
+                            RGLNativeAPI.rgl_texture_destroy(RGLTexturePtr);
+                            RGLTexturePtr = IntPtr.Zero;                            
                         }      
                         throw;
                     }
-               }  
+                }  
             }
         }
     }
