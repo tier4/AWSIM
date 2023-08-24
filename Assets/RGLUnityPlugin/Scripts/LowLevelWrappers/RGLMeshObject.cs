@@ -315,31 +315,46 @@ namespace RGLUnityPlugin
             terrainSubObjects = new List<IRGLObject>();
             var treePrototypes = terrain.terrainData.treePrototypes;
 
+            List<Renderer>[] treePrototypesRenderes = new List<Renderer>[treePrototypes.Length];
+            bool[] treePrototypesHasLODGroup = new bool[treePrototypes.Length];
+
             for (var i = 0; i < treePrototypes.Length; i++)
             {
-                var gameObjects = RendererUtilities.GetAllGameObjectsOfPrefab(treePrototypes[i].prefab);
-                var renderers = RendererUtilities.GetUniqueRenderersInGameObjects(gameObjects);
-                foreach (var renderer in renderers)
+                treePrototypesRenderes[i] = new List<Renderer>();
+                var treePrefab = treePrototypes[i].prefab;
+                if (treePrefab.TryGetComponent<LODGroup>(out var lodGroup))
                 {
-                    var treeIndex = i;
-                    if (renderer is SkinnedMeshRenderer smr)
+                    var lod = lodGroup.GetLODs()[0];
+                    foreach (var renderer in lod.renderers)
                     {
-                        terrainSubObjects.Add(new RGLSkinnedMeshRendererObject(smr,() =>
-                            terrain.transform.localToWorldMatrix *
-                            TerrainUtilities.GetTreePose(terrain, treeIndex) *
-                            smr.localToWorldMatrix));
+                        if (renderer.gameObject.TryGetComponent<MeshFilter>(out _))
+                        {
+                            treePrototypesRenderes[i].Add(renderer);
+                        }
                     }
+                    treePrototypesHasLODGroup[i] = true;
+                } else if (treePrefab.TryGetComponent<MeshRenderer>(out var mr) && treePrefab.TryGetComponent<MeshFilter>(out _))
+                {
+                    treePrototypesRenderes[i].Add(mr);
+                    treePrototypesHasLODGroup[i] = false;
+                }
+            }
+
+            for (var treeIdx = 0; treeIdx < terrain.terrainData.treeInstanceCount; treeIdx++)
+            {
+                int prototypeIdx = terrain.terrainData.GetTreeInstance(treeIdx).prototypeIndex;
+                foreach (var renderer in treePrototypesRenderes[prototypeIdx])
+                {
+                    var treePose = TerrainUtilities.GetTreePose(terrain, treeIdx, treePrototypesHasLODGroup[prototypeIdx]);
                     if (renderer is MeshRenderer mr)
                     {
                         terrainSubObjects.Add(new RGLMeshRendererObject(mr,() =>
-                            terrain.transform.localToWorldMatrix *
-                            TerrainUtilities.GetTreePose(terrain, treeIndex) *
-                            mr.localToWorldMatrix));
+                            terrain.transform.localToWorldMatrix * treePose * mr.localToWorldMatrix));
                     }
                 }
             }
         }
-        
+
         protected override Matrix4x4 GetLocalToWorld()
         {
             return terrainTransform.localToWorldMatrix;
