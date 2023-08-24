@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace RGLUnityPlugin
 {
-    public class RGLTextureManager
+    public class RGLTextureSharingManager
     {
         private static Dictionary<int, RGLTexture> sharedTextures = new Dictionary<int, RGLTexture>(); // <Identifier, RGLTexture>
         private static Dictionary<int, int> sharedTexturesUsageCount = new Dictionary<int, int>(); // <RGLTexture Identifier, count>
@@ -29,24 +29,24 @@ namespace RGLUnityPlugin
             var textureId = rglTexture.Identifier;
             if (sharedTextures[textureId] is null)
             {
-                Debug.LogWarning($"Trying to unregister absent in RGLTextureManager texture of id: {textureId}, ignoring request");
+                Debug.LogWarning($"Trying to unregister absent in RGLTextureSharingManager texture of id: {textureId}, ignoring request");
                 return;
             }
 
             sharedTexturesUsageCount[textureId]--;
             if (sharedTexturesUsageCount[textureId] == 0)
             {
-                sharedTextures[textureId].DestroyFromRGL();
+                sharedTextures[textureId].DestroyInRGL();
                 sharedTextures.Remove(textureId);
                 sharedTextures.Remove(textureId);
             }
         }
 
-        public static void ClearAllTextures()
+        public static void Clear()
         {
             foreach (var mesh in sharedTextures)
             {
-                mesh.Value.DestroyFromRGL();
+                mesh.Value.DestroyInRGL();
             }
         }
     }

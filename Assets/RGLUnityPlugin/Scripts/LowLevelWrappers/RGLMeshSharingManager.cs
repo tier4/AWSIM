@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace RGLUnityPlugin
 {
-    public class RGLMeshManager
+    public class RGLMeshSharingManager
     {
         private static Dictionary<int, RGLMesh> sharedMeshes = new Dictionary<int, RGLMesh>(); // <Identifier, RGLMesh>
         private static Dictionary<int, int> sharedMeshesUsageCount = new Dictionary<int, int>(); // <RGLMesh Identifier, count>
@@ -30,24 +30,24 @@ namespace RGLUnityPlugin
             var meshId = rglMesh.Identifier;
             if (sharedMeshes[meshId] is null)
             {
-                Debug.LogWarning($"Trying to unregister absent in RGLMeshManager mesh of id: {meshId}, ignoring request");
+                Debug.LogWarning($"Trying to unregister absent in RGLMeshSharingManager mesh of id: {meshId}, ignoring request");
                 return;
             }
 
             sharedMeshesUsageCount[meshId]--;
             if (sharedMeshesUsageCount[meshId] == 0)
             {
-                sharedMeshes[meshId].DestroyFromRGL();
+                sharedMeshes[meshId].DestroyInRGL();
                 sharedMeshes.Remove(meshId);
                 sharedMeshesUsageCount.Remove(meshId);
             }
         }
 
-        public static void ClearAllMeshes()
+        public static void Clear()
         {
             foreach (var mesh in sharedMeshes)
             {
-                mesh.Value.DestroyFromRGL();
+                mesh.Value.DestroyInRGL();
             }
         }
     }
