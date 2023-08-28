@@ -1,0 +1,339 @@
+<mxfile host="app.diagrams.net" modified="2023-06-26T15:58:01.251Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/114.0" etag="LOIcSD_ZxWdlNyFyCqgL" version="21.5.0" type="device">
+  <diagram name="Page-1" id="2YBvvXClWsGukQMizWep">
+    <mxGraphModel dx="626" dy="1533" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-52" value="AWSIM" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;rounded=1;strokeWidth=1.5;" parent="1" vertex="1">
+          <mxGeometry x="255" y="-370" width="100" height="810" as="geometry" />
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-51" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};strokeColor=default;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;" parent="1" vertex="1">
+          <mxGeometry x="300" y="-310" width="10" height="770" as="geometry" />
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-68" value="Autoware" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=#D6F4FC;rounded=1;strokeColor=#6c8ebf;strokeWidth=1.5;" parent="1" vertex="1">
+          <mxGeometry x="30" y="-370" width="100" height="810" as="geometry" />
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-17" value="&lt;code&gt;HazardLightsCommand&lt;/code&gt;" style="html=1;verticalAlign=bottom;endArrow=classicThin;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;spacingBottom=0;spacingTop=-2;fillColor=#dae8fc;strokeColor=#6c8ebf;endFill=1;strokeWidth=1.2;" parent="1" source="1LKEmVipVnCDEiK2z2R7-35" target="1LKEmVipVnCDEiK2z2R7-51" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="90.16666666666669" y="340.26" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="190" y="190" />
+            </Array>
+            <mxPoint x="295" y="340.2600000000002" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-19" value="&lt;code&gt;HazardLightsReport&lt;/code&gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1.2;" parent="1" edge="1">
+          <mxGeometry x="0.0019" relative="1" as="geometry">
+            <mxPoint x="300" y="450" as="sourcePoint" />
+            <mxPoint x="85" y="450" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="290" y="450" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-13" value="&lt;code&gt;TurnIndicatorsCommand&lt;/code&gt;" style="html=1;verticalAlign=bottom;endArrow=classicThin;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;spacingBottom=0;spacingTop=-2;fillColor=#dae8fc;strokeColor=#6c8ebf;endFill=1;strokeWidth=1.2;" parent="1" source="1LKEmVipVnCDEiK2z2R7-35" target="1LKEmVipVnCDEiK2z2R7-51" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="280" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="120" y="160" />
+            </Array>
+            <mxPoint x="295" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-15" value="&lt;code&gt;TurnIndicatorsReport&lt;/code&gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1.2;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="300" y="420" as="sourcePoint" />
+            <mxPoint x="85" y="420" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="290" y="420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-21" value="&lt;code&gt;VehicleEmergencyStamped&lt;/code&gt;" style="html=1;verticalAlign=bottom;endArrow=classicThin;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;spacingBottom=0;spacingTop=-2;fillColor=#dae8fc;strokeColor=#6c8ebf;endFill=1;strokeWidth=1.2;" parent="1" target="1LKEmVipVnCDEiK2z2R7-51" edge="1">
+          <mxGeometry x="0.5067" relative="1" as="geometry">
+            <mxPoint x="85" y="451.0000000000002" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="85" y="230" />
+            </Array>
+            <mxPoint x="280" y="451" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-30" value="&lt;code&gt;Gear&lt;/code&gt;" style="html=1;verticalAlign=bottom;endArrow=classicThin;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;spacingBottom=0;spacingTop=-2;fillColor=#dae8fc;strokeColor=#6c8ebf;endFill=1;strokeWidth=1.2;" parent="1" source="1LKEmVipVnCDEiK2z2R7-35" target="1LKEmVipVnCDEiK2z2R7-51" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="100" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="90" y="100" />
+            </Array>
+            <mxPoint x="295" y="100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-32" value="&lt;code&gt;GearReport&lt;/code&gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1.2;" parent="1" target="1LKEmVipVnCDEiK2z2R7-35" edge="1">
+          <mxGeometry x="0.4085" relative="1" as="geometry">
+            <mxPoint x="300" y="130" as="sourcePoint" />
+            <mxPoint x="100" y="130" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="300" y="300" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aM9ryv3xv72pqoxQDRHE-7" value="&lt;code&gt;AckermannControlCommand&lt;/code&gt;" style="html=1;verticalAlign=bottom;endArrow=classicThin;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;endFill=1;strokeWidth=1.2;" parent="1" source="1LKEmVipVnCDEiK2z2R7-35" target="1LKEmVipVnCDEiK2z2R7-51" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="90.01219512195121" y="159.26" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="180" y="130" />
+            </Array>
+            <mxPoint x="295" y="159.26" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-5" value="&lt;code&gt;VelocityReport&lt;/code&gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1.2;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="300" y="330" as="sourcePoint" />
+            <mxPoint x="85" y="330" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="190" y="330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-6" value="&lt;code&gt;SteeringReport&lt;/code&gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1.2;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="300" y="360" as="sourcePoint" />
+            <mxPoint x="85" y="360" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="250" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-11" value="&lt;code&gt;ControlModeReport&lt;/code&gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1.2;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="300" y="390" as="sourcePoint" />
+            <mxPoint x="85" y="390" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="260" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-53" value="" style="endArrow=classicThin;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;endFill=1;strokeWidth=1.2;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="-70" as="sourcePoint" />
+            <mxPoint x="85" y="-70" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="190" y="-70" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-54" value="&lt;code&gt;GNSS Pose&lt;br&gt;&lt;/code&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="1LKEmVipVnCDEiK2z2R7-53" vertex="1" connectable="0">
+          <mxGeometry x="-0.0318" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-55" value="" style="endArrow=classicThin;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;endFill=1;strokeWidth=1.2;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="-10" as="sourcePoint" />
+            <mxPoint x="85" y="-10" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="200" y="-10" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-56" value="&lt;code&gt;Lidar &lt;/code&gt;&lt;code&gt;PointCloud&lt;/code&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="1LKEmVipVnCDEiK2z2R7-55" vertex="1" connectable="0">
+          <mxGeometry x="-0.0318" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-57" value="" style="endArrow=classicThin;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;endFill=1;strokeWidth=1.2;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="-40" as="sourcePoint" />
+            <mxPoint x="85" y="-40" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="210" y="-40" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-58" value="&lt;code&gt;IMU Data&lt;br&gt;&lt;/code&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="1LKEmVipVnCDEiK2z2R7-57" vertex="1" connectable="0">
+          <mxGeometry x="-0.0318" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-59" value="" style="endArrow=classicThin;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;endFill=1;strokeWidth=1.2;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="20" as="sourcePoint" />
+            <mxPoint x="85" y="20" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="200" y="20" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-60" value="Camera Image" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="1LKEmVipVnCDEiK2z2R7-59" vertex="1" connectable="0">
+          <mxGeometry x="-0.0318" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-35" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="75" y="-310" width="10" height="770" as="geometry" />
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-64" value="Localization&lt;br&gt;Perception (Traffic Light Recognition)&lt;br&gt;Planning &lt;br&gt;Control&lt;br&gt;" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;labelBackgroundColor=none;" parent="1" target="1LKEmVipVnCDEiK2z2R7-63" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="85" y="50" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="85" y="60" />
+              <mxPoint x="115" y="60" />
+              <mxPoint x="115" y="80" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-63" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="80" y="70" width="10" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-66" value="" style="endArrow=classicThin;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#000000;endFill=1;strokeWidth=1.2;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="-100" as="sourcePoint" />
+            <mxPoint x="85" y="-100" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="190" y="-100" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-67" value="&lt;code&gt;Clock&lt;/code&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="1LKEmVipVnCDEiK2z2R7-66" vertex="1" connectable="0">
+          <mxGeometry x="-0.0318" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-70" value="opt If emergency" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;strokeColor=#d79b00;fontFamily=Helvetica;fontSize=8;fillColor=#ffe6cc;width=60;height=20;" parent="1" vertex="1">
+          <mxGeometry x="10" y="200" width="330" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-71" value="update&lt;br&gt;loop" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;strokeColor=default;fontFamily=Helvetica;fontSize=10;fontColor=default;fillColor=default;width=50;height=30;" parent="1" vertex="1">
+          <mxGeometry y="-130" width="420" height="600" as="geometry" />
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-74" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="305.01" y="270" width="10" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-75" value="EgoVehicle Update" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" parent="1" target="1LKEmVipVnCDEiK2z2R7-74" edge="1">
+          <mxGeometry x="-1" relative="1" as="geometry">
+            <mxPoint x="310.01" y="250" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="310.01" y="260" />
+              <mxPoint x="340.01" y="260" />
+              <mxPoint x="340.01" y="280" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-76" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="305" y="70" width="10" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-77" value="Environment Update" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;spacingBottom=17;" parent="1" target="1LKEmVipVnCDEiK2z2R7-76" edge="1">
+          <mxGeometry x="-0.7647" relative="1" as="geometry">
+            <mxPoint x="310" y="50" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="310" y="60" />
+              <mxPoint x="340" y="60" />
+              <mxPoint x="340" y="80" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-33" value="" style="endArrow=classicThin;html=1;rounded=0;endFill=1;strokeWidth=1.2;" parent="1" edge="1" target="1LKEmVipVnCDEiK2z2R7-35" source="1LKEmVipVnCDEiK2z2R7-51">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="-280" as="sourcePoint" />
+            <mxPoint x="85" y="-280" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="180" y="-310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-34" value="&lt;code&gt;Clock&lt;/code&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="1LKEmVipVnCDEiK2z2R7-33" vertex="1" connectable="0">
+          <mxGeometry x="-0.0318" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-36" value="" style="endArrow=classicThin;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;endFill=1;strokeWidth=1.2;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="-250" as="sourcePoint" />
+            <mxPoint x="85" y="-250" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="190" y="-250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-37" value="&lt;code&gt;GNSS Pose&lt;br&gt;&lt;/code&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="1LKEmVipVnCDEiK2z2R7-36" vertex="1" connectable="0">
+          <mxGeometry x="-0.0318" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-40" value="" style="endArrow=classicThin;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;endFill=1;strokeWidth=1.2;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="-190" as="sourcePoint" />
+            <mxPoint x="85" y="-190" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="200" y="-190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-41" value="&lt;code&gt;Lidar &lt;/code&gt;&lt;code&gt;PointCloud&lt;/code&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="1LKEmVipVnCDEiK2z2R7-40" vertex="1" connectable="0">
+          <mxGeometry x="-0.0318" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-42" value="" style="endArrow=classicThin;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;endFill=1;strokeWidth=1.2;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="-220" as="sourcePoint" />
+            <mxPoint x="85" y="-220" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="210" y="-220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-43" value="&lt;code&gt;IMU Data&lt;br&gt;&lt;/code&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="1LKEmVipVnCDEiK2z2R7-42" vertex="1" connectable="0">
+          <mxGeometry x="-0.0318" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-38" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="80" y="-160" width="10" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="1LKEmVipVnCDEiK2z2R7-39" value="Automatic position initialization" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" parent="1" target="1LKEmVipVnCDEiK2z2R7-38" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="85" y="-180" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="85" y="-170" />
+              <mxPoint x="115" y="-170" />
+              <mxPoint x="115" y="-150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="k5-iX3MmnJj92KhL8yC--1" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="305" y="-160" width="10" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="k5-iX3MmnJj92KhL8yC--2" value="Environment Update" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;spacingBottom=17;" edge="1" parent="1" target="k5-iX3MmnJj92KhL8yC--1">
+          <mxGeometry x="-0.7647" relative="1" as="geometry">
+            <mxPoint x="310" y="-180" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="310" y="-170" />
+              <mxPoint x="340" y="-170" />
+              <mxPoint x="340" y="-150" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="k5-iX3MmnJj92KhL8yC--8" value="EgoVehicle Spawn" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;spacingBottom=17;" edge="1" parent="1" target="k5-iX3MmnJj92KhL8yC--7">
+          <mxGeometry x="-0.7647" relative="1" as="geometry">
+            <mxPoint x="310.01" y="-300" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="310.01" y="-290" />
+              <mxPoint x="340.01" y="-290" />
+              <mxPoint x="340.01" y="-270" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="k5-iX3MmnJj92KhL8yC--7" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="305.01" y="-280" width="10" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
