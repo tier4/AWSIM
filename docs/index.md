@@ -9,7 +9,7 @@ AWSIM is the best scene for [Autoware](https://github.com/autowarefoundation/aut
 - Many predefined components included (Vehicle dynamic models, Sensor models, Environment configuration, ROS2 communication, etc)
 - Support for Ubuntu 22.04 and windows10/11
 - ROS2 native communication (humble)
-- Open sourced
+- [Open sourced](https://github.com/tier4/AWSIM)
 - Made with [Unity](https://unity.com/)
 
 ## Try the simulation demo yourself!

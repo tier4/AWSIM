@@ -17,14 +17,6 @@ The simulation provided in the AWSIM demo is configured as follows:
 |Traffic|Randomized traffic|
 |ROS2|humble|
 
-
-## Prerequisites
-
-!!! warning
-
-    If you use Ubuntu 20.04 and ROS 2 Galactic version, please reffer to [v1.0.2](https://github.com/tier4/AWSIM/releases/tag/v1.0.2) [QuickStartDemo documentation](https://github.com/tier4/AWSIM/blob/v1.0.2/docs/GettingStarted/QuickStartDemo/index.md).
-
-
 ### PC specs
 
 Please make sure that your machine meets the following requirements in order to run the simulation correctly:
