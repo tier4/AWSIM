@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f45417c8f809be43a8e79aa4a0c9840, type: 3}
+  m_Name: DefaultVehicleParamsRoadCourse
+  m_EditorClassIdentifier: 
+  mass: 790
+  centerOfMass: {x: 0, y: 0.2, z: 0}
+  Inertia: {x: 550, y: 800, z: 265}
+  lf: 1.7
+  lr: -1.3
+  twf: 0.838
+  twr: 0.79
+  w1pos: {x: -0.838, y: 0.626, z: 1.7}
+  w2pos: {x: 0.838, y: 0.626, z: 1.7}
+  w3pos: {x: -0.79, y: 0.626, z: -1.3}
+  w4pos: {x: 0.79, y: 0.626, z: -1.3}
+  maxSteeringAngle: 240
+  steeringRatio: -15.0
+  steeringDelay: 3
+  steeringDelaySec: 0.04
+  steeringBandwidth: 3
+  steeringRate: 500
+  numGears: 6
+  gearRatio:
+  - 8.75
+  - 5.625
+  - 4.1427
+  - 3.3462
+  - 2.88
+  - 2.666667
+  enginePoly:
+  - -0.0000456821
+  - 0.489643
+  - -754.247
+  throttleBandwidth: 1
+  throttleRate: 50
+  torqueRate: 300
+  numPointsThrottleMap: 4
+  throttleMapInput:
+  - 0
+  - 0.2
+  - 0.5
+  - 1
+  throttleMapOutput:
+  - 0
+  - 0.4
+  - 0.7
+  - 1
+  maxEngineRpm: 7500
+  minEngineMapRpm: 3000
+  engineFrictionTorque: 30
+  engineInertia: 0.2
+  frontDifferentialDamping: 0
+  rearDifferentialDamping: 5
+  rearSolidAxle: 0
+  brakeDelay: 20
+  brakeDelaySec: 0.04
+  maxBrakeKpa: 6000
+  brakeKpaToNm: 1
+  brakeBias: 0.54
+  brakeBandwidth: 5
+  brakeRate: 180000
+  kArbFront: 463593
+  kArbRear: 358225
+  kSpring: 200000
+  cDamper: 8000
+  lSpring: 0.3
+  frontTyreParams: {fileID: 11400000, guid: 415f597d8393ec54b837ddd026f2278b, type: 2}
+  rearTyreParams: {fileID: 11400000, guid: 3164c1bdbc9081c45962a0135df1107c, type: 2}
+  tAmb: 20
+  tTrack: 25
+  Af: 1
+  ClF: 0.65
+  ClR: 1.18
+  frontDownforcePos: {x: 0, y: 0, z: 1.7}
+  rearDownforcePos: {x: 0, y: 0, z: -1.3}
+  Cd: 0.8581
+  dragForcePos: {x: 0, y: 0, z: 0}

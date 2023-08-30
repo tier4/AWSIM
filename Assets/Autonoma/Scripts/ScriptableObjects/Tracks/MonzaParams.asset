@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e01dee96ac4de4c62956bb42688fff1d, type: 3}
+  m_Name: MonzaParams
+  m_EditorClassIdentifier: 
+  TrackName: Monza
+  LAT_ORIGIN: 45.61898112499332
+  LON_ORIGIN: 9.281106620617265
+  HEIGHT_ORIGIN: 190
+  trackRotation: {x: 0, y: -90, z: 0}
+  carRotation: {x: 0, y: 0, z: 0}
+  trackScaling: {x: 1, y: 1, z: 1}
+  spawnDeltaPos: {x: 0, y: 0, z: -10}
+  carSpawnPositions:
+  - {x: 0, y: -6, z: 0}
+  - {x: -10, y: -6, z: 0}
+  - {x: -20, y: -6, z: 0}
+  - {x: -30, y: -6, z: 0}
+  - {x: -40, y: -6, z: 0}
+  - {x: -50, y: -6, z: 0}
+  - {x: -60, y: -6, z: 0}
+  - {x: -70, y: -6, z: 0}
+  - {x: -80, y: -6, z: 0}
+  - {x: -90, y: -6, z: 0}
+  - {x: -100, y: -6, z: 0}
+  - {x: -110, y: -6, z: 0}
+  - {x: -120, y: -6, z: 0}
+  - {x: -130, y: -6, z: 0}
+  - {x: -140, y: -6, z: 0}
+  - {x: -150, y: -6, z: 0}
+  - {x: -160, y: -6, z: 0}
+  - {x: -170, y: -6, z: 0}
+  - {x: -180, y: -6, z: 0}
+  - {x: -190, y: -6, z: 0}
+  - {x: -200, y: -6, z: 0}
+  - {x: -210, y: -6, z: 0}
+  - {x: -220, y: -6, z: 0}
+  - {x: -230, y: -6, z: 0}
+  - {x: -240, y: -6, z: 0}
+  - {x: -250, y: -6, z: 0}
+  - {x: -260, y: -6, z: 0}
+  - {x: -270, y: -6, z: 0}
+  - {x: -280, y: -6, z: 0}
+  - {x: -290, y: -6, z: 0}
+  - {x: -300, y: -6, z: 0}
+  - {x: -310, y: -6, z: 0}
+  - {x: -320, y: -6, z: 0}
+  - {x: -330, y: -6, z: 0}
+  - {x: -340, y: -6, z: 0}
+  - {x: -350, y: -6, z: 0}
+  - {x: -360, y: -6, z: 0}
+  - {x: -370, y: -6, z: 0}
+  - {x: -380, y: -6, z: 0}
+  - {x: -390, y: -6, z: 0}
+  - {x: -400, y: -6, z: 0}
+  - {x: -410, y: -6, z: 0}
+  - {x: -420, y: -6, z: 0}
+  - {x: -430, y: -6, z: 0}
+  - {x: -440, y: -6, z: 0}
+  - {x: -450, y: -6, z: 0}
+  - {x: -460, y: -6, z: 0}
+  - {x: -470, y: -6, z: 0}
+  - {x: -480, y: -6, z: 0}
+  - {x: -490, y: -6, z: 0}
+  - {x: -500, y: -6, z: 0}
+  - {x: -510, y: -6, z: 0}
+  trackInfo: {fileID: 11400000, guid: f39c9be160acf440fbe9f2fd474076f8, type: 2}

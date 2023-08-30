@@ -114,6 +114,38 @@ public class ROS2Node
         ThrowIfUninitialized("remove publisher");
         return node.RemovePublisher(publisher);
     }
+
+    /// <inheritdoc cref="INode.CreateService"/>
+    public Service<I, O> CreateService<I, O>(string topic, Func<I, O> callback, QualityOfServiceProfile qos = null)
+        where I : Message, new()
+        where O : Message, new()
+    {
+        ThrowIfUninitialized("create service");
+        return node.CreateService<I, O>(topic, callback, qos);
+    }
+
+    /// <inheritdoc cref="INode.RemoveService"/>
+    public bool RemoveService(IServiceBase service)
+    {
+        ThrowIfUninitialized("remove service");
+        return node.RemoveService(service);
+    }
+
+    /// <inheritdoc cref="INode.CreateClient"/>
+    public Client<I, O> CreateClient<I, O>(string topic, QualityOfServiceProfile qos = null)
+        where I : Message, new()
+        where O : Message, new()
+    {
+        ThrowIfUninitialized(callContext: "create client");
+        return node.CreateClient<I, O>(topic, qos);
+    }
+
+    /// <inheritdoc cref="INode.RemoveClient"/>
+    public bool RemoveClient(IClientBase client)
+    {
+        ThrowIfUninitialized(callContext: "remove client");
+        return node.RemoveClient(client);
+    }
 }
 
 }  // namespace ROS2
