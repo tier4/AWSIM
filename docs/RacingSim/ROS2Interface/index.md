@@ -2,7 +2,7 @@ The tables of topics the racing sim publishes and subscribes from can be found b
 The list can be extended by the user for the specific use case.
 To see how to custom messages type for ROS2, please refer to [Add custom ROS2 message type](../../Components/ROS2/AddCustomROS2MessageType/index.md) document.
 
-**The custom messages used for the racing simulator can be found [HERE](https://gitlab.com/autonoma-external/sim-msgs).**
+**The custom messages used for the racing simulator can be found [HERE](https://github.com/autonoma/sim-msgs).**
 
 ## Publisher list
 
@@ -28,3 +28,7 @@ To see how to custom messages type for ROS2, please refer to [Add custom ROS2 me
 |:--|:--|:--|:--|:--|:--|
 |Vehicle|`/vehicle_inputs`|`autonoma_msgs/VehicleInputs`|none|`100`|`Reliable`, `Volatile`, `Keep last/10`|
 |Vehicle|`/to_raptor`|`autonoma_msgs/ToRaptor`|none|N/A|`Reliable`, `Volatile`, `Keep last/10`|
+
+
+## Block Diagram
+![](AV21R_sensors.png)
