@@ -127,17 +127,6 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence AddNodeRaysVelocityDistortion(string identifier, Vector3 velocity, Vector3 angularVelocity)
-        {
-            CheckNodeNotExist(identifier);
-            RGLNodeHandle handle = new RGLNodeHandle();
-            RGLNativeAPI.NodeRaysVelocityDistortion(ref handle.Node, velocity, angularVelocity);
-            handle.Identifier = identifier;
-            handle.Type = RGLNodeType.RAYS_DISTORT;
-            AddNode(handle);
-            return this;
-        }
-
         public RGLNodeSequence AddNodeRaytrace(string identifier)
         {
             CheckNodeNotExist(identifier);
@@ -317,10 +306,17 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence UpdateNodeRaysVelocityDistortion(string identifier, Vector3 velocity, Vector3 angularVelocity)
+        public RGLNodeSequence UpdateNodeRaytrace(string identifier)
         {
-            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYS_DISTORT);
-            RGLNativeAPI.NodeRaysVelocityDistortion(ref handle.Node, velocity, angularVelocity);
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
+            RGLNativeAPI.NodeRaytrace(ref handle.Node);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodeRaytrace(string identifier, Vector3 linearVelocity, Vector3 angularVelocity)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
+            RGLNativeAPI.NodeRaytrace(ref handle.Node, linearVelocity, angularVelocity);
             return this;
         }
 
