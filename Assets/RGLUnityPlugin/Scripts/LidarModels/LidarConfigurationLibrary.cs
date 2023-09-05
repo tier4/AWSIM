@@ -142,6 +142,7 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.HesaiAT128E2X,
             horizontalResolution = 0.2f,
+            laserArrayCycleTime = 0.041666f,
             minHAngle = -60.0f,
             maxHAngle = 60.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
