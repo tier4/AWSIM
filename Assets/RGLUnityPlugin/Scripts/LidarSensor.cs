@@ -252,8 +252,10 @@ namespace RGLUnityPlugin
             rglSubgraphToLidarFrame.UpdateNodePointsTransform(toLidarFrameNodeId, lidarPose.inverse);
 
             // Set lidar velocity
-            if(applyVelocityDistortion)
-                DistortSensorRays();
+            if (applyVelocityDistortion)
+            {
+                SetVelocityToRaytrace();
+            }
 
             rglGraphLidar.Run();
 
@@ -272,18 +274,22 @@ namespace RGLUnityPlugin
             currentTransform = gameObject.transform.localToWorldMatrix;
         }
 
-        public void DistortSensorRays()
+        public void SetVelocityToRaytrace()
         {
             // Calculate delta transform of lidar.
+            // Velocities must be in sensor-local coordinate frame.
             // Sensor linear velocity in m/s.
-            Vector3 linearVelocity = (lastTransform.GetColumn(3) - currentTransform.GetColumn(3)) / Time.deltaTime;
+            Vector3 globalLinearVelocity = (currentTransform.GetColumn(3) - lastTransform.GetColumn(3)) / Time.deltaTime;
+            Vector3 localLinearVelocity = gameObject.transform.InverseTransformDirection(globalLinearVelocity);
 
-            Vector3 deltaRotation = Quaternion.LookRotation(lastTransform.GetColumn(2), lastTransform.GetColumn(1)).eulerAngles
-                                  - Quaternion.LookRotation(currentTransform.GetColumn(2), currentTransform.GetColumn(1)).eulerAngles;
+            Vector3 deltaRotation = Quaternion.LookRotation(currentTransform.GetColumn(2), currentTransform.GetColumn(1)).eulerAngles
+                                  - Quaternion.LookRotation(lastTransform.GetColumn(2), lastTransform.GetColumn(1)).eulerAngles;
+            // Fix delta rotation when switching between 0 and 360.
+            deltaRotation = new Vector3(Mathf.DeltaAngle(0, deltaRotation.x), Mathf.DeltaAngle(0, deltaRotation.y), Mathf.DeltaAngle(0, deltaRotation.z));
             // Sensor angular velocity in rad/s.
-            Vector3 angularVelocity = (deltaRotation * Mathf.Deg2Rad) / Time.deltaTime;
+            Vector3 localAngularVelocity = (deltaRotation * Mathf.Deg2Rad) / Time.deltaTime;
 
-            rglGraphLidar.UpdateNodeRaytrace(lidarRaytraceNodeId, linearVelocity, angularVelocity);
+            rglGraphLidar.UpdateNodeRaytrace(lidarRaytraceNodeId, localLinearVelocity, localAngularVelocity);
         }
     }
 }
