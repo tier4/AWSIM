@@ -68,9 +68,9 @@ namespace RGLUnityPlugin
         [DrawIf("rayGenerateMethod", RayGenerateMethod.RotatingLidarEqualRange)] [Min(0)] public float maxRange;
 
         /// <summary>
-        /// Time offset between two consecutive firings of the whole laser array.
+        /// Time between two consecutive firings of the whole laser array (in milliseconds). Usually, it consists of firing time for all the lasers and recharge time.
         /// </summary>
-        [Min(0)] public float rechargeTimeOffset;
+        [Min(0)] public float laserArrayCycleTime;
 
         /// <summary>
         /// Lidar noise paramteres
@@ -172,7 +172,7 @@ namespace RGLUnityPlugin
                 for (int laserId = 0; laserId < laserArray.lasers.Length; laserId++)
                 {
                     int idx = laserId + hStep * laserArray.lasers.Length;
-                    rayTimeOffsets[idx] = laserArray.lasers[laserId].timeOffset + rechargeTimeOffset * hStep;
+                    rayTimeOffsets[idx] = laserArray.lasers[laserId].timeOffset + laserArrayCycleTime * hStep;
                 }
             }
             return rayTimeOffsets;
