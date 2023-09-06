@@ -60,7 +60,7 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.VelodyneVLP16,
             horizontalResolution = 0.2f,
-            rechargeTimeOffset = 0.018432f,
+            laserArrayCycleTime = 0.055296f,
             minHAngle = 0.0f,
             maxHAngle = 360.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
@@ -73,7 +73,7 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.VelodyneVLP32C,
             horizontalResolution = 0.2f,
-            rechargeTimeOffset = 0.018432f,
+            laserArrayCycleTime = 0.055296f,
             minHAngle = 0.0f,
             maxHAngle = 360.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
@@ -86,7 +86,7 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.VelodyneVLS128,
             horizontalResolution = 0.2f,
-            rechargeTimeOffset = 0.007995f,
+            laserArrayCycleTime = 0.0585688f,
             minHAngle = 0.0f,
             maxHAngle = 360.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
@@ -99,7 +99,7 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.HesaiPandarQT,
             horizontalResolution = 0.6f,
-            rechargeTimeOffset = 0.02571f,
+            laserArrayCycleTime = 0.16667f,
             minHAngle = 0.0f,
             maxHAngle = 360.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
@@ -112,7 +112,7 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.HesaiPandar40P,
             horizontalResolution = 0.2f,
-            rechargeTimeOffset = 0.02858f,
+            laserArrayCycleTime = 0.05556f,
             minHAngle = 0.0f,
             maxHAngle = 360.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
@@ -142,6 +142,7 @@ namespace RGLUnityPlugin
         {
             laserArray = LaserArrayLibrary.HesaiAT128E2X,
             horizontalResolution = 0.2f,
+            laserArrayCycleTime = 0.041666f,
             minHAngle = -60.0f,
             maxHAngle = 60.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,

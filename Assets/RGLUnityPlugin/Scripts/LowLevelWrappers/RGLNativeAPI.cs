@@ -85,13 +85,13 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_rays_transform(ref IntPtr node, IntPtr transform);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_rays_velocity_distort(ref IntPtr node, IntPtr sensor_linear_velocity, IntPtr sensor_angular_velocity);
-
-        [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_transform(ref IntPtr node, IntPtr transform);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_raytrace(ref IntPtr node, IntPtr scene);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_raytrace_with_distortion(ref IntPtr node, IntPtr scene, IntPtr linear_velocity, IntPtr angular_velocity);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_format(ref IntPtr node, IntPtr fields, int field_count);
@@ -359,21 +359,6 @@ namespace RGLUnityPlugin
             }
         }
 
-        public static void NodeRaysVelocityDistortion(ref IntPtr node, Vector3 linearVelocity, Vector3 angularVelocity)
-        {
-            var linearVelocityFloats = IntoVec3f(linearVelocity);
-            var angularVelocityFloats = IntoVec3f(angularVelocity);
-
-            unsafe
-            {
-                fixed (float* linearVelocityFloatsPtr = linearVelocityFloats)
-                   fixed (float* angularVelocityFloatsPtr = angularVelocityFloats)
-                   {
-                        CheckErr(rgl_node_rays_velocity_distort(ref node, (IntPtr) linearVelocityFloatsPtr, (IntPtr) angularVelocityFloatsPtr));
-                   }
-            }
-        }
-
         public static void NodePointsTransform(ref IntPtr node, Matrix4x4 transform)
         {
             var tfFloats = IntoMat3x4f(transform);
@@ -389,6 +374,24 @@ namespace RGLUnityPlugin
         public static void NodeRaytrace(ref IntPtr node)
         {
             CheckErr(rgl_node_raytrace(ref node, IntPtr.Zero));
+        }
+
+        // Raytrace with velocity distortion
+        public static void NodeRaytrace(ref IntPtr node, Vector3 linearVelocity, Vector3 angularVelocity)
+        {
+            var linearVelocityFloats = IntoVec3f(linearVelocity);
+            var angularVelocityFloats = IntoVec3f(angularVelocity);
+
+            unsafe
+            {
+                fixed (float* linearVelocityFloatsPtr = linearVelocityFloats)
+                {
+                    fixed (float* angularVelocityFloatsPtr = angularVelocityFloats)
+                    {
+                        CheckErr(rgl_node_raytrace_with_distortion(ref node, IntPtr.Zero, (IntPtr) linearVelocityFloatsPtr, (IntPtr) angularVelocityFloatsPtr));
+                    }
+                }
+            }
         }
 
         public static void NodePointsFormat(ref IntPtr node, RGLField[] fields)

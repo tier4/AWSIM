@@ -48,7 +48,7 @@ namespace RGLUnityPlugin
         public int ringId;
 
         /// <summary>
-        /// Time offset of the laser firing.
+        /// Time offset of the laser firing (in milliseconds).
         /// </summary>
         public float timeOffset;
 
