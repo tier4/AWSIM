@@ -520,6 +520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshSource: 2
+  semanticCategoryDictionaryFile: 
 --- !u!114 &543989982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -838,6 +839,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 210.75
       objectReference: {fileID: 0}
+    - target: {fileID: 5984117683371609910, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: egoVehicleTransform
+      value: 
+      objectReference: {fileID: 7808269042169720464}
     - target: {fileID: 6322170473522324864, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
@@ -894,6 +899,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7375914829493357424, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: egoVehicleTransform
+      value: 
+      objectReference: {fileID: 7808269042169720464}
     - target: {fileID: 9027057598789494176, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.size
       value: 10
@@ -4239,12 +4248,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1416174297}
     m_Modifications:
-    - target: {fileID: 2019290181275176336, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
-      propertyPath: EnableGravity
-      value: 1
     - target: {fileID: 1195138626504501105, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: Topic
       value: /awsim/ground_truth/localization/kinematic_state
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019290181275176336, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
+      propertyPath: EnableGravity
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2963106999894261215, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_Radius

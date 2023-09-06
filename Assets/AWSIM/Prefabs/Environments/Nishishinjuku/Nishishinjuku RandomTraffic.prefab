@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 386729547670564913}
   - component: {fileID: 386729547670564912}
   - component: {fileID: 9027057600315794713}
+  - component: {fileID: 5040065929253616820}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 35
   m_TagString: Untagged
@@ -231,6 +232,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &5040065929253616820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729547670564914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1446
+  relationID: 45050000000000005005000000000000
 --- !u!1 &386729547708490243
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,6 +394,7 @@ GameObject:
   - component: {fileID: 386729547717934237}
   - component: {fileID: 386729547717934236}
   - component: {fileID: 9027057600462144914}
+  - component: {fileID: 8400159285191304266}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 34
   m_TagString: Untagged
@@ -504,6 +520,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &8400159285191304266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729547717934238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1547
+  relationID: 7f050000000000008005000000000000
 --- !u!1 &386729547756434284
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,6 +547,7 @@ GameObject:
   - component: {fileID: 386729547756434275}
   - component: {fileID: 386729547756434274}
   - component: {fileID: 9027057599132620548}
+  - component: {fileID: 4314416365118114770}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 21
   m_TagString: Untagged
@@ -642,6 +673,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &4314416365118114770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729547756434284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1790
+  relationID: 06060000000000000706000000000000
 --- !u!1 &386729547757491529
 GameObject:
   m_ObjectHideFlags: 0
@@ -925,6 +970,7 @@ GameObject:
   - component: {fileID: 386729547800171912}
   - component: {fileID: 386729547800171915}
   - component: {fileID: 9027057600134927591}
+  - component: {fileID: 5293294883736063875}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 20
   m_TagString: Untagged
@@ -1050,6 +1096,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &5293294883736063875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729547800171925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1874
+  relationID: 3a060000000000003b06000000000000
 --- !u!1 &386729547813533082
 GameObject:
   m_ObjectHideFlags: 0
@@ -1198,6 +1258,7 @@ GameObject:
   - component: {fileID: 386729547818187874}
   - component: {fileID: 386729547818187885}
   - component: {fileID: 9027057599758871927}
+  - component: {fileID: 3702323177471157349}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 26
   m_TagString: Untagged
@@ -1323,6 +1384,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &3702323177471157349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729547818187887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1722
+  relationID: e905000000000000
 --- !u!1 &386729547821216858
 GameObject:
   m_ObjectHideFlags: 0
@@ -1336,6 +1411,7 @@ GameObject:
   - component: {fileID: 386729547821216857}
   - component: {fileID: 386729547821216856}
   - component: {fileID: 9027057600436158242}
+  - component: {fileID: 2161840569544550933}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 67
   m_TagString: Untagged
@@ -1461,6 +1537,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &2161840569544550933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729547821216858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1794
+  relationID: 08060000000000000906000000000000
 --- !u!1 &386729547836151802
 GameObject:
   m_ObjectHideFlags: 0
@@ -1609,6 +1699,7 @@ GameObject:
   - component: {fileID: 386729547890213761}
   - component: {fileID: 386729547890213760}
   - component: {fileID: 9027057599580380240}
+  - component: {fileID: 2014119469055154743}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_Black01_Geo 4
   m_TagString: Untagged
@@ -1735,6 +1826,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &2014119469055154743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729547890213762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1674
+  relationID: cb05000000000000d805000000000000de05000000000000
 --- !u!1 &386729547891904805
 GameObject:
   m_ObjectHideFlags: 0
@@ -1883,6 +1988,7 @@ GameObject:
   - component: {fileID: 386729547903015081}
   - component: {fileID: 386729547903015080}
   - component: {fileID: 9027057600083820712}
+  - component: {fileID: 361225878094309245}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 13
   m_TagString: Untagged
@@ -2009,6 +2115,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &361225878094309245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729547903015082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1480
+  relationID: 57050000000000005c050000000000005d05000000000000
 --- !u!1 &386729547906528344
 GameObject:
   m_ObjectHideFlags: 0
@@ -2157,6 +2277,7 @@ GameObject:
   - component: {fileID: 386729547928138101}
   - component: {fileID: 386729547928138100}
   - component: {fileID: 9027057599244679494}
+  - component: {fileID: 2726680303733097549}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 62
   m_TagString: Untagged
@@ -2282,6 +2403,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &2726680303733097549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729547928138102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1449
+  relationID: 460500000000000048050000000000004d05000000000000
 --- !u!1 &386729547932337281
 GameObject:
   m_ObjectHideFlags: 0
@@ -2295,6 +2430,7 @@ GameObject:
   - component: {fileID: 386729547932337284}
   - component: {fileID: 386729547932337287}
   - component: {fileID: 9027057598802156512}
+  - component: {fileID: 7125957014469871087}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo
   m_TagString: Untagged
@@ -2421,6 +2557,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &7125957014469871087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729547932337281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1554
+  relationID: 810500000000000087050000000000008805000000000000890500000000000095cb2d0000000000
 --- !u!1 &386729547932608136
 GameObject:
   m_ObjectHideFlags: 0
@@ -2434,6 +2584,7 @@ GameObject:
   - component: {fileID: 386729547932608143}
   - component: {fileID: 386729547932608142}
   - component: {fileID: 9027057598680168706}
+  - component: {fileID: 4859336567426529983}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 36
   m_TagString: Untagged
@@ -2559,6 +2710,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &4859336567426529983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729547932608136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1802
+  relationID: 0c060000000000001a06000000000000
 --- !u!1 &386729547933447592
 GameObject:
   m_ObjectHideFlags: 0
@@ -2572,6 +2737,7 @@ GameObject:
   - component: {fileID: 386729547933447599}
   - component: {fileID: 386729547933447598}
   - component: {fileID: 9027057599908127143}
+  - component: {fileID: 4406291207562677259}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 51
   m_TagString: Untagged
@@ -2697,6 +2863,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &4406291207562677259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729547933447592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1468
+  relationID: 510500000000000055050000000000005605000000000000
 --- !u!1 &386729547948263993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2710,6 +2890,7 @@ GameObject:
   - component: {fileID: 386729547948263996}
   - component: {fileID: 386729547948263999}
   - component: {fileID: 9027057600781198637}
+  - component: {fileID: 3296698052667331820}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 24
   m_TagString: Untagged
@@ -2835,6 +3016,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &3296698052667331820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729547948263993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1731
+  relationID: ea05000000000000eb05000000000000ec05000000000000
 --- !u!1 &386729547955659257
 GameObject:
   m_ObjectHideFlags: 0
@@ -2983,6 +3178,7 @@ GameObject:
   - component: {fileID: 386729547968644505}
   - component: {fileID: 386729547968644504}
   - component: {fileID: 9027057600553058145}
+  - component: {fileID: 4714690091142197493}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_Black01_Geo 13
   m_TagString: Untagged
@@ -3108,6 +3304,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &4714690091142197493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729547968644506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1661
+  relationID: c005000000000000c605000000000000
 --- !u!1 &386729547985530047
 GameObject:
   m_ObjectHideFlags: 0
@@ -3121,6 +3331,7 @@ GameObject:
   - component: {fileID: 386729547985530034}
   - component: {fileID: 386729547985530045}
   - component: {fileID: 9027057598951776850}
+  - component: {fileID: 4041261627704649983}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 29
   m_TagString: Untagged
@@ -3246,6 +3457,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &4041261627704649983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729547985530047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1571
+  relationID: 8a050000000000008d050000000000008e050000000000009405000000000000
 --- !u!1 &386729547995647856
 GameObject:
   m_ObjectHideFlags: 0
@@ -4069,6 +4294,7 @@ GameObject:
   - component: {fileID: 386729548047263075}
   - component: {fileID: 386729548047263074}
   - component: {fileID: 9027057600383630495}
+  - component: {fileID: 3502237245516878241}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_Black01_Geo 2
   m_TagString: Untagged
@@ -4195,6 +4421,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &3502237245516878241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548047263084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1688
+  relationID: cf05000000000000d105000000000000
 --- !u!1 &386729548048001012
 GameObject:
   m_ObjectHideFlags: 0
@@ -4208,6 +4448,7 @@ GameObject:
   - component: {fileID: 386729548048001003}
   - component: {fileID: 386729548048001002}
   - component: {fileID: 9027057599907939997}
+  - component: {fileID: 7550238923671256438}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 57
   m_TagString: Untagged
@@ -4333,6 +4574,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &7550238923671256438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548048001012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1808
+  relationID: 0e060000000000001006000000000000
 --- !u!1 &386729548054864307
 GameObject:
   m_ObjectHideFlags: 0
@@ -4346,6 +4601,7 @@ GameObject:
   - component: {fileID: 386729548054864310}
   - component: {fileID: 386729548054864305}
   - component: {fileID: 9027057600105233319}
+  - component: {fileID: 2382666173452585807}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 9
   m_TagString: Untagged
@@ -4472,6 +4728,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &2382666173452585807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548054864307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1696
+  relationID: d305000000000000df05000000000000e105000000000000
 --- !u!1 &386729548068907575
 GameObject:
   m_ObjectHideFlags: 0
@@ -4755,6 +5025,7 @@ GameObject:
   - component: {fileID: 386729548098458894}
   - component: {fileID: 386729548098458889}
   - component: {fileID: 9027057599033869384}
+  - component: {fileID: 9001344152051767865}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 14
   m_TagString: Untagged
@@ -4880,6 +5151,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &9001344152051767865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548098458891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1729
+  relationID: ea05000000000000eb05000000000000ec05000000000000
 --- !u!1 &386729548098774529
 GameObject:
   m_ObjectHideFlags: 0
@@ -4893,6 +5178,7 @@ GameObject:
   - component: {fileID: 386729548098774532}
   - component: {fileID: 386729548098774535}
   - component: {fileID: 9027057599697472594}
+  - component: {fileID: 7090422261784904591}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 7
   m_TagString: Untagged
@@ -5019,6 +5305,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &7090422261784904591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548098774529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1621
+  relationID: aa05000000000000ae05000000000000af05000000000000
 --- !u!1 &386729548099626413
 GameObject:
   m_ObjectHideFlags: 0
@@ -5032,6 +5332,7 @@ GameObject:
   - component: {fileID: 386729548099626400}
   - component: {fileID: 386729548099626403}
   - component: {fileID: 9027057599222734425}
+  - component: {fileID: 4100818915650395978}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_Black01_Geo 18
   m_TagString: Untagged
@@ -5157,6 +5458,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &4100818915650395978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548099626413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1653
+  relationID: be05000000000000bf05000000000000
 --- !u!1 &386729548102957781
 GameObject:
   m_ObjectHideFlags: 0
@@ -5440,6 +5755,7 @@ GameObject:
   - component: {fileID: 386729548134214420}
   - component: {fileID: 386729548134214423}
   - component: {fileID: 9027057598832973940}
+  - component: {fileID: 6325621323199427198}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo002
   m_TagString: Untagged
@@ -5566,6 +5882,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &6325621323199427198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548134214417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1596
+  relationID: 9d050000000000009f05000000000000a005000000000000a105000000000000a205000000000000
 --- !u!1 &386729548137537101
 GameObject:
   m_ObjectHideFlags: 0
@@ -5579,6 +5909,7 @@ GameObject:
   - component: {fileID: 386729548137537088}
   - component: {fileID: 386729548137537091}
   - component: {fileID: 9027057599347989533}
+  - component: {fileID: 9046025951632272118}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 42
   m_TagString: Untagged
@@ -5704,6 +6035,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &9046025951632272118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548137537101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1643
+  relationID: b805000000000000b905000000000000
 --- !u!1 &386729548153602812
 GameObject:
   m_ObjectHideFlags: 0
@@ -5852,6 +6197,7 @@ GameObject:
   - component: {fileID: 386729548161728628}
   - component: {fileID: 386729548161728631}
   - component: {fileID: 9027057599649122590}
+  - component: {fileID: 7711990194485471991}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 48
   m_TagString: Untagged
@@ -5977,6 +6323,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &7711990194485471991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548161728625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1478
+  relationID: 57050000000000005c050000000000005d05000000000000
 --- !u!1 &386729548179131750
 GameObject:
   m_ObjectHideFlags: 0
@@ -6395,6 +6755,7 @@ GameObject:
   - component: {fileID: 386729548203906483}
   - component: {fileID: 386729548203906482}
   - component: {fileID: 9027057598703296338}
+  - component: {fileID: 1760778627702501586}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 64
   m_TagString: Untagged
@@ -6520,6 +6881,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &1760778627702501586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548203906492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1461
+  relationID: 4e050000000000004f05000000000000
 --- !u!1 &386729548225647461
 GameObject:
   m_ObjectHideFlags: 0
@@ -6533,6 +6908,7 @@ GameObject:
   - component: {fileID: 386729548225647384}
   - component: {fileID: 386729548225647387}
   - component: {fileID: 9027057599657845530}
+  - component: {fileID: 2475046828313897598}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 39
   m_TagString: Untagged
@@ -6658,6 +7034,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &2475046828313897598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548225647461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1821
+  relationID: 13060000000000001606000000000000
 --- !u!1 &386729548256620926
 GameObject:
   m_ObjectHideFlags: 0
@@ -6806,6 +7196,7 @@ GameObject:
   - component: {fileID: 386729548271278809}
   - component: {fileID: 386729548271278808}
   - component: {fileID: 9027057600254000924}
+  - component: {fileID: 2393649778853564110}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_Black01_Geo 7
   m_TagString: Untagged
@@ -6932,6 +7323,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &2393649778853564110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548271278810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1407
+  relationID: 320500000000000033050000000000003f05000000000000
 --- !u!1 &386729548273250093
 GameObject:
   m_ObjectHideFlags: 0
@@ -6945,6 +7350,7 @@ GameObject:
   - component: {fileID: 386729548273250080}
   - component: {fileID: 386729548273250083}
   - component: {fileID: 9027057599540020971}
+  - component: {fileID: 3434882852120713746}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 27
   m_TagString: Untagged
@@ -7070,6 +7476,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &3434882852120713746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548273250093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1767
+  relationID: fa05000000000000fb05000000000000fc05000000000000
 --- !u!1 &386729548283353487
 GameObject:
   m_ObjectHideFlags: 0
@@ -7388,6 +7808,7 @@ GameObject:
   - component: {fileID: 386729548309713658}
   - component: {fileID: 386729548309713605}
   - component: {fileID: 9027057599358493123}
+  - component: {fileID: 4769221652482056497}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_Black01_Geo 20
   m_TagString: Untagged
@@ -7513,6 +7934,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &4769221652482056497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548309713607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1641
+  relationID: b805000000000000b905000000000000
 --- !u!1 &386729548325027743
 GameObject:
   m_ObjectHideFlags: 0
@@ -7661,6 +8096,7 @@ GameObject:
   - component: {fileID: 386729548364185654}
   - component: {fileID: 386729548364185649}
   - component: {fileID: 9027057600712598494}
+  - component: {fileID: 9157272539811493356}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo001
   m_TagString: Untagged
@@ -7786,6 +8222,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &9157272539811493356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548364185651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1593
+  relationID: 9c05000000000000
 --- !u!1 &386729548371994234
 GameObject:
   m_ObjectHideFlags: 0
@@ -7799,6 +8249,7 @@ GameObject:
   - component: {fileID: 386729548371994233}
   - component: {fileID: 386729548371994232}
   - component: {fileID: 9027057598725632842}
+  - component: {fileID: 6216654898156167784}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 65
   m_TagString: Untagged
@@ -7924,6 +8375,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &6216654898156167784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548371994234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1751
+  relationID: f205000000000000
 --- !u!1 &386729548425701015
 GameObject:
   m_ObjectHideFlags: 0
@@ -7937,6 +8402,7 @@ GameObject:
   - component: {fileID: 386729548425701002}
   - component: {fileID: 386729548425701013}
   - component: {fileID: 9027057599563718852}
+  - component: {fileID: 5384540091130559294}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 63
   m_TagString: Untagged
@@ -8062,6 +8528,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &5384540091130559294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548425701015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1444
+  relationID: 45050000000000005005000000000000
 --- !u!1 &386729548426542114
 GameObject:
   m_ObjectHideFlags: 0
@@ -8075,6 +8555,7 @@ GameObject:
   - component: {fileID: 386729548426542113}
   - component: {fileID: 386729548426542112}
   - component: {fileID: 9027057598782400438}
+  - component: {fileID: 6047111382453033203}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 31
   m_TagString: Untagged
@@ -8200,6 +8681,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &6047111382453033203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548426542114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1753
+  relationID: f205000000000000
 --- !u!1 &386729548439768678
 GameObject:
   m_ObjectHideFlags: 0
@@ -8483,6 +8978,7 @@ GameObject:
   - component: {fileID: 386729548475139188}
   - component: {fileID: 386729548475139191}
   - component: {fileID: 9027057600005355117}
+  - component: {fileID: 4186902501698241750}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 22
   m_TagString: Untagged
@@ -8608,6 +9104,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &4186902501698241750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548475139185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1234
+  relationID: 8a040000000000008d04000000000000
 --- !u!1 &386729548478321332
 GameObject:
   m_ObjectHideFlags: 0
@@ -8687,6 +9197,7 @@ GameObject:
   - component: {fileID: 386729548519179636}
   - component: {fileID: 386729548519179639}
   - component: {fileID: 9027057598772214266}
+  - component: {fileID: 1210116175307008457}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 56
   m_TagString: Untagged
@@ -8813,6 +9324,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &1210116175307008457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548519179633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1550
+  relationID: 810500000000000087050000000000008805000000000000890500000000000095cb2d0000000000
 --- !u!1 &386729548531578419
 GameObject:
   m_ObjectHideFlags: 0
@@ -8826,6 +9351,7 @@ GameObject:
   - component: {fileID: 386729548531578422}
   - component: {fileID: 386729548531578417}
   - component: {fileID: 9027057600506478846}
+  - component: {fileID: 5760983630167758002}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 11
   m_TagString: Untagged
@@ -8952,6 +9478,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &5760983630167758002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548531578419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1676
+  relationID: cb05000000000000d805000000000000de05000000000000
 --- !u!1 &386729548532370459
 GameObject:
   m_ObjectHideFlags: 0
@@ -8965,6 +9505,7 @@ GameObject:
   - component: {fileID: 386729548532370462}
   - component: {fileID: 386729548532370457}
   - component: {fileID: 9027057600699972011}
+  - component: {fileID: 8339949504962866081}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 2
   m_TagString: Untagged
@@ -9091,6 +9632,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &8339949504962866081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548532370459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1632
+  relationID: b105000000000000b405000000000000b605000000000000b705000000000000
 --- !u!1 &386729548537128171
 GameObject:
   m_ObjectHideFlags: 0
@@ -9104,6 +9659,7 @@ GameObject:
   - component: {fileID: 386729548537128174}
   - component: {fileID: 386729548537128169}
   - component: {fileID: 9027057599679164029}
+  - component: {fileID: 7504033743948028386}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_Black01_Geo 8
   m_TagString: Untagged
@@ -9232,6 +9788,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &7504033743948028386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548537128171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1424
+  relationID: 3705000000000000380500000000000039050000000000003a050000000000004105000000000000
 --- !u!1 &386729548576275740
 GameObject:
   m_ObjectHideFlags: 0
@@ -9245,6 +9815,7 @@ GameObject:
   - component: {fileID: 386729548576275731}
   - component: {fileID: 386729548576275730}
   - component: {fileID: 9027057600659481483}
+  - component: {fileID: 6753187188147677882}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 53
   m_TagString: Untagged
@@ -9370,6 +9941,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &6753187188147677882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548576275740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1819
+  relationID: 13060000000000001606000000000000
 --- !u!1 &386729548610120590
 GameObject:
   m_ObjectHideFlags: 0
@@ -9383,6 +9968,7 @@ GameObject:
   - component: {fileID: 386729548610120589}
   - component: {fileID: 386729548610120588}
   - component: {fileID: 9027057600399473659}
+  - component: {fileID: 5110809903933915875}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 33
   m_TagString: Untagged
@@ -9508,6 +10094,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &5110809903933915875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548610120590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1742
+  relationID: ed05000000000000f105000000000000f405000000000000
 --- !u!1 &386729548627232852
 GameObject:
   m_ObjectHideFlags: 0
@@ -9791,6 +10391,7 @@ GameObject:
   - component: {fileID: 386729548642374466}
   - component: {fileID: 386729548642374477}
   - component: {fileID: 9027057599829400683}
+  - component: {fileID: 3325816934897693948}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 1
   m_TagString: Untagged
@@ -9917,6 +10518,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &3325816934897693948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548642374479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1552
+  relationID: 810500000000000087050000000000008805000000000000890500000000000095cb2d0000000000
 --- !u!1 &386729548665805233
 GameObject:
   m_ObjectHideFlags: 0
@@ -10661,6 +11276,7 @@ GameObject:
   - component: {fileID: 386729548696175682}
   - component: {fileID: 386729548696175693}
   - component: {fileID: 9027057600251648044}
+  - component: {fileID: 6205201093838241011}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 15
   m_TagString: Untagged
@@ -10786,6 +11402,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &6205201093838241011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548696175695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1736
+  relationID: ed05000000000000f105000000000000f405000000000000
 --- !u!1 &386729548719834472
 GameObject:
   m_ObjectHideFlags: 0
@@ -10799,6 +11429,7 @@ GameObject:
   - component: {fileID: 386729548719834479}
   - component: {fileID: 386729548719834478}
   - component: {fileID: 9027057598791943731}
+  - component: {fileID: 7877789071376275960}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_Black01_Geo 9
   m_TagString: Untagged
@@ -10927,6 +11558,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &7877789071376275960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548719834472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1412
+  relationID: 3505000000000000360500000000000040050000000000004205000000000000
 --- !u!1 &386729548769766467
 GameObject:
   m_ObjectHideFlags: 0
@@ -10940,6 +11585,7 @@ GameObject:
   - component: {fileID: 386729548769766470}
   - component: {fileID: 386729548769766465}
   - component: {fileID: 9027057598991401602}
+  - component: {fileID: 6983197055249585398}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_Black01_Geo 11
   m_TagString: Untagged
@@ -11068,6 +11714,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &6983197055249585398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548769766467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1420
+  relationID: 3705000000000000380500000000000039050000000000003a050000000000004105000000000000
 --- !u!1 &386729548776793503
 GameObject:
   m_ObjectHideFlags: 0
@@ -11216,6 +11876,7 @@ GameObject:
   - component: {fileID: 386729548782342302}
   - component: {fileID: 386729548782342297}
   - component: {fileID: 9027057600209116344}
+  - component: {fileID: 7317156874231141647}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 18
   m_TagString: Untagged
@@ -11341,6 +12002,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &7317156874231141647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548782342299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1724
+  relationID: e905000000000000
 --- !u!1 &386729548785881303
 GameObject:
   m_ObjectHideFlags: 0
@@ -11354,6 +12029,7 @@ GameObject:
   - component: {fileID: 386729548785881290}
   - component: {fileID: 386729548785881301}
   - component: {fileID: 9027057599784575020}
+  - component: {fileID: 4533405716052816406}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 47
   m_TagString: Untagged
@@ -11479,6 +12155,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &4533405716052816406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548785881303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1490
+  relationID: 5f050000000000006005000000000000
 --- !u!1 &386729548809299031
 GameObject:
   m_ObjectHideFlags: 0
@@ -11492,6 +12182,7 @@ GameObject:
   - component: {fileID: 386729548809299018}
   - component: {fileID: 386729548809299029}
   - component: {fileID: 9027057599165964468}
+  - component: {fileID: 3628657771065185298}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 61
   m_TagString: Untagged
@@ -11617,6 +12308,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &3628657771065185298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548809299031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1451
+  relationID: 460500000000000048050000000000004d05000000000000
 --- !u!1 &386729548822723766
 GameObject:
   m_ObjectHideFlags: 0
@@ -11630,6 +12335,7 @@ GameObject:
   - component: {fileID: 386729548822723765}
   - component: {fileID: 386729548822723764}
   - component: {fileID: 9027057599146796972}
+  - component: {fileID: 1766339047126770853}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 41
   m_TagString: Untagged
@@ -11755,6 +12461,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &1766339047126770853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548822723766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1810
+  relationID: 0e060000000000001006000000000000
 --- !u!1 &386729548824876949
 GameObject:
   m_ObjectHideFlags: 0
@@ -12173,6 +12893,7 @@ GameObject:
   - component: {fileID: 386729548848303587}
   - component: {fileID: 386729548848303586}
   - component: {fileID: 9027057599964804886}
+  - component: {fileID: 662871766570234673}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 37
   m_TagString: Untagged
@@ -12298,6 +13019,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &662871766570234673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548848303596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1817
+  relationID: 13060000000000001606000000000000
 --- !u!1 &386729548851647071
 GameObject:
   m_ObjectHideFlags: 0
@@ -12311,6 +13046,7 @@ GameObject:
   - component: {fileID: 386729548851647058}
   - component: {fileID: 386729548851647069}
   - component: {fileID: 9027057600097722371}
+  - component: {fileID: 3785157337464355258}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 5
   m_TagString: Untagged
@@ -12437,6 +13173,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &3785157337464355258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548851647071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1608
+  relationID: a305000000000000a705000000000000a805000000000000
 --- !u!1 &386729548859381632
 GameObject:
   m_ObjectHideFlags: 0
@@ -12450,6 +13200,7 @@ GameObject:
   - component: {fileID: 386729548859381639}
   - component: {fileID: 386729548859381638}
   - component: {fileID: 9027057599119325896}
+  - component: {fileID: 7510848741594787276}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 54
   m_TagString: Untagged
@@ -12575,6 +13326,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &7510848741594787276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548859381632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1567
+  relationID: 8a050000000000008d050000000000008e050000000000009405000000000000
 --- !u!1 &386729548870091452
 GameObject:
   m_ObjectHideFlags: 0
@@ -12588,6 +13353,7 @@ GameObject:
   - component: {fileID: 386729548870091443}
   - component: {fileID: 386729548870091442}
   - component: {fileID: 9027057599482636133}
+  - component: {fileID: 9035441962297905308}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_Black01_Geo 19
   m_TagString: Untagged
@@ -12713,6 +13479,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &9035441962297905308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548870091452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1659
+  relationID: c005000000000000c605000000000000
 --- !u!1 &386729548870223781
 GameObject:
   m_ObjectHideFlags: 0
@@ -12861,6 +13641,7 @@ GameObject:
   - component: {fileID: 386729548879021246}
   - component: {fileID: 386729548879021241}
   - component: {fileID: 9027057599906088337}
+  - component: {fileID: 6457635065043472879}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_Black01_Geo
   m_TagString: Untagged
@@ -12987,6 +13768,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &6457635065043472879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548879021243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1680
+  relationID: cd05000000000000d205000000000000e005000000000000
 --- !u!1 &386729548879587815
 GameObject:
   m_ObjectHideFlags: 0
@@ -13405,6 +14200,7 @@ GameObject:
   - component: {fileID: 386729548905172161}
   - component: {fileID: 386729548905172160}
   - component: {fileID: 9027057599389759922}
+  - component: {fileID: 8827386933937601877}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 59
   m_TagString: Untagged
@@ -13530,6 +14326,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &8827386933937601877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548905172162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1872
+  relationID: 3a060000000000003b06000000000000
 --- !u!1 &386729548908008714
 GameObject:
   m_ObjectHideFlags: 0
@@ -13543,6 +14353,7 @@ GameObject:
   - component: {fileID: 386729548908008713}
   - component: {fileID: 386729548908008712}
   - component: {fileID: 9027057600067729374}
+  - component: {fileID: 3455312140380510058}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 49
   m_TagString: Untagged
@@ -13668,6 +14479,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &3455312140380510058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548908008714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1759
+  relationID: f605000000000000f805000000000000f905000000000000
 --- !u!1 &386729548918286026
 GameObject:
   m_ObjectHideFlags: 0
@@ -13816,6 +14641,7 @@ GameObject:
   - component: {fileID: 386729548944726515}
   - component: {fileID: 386729548944726514}
   - component: {fileID: 9027057599508033857}
+  - component: {fileID: 7117565058122958321}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 17
   m_TagString: Untagged
@@ -13941,6 +14767,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &7117565058122958321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548944726524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1769
+  relationID: fa05000000000000fb05000000000000fc05000000000000
 --- !u!1 &386729548966713157
 GameObject:
   m_ObjectHideFlags: 0
@@ -14089,6 +14929,7 @@ GameObject:
   - component: {fileID: 386729548972236654}
   - component: {fileID: 386729548972236649}
   - component: {fileID: 9027057598901886681}
+  - component: {fileID: 8906077278567391630}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 3
   m_TagString: Untagged
@@ -14215,6 +15056,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &8906077278567391630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548972236651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1606
+  relationID: a305000000000000a705000000000000a805000000000000
 --- !u!1 &386729548995703073
 GameObject:
   m_ObjectHideFlags: 0
@@ -14228,6 +15083,7 @@ GameObject:
   - component: {fileID: 386729548995703076}
   - component: {fileID: 386729548995703079}
   - component: {fileID: 9027057599012431314}
+  - component: {fileID: 6208663498303854290}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 55
   m_TagString: Untagged
@@ -14354,6 +15210,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &6208663498303854290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729548995703073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1556
+  relationID: 810500000000000087050000000000008805000000000000890500000000000095cb2d0000000000
 --- !u!1 &386729549031292214
 GameObject:
   m_ObjectHideFlags: 0
@@ -14367,6 +15237,7 @@ GameObject:
   - component: {fileID: 386729549031292213}
   - component: {fileID: 386729549031292212}
   - component: {fileID: 9027057599302803626}
+  - component: {fileID: 5083542692814260172}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 66
   m_TagString: Untagged
@@ -14493,6 +15364,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &5083542692814260172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549031292214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1630
+  relationID: b105000000000000b405000000000000b605000000000000b705000000000000
 --- !u!1 &386729549032409987
 GameObject:
   m_ObjectHideFlags: 0
@@ -14506,6 +15391,7 @@ GameObject:
   - component: {fileID: 386729549032409990}
   - component: {fileID: 386729549032409985}
   - component: {fileID: 9027057598897235749}
+  - component: {fileID: 2518533527485636666}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 28
   m_TagString: Untagged
@@ -14631,6 +15517,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &2518533527485636666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549032409987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1776
+  relationID: fd050000000000000006000000000000
 --- !u!1 &386729549036835619
 GameObject:
   m_ObjectHideFlags: 0
@@ -14644,6 +15544,7 @@ GameObject:
   - component: {fileID: 386729549036835622}
   - component: {fileID: 386729549036835617}
   - component: {fileID: 9027057598891309637}
+  - component: {fileID: 6084636202672299112}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 38
   m_TagString: Untagged
@@ -14769,6 +15670,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &6084636202672299112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549036835619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1804
+  relationID: 0c060000000000001a06000000000000
 --- !u!1 &386729549046751255
 GameObject:
   m_ObjectHideFlags: 0
@@ -14917,6 +15832,7 @@ GameObject:
   - component: {fileID: 386729549052716835}
   - component: {fileID: 386729549052716834}
   - component: {fileID: 9027057600511046866}
+  - component: {fileID: 2963761494145459695}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_Black01_Geo 3
   m_TagString: Untagged
@@ -15043,6 +15959,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &2963761494145459695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549052716844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1690
+  relationID: cf05000000000000d105000000000000
 --- !u!1 &386729549057142400
 GameObject:
   m_ObjectHideFlags: 0
@@ -15194,6 +16124,7 @@ GameObject:
   - component: {fileID: 386729549069246699}
   - component: {fileID: 386729549069246698}
   - component: {fileID: 9027057600559334321}
+  - component: {fileID: 3503629823400962244}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 30
   m_TagString: Untagged
@@ -15319,6 +16250,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &3503629823400962244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549069246708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1463
+  relationID: 4e050000000000004f05000000000000
 --- !u!1 &386729549084756712
 GameObject:
   m_ObjectHideFlags: 0
@@ -15602,6 +16547,7 @@ GameObject:
   - component: {fileID: 386729549135517507}
   - component: {fileID: 386729549135517506}
   - component: {fileID: 9027057599882212122}
+  - component: {fileID: 4168813931022223988}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 19
   m_TagString: Untagged
@@ -15727,6 +16673,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &4168813931022223988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549135517516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1796
+  relationID: 0606000000000000070600000000000008060000000000000906000000000000
 --- !u!1 &386729549136245284
 GameObject:
   m_ObjectHideFlags: 0
@@ -15740,6 +16700,7 @@ GameObject:
   - component: {fileID: 386729549136245467}
   - component: {fileID: 386729549136245466}
   - component: {fileID: 9027057599868965915}
+  - component: {fileID: 4998603445638472390}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 32
   m_TagString: Untagged
@@ -15865,6 +16826,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &4998603445638472390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549136245284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1749
+  relationID: f205000000000000
 --- !u!1 &386729549139061112
 GameObject:
   m_ObjectHideFlags: 0
@@ -16013,6 +16988,7 @@ GameObject:
   - component: {fileID: 386729549141121314}
   - component: {fileID: 386729549141121325}
   - component: {fileID: 9027057599998916444}
+  - component: {fileID: 4901356339179948193}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_Black01_Geo 16
   m_TagString: Untagged
@@ -16138,6 +17114,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &4901356339179948193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549141121327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1651
+  relationID: be05000000000000bf05000000000000
 --- !u!1 &386729549142502130
 GameObject:
   m_ObjectHideFlags: 0
@@ -16151,6 +17141,7 @@ GameObject:
   - component: {fileID: 386729549142502129}
   - component: {fileID: 386729549142502128}
   - component: {fileID: 9027057598939035517}
+  - component: {fileID: 6777944335259729099}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 40
   m_TagString: Untagged
@@ -16276,6 +17267,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &6777944335259729099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549142502130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1492
+  relationID: 5f050000000000006005000000000000
 --- !u!1 &386729549156815253
 GameObject:
   m_ObjectHideFlags: 0
@@ -16289,6 +17294,7 @@ GameObject:
   - component: {fileID: 386729549156815240}
   - component: {fileID: 386729549156815243}
   - component: {fileID: 9027057598718131451}
+  - component: {fileID: 3461767990881944288}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_Black01_Geo 1
   m_TagString: Untagged
@@ -16415,6 +17421,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &3461767990881944288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549156815253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1698
+  relationID: d305000000000000df05000000000000e105000000000000
 --- !u!1 &386729549158185795
 GameObject:
   m_ObjectHideFlags: 0
@@ -16428,6 +17448,7 @@ GameObject:
   - component: {fileID: 386729549158185798}
   - component: {fileID: 386729549158185793}
   - component: {fileID: 9027057598998193536}
+  - component: {fileID: 4755094012513127150}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 12
   m_TagString: Untagged
@@ -16554,6 +17575,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &4755094012513127150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549158185795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1430
+  relationID: 3b050000000000003d050000000000003e050000000000004405000000000000
 --- !u!1 &386729549160772892
 GameObject:
   m_ObjectHideFlags: 0
@@ -16702,6 +17737,7 @@ GameObject:
   - component: {fileID: 386729549169824411}
   - component: {fileID: 386729549169824410}
   - component: {fileID: 9027057599435120683}
+  - component: {fileID: 4944348022992191026}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_Black01_Geo 12
   m_TagString: Untagged
@@ -16830,6 +17866,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &4944348022992191026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549169824484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1416
+  relationID: 3505000000000000360500000000000040050000000000004205000000000000
 --- !u!1 &386729549208822676
 GameObject:
   m_ObjectHideFlags: 0
@@ -17386,6 +18436,7 @@ GameObject:
   - component: {fileID: 386729549261209818}
   - component: {fileID: 386729549261209637}
   - component: {fileID: 9027057598762932091}
+  - component: {fileID: 6882512389890338478}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 25
   m_TagString: Untagged
@@ -17511,6 +18562,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &6882512389890338478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549261209639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1738
+  relationID: ed05000000000000f105000000000000f405000000000000
 --- !u!1 &386729549302214311
 GameObject:
   m_ObjectHideFlags: 0
@@ -17659,6 +18724,7 @@ GameObject:
   - component: {fileID: 386729549309841355}
   - component: {fileID: 386729549309841354}
   - component: {fileID: 9027057599501148924}
+  - component: {fileID: 3668671113453542167}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 44
   m_TagString: Untagged
@@ -17784,6 +18850,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &3668671113453542167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549309841364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1774
+  relationID: fd050000000000000006000000000000
 --- !u!1 &386729549312720416
 GameObject:
   m_ObjectHideFlags: 0
@@ -17932,6 +19012,7 @@ GameObject:
   - component: {fileID: 386729549332868255}
   - component: {fileID: 386729549332868254}
   - component: {fileID: 9027057598952361938}
+  - component: {fileID: 1738865648782830974}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_Black01_Geo 15
   m_TagString: Untagged
@@ -18060,6 +19141,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &1738865648782830974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549332868248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1414
+  relationID: 3505000000000000360500000000000040050000000000004205000000000000
 --- !u!1 &386729549358854426
 GameObject:
   m_ObjectHideFlags: 0
@@ -18208,6 +19303,7 @@ GameObject:
   - component: {fileID: 386729549381973208}
   - component: {fileID: 386729549381973211}
   - component: {fileID: 9027057600541335300}
+  - component: {fileID: 1714300280769903020}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 60
   m_TagString: Untagged
@@ -18333,6 +19429,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &1714300280769903020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549381973029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1232
+  relationID: 8a040000000000008d04000000000000
 --- !u!1 &386729549386421791
 GameObject:
   m_ObjectHideFlags: 0
@@ -18481,6 +19591,7 @@ GameObject:
   - component: {fileID: 386729549393182187}
   - component: {fileID: 386729549393182186}
   - component: {fileID: 9027057599282811903}
+  - component: {fileID: 7471260247553308012}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 58
   m_TagString: Untagged
@@ -18606,6 +19717,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &7471260247553308012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549393182196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1470
+  relationID: 510500000000000055050000000000005605000000000000
 --- !u!1 &386729549437117358
 GameObject:
   m_ObjectHideFlags: 0
@@ -18619,6 +19744,7 @@ GameObject:
   - component: {fileID: 386729549437117357}
   - component: {fileID: 386729549437117356}
   - component: {fileID: 9027057600381196516}
+  - component: {fileID: 2208140466945109260}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_Black01_Geo 6
   m_TagString: Untagged
@@ -18745,6 +19871,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &2208140466945109260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549437117358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1432
+  relationID: 3b050000000000003d050000000000003e050000000000004405000000000000
 --- !u!1 &386729549491756826
 GameObject:
   m_ObjectHideFlags: 0
@@ -18758,6 +19898,7 @@ GameObject:
   - component: {fileID: 386729549491756825}
   - component: {fileID: 386729549491756824}
   - component: {fileID: 9027057598915193540}
+  - component: {fileID: 893227464316110496}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 16
   m_TagString: Untagged
@@ -18883,6 +20024,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &893227464316110496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549491756826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1727
+  relationID: ea05000000000000eb05000000000000ec05000000000000
 --- !u!1 &386729549498083127
 GameObject:
   m_ObjectHideFlags: 0
@@ -19166,6 +20321,7 @@ GameObject:
   - component: {fileID: 386729549568856911}
   - component: {fileID: 386729549568856910}
   - component: {fileID: 9027057599029818435}
+  - component: {fileID: 6296668419578042460}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 50
   m_TagString: Untagged
@@ -19292,6 +20448,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &6296668419578042460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549568856904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1598
+  relationID: 9d050000000000009f05000000000000a005000000000000a105000000000000a205000000000000
 --- !u!1 &386729549571094348
 GameObject:
   m_ObjectHideFlags: 0
@@ -19305,6 +20475,7 @@ GameObject:
   - component: {fileID: 386729549571094339}
   - component: {fileID: 386729549571094338}
   - component: {fileID: 9027057598821744870}
+  - component: {fileID: 2577576367507459381}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 8
   m_TagString: Untagged
@@ -19431,6 +20602,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &2577576367507459381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549571094348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1682
+  relationID: cd05000000000000d205000000000000e005000000000000
 --- !u!1 &386729549583047370
 GameObject:
   m_ObjectHideFlags: 0
@@ -19579,6 +20764,7 @@ GameObject:
   - component: {fileID: 386729549592157914}
   - component: {fileID: 386729549592157733}
   - component: {fileID: 9027057599014383748}
+  - component: {fileID: 4917481604704168934}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_Black01_Geo 5
   m_TagString: Untagged
@@ -19705,6 +20891,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &4917481604704168934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549592157735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1405
+  relationID: 320500000000000033050000000000003f05000000000000
 --- !u!1 &386729549593201262
 GameObject:
   m_ObjectHideFlags: 0
@@ -19948,6 +21148,7 @@ GameObject:
   - component: {fileID: 386729549607005861}
   - component: {fileID: 386729549607005860}
   - component: {fileID: 9027057600563436505}
+  - component: {fileID: 6292551501228782787}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 6
   m_TagString: Untagged
@@ -20074,6 +21275,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &6292551501228782787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549607005862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1617
+  relationID: aa05000000000000ae05000000000000af05000000000000
 --- !u!1 &386729549626791939
 GameObject:
   m_ObjectHideFlags: 0
@@ -20357,6 +21572,7 @@ GameObject:
   - component: {fileID: 386729549635985042}
   - component: {fileID: 386729549635985053}
   - component: {fileID: 9027057600625127520}
+  - component: {fileID: 8044683159454869836}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_Black01_Geo 14
   m_TagString: Untagged
@@ -20482,6 +21698,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &8044683159454869836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549635985055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1655
+  relationID: be05000000000000bf05000000000000
 --- !u!1 &386729549640319049
 GameObject:
   m_ObjectHideFlags: 0
@@ -20630,6 +21860,7 @@ GameObject:
   - component: {fileID: 386729549645538852}
   - component: {fileID: 386729549645538855}
   - component: {fileID: 9027057600501339235}
+  - component: {fileID: 6241403491733259879}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 4
   m_TagString: Untagged
@@ -20756,6 +21987,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &6241403491733259879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549645538849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1619
+  relationID: aa05000000000000ae05000000000000af05000000000000
 --- !u!1 &386729549658578731
 GameObject:
   m_ObjectHideFlags: 0
@@ -20904,6 +22149,7 @@ GameObject:
   - component: {fileID: 386729549691838031}
   - component: {fileID: 386729549691838030}
   - component: {fileID: 9027057600809426911}
+  - component: {fileID: 1433325442184173442}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 46
   m_TagString: Untagged
@@ -21029,6 +22275,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &1433325442184173442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549691838024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1761
+  relationID: f605000000000000f805000000000000f905000000000000
 --- !u!1 &386729549716265393
 GameObject:
   m_ObjectHideFlags: 0
@@ -21177,6 +22437,7 @@ GameObject:
   - component: {fileID: 386729549733212547}
   - component: {fileID: 386729549733212546}
   - component: {fileID: 9027057600498182475}
+  - component: {fileID: 3683156768395650865}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 52
   m_TagString: Untagged
@@ -21302,6 +22563,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &3683156768395650865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549733212556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1740
+  relationID: ed05000000000000f105000000000000f405000000000000
 --- !u!1 &386729549734477941
 GameObject:
   m_ObjectHideFlags: 0
@@ -21450,6 +22725,7 @@ GameObject:
   - component: {fileID: 386729549758137375}
   - component: {fileID: 386729549758137374}
   - component: {fileID: 9027057600462575000}
+  - component: {fileID: 8124149516455110807}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_White01_Geo 10
   m_TagString: Untagged
@@ -21576,6 +22852,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &8124149516455110807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549758137368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1686
+  relationID: cf05000000000000d105000000000000
 --- !u!1 &386729549758817497
 GameObject:
   m_ObjectHideFlags: 0
@@ -21683,6 +22973,7 @@ GameObject:
   - component: {fileID: 386729549777231406}
   - component: {fileID: 386729549777231401}
   - component: {fileID: 9027057599618451154}
+  - component: {fileID: 5637219547473169157}
   m_Layer: 0
   m_Name: TrafficLightsA01_Head01_Black01_Geo 10
   m_TagString: Untagged
@@ -21811,6 +23102,20 @@ MonoBehaviour:
     materialIndex: 2
   - bulbType: 1
     materialIndex: 3
+--- !u!114 &5637219547473169157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386729549777231403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a3d7a4e8adf6c65b2f392cbdc5059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayID: 1422
+  relationID: 3705000000000000380500000000000039050000000000003a050000000000004105000000000000
 --- !u!114 &880058119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22058,7 +23363,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1604026248967508237}
-  m_Mesh: {fileID: 4300000, guid: 8176554cb52ee814faa55803c31a95de, type: 2}
+  m_Mesh: {fileID: 0}
 --- !u!23 &3061351720333808115
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -22127,7 +23432,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 8176554cb52ee814faa55803c31a95de, type: 2}
+  m_Mesh: {fileID: 0}
 --- !u!1 &1721401029484947906
 GameObject:
   m_ObjectHideFlags: 0
@@ -22593,7 +23898,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5628990416621211937}
-  m_Mesh: {fileID: 4300000, guid: 4103d59c51a8b8b419116ff47582b717, type: 2}
+  m_Mesh: {fileID: 0}
 --- !u!23 &5574113186498298697
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -22650,7 +23955,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 4103d59c51a8b8b419116ff47582b717, type: 2}
+  m_Mesh: {fileID: 0}
 --- !u!1 &5952676060435480406
 GameObject:
   m_ObjectHideFlags: 0
@@ -22887,6 +24192,7 @@ Transform:
   - {fileID: 9027057600637418029}
   - {fileID: 9027057599863099223}
   - {fileID: 1041813114}
+  - {fileID: 5984117683371609912}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -44164,14 +45470,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 11
-  m_ObsoleteShadowResolutionTier: 1
-  m_ObsoleteUseShadowQualitySettings: 0
-  m_ObsoleteCustomShadowResolution: 512
-  m_ObsoleteContactShadows: 0
-  m_PointlightHDType: 0
-  m_SpotLightShape: 0
-  m_AreaLightShape: 0
   m_Intensity: 73123.09
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
@@ -44275,6 +45573,14 @@ MonoBehaviour:
   m_AreaLightEmissiveMeshShadowCastingMode: 0
   m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
   m_AreaLightEmissiveMeshLayer: -1
+  m_Version: 11
+  m_ObsoleteShadowResolutionTier: 1
+  m_ObsoleteUseShadowQualitySettings: 0
+  m_ObsoleteCustomShadowResolution: 512
+  m_ObsoleteContactShadows: 0
+  m_PointlightHDType: 0
+  m_SpotLightShape: 0
+  m_AreaLightShape: 0
 --- !u!1 &9027057599864262960
 GameObject:
   m_ObjectHideFlags: 0
@@ -64573,4 +65879,70 @@ GameObject:
 Transform:
   m_CorrespondingSourceObject: {fileID: 988938448964725867, guid: 27e8a3736efefa447b1f65b33b30908a, type: 3}
   m_PrefabInstance: {fileID: 67910601}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7652062778010437383
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7194879542207918461}
+    m_Modifications:
+    - target: {fileID: 4123694024843495484, guid: bf9b4c21a1e3a6258a4ba2008291667b, type: 3}
+      propertyPath: m_Name
+      value: V2I
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123694024843495484, guid: bf9b4c21a1e3a6258a4ba2008291667b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123694024843495487, guid: bf9b4c21a1e3a6258a4ba2008291667b, type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123694024843495487, guid: bf9b4c21a1e3a6258a4ba2008291667b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123694024843495487, guid: bf9b4c21a1e3a6258a4ba2008291667b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123694024843495487, guid: bf9b4c21a1e3a6258a4ba2008291667b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123694024843495487, guid: bf9b4c21a1e3a6258a4ba2008291667b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123694024843495487, guid: bf9b4c21a1e3a6258a4ba2008291667b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123694024843495487, guid: bf9b4c21a1e3a6258a4ba2008291667b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123694024843495487, guid: bf9b4c21a1e3a6258a4ba2008291667b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123694024843495487, guid: bf9b4c21a1e3a6258a4ba2008291667b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123694024843495487, guid: bf9b4c21a1e3a6258a4ba2008291667b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123694024843495487, guid: bf9b4c21a1e3a6258a4ba2008291667b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bf9b4c21a1e3a6258a4ba2008291667b, type: 3}
+--- !u!4 &5984117683371609912 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4123694024843495487, guid: bf9b4c21a1e3a6258a4ba2008291667b, type: 3}
+  m_PrefabInstance: {fileID: 7652062778010437383}
   m_PrefabAsset: {fileID: 0}
