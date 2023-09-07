@@ -17,34 +17,55 @@ using UnityEngine;
 using UnityEngine.Assertions;
 // Experimental is necessary for gathering GraphicsFormat of the texture.
 using UnityEngine.Experimental.Rendering;
-using Unity.Collections;
+using System.Collections.Generic;
 
 namespace RGLUnityPlugin
 {
+
+    internal interface IRGLObject
+    {
+        GameObject RepresentedGO { get; }
+        int? CategoryId { get; }
+        string CategoryName { get; }
+        
+        void Update();
+
+        void DestroyInRGL();
+    }
+    
     /// <summary>
     /// RGL counterpart of Unity GameObjects.
     /// Contains information about RGL entity and RGLMesh.
     /// </summary>
-    public class RGLObject
+    public abstract class RGLObject<T> : IRGLObject
     {
-        public string Identifier;
-        public RGLMesh RglMesh;
-        public RGLTexture Texture;
-        public Func<Matrix4x4> GetLocalToWorld;
-        public GameObject RepresentedGO;
-        public int? categoryId;
-        public string categoryName;
-
+        private readonly string identifier;
+        private RGLTexture rglTexture;
         private IntPtr rglEntityPtr;
 
-        public RGLObject(string identifier, RGLMesh rglMesh, Func<Matrix4x4> getLocalToWorld, GameObject representedGO)
-        {
-            Identifier = identifier;
-            RglMesh = rglMesh;
-            GetLocalToWorld = getLocalToWorld;
-            RepresentedGO = representedGO;
+        protected RGLMesh rglMesh;
 
+        public GameObject RepresentedGO { get; }
+        public int? CategoryId { get; private set; }
+        public string CategoryName { get; private set; }
+
+        // There are different stratiegies for obtaining a RGLMesh so we have to also destroy it differently.
+        protected abstract RGLMesh GetRGLMeshFrom(T meshSource);
+        protected abstract void DestroyRGLMesh();
+
+        protected abstract Matrix4x4 GetLocalToWorld();
+
+        protected RGLObject(string identifier, GameObject representedGO, T meshSource)
+        {
+            this.identifier = identifier;
+            RepresentedGO = representedGO;
+            rglMesh = GetRGLMeshFrom(meshSource);
+            if (rglMesh == null)
+            {
+                throw new RGLException($"Could not create RGLMesh from gameobject '{representedGO.name}'.");
+            }
             UploadToRGL();
+            SetIntensityTexture();
 
             var semanticCategory = RepresentedGO.GetComponentInParent<SemanticCategory>();
             if (semanticCategory != null)
@@ -56,20 +77,42 @@ namespace RGLUnityPlugin
 
         ~RGLObject()
         {
-            DestroyFromRGL();
+            DestroyInRGL();
         }
 
-        public void DestroyFromRGL()
+        public virtual void DestroyInRGL()
         {
-            if (rglEntityPtr != IntPtr.Zero)
+            if (rglEntityPtr == IntPtr.Zero)
             {
-                RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_entity_destroy(rglEntityPtr));
-                rglEntityPtr = IntPtr.Zero;
+                return;
+            }
+
+            RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_entity_destroy(rglEntityPtr));
+            rglEntityPtr = IntPtr.Zero;
+            
+            DestroyRGLMesh();
+            rglMesh = null;
+ 
+            if (rglTexture != null)
+            {
+                RGLTextureSharingManager.UnregisterRGLTextureInstance(rglTexture);
+                rglTexture = null;
             }
         }
 
-        public void UpdateTransform()
+        public void Update()
         {
+            UpdateTransform();
+            if (rglMesh is RGLSkinnedMesh rglSkinnedMesh)
+            {
+                rglSkinnedMesh.UpdateSkinnedMesh();
+            }
+        }
+
+        protected virtual void UpdateTransform()
+        {
+            Assert.IsFalse(rglEntityPtr == IntPtr.Zero);
+
             Matrix4x4 m = GetLocalToWorld();
             float[] matrix3x4 =
             {
@@ -89,25 +132,25 @@ namespace RGLUnityPlugin
 
         public override int GetHashCode()
         {
-            return Identifier.GetHashCode();
+            return identifier.GetHashCode();
         }
 
         public override bool Equals(object obj)
         {
-            return obj is RGLObject rglObject && Identifier.Equals(rglObject.Identifier);
+            return obj is RGLObject<T> rglObject && identifier.Equals(rglObject.identifier);
         }
 
-        protected void UploadToRGL()
+        private void UploadToRGL()
         {
             // Mesh should be uploaded.
-            Assert.IsFalse(RglMesh.rglMeshPtr == IntPtr.Zero);
+            Assert.IsFalse(rglMesh.RGLMeshPtr == IntPtr.Zero);
 
             unsafe
             {
                 try
                 {
                     RGLNativeAPI.CheckErr(
-                        RGLNativeAPI.rgl_entity_create(out rglEntityPtr, IntPtr.Zero, RglMesh.rglMeshPtr));
+                        RGLNativeAPI.rgl_entity_create(out rglEntityPtr, IntPtr.Zero, rglMesh.RGLMeshPtr));
                 }
                 catch (RGLException)
                 {
@@ -124,32 +167,228 @@ namespace RGLUnityPlugin
                 return;
             }
 
-            categoryId = semanticCategory.CategoryId;
-            categoryName = semanticCategory.gameObject.name;
-            RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_entity_set_id(rglEntityPtr, categoryId.Value));
+            CategoryId = semanticCategory.CategoryId;
+            CategoryName = semanticCategory.gameObject.name;
+            RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_entity_set_id(rglEntityPtr, CategoryId.Value));
         }
 
-        public void SetIntensityTexture(RGLTexture texture)
+        private void SetIntensityTexture()
         {
-            unsafe
+            var intensityTextureComponent = RepresentedGO.GetComponent<IntensityTexture>();
+
+            if( intensityTextureComponent == null || intensityTextureComponent.texture == null)
             {
-                try
-                {
-                    RGLNativeAPI.CheckErr(
-                        RGLNativeAPI.rgl_entity_set_intensity_texture(rglEntityPtr, texture.rglTexturePtr));
-                        Texture = texture;
-                }
-                catch (RGLException)
-                {
-                    Debug.LogError($"Cannot assign texture: {texture.Identifier}, to entity: {Identifier}");
-                    throw;
-                }
-
-                // Mesh should be uploaded before assigning UVs.
-                Assert.IsFalse(RglMesh.rglMeshPtr == IntPtr.Zero);
-
-                RglMesh.UploadUVs();
+                return;
             }
+
+            rglTexture = RGLTextureSharingManager.RegisterRGLTextureInstance(intensityTextureComponent.texture);
+            try
+            {
+                RGLNativeAPI.CheckErr(
+                    RGLNativeAPI.rgl_entity_set_intensity_texture(rglEntityPtr, rglTexture.RGLTexturePtr));
+            }
+            catch (RGLException)
+            {
+                Debug.LogError($"Cannot assign texture: {rglTexture.Texture.name}, to entity: {RepresentedGO.name}");
+                throw;
+            }
+
+            // Mesh should be uploaded before assigning UVs.
+            Assert.IsFalse(rglMesh.RGLMeshPtr == IntPtr.Zero);
+
+            rglMesh.UploadUVs();
+        }
+    }
+
+    public class RGLMeshRendererObject : RGLObject<MeshRenderer>
+    {
+        private readonly Func<Matrix4x4> getLocalToWorld;
+
+        // By default localToWorld is taken from MeshRenderer, but developer can override it by passing overrideGetLocalToWorld.
+        public RGLMeshRendererObject(MeshRenderer meshRenderer, Func<Matrix4x4> overrideGetLocalToWorld = null):
+            base(
+                $"{meshRenderer.gameObject.name}#{meshRenderer.gameObject.GetInstanceID()}",
+                meshRenderer.gameObject,
+                meshRenderer
+            )
+        {
+            var rendererTransform = meshRenderer.transform;
+            getLocalToWorld = overrideGetLocalToWorld != null ? overrideGetLocalToWorld : () => rendererTransform.localToWorldMatrix;
+        }
+
+        protected override RGLMesh GetRGLMeshFrom(MeshRenderer meshRenderer)
+        {
+            var meshFilter = meshRenderer.GetComponent<MeshFilter>();
+            if (meshFilter.sharedMesh == null)
+            {
+                Debug.LogWarning($"Shared mesh of {meshRenderer.gameObject.name} is null, skipping");
+                return null;
+            }
+
+            return RGLMeshSharingManager.RegisterRGLMeshInstance(meshFilter.sharedMesh);
+        }
+
+        protected override Matrix4x4 GetLocalToWorld()
+        {
+            return getLocalToWorld();
+        }
+
+        protected override void DestroyRGLMesh()
+        {
+            RGLMeshSharingManager.UnregisterRGLMeshInstance(rglMesh);
+        }
+    }
+
+    public class RGLSkinnedMeshRendererObject : RGLObject<SkinnedMeshRenderer>
+    {
+        private readonly Transform skinnedMeshRendererTransform;
+
+        public RGLSkinnedMeshRendererObject(SkinnedMeshRenderer skinnedMeshRenderer) :
+            base(
+                $"{skinnedMeshRenderer.gameObject.name}#{skinnedMeshRenderer.gameObject.GetInstanceID()}",
+                skinnedMeshRenderer.gameObject,
+                skinnedMeshRenderer
+                )
+        {
+            skinnedMeshRendererTransform = skinnedMeshRenderer.transform;
+        }
+
+        protected override RGLMesh GetRGLMeshFrom(SkinnedMeshRenderer skinnedMeshRenderer)
+        {
+            // Skinned meshes cannot be shared by using RGLMeshSharingManager
+            return new RGLSkinnedMesh(skinnedMeshRenderer.gameObject.GetInstanceID(), skinnedMeshRenderer);
+        }
+
+        protected override Matrix4x4 GetLocalToWorld()
+        {
+            return skinnedMeshRendererTransform.localToWorldMatrix;
+        }
+        
+        protected override void DestroyRGLMesh()
+        {
+            rglMesh.DestroyInRGL();
+        }
+    }
+
+    public class RGLColliderObject : RGLObject<Collider>
+    {
+        private readonly Collider collider;
+
+        public RGLColliderObject(Collider collider) :
+            base($"{collider.gameObject.name}#{collider.gameObject.GetInstanceID()}",
+                collider.gameObject,
+                collider
+            )
+        {
+            this.collider = collider;
+        }
+
+        protected override RGLMesh GetRGLMeshFrom(Collider collider)
+        {
+            return RGLMeshSharingManager.RegisterRGLMeshInstance(ColliderUtilities.GetMeshForCollider(collider));
+        }
+
+        protected override Matrix4x4 GetLocalToWorld()
+        {
+            return collider.transform.localToWorldMatrix * ColliderUtilities.GetColliderTransformMatrix(collider);
+        }
+        
+        protected override void DestroyRGLMesh()
+        {
+            RGLMeshSharingManager.UnregisterRGLMeshInstance(rglMesh);
+        }
+    }
+
+    public class RGLTerrainObject : RGLObject<Terrain>
+    {
+        private readonly List<IRGLObject> terrainSubObjects;
+        private readonly Transform terrainTransform;
+
+        public RGLTerrainObject(Terrain terrain) :
+            base($"{terrain.gameObject.name}#{terrain.gameObject.GetInstanceID()}", terrain.gameObject, terrain)
+        {
+            terrainTransform = terrain.transform;
+            terrainSubObjects = new List<IRGLObject>();
+            var treePrototypes = terrain.terrainData.treePrototypes;
+
+            var treePrototypesRenderers = new List<Renderer>[treePrototypes.Length];
+            var treePrototypeHasLODGroup = new bool[treePrototypes.Length];
+
+            for (var i = 0; i < treePrototypes.Length; i++)
+            {
+                treePrototypesRenderers[i] = new List<Renderer>();
+                var treePrefab = treePrototypes[i].prefab;
+                if (treePrefab.TryGetComponent<LODGroup>(out var lodGroup))
+                {
+                    if (lodGroup.GetLODs().Length == 0)
+                    {
+                        Debug.LogWarning($"No LOD levels in LODGroup of tree prototype {treePrefab.name}");
+                        continue;
+                    }
+                    var lod = lodGroup.GetLODs()[0];
+                    foreach (var renderer in lod.renderers)
+                    {
+                        if (renderer.gameObject.TryGetComponent<MeshFilter>(out _))
+                        {
+                            treePrototypesRenderers[i].Add(renderer);
+                        }
+                    }
+                    treePrototypeHasLODGroup[i] = true;
+                } else if (treePrefab.TryGetComponent<MeshRenderer>(out var mr) && treePrefab.TryGetComponent<MeshFilter>(out _))
+                {
+                    treePrototypesRenderers[i].Add(mr);
+                    treePrototypeHasLODGroup[i] = false;
+                }
+            }
+
+            for (var treeIndex = 0; treeIndex < terrain.terrainData.treeInstanceCount; treeIndex++)
+            {
+                var prototypeIndex = terrain.terrainData.GetTreeInstance(treeIndex).prototypeIndex;
+                foreach (var renderer in treePrototypesRenderers[prototypeIndex])
+                {
+                    var treePose = TerrainUtilities.GetTreePose(terrain, treeIndex, treePrototypeHasLODGroup[prototypeIndex]);
+                    if (renderer is MeshRenderer mr)
+                    {
+                        terrainSubObjects.Add(new RGLMeshRendererObject(mr,() =>
+                            terrain.transform.localToWorldMatrix * treePose * mr.localToWorldMatrix));
+                    }
+                }
+            }
+        }
+
+        protected override Matrix4x4 GetLocalToWorld()
+        {
+            return terrainTransform.localToWorldMatrix;
+        }
+        
+        public override void DestroyInRGL()
+        {
+            foreach (var terrainSubObject in terrainSubObjects)
+            {
+                terrainSubObject.DestroyInRGL();
+            }
+            
+            base.DestroyInRGL();
+        }
+
+        protected override void UpdateTransform()
+        {
+            foreach (var terrainSubObject in terrainSubObjects)
+            {
+                terrainSubObject.Update();
+            }
+
+            base.UpdateTransform();
+        }
+
+        protected override RGLMesh GetRGLMeshFrom(Terrain terrain)
+        {
+            return new RGLMesh(terrain.gameObject.GetInstanceID(), TerrainUtilities.GetTerrainMesh(terrain));
+        }
+        
+        protected override void DestroyRGLMesh()
+        {
+            rglMesh.DestroyInRGL();
         }
     }
 
@@ -160,12 +399,12 @@ namespace RGLUnityPlugin
     /// </summary>
     public class RGLMesh
     {
-        public string Identifier;
-        public Mesh Mesh;
+        public int Identifier;
+        protected Mesh Mesh;
 
-        public IntPtr rglMeshPtr = IntPtr.Zero;
+        public IntPtr RGLMeshPtr = IntPtr.Zero;
 
-        public RGLMesh(string identifier, Mesh mesh)
+        public RGLMesh(int identifier, Mesh mesh)
         {
             Identifier = identifier;
             Mesh = mesh;
@@ -175,15 +414,15 @@ namespace RGLUnityPlugin
 
         ~RGLMesh()
         {
-            DestroyFromRGL();
+            DestroyInRGL();
         }
 
-        public void DestroyFromRGL()
+        public void DestroyInRGL()
         {
-            if (rglMeshPtr != IntPtr.Zero)
+            if (RGLMeshPtr != IntPtr.Zero)
             {
-                RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_mesh_destroy(rglMeshPtr));
-                rglMeshPtr = IntPtr.Zero;
+                RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_mesh_destroy(RGLMeshPtr));
+                RGLMeshPtr = IntPtr.Zero;
             }
         }
 
@@ -200,7 +439,7 @@ namespace RGLUnityPlugin
             if (!verticesOK || !indicesOK)
             {
                 throw new NotSupportedException(
-                    $"Could not get mesh data with mesh identifier {Identifier}. The mesh may be not readable or empty.");
+                    $"Could not get mesh data from Mesh '{Mesh.name}'. The mesh may be not readable or empty.");
             }
 
             unsafe
@@ -212,13 +451,13 @@ namespace RGLUnityPlugin
                         try
                         {
                             RGLNativeAPI.CheckErr(
-                                RGLNativeAPI.rgl_mesh_create(out rglMeshPtr,
+                                RGLNativeAPI.rgl_mesh_create(out RGLMeshPtr,
                                     (IntPtr) pVertices, vertices.Length,
                                     (IntPtr) pIndices, indices.Length / 3));
                         }
                         catch (RGLException)
                         {
-                            if (rglMeshPtr != IntPtr.Zero) RGLNativeAPI.rgl_mesh_destroy(rglMeshPtr);
+                            if (RGLMeshPtr != IntPtr.Zero) RGLNativeAPI.rgl_mesh_destroy(RGLMeshPtr);
                             throw;
                         }
                     }
@@ -233,28 +472,28 @@ namespace RGLUnityPlugin
 
             if(!uvOK)
             {
-                Debug.LogWarning($"Could not assign UVs to mesh: {Identifier}. Mash has no UV, or UV are empty.");
+                Debug.LogWarning($"Could not assign UVs to mesh: '{Mesh.name}'. Mesh has no UV, or UV are empty.");
             }
             else
             {
                unsafe
-                {                    
+               {                    
                     fixed(Vector2* pUVs = UVs)
                     {
                         try
                         {
                             RGLNativeAPI.CheckErr(
-                                RGLNativeAPI.rgl_mesh_set_texture_coords(rglMeshPtr,
+                                RGLNativeAPI.rgl_mesh_set_texture_coords(RGLMeshPtr,
                                 (IntPtr)pUVs,
                                 UVs.Length));
                         }
                         catch (RGLException)
                         {
-                            Debug.LogWarning($"Could not assign UVs to mesh: {Identifier}.");
+                            Debug.LogWarning($"Could not assign UVs to mesh: '{Mesh.name}'.");
                             throw;        
                         }                        
                     }   
-                }
+               }
             }
         }
     }
@@ -264,20 +503,20 @@ namespace RGLUnityPlugin
     /// </summary>
     public class RGLSkinnedMesh : RGLMesh
     {
-        public SkinnedMeshRenderer SkinnedMeshRenderer;
+        private readonly SkinnedMeshRenderer skinnedMeshRenderer;
 
-        public RGLSkinnedMesh(string identifier, SkinnedMeshRenderer smr)
+        public RGLSkinnedMesh(int identifier, SkinnedMeshRenderer smr)
         {
             Identifier = identifier;
             Mesh = new Mesh();
-            SkinnedMeshRenderer = smr;
-            SkinnedMeshRenderer.BakeMesh(Mesh, true);
+            skinnedMeshRenderer = smr;
+            skinnedMeshRenderer.BakeMesh(Mesh, true);
             UploadToRGL();
         }
 
         public void UpdateSkinnedMesh()
         {
-            SkinnedMeshRenderer.BakeMesh(Mesh, true);
+            skinnedMeshRenderer.BakeMesh(Mesh, true);
             unsafe
             {
                 // Accessing .vertices perform a CPU copy!
@@ -288,7 +527,7 @@ namespace RGLUnityPlugin
                 fixed (Vector3* pVertices = Mesh.vertices)
                 {
                     RGLNativeAPI.CheckErr(
-                        RGLNativeAPI.rgl_mesh_update_vertices(rglMeshPtr, (IntPtr) pVertices, Mesh.vertices.Length));
+                        RGLNativeAPI.rgl_mesh_update_vertices(RGLMeshPtr, (IntPtr) pVertices, Mesh.vertices.Length));
                 }
             }
         }
@@ -300,9 +539,9 @@ namespace RGLUnityPlugin
     /// </summary>
     public class RGLTexture
     {
-        public int Identifier;
-        public Texture2D Texture;
-        public IntPtr rglTexturePtr = IntPtr.Zero;
+        public readonly int Identifier;
+        public readonly Texture2D Texture;
+        public IntPtr RGLTexturePtr = IntPtr.Zero;
 
         public RGLTexture(){}
         
@@ -315,15 +554,15 @@ namespace RGLUnityPlugin
 
         ~RGLTexture()
         {
-            DestroyFromRGL();
+            DestroyInRGL();
         }
 
-        public void DestroyFromRGL()
+        public void DestroyInRGL()
         {
-            if (rglTexturePtr != IntPtr.Zero)
+            if (RGLTexturePtr != IntPtr.Zero)
             {
-                RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_texture_destroy(rglTexturePtr));
-                rglTexturePtr = IntPtr.Zero;                
+                RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_texture_destroy(RGLTexturePtr));
+                RGLTexturePtr = IntPtr.Zero;                
             }
         }
 
@@ -335,13 +574,13 @@ namespace RGLUnityPlugin
             if (!resolutionOK)
             {
                 throw new NotSupportedException(
-                    $"Could not get texture data. Resolution seems to be broken.");
+                    $"Could not get texture data from Texture '{Texture.name}'. Resolution seems to be broken.");
             }
             
             if (!graphicsFormatOK)
             {
                 throw new NotSupportedException(
-                    $"Could not get texture data. Texture format has to be equal to R8_UNorm.");
+                    $"Could not get texture data from Texture '{Texture.name}'. Texture format has to be equal to R8_UNorm.");
             }
            
             unsafe
@@ -352,22 +591,22 @@ namespace RGLUnityPlugin
                     {     
                         RGLNativeAPI.CheckErr(
                             RGLNativeAPI.rgl_texture_create(
-                            out rglTexturePtr,
+                            out RGLTexturePtr,
                             (IntPtr) textureDataPtr,
                             Texture.width,
                             Texture.height));
                     }
                     catch (RGLException)
                     {
-                        if (rglTexturePtr != IntPtr.Zero) 
+                        if (RGLTexturePtr != IntPtr.Zero) 
                         {
-                            RGLNativeAPI.rgl_texture_destroy(rglTexturePtr);
-                            rglTexturePtr = IntPtr.Zero;                            
+                            RGLNativeAPI.rgl_texture_destroy(RGLTexturePtr);
+                            RGLTexturePtr = IntPtr.Zero;                            
                         }      
-                        throw;                      
+                        throw;
                     }
-               }  
-            }       
+                }  
+            }
         }
     }
 }
