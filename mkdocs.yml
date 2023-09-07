@@ -21,6 +21,16 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
   - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+    - javascripts/mathjax.js
+    - https://polyfill.io/v3/polyfill.min.js?features=es6
+    - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 nav:
   - Home: index.md
@@ -29,36 +39,60 @@ nav:
     - Quick Start Demo: GettingStarted/QuickStartDemo/index.md
     - Setup Unity Project: GettingStarted/SetupUnityProject/index.md
 
+  - Introduction:
+    - Autoware: Introduction/Autoware/index.md
+    - AWSIM: Introduction/AWSIM/index.md
+    - CombinationWithAutoware: Introduction/CombinationWithAutoware/index.md
+
   - Project guide:
     - Directory: ProjectGuide/Directory/index.md
+    - Scenes: ProjectGuide/Scenes/index.md
     - Git Branch: ProjectGuide/GitBranch/index.md
     - External Libraries: ProjectGuide/ExternalLibraries/index.md
 
   - Components:
     - Vehicle:
-      - AWSIM Vehicle: Components/Vehicle/AWSIMVehicle/index.md
-      - Add New Vehicle: Components/Vehicle/AddVehicle/index.md
+      - Ego Vehicle: Components/Vehicle/EgoVehicle/index.md
+      - URDF And Sensors: Components/Vehicle/URDFAndSensors/index.md
+      - Add New Vehicle:
+        - Add Vehicle: Components\Vehicle\AddNewVehicle\AddAVehicle\index.md
+        - Add Colliders: Components\Vehicle\AddNewVehicle\AddColliders\index.md
+        - Add Sensors: Components\Vehicle\AddNewVehicle\AddSensors\index.md
+        - Add Visual Elements: Components\Vehicle\AddNewVehicle\AddVisualElements\index.md
     - Sensors:
-      - LiDAR Sensor: Components/Sensors/LiDARSensor/index.md
+      - LiDAR Sensor:
+        - LiDAR Sensor: Components/Sensors/LiDARSensor/LiDARSensor/index.md
+        - Add New LiDAR: Components/Sensors/LiDARSensor/AddNewLiDAR/index.md
+        - Read Material Information: Components/Sensors/LiDARSensor/ReadMaterialInformation/index.md
+        - RGLUnityPlugin: Components/Sensors/LiDARSensor/RGLUnityPlugin/index.md
       - Camera Sensor: Components/Sensors/CameraSensor/index.md
       - IMU Sensor: Components/Sensors/IMUSensor/index.md
       - GNSS Sensor: Components/Sensors/GNSSSensor/index.md
+      - Vehicle Status Sensor: Components/Sensors/VehicleStatusSensor/index.md
     - Environment:
       - AWSIM Environment: Components/Environment/AWSIMEnvironment/index.md
-      - Add New Environment: Components/Environment/AddNewEnvironment/index.md
-      - PointCloudMapper: Components/Environment/PointCloudMapper/index.md
+      - Add New Environment:
+        - Add Environment: Components/Environment/AddNewEnvironment/AddEnvironment/index.md
+        - Add RandomTraffic:
+          - Load Items From Lanelet: Components/Environment/AddNewEnvironment/AddRandomTraffic/LoadItemsFromLanelet/index.md
+          - Add Random Traffic: Components/Environment/AddNewEnvironment/AddRandomTraffic/AddRandomTraffic/index.md
+          - Add Traffic Intersection: Components/Environment/AddNewEnvironment/AddRandomTraffic/AddTrafficIntersection/index.md
+        - Add TrafficLights: Components/Environment/AddNewEnvironment/AddTrafficLights/index.md
+      - Create PCD: Components/Environment/CreatePCD/index.md
       - LaneletBoundsVisualizer: Components/Environment/LaneletBoundsVisualizer/index.md
       - SmokeSimulator: Components/Environment/SmokeSimulator/index.md
     - Traffic:
+      - Traffic Components: Components/Traffic/TrafficComponents/index.md
       - Random Traffic:
         - Random Traffic Simulator: Components/Traffic/RandomTraffic/RandomTrafficSimulator/index.md
         - Add Random Traffic Environment: Components/Traffic/RandomTraffic/AddRandomTrafficEnvironment/index.md
-      - NPC:
-        - NPC Pedestrian: Components/Traffic/NPC/NPC Pedestrian/index.md
-        - NPC Vehicle: Components/Traffic/NPC/NPC Vehicle/index.md
+      - NPCs:
+        - Pedestrian: Components/Traffic/NPCs/Pedestrian/index.md
+        - Vehicle: Components/Traffic/NPCs/Vehicle/index.md
     - ROS2:
       - ROS2 topic list: Components/ROS2/ROS2TopicList/index.md
-      - Add custom ROS2 msg type: Components/ROS2/AddCustomROS2MessageType/index.md
+      - Add custom ROS2 msg: Components/ROS2/AddACustomROS2Message/index.md
+      - ROS2 For Unity: Components/ROS2/ROS2ForUnity/index.md
 
   - Developer guide:
     - How to Contribute: DeveloperGuide/HowToContribute/index.md
