@@ -69,7 +69,7 @@ namespace RGLUnityPlugin
         public static ITimeSource TimeSource { get; set; } = new UnityTimeSource();
 
         private int lastUpdateFrame = -1;
-        private int lastPhysicsCycle = -1;
+        private int lastFixedUpdateFrame = -1;
 
         private void OnDisable()
         {
@@ -110,8 +110,8 @@ namespace RGLUnityPlugin
         /// <summary>
         /// Find out what changes happened on the scene since the last update and update RGL data.
         /// </summary>
-        /// <param name="physicsCycle">Indicates physics cycle number to enable updating when FixedUpdate is called more frequently than Update.</param>
-        public void DoUpdate(int physicsCycle = 0)
+        /// <param name="fixedUpdateFrame">Indicates fixed update frame number to enable updating when FixedUpdate is called more frequently than Update.</param>
+        public void DoUpdate(int fixedUpdateFrame = 0)
         {
             /* TODO(prybicki):
              * Placing this code in Update() might cause an artifact - only undefined subset of
@@ -124,12 +124,17 @@ namespace RGLUnityPlugin
 
             // The following snippet is a consequence of inability to easily synchronize with LiDAR publishing.
             // TODO: rework it in the future
-            if (lastUpdateFrame == Time.frameCount && lastPhysicsCycle == physicsCycle)
+            // fixedUpdateFrame was added to deal with situations when FixedUpdate is called more frequently than Update (low frame rate of the simulation).
+            // Every FixedUpdate cycle starts a new physics cycle in which game objects change their position/animation.
+            // The problem was that lidars updated their position every raytrace execution (fixedUpdate) while RGL scene did not update because it was the same frame of the simulation.
+            // In this case, we are raytracing on the same scene changing only lidars position which may overlap with the body of not-updated objects.
+            // Now, lidars track its FixedUpdate cycles in the currect frame and pass it as fixedUpdateFrame.
+            if (lastUpdateFrame == Time.frameCount && lastFixedUpdateFrame == fixedUpdateFrame)
             {
-                return; // Already done in this frame and physics cycle (FixedUpdate)
+                return; // Already done in this frame and fixed update (physics cycle)
             }
 
-            lastPhysicsCycle = physicsCycle;
+            lastFixedUpdateFrame = fixedUpdateFrame;
             lastUpdateFrame = Time.frameCount;
 
             SynchronizeSceneTime();
