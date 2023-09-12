@@ -20,6 +20,7 @@ using UnityEngine;
 namespace RGLUnityPlugin
 {
     [System.Serializable]
+    [RequireComponent(typeof(LidarSensor))]
     public class PointCloudVisualization : MonoBehaviour
     {
         public enum PointShape
@@ -63,8 +64,22 @@ namespace RGLUnityPlugin
 
         private Mesh mesh;
 
+        private LidarSensor lidarSensor;
+        private RGLNodeSequence rglSubgraphVisualizationOutput;
+        private readonly string visualizationOutputNodeId = "OUT_VISUALIZATION";
+
+        public void Awake()
+        {
+            rglSubgraphVisualizationOutput = new RGLNodeSequence()
+                .AddNodePointsYield(visualizationOutputNodeId, RGLField.XYZ_F32);
+
+            lidarSensor = GetComponent<LidarSensor>();
+        }
+
         public void Start()
         {
+            lidarSensor.ConnectToWorldFrame(rglSubgraphVisualizationOutput);
+
             mesh = new Mesh();
             if (!material)
             {
@@ -77,6 +92,18 @@ namespace RGLUnityPlugin
 
             OnValidate();
             mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+        }
+
+        public void OnEnable()
+        {
+            rglSubgraphVisualizationOutput.SetActive(visualizationOutputNodeId, true);
+            lidarSensor.onNewData += OnNewLidarData;
+        }
+
+        public void OnDisable()
+        {
+            rglSubgraphVisualizationOutput.SetActive(visualizationOutputNodeId, false);
+            lidarSensor.onNewData -= OnNewLidarData;
         }
 
         public void OnValidate()
@@ -125,6 +152,13 @@ namespace RGLUnityPlugin
         public void Update()
         {
             Graphics.DrawMesh(mesh, Vector3.zero, Quaternion.identity, material, visualizationLayerID);
+        }
+
+        private void OnNewLidarData()
+        {
+            Vector3[] onlyHits = new Vector3[0];
+            rglSubgraphVisualizationOutput.GetResultData<Vector3>(ref onlyHits);
+            SetPoints(onlyHits);
         }
     }
 }

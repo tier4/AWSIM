@@ -25,7 +25,6 @@ namespace RGLUnityPlugin
     /// <summary>
     /// Encapsulates all non-ROS components of a RGL-based Lidar.
     /// </summary>
-    [RequireComponent(typeof(PointCloudVisualization))]
     public class LidarSensor : MonoBehaviour
     {
         /// <summary>
@@ -37,7 +36,6 @@ namespace RGLUnityPlugin
         /// <summary>
         /// Delegate used in callbacks.
         /// </summary>
-        /// <param name="outputData">Data output for each hz</param>
         public delegate void OnNewDataDelegate();
 
         /// <summary>
@@ -74,7 +72,6 @@ namespace RGLUnityPlugin
         private RGLNodeSequence rglGraphLidar;
         private RGLNodeSequence rglSubgraphCompact;
         private RGLNodeSequence rglSubgraphToLidarFrame;
-        private RGLNodeSequence rglSubgraphVisualizationOutput;
         private SceneManager sceneManager;
 
         private readonly string lidarRaysNodeId = "LIDAR_RAYS";
@@ -86,7 +83,6 @@ namespace RGLUnityPlugin
         private readonly string noiseDistanceNodeId = "NOISE_DISTANCE";
         private readonly string pointsCompactNodeId = "POINTS_COMPACT";
         private readonly string toLidarFrameNodeId = "TO_LIDAR_FRAME";
-        private readonly string visualizationOutputNodeId = "OUT_VISUALIZATION";
 
         private LidarModel? validatedPreset;
         private float timer;
@@ -108,12 +104,8 @@ namespace RGLUnityPlugin
             rglSubgraphToLidarFrame = new RGLNodeSequence()
                 .AddNodePointsTransform(toLidarFrameNodeId, Matrix4x4.identity);
 
-            rglSubgraphVisualizationOutput = new RGLNodeSequence()
-                .AddNodePointsYield(visualizationOutputNodeId, RGLField.XYZ_F32);
-
             RGLNodeSequence.Connect(rglGraphLidar, rglSubgraphCompact);
             RGLNodeSequence.Connect(rglSubgraphCompact, rglSubgraphToLidarFrame);
-            RGLNodeSequence.Connect(rglSubgraphCompact, rglSubgraphVisualizationOutput);
         }
 
         public void Start()
@@ -226,14 +218,6 @@ namespace RGLUnityPlugin
             rglSubgraphToLidarFrame.UpdateNodePointsTransform(toLidarFrameNodeId, lidarPose.inverse);
 
             rglGraphLidar.Run();
-
-            // Could be moved to PointCloudVisualization
-            if (GetComponent<PointCloudVisualization>().isActiveAndEnabled)
-            {
-                Vector3[] onlyHits = new Vector3[0];
-                rglSubgraphVisualizationOutput.GetResultData<Vector3>(ref onlyHits);
-                GetComponent<PointCloudVisualization>().SetPoints(onlyHits);
-            }
         }
     }
 }

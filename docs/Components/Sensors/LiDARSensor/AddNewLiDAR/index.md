@@ -35,7 +35,7 @@ To add a new *LiDAR* model, perform the following steps:
 1. Create an empty object and name it appropriately according to the *LiDAR* model.
 1. Attach script `LidarSensor.cs` to created object.
 1. Set the new added *LiDAR* model in `Model Preset` field, check if the configuration loads correctly. You can now customize it however you like.
-1. `PointCloudVisualization.cs` will be added automatically, however, you can disable it.
+1. (Optional) Attach script `PointCloudVisualization.cs` for visualization purposes.
 1. For publishing point cloud via *ROS2* attach script `RglLidarPublisher.cs` script to created object.
 1. Set the topics on which you want the data to be published and their frame.
 2. Save the prefab in the project.
