@@ -187,6 +187,21 @@ public class TrafficManager : MonoBehaviour
         spawnLanes.Clear();
         npcVehicleSimulator.StepOnce(Time.fixedDeltaTime);
 
+        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+        {
+            // Check if the X key was just pressed
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                // Set all vehicles to despawn
+                Debug.Log("Ctrl + X was pressed.");
+
+                foreach (var state in npcVehicleSimulator.VehicleStates)
+                {
+                    state.ShouldDespawn = true;
+                }
+            }
+        }
+
         Despawn();
     }
     private void Despawn()
