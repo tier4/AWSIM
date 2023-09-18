@@ -268,17 +268,10 @@ namespace RGLUnityPlugin
                         continue;
                     }
 
-                    IRGLObject rglObject;
-                    try
+                    if (TryCreateRGLObject(collider, out IRGLObject rglObject))
                     {
-                        rglObject = new RGLColliderObject(collider);
+                        yield return rglObject;
                     }
-                    catch (RGLException e)
-                    {
-                        Debug.LogWarning($"Cannot create RGL object from '{collider.gameObject.name}': {e.Message}. Skipping...");
-                        continue;
-                    }
-                    yield return rglObject;
                 }
             }
         }
@@ -309,33 +302,19 @@ namespace RGLUnityPlugin
 
                 if (renderer is MeshRenderer mr)
                 {
-                    IRGLObject rglObject;
-                    try
+                    if (TryCreateRGLObject(renderer, out IRGLObject rglObject))
                     {
-                        rglObject = new RGLMeshRendererObject(mr);
+                        yield return rglObject;
                     }
-                    catch (RGLException e)
-                    {
-                        Debug.LogWarning($"Cannot create RGL object from '{mr.gameObject.name}': {e.Message}. Skipping...");
-                        continue;
-                    }
-                    yield return rglObject;
                 }
             }
 
             foreach (var collider in collidersToYield)
             {
-                IRGLObject rglObject;
-                try
+                if (TryCreateRGLObject(collider, out IRGLObject rglObject))
                 {
-                    rglObject = new RGLColliderObject(collider);
+                    yield return rglObject;
                 }
-                catch (RGLException e)
-                {
-                    Debug.LogWarning($"Cannot create RGL object from '{collider.gameObject.name}': {e.Message}. Skipping...");
-                    continue;
-                }
-                yield return rglObject;
             }
         }
 
@@ -348,33 +327,8 @@ namespace RGLUnityPlugin
         {
             foreach (var renderer in GetUniqueRenderersInGameObjects(gameObjects))
             {
-                if (renderer is MeshRenderer mr)
+                if (TryCreateRGLObject(renderer, out IRGLObject rglObject))
                 {
-                    IRGLObject rglObject;
-                    try
-                    {
-                        rglObject = new RGLMeshRendererObject(mr);
-                    }
-                    catch (RGLException e)
-                    {
-                        Debug.LogWarning($"Cannot create RGL object from '{mr.gameObject.name}': {e.Message}. Skipping...");
-                        continue;
-                    }
-                    yield return rglObject;
-                }
-
-                if (renderer is SkinnedMeshRenderer smr)
-                {
-                    IRGLObject rglObject;
-                    try
-                    {
-                        rglObject = new RGLSkinnedMeshRendererObject(smr);
-                    }
-                    catch (RGLException e)
-                    {
-                        Debug.LogWarning($"Cannot create RGL object from '{smr.gameObject.name}': {e.Message}. Skipping...");
-                        continue;
-                    }
                     yield return rglObject;
                 }
             }
@@ -386,17 +340,10 @@ namespace RGLUnityPlugin
             {
                 if (gameObject.TryGetComponent<Terrain>(out var terrain))
                 {
-                    IRGLObject rglObject;
-                    try
+                    if (TryCreateRGLObject(terrain, out IRGLObject rglObject))
                     {
-                        rglObject = new RGLTerrainObject(terrain);
+                        yield return rglObject;
                     }
-                    catch (RGLException e)
-                    {
-                        Debug.LogWarning($"Cannot create RGL object from '{terrain.gameObject.name}': {e.Message}. Skipping...");
-                        continue;
-                    }
-                    yield return rglObject;
                 }
             }
         }
@@ -462,6 +409,42 @@ namespace RGLUnityPlugin
         private static bool IsNotActiveOrParentHasLidar(GameObject gameObject)
         {
             return !gameObject.activeInHierarchy || gameObject.GetComponentsInParent<LidarSensor>().Length != 0;
+        }
+
+        private static bool TryCreateRGLObject<T>(T meshSource, out IRGLObject rglObject) where T : UnityEngine.Object
+        {
+            try
+            {
+                if (meshSource is MeshRenderer mr)
+                {
+                    rglObject = new RGLMeshRendererObject(mr);
+                }
+                else if (meshSource is SkinnedMeshRenderer smr)
+                {
+                    rglObject = new RGLSkinnedMeshRendererObject(smr);
+                }
+                else if (meshSource is Collider collider)
+                {
+                    rglObject = new RGLColliderObject(collider);
+                }
+                else if (meshSource is Terrain terrain)
+                {
+                    rglObject = new RGLTerrainObject(terrain);
+                }
+                else
+                {
+                    Debug.LogError($"Could not create RGLObject from type '{typeof(T)}'");
+                    rglObject = null;
+                    return false;
+                }
+            }
+            catch (RGLException e)
+            {
+                Debug.LogWarning($"Cannot create RGLObject from '{meshSource.name}': {e.Message}. Skipping...");
+                rglObject = null;
+                return false;
+            }
+            return true;
         }
     }
 }

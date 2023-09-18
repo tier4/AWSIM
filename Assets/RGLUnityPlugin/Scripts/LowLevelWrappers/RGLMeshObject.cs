@@ -185,7 +185,7 @@ namespace RGLUnityPlugin
             }
             catch (RGLException)
             {
-                Debug.LogError($"Cannot assign texture: {rglTexture.Texture.name}, to entity: {RepresentedGO.name}");
+                Debug.LogError($"Cannot assign texture: '{rglTexture.Texture.name}', to entity: '{RepresentedGO.name}'");
                 throw;
             }
 
@@ -217,7 +217,7 @@ namespace RGLUnityPlugin
             var meshFilter = meshRenderer.GetComponent<MeshFilter>();
             if (meshFilter == null || meshFilter.sharedMesh == null)
             {
-                throw new RGLException($"Shared mesh of {meshRenderer.gameObject.name} is null");
+                throw new RGLException($"Shared mesh of '{meshRenderer.gameObject.name}' is null");
             }
             return RGLMeshSharingManager.RegisterRGLMeshInstance(meshFilter.sharedMesh);
         }
@@ -251,7 +251,7 @@ namespace RGLUnityPlugin
         {
             if (skinnedMeshRenderer.sharedMesh == null)
             {
-                throw new RGLException($"Shared mesh of {skinnedMeshRenderer.gameObject} is null");
+                throw new RGLException($"Shared mesh of '{skinnedMeshRenderer.gameObject}' is null");
             }
             // Skinned meshes cannot be shared by using RGLMeshSharingManager
             return new RGLSkinnedMesh(skinnedMeshRenderer.gameObject.GetInstanceID(), skinnedMeshRenderer);
