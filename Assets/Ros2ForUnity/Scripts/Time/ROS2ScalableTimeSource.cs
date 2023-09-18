@@ -27,7 +27,10 @@ public class ROS2ScalableTimeSource : ITimeSource
   private double lastReadingSecs;
   private ROS2.Clock clock;
   private double initialTime = 0;
+  private double initialTimeScale = 0;
   private bool initialTimeAcquired = false;
+  private bool initialTimeScaleAcquired = false;
+  private bool timeScaleChanged = false;
 
   public ROS2ScalableTimeSource()
   {
@@ -49,14 +52,32 @@ public class ROS2ScalableTimeSource : ITimeSource
       clock = new ROS2.Clock();
     }
 
-    if (!initialTimeAcquired)
+    if (!initialTimeScaleAcquired)
     {
-      initialTimeAcquired = true;
-      initialTime = clock.Now.Seconds;
+      initialTimeScaleAcquired = true;
+      initialTimeScale = Time.timeScale;
+    }
+
+    if (initialTimeScale != Time.timeScale)
+    {
+      timeScaleChanged = true;
     }
 
     lastReadingSecs = mainThread.Equals(Thread.CurrentThread) ? Time.timeAsDouble : lastReadingSecs;
-    TimeUtils.TimeFromTotalSeconds(lastReadingSecs + initialTime, out seconds, out nanoseconds);
+
+    if (initialTimeScale == 1.0 && !timeScaleChanged)
+    {
+      TimeUtils.TimeFromTotalSeconds(clock.Now.Seconds, out seconds, out nanoseconds);
+    }
+    else
+    {
+      if (!initialTimeAcquired)
+      {
+        initialTimeAcquired = true;
+        initialTime = clock.Now.Seconds - Time.timeAsDouble;
+      }
+      TimeUtils.TimeFromTotalSeconds(lastReadingSecs + initialTime, out seconds, out nanoseconds);
+    }
   }
 
   ~ROS2ScalableTimeSource()
