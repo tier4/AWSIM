@@ -60,10 +60,6 @@ namespace RGLUnityPlugin
             this.identifier = identifier;
             RepresentedGO = representedGO;
             rglMesh = GetRGLMeshFrom(meshSource);
-            if (rglMesh == null)
-            {
-                throw new RGLException($"Could not create RGLMesh from gameobject '{representedGO.name}'.");
-            }
             UploadToRGL();
             SetIntensityTexture();
 
@@ -219,12 +215,10 @@ namespace RGLUnityPlugin
         protected override RGLMesh GetRGLMeshFrom(MeshRenderer meshRenderer)
         {
             var meshFilter = meshRenderer.GetComponent<MeshFilter>();
-            if (meshFilter.sharedMesh == null)
+            if (meshFilter == null || meshFilter.sharedMesh == null)
             {
-                Debug.LogWarning($"Shared mesh of {meshRenderer.gameObject.name} is null, skipping");
-                return null;
+                throw new RGLException($"Shared mesh of {meshRenderer.gameObject.name} is null");
             }
-
             return RGLMeshSharingManager.RegisterRGLMeshInstance(meshFilter.sharedMesh);
         }
 
@@ -255,6 +249,10 @@ namespace RGLUnityPlugin
 
         protected override RGLMesh GetRGLMeshFrom(SkinnedMeshRenderer skinnedMeshRenderer)
         {
+            if (skinnedMeshRenderer.sharedMesh == null)
+            {
+                throw new RGLException($"Shared mesh of {skinnedMeshRenderer.gameObject} is null");
+            }
             // Skinned meshes cannot be shared by using RGLMeshSharingManager
             return new RGLSkinnedMesh(skinnedMeshRenderer.gameObject.GetInstanceID(), skinnedMeshRenderer);
         }

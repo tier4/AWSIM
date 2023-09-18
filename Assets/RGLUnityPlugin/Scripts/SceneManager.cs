@@ -268,7 +268,17 @@ namespace RGLUnityPlugin
                         continue;
                     }
 
-                    yield return new RGLColliderObject(collider);
+                    IRGLObject rglObject;
+                    try
+                    {
+                        rglObject = new RGLColliderObject(collider);
+                    }
+                    catch (RGLException e)
+                    {
+                        Debug.LogWarning($"Cannot create RGL object from '{collider.gameObject.name}': {e.Message}. Skipping...");
+                        continue;
+                    }
+                    yield return rglObject;
                 }
             }
         }
@@ -299,13 +309,33 @@ namespace RGLUnityPlugin
 
                 if (renderer is MeshRenderer mr)
                 {
-                    yield return new RGLMeshRendererObject(mr);
+                    IRGLObject rglObject;
+                    try
+                    {
+                        rglObject = new RGLMeshRendererObject(mr);
+                    }
+                    catch (RGLException e)
+                    {
+                        Debug.LogWarning($"Cannot create RGL object from '{mr.gameObject.name}': {e.Message}. Skipping...");
+                        continue;
+                    }
+                    yield return rglObject;
                 }
             }
 
             foreach (var collider in collidersToYield)
             {
-                yield return new RGLColliderObject(collider);
+                IRGLObject rglObject;
+                try
+                {
+                    rglObject = new RGLColliderObject(collider);
+                }
+                catch (RGLException e)
+                {
+                    Debug.LogWarning($"Cannot create RGL object from '{collider.gameObject.name}': {e.Message}. Skipping...");
+                    continue;
+                }
+                yield return rglObject;
             }
         }
 
@@ -320,18 +350,32 @@ namespace RGLUnityPlugin
             {
                 if (renderer is MeshRenderer mr)
                 {
-                    yield return new RGLMeshRendererObject(mr);
+                    IRGLObject rglObject;
+                    try
+                    {
+                        rglObject = new RGLMeshRendererObject(mr);
+                    }
+                    catch (RGLException e)
+                    {
+                        Debug.LogWarning($"Cannot create RGL object from '{mr.gameObject.name}': {e.Message}. Skipping...");
+                        continue;
+                    }
+                    yield return rglObject;
                 }
 
                 if (renderer is SkinnedMeshRenderer smr)
                 {
-                    if (smr.sharedMesh == null)
+                    IRGLObject rglObject;
+                    try
                     {
-                        Debug.LogWarning($"Shared mesh of {smr.gameObject} is null, skipping");
+                        rglObject = new RGLSkinnedMeshRendererObject(smr);
+                    }
+                    catch (RGLException e)
+                    {
+                        Debug.LogWarning($"Cannot create RGL object from '{smr.gameObject.name}': {e.Message}. Skipping...");
                         continue;
                     }
-
-                    yield return new RGLSkinnedMeshRendererObject(smr);
+                    yield return rglObject;
                 }
             }
         }
@@ -342,7 +386,17 @@ namespace RGLUnityPlugin
             {
                 if (gameObject.TryGetComponent<Terrain>(out var terrain))
                 {
-                    yield return new RGLTerrainObject(terrain);
+                    IRGLObject rglObject;
+                    try
+                    {
+                        rglObject = new RGLTerrainObject(terrain);
+                    }
+                    catch (RGLException e)
+                    {
+                        Debug.LogWarning($"Cannot create RGL object from '{terrain.gameObject.name}': {e.Message}. Skipping...");
+                        continue;
+                    }
+                    yield return rglObject;
                 }
             }
         }
