@@ -268,7 +268,7 @@ namespace RGLUnityPlugin
                         continue;
                     }
 
-                    if (TryCreateRGLObject(collider, out IRGLObject rglObject))
+                    if (RGLObjectHelper.TryCreateRGLObject(collider, out IRGLObject rglObject))
                     {
                         yield return rglObject;
                     }
@@ -302,7 +302,7 @@ namespace RGLUnityPlugin
 
                 if (renderer is MeshRenderer mr)
                 {
-                    if (TryCreateRGLObject(renderer, out IRGLObject rglObject))
+                    if (RGLObjectHelper.TryCreateRGLObject(renderer, out IRGLObject rglObject))
                     {
                         yield return rglObject;
                     }
@@ -311,7 +311,7 @@ namespace RGLUnityPlugin
 
             foreach (var collider in collidersToYield)
             {
-                if (TryCreateRGLObject(collider, out IRGLObject rglObject))
+                if (RGLObjectHelper.TryCreateRGLObject(collider, out IRGLObject rglObject))
                 {
                     yield return rglObject;
                 }
@@ -327,7 +327,7 @@ namespace RGLUnityPlugin
         {
             foreach (var renderer in GetUniqueRenderersInGameObjects(gameObjects))
             {
-                if (TryCreateRGLObject(renderer, out IRGLObject rglObject))
+                if (RGLObjectHelper.TryCreateRGLObject(renderer, out IRGLObject rglObject))
                 {
                     yield return rglObject;
                 }
@@ -340,7 +340,7 @@ namespace RGLUnityPlugin
             {
                 if (gameObject.TryGetComponent<Terrain>(out var terrain))
                 {
-                    if (TryCreateRGLObject(terrain, out IRGLObject rglObject))
+                    if (RGLObjectHelper.TryCreateRGLObject(terrain, out IRGLObject rglObject))
                     {
                         yield return rglObject;
                     }
@@ -409,42 +409,6 @@ namespace RGLUnityPlugin
         private static bool IsNotActiveOrParentHasLidar(GameObject gameObject)
         {
             return !gameObject.activeInHierarchy || gameObject.GetComponentsInParent<LidarSensor>().Length != 0;
-        }
-
-        private static bool TryCreateRGLObject<T>(T meshSource, out IRGLObject rglObject) where T : UnityEngine.Object
-        {
-            try
-            {
-                if (meshSource is MeshRenderer mr)
-                {
-                    rglObject = new RGLMeshRendererObject(mr);
-                }
-                else if (meshSource is SkinnedMeshRenderer smr)
-                {
-                    rglObject = new RGLSkinnedMeshRendererObject(smr);
-                }
-                else if (meshSource is Collider collider)
-                {
-                    rglObject = new RGLColliderObject(collider);
-                }
-                else if (meshSource is Terrain terrain)
-                {
-                    rglObject = new RGLTerrainObject(terrain);
-                }
-                else
-                {
-                    Debug.LogError($"Could not create RGLObject from type '{typeof(T)}'");
-                    rglObject = null;
-                    return false;
-                }
-            }
-            catch (RGLException e)
-            {
-                Debug.LogWarning($"Cannot create RGLObject from '{meshSource.name}': {e.Message}. Skipping...");
-                rglObject = null;
-                return false;
-            }
-            return true;
         }
     }
 }
