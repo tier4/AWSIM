@@ -827,6 +827,10 @@ PrefabInstance:
       propertyPath: duration
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: maxVehicleCount
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 988938449032091554, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: m_LocalPosition.x
       value: 270.85
