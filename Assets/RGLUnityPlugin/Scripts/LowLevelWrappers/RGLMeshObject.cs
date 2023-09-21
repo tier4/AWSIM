@@ -21,6 +21,44 @@ using System.Collections.Generic;
 
 namespace RGLUnityPlugin
 {
+    public static class RGLObjectHelper
+    {
+        internal static bool TryCreateRGLObject<T>(T meshSource, out IRGLObject rglObject) where T : UnityEngine.Object
+        {
+            try
+            {
+                if (meshSource is MeshRenderer mr)
+                {
+                    rglObject = new RGLMeshRendererObject(mr);
+                }
+                else if (meshSource is SkinnedMeshRenderer smr)
+                {
+                    rglObject = new RGLSkinnedMeshRendererObject(smr);
+                }
+                else if (meshSource is Collider collider)
+                {
+                    rglObject = new RGLColliderObject(collider);
+                }
+                else if (meshSource is Terrain terrain)
+                {
+                    rglObject = new RGLTerrainObject(terrain);
+                }
+                else
+                {
+                    Debug.LogError($"Could not create RGLObject from type '{typeof(T)}'");
+                    rglObject = null;
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"Cannot create RGLObject from '{meshSource.name}': {e.Message}. Skipping...");
+                rglObject = null;
+                return false;
+            }
+            return true;
+        }
+    }
 
     internal interface IRGLObject
     {
@@ -60,10 +98,6 @@ namespace RGLUnityPlugin
             this.identifier = identifier;
             RepresentedGO = representedGO;
             rglMesh = GetRGLMeshFrom(meshSource);
-            if (rglMesh == null)
-            {
-                throw new RGLException($"Could not create RGLMesh from gameobject '{representedGO.name}'.");
-            }
             UploadToRGL();
             SetIntensityTexture();
 
@@ -189,7 +223,7 @@ namespace RGLUnityPlugin
             }
             catch (RGLException)
             {
-                Debug.LogError($"Cannot assign texture: {rglTexture.Texture.name}, to entity: {RepresentedGO.name}");
+                Debug.LogError($"Cannot assign texture: '{rglTexture.Texture.name}', to entity: '{RepresentedGO.name}'");
                 throw;
             }
 
@@ -219,12 +253,14 @@ namespace RGLUnityPlugin
         protected override RGLMesh GetRGLMeshFrom(MeshRenderer meshRenderer)
         {
             var meshFilter = meshRenderer.GetComponent<MeshFilter>();
+            if (meshFilter == null)
+            {
+                throw new NotSupportedException($"Mesh renderer '{meshRenderer.gameObject.name}' has no MeshFilter component");
+            }
             if (meshFilter.sharedMesh == null)
             {
-                Debug.LogWarning($"Shared mesh of {meshRenderer.gameObject.name} is null, skipping");
-                return null;
+                throw new NotSupportedException($"Shared mesh of '{meshRenderer.gameObject.name}' is null");
             }
-
             return RGLMeshSharingManager.RegisterRGLMeshInstance(meshFilter.sharedMesh);
         }
 
@@ -255,6 +291,10 @@ namespace RGLUnityPlugin
 
         protected override RGLMesh GetRGLMeshFrom(SkinnedMeshRenderer skinnedMeshRenderer)
         {
+            if (skinnedMeshRenderer.sharedMesh == null)
+            {
+                throw new NotSupportedException($"Shared skinned mesh of '{skinnedMeshRenderer.gameObject}' is null");
+            }
             // Skinned meshes cannot be shared by using RGLMeshSharingManager
             return new RGLSkinnedMesh(skinnedMeshRenderer.gameObject.GetInstanceID(), skinnedMeshRenderer);
         }

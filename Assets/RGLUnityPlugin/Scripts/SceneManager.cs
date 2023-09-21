@@ -268,7 +268,10 @@ namespace RGLUnityPlugin
                         continue;
                     }
 
-                    yield return new RGLColliderObject(collider);
+                    if (RGLObjectHelper.TryCreateRGLObject(collider, out IRGLObject rglObject))
+                    {
+                        yield return rglObject;
+                    }
                 }
             }
         }
@@ -299,13 +302,19 @@ namespace RGLUnityPlugin
 
                 if (renderer is MeshRenderer mr)
                 {
-                    yield return new RGLMeshRendererObject(mr);
+                    if (RGLObjectHelper.TryCreateRGLObject(renderer, out IRGLObject rglObject))
+                    {
+                        yield return rglObject;
+                    }
                 }
             }
 
             foreach (var collider in collidersToYield)
             {
-                yield return new RGLColliderObject(collider);
+                if (RGLObjectHelper.TryCreateRGLObject(collider, out IRGLObject rglObject))
+                {
+                    yield return rglObject;
+                }
             }
         }
 
@@ -318,20 +327,9 @@ namespace RGLUnityPlugin
         {
             foreach (var renderer in GetUniqueRenderersInGameObjects(gameObjects))
             {
-                if (renderer is MeshRenderer mr)
+                if (RGLObjectHelper.TryCreateRGLObject(renderer, out IRGLObject rglObject))
                 {
-                    yield return new RGLMeshRendererObject(mr);
-                }
-
-                if (renderer is SkinnedMeshRenderer smr)
-                {
-                    if (smr.sharedMesh == null)
-                    {
-                        Debug.LogWarning($"Shared mesh of {smr.gameObject} is null, skipping");
-                        continue;
-                    }
-
-                    yield return new RGLSkinnedMeshRendererObject(smr);
+                    yield return rglObject;
                 }
             }
         }
@@ -342,7 +340,10 @@ namespace RGLUnityPlugin
             {
                 if (gameObject.TryGetComponent<Terrain>(out var terrain))
                 {
-                    yield return new RGLTerrainObject(terrain);
+                    if (RGLObjectHelper.TryCreateRGLObject(terrain, out IRGLObject rglObject))
+                    {
+                        yield return rglObject;
+                    }
                 }
             }
         }
