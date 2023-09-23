@@ -78,10 +78,11 @@ namespace RGLUnityPlugin
         private SceneManager sceneManager;
 
         private readonly string lidarRaysNodeId = "LIDAR_RAYS";
+        private readonly string lidarRangeNodeId = "LIDAR_RANGE";
         private readonly string lidarRingsNodeId = "LIDAR_RINGS";
         private readonly string lidarPoseNodeId = "LIDAR_POSE";
         private readonly string noiseLidarRayNodeId = "NOISE_LIDAR_RAY";
-        private readonly string lidarRangeNodeId = "LIDAR_RAYTRACE";
+        private readonly string lidarRaytraceNodeId = "LIDAR_RAYTRACE";
         private readonly string noiseHitpointNodeId = "NOISE_HITPOINT";
         private readonly string noiseDistanceNodeId = "NOISE_DISTANCE";
         private readonly string pointsCompactNodeId = "POINTS_COMPACT";
@@ -95,10 +96,11 @@ namespace RGLUnityPlugin
         {
             rglGraphLidar = new RGLNodeSequence()
                 .AddNodeRaysFromMat3x4f(lidarRaysNodeId, new Matrix4x4[1] {Matrix4x4.identity})
+                .AddNodeRaysSetRange(lidarRangeNodeId, new Vector2[1] {new Vector2(0.0f, Mathf.Infinity)})
                 .AddNodeRaysSetRingIds(lidarRingsNodeId, new int[1] {0})
                 .AddNodeRaysTransform(lidarPoseNodeId, Matrix4x4.identity)
                 .AddNodeGaussianNoiseAngularRay(noiseLidarRayNodeId, 0, 0)
-                .AddNodeRaytrace(lidarRangeNodeId, Mathf.Infinity)
+                .AddNodeRaytrace(lidarRaytraceNodeId)
                 .AddNodeGaussianNoiseAngularHitpoint(noiseHitpointNodeId, 0, 0)
                 .AddNodeGaussianNoiseDistance(noiseDistanceNodeId, 0, 0, 0);
 
@@ -155,8 +157,8 @@ namespace RGLUnityPlugin
             }
 
             rglGraphLidar.UpdateNodeRaysFromMat3x4f(lidarRaysNodeId, newConfig.GetRayPoses())
+                         .UpdateNodeRaysSetRange(lidarRangeNodeId, newConfig.GetRayRanges())
                          .UpdateNodeRaysSetRingIds(lidarRingsNodeId, newConfig.laserArray.GetLaserRingIds())
-                         .UpdateNodeRaytrace(lidarRangeNodeId, newConfig.maxRange)
                          .UpdateNodeGaussianNoiseAngularRay(noiseLidarRayNodeId,
                              newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,
                              newConfig.noiseParams.angularNoiseStDev * Mathf.Deg2Rad)

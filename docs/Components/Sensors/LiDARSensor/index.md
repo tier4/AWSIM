@@ -79,11 +79,16 @@ In `LidarSensor` script, the following configuration can be changed:
 - `Model Preset` - allows selecting one of the built-in LiDAR models
 - `Apply Gaussian Noise` - enable/disable Gaussian noise
 - `Configuration` - advanced lidar configuration (in most cases no need to change)
-    - `Laser Array` - geometry description of lidar array
-    - `Horizontal Steps` - the number of laser array firings between `Min H Angle` and `Max H Angle`
+    - `Ray Generate Method` - method that lidar's rays are generated:
+        1. `Rotating Lidar Equal Range` - rays are generated for rotating lidar with equal range for all of the lasers (described with `Min Range` and `Max Range`)
+        2. `Rotating Lidar Different Laser Ranges` - rays are generated for rotating lidar with different ranges for the lasers (described in `Laser Array`)
+        3. `Hesai AT128` - rays are generated in specific way to Hesai AT128 lidar
+    - `Laser Array` - geometry description of lidar's array of lasers
+    - `Horizontal Resolution` - the horiontal resolution of laser array firings
     - `Min H Angle` - minimum horizontal angle (left)
     - `Max H Angle` - maximum horizontal angle (right)
-    - `Max Range` - maximum range of the sensor
+    - `Min Range` - minimum range of the sensor (applied when `Ray Generate Method` is `Rotating Lidar Equal Range`)
+    - `Max Range` - maximum range of the sensor (applied when `Ray Generate Method` is `Rotating Lidar Equal Range`)
     - `Noise Params` - lidar noise paramteres
 
 <img src="img/LidarSensorProp.png" width="500">

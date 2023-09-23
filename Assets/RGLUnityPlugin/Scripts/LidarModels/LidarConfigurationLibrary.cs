@@ -29,6 +29,7 @@ namespace RGLUnityPlugin
                 {LidarModel.HesaiPandarQT, HesaiPandarQT},
                 {LidarModel.HesaiPandar40P, HesaiPandar40P},
                 {LidarModel.OusterOS1_64, OusterOS1_64},
+                {LidarModel.HesaiAT128E2X, HesaiAT128E2X},
             };
 
         public static LidarConfiguration RangeMeter => new LidarConfiguration
@@ -37,8 +38,10 @@ namespace RGLUnityPlugin
             horizontalResolution = 1.0f,
             minHAngle = -0,
             maxHAngle = 0,
-            maxRange = 40,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
+            rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
+            minRange = 0,
+            maxRange = 40,
         };
 
         public static LidarConfiguration SickMRS6000 => new LidarConfiguration
@@ -47,8 +50,10 @@ namespace RGLUnityPlugin
             horizontalResolution = 240.0f / 924.0f,
             minHAngle = -120,
             maxHAngle = 120,
-            maxRange = 40,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
+            rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
+            minRange = 0,
+            maxRange = 40,
         };
 
         public static LidarConfiguration VelodyneVLP16 => new LidarConfiguration
@@ -57,8 +62,10 @@ namespace RGLUnityPlugin
             horizontalResolution = 0.2f,
             minHAngle = 0.0f,
             maxHAngle = 360.0f,
-            maxRange = 100.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
+            rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
+            minRange = 0,
+            maxRange = 100.0f,
         };
 
         public static LidarConfiguration VelodyneVLP32C => new LidarConfiguration
@@ -67,8 +74,10 @@ namespace RGLUnityPlugin
             horizontalResolution = 0.2f,
             minHAngle = 0.0f,
             maxHAngle = 360.0f,
-            maxRange = 200.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
+            rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
+            minRange = 0,
+            maxRange = 200.0f,
         };
 
         public static LidarConfiguration VelodyneVLS128 => new LidarConfiguration
@@ -77,8 +86,10 @@ namespace RGLUnityPlugin
             horizontalResolution = 0.2f,
             minHAngle = 0.0f,
             maxHAngle = 360.0f,
-            maxRange = 300.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
+            rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
+            minRange = 0,
+            maxRange = 300.0f,
         };
 
         public static LidarConfiguration HesaiPandarQT => new LidarConfiguration
@@ -87,8 +98,10 @@ namespace RGLUnityPlugin
             horizontalResolution = 0.6f,
             minHAngle = 0.0f,
             maxHAngle = 360.0f,
-            maxRange = 20.0f, // Yes, 20 meters, this is not a typo!
             noiseParams = LidarConfiguration.TypicalNoiseParams,
+            rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
+            minRange = 0,
+            maxRange = 20.0f, // Yes, 20 meters, this is not a typo!
         };
 
         public static LidarConfiguration HesaiPandar40P => new LidarConfiguration
@@ -97,13 +110,15 @@ namespace RGLUnityPlugin
             horizontalResolution = 0.2f,
             minHAngle = 0.0f,
             maxHAngle = 360.0f,
+            noiseParams = LidarConfiguration.TypicalNoiseParams,
+            rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
+            minRange = 0,
             // documentation is unclear on max range;
             // on one hand there is "range capability" = 200m
             // on the other, in appendix beams have individual ranges assigned
             // that vary from 130m to 230m
             // as this template supports single-value range, 200m is chosen
             maxRange = 200.0f,
-            noiseParams = LidarConfiguration.TypicalNoiseParams,
         };
 
         public static LidarConfiguration OusterOS1_64 => new LidarConfiguration
@@ -112,8 +127,20 @@ namespace RGLUnityPlugin
             horizontalResolution = 360.0f / 1024.0f,
             minHAngle = 0.0f,
             maxHAngle = 360.0f,
-            maxRange = 120.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
+            rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
+            minRange = 0,
+            maxRange = 120.0f,
+        };
+
+        public static LidarConfiguration HesaiAT128E2X => new LidarConfiguration
+        {
+            laserArray = LaserArrayLibrary.HesaiAT128E2X,
+            horizontalResolution = 0.2f,
+            minHAngle = -60.0f,
+            maxHAngle = 60.0f,
+            noiseParams = LidarConfiguration.TypicalNoiseParams,
+            rayGenerateMethod = LidarConfiguration.RayGenerateMethod.HesaiAT128,
         };
     }
 }

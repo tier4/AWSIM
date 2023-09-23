@@ -49,9 +49,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pcl24Topic: lidar/pointcloud
   pcl48Topic: lidar/pointcloud_ex
+  instanceIdTopic: lidar/instance_id
   frameID: world
   publishPCL24: 1
   publishPCL48: 1
+  publishInstanceId: 0
   reliabilityPolicy: 2
   durabilityPolicy: 2
   historyPolicy: 1
@@ -97,77 +99,111 @@ MonoBehaviour:
   applyDistanceGaussianNoise: 1
   applyAngularGaussianNoise: 1
   configuration:
+    rayGenerateMethod: 0
     laserArray:
-      centerOfMeasurementVerticalLinearOffsetMm: 37.7
-      centerOfMeasurementHorizontalLinearOffsetMm: 0
+      centerOfMeasurementLinearOffsetMm: {x: 0, y: 37.7, z: 0}
+      focalDistanceMm: 0
       lasers:
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: 15
         verticalLinearOffsetMm: 11.2
         ringId: 1
+        minRange: 0
+        maxRange: 0
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: -1
         verticalLinearOffsetMm: -0.7
         ringId: 9
+        minRange: 0
+        maxRange: 0
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: 13
         verticalLinearOffsetMm: 9.7
         ringId: 2
+        minRange: 0
+        maxRange: 0
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: -3
         verticalLinearOffsetMm: -2.2
         ringId: 10
+        minRange: 0
+        maxRange: 0
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: 11
         verticalLinearOffsetMm: 8.1
         ringId: 3
+        minRange: 0
+        maxRange: 0
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: -5
         verticalLinearOffsetMm: -3.7
         ringId: 11
+        minRange: 0
+        maxRange: 0
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: 9
         verticalLinearOffsetMm: 6.6
         ringId: 4
+        minRange: 0
+        maxRange: 0
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: -7
         verticalLinearOffsetMm: -5.1
         ringId: 12
+        minRange: 0
+        maxRange: 0
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: 7
         verticalLinearOffsetMm: 5.1
         ringId: 5
+        minRange: 0
+        maxRange: 0
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: -9
         verticalLinearOffsetMm: -6.6
         ringId: 13
+        minRange: 0
+        maxRange: 0
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: 5
         verticalLinearOffsetMm: 3.7
         ringId: 6
+        minRange: 0
+        maxRange: 0
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: -11
         verticalLinearOffsetMm: -8.1
         ringId: 14
+        minRange: 0
+        maxRange: 0
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: 3
         verticalLinearOffsetMm: 2.2
         ringId: 7
+        minRange: 0
+        maxRange: 0
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: -13
         verticalLinearOffsetMm: -9.7
         ringId: 15
+        minRange: 0
+        maxRange: 0
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: 1
         verticalLinearOffsetMm: 0.7
         ringId: 8
+        minRange: 0
+        maxRange: 0
       - horizontalAngularOffsetDeg: 0
         verticalAngularOffsetDeg: -15
         verticalLinearOffsetMm: -11.2
         ringId: 16
+        minRange: 0
+        maxRange: 0
     horizontalResolution: 0.2
     minHAngle: 0
     maxHAngle: 360
+    minRange: 0
     maxRange: 100
     noiseParams:
       angularNoiseType: 0
