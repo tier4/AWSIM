@@ -506,7 +506,7 @@ MonoBehaviour:
   modelPreset: 4
   applyDistanceGaussianNoise: 1
   applyAngularGaussianNoise: 1
-  applyVelocityDistortion: 1
+  applyVelocityDistortion: 0
   configuration:
     rayGenerateMethod: 0
     laserArray:
