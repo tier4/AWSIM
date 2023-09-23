@@ -105,6 +105,17 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence AddNodeRaysSetTimeOffsets(string identifier, float[] offsets)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodeRaysSetTimeOffsets(ref handle.Node, offsets);
+            handle.Identifier = identifier;
+            handle.Type = RGLNodeType.RAYS_SET_TIME_OFFSETS;
+            AddNode(handle);
+            return this;
+        }
+
         public RGLNodeSequence AddNodeRaysTransform(string identifier, Matrix4x4 transform)
         {
             CheckNodeNotExist(identifier);
@@ -281,10 +292,31 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence UpdateNodeRaysTimeOffsets(string identifier, float[] offsets)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYS_SET_TIME_OFFSETS);
+            RGLNativeAPI.NodeRaysSetTimeOffsets(ref handle.Node, offsets);
+            return this;
+        }
+
         public RGLNodeSequence UpdateNodeRaysTransform(string identifier, Matrix4x4 transform)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYS_TRANSFORM);
             RGLNativeAPI.NodeRaysTransform(ref handle.Node, transform);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodeRaytrace(string identifier)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
+            RGLNativeAPI.NodeRaytrace(ref handle.Node);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodeRaytrace(string identifier, Vector3 linearVelocity, Vector3 angularVelocity)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
+            RGLNativeAPI.NodeRaytrace(ref handle.Node, linearVelocity, angularVelocity);
             return this;
         }
 

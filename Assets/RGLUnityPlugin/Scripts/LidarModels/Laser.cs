@@ -48,6 +48,11 @@ namespace RGLUnityPlugin
         public int ringId;
 
         /// <summary>
+        /// Time offset of the laser firing (in milliseconds).
+        /// </summary>
+        public float timeOffset;
+
+        /// <summary>
         /// Minimum range of the laser.
         /// </summary>
         public float minRange;
@@ -64,6 +69,7 @@ namespace RGLUnityPlugin
                    this.verticalAngularOffsetDeg == other.verticalAngularOffsetDeg &&
                    this.verticalLinearOffsetMm == other.verticalLinearOffsetMm &&
                    this.ringId == other.ringId &&
+                   this.timeOffset == other.timeOffset &&
                    this.minRange == other.minRange &&
                    this.maxRange == other.maxRange;
         }
