@@ -43,9 +43,19 @@ namespace RGLUnityPlugin
         public float verticalLinearOffsetMm;
 
         /// <summary>
-        /// Id of the ring
+        /// Id of the ring.
         /// </summary>
         public int ringId;
+
+        /// <summary>
+        /// Minimum range of the laser.
+        /// </summary>
+        public float minRange;
+
+        /// <summary>
+        /// Maximum range of the laser.
+        /// </summary>
+        public float maxRange;
 
         //// IEquatable interface
         public bool Equals(Laser other)
@@ -53,7 +63,9 @@ namespace RGLUnityPlugin
             return this.horizontalAngularOffsetDeg == other.horizontalAngularOffsetDeg &&
                    this.verticalAngularOffsetDeg == other.verticalAngularOffsetDeg &&
                    this.verticalLinearOffsetMm == other.verticalLinearOffsetMm &&
-                   this.ringId == other.ringId;
+                   this.ringId == other.ringId &&
+                   this.minRange == other.minRange &&
+                   this.maxRange == other.maxRange;
         }
 
         public override bool Equals(object obj)

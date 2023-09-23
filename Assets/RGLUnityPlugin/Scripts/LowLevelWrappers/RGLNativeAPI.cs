@@ -73,6 +73,9 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_rays_from_mat3x4f(ref IntPtr node, IntPtr rays, int ray_count);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_rays_set_range(ref IntPtr node, IntPtr ranges, int ranges_count);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_rays_set_ring_ids(ref IntPtr node, IntPtr ring_ids, int ring_ids_count);
 
         [DllImport("RobotecGPULidar")]
@@ -82,7 +85,7 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_points_transform(ref IntPtr node, IntPtr transform);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_raytrace(ref IntPtr node, IntPtr scene, float range);
+        public static extern int rgl_node_raytrace(ref IntPtr node, IntPtr scene);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_format(ref IntPtr node, IntPtr fields, int field_count);
@@ -273,6 +276,17 @@ namespace RGLUnityPlugin
             return IntoMat3x4f(new[]{mat});
         }
 
+        public static float[] IntoVec2f(Vector2[] vecs)
+        {
+            var vecFloats = new float[vecs.Length * 2];
+            for (int i = 0; i < vecs.Length; ++i)
+            {
+                vecFloats[2 * i] = vecs[i].x;
+                vecFloats[2 * i + 1] = vecs[i].y;
+            }
+            return vecFloats;
+        }
+
         public static void NodeRaysFromMat3x4f(ref IntPtr node, Matrix4x4[] rays)
         {
             var rayFloats = IntoMat3x4f(rays);
@@ -282,6 +296,19 @@ namespace RGLUnityPlugin
                 fixed (float* rayFloatsPtr = rayFloats)
                 {
                     CheckErr(rgl_node_rays_from_mat3x4f(ref node, (IntPtr) rayFloatsPtr, rays.Length));
+                }
+            }
+        }
+
+        public static void NodeRaysSetRange(ref IntPtr node, Vector2[] ranges)
+        {
+            var rangesFloats = IntoVec2f(ranges);
+
+            unsafe
+            {
+                fixed (float* rangesFloatsPtr = rangesFloats)
+                {
+                    CheckErr(rgl_node_rays_set_range(ref node, (IntPtr) rangesFloatsPtr, ranges.Length));
                 }
             }
         }
@@ -321,9 +348,9 @@ namespace RGLUnityPlugin
             }
         }
 
-        public static void NodeRaytrace(ref IntPtr node, float range)
+        public static void NodeRaytrace(ref IntPtr node)
         {
-            CheckErr(rgl_node_raytrace(ref node, IntPtr.Zero, range));
+            CheckErr(rgl_node_raytrace(ref node, IntPtr.Zero));
         }
 
         public static void NodePointsFormat(ref IntPtr node, RGLField[] fields)

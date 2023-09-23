@@ -83,6 +83,17 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence AddNodeRaysSetRange(string identifier, Vector2[] ranges)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodeRaysSetRange(ref handle.Node, ranges);
+            handle.Identifier = identifier;
+            handle.Type = RGLNodeType.RAYS_SET_RANGE;
+            AddNode(handle);
+            return this;
+        }
+
         public RGLNodeSequence AddNodeRaysSetRingIds(string identifier, int[] ringIds)
         {
             CheckNodeNotExist(identifier);
@@ -105,11 +116,11 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence AddNodeRaytrace(string identifier, float range)
+        public RGLNodeSequence AddNodeRaytrace(string identifier)
         {
             CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
-            RGLNativeAPI.NodeRaytrace(ref handle.Node, range);
+            RGLNativeAPI.NodeRaytrace(ref handle.Node);
             handle.Identifier = identifier;
             handle.Type = RGLNodeType.RAYTRACE;
             AddNode(handle);
@@ -256,6 +267,13 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence UpdateNodeRaysSetRange(string identifier, Vector2[] ranges)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYS_SET_RANGE);
+            RGLNativeAPI.NodeRaysSetRange(ref handle.Node, ranges);
+            return this;
+        }
+
         public RGLNodeSequence UpdateNodeRaysSetRingIds(string identifier, int[] ringIds)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYS_SET_RING_IDS);
@@ -267,13 +285,6 @@ namespace RGLUnityPlugin
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYS_TRANSFORM);
             RGLNativeAPI.NodeRaysTransform(ref handle.Node, transform);
-            return this;
-        }
-
-        public RGLNodeSequence UpdateNodeRaytrace(string identifier, float range)
-        {
-            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
-            RGLNativeAPI.NodeRaytrace(ref handle.Node, range);
             return this;
         }
 
