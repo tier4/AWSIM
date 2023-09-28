@@ -63,10 +63,38 @@ namespace AWSIM
                 var bou = detectedObject.bounds;
                 var obj = new autoware_auto_perception_msgs.msg.DetectedObject();
                 obj.Existence_probability = 1.0f;
-                // TODO(tanaka): add more classes
                 var classification = new autoware_auto_perception_msgs.msg.ObjectClassification();
                 {
-                    classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.CAR;
+                switch (detectedObject.classification)
+                {
+                    case Classification.ObjectType.UNKNOWN:
+                        classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.UNKNOWN;
+                        break;
+                    case Classification.ObjectType.CAR:
+                        classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.CAR;
+                        break;
+                    case Classification.ObjectType.TRUCK:
+                        classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.TRUCK;
+                        break;
+                    case Classification.ObjectType.BUS:
+                        classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.BUS;
+                        break;
+                    case Classification.ObjectType.TRAILER:
+                        classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.TRAILER;
+                        break;
+                    case Classification.ObjectType.MOTORCYCLE:
+                        classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.MOTORCYCLE;
+                        break;
+                    case Classification.ObjectType.BICYCLE:
+                        classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.BICYCLE;
+                        break;
+                    case Classification.ObjectType.PEDESTRIAN:
+                        classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.PEDESTRIAN;
+                        break;
+                    default:
+                        Debug.LogWarning("Unknown classification type");
+                        break;
+                }
                     classification.Probability = 1.0f;
                 }
                 obj.Classification = new List<autoware_auto_perception_msgs.msg.ObjectClassification>{classification}.ToArray();

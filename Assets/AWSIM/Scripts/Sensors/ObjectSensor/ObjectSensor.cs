@@ -17,19 +17,15 @@ namespace AWSIM
         /// This data is output from ObjectSensor at the OutputHz cycle.
         /// </summary>
         /// 
-        public enum Classification
-        {
-            CAR,
-            TRUCK,
-            BUS,
-            Pedestrian
-        }
+
+        public Classification classification;
+        
         public class DetectedObject
         {
             public Rigidbody rigidBody;
             public Vector3 dimension;
             public Vector2[] bounds;
-            public Classification classification; 
+            public Classification.ObjectType classification; 
         }
 
         public class OutputData
@@ -42,7 +38,9 @@ namespace AWSIM
         /// Sensor processing and callbacks are called in this hz.
         /// </summary>
         [Range(0, 10)]
-        public int OutputHz = 10;    // Autoware's ObjectSensor basically output at 1hz.
+        public int OutputHz = 10;    // Autoware's ObjectSensor basically output at 10hz.
+        [Range(0, 200)]
+        public float maxDistance = 200f;
 
         /// <summary>
         /// Delegate used in callbacks.
@@ -93,15 +91,31 @@ namespace AWSIM
         void Start()
         {
             m_transform = transform;
-            // TODO to adjust in a better way
-            gameObjects = GameObject.FindGameObjectsWithTag("CAR");
+            Classification[] objectsWithClassification = FindObjectsOfType<Classification>();
+            List<Classification> filteredObjects = new List<Classification>();
             outputData = new OutputData();
-            outputData.objects = new DetectedObject[gameObjects.Length];
-            for (int i = 0; i < gameObjects.Length; i++)
+            int i = 0;
+            // limit to possible detected object 
+            foreach (Classification obj in objectsWithClassification)
             {
-                var gameObject = gameObjects[i];
+                float distance = Vector3.Distance(transform.position, obj.transform.position);
+                if (distance < maxDistance && obj.gameObject.GetComponent<Rigidbody>() != null)
+                {
+                    filteredObjects.Add(obj);
+                }
+            }
+            outputData.objects = new DetectedObject[filteredObjects.Count];
+            foreach (Classification obj in filteredObjects)
+            {
                 outputData.objects[i] = new DetectedObject();
-                outputData.objects[i].rigidBody = gameObject.GetComponent<Rigidbody>();
+                Debug.Log(obj.objectType);
+                // add classification
+                outputData.objects[i].classification = obj.objectType;
+                Debug.Log(obj.gameObject.name);
+                var gameObject = obj.gameObject;
+                // Note: object without rigidbody is considered above
+                var rb = gameObject.GetComponent<Rigidbody>();
+                outputData.objects[i].rigidBody = rb;
                 Vector3 minBounds = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
                 Vector3 maxBounds = new Vector3(float.MinValue, float.MinValue, float.MinValue);
                 MeshRenderer[] renderers = gameObject.GetComponentsInChildren<MeshRenderer>();
@@ -115,8 +129,8 @@ namespace AWSIM
                 Vector3 totalSize = maxBounds - minBounds;
                 outputData.objects[i].dimension = totalSize;
                 outputData.objects[i].bounds = GenerateFootprint(totalSize,outputData.objects[i].rigidBody);
-                // add classification
-                outputData.objects[i].classification = Classification.CAR;
+                i++;
+
             }
         }
 
