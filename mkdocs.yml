@@ -81,6 +81,7 @@ nav:
       - Create PCD: Components/Environment/CreatePCD/index.md
       - LaneletBoundsVisualizer: Components/Environment/LaneletBoundsVisualizer/index.md
       - SmokeSimulator: Components/Environment/SmokeSimulator/index.md
+      - V2I: Components/Environment/V2I/index.md
     - Traffic:
       - Traffic Components: Components/Traffic/TrafficComponents/index.md
       - Random Traffic:
