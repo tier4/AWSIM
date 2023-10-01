@@ -102,11 +102,11 @@ namespace AWSIM
                 var kinematics = new autoware_auto_perception_msgs.msg.DetectedObjectKinematics();
                 // Add pose
                 {
-                    var p = ROS2Utility.UnityToRosPosition(rb.transform.position)+ Environment.Instance.MgrsOffsetPosition;
+                    var p = ROS2Utility.UnityToRosPosition(rb.transform.position - outputData.origin.position);
                     kinematics.Pose_with_covariance.Pose.Position.X = p.x;
                     kinematics.Pose_with_covariance.Pose.Position.Y = p.y;
                     kinematics.Pose_with_covariance.Pose.Position.Z = p.z;
-                    var r = ROS2Utility.UnityToRosRotation(rb.transform.rotation);
+                    var r = ROS2Utility.UnityToRosRotation(Quaternion.Inverse(outputData.origin.rotation)*rb.transform.rotation);
                     kinematics.Pose_with_covariance.Pose.Orientation.X = r.x;
                     kinematics.Pose_with_covariance.Pose.Orientation.Y = r.y;
                     kinematics.Pose_with_covariance.Pose.Orientation.Z = r.z;

@@ -25,12 +25,13 @@ namespace AWSIM
             public Rigidbody rigidBody;
             public Vector3 dimension;
             public Vector2[] bounds;
-            public Classification.ObjectType classification; 
+            public Classification.ObjectType classification;
         }
 
         public class OutputData
         {
             public DetectedObject[] objects;
+            public Transform origin;
         }
 
         /// <summary>
@@ -136,6 +137,7 @@ namespace AWSIM
 
         void Start()
         {
+            outputData.origin = this.transform;
             cachedObjectsWithClassification = FindObjectsOfType<Classification>();
             CreateDetectedObjectData();
         }
@@ -149,6 +151,7 @@ namespace AWSIM
             if (timer < interval)
                 return;
             timer = 0;
+            outputData.origin = this.transform;
             var currentObjectsWithClassification = FindObjectsOfType<Classification>();
             if (!Enumerable.SequenceEqual(cachedObjectsWithClassification, currentObjectsWithClassification))
             {
