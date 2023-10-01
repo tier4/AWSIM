@@ -54,8 +54,8 @@ namespace AWSIM
         public OnOutputDataDelegate OnOutputData;
         float timer = 0;
         OutputData outputData = new OutputData();
-        Transform m_transform;
-        GameObject[] gameObjects;
+        private Classification[] cachedObjectsWithClassification;
+        private bool isDataChanged = true;
 
         // This method generates a footprint for the vehicle based on its dimensions, position, and rotation.
         Vector2[] GenerateFootprint(Vector3 dimensions, Rigidbody vehicleRb)
@@ -88,9 +88,7 @@ namespace AWSIM
             return footprint;
         }
 
-        void Start()
-        {
-            m_transform = transform;
+        void CreateDetectedObjectData(){
             Classification[] objectsWithClassification = FindObjectsOfType<Classification>();
             List<Classification> filteredObjects = new List<Classification>();
             outputData = new OutputData();
@@ -116,22 +114,30 @@ namespace AWSIM
                 // Note: object without rigidbody is considered above
                 var rb = gameObject.GetComponent<Rigidbody>();
                 outputData.objects[i].rigidBody = rb;
-                Vector3 minBounds = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
-                Vector3 maxBounds = new Vector3(float.MinValue, float.MinValue, float.MinValue);
-                MeshRenderer[] renderers = gameObject.GetComponentsInChildren<MeshRenderer>();
-                foreach (MeshRenderer renderer in renderers)
+
+                Vector3 localMinBounds = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+                Vector3 localMaxBounds = new Vector3(float.MinValue, float.MinValue, float.MinValue);
+                MeshFilter[] meshFilters = gameObject.GetComponentsInChildren<MeshFilter>();
+                // mesh filter bounds is in local coordinate
+                foreach (MeshFilter meshFilter in meshFilters)
                 {
-                    Bounds bounds = renderer.bounds;
-                    minBounds = Vector3.Min(minBounds, bounds.min);
-                    maxBounds = Vector3.Max(maxBounds, bounds.max);
+                    Bounds localBounds = meshFilter.sharedMesh.bounds;
+                    localMinBounds = Vector3.Min(localMinBounds, localBounds.min);
+                    localMaxBounds = Vector3.Max(localMaxBounds, localBounds.max);
                 }
-                // add dimension
-                Vector3 totalSize = maxBounds - minBounds;
-                outputData.objects[i].dimension = totalSize;
-                outputData.objects[i].bounds = GenerateFootprint(totalSize,outputData.objects[i].rigidBody);
+
+                Vector3 localTotalSize = ROS2Utility.UnityToRosScale(localMaxBounds - localMinBounds);
+                outputData.objects[i].dimension = localTotalSize;
+                outputData.objects[i].bounds = GenerateFootprint(localTotalSize,outputData.objects[i].rigidBody);
                 i++;
 
-            }
+            }            
+        }
+
+        void Start()
+        {
+            cachedObjectsWithClassification = FindObjectsOfType<Classification>();
+            CreateDetectedObjectData();
         }
 
         void FixedUpdate()
@@ -143,6 +149,18 @@ namespace AWSIM
             if (timer < interval)
                 return;
             timer = 0;
+            var currentObjectsWithClassification = FindObjectsOfType<Classification>();
+            if (!Enumerable.SequenceEqual(cachedObjectsWithClassification, currentObjectsWithClassification))
+            {
+                cachedObjectsWithClassification = currentObjectsWithClassification;
+                isDataChanged = true;
+            }
+
+            if (isDataChanged)
+            {
+                CreateDetectedObjectData();
+                isDataChanged = false;
+            }
             for (int i = 0; i < outputData.objects.Length; i++)
             {
                 var o = outputData.objects[i];
