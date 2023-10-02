@@ -18,8 +18,6 @@ namespace AWSIM
         /// </summary>
         /// 
 
-        public Classification classification;
-        
         public class DetectedObject
         {
             public Rigidbody rigidBody;
@@ -40,8 +38,7 @@ namespace AWSIM
         /// </summary>
         [Range(0, 10)]
         public int OutputHz = 10;    // Autoware's ObjectSensor basically output at 10hz.
-        [Range(0, 200)]
-        public float maxDistance = 200f;
+
 
         /// <summary>
         /// Delegate used in callbacks.
@@ -54,9 +51,9 @@ namespace AWSIM
         /// </summary>
         public OnOutputDataDelegate OnOutputData;
         float timer = 0;
-        OutputData outputData = new OutputData();
+        public OutputData outputData = new OutputData();
+        private List<Classification> filteredObjects = new List<Classification>();
         private Classification[] cachedObjectsWithClassification;
-        private bool isDataChanged = true;
 
         // This method generates a footprint for the vehicle based on its dimensions, position, and rotation.
         Vector2[] GenerateFootprint(Vector3 dimensions, Rigidbody vehicleRb)
@@ -64,7 +61,6 @@ namespace AWSIM
             Vector2[] footprint = new Vector2[4];
 
             // Retrieve the vehicle's position and rotation
-            Vector3 position = vehicleRb.position;
             Quaternion rotation = vehicleRb.rotation;
 
             // Calculate half of the dimensions for easier calculation
@@ -82,7 +78,7 @@ namespace AWSIM
             // Rotate and translate each corner point to get the footprint
             for (int i = 0; i < 4; i++)
             {
-                Vector3 globalCorner = position + rotation * localCorners[i];
+                Vector3 globalCorner = rotation * localCorners[i];
                 footprint[i] = new Vector2(globalCorner.x, globalCorner.z); // Using X and Z axes as Unity is left-handed and Y is up.
             }
 
@@ -90,48 +86,37 @@ namespace AWSIM
         }
 
         void CreateDetectedObjectData(){
-            Classification[] objectsWithClassification = FindObjectsOfType<Classification>();
-            List<Classification> filteredObjects = new List<Classification>();
-            outputData = new OutputData();
-            int i = 0;
-            // limit to possible detected object 
-            foreach (Classification obj in objectsWithClassification)
-            {
-                float distance = Vector3.Distance(transform.position, obj.transform.position);
-                if (distance < maxDistance && obj.gameObject.GetComponent<Rigidbody>() != null)
-                {
-                    filteredObjects.Add(obj);
-                }
-            }
-            outputData.objects = new DetectedObject[filteredObjects.Count];
-            foreach (Classification obj in filteredObjects)
-            {
+            outputData.objects = new DetectedObject[cachedObjectsWithClassification.Length];
+            for (int i = 0; i < cachedObjectsWithClassification.Length; i++) {
+                Classification obj = cachedObjectsWithClassification[i];
                 outputData.objects[i] = new DetectedObject();
-                Debug.Log(obj.objectType);
                 // add classification
                 outputData.objects[i].classification = obj.objectType;
-                Debug.Log(obj.gameObject.name);
                 var gameObject = obj.gameObject;
                 // Note: object without rigidbody is considered above
                 var rb = gameObject.GetComponent<Rigidbody>();
-                outputData.objects[i].rigidBody = rb;
-
-                Vector3 localMinBounds = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
-                Vector3 localMaxBounds = new Vector3(float.MinValue, float.MinValue, float.MinValue);
-                MeshFilter[] meshFilters = gameObject.GetComponentsInChildren<MeshFilter>();
-                // mesh filter bounds is in local coordinate
-                foreach (MeshFilter meshFilter in meshFilters)
-                {
-                    Bounds localBounds = meshFilter.sharedMesh.bounds;
-                    localMinBounds = Vector3.Min(localMinBounds, localBounds.min);
-                    localMaxBounds = Vector3.Max(localMaxBounds, localBounds.max);
+                if(rb == null){
+                    Debug.Log("Please Attach RigidBody to NPC");
                 }
-
-                Vector3 localTotalSize = ROS2Utility.UnityToRosScale(localMaxBounds - localMinBounds);
-                outputData.objects[i].dimension = localTotalSize;
-                outputData.objects[i].bounds = GenerateFootprint(localTotalSize,outputData.objects[i].rigidBody);
+                outputData.objects[i].rigidBody = rb;
+                MeshFilter[] meshFilters = gameObject.GetComponentsInChildren<MeshFilter>();
+                if(meshFilters.Length > 0){
+                    Vector3 localMinBounds = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+                    Vector3 localMaxBounds = new Vector3(float.MinValue, float.MinValue, float.MinValue);
+                    // mesh filter bounds is in local coordinate
+                    foreach (MeshFilter meshFilter in meshFilters)
+                    {
+                        Bounds localBounds = meshFilter.sharedMesh.bounds;
+                        localMinBounds = Vector3.Min(localMinBounds, localBounds.min);
+                        localMaxBounds = Vector3.Max(localMaxBounds, localBounds.max);
+                    }
+                    outputData.objects[i].dimension = ROS2Utility.UnityToRosScale(localMaxBounds - localMinBounds);
+                    outputData.objects[i].bounds = GenerateFootprint(outputData.objects[i].dimension, outputData.objects[i].rigidBody);
+                } else {
+                    outputData.objects[i].dimension = new Vector3(0.5f, 0.5f, 1.5f);
+                    outputData.objects[i].bounds = new Vector2[]{};
+                }                
                 i++;
-
             }            
         }
 
@@ -153,20 +138,14 @@ namespace AWSIM
             timer = 0;
             outputData.origin = this.transform;
             var currentObjectsWithClassification = FindObjectsOfType<Classification>();
-            if (!Enumerable.SequenceEqual(cachedObjectsWithClassification, currentObjectsWithClassification))
-            {
+            if (!Enumerable.SequenceEqual(cachedObjectsWithClassification, currentObjectsWithClassification)) {
                 cachedObjectsWithClassification = currentObjectsWithClassification;
-                isDataChanged = true;
-            }
-
-            if (isDataChanged)
-            {
                 CreateDetectedObjectData();
-                isDataChanged = false;
             }
-            for (int i = 0; i < outputData.objects.Length; i++)
+            for (int i = 0; i < cachedObjectsWithClassification.Length; i++)
             {
                 var o = outputData.objects[i];
+                if(o == null) continue;
                 outputData.objects[i].bounds = GenerateFootprint(o.dimension,o.rigidBody);
             }
 

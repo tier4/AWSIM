@@ -21,6 +21,12 @@ namespace AWSIM
         /// Object sensor frame id.
         /// </summary>
         public string frameId = "base_link";
+        
+        /// <summary>
+        /// max distance that lidar can detect
+        /// </summary>
+        [Range(0, 200)]
+        public float maxDistance = 200f;
 
         /// <summary>
         /// QoS settings.
@@ -55,12 +61,18 @@ namespace AWSIM
 
         void Publish(ObjectSensor.OutputData outputData)
         {
+            if (outputData == null || outputData.objects == null || outputData.origin == null) return;
             var objectsList = new List<autoware_auto_perception_msgs.msg.DetectedObject>();
             foreach (var detectedObject in outputData.objects)
             {
+                if(detectedObject ==null || detectedObject.rigidBody == null || detectedObject.dimension == null || detectedObject.bounds == null) continue;
                 var rb = detectedObject.rigidBody;
                 var dim = detectedObject.dimension;
                 var bou = detectedObject.bounds;
+                // Check if detectedObject.dimension and detectedObject.bounds are null                
+                float distance = Vector3.Distance(outputData.origin.position, rb.transform.position);
+                if (distance > maxDistance) continue;
+
                 var obj = new autoware_auto_perception_msgs.msg.DetectedObject();
                 obj.Existence_probability = 1.0f;
                 var classification = new autoware_auto_perception_msgs.msg.ObjectClassification();
@@ -102,7 +114,9 @@ namespace AWSIM
                 var kinematics = new autoware_auto_perception_msgs.msg.DetectedObjectKinematics();
                 // Add pose
                 {
-                    var p = ROS2Utility.UnityToRosPosition(rb.transform.position - outputData.origin.position);
+                    Vector3 relativePosition = rb.transform.position - outputData.origin.position;
+                    Vector3 transformedPosition = Quaternion.Inverse(outputData.origin.rotation) * relativePosition;
+                    var p = ROS2Utility.UnityToRosPosition(transformedPosition);
                     kinematics.Pose_with_covariance.Pose.Position.X = p.x;
                     kinematics.Pose_with_covariance.Pose.Position.Y = p.y;
                     kinematics.Pose_with_covariance.Pose.Position.Z = p.z;
@@ -147,11 +161,13 @@ namespace AWSIM
                     shape.Dimensions.Z = dim.z;
                     var footprints = new geometry_msgs.msg.Polygon();
                     // Assuming Point32 has X, Y, Z properties
-                    var point1 = new geometry_msgs.msg.Point32() { X = bou[0].x, Y = bou[0].y, Z = 0 };
-                    var point2 = new geometry_msgs.msg.Point32() { X = bou[1].x, Y = bou[1].y, Z = 0 };
-                    var point3 = new geometry_msgs.msg.Point32() { X = bou[2].x, Y = bou[2].y, Z = 0 };
-                    var point4 = new geometry_msgs.msg.Point32() { X = bou[3].x, Y = bou[3].y, Z = 0 };
-                    footprints.Points = new[] { point1, point2, point3, point4 };
+                    if(bou.Length > 0){
+                        var point1 = new geometry_msgs.msg.Point32() { X = bou[0].x, Y = bou[0].y, Z = 0 };
+                        var point2 = new geometry_msgs.msg.Point32() { X = bou[1].x, Y = bou[1].y, Z = 0 };
+                        var point3 = new geometry_msgs.msg.Point32() { X = bou[2].x, Y = bou[2].y, Z = 0 };
+                        var point4 = new geometry_msgs.msg.Point32() { X = bou[3].x, Y = bou[3].y, Z = 0 };
+                        footprints.Points = new[] { point1, point2, point3, point4 };
+                    }
                     shape.Footprint = footprints;
                     obj.Shape = shape;
                 }
