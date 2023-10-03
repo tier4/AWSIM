@@ -5,13 +5,10 @@ Every aspect of the simulated surrounding world needs to be included in the `Env
 However, first [Lanelet2](https://github.com/fzi-forschungszentrum-informatik/Lanelet2) needs to be developed along with *3D* models of the world, which will be the main elements of this prefab.
 
 !!! tip
-    If you want to learn more about the *Environment* at *AWSIM*, please visit [this page](../../../../UserGuide/ProjectGuide/Components/Environment/Environment/).
+    If you want to learn more about the *Environment* at *AWSIM*, please visit [this page](../../../../Components/Environment/AWSIMEnvironment/).
 
 ## Create a *Lanelet2*
-Before you start creating *Lanelet2*, we encourage you to read the [documentation](https://github.com/fzi-forschungszentrum-informatik/Lanelet2/tree/master) to find out what *Lanelet2* is all about.
-
-*Lanelet2* can be created using [*VectorMapBuilder*](https://tools.tier4.jp/feature/vector_map_builder/) (`VMP`) based on the *PCD* obtained from real-life *LiDAR* sensor.
-For details please visit the [official user guide](https://tools.tier4.jp/static/manuals/vector_map_builder_ll2_user_guide.pdf).
+Before you start creating *Lanelet2*, we encourage you to read the [documentation](https://github.com/fzi-forschungszentrum-informatik/Lanelet2/tree/master) to find out what *Lanelet2* is all about. *Lanelet2* can be created using [*VectorMapBuilder*](https://tools.tier4.jp/feature/vector_map_builder/) (`VMP`) based on the *PCD* obtained from real-life *LiDAR* sensor.
 
 When working with the `VMP`, it is necessary to ensure the most accurate mapping of the road situation using the available elements.
 Especially important are `TrafficLanes` created in `VMB` as connected `Road Nodes` and `StopLines` created in VMB as `Road Surface Stoplines`.
@@ -174,7 +171,7 @@ It does not change the appearance of the Environment, but is necessary for the s
 
     ![Search for environment script](search_environment_script.png)
 
-1. Set the [`MGRS`](https://en.wikipedia.org/wiki/Military_Grid_Reference_System) to the offset of your Environment as explained [in this section](../../../../UserGuide/ProjectGuide/Components/Environment/Environment/#environment-script).
+1. Set the [`MGRS`](https://en.wikipedia.org/wiki/Military_Grid_Reference_System) to the offset of your Environment as explained [in this section](../../../../Components/Environment/AWSIMEnvironment/#environment-script).
 
     ![environment mgrs](environment_mgrs.png)
 
@@ -182,7 +179,7 @@ It does not change the appearance of the Environment, but is necessary for the s
     Due to the differences between *VectorMapBuilder* and *Unity*, it may be necessary to set the transform of the `Environment` object.
     The transform in `Environment` should be set in such a way that the `TrafficLanes` match the modeled roads. Most often it is necessary to set the positive `90` degree rotation over `Y` axis.
 
-    This step should be done after [importing items from *lanelet2*](../../AddANewEnvironment/AddARandomTraffic/LoadItemsFromLanelet/).
+    This step should be done after [importing items from *lanelet2*](../../../../Components/Environment/AddNewEnvironment/AddRandomTraffic/LoadItemsFromLanelet/).
     Only then will you know if you have Environment misaligned with items from *lanelet2*.
 
     ![environment transformation](environment_transformation.png)

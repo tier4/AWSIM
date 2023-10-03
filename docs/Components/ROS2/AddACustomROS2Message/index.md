@@ -2,7 +2,7 @@
 If you want to use custom message in *AWSIM*, you need to generate the appropriate files, to do this you have to build `ROS2ForUnity` yourself - please follow the steps below. Remember to start with [prerequisities](#prerequisites) though.
 
 !!! tip "ROS2ForUnity role"
-    For a better understanding of the role of `ROS2ForUnity` and the messages used, we encourage you to read this [section](../../../UserGuide/ProjectGuide/ExternalLibraries/Ros2Unity/).
+    For a better understanding of the role of `ROS2ForUnity` and the messages used, we encourage you to read this [section](../../../Components/ROS2/ROS2ForUnity/).
 !!! warning "custom_msgs"
     In order to simplify this tutorial, the name of the package containing the custom message is assumed to be `custom_msgs` - remember to replace it with the name of your package.
 ## Prerequisites
@@ -14,7 +14,6 @@ Please select your system and resolve all prerequisites:
 
 === "Ubuntu"
     - [`ros2cs` prerequisites for *Ubuntu*](https://github.com/RobotecAI/ros2cs/blob/master/README-UBUNTU.md#prerequisites)
-    - *Git* - is installed - instructions can be found [here](../../../UserGuide/Installation/Prerequisites/).
     - *ROS2* version is `humble` and is located in `/opt/ros/humble`
     - Your package with custom message is located in the home directory `~/custom_msgs` or is hosted on *git* repository.
     - *Shell* - commands have to be executed from the `bash` shell 
@@ -24,7 +23,6 @@ Please select your system and resolve all prerequisites:
         !!! question
             Tests are not working (`'charmap'` codec can't decode byte) on *Windows* - look at troubleshooting [here](https://github.com/RobotecAI/ros2cs/blob/master/README-UBUNTU.md#prerequisites)
             
-    - *Git* - is installed - instructions can be found [here](../../../UserGuide/Installation/Prerequisites/)
     - *ROS2* version is `humble` and is located in  `C:\ros2_humble`
     - Your package with custom message package is located in the home directory `C:\custom_msgs` or is hosted on *git* repository.
     - *Shell* - commands should be executed from the `powershell` shell
@@ -214,4 +212,4 @@ You can find them in following directories and simply copy to the analogous dire
 
 ## 5. Test
 Make sure that the package files `custom_msgs` have been properly copied to the `AWSIM/Assets/Ros2ForUnity`.
-Then try to create a message object as described in [this section](../../../UserGuide/ProjectGuide/ExternalLibraries/Ros2Unity/) and check in the console of *Unity Editor* if it compiles without errors.
+Then try to create a message object as described in [this section](../../../../Components/ROS2/ROS2ForUnity/) and check in the console of *Unity Editor* if it compiles without errors.

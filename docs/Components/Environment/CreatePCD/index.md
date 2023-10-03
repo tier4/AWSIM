@@ -37,9 +37,9 @@ To properly perform the mapping, make sure you have the following files download
 
     !!! question "How to obtain a map"
         You can obtain the 3D model of the area by using a `Environment` *prefab* prepared for *AWSIM* or by creating your own.
-        You can learn how to create you own `Environment` *prefab* in [this tutorial](../AddANewEnvironment/AddAnEnvironment/).
+        You can learn how to create you own `Environment` *prefab* in [this tutorial](../../../Components/Environment/AddNewEnvironment/AddEnvironment/).
 
-- Configured in-simulation vehicle object with sensors attached (only the [*LiDAR*](../AddANewVehicle/AddSensors/#add-a-lidar) is necessary)
+- Configured in-simulation vehicle object with sensors attached (only the [*LiDAR*](../../../Components/Sensors/LiDARSensor/AddNewLiDAR/) is necessary)
 
     <!-- !!! info "LiDAR count"
         Please note that mapping with only **one** LiDAR sensor is supported for now.
@@ -59,9 +59,9 @@ To properly perform the mapping, make sure you have the following files download
 1. OSM file will be imported as `OsmDataContainer`.
 
 ## Setup an Environment
-Fora mapping an `Environment` prefab is needed.
+For mapping an `Environment` prefab is needed.
 The easiest way is to create a new *Scene* and import the `Environment` *prefab* into it.
-Details on how to do this can be found on [this tutorial page](../AddANewScene/AddAScene/#add-an-environment-prefab).
+Details on how to do this can be found on [this tutorial page](../../../../Components/Environment/AddNewEnvironment/AddEnvironment/).
 
 ## Setup a Vehicle
 Create a `Vehicle` *GameObject* in the *Hierarchy* view.
@@ -74,7 +74,7 @@ Add vehicle model by adding a `Geometry` *Object* as a child of `Vehicle` and ad
 ![vehicle add geometry](vehicle_geometry_add_object.gif)
 
 !!! info "Visual elements"
-    You can learn how to add visual elements and required components like *Mesh Filter* or *Mesh Renderer* in [this tutorial](../AddANewVehicle/AddVisualElements/).
+    You can learn how to add visual elements and required components like *Mesh Filter* or *Mesh Renderer* in [this tutorial](../../../../Components/Vehicle/AddNewVehicle/AddVisualElements/).
 
 ### Add a Camera (optional)
 Add a Camera component for enhanced visuals by adding a `Main Camera` *Object* as a child of `Vehicle` Object and attaching a `Camera` Component to it.
@@ -99,7 +99,7 @@ This part of the tutorial shows how to add a *LiDAR* sensor using [RGL](https://
 
 !!! warning "RGL Scene Manager"
     Please make sure that `RGLSceneManager` is added to the scene.
-    For more details and instruction how to do it please visit [this tutorial page](../AddANewScene/AddASceneManager/).
+    For more details and instruction how to do it please visit [this tutorial page](../../../../Components/Sensors/LiDARSensor/RGLUnityPlugin/#scenemanager).
 
 1. Create an empty `Sensors` *GameObject* as a child of the `Vehicle` *Object*.
 
@@ -162,7 +162,7 @@ A `Leaf Size` of 10.0 results in a reasonable PCD in the given example.
     - `World Origin` - MGRS position of the origin of the scene
 
         !!! note "World Origin coordinate system"
-            Use [*ROS* coordinate system](../AddANewVehicle/AddSensors/#coordinate-system-conversion) for *World Origin*, not Unity.
+            Use [*ROS* coordinate system](../../../../Components/Vehicle/AddNewVehicle/AddSensors/#coordinate-system-conversion) for *World Origin*, not Unity.
 
     - `Capture Location Interval` - Distance between consecutive capture points along lanelet centerline
     - `Output Pcd File Path` - Output relative path from `Assets` folder

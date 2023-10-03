@@ -2,7 +2,7 @@
 
 ## Introduction
 `IMUSensor` is a component that simulates an *IMU* (*Inertial Measurement Unit*) sensor.
-Measures acceleration $\frac{m}{s^2}$ and angular velocity $\frac{rad}{s}$ based on the transformation of the *GameObject* to which this component is attached.
+Measures acceleration (${m}/{s^2}$) and angular velocity (${rad}/{s}$) based on the transformation of the *GameObject* to which this component is attached.
 
 ### Prefab
 Prefab can be found under the following path:
@@ -18,7 +18,7 @@ The `tamagawa/imu_link` link is added to the `sensor_kit_base_link` in the `base
 
 ![link](link.png)
 
-A detailed description of the `URDF` structure and sensors added to prefab `Lexus RX450h 2015` is available in this [section](../../EgoVehicle/URDF/).
+A detailed description of the `URDF` structure and sensors added to prefab `Lexus RX450h 2015` is available in this [section](../../../Components/Vehicle/URDFAndSensors/).
 
 ### Components 
 ![components](components.png)

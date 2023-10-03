@@ -8,17 +8,17 @@ Moreover, it contains elements responsible for controlling random traffic.
 ![environment](environment.png)
 
 !!! tip "Own Environment prefab"
-    If you would like to develop your own prefab `Environment` for *AWSIM*, we encourage you to read this [tutorial](../../../../../DeveloperGuide/Tutorials/AddANewEnvironment/AddAnEnvironment/).
+    If you would like to develop your own prefab `Environment` for *AWSIM*, we encourage you to read this [tutorial](../../../../../Components/Environment/AddNewEnvironment/AddEnvironment/).
 
 !!! note "AutowareSimulation scene"
-    If you would like to see how `Environment` with random traffic works or run some tests, we encourage you to familiarize yourself with the `AutowareSimulation` scene described in this [section](../../../DefaultExistingScenes/).
+    If you would like to see how `Environment` with random traffic works or run some tests, we encourage you to familiarize yourself with the `AutowareSimulation` scene described in this [section](../../../ProjectGuide/Scenes/#autowaresimulation).
 
 Prefab `Environment` is also used to create a point cloud (`*.pcd` file) needed to locate the `EgoVehicle` in the simulated *AWSIM* scene.
-The point cloud is created using the [`RGL`](../../../ExternalLibraries/RGLUnityPlugin/) plugin and then used in *Autoware*.
-We encourage you to familiarize yourself with an example scene of creating a point cloud - described [here](../../../DefaultExistingScenes/).
+The point cloud is created using the [`RGL`](https://github.com/RobotecAI/RobotecGPULidar) plugin and then used in *Autoware*.
+We encourage you to familiarize yourself with an example scene of creating a point cloud - described [here](../../../ProjectGuide/Scenes/#pointcloudmapping).
 
 !!! tip "Create PointCloud (*.pcd file)"
-    If you would like to learn how to create a point cloud in *AWSIM* using `Environment` prefab, we encourage you to read this [tutorial](../../../../../DeveloperGuide/Tutorials/CreateAPCD/).
+    If you would like to learn how to create a point cloud in *AWSIM* using `Environment` prefab, we encourage you to read this [tutorial](../../../../../Components/Environment/CreatePCD/).
 
 ### Architecture
 The architecture of an `Environment` - with dependencies between components - is presented on the following diagram.
@@ -49,8 +49,8 @@ Prefabs can be found under the following path:
 As you can see it contains:
 
 - `SJK*` objects - which are aggregators for visual models.
-- `RandomTrafficSimulator`, `TrafficIntersections`, `TrafficLanes`, `StopLines` - which are responsible for random traffic of [`NPCVehicles`](../../NPCs/Vehicle/).
-- `NPCPedestrians` - which is an aggregator of [`NPCPedestrian`](../../../Components/NPCs/Pedestrian/) prefabs added to the scene.
+- `RandomTrafficSimulator`, `TrafficIntersections`, `TrafficLanes`, `StopLines` - which are responsible for random traffic of [`NPCVehicles`](../../../../../Components/Traffic/NPCs/Vehicle/).
+- `NPCPedestrians` - which is an aggregator of [`NPCPedestrian`](../../../../../Components/Traffic/NPCs/Pedestrian/) prefabs added to the scene.
 - `Volume`, `Directional Light` - which are components that affect the appearance of objects on the scene.
 
 All of these objects are described below in this section.
@@ -60,7 +60,7 @@ All of these objects are described below in this section.
 
 ### Link in the default Scene
 `Nishishinjuku RandomTraffic` prefab is added to the `Environment` object - between which there is rotation about the `Oy` axis by 90 degrees.
-This rotation is added because of the differences in coordinate alignments between the `Nishishinjuku RandomTraffic` prefab objects (which have been modeled as `*.fbx` files) and the specifics of the *GridZone* definition (more on this is described [here](#components-and-scripts)).
+This rotation is added because of the differences in coordinate alignments between the `Nishishinjuku RandomTraffic` prefab objects (which have been modeled as `*.fbx` files) and the specifics of the *GridZone* definition (more on this is described [here](#components)).
 
 Object `Environment` is added to `AutowareSimulation` which is added directly to the main parent of the scene - there are no transformations between these objects.
 
@@ -93,7 +93,7 @@ In the project physics settings, it is ensured that collisions between objects i
 ![layers_physis](layers_physis.png)
 
 ## Traffic Components
-Due to the specificity of the use of `RandomTrafficSimulator`, `TrafficIntersections`, `TrafficLanes`, `StopLines` objects, they have been described in a separate section [*Traffic Components*](../TrafficComponents/) - where all the elements necessary in simulated random traffic are presented.
+Due to the specificity of the use of `RandomTrafficSimulator`, `TrafficIntersections`, `TrafficLanes`, `StopLines` objects, they have been described in a separate section [*Traffic Components*](../../../../../Components/Traffic/TrafficComponents/) - where all the elements necessary in simulated random traffic are presented.
 
 ## Visual Elements (SJK)
 The visuals elements have been loaded and organized using the `*.fbx` files which can be found under the path: 
@@ -135,7 +135,7 @@ Objects of this category also have a `MeshCollider` added, but their layer is `D
     ![sjk6](sjk6.png)
 
 !!! warning "Scene Manager"
-    For models (visual elements) added to the prefab to work properly with the [`LidarSensor`](../../Sensors/Lidar/) sensor using [`RGL`](../../../ExternalLibraries/RGLUnityPlugin/), make sure that the `SceneManager` component is added to the scene - more about it is described in this [section](../../../ExternalLibraries/RGLUnityPlugin/#rglscenemanager).
+    For models (visual elements) added to the prefab to work properly with the [`LidarSensor`](../../Sensors/LiDARSensor/LiDARSensor/) sensor using [`RGL`](../../Sensors/LiDARSensor/RGLUnityPlugin/), make sure that the `SceneManager` component is added to the scene - more about it is described in this [section](../../Sensors/LiDARSensor/RGLUnityPlugin/#scenemanager).
 
     In the scene containing `Nishishinjuku RandomTraffic`prefab *Scene Manager* (script) is added as a component to the `AutowareSimulation` object containing the `Environment`.
 
@@ -173,14 +173,14 @@ However, each contains:
 - *Mesh Filter* - contains a reference to the `Mesh` of the object.
 - *Mesh Renderer* - enables the rendering of `Mesh`, including its geometry, textures, and materials, giving it a visual appearance in the scene.
 - *Mesh Collider* - allows an object to have collision detection based on `Mesh`.
-- [*Traffic Light* (script)](../TrafficComponents/#traffic-light-script) - provides an interface to control signaling by changing the emission of materials.
+- [*Traffic Light* (script)](../../../../../Components/Traffic/TrafficComponents/#traffic-light-script) - provides an interface to control signaling by changing the emission of materials.
 This script is used for simulated traffic, so it is described.
 
 ##### Materials
 An important element that is configured in the `TrafficLights` object are the materials in the `Mesh Renderer` component.
 Material with index 0 always applies to the housing of the lights.
 Subsequent elements 1-6 correspond to successive slots of light sources (round luminous objects) - starting from the upper left corner of the object in the right direction, to the bottom and back to the left corner.
-These indexes are used in script *Traffic Light* (script) - described [here](../TrafficComponents/#traffic-light-script).
+These indexes are used in script *Traffic Light* (script) - described [here](../../../../../Components/Traffic/TrafficComponents/#traffic-light-script).
 
 ![lights_mesh](lights/lights_materials.png)
 
@@ -201,7 +201,7 @@ In the environment there are many pedestrian lights - they have the same compone
 An important element that is configured in the `PedestrianLights` object are the materials in the `Mesh Renderer` component.
 Material with index 0 always applies to the housing of the lights.
 Subsequent elements 1-2 correspond to successive slots of light sources (round luminous objects) - starting from top to bottom.
-These indexes are used in script *Traffic Light* (script) - described [here](../TrafficComponents/#traffic-light-script).
+These indexes are used in script *Traffic Light* (script) - described [here](../../../../../Components/Traffic/TrafficComponents/#traffic-light-script).
 
 ![pedestrian_lights_mesh](lights/pedestrian_lights_materials.png)<br>
 Materials for lighting slots that are assigned in `Mesh Renderer` can be found in the following path:
@@ -241,7 +241,7 @@ The transform of the `Directional Light` object is set in such a way that it shi
 ## NPCPedestrians
 `NPCPedestrians` is an aggregating object for `NPCPedestrian` objects placed in the environment.
 Prefab `Nishishinjuku RandomTraffic` has 7 `NPCPedestrian` (`humanElegant`) prefabs defined in selected places.
-More about this `NPCPedestrian` prefab you can read in this [section](../../../Components/NPCs/Pedestrian/).
+More about this `NPCPedestrian` prefab you can read in this [section](../../../Components/Traffic/NPCs/Pedestrian/).
 
 ## Environment (script)
 <!-- reusable link to MGRS -->

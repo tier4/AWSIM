@@ -7,7 +7,7 @@ The default prefab `EgoVehicle` was developed using a *Lexus RX450h 2015* vehicl
 ![vehicle](vehicle.png)
 
 !!! tip "Own EgoVehicle prefab"
-    If you would like to develop your own  `EgoVehicle` prefab, we encourage you to read this [tutorial](../../../../../DeveloperGuide/Tutorials/AddANewVehicle/AddAVehicle/).
+    If you would like to develop your own  `EgoVehicle` prefab, we encourage you to read this [tutorial](../../../Components/Vehicle/AddNewVehicle/AddAVehicle/).
 
 ### Supported features
 
@@ -23,7 +23,7 @@ It has the following features:
 - 3D *Mesh* (`*.fbx`) as road surface for vehicle driving, gradient resistance.
 
 !!! note "AutowareSimulation"
-    If you would like to see how `EgoVehicle` works or run some tests, we encourage you to familiarize yourself with the `AutowareSimulation` scene described in this [section](../../../../ProjectGuide/DefaultExistingScenes/).
+    If you would like to see how `EgoVehicle` works or run some tests, we encourage you to familiarize yourself with the `AutowareSimulation` scene described in this [section](../../../ProjectGuide/Scenes/#autowaresimulation).
 
 ### *Lexus RX450h 2015* parameters
 |         Parameter         | Value                                                             | Unit           |
@@ -224,7 +224,7 @@ The values in the component are set as default.
 This format allows to define the positions of all sensors of the vehicle in relation to its local coordinate system.
 `URDF` is built using multiple *GameObjects* as children appropriately transformed with relation to its parent.
 
-A detailed description of the `URDF` structure and sensors added to prefab `Lexus RX450h 2015` is available in this [section](../URDF/).
+A detailed description of the `URDF` structure and sensors added to prefab `Lexus RX450h 2015` is available in this [section](../../../Components/Vehicle/URDFAndSensors/).
 
 ## Vehicle (script)
 ![script](script.png)
@@ -341,7 +341,7 @@ In addition, also through *Vehicle* (script), the appropriate lights are turned 
 | *VehicleEmergencyStamped* | `/control/command/emergency_cmd`       | `tier4_vehicle_msgs/msg/VehicleEmergencyStamped`     |               `60`               |
 
 !!! note "ROS2 Topics"
-    If you would like to know all the topics used in communication *Autoware* with *AWSIM*, we encourage you to familiarize yourself with this [section](../../../Ros2TopicList/).
+    If you would like to know all the topics used in communication *Autoware* with *AWSIM*, we encourage you to familiarize yourself with this [section](../../../Components/ROS2/ROS2TopicList/)
 
 
 ## Vehicle Keyboard (script)

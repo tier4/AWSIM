@@ -99,4 +99,4 @@ The `Traffic Light` Script will enable you to control how the `TrafficLight` lig
         ![traffic light bulb config](traffic_light_bulb_config.gif)
 
 !!! success
-    Once you have added `TrafficLights` to your `Environment`, you can start configuring `RandomTraffic` which will add moving vehicles to it! Details [here](../../AddANewEnvironment/AddARandomTraffic/AddARandomTraffic/).
+    Once you have added `TrafficLights` to your `Environment`, you can start configuring `RandomTraffic` which will add moving vehicles to it! Details [here](../../../../../Components/Environment/AddNewEnvironment/AddRandomTraffic/AddRandomTraffic/).

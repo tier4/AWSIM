@@ -1,6 +1,6 @@
 Every `TrafficIntersection` on the scene needs to be added as a *GameObject*.
 Best practice is to create a parent object `TrafficIntersections` and add all instances of `TrafficIntersection` as its children.
-You can do this the same as with [Random Traffic Simulator](../AddARandomTraffic/).
+You can do this the same as with [Random Traffic Simulator](../../../../../Components/Environment/AddNewEnvironment/AddRandomTraffic/AddRandomTraffic/).
 
 !!! warning "Traffic Lights configuration"
     Before performing this step, check all `TrafficLights` for correct configuration and make sure that `TrafficLights` have added scripts. If you want to learn how to add and configure it check out [this tutorial](../../AddTrafficLights/).
@@ -59,7 +59,7 @@ From the drop-down menu select the Traffic Lights you want to add.
 
     !!! tip "Select Traffic Lights visually"
         If you have a lot of Traffic Lights it can be challenging to add them from the list.
-        You can select them visually from the Scene the same as you had selected Traffic Lanes in the [Random Traffic Simulator](../AddARandomTraffic/#add-spawnable-lanes).
+        You can select them visually from the Scene the same as you had selected Traffic Lanes in the [Random Traffic Simulator](../../../../../Components/Environment/AddNewEnvironment/AddRandomTraffic/AddRandomTraffic/#add-spawnable-lanes).
 
 ### Create lighting sequences
 Lighting Sequences is a list of commands based on which the Traffic Lights will operate on an intersection.

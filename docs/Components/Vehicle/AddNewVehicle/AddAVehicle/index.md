@@ -1,6 +1,6 @@
 !!! info "Ego Vehicle Component"
     In this tutorial we will create a new `EgoVehicle`.
-    To learn more about what an `EgoVehicle` is in *AWSIM* please visit [Ego Vehicle description page](../../../../UserGuide/ProjectGuide/Components/EgoVehicle/EgoVehicle/).
+    To learn more about what an `EgoVehicle` is in *AWSIM* please visit [Ego Vehicle description page](../../../../Components/Vehicle/EgoVehicle/).
 
 ## Cerate an Object
 Add a child *Object* to the *Simulation* called `EgoVehicle`.
@@ -191,15 +191,14 @@ The Script is configured to work with [Autoware](../../../../Introduction/Autowa
 ### How to test
 The best way to test the Vehicle Ros Input Script is to run *Autoware*.
 
-1. Run the *Scene*the same as on [this page](../../../../UserGuide/BuildFromSource/RunTheScene/).
-2. Launch **only** the *Autoware* like on [this page](../../../../UserGuide/Installation/RunDemo/#2-run-demo-with-autoware)
-3. Plan a path in *Autoware* like [here](../../../../UserGuide/FirstSteps/SetASingleGoal/), if the Vehicle moves in *AWSIM* correctly then the Script is configured well.
+1. Run the *Scene* same as on [this page](../../../../GettingStarted/SetupUnityProject/#run-the-demo-in-editor).
+2. Launch **only** the *Autoware* like on [this page](../../../../GettingStarted/QuickStartDemo/#launching-autoware)
+3. Plan a path in *Autoware* like [here](../../../../GettingStarted/QuickStartDemo/#5-lets-run-the-self-driving-simulation), if the Vehicle moves in *AWSIM* correctly then the Script is configured well.
 
 ## Add Sensors
 For a detailed explanation how to add sensors to your Vehicle check out this [dedicated tutorial](../AddSensors/).
 
 ## Add a Vehicle to Scene
-### Save as prefab
 First you will have to save the Vehicle you created as a *prefab*, to easily add it later to different Scenes.
 
 1. Open the Vehicles directory in the *Project* view (`Assets/AWSIM/Prefabs/Vehicles`)
@@ -207,5 +206,6 @@ First you will have to save the Vehicle you created as a *prefab*, to easily add
 
 ![save vehicle as prefab](vehicle_save_prefab.gif)
 
-### Add to Scene
-To add a Vehcile to the Scene please see [this tutorial](../../AddANewScene/AddAScene/#add-a-vehicle).
+After that, you can add the Vehicle you created to different Scenes by dragging it from Vehicles directory to the *Hierarchy* of different Scenes.
+
+
