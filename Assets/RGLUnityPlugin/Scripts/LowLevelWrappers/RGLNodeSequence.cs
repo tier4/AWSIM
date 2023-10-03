@@ -83,6 +83,17 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence AddNodeRaysSetRange(string identifier, Vector2[] ranges)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodeRaysSetRange(ref handle.Node, ranges);
+            handle.Identifier = identifier;
+            handle.Type = RGLNodeType.RAYS_SET_RANGE;
+            AddNode(handle);
+            return this;
+        }
+
         public RGLNodeSequence AddNodeRaysSetRingIds(string identifier, int[] ringIds)
         {
             CheckNodeNotExist(identifier);
@@ -90,6 +101,17 @@ namespace RGLUnityPlugin
             RGLNativeAPI.NodeRaysSetRingIds(ref handle.Node, ringIds);
             handle.Identifier = identifier;
             handle.Type = RGLNodeType.RAYS_SET_RING_IDS;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLNodeSequence AddNodeRaysSetTimeOffsets(string identifier, float[] offsets)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodeRaysSetTimeOffsets(ref handle.Node, offsets);
+            handle.Identifier = identifier;
+            handle.Type = RGLNodeType.RAYS_SET_TIME_OFFSETS;
             AddNode(handle);
             return this;
         }
@@ -105,11 +127,11 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence AddNodeRaytrace(string identifier, float range)
+        public RGLNodeSequence AddNodeRaytrace(string identifier)
         {
             CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
-            RGLNativeAPI.NodeRaytrace(ref handle.Node, range);
+            RGLNativeAPI.NodeRaytrace(ref handle.Node);
             handle.Identifier = identifier;
             handle.Type = RGLNodeType.RAYTRACE;
             AddNode(handle);
@@ -256,10 +278,24 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence UpdateNodeRaysSetRange(string identifier, Vector2[] ranges)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYS_SET_RANGE);
+            RGLNativeAPI.NodeRaysSetRange(ref handle.Node, ranges);
+            return this;
+        }
+
         public RGLNodeSequence UpdateNodeRaysSetRingIds(string identifier, int[] ringIds)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYS_SET_RING_IDS);
             RGLNativeAPI.NodeRaysSetRingIds(ref handle.Node, ringIds);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodeRaysTimeOffsets(string identifier, float[] offsets)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYS_SET_TIME_OFFSETS);
+            RGLNativeAPI.NodeRaysSetTimeOffsets(ref handle.Node, offsets);
             return this;
         }
 
@@ -270,10 +306,17 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence UpdateNodeRaytrace(string identifier, float range)
+        public RGLNodeSequence UpdateNodeRaytrace(string identifier)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
-            RGLNativeAPI.NodeRaytrace(ref handle.Node, range);
+            RGLNativeAPI.NodeRaytrace(ref handle.Node);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodeRaytrace(string identifier, Vector3 linearVelocity, Vector3 angularVelocity)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
+            RGLNativeAPI.NodeRaytrace(ref handle.Node, linearVelocity, angularVelocity);
             return this;
         }
 

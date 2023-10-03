@@ -14,6 +14,7 @@
 
 using System;
 using UnityEngine;
+using System.Linq;
 
 
 namespace RGLUnityPlugin
@@ -21,6 +22,21 @@ namespace RGLUnityPlugin
     [Serializable]
     public struct LidarConfiguration
     {
+        public enum RayGenerateMethod
+        {
+            // Rays are generated for rotating lidar with equal range for all of the lasers
+            RotatingLidarEqualRange,
+            // Rays are generated for rotating lidar with different ranges for the lasers
+            RotatingLidarDifferentLaserRanges,
+            // Rays are generated in specific way to HesaiAT128 lidar
+            HesaiAT128,
+        }
+
+        /// <summary>
+        /// Method that rays are generated
+        /// </summary>
+        public RayGenerateMethod rayGenerateMethod;
+
         /// <summary>
         /// Geometry description of lidar array
         /// </summary>
@@ -42,9 +58,19 @@ namespace RGLUnityPlugin
         [Range(-360.0f, 360.0f)] public float maxHAngle;
 
         /// <summary>
+        /// Minimum range of the sensor.
+        /// </summary>
+        [DrawIf("rayGenerateMethod", RayGenerateMethod.RotatingLidarEqualRange)] [Min(0)] public float minRange;
+
+        /// <summary>
         /// Maximum range of the sensor.
         /// </summary>
-        [Min(0)] public float maxRange;
+        [DrawIf("rayGenerateMethod", RayGenerateMethod.RotatingLidarEqualRange)] [Min(0)] public float maxRange;
+
+        /// <summary>
+        /// Time between two consecutive firings of the whole laser array (in milliseconds). Usually, it consists of firing time for all the lasers and recharge time.
+        /// </summary>
+        [Min(0)] public float laserArrayCycleTime;
 
         /// <summary>
         /// Lidar noise paramteres
@@ -56,6 +82,8 @@ namespace RGLUnityPlugin
 
         public Matrix4x4[] GetRayPoses()
         {
+            // Ray poses are generated the same way for all of the RayGenerateMethod's
+
             if (!(minHAngle <= maxHAngle))
             {
                 throw new ArgumentOutOfRangeException(nameof(minHAngle),
@@ -90,12 +118,72 @@ namespace RGLUnityPlugin
             return rayPose;
         }
 
+        public Vector2[] GetRayRanges()
+        {
+            return rayGenerateMethod switch
+            {
+                RayGenerateMethod.RotatingLidarEqualRange => new Vector2[1] {new Vector2(minRange, maxRange)},
+                RayGenerateMethod.RotatingLidarDifferentLaserRanges => GetRayRangesFromLasers(),
+                RayGenerateMethod.HesaiAT128 => GetRayRangesHesaiAT128(),
+                _ => throw new ArgumentOutOfRangeException(),
+            };
+        }
+
+        private Vector2[] GetRayRangesFromLasers()
+        {
+            Vector2[] rayRanges = new Vector2[PointCloudSize];
+            Vector2[] laserRanges = laserArray.GetLaserRanges();
+            for (int i = 0; i < HorizontalSteps; i++)
+            {
+                Array.Copy(laserRanges, 0, rayRanges, i * laserRanges.Length, laserRanges.Length);
+            }
+            return rayRanges;
+        }
+
+        private Vector2[] GetRayRangesHesaiAT128()
+        {
+            // All channels fire laser pulses that measure the far field (＞ 7.2 m)
+            // Additionally, the NF-enabled channels also fire laser pulses that measure only the near field (0.5 to 7.2 m), at a time other
+            // than these channels' far field firings.
+            // NF-enabled channels are marked with minRange set to NEAR_FIELD_MIN_RANGE.
+            const float NEAR_FIELD_MIN_RANGE = 0.5f;
+            const float FAR_FIELD_MIN_RANGE = 7.2f;
+
+            Vector2[] rayRanges = new Vector2[PointCloudSize];
+            Vector2[] laserRanges = laserArray.GetLaserRanges();
+            for (int i = 0; i < PointCloudSize; i++)
+            {
+                rayRanges[i] = laserRanges[i % laserRanges.Length];
+                // The horizontal resolution for the near field is 2 times greater than for the far field.
+                // To simulate it, every second minimum range of the ray will be set for the far field.
+                if (rayRanges[i].x == NEAR_FIELD_MIN_RANGE && (i / laserRanges.Length) % 2 == 1)
+                {
+                    rayRanges[i].x = FAR_FIELD_MIN_RANGE;
+                }
+            }
+            return rayRanges;
+        }
+
+        public float[] GetRayTimeOffsets()
+        {
+            float[] rayTimeOffsets = new float[PointCloudSize];
+            for (int hStep = 0; hStep < HorizontalSteps; hStep++)
+            {
+                for (int laserId = 0; laserId < laserArray.lasers.Length; laserId++)
+                {
+                    int idx = laserId + hStep * laserArray.lasers.Length;
+                    rayTimeOffsets[idx] = laserArray.lasers[laserId].timeOffset + laserArrayCycleTime * hStep;
+                }
+            }
+            return rayTimeOffsets;
+        }
+
         /// <summary>
         /// Returns transform from the attached game object to the LiDAR origin.
         /// </summary>
         public Matrix4x4 GetLidarOriginTransfrom()
         {
-            return Matrix4x4.Translate(Vector3.up * (laserArray.centerOfMeasurementVerticalLinearOffsetMm / 1000.0f));
+            return Matrix4x4.Translate(laserArray.centerOfMeasurementLinearOffsetMm / 1000.0f);
         }
 
         public static LidarNoiseParams TypicalNoiseParams => new LidarNoiseParams

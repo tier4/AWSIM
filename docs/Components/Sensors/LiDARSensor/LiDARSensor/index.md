@@ -39,6 +39,7 @@ The table of available prefabs can be found below:
 | :-------------------- | :----------------------- | :----------------------------------------------- |
 | *HESAI Pandar40P*     | `HesaiPandar40P.prefab`  | <img src=imgs_prefabs/pandar40p.png width=150px> |
 | *HESAI PandarQT64*    | `HesaiPandarQT64.prefab` | <img src=imgs_prefabs/pandarqt.png width=150px>  |
+| *HESAI AT128 E2X*     | `HesaiAT128E2X.prefab`   | <img src=imgs_prefabs/at128e2x.png width=150px>  |
 | *Ouster OS1-64*       | `OusterOS1-64.prefab`    | <img src=imgs_prefabs/os1-64.png width=150px>    |
 | *Velodyne VLP-16*     | `VelodyneVLP16.prefab`   | <img src=imgs_prefabs/vlp16.png width=150px>     |
 | *Velodyne VLC-32C*    | `VelodyneVLP32C.prefab`  | <img src=imgs_prefabs/vlp32.png width=150px>     |
@@ -99,12 +100,18 @@ Whereas vector *onlyHits* is used for visualization by the [*PointCloudVisualiza
 - `Model Preset` - allows selecting one of the built-in *LiDAR* models (default: `RangeMeter`)
 - `Apply Distance Gaussian Noise` - enable/disable distance *Gaussian* noise (default: `true`)
 - `Apply Angular Gaussian Noise` - enable/disable angular *Gaussian* noise (default: `true`)
+- `Apply Velocity Distortion` - enable/disable velocity distortion (default: `false`)
 - *Configuration*:
-    - `Laser Array` - geometry description of lidar array, should be prepared on the basis of the manual for a given model of *LiDAR* (default: loaded from `LaserArrayLibrary`)
-    - `Horizontal Steps` - the number of laser array firings between `Min H Angle` and `Max H Angle` (default: `1`)
+    - `Ray Generate Method` - method that lidar's rays are generated:
+        1. `Rotating Lidar Equal Range` - rays are generated for rotating lidar with equal range for all of the lasers (described with `Min Range` and `Max Range`)
+        2. `Rotating Lidar Different Laser Ranges` - rays are generated for rotating lidar with different ranges for the lasers (described in `Laser Array`)
+        3. `Hesai AT128` - rays are generated in specific way to Hesai AT128 lidar
+    - `Laser Array` - geometry description of lidar's array of lasers, should be prepared on the basis of the manual for a given model of *LiDAR* (default: loaded from `LaserArrayLibrary`)
+    - `Horizontal Resolution` - the horiontal resolution of laser array firings
     - `Min H Angle` - minimum horizontal angle, left (default: `0`)
     - `Max H Angle` - maximum horizontal angle, right (default: `0`)
-    - `Max Range` - maximum range of the sensor (default: `40`)
+    - `Min Range` - minimum range of the sensor (applied when `Ray Generate Method` is `Rotating Lidar Equal Range`)
+    - `Max Range` - maximum range of the sensor (applied when `Ray Generate Method` is `Rotating Lidar Equal Range`)
     - *Noise Params*: 
         - `Angular Noise Type` - angular noise type<br>(default: `Ray Based`)
         - `Angular Noise St Dev` - angular noise standard deviation in degree<br>(default: `0.05729578`)
