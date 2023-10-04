@@ -120,21 +120,23 @@ namespace AWSIM
                     kinematics.Pose_with_covariance.Pose.Position.X = p.x;
                     kinematics.Pose_with_covariance.Pose.Position.Y = p.y;
                     kinematics.Pose_with_covariance.Pose.Position.Z = p.z;
-                    var r = ROS2Utility.UnityToRosRotation(Quaternion.Inverse(outputData.origin.rotation)*rb.transform.rotation);
+                    // add initial rotation of object
+                    var r = ROS2Utility.UnityToRosRotation(Quaternion.Inverse(outputData.origin.rotation) *rb.transform.rotation);
                     kinematics.Pose_with_covariance.Pose.Orientation.X = r.x;
                     kinematics.Pose_with_covariance.Pose.Orientation.Y = r.y;
                     kinematics.Pose_with_covariance.Pose.Orientation.Z = r.z;
+                    kinematics.Pose_with_covariance.Pose.Orientation.W = r.w;
+                    Debug.Log(rb.transform.rotation);
                 }
                 // Add twist
                 {
-                    var t = ROS2Utility.UnityToRosPosition(rb.velocity);
-                    kinematics.Twist_with_covariance.Twist.Linear.X = t.x;
-                    kinematics.Twist_with_covariance.Twist.Linear.Y = t.y;
-                    kinematics.Twist_with_covariance.Twist.Linear.Z = t.z;
+                    kinematics.Twist_with_covariance.Twist.Linear.X = rb.velocity.magnitude;
+                    kinematics.Twist_with_covariance.Twist.Linear.Y = 0.0;
+                    kinematics.Twist_with_covariance.Twist.Linear.Z = 0.0;
                     var a = ROS2Utility.UnityToRosPosition(rb.angularVelocity);
-                    kinematics.Twist_with_covariance.Twist.Angular.X = t.x;
-                    kinematics.Twist_with_covariance.Twist.Angular.Y = t.y;
-                    kinematics.Twist_with_covariance.Twist.Angular.Z = t.z;
+                    kinematics.Twist_with_covariance.Twist.Angular.X = 0.0;
+                    kinematics.Twist_with_covariance.Twist.Angular.Y = 0.0;
+                    kinematics.Twist_with_covariance.Twist.Angular.Z = a.z;
                 }
                 // Add covariance
                 {

@@ -53,7 +53,8 @@ namespace AWSIM
         float timer = 0;
         public OutputData outputData = new OutputData();
         private List<Classification> filteredObjects = new List<Classification>();
-        private Classification[] cachedObjectsWithClassification;
+        public Classification[] cachedObjectsWithClassification;
+        private bool manuallyCached = true;
 
         // This method generates a footprint for the vehicle based on its dimensions, position, and rotation.
         Vector2[] GenerateFootprint(Vector3 dimensions, Rigidbody vehicleRb)
@@ -123,7 +124,12 @@ namespace AWSIM
         void Start()
         {
             outputData.origin = this.transform;
-            cachedObjectsWithClassification = FindObjectsOfType<Classification>();
+            // Check if cachedObjectsWithClassification is empty
+            if(cachedObjectsWithClassification == null || cachedObjectsWithClassification.Length == 0)
+            {
+                cachedObjectsWithClassification = FindObjectsOfType<Classification>();
+                manuallyCached = false;
+            }
             CreateDetectedObjectData();
         }
 
@@ -137,10 +143,12 @@ namespace AWSIM
                 return;
             timer = 0;
             outputData.origin = this.transform;
-            var currentObjectsWithClassification = FindObjectsOfType<Classification>();
-            if (!Enumerable.SequenceEqual(cachedObjectsWithClassification, currentObjectsWithClassification)) {
-                cachedObjectsWithClassification = currentObjectsWithClassification;
-                CreateDetectedObjectData();
+            if(!manuallyCached){
+                var currentObjectsWithClassification = FindObjectsOfType<Classification>();
+                if (!Enumerable.SequenceEqual(cachedObjectsWithClassification, currentObjectsWithClassification)) {
+                    cachedObjectsWithClassification = currentObjectsWithClassification;
+                    CreateDetectedObjectData();
+                }
             }
             for (int i = 0; i < cachedObjectsWithClassification.Length; i++)
             {
@@ -148,7 +156,6 @@ namespace AWSIM
                 if(o == null) continue;
                 outputData.objects[i].bounds = GenerateFootprint(o.dimension,o.rigidBody);
             }
-
             // Calls registered callbacks
             OnOutputData.Invoke(outputData);
         }
