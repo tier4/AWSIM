@@ -116,8 +116,7 @@ namespace AWSIM
                 } else {
                     outputData.objects[i].dimension = new Vector3(0.5f, 0.5f, 1.5f);
                     outputData.objects[i].bounds = new Vector2[]{};
-                }                
-                i++;
+                }
             }            
         }
 

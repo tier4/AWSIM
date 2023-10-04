@@ -126,7 +126,6 @@ namespace AWSIM
                     kinematics.Pose_with_covariance.Pose.Orientation.Y = r.y;
                     kinematics.Pose_with_covariance.Pose.Orientation.Z = r.z;
                     kinematics.Pose_with_covariance.Pose.Orientation.W = r.w;
-                    Debug.Log(rb.transform.rotation);
                 }
                 // Add twist
                 {
