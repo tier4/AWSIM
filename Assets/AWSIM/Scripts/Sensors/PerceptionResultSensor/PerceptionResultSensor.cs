@@ -53,6 +53,9 @@ namespace AWSIM
         float timer = 0;
         public OutputData outputData = new OutputData();
         private List<Classification> filteredObjects = new List<Classification>();
+        [Header("Hint: Manually attaching classification objects is quicker.")]
+        [Header("Warning: Objects without a rigidbody are not supported for classification.")]
+
         public Classification[] cachedObjectsWithClassification;
         private bool manuallyCached = true;
 
