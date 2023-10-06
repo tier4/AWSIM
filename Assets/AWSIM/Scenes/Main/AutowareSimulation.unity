@@ -3613,11 +3613,6 @@ MonoBehaviour:
   timeScaleText: {fileID: 631930841}
   timeScaleSlider: {fileID: 1153401690}
   versionText: {fileID: 988705868}
---- !u!4 &1624570381 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5512666411487739948, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
-  m_PrefabInstance: {fileID: 2465439770829660650}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1672697011 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9027057599777832477, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
@@ -4250,63 +4245,6 @@ Transform:
   m_Father: {fileID: 543989980}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &918164463204283312
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1624570381}
-    m_Modifications:
-    - target: {fileID: 918164463061557422, guid: 0ce669864a1d9865996f5d7da68eab85, type: 3}
-      propertyPath: m_Name
-      value: ObjectSensor
-      objectReference: {fileID: 0}
-    - target: {fileID: 918164463061557423, guid: 0ce669864a1d9865996f5d7da68eab85, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 918164463061557423, guid: 0ce669864a1d9865996f5d7da68eab85, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 918164463061557423, guid: 0ce669864a1d9865996f5d7da68eab85, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 918164463061557423, guid: 0ce669864a1d9865996f5d7da68eab85, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 918164463061557423, guid: 0ce669864a1d9865996f5d7da68eab85, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 918164463061557423, guid: 0ce669864a1d9865996f5d7da68eab85, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 918164463061557423, guid: 0ce669864a1d9865996f5d7da68eab85, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 918164463061557423, guid: 0ce669864a1d9865996f5d7da68eab85, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 918164463061557423, guid: 0ce669864a1d9865996f5d7da68eab85, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 918164463061557423, guid: 0ce669864a1d9865996f5d7da68eab85, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 918164463061557423, guid: 0ce669864a1d9865996f5d7da68eab85, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0ce669864a1d9865996f5d7da68eab85, type: 3}
 --- !u!1001 &2465439770829660650
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4314,14 +4252,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1416174297}
     m_Modifications:
-- target: {fileID: 2019290181275176336, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
-      propertyPath: EnableGravity
-      value: 1
     - target: {fileID: 1195138626504501105, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: Topic
       value: /awsim/ground_truth/localization/kinematic_state
       objectReference: {fileID: 0}
-        - target: {fileID: 2963106999894261215, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
+    - target: {fileID: 2019290181275176336, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
+      propertyPath: EnableGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963106999894261215, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_Radius
       value: 0.368
       objectReference: {fileID: 0}
