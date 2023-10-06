@@ -4,7 +4,7 @@ namespace AWSIM
 {
 public class Classification : MonoBehaviour
 {
-    // use this for object sensor
+    // Attach this script to target object to enable perception result sensor
     public enum ObjectType
     {
         UNKNOWN,
