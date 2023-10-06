@@ -7,13 +7,13 @@ using ROS2;
 namespace AWSIM
 {
     /// <summary>
-    /// Convert the data output from ObjectSensor to ROS2 msg and Publish.
+    /// Convert the data output from PerceptionResultSensor to ROS2 msg and Publish.
     /// </summary>
-    [RequireComponent(typeof(ObjectSensor))]
-    public class ObjectRos2Publisher : MonoBehaviour
+    [RequireComponent(typeof(PerceptionResultSensor))]
+    public class PerceptionResultRos2Publisher : MonoBehaviour
     {
         /// <summary>
-        /// Topic name in pose msg.
+        /// Topic name in DetectedObject msg.
         /// </summary>
         public string objectTopic = "/awsim/ground_truth/perception/object_recognition/detection/objects";
 
@@ -41,12 +41,12 @@ namespace AWSIM
 
         IPublisher<autoware_auto_perception_msgs.msg.DetectedObjects> objectPublisher;
         autoware_auto_perception_msgs.msg.DetectedObjects objectsMsg;
-        ObjectSensor objectSensor;
+        PerceptionResultSensor objectSensor;
 
         void Start()
         {
             // Get ObjectSensor component.
-            objectSensor = GetComponent<ObjectSensor>();
+            objectSensor = GetComponent<PerceptionResultSensor>();
 
             // Set callback.
             objectSensor.OnOutputData += Publish;
@@ -59,7 +59,7 @@ namespace AWSIM
             objectPublisher = SimulatorROS2Node.CreatePublisher<autoware_auto_perception_msgs.msg.DetectedObjects>(objectTopic, qos);
         }
 
-        void Publish(ObjectSensor.OutputData outputData)
+        void Publish(PerceptionResultSensor.OutputData outputData)
         {
             if (outputData == null || outputData.objects == null || outputData.origin == null) return;
             var objectsList = new List<autoware_auto_perception_msgs.msg.DetectedObject>();

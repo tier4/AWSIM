@@ -8,10 +8,10 @@ namespace AWSIM
 {
     /// <summary>
     /// ObjectSensor sensor.
-    /// Need to set the MgrsReference of the Environment for the MGRS coordinate system.
+    /// Need to attach classification script to the objects.
     /// </summary>
-    /// TODO: To improve the reproducibility of ObjectSensor sensors, make it possible to output rotation and covariance.
-    public class ObjectSensor : MonoBehaviour
+    /// TODO: To improve the performance of ObjectSensor sensors, cached objects should be attached first.
+    public class PerceptionResultSensor : MonoBehaviour
     {
         /// <summary>
         /// This data is output from ObjectSensor at the OutputHz cycle.
@@ -37,7 +37,7 @@ namespace AWSIM
         /// Sensor processing and callbacks are called in this hz.
         /// </summary>
         [Range(0, 10)]
-        public int OutputHz = 10;    // Autoware's ObjectSensor basically output at 10hz.
+        public int OutputHz = 10;    // Autoware's DetectedObject basically output at 10hz.
 
 
         /// <summary>

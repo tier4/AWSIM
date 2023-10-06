@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 918164463061557393}
   - component: {fileID: 918164463061557392}
   m_Layer: 6
-  m_Name: ObjectSensor
+  m_Name: PerceptionResultSensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
