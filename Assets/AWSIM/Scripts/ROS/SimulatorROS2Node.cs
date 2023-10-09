@@ -26,6 +26,8 @@ namespace AWSIM
 #endif
         static void Initialize()
         {
+            TimeSource = GetTimeSource();
+
             ros2UnityCore = new ROS2UnityCore();
 
             if (ros2UnityCore.Ok())
@@ -33,6 +35,22 @@ namespace AWSIM
                 ros2Clock = new ROS2Clock(TimeSource);
                 node = ros2UnityCore.CreateNode(NODE_NAME);
             }
+        }
+
+        static ITimeSource GetTimeSource()
+        {
+            // get clock configuration asset and select ros time source 
+            ClockConfiguration clockConfiguration = Resources.Load<ClockConfiguration>("ClockConfiguration");
+            if(clockConfiguration != null && clockConfiguration.ClockSourceType != ClockConfiguration.SourceType.UNITY)
+            {
+                ITimeSource timeSource = clockConfiguration.GetTimeSource(clockConfiguration.ClockSourceType);
+                if(timeSource != null)
+                {
+                    return timeSource;
+                }    
+            }
+
+            return new UnityTimeSource();
         }
 
         /// <summary>
