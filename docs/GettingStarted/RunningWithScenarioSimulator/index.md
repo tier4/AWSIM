@@ -84,7 +84,7 @@ The instruction assumes using the Ubuntu OS.
 
 2. Checkout task branch (temporary - will not be necessary after everything is merged)
    ```
-   git checkout pzyskowski/660/awsim-ss2-connection
+   git checkout awsim-ss2-connection
    ```
 
 ## Build Autoware with `scenario_simulator_v2`
