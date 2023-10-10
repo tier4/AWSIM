@@ -23,7 +23,7 @@ namespace AWSIM
             public Rigidbody rigidBody;
             public Vector3 dimension;
             public Vector2[] bounds;
-            public Classification.ObjectType classification;
+            public ObjectClassification.ObjectType classification;
         }
 
         public class OutputData
@@ -52,11 +52,11 @@ namespace AWSIM
         public OnOutputDataDelegate OnOutputData;
         float timer = 0;
         public OutputData outputData = new OutputData();
-        private List<Classification> filteredObjects = new List<Classification>();
+        private List<ObjectClassification> filteredObjects = new List<ObjectClassification>();
         [Header("Hint: Manually attaching classification objects is quicker.")]
         [Header("Warning: Objects without a rigidbody are not supported for classification.")]
 
-        public Classification[] cachedObjectsWithClassification;
+        public ObjectClassification[] cachedObjectsWithClassification;
         private bool manuallyCached = true;
 
         // This method generates a footprint for the vehicle based on its dimensions, position, and rotation.
@@ -92,7 +92,7 @@ namespace AWSIM
         void CreateDetectedObjectData(){
             outputData.objects = new DetectedObject[cachedObjectsWithClassification.Length];
             for (int i = 0; i < cachedObjectsWithClassification.Length; i++) {
-                Classification obj = cachedObjectsWithClassification[i];
+                ObjectClassification obj = cachedObjectsWithClassification[i];
                 outputData.objects[i] = new DetectedObject();
                 // add classification
                 outputData.objects[i].classification = obj.objectType;
@@ -129,7 +129,7 @@ namespace AWSIM
             // Check if cachedObjectsWithClassification is empty
             if(cachedObjectsWithClassification == null || cachedObjectsWithClassification.Length == 0)
             {
-                cachedObjectsWithClassification = FindObjectsOfType<Classification>();
+                cachedObjectsWithClassification = FindObjectsOfType<ObjectClassification>();
                 manuallyCached = false;
             }
             CreateDetectedObjectData();
@@ -146,7 +146,7 @@ namespace AWSIM
             timer = 0;
             outputData.origin = this.transform;
             if(!manuallyCached){
-                var currentObjectsWithClassification = FindObjectsOfType<Classification>();
+                var currentObjectsWithClassification = FindObjectsOfType<ObjectClassification>();
                 if (!Enumerable.SequenceEqual(cachedObjectsWithClassification, currentObjectsWithClassification)) {
                     cachedObjectsWithClassification = currentObjectsWithClassification;
                     CreateDetectedObjectData();

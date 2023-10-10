@@ -79,28 +79,28 @@ namespace AWSIM
                 {
                 switch (detectedObject.classification)
                 {
-                    case Classification.ObjectType.UNKNOWN:
+                    case ObjectClassification.ObjectType.UNKNOWN:
                         classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.UNKNOWN;
                         break;
-                    case Classification.ObjectType.CAR:
+                    case ObjectClassification.ObjectType.CAR:
                         classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.CAR;
                         break;
-                    case Classification.ObjectType.TRUCK:
+                    case ObjectClassification.ObjectType.TRUCK:
                         classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.TRUCK;
                         break;
-                    case Classification.ObjectType.BUS:
+                    case ObjectClassification.ObjectType.BUS:
                         classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.BUS;
                         break;
-                    case Classification.ObjectType.TRAILER:
+                    case ObjectClassification.ObjectType.TRAILER:
                         classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.TRAILER;
                         break;
-                    case Classification.ObjectType.MOTORCYCLE:
+                    case ObjectClassification.ObjectType.MOTORCYCLE:
                         classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.MOTORCYCLE;
                         break;
-                    case Classification.ObjectType.BICYCLE:
+                    case ObjectClassification.ObjectType.BICYCLE:
                         classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.BICYCLE;
                         break;
-                    case Classification.ObjectType.PEDESTRIAN:
+                    case ObjectClassification.ObjectType.PEDESTRIAN:
                         classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.PEDESTRIAN;
                         break;
                     default:

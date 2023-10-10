@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace AWSIM
 {
-public class Classification : MonoBehaviour
+public class ObjectClassification : MonoBehaviour
 {
     // Attach this script to target object to enable perception result sensor
     public enum ObjectType
