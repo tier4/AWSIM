@@ -6,7 +6,7 @@ Traffic light tracking will be implemented in the future.
 ![](model.png)
 
 !!! note "Sample scene"
-    If you would like to see how `NPCPedestrian` works or run some tests, we encourage you to familiarize yourself with the `NPCPedestrianSample` default scene described in this [section](../../../DefaultExistingScenes/).
+    If you would like to see how `NPCPedestrian` works or run some tests, we encourage you to familiarize yourself with the `NPCPedestrianSample` default scene described in this [section](../../../../ProjectGuide/Scenes/#npcpedestriansample).
 
 ### Prefab and Fbx
 Prefab can be found under the following path:
@@ -30,7 +30,7 @@ Assets/AWSIM/Models/NPCs/Pedestrians/Human/humanElegant.fbx
 
 ![](prefab_link.png)
 
-The `ReferencePoint` is used by the *NPC Pedestrian* (script) described [here](#npcpedestrian-script).
+The `ReferencePoint` is used by the *NPC Pedestrian* (script) described [here](#npc-pedestrian-script).
 
 ### Link in the default Scene
 ![](link.png)
@@ -84,8 +84,8 @@ It uses a developed [`Controller`](https://docs.unity3d.com/Manual/class-Animato
 The `AnimationController` for humans should have the two float parameters for proper transitions.
 Transitions between animation clips are made depending on the values of these parameters:
 
-- `moveSpeed` - pedestrian movement speed in $\frac{m}{s}$,
-- `rotateSpeed` - pedestrian rotation speed in $\frac{rad}{s}$.
+- `moveSpeed` - pedestrian movement speed in ${m}/{s}$,
+- `rotateSpeed` - pedestrian rotation speed in ${rad}/{s}$.
 
 Developed controller can be found in the following path:<br>
 `Assets/AWSIM/Models/NPCs/Pedestrians/Human/Human.controller`

@@ -53,7 +53,7 @@ These settings can to be adjusted to your preference.
 
     ![add npc prefab gif](add_npc_prefab.gif)
 
-    Available NPC prefabs are shown in the [NPC Vehicle section](../../../../../UserGuide/ProjectGuide/Components/NPCs/Vehicle/).
+    Available NPC prefabs are shown in the [NPC Vehicle section](../../../../../Components/Traffic/NPCs/Vehicle/).
 
     !!! tip "Control NPC Vehicle spawning"
         Random Traffic Simulator Script will **on random** select one prefab from `Npc Prefabs` list every time when there  are not enough vehicles on the scene (the number of vehicles on the scene is smaller than the number specified in the `Max Vehicle Count` field).
@@ -68,7 +68,7 @@ Best practice is to use beginnings of the lanes on the edges of the map as spawn
     Make sure you have a lanelet added into your scene.
     The full tutorial on this topic can be found [here](../LoadItemsFromLanelet/).
 
-Adding spawnable lanes is similar to [Adding NPC Prefabs](#add-npc-vehicles).
+Adding spawnable lanes is similar to [Adding NPC Prefabs](#add-npcvehicles).
 
 1. Add an element to the `Spawnable Lanes` list by clicking on the "+" symbol or by selecting number of lanes directly.
 
@@ -118,4 +118,4 @@ You can specify acceleration rate  of vehicles and three values of deceleration.
     This configuration is common for all vehicles managed by the `Random Traffic Simulator Script`.
 
 !!! success
-    The last thing that needs to be done for `RandomTraffic` to work properly is to add intersections with traffic lights and configure their sequences. Details [here](../AddATrafficIntersection/).
+    The last thing that needs to be done for `RandomTraffic` to work properly is to add intersections with traffic lights and configure their sequences. Details [here](../../../../../Components/Environment/AddNewEnvironment/AddRandomTraffic/AddTrafficIntersection/).

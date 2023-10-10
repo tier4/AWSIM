@@ -55,10 +55,10 @@ nav:
       - Ego Vehicle: Components/Vehicle/EgoVehicle/index.md
       - URDF And Sensors: Components/Vehicle/URDFAndSensors/index.md
       - Add New Vehicle:
-        - Add Vehicle: Components\Vehicle\AddNewVehicle\AddAVehicle\index.md
-        - Add Colliders: Components\Vehicle\AddNewVehicle\AddColliders\index.md
-        - Add Sensors: Components\Vehicle\AddNewVehicle\AddSensors\index.md
-        - Add Visual Elements: Components\Vehicle\AddNewVehicle\AddVisualElements\index.md
+        - Add Vehicle: Components/Vehicle/AddNewVehicle/AddAVehicle/index.md
+        - Add Colliders: Components/Vehicle/AddNewVehicle/AddColliders/index.md
+        - Add Sensors: Components/Vehicle/AddNewVehicle/AddSensors/index.md
+        - Add Visual Elements: Components/Vehicle/AddNewVehicle/AddVisualElements/index.md
     - Sensors:
       - LiDAR Sensor:
         - LiDAR Sensor: Components/Sensors/LiDARSensor/LiDARSensor/index.md

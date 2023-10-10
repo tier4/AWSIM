@@ -19,7 +19,7 @@ The `traffic_light_left_camera/camera_link` link is added to the `base_link` obj
 
 ![link](link.png)
 
-A detailed description of the `URDF` structure and sensors added to prefab `Lexus RX450h 2015` is available in this [section](../../EgoVehicle/URDF/).
+A detailed description of the `URDF` structure and sensors added to prefab `Lexus RX450h 2015` is available in this [section](../../../Components/Vehicle/URDFAndSensors/).
 
 
 

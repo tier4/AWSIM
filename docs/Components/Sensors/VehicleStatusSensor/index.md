@@ -25,7 +25,7 @@ This sensor is added directly to the [*URDF*](https://docs.ros.org/en/humble/Tut
 
 ![link](link.png)
 
-A detailed description of the `URDF` structure and sensors added to prefab `Lexus RX450h 2015` is available in this [section](../../EgoVehicle/URDF/).
+A detailed description of the `URDF` structure and sensors added to prefab `Lexus RX450h 2015` is available in this [section](../../../Components/Vehicle/URDFAndSensors/).
 
 ### Components 
 ![components](components.png)
