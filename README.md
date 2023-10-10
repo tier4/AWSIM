@@ -48,5 +48,6 @@ See also [LICENSE](./LICENSE)
 
 e-mail : takatoki.makino@tier4.jp 
 discord : mackie#6141
+twitter : https://twitter.com/mackierx111
 
 (c) 2022 TIER IV, inc

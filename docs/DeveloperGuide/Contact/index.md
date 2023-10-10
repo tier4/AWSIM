@@ -2,4 +2,6 @@
 
 English/日本語 OK
 
-e-mail : takatoki.makino@tier4.jp  
+e-mail : takatoki.makino@tier4.jp
+
+twitter : https://twitter.com/mackierx111 
