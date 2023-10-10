@@ -173,14 +173,14 @@ However, each contains:
 - *Mesh Filter* - contains a reference to the `Mesh` of the object.
 - *Mesh Renderer* - enables the rendering of `Mesh`, including its geometry, textures, and materials, giving it a visual appearance in the scene.
 - *Mesh Collider* - allows an object to have collision detection based on `Mesh`.
-- [*Traffic Light* (script)](../../../../../Components/Traffic/TrafficComponents/#traffic-light-script) - provides an interface to control signaling by changing the emission of materials.
+- [*Traffic Light* (script)](../../Traffic/TrafficComponents/#traffic-light-script) - provides an interface to control signaling by changing the emission of materials.
 This script is used for simulated traffic, so it is described.
 
 ##### Materials
 An important element that is configured in the `TrafficLights` object are the materials in the `Mesh Renderer` component.
 Material with index 0 always applies to the housing of the lights.
 Subsequent elements 1-6 correspond to successive slots of light sources (round luminous objects) - starting from the upper left corner of the object in the right direction, to the bottom and back to the left corner.
-These indexes are used in script *Traffic Light* (script) - described [here](../../../../../Components/Traffic/TrafficComponents/#traffic-light-script).
+These indexes are used in script *Traffic Light* (script) - described [here](../../Traffic/TrafficComponents/#traffic-light-script).
 
 ![lights_mesh](lights/lights_materials.png)
 
@@ -201,7 +201,7 @@ In the environment there are many pedestrian lights - they have the same compone
 An important element that is configured in the `PedestrianLights` object are the materials in the `Mesh Renderer` component.
 Material with index 0 always applies to the housing of the lights.
 Subsequent elements 1-2 correspond to successive slots of light sources (round luminous objects) - starting from top to bottom.
-These indexes are used in script *Traffic Light* (script) - described [here](../../../../../Components/Traffic/TrafficComponents/#traffic-light-script).
+These indexes are used in script *Traffic Light* (script) - described [here](../../Traffic/TrafficComponents/#traffic-light-script).
 
 ![pedestrian_lights_mesh](lights/pedestrian_lights_materials.png)<br>
 Materials for lighting slots that are assigned in `Mesh Renderer` can be found in the following path:
