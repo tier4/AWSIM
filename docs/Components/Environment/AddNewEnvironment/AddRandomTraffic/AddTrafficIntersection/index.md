@@ -127,7 +127,7 @@ This means that Traffic Lights in the *Vehicle Traffic Light Group 2* will hold 
 This state will be active for 5 seconds, which means that Traffic Lights in the *Vehicle Traffic Light Group 2* will be lighting solid green for the total of 20 seconds.
 
 ## How to test
-To test how your Traffic Intersection behaves simply run the Scene as shown [here](../../../../../UserGuide/BuildFromSource/RunTheScene/) (but don't launch *Autoware*).
+To test how your Traffic Intersection behaves simply run the Scene as shown [here](../../../../../GettingStarted/SetupUnityProject/#run-the-demo-in-editor) (but don't launch *Autoware*).
 To take a better look at the Traffic Lights you can change to the *Scene* view by pressing `ctrl + 1` - now you can move the camera freely (to go back to the *Game* view simply press `ctrl + 2`).
 
 As the time passes you can examine whether your Traffic Intersection is configured correctly.

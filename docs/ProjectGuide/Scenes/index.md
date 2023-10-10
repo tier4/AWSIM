@@ -47,7 +47,7 @@ Replace the NPC prefab in `NPC Pedestrian Test` script with a prefab you develop
 The `TrafficIntersectionSample` was developed to conduct a quick test of the developed traffic intersection.
 Replace the intersection configuration with your own and check whether it works correctly.
 You can add additional groups of lights and create much larger, more complex sequences.
-A description of how to configure your own traffic intersection is in this [section](../../../Components/Traffic/RandomTraffic/AddRandomTrafficEnvironment/).
+A description of how to configure your own traffic intersection is in this [section](../../Components/Traffic/RandomTraffic/AddRandomTrafficEnvironment/).
 
 <video width="1920" controls>
 <source src="intersection_test.mp4" type="video/mp4">

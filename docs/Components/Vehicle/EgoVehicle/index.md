@@ -127,7 +127,7 @@ Assets/AWSIM/Scripts/Vehicles/*
 ### Architecture
 The `EgoVehicle` architecture - with dependencies - is presented on the following diagram.
 
-![ego vehicle structure diagram](../../../../../Introduction/AWSIM/egovehicle.png)
+![ego vehicle structure diagram](../../../Introduction/AWSIM/egovehicle.png)
 
 
 The communication between `EgoVehicle` components is presented on two different diagrams - a flow diagram and a sequence diagram.

@@ -125,7 +125,7 @@ The basic *ROS2* msgs types that are supported in *AWSIM* by default include:
 In order for the message package to be used in *Unity*, its `*.dll` and `*.so` libraries must be generated using `R2FU`.
 
 !!! tip "Custom message"
-    If you want to generate a custom message to allow it to be used in *AWSIM* please read [this tutorial](../../../../Components/ROS2/AddACustomROS2Message/).
+    If you want to generate a custom message to allow it to be used in *AWSIM* please read [this tutorial](../AddACustomROS2Message/).
 
 ## Use of generated messages in *Unity*
 Each message type is composed of other types - which can also be a complex type.

@@ -13,17 +13,17 @@ The ones mounted on the top of autonomous vehicles are primarily used
 
 *LiDARs* placed on the left and right sides of the vehicle are mainly used to monitor the traffic lane and detect vehicles moving in adjacent lanes, enabling safe maneuvers such as lane changing or turning.
 
-`LidarSensor` component is a part of [`RGLUnityPlugin`](../../../../Components/Sensors/LiDARSensor/RGLUnityPlugin/) that integrates the external [*RobotecGPULidar*](https://github.com/RobotecAI/RobotecGPULidar) (`RGL`) library with *Unity*. `RGL` also allows to provide additional information about objects, more about it [here](#read-material-information).
+`LidarSensor` component is a part of [`RGLUnityPlugin`](../RGLUnityPlugin/) that integrates the external [*RobotecGPULidar*](https://github.com/RobotecAI/RobotecGPULidar) (`RGL`) library with *Unity*. `RGL` also allows to provide additional information about objects, more about it [here](#read-material-information).
 
 !!! warning "Use RGL in your scene"
-    If you want to use `RGL` in your scene, make sure the scene has an [`SceneManager` component](../../../../../Components/Sensors/LiDARSensor/RGLUnityPlugin/#scenemanager) added and all objects meet the [usage requirements](../../../../Components/Sensors/LiDARSensor/RGLUnityPlugin/#usage-requirements).
+    If you want to use `RGL` in your scene, make sure the scene has an [`SceneManager` component](../RGLUnityPlugin/#scenemanager) added and all objects meet the [usage requirements](../RGLUnityPlugin/#usage-requirements).
 
 !!! note "RGL default scenes"
     If you would like to see how `LidarSensor` works using `RGL` or run some tests, we encourage you to familiarize yourself with the [`RGL` test scenes section](../../../../ProjectGuide/Scenes/#rgl-test-scenes).
 
 !!! note "Supported *LiDARs*"
     The current scripts implementation allows you to configure the prefab for any mechanical *LiDAR*.
-    You can read about how to do it [here](../../../../../Components/Sensors/LiDARSensor/AddNewLiDAR/).
+    You can read about how to do it [here](../AddNewLiDAR/).
     *MEMS-based LiDARs* due to their different design are not yet fully supported.
 
 ### Prefabs
@@ -72,7 +72,7 @@ Moreover, the scripts use `Resources` to provide configuration for prefabs of su
 - *LaserArrayLibrary* - provides data related to laser array construction for supported models,
 - *LaserConfigurationLibrary* - provides full configuration, with ranges and noise for supported models.
 
-These are elements of the `RGLUnityPlugin`, you can read more [here](../../../../Components/Sensors/LiDARSensor/RGLUnityPlugin/).
+These are elements of the `RGLUnityPlugin`, you can read more [here](../RGLUnityPlugin/).
 
 ## Lidar Sensor (script)
 ![script](script.png)
@@ -188,7 +188,7 @@ Assets/RGLUnityPlugin/Resources/PointCloudMaterial.mat
 
 ## Read material information
 
-To ensure the publication of the information described in this section, *GameObjects* must be adjusted accordingly. [This](../../../../../Components/Sensors/LiDARSensor/ReadMaterialInformation/) tutorial describes how to do it.
+To ensure the publication of the information described in this section, *GameObjects* must be adjusted accordingly. [This](../ReadMaterialInformation/) tutorial describes how to do it.
 
 ### Intensity Texture
 

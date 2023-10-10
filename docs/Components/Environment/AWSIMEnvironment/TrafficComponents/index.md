@@ -36,7 +36,7 @@ The random traffic system consists of the following components:
     These components represent traffic entities.
     They are used to control and manage the traffic with respect to traffic rules and current road situation.
 
-- [`NPCVehicle`](../../NPCs/Vehicle/)
+- [`NPCVehicle`](../../../Traffic/NPCs/Vehicle/)
 
     The vehicle models (*NPCs*) spawned by one of the `TrafficSimulators`.
     They are spawned according to the `TrafficSimulator` configuration and either drive around the map randomly (when spawned by a [`RandomTrafficSimulator`](#random-traffic)) or follow the predefined path (when spawned by a [`RouteTrafficSimulator`](#route-traffic)).
@@ -96,7 +96,7 @@ The `RandomTrafficSimulator` consists of several *GameObjects*.
 ### TrafficManager (script)
 ![random_traffic_script](random_traffic_script.png)
 
-*Traffic Manager* (script) is responsible for all of top level management of the [`NPCVehicles`](../../NPCs/Vehicle/).
+*Traffic Manager* (script) is responsible for all of top level management of the [`NPCVehicles`](../../../Traffic/NPCs/Vehicle/).
 It managed spawning of `NPCVehicles` on `TrafficLanes`.
 
 `TrafficManager` uses the concept of `TrafficSimulators`.
@@ -106,7 +106,7 @@ The vehicles spawned by one `TrafficSimulator` do respect its configuration.
 `TrafficSimulators` can be interpreted as `NPCVehicle` spawners with different configurations each.
 Many different `TrafficSimulators` can be added to the `TrafficManager`.
 
-If a random mode is selected ([`RandomTrafficSimulator`](#random-traffic)) then [`NPCVehicles`](../../NPCs/Vehicle/) will spawn in random places (from the selected list) and drive in random directions.
+If a random mode is selected ([`RandomTrafficSimulator`](#random-traffic)) then [`NPCVehicles`](../../../Traffic/NPCs/Vehicle/) will spawn in random places (from the selected list) and drive in random directions.
 To be able to reproduce the behavior of the `RandomTrafficSimulator` a [`Seed`](https://en.wikipedia.org/wiki/Random_seed) can be specified - which is used for the pseudo-random numbers generation.
 
 `TrafficManager` script also configures all of the spawned `NPCVehicles`, so that they all have common parameters
@@ -204,7 +204,7 @@ Every bulb has the following aspects configured
 - `Bulb Type` - the name that will be usd to reference the configured bulb
 - `Material Index` - The index of a material of the configured bulb.
     This is an index of a sub-mesh of the configured bulb in the Traffic Light mesh.
-    The material indices are described in detail [here](../Environment/#materials) and [here](../Environment/#materials_1).
+    The material indices are described in detail [here](../#materials) and [here](../#materials_1).
 
 ## TrafficIntersections
 ![intersection](intersections/intersection.png)
@@ -357,7 +357,7 @@ E.g. when `Traffic Lights` in one direction change color to green - `Traffic Lig
 `TrafficLane` is a representation of a short road segment.
 It consists of several waypoints that are connected by straight lines.
 `TrafficLanes` are used as a base for a [RandomTrafficSimulator](#random-traffic-simulator).
-They allow [`NPCVehicles`](../../NPCs/Vehicle/) to drive on the specific lanes on the road and perform different maneuvers with respect to the traffic rules.
+They allow [`NPCVehicles`](../../../Traffic/NPCs/Vehicle/) to drive on the specific lanes on the road and perform different maneuvers with respect to the traffic rules.
 TrafficLanes create a network of drivable roads when connected.
 
 ### Link in the default Scene
@@ -403,7 +403,7 @@ Additionally the `Speed Limit` field contains the highest allowed speed on given
 `Right Of Way Lanes` is a collection of `TrafficLanes`.
 Vehicle moving on the given `TrafficLane` has to give way to all vehicles moving on every `Right Of Way Lane`.
 It is determined based on basic traffic rules.
-Setting `Right Of Way Lanes` allows [`RandomTrafficSimulator`](#random-traffic-simulator) to manage all [`NPCVehicles`](../../NPCs/Vehicle/) so they follow traffic rules and drive safely.
+Setting `Right Of Way Lanes` allows `RandomTrafficSimulator` to manage all [`NPCVehicles`](../../../Traffic/NPCs/Vehicle/) so they follow traffic rules and drive safely.
 
 In the *Unity* editor - when a `TrafficLane` is selected - aside from the selected `TrafficLane` highlighted in blue, all `Right Of Way Lanes` are highlighted in yellow.
 
@@ -418,7 +418,7 @@ In the *Unity* editor - when a `TrafficLane` is selected - aside from the select
 ![stop](stop_lines/stop.png)
 
 `StopLine` is a representation of a place on the road where vehicles giving way to other vehicles should stop and wait.
-They allow [`RandomTrafficSimulator`](#random-traffic-simulator) to manage [`NPCVehicles`](../../NPCs/Vehicle/) in safe and correct way - according to the traffic rules.
+They allow [`RandomTrafficSimulator`](#random-traffic-simulator) to manage [`NPCVehicles`](../../../Traffic/NPCs/Vehicle/) in safe and correct way - according to the traffic rules.
 All possible locations where a vehicle can stop in order to give way to other vehicles - that are enforced by an infrastructure, this does not include regular lane changing - need to be marked with `StopLines`.
 
 ###  Link in the default Scene
@@ -449,13 +449,13 @@ The list of points should always have two elements that create a straight `StopL
 
 The `Has Stop Sign` field contains information whether the configured `StopLine` has a corresponding `StopSign` on the scene.
 
-Every Stop Line needs to have a `Traffic Light` field configured with the corresponding [`Traffic Light`](../Environment/#trafficlights).
-This information allows the [`RandomTrafficSimulator`](#random-traffic-simulator) to manage the [`NPCVehicles`](../../NPCs/Vehicle/) in such a way that they respect the Traffic Lights and behave on the [`Traffic Intersections`](#trafficintersections) correctly.
+Every Stop Line needs to have a `Traffic Light` field configured with the corresponding [`Traffic Light`](../#trafficlights).
+This information allows the [`RandomTrafficSimulator`](#random-traffic-simulator) to manage the [`NPCVehicles`](../../../Traffic/NPCs/Vehicle/) in such a way that they respect the Traffic Lights and behave on the [`Traffic Intersections`](#trafficintersections) correctly.
 
 ## Gizmos
 ![gizmos](gizmos.png)
 
-*Gizmos* are a in-simulation visualization showing current and future moves of the [`NPCVehicles`](../../NPCs/Vehicle/).
+*Gizmos* are a in-simulation visualization showing current and future moves of the [`NPCVehicles`](../../../Traffic/NPCs/Vehicle/).
 They are useful for checking current behavior of NPCs and its causes.
 On the Scene they are visible as cuboid contours indicating which TrafficLanes will be taken by each vehicle in the near future.
 

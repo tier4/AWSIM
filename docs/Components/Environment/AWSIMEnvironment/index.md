@@ -8,7 +8,7 @@ Moreover, it contains elements responsible for controlling random traffic.
 ![environment](environment.png)
 
 !!! tip "Own Environment prefab"
-    If you would like to develop your own prefab `Environment` for *AWSIM*, we encourage you to read this [tutorial](../../../../../Components/Environment/AddNewEnvironment/AddEnvironment/).
+    If you would like to develop your own prefab `Environment` for *AWSIM*, we encourage you to read this [tutorial](../../Environment/AddNewEnvironment/AddEnvironment/).
 
 !!! note "AutowareSimulation scene"
     If you would like to see how `Environment` with random traffic works or run some tests, we encourage you to familiarize yourself with the `AutowareSimulation` scene described in this [section](../../../ProjectGuide/Scenes/#autowaresimulation).
@@ -18,12 +18,12 @@ The point cloud is created using the [`RGL`](https://github.com/RobotecAI/Robote
 We encourage you to familiarize yourself with an example scene of creating a point cloud - described [here](../../../ProjectGuide/Scenes/#pointcloudmapping).
 
 !!! tip "Create PointCloud (*.pcd file)"
-    If you would like to learn how to create a point cloud in *AWSIM* using `Environment` prefab, we encourage you to read this [tutorial](../../../../../Components/Environment/CreatePCD/).
+    If you would like to learn how to create a point cloud in *AWSIM* using `Environment` prefab, we encourage you to read this [tutorial](../../Environment/CreatePCD/).
 
 ### Architecture
 The architecture of an `Environment` - with dependencies between components - is presented on the following diagram.
 
-![environment diagram](../../../../../Introduction/AWSIM//environment.png)
+![environment diagram](../../../Introduction/AWSIM/environment.png)
 
 ### Prefabs
 
@@ -49,8 +49,8 @@ Prefabs can be found under the following path:
 As you can see it contains:
 
 - `SJK*` objects - which are aggregators for visual models.
-- `RandomTrafficSimulator`, `TrafficIntersections`, `TrafficLanes`, `StopLines` - which are responsible for random traffic of [`NPCVehicles`](../../../../../Components/Traffic/NPCs/Vehicle/).
-- `NPCPedestrians` - which is an aggregator of [`NPCPedestrian`](../../../../../Components/Traffic/NPCs/Pedestrian/) prefabs added to the scene.
+- `RandomTrafficSimulator`, `TrafficIntersections`, `TrafficLanes`, `StopLines` - which are responsible for random traffic of [`NPCVehicles`](../../Traffic/NPCs/Vehicle/).
+- `NPCPedestrians` - which is an aggregator of [`NPCPedestrian`](../../Traffic/NPCs/Pedestrian/) prefabs added to the scene.
 - `Volume`, `Directional Light` - which are components that affect the appearance of objects on the scene.
 
 All of these objects are described below in this section.
@@ -93,7 +93,7 @@ In the project physics settings, it is ensured that collisions between objects i
 ![layers_physis](layers_physis.png)
 
 ## Traffic Components
-Due to the specificity of the use of `RandomTrafficSimulator`, `TrafficIntersections`, `TrafficLanes`, `StopLines` objects, they have been described in a separate section [*Traffic Components*](../../../../../Components/Traffic/TrafficComponents/) - where all the elements necessary in simulated random traffic are presented.
+Due to the specificity of the use of `RandomTrafficSimulator`, `TrafficIntersections`, `TrafficLanes`, `StopLines` objects, they have been described in a separate section [*Traffic Components*](../../Traffic/TrafficComponents/) - where all the elements necessary in simulated random traffic are presented.
 
 ## Visual Elements (SJK)
 The visuals elements have been loaded and organized using the `*.fbx` files which can be found under the path: 
