@@ -43,7 +43,8 @@ nav:
   - Introduction:
     - Autoware: Introduction/Autoware/index.md
     - AWSIM: Introduction/AWSIM/index.md
-    - CombinationWithAutoware: Introduction/CombinationWithAutoware/index.md
+    - Combination With Autoware: Introduction/CombinationWithAutoware/index.md
+    - Combination With Autoware and Scenario Simulator: Introduction/CombinationWithAutowareAndScenarioSimulator/index.md
 
   - Project guide:
     - Directory: ProjectGuide/Directory/index.md
