@@ -86,6 +86,10 @@ To add a new *LiDAR* model, perform the following steps:
 
     ![done](done.png)
 
+    Frame rate of the *LiDAR* can be set in the `Automatic Capture Hz` parameter.
+
+    *Note: In the real-world LiDARs, frame rate affects horizontal resolution. Current implementation separates these two parameters. Keep in mind to change it manually.*
+
 ## 2. Create new LiDAR prefab
 
 1. Create an empty object and name it appropriately according to the *LiDAR* model.
