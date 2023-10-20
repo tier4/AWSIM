@@ -471,6 +471,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 30
   speed: 1
+--- !u!114 &312644631 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9027057599744010733, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+  m_PrefabInstance: {fileID: 813212876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830ab73cebda3db4580ebd3ece935931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &543989979
 GameObject:
   m_ObjectHideFlags: 0
@@ -666,6 +677,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 631930839}
   m_CullTransparentMesh: 1
+--- !u!114 &633934550 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9027057600341848449, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+  m_PrefabInstance: {fileID: 813212876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830ab73cebda3db4580ebd3ece935931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &645900690
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,6 +730,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 830ab73cebda3db4580ebd3ece935931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &702753521 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9027057599904164768, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+  m_PrefabInstance: {fileID: 813212876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830ab73cebda3db4580ebd3ece935931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &723377035 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
@@ -717,6 +750,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0004da06b69044905bc1db0ab38531a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &751779537 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9027057599006114478, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+  m_PrefabInstance: {fileID: 813212876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830ab73cebda3db4580ebd3ece935931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &797679383
@@ -827,8 +871,312 @@ PrefabInstance:
       propertyPath: duration
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 232752235027101297, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: showGizmos
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: maxVehicleCount
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: routeTrafficSims.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[0].enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[2].enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[3].enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[4].enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: routeTrafficSims.Array.data[0].route.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: routeTrafficSims.Array.data[0].route.Array.data[0]
+      value: 
+      objectReference: {fileID: 2030644583}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].npcPrefabs.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[2].npcPrefabs.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[3].npcPrefabs.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[4].npcPrefabs.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].npcPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 714549001370495616, guid: d0094c5a0e9fb6148873c658dbc61a89, type: 3}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].npcPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 6850358619771218631, guid: 9bc315af95865dd4bbf4a8f716791609, type: 3}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].npcPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 536101250511469494, guid: 433e715a84edbae418fe585f802f3918, type: 3}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].npcPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 3333523281254186578, guid: 589cf2e451adab34eb1332da5701195a, type: 3}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].npcPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 6604874415271597525, guid: 7e772e9ad7eb79040be629d8d04542ab, type: 3}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[2].npcPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 714549001370495616, guid: d0094c5a0e9fb6148873c658dbc61a89, type: 3}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[2].npcPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 6850358619771218631, guid: 9bc315af95865dd4bbf4a8f716791609, type: 3}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[2].npcPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 536101250511469494, guid: 433e715a84edbae418fe585f802f3918, type: 3}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[2].npcPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 3333523281254186578, guid: 589cf2e451adab34eb1332da5701195a, type: 3}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[2].npcPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 6604874415271597525, guid: 7e772e9ad7eb79040be629d8d04542ab, type: 3}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[3].npcPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 714549001370495616, guid: d0094c5a0e9fb6148873c658dbc61a89, type: 3}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[3].npcPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 6850358619771218631, guid: 9bc315af95865dd4bbf4a8f716791609, type: 3}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[3].npcPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 536101250511469494, guid: 433e715a84edbae418fe585f802f3918, type: 3}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[3].npcPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 3333523281254186578, guid: 589cf2e451adab34eb1332da5701195a, type: 3}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[3].npcPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 6604874415271597525, guid: 7e772e9ad7eb79040be629d8d04542ab, type: 3}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[4].npcPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 714549001370495616, guid: d0094c5a0e9fb6148873c658dbc61a89, type: 3}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[4].npcPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 6850358619771218631, guid: 9bc315af95865dd4bbf4a8f716791609, type: 3}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[4].npcPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 536101250511469494, guid: 433e715a84edbae418fe585f802f3918, type: 3}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[4].npcPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 3333523281254186578, guid: 589cf2e451adab34eb1332da5701195a, type: 3}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[4].npcPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 6604874415271597525, guid: 7e772e9ad7eb79040be629d8d04542ab, type: 3}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[2].spawnableLanes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[3].spawnableLanes.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[4].spawnableLanes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[0]
+      value: 
+      objectReference: {fileID: 312644631}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[1]
+      value: 
+      objectReference: {fileID: 633934550}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[2]
+      value: 
+      objectReference: {fileID: 702753521}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[3]
+      value: 
+      objectReference: {fileID: 1976093453}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[4]
+      value: 
+      objectReference: {fileID: 1735373375}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[5]
+      value: 
+      objectReference: {fileID: 951655714}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[6]
+      value: 
+      objectReference: {fileID: 1144039543}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[7]
+      value: 
+      objectReference: {fileID: 1492397900}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[8]
+      value: 
+      objectReference: {fileID: 1672697011}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[9]
+      value: 
+      objectReference: {fileID: 553355659}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[2].spawnableLanes.Array.data[0]
+      value: 
+      objectReference: {fileID: 19493538}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[2].spawnableLanes.Array.data[1]
+      value: 
+      objectReference: {fileID: 1778753258}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[2].spawnableLanes.Array.data[2]
+      value: 
+      objectReference: {fileID: 1719426192}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[3].spawnableLanes.Array.data[0]
+      value: 
+      objectReference: {fileID: 220324682}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[3].spawnableLanes.Array.data[1]
+      value: 
+      objectReference: {fileID: 1427484397}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[3].spawnableLanes.Array.data[2]
+      value: 
+      objectReference: {fileID: 806084938}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[3].spawnableLanes.Array.data[3]
+      value: 
+      objectReference: {fileID: 890457390}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[3].spawnableLanes.Array.data[4]
+      value: 
+      objectReference: {fileID: 890457390}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[4].spawnableLanes.Array.data[0]
+      value: 
+      objectReference: {fileID: 751779537}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[4].spawnableLanes.Array.data[1]
+      value: 
+      objectReference: {fileID: 1949676777}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[4].spawnableLanes.Array.data[2]
+      value: 
+      objectReference: {fileID: 1679402329}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[10]
+      value: 
+      objectReference: {fileID: 691106891}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[11]
+      value: 
+      objectReference: {fileID: 1809787742}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[12]
+      value: 
+      objectReference: {fileID: 1830724056}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[13]
+      value: 
+      objectReference: {fileID: 1735535495}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[14]
+      value: 
+      objectReference: {fileID: 1428789966}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[15]
+      value: 
+      objectReference: {fileID: 959832932}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[16]
+      value: 
+      objectReference: {fileID: 1210131633}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[17]
+      value: 
+      objectReference: {fileID: 2089593747}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[18]
+      value: 
+      objectReference: {fileID: 1719426192}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[19]
+      value: 
+      objectReference: {fileID: 1778753258}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[20]
+      value: 
+      objectReference: {fileID: 19493538}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[21]
+      value: 
+      objectReference: {fileID: 220324682}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[22]
+      value: 
+      objectReference: {fileID: 1427484397}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[23]
+      value: 
+      objectReference: {fileID: 806084938}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].spawnableLanes.Array.data[24]
+      value: 
+      objectReference: {fileID: 890457390}
+    - target: {fileID: 988938448898611242, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 988938449032091554, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
@@ -842,6 +1190,26 @@ PrefabInstance:
     - target: {fileID: 988938449032091554, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: m_LocalPosition.z
       value: 210.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 988938449126394634, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 988938449167330568, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 988938449232609567, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 988938449901943869, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 988938449998075288, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5984117683371609910, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: egoVehicleTransform
@@ -1187,6 +1555,22 @@ PrefabInstance:
       propertyPath: lightingSequences.Array.data[10].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9027057598912826836, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_Name
+      value: TrafficLane111
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057599006114479, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_Name
+      value: TrafficLane1111
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057599021729486, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_Name
+      value: TrafficLane
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057599066223003, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_Name
+      value: TrafficLane
+      objectReference: {fileID: 0}
     - target: {fileID: 9027057599120401230, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.size
       value: 10
@@ -1467,6 +1851,14 @@ PrefabInstance:
       propertyPath: lightingSequences.Array.data[10].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9027057599284589278, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_Name
+      value: TrafficLane
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057599422256191, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_Name
+      value: TrafficLane3333
+      objectReference: {fileID: 0}
     - target: {fileID: 9027057599484181835, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.size
       value: 10
@@ -1607,6 +1999,10 @@ PrefabInstance:
       propertyPath: lightingSequences.Array.data[10].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9027057599488937842, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_Name
+      value: TrafficLane222
+      objectReference: {fileID: 0}
     - target: {fileID: 9027057599626973389, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.size
       value: 10
@@ -1746,6 +2142,10 @@ PrefabInstance:
     - target: {fileID: 9027057599626973389, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[10].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057599744010734, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_Name
+      value: TrafficLane1
       objectReference: {fileID: 0}
     - target: {fileID: 9027057599863099217, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: m_ShadowResolution.m_Level
@@ -1783,6 +2183,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -120
       objectReference: {fileID: 0}
+    - target: {fileID: 9027057599875708360, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_Name
+      value: TrafficLane33
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057599904164769, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_Name
+      value: TrafficLane3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057599970784274, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_Name
+      value: TrafficLane333
+      objectReference: {fileID: 0}
     - target: {fileID: 9027057600082753307, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.size
       value: 10
@@ -1923,6 +2335,10 @@ PrefabInstance:
       propertyPath: lightingSequences.Array.data[10].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9027057600098258901, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_Name
+      value: TrafficLane2222
+      objectReference: {fileID: 0}
     - target: {fileID: 9027057600249923827, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.size
       value: 10
@@ -2202,6 +2618,10 @@ PrefabInstance:
     - target: {fileID: 9027057600323996299, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[10].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600341848450, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_Name
+      value: TrafficLane2
       objectReference: {fileID: 0}
     - target: {fileID: 9027057600357292012, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: seed
@@ -2511,6 +2931,22 @@ PrefabInstance:
       propertyPath: lightingSequences.Array.data[10].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9027057600411674007, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_Name
+      value: TrafficLane444
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600436958481, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_Name
+      value: TrafficLane
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600438265042, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_Name
+      value: TrafficLane5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600509323316, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_Name
+      value: TrafficLane4
+      objectReference: {fileID: 0}
     - target: {fileID: 9027057600513929140, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.size
       value: 10
@@ -2651,6 +3087,10 @@ PrefabInstance:
       propertyPath: lightingSequences.Array.data[10].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9027057600696620637, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_Name
+      value: TrafficLane11
+      objectReference: {fileID: 0}
     - target: {fileID: 9027057600755381114, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.size
       value: 10
@@ -2790,6 +3230,10 @@ PrefabInstance:
     - target: {fileID: 9027057600755381114, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: lightingSequences.Array.data[10].groupLightingOrders.Array.data[0].bulbData.Array.data[0].status
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027057600798885186, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: m_Name
+      value: TrafficLane22
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
@@ -3399,7 +3843,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1416174297
 Transform:
   m_ObjectHideFlags: 0
@@ -3616,6 +4060,17 @@ MonoBehaviour:
 --- !u!114 &1672697011 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9027057599777832477, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+  m_PrefabInstance: {fileID: 813212876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830ab73cebda3db4580ebd3ece935931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1679402329 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9027057599422256190, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
   m_PrefabInstance: {fileID: 813212876}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -3931,6 +4386,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 30
   speed: 1
+--- !u!114 &1949676777 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9027057600098258900, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+  m_PrefabInstance: {fileID: 813212876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830ab73cebda3db4580ebd3ece935931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1976093453 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9027057600509323307, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+  m_PrefabInstance: {fileID: 813212876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830ab73cebda3db4580ebd3ece935931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2015196314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4007,6 +4484,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 30
   speed: 1
+--- !u!114 &2030644583 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9027057599901881940, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+  m_PrefabInstance: {fileID: 813212876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830ab73cebda3db4580ebd3ece935931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2085225748 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9027057599743323132, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
