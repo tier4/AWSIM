@@ -12,23 +12,21 @@ namespace AWSIM
     {
         [SerializeField] string topic;
         [SerializeField] QoSSettings qosSettings;
-        [SerializeField, Range(0, 100)] int publishHz;
+        [SerializeField, Range(1, 100)] int publishHz;
 
         IPublisher<rosgraph_msgs.msg.Clock> clockPublisher;
         rosgraph_msgs.msg.Clock clockMsg;
         float timer = 0;
 
-        void Reset()
+        void PublishClock()
         {
-            topic = "/clock";
-            qosSettings = new QoSSettings()
-            {
-                ReliabilityPolicy = ReliabilityPolicy.QOS_POLICY_RELIABILITY_BEST_EFFORT,
-                DurabilityPolicy = DurabilityPolicy.QOS_POLICY_DURABILITY_VOLATILE,
-                HistoryPolicy = HistoryPolicy.QOS_POLICY_HISTORY_KEEP_LAST,
-                Depth = 1,
-            };
-            publishHz = 100;
+            SimulatorROS2Node.UpdateROSClockTime(clockMsg.Clock_);
+            clockPublisher.Publish(clockMsg);
+        }
+
+        void Start()
+        {
+            InvokeRepeating("PublishClock", 1.0f, 1.0f/publishHz);
         }
 
         // Start is called before the first frame update
@@ -39,18 +37,6 @@ namespace AWSIM
             clockMsg = new rosgraph_msgs.msg.Clock();
         }
 
-        void FixedUpdate()
-        {
-            timer += Time.deltaTime;
-            var interval = 1.0f / publishHz;
-            interval -= 0.00001f;       // Allow for accuracy errors.
-            if (timer < interval)
-                return;
-            timer = 0;
-
-            SimulatorROS2Node.UpdateROSClockTime(clockMsg.Clock_);
-            clockPublisher.Publish(clockMsg);
-        }
 
         void OnDestroy()
         {
