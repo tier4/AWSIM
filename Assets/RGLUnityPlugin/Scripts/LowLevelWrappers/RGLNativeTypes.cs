@@ -67,11 +67,19 @@ namespace RGLUnityPlugin
 		RGL_AXIS_Z = 3,
 	};
 
-	public enum RGLVelodyneModel
+	public enum RGLLidarModel
 	{
 		RGL_VELODYNE_VLP16 = 1,
 		RGL_VELODYNE_VLP32C = 2,
 		RGL_VELODYNE_VLS128 = 3,
+		RGL_HESAI_PANDAR_40P = 4,
+		RGL_HESAI_PANDAR_QT64 = 5,
+	};
+
+	public enum RGLUdpOptions
+	{
+		RGL_UDP_NO_ADDITIONAL_OPTIONS = 0,
+		RGL_UDP_ENABLE_HESAI_UDP_SEQUENCE = 1,
 	};
 
 	public enum RGLQosPolicyReliability
