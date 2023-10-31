@@ -181,18 +181,19 @@ namespace RGLUnityPlugin
 
         private void HandleHesaiUdpSequenceFlag()
         {
-            if (currentRGLLidarModel == RGLLidarModel.RGL_HESAI_PANDAR_40P || currentRGLLidarModel == RGLLidarModel.RGL_HESAI_PANDAR_QT64)
-            {
-                currentRGLUdpOptions = enableHesaiUdpSequence ? RGLUdpOptions.RGL_UDP_ENABLE_HESAI_UDP_SEQUENCE
-                                                              : RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS;
-                return;
-            }
-            if (enableHesaiUdpSequence)
+            bool currentLidarIsHesai = currentRGLLidarModel == RGLLidarModel.RGL_HESAI_PANDAR_40P ||
+                                       currentRGLLidarModel == RGLLidarModel.RGL_HESAI_PANDAR_QT64;
+
+            if (!currentLidarIsHesai && enableHesaiUdpSequence)
             {
                 enableHesaiUdpSequence = false;
                 currentRGLUdpOptions = RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS;
                 Debug.LogWarning($"{name}: enableHesaiUdpSequence option is not available for selected LiDAR model. Disabling...");
+                return;
             }
+
+            currentRGLUdpOptions = enableHesaiUdpSequence ? RGLUdpOptions.RGL_UDP_ENABLE_HESAI_UDP_SEQUENCE
+                                                          : RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS;
         }
     }
 }
