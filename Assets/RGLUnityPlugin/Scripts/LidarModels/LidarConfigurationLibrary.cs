@@ -30,6 +30,7 @@ namespace RGLUnityPlugin
                 {LidarModel.HesaiPandar40P, HesaiPandar40P},
                 {LidarModel.OusterOS1_64, OusterOS1_64},
                 {LidarModel.HesaiAT128E2X, HesaiAT128E2X},
+                {LidarModel.HesaiPandarXT32, HesaiPandarXT32},
             };
 
         public static LidarConfiguration RangeMeter => new LidarConfiguration
@@ -147,6 +148,19 @@ namespace RGLUnityPlugin
             maxHAngle = 60.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
             rayGenerateMethod = LidarConfiguration.RayGenerateMethod.HesaiAT128,
+        };
+
+        public static LidarConfiguration HesaiPandarXT32 => new LidarConfiguration
+        {
+            laserArray = LaserArrayLibrary.HesaiPandarXT32,
+            horizontalResolution = 0.18f,
+            laserArrayCycleTime = 0.05f,
+            minHAngle = 0.0f,
+            maxHAngle = 360.0f,
+            noiseParams = LidarConfiguration.TypicalNoiseParams,
+            rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
+            minRange = 0.05f,
+            maxRange = 120.0f,
         };
     }
 }
