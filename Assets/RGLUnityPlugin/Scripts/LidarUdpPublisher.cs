@@ -25,6 +25,8 @@ namespace RGLUnityPlugin
         public string destinationIP = "255.255.255.255";
         public int destinationPort = 2368;
         public bool enableHesaiUdpSequence = false;
+        public bool useDualReturnFormat = false;  // Still single return data but packed in the dual return packet format
+                                                  // The second return will be the same as the first return
         public bool emitRawPackets = true;
 
         private RGLLidarModel currentRGLLidarModel = 0;  // To be set when validating lidar model
@@ -151,7 +153,7 @@ namespace RGLUnityPlugin
             if (currentRGLLidarModel != UnityToRGLLidarModelsMapping[detectedUnityLidarModel.Value])
             {
                 currentRGLLidarModel = UnityToRGLLidarModelsMapping[detectedUnityLidarModel.Value];
-                HandleHesaiUdpSequenceFlag();
+                HandleUdpOptionsFlags();
                 rglSubgraphUdpPublishing.UpdateNodePointsUdpPublish(
                     udpPublishingNodeId, currentRGLLidarModel, currentRGLUdpOptions, sourceIP, destinationIP, destinationPort);
             }
@@ -179,21 +181,35 @@ namespace RGLUnityPlugin
             return true;
         }
 
-        private void HandleHesaiUdpSequenceFlag()
+        private void HandleUdpOptionsFlags()
         {
             bool currentLidarIsHesai = currentRGLLidarModel == RGLLidarModel.RGL_HESAI_PANDAR_40P ||
                                        currentRGLLidarModel == RGLLidarModel.RGL_HESAI_PANDAR_QT64;
 
-            if (!currentLidarIsHesai && enableHesaiUdpSequence)
+            if (!currentLidarIsHesai)
             {
-                enableHesaiUdpSequence = false;
-                currentRGLUdpOptions = RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS;
-                Debug.LogWarning($"{name}: enableHesaiUdpSequence option is not available for selected LiDAR model. Disabling...");
+                if (enableHesaiUdpSequence)
+                {
+                    enableHesaiUdpSequence = false;
+                    currentRGLUdpOptions = RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS;
+                    Debug.LogWarning($"{name}: enableHesaiUdpSequence option is not available for selected LiDAR model. Disabling...");
+                }
+
+                if (useDualReturnFormat)
+                {
+                    useDualReturnFormat = false;
+                    currentRGLUdpOptions = RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS;
+                    Debug.LogWarning($"{name}: useDualReturnFormat option is not available for selected LiDAR model. Disabling...");
+                }
+
                 return;
             }
 
-            currentRGLUdpOptions = enableHesaiUdpSequence ? RGLUdpOptions.RGL_UDP_ENABLE_HESAI_UDP_SEQUENCE
-                                                          : RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS;
+            int udpOptionsConstruction = (int)RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS;
+            udpOptionsConstruction += enableHesaiUdpSequence ? (int)RGLUdpOptions.RGL_UDP_ENABLE_HESAI_UDP_SEQUENCE : 0;
+            udpOptionsConstruction += useDualReturnFormat ? (int)RGLUdpOptions.RGL_UDP_DUAL_RETURN : 0;
+
+            currentRGLUdpOptions = (RGLUdpOptions)udpOptionsConstruction;
         }
     }
 }

@@ -80,8 +80,9 @@ namespace RGLUnityPlugin
 
 	public enum RGLUdpOptions : UInt32
 	{
-		RGL_UDP_NO_ADDITIONAL_OPTIONS = 0,
-		RGL_UDP_ENABLE_HESAI_UDP_SEQUENCE = 1,
+		RGL_UDP_NO_ADDITIONAL_OPTIONS     = 0,
+		RGL_UDP_ENABLE_HESAI_UDP_SEQUENCE = 1 << 0,
+		RGL_UDP_DUAL_RETURN               = 1 << 1,
 	};
 
 	public enum RGLQosPolicyReliability
