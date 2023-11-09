@@ -26,7 +26,7 @@ Thanks to this, *ROS2* instance doesn't need to be sourced - all you have to do 
 !!! question "Can't see topics"
     There are no errors but I can't see topics published by `R2FU`
 
-    - Make sure your DDS ([Localhost settings](../../../Installation/Prerequisites/)) config is correct.
+    - Make sure your DDS ([Localhost settings](../../../GettingStarted/QuickStartDemo/#localhost-settings)) config is correct.
     - Sometimes *ROS2* daemon brakes up when changing network interfaces or *ROS2* version.
 Try to stop it forcefully (`pkill -9 ros2_daemon`) and restart (`ros2 daemon start`).
 
@@ -125,7 +125,7 @@ The basic *ROS2* msgs types that are supported in *AWSIM* by default include:
 In order for the message package to be used in *Unity*, its `*.dll` and `*.so` libraries must be generated using `R2FU`.
 
 !!! tip "Custom message"
-    If you want to generate a custom message to allow it to be used in *AWSIM* please read [this tutorial](../../../../DeveloperGuide/Tutorials/AddACustomROS2Message/).
+    If you want to generate a custom message to allow it to be used in *AWSIM* please read [this tutorial](../AddACustomROS2Message/).
 
 ## Use of generated messages in *Unity*
 Each message type is composed of other types - which can also be a complex type.

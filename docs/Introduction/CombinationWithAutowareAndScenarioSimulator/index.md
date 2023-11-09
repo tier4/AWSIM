@@ -15,36 +15,6 @@ The framework uses [*ZeroMQ*](https://tier4.github.io/scenario_simulator_v2-docs
 
     If you would like to see how *SS2* works with *Autoware* using default build-in simulator - [`simple_sensor_simulator`](https://tier4.github.io/scenario_simulator_v2-docs/developer_guide/SimpleSensorSimulator/) (without running AWSIM) - we encourage you to read this [tutorial](https://autowarefoundation.github.io/autoware-documentation/main/tutorials/scenario-simulation/planning-simulation/scenario-test-simulation/).
 
-## Limitations
-
-AWSIM does not support neither ZeroMQ interface nor scenarios fully. Below are the limitatinos that should be considered when creating the scenarios.
-
-### ZeroMQ limitations
-
-AWSIM does not support [ZeroMQ](https://tier4.github.io/scenario_simulator_v2-docs/developer_guide/ZeroMQ/) protocol fully.
-
-Unsupported features are:
-
-1. attach_lidar_sensor
-2. attach_detection_sensor
-3. attach_occupancy_grid_sensor
-4. update_traffic_lights
-
-If the scenario passing conditions depends on correct execution of one of the calls above, the scenario will not execute correctly.
-
-### Scenarios limitations
-
-Within [openSCENARIO/TIER IV Scenario Format version 2.0](https://tier4.github.io/scenario_simulator_v2-docs/developer_guide/OpenSCENARIOSupport/) features, several features are not supported when working with AWSIM
-
-1. Conventional traffic light publishing
-2. Controller properties used by `attach_*_sensor`
-    - `pointcloudPublishingDelay`
-    - `isClairvoyant`
-    - `detectedObjectPublishingDelay`
-    - `detectedObjectPositionStandardDeviation`
-    - `detectedObjectMissingProbability`
-    - `randomSeed`
-
 ## Combination Architecture
 ![](awsim_ss2.png)
 
@@ -56,15 +26,17 @@ Instead, their counterparts are added in `ScenarioSimulatorConnector` object tha
 
 A detailed description of the *SS2* architecture is available [here](https://tier4.github.io/scenario_simulator_v2-docs/developer_guide/SystemArchitecture/). A description of the communication via *ROS2* between *SS2* and *Autoware* can be found [here](https://tier4.github.io/scenario_simulator_v2-docs/developer_guide/Communication/).
 
+
 ## Sequence diagram
-In the sequence diagram, the part responsible for *AWSIM* communication with *Autoware* remained unchanged. The description available [here](../CombinationWithAutoware/) is the valid description of the reference shown in the diagram below.
+In the sequence diagram, the part responsible for *AWSIM* communication with *Autoware* also remained unchanged. The description available [here](../CombinationWithAutoware/) is the valid description of the reference shown in the diagram below.
 
 Communication between *SS2* and *AWSIM* takes place via *Request-Response* messages, and is as follows:
 
 1. *Launch* - *Autoware* is started and initialized.
 2. *Initialize* - the environment in *AWSIM* is initialized, basic parameters are set.
-3. *opt Ego spawn* - optional, `EgoEntity` (with sensors) is spawned based on `model3d` value in the scenario. Sensor attachment calls are ignored by AWSIM. Dummy response is sent back to scenario_simulator_v2
-4. *opt NPC spawn loop* - optional, all `Entities` (*NPCs*) defined in the scenario are spawned, the scenario may contain any number of each `Entity` type, it may not contain them at all or it may also be any combination of the available ones. Prefab of the spawned entity is defined by `model3d` value in the scenario 5. *update loop* - this is the main loop where scenario commands are executed, first `EgoEntity` is updated - *SS2* gets its status, and then every other `Entity` is updated - the status of each *NPCs* is set according to the scenario. Next, the simulation frame is updated - here the communication between *Autoware* and *AWSIM* takes place. The last step of the loop - the update the traffic light state - is ignored by AWSIM and dummy response is sent back.
+3. *opt Ego spawn* - optional, `EgoEntity` (with sensors) is spawned in the configuration defined in the scenario.
+4. *opt NPC spawn loop* - optional, all `Entities` (*NPCs*) defined in the scenario are spawned, the scenario may contain any number of each `Entity` type, it may not contain them at all or it may also be any combination of the available ones.
+5. *update loop* - this is the main loop where scenario commands are executed, first `EgoEntity` is updated - *SS2* gets its status, and then every other `Entity` is updated - the status of each *NPCs* is set according to the scenario. Next, the simulation frame is updated - here the communication between *Autoware* and *AWSIM* takes place. The last step of the loop is to update the traffic light state.
 6. *despawn loop* - after the end of the scenario, all `Entities` spawned on the scene are despawned (including `EgoEnity`) 
 7. *Terminate* - *Autoware* is terminated.
 

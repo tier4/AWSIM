@@ -15,7 +15,7 @@ Because *AWSIM* was developed mainly to work with [*Autoware*](../Autoware/), it
 - [*ROS2*](https://docs.ros.org/en/humble/index.html) Humble distribution
 
 !!! note "Prerequisites"
-    You can read more about the prerequisites and running *AWSIM* [here](../../UserGuide/Installation/Prerequisites/).
+    You can read more about the prerequisites and running *AWSIM* [here](../../GettingStarted/QuickStartDemo/).
 
 
 !!! note "Connection with Autoware"
@@ -30,24 +30,24 @@ The main objectives of *AWSIM* are to facilitate research and development in aut
 
 To describe the architecture of *AWSIM*, first of all, it is necessary to mention the `Scene`. It contains all the objects occurring in the simulation of a specific scenario and their configurations. The default *AWSIM* scene that is developed to work with [*Autoware*](https://github.com/autowarefoundation/autoware) is called *AutowareSimulation*.
 
-In the scene we can distinguish basics components such like `MainCamera`, `ClockPublisher`, `EventSystem` and `Canvas`. A detailed description of the scene and its components can be found [here](../../UserGuide/ProjectGuide/Components/Scene/). 
+In the scene we can distinguish basics components such like `MainCamera`, `ClockPublisher`, `EventSystem` and `Canvas`. A detailed description of the scene and its components can be found [here](../../ProjectGuide/Scenes/). 
 
 Besides the elements mentioned above, the scene contains two more, very important and complex components: `Environment` and `EgoVehicle` - described below.
 
 #### Environment
 ![](environment.png)
 
-`Environment` is a component that contains all `Visual Elements` that simulate the environment in the scene and those that provide control over them. It also contains two components `Directional Light` and `Volume`, which ensure suitable lighting for `Visual Elements` and simulate weather conditions. A detailed description of these components can be found [here](../../UserGuide/ProjectGuide/Components/Environment/Environment/).
+`Environment` is a component that contains all `Visual Elements` that simulate the environment in the scene and those that provide control over them. It also contains two components `Directional Light` and `Volume`, which ensure suitable lighting for `Visual Elements` and simulate weather conditions. A detailed description of these components can be found [here](../../Components/Environment/AddNewEnvironment/AddEnvironment/#create-an-environment-prefab).
 
-In addition to `Visual Elements` such as buildings or greenery, it contains the entire architecture responsible for traffic. The traffic involves `NPCVehicles` that are spawned in the simulation by `TrafficSimulator` - using traffic components. A quick overview of the traffic components is provided below, however, you can read their detailed description [here](../../UserGuide/ProjectGuide/Components/Environment/TrafficComponents/).
+In addition to `Visual Elements` such as buildings or greenery, it contains the entire architecture responsible for traffic. The traffic involves `NPCVehicles` that are spawned in the simulation by `TrafficSimulator` - using traffic components. A quick overview of the traffic components is provided below, however, you can read their detailed description [here](../../Components/Traffic/TrafficComponents/).
 
-`NPCPedestrians` are also `Environment` components, but they are not controlled by `TrafficSimulator`. They have added scripts that control their movement - you can read more details [here](../../UserGuide/ProjectGuide/Components/NPCs/Pedestrian/).
+`NPCPedestrians` are also `Environment` components, but they are not controlled by `TrafficSimulator`. They have added scripts that control their movement - you can read more details [here](../../Components/Traffic/NPCs/Pedestrian/).
 
 ##### Traffic Components
 
 `TrafficLanes` and `StopLines` are elements loaded into `Environment` from *Lanelet2*.
 `TrafficLanes` have defined cross-references in such a way as to create routes along the traffic lanes. In addition, each `TrafficLane` present at the intersection has specific conditions for yielding priority. `TrafficSimulator` uses `TrafficLanes` to spawn `NPCVehicles` and ensure their movement along these lanes. If some `TrafficLanes` ends just before the intersection, then it has a reference to `StopLine`. Each `StopLine` at the intersection with `TrafficLights` has reference to the nearest `TrafficLight`. `TrafficLights` belong to one of the visual element groups and provide an interface to control visual elements that simulate traffic light sources (bulbs). A single `TrafficIntersection` is responsible for controlling all `TrafficLights` at one intersection.
-Detailed description of mentioned components is in [this section](../../UserGuide/ProjectGuide/Components/Environment/TrafficComponents/).
+Detailed description of mentioned components is in [this section](../../Components/Traffic/TrafficComponents/).
 
 
 #### EgoVehicle
@@ -62,4 +62,4 @@ Detailed description of mentioned components is in [this section](../../UserGuid
 - `Vehicle Ros Input` and `Vehicle Keyboard Input `components that have a reference to the `Vehicle` object and set control commands in it.
 - `Vehicle Visual Effect` provides an interface for `Vehicle` to control the lighting.
 
-A detailed description of `EgoVehicle` and its components mentioned above can be found [here](../../UserGuide/ProjectGuide/Components/EgoVehicle/EgoVehicle/). The sensor placement on `EgoVehicle` used in the default scene is described [here](../../UserGuide/ProjectGuide/Components/EgoVehicle/URDF/). Details about each of the individual sensors are available in the following sections: [`Pose`](../../UserGuide/ProjectGuide/Components/Sensors/GroundTruths/Pose/), [`GNSS`](../../UserGuide/ProjectGuide/Components/Sensors/Gnss/), [`LiDAR`](../../UserGuide/ProjectGuide/Components/Sensors/Lidar/), [`IMU`](../../UserGuide/ProjectGuide/Components/Sensors/Imu/), [`Camera`](../../UserGuide/ProjectGuide/Components/Sensors/Camera/), [`Vehicle Status`](../../UserGuide/ProjectGuide/Components/Sensors/VehicleStatus/).
+A detailed description of `EgoVehicle` and its components mentioned above can be found [here](../../Components/Vehicle/EgoVehicle/). The sensor placement on `EgoVehicle` used in the default scene is described [here](../../Components/Vehicle/URDFAndSensors/). Details about each of the individual sensors are available in the following sections: [`Pose`](../../Components/Vehicle/URDFAndSensors/#pose), [`GNSS`](../../Components/Sensors/GNSSSensor/), [`LiDAR`](../../Components/Sensors/LiDARSensor/LiDARSensor/), [`IMU`](../../Components/Sensors/IMUSensor/), [`Camera`](../../Components/Sensors/CameraSensor/), [`Vehicle Status`](../../Components/Sensors/VehicleStatusSensor/).

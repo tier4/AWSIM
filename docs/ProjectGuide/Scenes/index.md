@@ -12,7 +12,7 @@ It allows for effortless operation, just run this scene, run *Autoware* with the
 
 ## PointCloudMapping
 The `PointCloudMapping` is a scene that is designed to create a point cloud using the *Unity* world.
-Using the [*RGLUnityPlugin*](../ExternalLibraries/RGLUnityPlugin/) and prefab `Environment` - on which there are models with [`Meshes`](https://docs.unity3d.com/ScriptReference/Mesh.html) - we are able to obtain a `*.pcd` file of the simulated world.
+Using the [*RGLUnityPlugin*](../../Components/Sensors/LiDARSensor/RGLUnityPlugin/) and prefab `Environment` - on which there are models with [`Meshes`](https://docs.unity3d.com/ScriptReference/Mesh.html) - we are able to obtain a `*.pcd` file of the simulated world.
 
 <video width="1920" controls>
 <source src="mapping.mp4" type="video/mp4">
@@ -29,7 +29,7 @@ Replace the `Lexus` prefab with a vehicle prefab you developed and check whether
 ## NPCVehicleSample
 The `NPCVehicleSample` was developed to conduct a quick test of the developed vehicle.
 Replace the taxi prefab with a vehicle prefab you developed (`EgoVehicle` or `NPCVehicle`) and check whether the basic things are configured correctly.
-The description of how to develop your own vehicle and add it to the project is in this [section](../../../DeveloperGuide/Tutorials/AddANewVehicle/AddAVehicle/).
+The description of how to develop your own vehicle and add it to the project is in this [section](../../Components/Vehicle/AddNewVehicle/AddAVehicle/).
 
 <video width="1920" controls>
 <source src="vehicle_test.mp4" type="video/mp4">
@@ -47,7 +47,7 @@ Replace the NPC prefab in `NPC Pedestrian Test` script with a prefab you develop
 The `TrafficIntersectionSample` was developed to conduct a quick test of the developed traffic intersection.
 Replace the intersection configuration with your own and check whether it works correctly.
 You can add additional groups of lights and create much larger, more complex sequences.
-A description of how to configure your own traffic intersection is in this [section](../../../DeveloperGuide/Tutorials/AddANewEnvironment/AddARandomTraffic/AddATrafficIntersection/).
+A description of how to configure your own traffic intersection is in this [section](../../Components/Traffic/RandomTraffic/AddRandomTrafficEnvironment/).
 
 <video width="1920" controls>
 <source src="intersection_test.mp4" type="video/mp4">
@@ -62,7 +62,7 @@ Replace the lights and configuration with your own and check whether it works co
 </video>
 
 ## RGL test scenes
-The scenes described below are used for tests related to the external library `RGLUnityPlugin` (`RGL`) - you can read more about it in this [section](../ExternalLibraries/RGLUnityPlugin/).
+The scenes described below are used for tests related to the external library `RGLUnityPlugin` (`RGL`) - you can read more about it in this [section](../../Components/Sensors/LiDARSensor/RGLUnityPlugin/).
 
 ### LidarSceneDevelop
 The scene `LidarSceneDevelop` can be used as a complete, minimalistic example of how to setup `RGL`.

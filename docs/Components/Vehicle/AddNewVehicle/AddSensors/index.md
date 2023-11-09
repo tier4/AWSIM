@@ -1,13 +1,12 @@
 ## AWSIM Sensors
 There is a number of different sensors available in *AWSIM*.
-Below we present a list of sensors with links to their individual pages
+Below we present a list of sensors with links to their individual pages.
 
-- [Vehicle Status Sensor](../../../../UserGuide/ProjectGuide/Components/Sensors/VehicleStatus/)
-- [GNSS](../../../../UserGuide/ProjectGuide/Components/Sensors/Gnss/)
-- [LiDAR](../../../../UserGuide/ProjectGuide/Components/Sensors/Lidar/)
-- [IMU](../../../../UserGuide/ProjectGuide/Components/Sensors/Imu/)
-- [Camera](../../../../UserGuide/ProjectGuide/Components/Sensors/Camera/)
-- [Pose Sensor](../../../../UserGuide/ProjectGuide/Components/Sensors/GroundTruths/Pose/)
+- [Vehicle Status Sensor](../../../../Components/Sensors/VehicleStatusSensor/)
+- [GNSS](../../../../Components/Sensors/GNSSSensor/)
+- [LiDAR](../../../../Components/Sensors/LiDARSensor/LiDARSensor/)
+- [IMU](../../../../Components/Sensors/IMUSensor/)
+- [Camera](../../../../Components/Sensors/CameraSensor/)
 
 ## Add links for sensors
 Best practice is to replicate a *ROS* sensors transformations tree in Unity using *Objects*.
@@ -244,7 +243,7 @@ Next in the *Inspector* View select your *Vehicle*.
 
 ### Add a LiDAR
 !!! info "Scene Manager"
-    Before continuing with this tutorial please check out a [dedicated one focused on Scene Manager](../../AddANewScene/AddASceneManager/).
+    Before continuing with this tutorial please check out a [dedicated one focused on Scene Manager](../../../../Components/Sensors/LiDARSensor/RGLUnityPlugin/#scenemanager).
 
 To add a LiDAR to your Vehicle you will have to drag a model of the LiDAR to the link tree you have created in the [earlier step](#add-links-for-sensors).
 
@@ -597,9 +596,9 @@ Move the preview on the screen by changing the `X Axis` and `Y Axis` values on t
 
     ![position the vehicle](vehicle_position.gif)
     
-    Run the *Scene* the same as [on this page](../../../../UserGuide/BuildFromSource/RunTheScene/).
+    Run the *Scene* the same as [on this page](../../../../GettingStarted/SetupUnityProject/#run-the-demo-in-editor).
 
-    Launch **only** the *Autoware* like [on this page](../../../../UserGuide/Installation/RunDemo/index.md#2-run-demo-with-autoware).
+    Launch **only** the *Autoware* like [on this page](../../../../GettingStarted/QuickStartDemo/#launching-autoware).
 
     By default you should see the preview of traffic light recognition visualization in the bottom left corner of *Autoware*.
 

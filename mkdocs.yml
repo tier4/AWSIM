@@ -38,13 +38,11 @@ nav:
   - Getting started:
     - Quick Start Demo: GettingStarted/QuickStartDemo/index.md
     - Setup Unity Project: GettingStarted/SetupUnityProject/index.md
-    - Running with Scenario simulator: GettingStarted/RunningWithScenarioSimulator/index.md
 
   - Introduction:
     - Autoware: Introduction/Autoware/index.md
     - AWSIM: Introduction/AWSIM/index.md
-    - Combination With Autoware: Introduction/CombinationWithAutoware/index.md
-    - Combination With Autoware and Scenario Simulator: Introduction/CombinationWithAutowareAndScenarioSimulator/index.md
+    - CombinationWithAutoware: Introduction/CombinationWithAutoware/index.md
 
   - Project guide:
     - Directory: ProjectGuide/Directory/index.md
@@ -57,10 +55,10 @@ nav:
       - Ego Vehicle: Components/Vehicle/EgoVehicle/index.md
       - URDF And Sensors: Components/Vehicle/URDFAndSensors/index.md
       - Add New Vehicle:
-        - Add Vehicle: Components\Vehicle\AddNewVehicle\AddAVehicle\index.md
-        - Add Colliders: Components\Vehicle\AddNewVehicle\AddColliders\index.md
-        - Add Sensors: Components\Vehicle\AddNewVehicle\AddSensors\index.md
-        - Add Visual Elements: Components\Vehicle\AddNewVehicle\AddVisualElements\index.md
+        - Add Vehicle: Components/Vehicle/AddNewVehicle/AddAVehicle/index.md
+        - Add Colliders: Components/Vehicle/AddNewVehicle/AddColliders/index.md
+        - Add Sensors: Components/Vehicle/AddNewVehicle/AddSensors/index.md
+        - Add Visual Elements: Components/Vehicle/AddNewVehicle/AddVisualElements/index.md
     - Sensors:
       - LiDAR Sensor:
         - LiDAR Sensor: Components/Sensors/LiDARSensor/LiDARSensor/index.md
@@ -83,6 +81,7 @@ nav:
       - Create PCD: Components/Environment/CreatePCD/index.md
       - LaneletBoundsVisualizer: Components/Environment/LaneletBoundsVisualizer/index.md
       - SmokeSimulator: Components/Environment/SmokeSimulator/index.md
+      - V2I: Components/Environment/V2I/index.md
     - Traffic:
       - Traffic Components: Components/Traffic/TrafficComponents/index.md
       - Random Traffic:
@@ -95,9 +94,6 @@ nav:
       - ROS2 topic list: Components/ROS2/ROS2TopicList/index.md
       - Add custom ROS2 msg: Components/ROS2/AddACustomROS2Message/index.md
       - ROS2 For Unity: Components/ROS2/ROS2ForUnity/index.md
-    - Scenario Simulator Connector:
-      - Scenario Simulator Connector component:  Components/ScenarioSimulation/ScenarioSimulatorConnector/index.md
-      - Preparing the connection between AWSIM and scenario_simulator_v2: Components/ScenarioSimulation/PreparingTheConnectionBetweenAWSIMAndScenarioSimulator/index.md
 
   - Developer guide:
     - How to Contribute: DeveloperGuide/HowToContribute/index.md
