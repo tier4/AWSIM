@@ -1,16 +1,12 @@
-using UnityEngine;
 using ROS2;
 
 namespace AWSIM
 {
     /// <summary>
     /// External ROS TimeSource.
-    /// Note: The objet of type 'ExternalTimeSource' shoul be created from asset menu.
     /// </summary>
-    [CreateAssetMenu(fileName = "ExternalTimeSource", menuName = "AWSIM/ROS Time Source/External", order = 0)]
-    public class ExternalTimeSource : ScriptableObject, ITimeSource
+    public class ExternalTimeSource : ITimeSource
     {
-        [TextArea(3, 10)] [SerializeField] string description = "";
 
         #region [Variables]
 

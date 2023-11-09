@@ -31,7 +31,8 @@ namespace AWSIM
         #region [Inspector Vars]
 
         [Header("Time Source")]
-        [SerializeField] private ExternalTimeSource timeSource = default;
+        [SerializeField] private TimeSourceProvider timeSourceProvider = default;
+        private ExternalTimeSource timeSource = default;
 
         [Header("Entities")]
         [SerializeField] private EntityPrefab[] entityPrefabs;
@@ -92,6 +93,11 @@ namespace AWSIM
 
         public void Initialize()
         {
+            timeSource = timeSourceProvider.GetTimeSource() as ExternalTimeSource;
+            if(timeSource == null)
+            {
+                Debug.LogError("Scenario Simulator requires time source of type SS2. Check if TimeSource Provider is on the scene and SS2 is the selected as the Time Source");
+            }
             timeSource.Initialize();
             
             mainContext = SynchronizationContext.Current;

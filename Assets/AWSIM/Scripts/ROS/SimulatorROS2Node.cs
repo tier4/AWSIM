@@ -39,15 +39,15 @@ namespace AWSIM
 
         static ITimeSource GetTimeSource()
         {
-            // get clock configuration asset and select ros time source 
-            ClockConfiguration clockConfiguration = Resources.Load<ClockConfiguration>("ClockConfiguration");
-            if(clockConfiguration != null && clockConfiguration.ClockSourceType != ClockConfiguration.SourceType.UNITY)
+            // get time source from time source provider
+            TimeSourceProvider timeSourceProvider = UnityEngine.Object.FindObjectOfType<TimeSourceProvider>();
+            if(timeSourceProvider != null)
             {
-                ITimeSource timeSource = clockConfiguration.GetTimeSource(clockConfiguration.ClockSourceType);
+                ITimeSource timeSource = timeSourceProvider.GetTimeSource();
                 if(timeSource != null)
                 {
                     return timeSource;
-                }    
+                }
             }
 
             return new UnityTimeSource();
