@@ -40,14 +40,10 @@ namespace AWSIM
         static ITimeSource GetTimeSource()
         {
             // get time source from time source provider
-            TimeSourceProvider timeSourceProvider = UnityEngine.Object.FindObjectOfType<TimeSourceProvider>();
-            if(timeSourceProvider != null)
+            ITimeSource timeSource = TimeSourceProvider.GetTimeSource();
+            if(timeSource != null)
             {
-                ITimeSource timeSource = timeSourceProvider.GetTimeSource();
-                if(timeSource != null)
-                {
-                    return timeSource;
-                }
+                return timeSource;
             }
 
             return new UnityTimeSource();

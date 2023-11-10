@@ -30,10 +30,6 @@ namespace AWSIM
 
         #region [Inspector Vars]
 
-        [Header("Time Source")]
-        [SerializeField] private TimeSourceProvider timeSourceProvider = default;
-        private ExternalTimeSource timeSource = default;
-
         [Header("Entities")]
         [SerializeField] private EntityPrefab[] entityPrefabs;
         [SerializeField] private Transform entitesRoot;
@@ -66,6 +62,9 @@ namespace AWSIM
         private static readonly object lockOnEntityDic = new object();
         private static readonly object lockOnFrameUpdate = new object();
 
+        // time source
+        private ExternalTimeSource timeSource = default;
+
         #endregion
 
         #region [Mutables]
@@ -93,10 +92,10 @@ namespace AWSIM
 
         public void Initialize()
         {
-            timeSource = timeSourceProvider.GetTimeSource() as ExternalTimeSource;
+            timeSource = TimeSourceProvider.GetTimeSource() as ExternalTimeSource;
             if(timeSource == null)
             {
-                Debug.LogError("Scenario Simulator requires time source of type SS2. Check if TimeSource Provider is on the scene and SS2 is the selected as the Time Source");
+                Debug.LogError("Scenario Simulator requires time source of type SS2. Check if TimeSourceSelector is on the scene and SS2 is the selected as the Time Source");
             }
             timeSource.Initialize();
             

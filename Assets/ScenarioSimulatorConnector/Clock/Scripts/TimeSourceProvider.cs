@@ -1,34 +1,58 @@
-using UnityEngine;
 using ROS2;
 
 namespace AWSIM
 {
-    public class TimeSourceProvider : MonoBehaviour
+    /// <summary>
+    /// Static class which provide Time Source object of type chosen in TimeSourceSelector.
+    /// </summary>
+    public static class TimeSourceProvider
     {
-        public enum SourceType
-        {
-            UNITY,
-            SS2
-        }
+        #region [Variable]
 
-        #region [Settings]
+        private static TimeSourceSelector timeSourceSelector = null;
 
-        [Header("Settings")]
-        public SourceType ClockSourceType = SourceType.UNITY;
+        private static ITimeSource currentTimeSource = null;
+
+        private static bool isInitalized = false;
 
         #endregion
 
-        #region [Mutable]
+        #region [Life Cycle]
 
-        private ITimeSource currentTimeSource = null;
+        public static void Initialize()
+        {
+            timeSourceSelector = UnityEngine.Object.FindObjectOfType<TimeSourceSelector>();
+            if(timeSourceSelector != null)
+            {
+                currentTimeSource = null;
+                isInitalized = true;
+            }
+            else
+            {
+                UnityEngine.Debug.LogError("TimeSourceProvider requires TimeSourceSelector object to be presented on the scene. Check if TimeSourceSelector is on the scene.");
+            }
+        }
+
+        public static void Dispose()
+        {
+            isInitalized = false;
+            timeSourceSelector = null;
+            currentTimeSource = null;
+        }
 
         #endregion
 
         #region [Public Methods]
 
-        public ITimeSource GetTimeSource()
+        public static ITimeSource GetTimeSource()
         {
-            if(ClockSourceType == SourceType.SS2)
+            // lazy initialization
+            if(!isInitalized)
+            {
+                Initialize();
+            }
+
+            if(timeSourceSelector.Type == TimeSourceSelector.TimeSourceType.SS2)
             {
                 if(currentTimeSource == null || !(currentTimeSource is ExternalTimeSource))
                 {
