@@ -12,9 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine.Serialization;
 using UnityEngine;
 
 namespace RGLUnityPlugin
@@ -30,7 +29,7 @@ namespace RGLUnityPlugin
             Pyramid = 2
         }
 
-        static private readonly List<Color> rainbowColors = new List<Color> {
+        private static readonly List<Color> rainbowColors = new List<Color> {
             Color.red,
             new Color(1, 0.5f, 0, 1), // orange
             Color.yellow,
@@ -64,9 +63,12 @@ namespace RGLUnityPlugin
 
         private Mesh mesh;
 
+        private Vector3[] onlyHits = Array.Empty<Vector3>();
+        private int[] indices = Array.Empty<int>();
+
         private LidarSensor lidarSensor;
         private RGLNodeSequence rglSubgraphVisualizationOutput;
-        private readonly string visualizationOutputNodeId = "OUT_VISUALIZATION";
+        private const string visualizationOutputNodeId = "OUT_VISUALIZATION";
 
         public void Awake()
         {
@@ -129,17 +131,18 @@ namespace RGLUnityPlugin
 
         public void SetPoints(Vector3[] points)
         {
-            // TODO: easy, low-prio optimization here
-            int[] indicies = new int[points.Length];
-
-            for (int i = 0; i < points.Length; ++i)
+            if (indices.Length < points.Length)
             {
-                indicies[i] = i;
+                indices = new int[points.Length];
+                for (int i = 0; i < points.Length; ++i)
+                {
+                    indices[i] = i;
+                }
             }
 
             mesh.Clear();
             mesh.vertices = points;
-            mesh.SetIndices(indicies, MeshTopology.Points, 0);
+            mesh.SetIndices(indices, 0, points.Length, MeshTopology.Points, 0);
 
             if (autoComputeColoringHeights)
             {
@@ -153,12 +156,15 @@ namespace RGLUnityPlugin
 
         public void Update()
         {
+            if (!lidarSensor.enabled)
+            {
+                mesh.Clear();
+            }
             Graphics.DrawMesh(mesh, Vector3.zero, Quaternion.identity, material, visualizationLayerID);
         }
 
         private void OnNewLidarData()
         {
-            Vector3[] onlyHits = new Vector3[0];
             rglSubgraphVisualizationOutput.GetResultData<Vector3>(ref onlyHits);
             SetPoints(onlyHits);
         }
