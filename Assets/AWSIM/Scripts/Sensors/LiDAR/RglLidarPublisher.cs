@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
 using UnityEngine;
-using AWSIM;
 using AWSIM.PointCloudFormats;
 using RGLUnityPlugin;
 
@@ -51,8 +51,11 @@ namespace AWSIM
         {
             rglSubgraphUnity2Ros = new RGLNodeSequence()
                 .AddNodePointsTransform("UNITY_TO_ROS", ROS2.Transformations.Unity2RosMatrix4x4());
+        }
 
-            if (publishPCL24)
+        private void OnEnable()
+        {
+            if (publishPCL24 && rglSubgraphPcl24 == null)
             {
                 rglSubgraphPcl24 = new RGLNodeSequence()
                     .AddNodePointsFormat("PCL24_FORMAT", FormatPCL24.GetRGLFields())
@@ -60,7 +63,7 @@ namespace AWSIM
                 RGLNodeSequence.Connect(rglSubgraphUnity2Ros, rglSubgraphPcl24);
             }
 
-            if (publishPCL48)
+            if (publishPCL48 && rglSubgraphPcl48 == null)
             {
                 rglSubgraphPcl48 = new RGLNodeSequence()
                     .AddNodePointsFormat("PCL48_FORMAT", FormatPCL48.GetRGLFields())
@@ -68,7 +71,7 @@ namespace AWSIM
                 RGLNodeSequence.Connect(rglSubgraphUnity2Ros, rglSubgraphPcl48);
             }
 
-            if (publishInstanceId)
+            if (publishInstanceId && rglSubgraphInstanceId == null)
             {
                 rglSubgraphInstanceId = new RGLNodeSequence()
                     .AddNodePointsFormat("ML_FORMAT", FormatMLInstanceSegmentation.GetRGLFields())
@@ -95,6 +98,11 @@ namespace AWSIM
 
         public void OnValidate()
         {
+            if (!enabled)
+            {
+                return;
+            }
+
             ApplySubgraphState(ref rglSubgraphPcl24, publishPCL24);
             ApplySubgraphState(ref rglSubgraphPcl48, publishPCL48);
             ApplySubgraphState(ref rglSubgraphInstanceId, publishInstanceId);
@@ -102,31 +110,24 @@ namespace AWSIM
 
         private void OnDisable()
         {
-            publishPCL24 = false;
-            publishPCL48 = false;
-            publishInstanceId = false;
-            OnValidate();
+            ApplySubgraphState(ref rglSubgraphPcl24, false);
+            ApplySubgraphState(ref rglSubgraphPcl48, false);
+            ApplySubgraphState(ref rglSubgraphInstanceId, false);
         }
 
         private void OnDestroy()
         {
-            if (rglSubgraphPcl24 != null)
+            Action<RGLNodeSequence> destroySubgraphIfNotNull = subgraph =>
             {
+                if (rglSubgraphPcl24 == null) return;
                 rglSubgraphPcl24.Clear();
                 rglSubgraphPcl24 = null;
-            }
+            };
 
-            if (rglSubgraphPcl48 != null)
-            {
-                rglSubgraphPcl48.Clear();
-                rglSubgraphPcl48 = null;
-            }
-
-            if (rglSubgraphInstanceId != null)
-            {
-                rglSubgraphInstanceId.Clear();
-                rglSubgraphInstanceId = null;
-            }
+            destroySubgraphIfNotNull(rglSubgraphPcl24);
+            destroySubgraphIfNotNull(rglSubgraphPcl48);
+            destroySubgraphIfNotNull(rglSubgraphInstanceId);
+            destroySubgraphIfNotNull(rglSubgraphUnity2Ros);
         }
 
         private void ApplySubgraphState(ref RGLNodeSequence subgraph, bool activateState)
