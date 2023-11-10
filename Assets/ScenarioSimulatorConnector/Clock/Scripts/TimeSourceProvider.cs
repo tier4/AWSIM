@@ -22,15 +22,8 @@ namespace AWSIM
         public static void Initialize()
         {
             timeSourceSelector = UnityEngine.Object.FindObjectOfType<TimeSourceSelector>();
-            if(timeSourceSelector != null)
-            {
-                currentTimeSource = null;
-                isInitalized = true;
-            }
-            else
-            {
-                UnityEngine.Debug.LogError("TimeSourceProvider requires TimeSourceSelector object to be presented on the scene. Check if TimeSourceSelector is on the scene.");
-            }
+            currentTimeSource = null;
+            isInitalized = true;
         }
 
         public static void Dispose()
@@ -44,6 +37,11 @@ namespace AWSIM
 
         #region [Public Methods]
 
+        /// <summary>
+        /// Returns current TimeSource. The type of required TimeSource is selected in TimeSourceSelector object.
+        /// In case of scene without TimeSourceSelect object, the method returns default time source.
+        /// </summary>
+        /// <returns>ITimeSource of type chosen in TimeSourceSelector.</returns>
         public static ITimeSource GetTimeSource()
         {
             // lazy initialization
@@ -52,7 +50,8 @@ namespace AWSIM
                 Initialize();
             }
 
-            if(timeSourceSelector.Type == TimeSourceSelector.TimeSourceType.SS2)
+            // return time source of type from time source selector
+            if(timeSourceSelector != null && timeSourceSelector.Type == TimeSourceSelector.TimeSourceType.SS2)
             {
                 if(currentTimeSource == null || !(currentTimeSource is ExternalTimeSource))
                 {
