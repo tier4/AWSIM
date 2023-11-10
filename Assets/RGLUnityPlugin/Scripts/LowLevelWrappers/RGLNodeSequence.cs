@@ -385,7 +385,7 @@ namespace RGLUnityPlugin
             return RGLNativeAPI.GraphGetResult<byte>(handle.Node, handle.OutputField, ref data, expectedPointSize);
         }
 
-        public int GetPointCloudCount(string identifier = null, RGLField field = RGLField.XYZ_F32)
+        public int GetPointCloudCount(string identifier = null, RGLField field = RGLField.XYZ_VEC3_F32)
         {
             RGLNodeHandle handle = identifier == null ? GetLastNodeOrNull(true) : ValidateNode(identifier);
             if (handle == null)
@@ -454,6 +454,12 @@ namespace RGLUnityPlugin
             {
                 DisconnectNode(node);
             }
+        }
+
+        public void SetPriority(string identifier, int priority)
+        {
+            RGLNodeHandle node = ValidateNode(identifier);
+            RGLNativeAPI.GraphNodeSetPriority(node.Node, priority);
         }
 
         //// PRIVATE HELPERS ////

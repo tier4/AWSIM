@@ -23,7 +23,12 @@ namespace RGLUnityPlugin
 		INVALID_STATE,
 		LOGGING_ERROR,
 		INVALID_API_OBJECT,
+		INVALID_FILE_PATH,
+		TAPE_ERROR,
+		UDP_ERROR,
+		ROS2_ERROR,
 		INVALID_PIPELINE,
+		INITIALIZATION_ERROR,
 		NOT_IMPLEMENTED = 404,
 		INTERNAL_EXCEPTION = 500,
 	};
@@ -31,7 +36,7 @@ namespace RGLUnityPlugin
 	public enum RGLField : Int32
 	{
 		UNKNOWN = -1,
-		XYZ_F32 = 1,
+		XYZ_VEC3_F32 = 1,
 		INTENSITY_F32,
 		IS_HIT_I32,
 		RAY_IDX_U32,
@@ -106,7 +111,7 @@ namespace RGLUnityPlugin
 		QOS_POLICY_HISTORY_KEEP_ALL = 2,
 	};
 	
-	public enum RGLExtension
+	public enum RGLExtension : Int32
 	{
 		RGL_EXTENSION_PCL = 0,
 		RGL_EXTENSION_ROS2 = 1,

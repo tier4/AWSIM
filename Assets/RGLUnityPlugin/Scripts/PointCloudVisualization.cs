@@ -71,7 +71,9 @@ namespace RGLUnityPlugin
         public void Awake()
         {
             rglSubgraphVisualizationOutput = new RGLNodeSequence()
-                .AddNodePointsYield(visualizationOutputNodeId, RGLField.XYZ_F32);
+                .AddNodePointsYield(visualizationOutputNodeId, RGLField.XYZ_VEC3_F32);
+
+            rglSubgraphVisualizationOutput.SetPriority(visualizationOutputNodeId, 1);
 
             lidarSensor = GetComponent<LidarSensor>();
         }

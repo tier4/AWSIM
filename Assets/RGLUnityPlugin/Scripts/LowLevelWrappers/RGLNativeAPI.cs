@@ -137,7 +137,7 @@ namespace RGLUnityPlugin
         public static extern int rgl_graph_write_pcd_file(IntPtr node, [MarshalAs(UnmanagedType.LPStr)] string file_path);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_graph_get_result_size(IntPtr node, RGLField field, out Int64 outCount, out Int64 outSizeOf);
+        public static extern int rgl_graph_get_result_size(IntPtr node, RGLField field, out Int32 outCount, out Int32 outSizeOf);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_get_result_data(IntPtr node, RGLField field, IntPtr data);
@@ -147,6 +147,12 @@ namespace RGLUnityPlugin
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_node_remove_child(IntPtr parent, IntPtr child);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_graph_node_set_priority(IntPtr node, Int32 priority);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_graph_node_get_priority(IntPtr node, out Int32 priority);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_tape_record_begin([MarshalAs(UnmanagedType.LPStr)] string path);
@@ -187,7 +193,7 @@ namespace RGLUnityPlugin
         public static void CheckVersion()
         {
             int expectedMajor = 0;
-            int expectedMinor = 15;
+            int expectedMinor = 16;
             int expectedPatch = 0;
             CheckErr(rgl_get_version_info(out var major, out var minor, out var patch));
             if (major != expectedMajor || minor < expectedMinor || (minor == expectedMinor && patch < expectedPatch))
@@ -471,16 +477,16 @@ namespace RGLUnityPlugin
 
         public static int GraphGetResultSize(IntPtr node, RGLField field)
         {
-            Int64 pointCount = 0;
-            Int64 pointSize = 0;
+            Int32 pointCount = 0;
+            Int32 pointSize = 0;
             CheckErr(rgl_graph_get_result_size(node, field, out pointCount, out pointSize));
             return (int) pointCount;
         }
 
         public static int GraphGetResult<T>(IntPtr node, RGLField field, ref T[] data, int expectedPointSize) where T : unmanaged
         {
-            Int64 pointCount = 0;
-            Int64 pointSize = 0;
+            Int32 pointCount = 0;
+            Int32 pointSize = 0;
             CheckErr(rgl_graph_get_result_size(node, field, out pointCount, out pointSize));
             unsafe
             {
@@ -522,6 +528,17 @@ namespace RGLUnityPlugin
         public static void GraphNodeRemoveChild(IntPtr parent, IntPtr child)
         {
             CheckErr(rgl_graph_node_remove_child(parent, child));
+        }
+
+        public static void GraphNodeSetPriority(IntPtr node, Int32 priority)
+        {
+            CheckErr(rgl_graph_node_set_priority(node, priority));
+        }
+
+        public static int GraphNodeGetPriority(IntPtr node)
+        {
+            CheckErr(rgl_graph_node_get_priority(node, out var outPriority));
+            return outPriority;
         }
 
         public static void GraphDestroy(IntPtr node)
