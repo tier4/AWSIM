@@ -15,35 +15,31 @@ In order to configure the Autoware software with the AWSIM demo, please:
    git clone https://github.com/autowarefoundation/autoware.git
    cd autoware
    ```
-2. Switch branche to `awsim-stable`.
-   ```
-   git checkout awsim-stable
-   ```
-3. Configure the environment. (Skip if Autoware environment has been configured before)
+2. Configure the environment. (Skip if Autoware environment has been configured before)
    ```
    ./setup-dev-env.sh
    ```
-4. Create the `src` directory and clone external dependent repositories into it.
+3. Create the `src` directory and clone external dependent repositories into it.
    ```
    mkdir src
    vcs import src < autoware.repos
    vcs import src < simulator.repos
    ```
-5. Download `shinjuku_map.zip`
+4. Download `shinjuku_map.zip`
  
    [archive](https://drive.google.com/file/d/15aoZDEMnKL3cw8Zt_jh3zyiy_o35W0pr/view?usp=drive_link){.md-button .md-button--primary}
  
-6. Unzip it to `src/simulator` directory
+5. Unzip it to `src/simulator` directory
    ```
    unzip <Download directory>/shinjuku_map.zip -d src/simulator
    ```
-7. Install dependent ROS packages.
+6. Install dependent ROS packages.
    ```
    source /opt/ros/humble/setup.bash
    rosdep update
    rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
    ```
-8. Build the workspace.
+7. Build the workspace.
    ```
    colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-w"
    ```
@@ -66,7 +62,7 @@ In order to configure the Autoware software with the AWSIM demo, please:
 
 ## Troubleshooting
 
-In case of problems, make sure that the [regular demo](https://tier4.github.io/AWSIM/GettingStarted/QuickStartDemo/) work well first. Follow the troubleshooting page there is necessary.
+In case of problems, make sure that the [regular demo](https://tier4.github.io/AWSIM/GettingStarted/QuickStartDemo/) work well with the Autoware built above. Follow the [troubleshooting page](https://tier4.github.io/AWSIM/DeveloperGuide/TroubleShooting/) there if necessary.
 
 ## Appendix
 - [AWSIM ROS2 topic list](../../Components/ROS2/ROS2TopicList/index.md)
