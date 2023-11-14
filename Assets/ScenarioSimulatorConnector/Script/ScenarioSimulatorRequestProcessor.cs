@@ -64,6 +64,65 @@ namespace AWSIM
 
         // time source
         private ExternalTimeSource timeSource = default;
+  
+        #endregion
+
+        #region [Traffic lights]
+
+        private Dictionary<long, TrafficLight> trafficLights;
+        private void preprocessTrafficLights() {
+            trafficLights = new Dictionary<long, TrafficLight>();
+            var trafficLightObjects = FindObjectsOfType<TrafficLightLaneletID>();
+            Debug.Log("Found " + trafficLightObjects.Length + " traffic light objects");
+            for (int i = 0; i < trafficLightObjects.Length; i++) {
+                AWSIM.TrafficLightLaneletID laneletId = trafficLightObjects[i];
+                GameObject obj = laneletId.gameObject;
+                TrafficLight tl = obj.GetComponent<TrafficLight>();
+                if (tl != null && laneletId != null) {
+                    trafficLights.Add(laneletId.wayID, tl);
+                }
+            }
+        }
+
+        private void resetTrafficLights() {
+            foreach(var light in trafficLights) {
+                light.Value.SetBulbData(
+                    new TrafficLight.BulbData(TrafficLight.BulbType.GREEN_BULB,  TrafficLight.BulbColor.GREEN, TrafficLight.BulbStatus.SOLID_OFF));
+                light.Value.SetBulbData(
+                    new TrafficLight.BulbData(TrafficLight.BulbType.RED_BULB, TrafficLight.BulbColor.RED, TrafficLight.BulbStatus.SOLID_OFF));
+                light.Value.SetBulbData(
+                    new TrafficLight.BulbData(TrafficLight.BulbType.YELLOW_BULB, TrafficLight.BulbColor.YELLOW, TrafficLight.BulbStatus.SOLID_OFF));
+            }
+        }
+        private TrafficLight.BulbData fromProto(SimulationApiSchema.TrafficLight proto) {
+            var t = new TrafficLight.BulbType();
+            switch (proto.Shape) {
+                case SimulationApiSchema.TrafficLight.Types.Shape.Circle:            t = TrafficLight.BulbType.ANY_CIRCLE_BULB;        break;
+                case SimulationApiSchema.TrafficLight.Types.Shape.LeftArrow:         t = TrafficLight.BulbType.LEFT_ARROW_BULB;        break;
+                case SimulationApiSchema.TrafficLight.Types.Shape.RightArrow:        t = TrafficLight.BulbType.RIGHT_ARROW_BULB;       break;
+                case SimulationApiSchema.TrafficLight.Types.Shape.UpArrow:           t = TrafficLight.BulbType.UP_ARROW_BULB;          break;
+                case SimulationApiSchema.TrafficLight.Types.Shape.DownArrow:         t = TrafficLight.BulbType.DOWN_ARROW_BULB;        break;
+                case SimulationApiSchema.TrafficLight.Types.Shape.DownLeftArrow:     t = TrafficLight.BulbType.DOWN_LEFT_ARROW_BULB;   break;
+                case SimulationApiSchema.TrafficLight.Types.Shape.DownRightArrow:    t = TrafficLight.BulbType.DOWN_RIGHT_ARROW_BULB;  break;
+                case SimulationApiSchema.TrafficLight.Types.Shape.Cross:             t = TrafficLight.BulbType.CROSS_BULB;             break;
+            }
+
+            var c = new TrafficLight.BulbColor();
+            switch (proto.Color) {
+                case SimulationApiSchema.TrafficLight.Types.Color.Red:   c = TrafficLight.BulbColor.RED;    t = TrafficLight.BulbType.RED_BULB;    break;
+                case SimulationApiSchema.TrafficLight.Types.Color.Amber: c = TrafficLight.BulbColor.YELLOW; t = TrafficLight.BulbType.YELLOW_BULB; break;
+                case SimulationApiSchema.TrafficLight.Types.Color.Green: c = TrafficLight.BulbColor.GREEN;  t = TrafficLight.BulbType.GREEN_BULB;  break;
+                case SimulationApiSchema.TrafficLight.Types.Color.White: c = TrafficLight.BulbColor.WHITE;                                         break;
+            } 
+
+            var s = new TrafficLight.BulbStatus();
+            switch (proto.Status) {
+                case SimulationApiSchema.TrafficLight.Types.Status.SolidOff: s = TrafficLight.BulbStatus.SOLID_OFF; break;
+                case SimulationApiSchema.TrafficLight.Types.Status.SolidOn:  s = TrafficLight.BulbStatus.SOLID_ON;  break;
+                case SimulationApiSchema.TrafficLight.Types.Status.Flashing: s = TrafficLight.BulbStatus.FLASHING;  break;
+            }
+            return new TrafficLight.BulbData(t, c, s);
+        }
 
         #endregion
 
@@ -109,6 +168,7 @@ namespace AWSIM
             entityPrefabDic = entityPrefabs.ToDictionary(x => x.AssetKey, y => y.Prefab);
 
             entityInstanceDic = new Dictionary<string, GameObject>();
+            preprocessTrafficLights();
         }
 
         public void Dispose()
@@ -514,9 +574,35 @@ namespace AWSIM
             };
             return attachOccupancyGridSensorResponse;
         }
-
+        
         private UpdateTrafficLightsResponse UpdateTrafficLights(UpdateTrafficLightsRequest request) 
         {
+            var states = request.States;
+            string lights_ids = "";
+            for (int i = 0; i < states.Count; i++) {
+                lights_ids = lights_ids + " " + states[i].Id + ":\n";
+                var signals = states[i].TrafficLightStatus;
+                for (int j = 0; j < signals.Count; j++) {
+                    lights_ids = lights_ids + "  " + signals[j].Color + " ";
+                    lights_ids = lights_ids + signals[j].Shape + " ";
+                    lights_ids = lights_ids + signals[j].Status + "\n";
+                }
+                lights_ids = lights_ids + "\n";
+            }
+            Debug.Log("Received ligths " + lights_ids);
+
+            mainContext.Send(_ =>
+            {
+                resetTrafficLights();
+                foreach (var state in states) {
+                    foreach(var signal in state.TrafficLightStatus) {
+                        var bulb = fromProto(signal);
+                        Debug.Log("Setting " + bulb.Type.ToString() + " " + bulb.Color.ToString() + " " + bulb.Status.ToString());
+                        trafficLights[state.Id].SetBulbData(bulb);
+                    }
+                }
+            }, null);
+
             var updateTrafficLightsResponse = new UpdateTrafficLightsResponse()
             {
                 Result = new Result()
