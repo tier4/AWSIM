@@ -56,7 +56,7 @@ In order to configure the Autoware software with the AWSIM demo, please:
    scenario:='$(find-pkg-share scenario_test_runner)/scenario/sample_awsim.yaml'          \
    sensor_model:=awsim_sensor_kit  vehicle_model:=sample_vehicle                          \
    launch_simple_sensor_simulator:=false autoware_launch_file:="e2e_simulator.launch.xml" \
-   initialize_duration:=60 
+   initialize_duration:=60 port:=8080
    ```
    ![ss2_awsim.png](ss2_awsim.png)
 
