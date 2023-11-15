@@ -64,6 +64,7 @@ namespace RGLUnityPlugin
         private Mesh mesh;
 
         private Vector3[] onlyHits = Array.Empty<Vector3>();
+        private int pointCount = 0;
         private int[] indices = Array.Empty<int>();
 
         private LidarSensor lidarSensor;
@@ -142,7 +143,7 @@ namespace RGLUnityPlugin
 
             mesh.Clear();
             mesh.vertices = points;
-            mesh.SetIndices(indices, 0, points.Length, MeshTopology.Points, 0);
+            mesh.SetIndices(indices, 0, pointCount, MeshTopology.Points, 0);
 
             if (autoComputeColoringHeights)
             {
@@ -165,7 +166,7 @@ namespace RGLUnityPlugin
 
         private void OnNewLidarData()
         {
-            rglSubgraphVisualizationOutput.GetResultData<Vector3>(ref onlyHits);
+            pointCount = rglSubgraphVisualizationOutput.GetResultData<Vector3>(ref onlyHits);
             SetPoints(onlyHits);
         }
     }
