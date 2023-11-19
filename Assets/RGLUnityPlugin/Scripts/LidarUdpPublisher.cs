@@ -186,8 +186,8 @@ namespace RGLUnityPlugin
                 return;
             }
 
-            // Currently, all of the supported models use Velodyne Legacy Packet Format
-            if (modelToValidate.maxRange > maxRangeForVelodyneLegacyPacketFormat)
+            // Currently, all of the supported Velodyne models use Legacy Packet Format
+            if (IsVelodyne((LidarModel)detectedUnityLidarModel) && modelToValidate.maxRange > maxRangeForVelodyneLegacyPacketFormat)
             {
                 Debug.LogWarning($"Max range of lidar '{lidarSensor.name}' exceeds max range supported by Velodyne Legacy Packet Format (262.14m). Consider reducing its value to ensure proper work.");
             }
@@ -255,6 +255,13 @@ namespace RGLUnityPlugin
             udpOptionsConstruction += useDualReturnFormat ? (int)RGLUdpOptions.RGL_UDP_DUAL_RETURN : 0;
 
             currentRGLUdpOptions = (RGLUdpOptions)udpOptionsConstruction;
+        }
+
+        private bool IsVelodyne(LidarModel model)
+        {
+            return model == LidarModel.VelodyneVLP16 ||
+                   model == LidarModel.VelodyneVLP32C ||
+                   model == LidarModel.VelodyneVLS128;
         }
     }
 }
