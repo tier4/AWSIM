@@ -90,6 +90,11 @@ namespace RGLUnityPlugin
             // This way we don't need to duplicate transform nodes to have compacted and non-compacted point cloud in lidar frame.
             lidarSensor.ConnectToWorldFrame(rglSubgraphUdpPublishing, false);
 
+            if (ensureHesaiRosDriverOrientation)
+            {
+                OnValidate();  // Needed to handle this flag on startup
+            }
+
             ValidateLidarModel();
         }
 
