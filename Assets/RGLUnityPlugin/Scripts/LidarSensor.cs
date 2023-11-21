@@ -12,13 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
-using Object = System.Object;
 
 namespace RGLUnityPlugin
 {
@@ -79,17 +75,17 @@ namespace RGLUnityPlugin
         private RGLNodeSequence rglSubgraphToLidarFrame;
         private SceneManager sceneManager;
 
-        private readonly string lidarRaysNodeId = "LIDAR_RAYS";
-        private readonly string lidarRangeNodeId = "LIDAR_RANGE";
-        private readonly string lidarRingsNodeId = "LIDAR_RINGS";
-        private readonly string lidarTimeOffsetsNodeId = "LIDAR_OFFSETS";
-        private readonly string lidarPoseNodeId = "LIDAR_POSE";
-        private readonly string noiseLidarRayNodeId = "NOISE_LIDAR_RAY";
-        private readonly string lidarRaytraceNodeId = "LIDAR_RAYTRACE";
-        private readonly string noiseHitpointNodeId = "NOISE_HITPOINT";
-        private readonly string noiseDistanceNodeId = "NOISE_DISTANCE";
-        private readonly string pointsCompactNodeId = "POINTS_COMPACT";
-        private readonly string toLidarFrameNodeId = "TO_LIDAR_FRAME";
+        private const string lidarRaysNodeId = "LIDAR_RAYS";
+        private const string lidarRangeNodeId = "LIDAR_RANGE";
+        private const string lidarRingsNodeId = "LIDAR_RINGS";
+        private const string lidarTimeOffsetsNodeId = "LIDAR_OFFSETS";
+        private const string lidarPoseNodeId = "LIDAR_POSE";
+        private const string noiseLidarRayNodeId = "NOISE_LIDAR_RAY";
+        private const string lidarRaytraceNodeId = "LIDAR_RAYTRACE";
+        private const string noiseHitpointNodeId = "NOISE_HITPOINT";
+        private const string noiseDistanceNodeId = "NOISE_DISTANCE";
+        private const string pointsCompactNodeId = "POINTS_COMPACT";
+        private const string toLidarFrameNodeId = "TO_LIDAR_FRAME";
 
         private LidarModel? validatedPreset;
         private float timer;
@@ -99,6 +95,8 @@ namespace RGLUnityPlugin
 
         private int fixedUpdatesInCurrentFrame = 0;
         private int lastUpdateFrame = -1;
+
+        private static List<LidarSensor> activeSensors = new List<LidarSensor>();
 
         public void Awake()
         {
@@ -159,10 +157,7 @@ namespace RGLUnityPlugin
                 return;
             }
 
-            if (onLidarModelChange != null)
-            {
-                onLidarModelChange.Invoke();
-            }
+            onLidarModelChange?.Invoke();
 
             rglGraphLidar.UpdateNodeRaysFromMat3x4f(lidarRaysNodeId, newConfig.GetRayPoses())
                          .UpdateNodeRaysSetRange(lidarRangeNodeId, newConfig.GetRayRanges())
@@ -189,7 +184,49 @@ namespace RGLUnityPlugin
             }
         }
 
+        public void OnEnable()
+        {
+            activeSensors.Add(this);
+        }
+
+        public void OnDisable()
+        {
+            activeSensors.Remove(this);
+        }
+
         public void FixedUpdate()
+        {
+            // One LidarSensor triggers FixedUpdateLogic for all of active LidarSensors on the scene
+            // This is an optimization to take full advantage of asynchronous RGL graph execution
+            // First, all RGL graphs are run which enqueue the most priority graph branches (e.g., visualization for Unity) properly
+            // Then, `onNewData` delegate is called to notify other components about new data available
+            // This way, the most important (Unity blocking) computations for all of the sensors are performed first
+            // Non-blocking operations (e.g., ROS2 publishing) are performed next
+            if (activeSensors[0] != this)
+            {
+                return;
+            }
+
+            var triggeredSensorsIndexes = new List<int>();
+            for (var i = 0; i < activeSensors.Count; i++)
+            {
+                if (activeSensors[i].FixedUpdateLogic())
+                {
+                    triggeredSensorsIndexes.Add(i);
+                }
+            }
+
+            foreach (var idx in triggeredSensorsIndexes)
+            {
+                activeSensors[idx].NotifyNewData();
+            }
+        }
+
+        /// <summary>
+        /// Performs fixed update logic.
+        /// Returns true if sensor was triggered (raytracing was performed)
+        /// </summary>
+        private bool FixedUpdateLogic()
         {
             if (lastUpdateFrame != Time.frameCount)
             {
@@ -200,7 +237,7 @@ namespace RGLUnityPlugin
 
             if (AutomaticCaptureHz == 0.0f)
             {
-                return;
+                return false;
             }
 
             timer += Time.deltaTime;
@@ -210,15 +247,17 @@ namespace RGLUnityPlugin
 
             var interval = 1.0f / AutomaticCaptureHz;
             if (timer + 0.00001f < interval)
-                return;
+                return false;
 
             timer = 0;
 
             Capture();
-            if (onNewData != null)
-            {
-                onNewData.Invoke();
-            }
+            return true;
+        }
+
+        private void NotifyNewData()
+        {
+            onNewData?.Invoke();
         }
 
         /// <summary>
@@ -262,13 +301,13 @@ namespace RGLUnityPlugin
             rglGraphLidar.Run();
         }
 
-        public void UpdateTransforms()
+        private void UpdateTransforms()
         {
             lastTransform = currentTransform;
             currentTransform = gameObject.transform.localToWorldMatrix;
         }
 
-        public void SetVelocityToRaytrace()
+        private void SetVelocityToRaytrace()
         {
             // Calculate delta transform of lidar.
             // Velocities must be in sensor-local coordinate frame.

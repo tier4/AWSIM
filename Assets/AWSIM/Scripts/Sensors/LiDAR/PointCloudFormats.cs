@@ -29,7 +29,7 @@ namespace AWSIM.PointCloudFormats
         {
             return new[]
             {
-                RGLField.XYZ_F32,
+                RGLField.XYZ_VEC3_F32,
                 RGLField.PADDING_32,
                 RGLField.INTENSITY_F32,
                 RGLField.RING_ID_U16,
@@ -47,7 +47,7 @@ namespace AWSIM.PointCloudFormats
         {
             return new[]
             {
-                RGLField.XYZ_F32,
+                RGLField.XYZ_VEC3_F32,
                 RGLField.PADDING_32,
                 RGLField.INTENSITY_F32,
                 RGLField.RING_ID_U16,
@@ -72,7 +72,7 @@ namespace AWSIM.PointCloudFormats
         {
             return new[]
             {
-                RGLField.XYZ_F32,
+                RGLField.XYZ_VEC3_F32,
                 RGLField.ENTITY_ID_I32,
                 RGLField.INTENSITY_F32
             };

@@ -43,7 +43,7 @@ namespace RGLUnityPlugin
         private RGLUdpOptions currentRGLUdpOptions = 0;  // To be set when validating lidar model
         private RGLNodeSequence rglSubgraphUdpPublishing;
 
-        private readonly string udpPublishingNodeId = "UDP_PUBLISHING";
+        private const string udpPublishingNodeId = "UDP_PUBLISHING";
 
         private LidarSensor lidarSensor;
 
