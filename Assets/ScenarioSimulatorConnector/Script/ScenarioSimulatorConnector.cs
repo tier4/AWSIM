@@ -28,8 +28,6 @@ namespace AWSIM
         private void Awake()
         {
             CollectComponents();
-            InitVars();
-            StartServerResponseThread();
         }
 
         private void CollectComponents()
@@ -37,7 +35,13 @@ namespace AWSIM
             requestProcessor = this.gameObject.GetComponent<ScenarioSimulatorRequestProcessor>();
         }
 
-        private void InitVars()
+        private void Start()
+        {
+            Initialize();
+            StartServerResponseThread();
+        }
+
+        private void Initialize()
         {       
             requestProcessor.Initialize();
         }

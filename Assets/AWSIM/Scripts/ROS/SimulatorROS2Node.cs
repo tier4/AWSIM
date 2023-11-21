@@ -26,27 +26,29 @@ namespace AWSIM
 #endif
         static void Initialize()
         {
-            TimeSource = GetTimeSource();
+            // subscribe to know if time source changed
+            TimeSourceProvider.onTimeSourceChanged += OnTimeSourceChanged;
 
+            // create ros2 node
             ros2UnityCore = new ROS2UnityCore();
-
             if (ros2UnityCore.Ok())
             {
-                ros2Clock = new ROS2Clock(TimeSource);
                 node = ros2UnityCore.CreateNode(NODE_NAME);
             }
+
+            // get time source from time source provide
+            TimeSource = TimeSourceProvider.GetTimeSource();
+            ros2Clock = new ROS2Clock(TimeSource);
         }
 
-        static ITimeSource GetTimeSource()
+        /// <summary>
+        /// Handler of onTimeSourceChanged event, it is invoked from TimeSourceProvider.
+        /// </summary>
+        static void OnTimeSourceChanged()
         {
-            // get time source from time source provider
-            ITimeSource timeSource = TimeSourceProvider.GetTimeSource();
-            if(timeSource != null)
-            {
-                return timeSource;
-            }
-
-            return new UnityTimeSource();
+            // get time source from time source provide
+            TimeSource = TimeSourceProvider.GetTimeSource();
+            ros2Clock = new ROS2Clock(TimeSource);
         }
 
         /// <summary>

@@ -9,7 +9,7 @@ using System.Threading;
 namespace AWSIM
 {
     /// <summary>
-    /// Class to process client (Scanrio Simulator v2) requests.
+    /// Class to process client (Scenario Simulator v2) requests.
     /// </summary>
     public class ScenarioSimulatorRequestProcessor : MonoBehaviour
     {
@@ -92,6 +92,7 @@ namespace AWSIM
 
         public void Initialize()
         {
+             // get time source from time source provide
             timeSource = TimeSourceProvider.GetTimeSource() as ExternalTimeSource;
             if(timeSource == null)
             {
