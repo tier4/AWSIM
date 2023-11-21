@@ -8,6 +8,12 @@ namespace AWSIM
     /// </summary>
     public static class TimeSourceProvider
     {
+        public enum TimeSourceType
+        {
+            UNITY,
+            SS2
+        }
+
         #region [Event]
 
         public static event Action onTimeSourceChanged;
@@ -68,7 +74,7 @@ namespace AWSIM
         /// will be instantiated and event onTimeSource Changed dispatched.
         /// </summary>
         /// <param name="type">Type of requested time source.</param>
-        public static void SetTimeSource(TimeSourceSelector.TimeSourceType type)
+        public static void SetTimeSource(TimeSourceType type)
         {
             // lazy initialization
             if(!isInitalized)
@@ -77,7 +83,7 @@ namespace AWSIM
             }
 
             // ss2 time source
-            if(type == TimeSourceSelector.TimeSourceType.SS2)
+            if(type == TimeSourceType.SS2)
             {
                 if(currentTimeSource == null || !(currentTimeSource is ExternalTimeSource))
                 {

@@ -29,16 +29,16 @@ namespace AWSIM
             // subscribe to know if time source changed
             TimeSourceProvider.onTimeSourceChanged += OnTimeSourceChanged;
 
+            // get time source from time source provide
+            TimeSource = TimeSourceProvider.GetTimeSource();
+
             // create ros2 node
             ros2UnityCore = new ROS2UnityCore();
             if (ros2UnityCore.Ok())
             {
                 node = ros2UnityCore.CreateNode(NODE_NAME);
+                ros2Clock = new ROS2Clock(TimeSource);
             }
-
-            // get time source from time source provide
-            TimeSource = TimeSourceProvider.GetTimeSource();
-            ros2Clock = new ROS2Clock(TimeSource);
         }
 
         /// <summary>
@@ -48,7 +48,10 @@ namespace AWSIM
         {
             // get time source from time source provide
             TimeSource = TimeSourceProvider.GetTimeSource();
-            ros2Clock = new ROS2Clock(TimeSource);
+            if (ros2UnityCore.Ok())
+            {
+                ros2Clock = new ROS2Clock(TimeSource);
+            }
         }
 
         /// <summary>
