@@ -26,8 +26,9 @@ namespace AWSIM
 #endif
         static void Initialize()
         {
-            // subscribe to know if time source changed
+            // subscribe to events
             TimeSourceProvider.onTimeSourceChanged += OnTimeSourceChanged;
+            Application.quitting += OnQuit;
 
             // get time source from time source provide
             TimeSource = TimeSourceProvider.GetTimeSource();
@@ -39,6 +40,15 @@ namespace AWSIM
                 node = ros2UnityCore.CreateNode(NODE_NAME);
                 ros2Clock = new ROS2Clock(TimeSource);
             }
+        }
+
+        /// <summary>
+        /// Handler of Application.quitting event.
+        /// </summary>
+        static void OnQuit()
+        {
+            TimeSourceProvider.onTimeSourceChanged -= OnTimeSourceChanged;
+            Application.quitting -= OnQuit;
         }
 
         /// <summary>
