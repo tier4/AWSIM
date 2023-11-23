@@ -75,8 +75,6 @@ Follow the steps below to install Unity on your machine:
 
 ### Open AWSIM project
 
-
-
 To open the Unity AWSIM project in Unity Editor:
 
 === "Using Unity Hub"
@@ -122,7 +120,6 @@ To open the Unity AWSIM project in Unity Editor:
         !!! info
             If your Unity Editor is installed in different location, please adjust the path accordingly.
 
-
 !!! warning
 
     If you get the safe mode dialog when starting UnityEditor, you may need to install openssl.
@@ -131,8 +128,6 @@ To open the Unity AWSIM project in Unity Editor:
     `$ wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb`
     2. install  
     `sudo dpkg -i libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb`
-
-
 
 ### Import external packages
 

@@ -188,7 +188,7 @@ ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehic
 ```
 ![](Image_2.png)
 
-## 5. Let's run the self-Driving simulation
+## Let's run the self-Driving simulation
 
 1. Launch AWSIM and Autoware according to the steps described earlier in this document.
 ![](Image_top.png)
@@ -219,7 +219,7 @@ ros2 topic pub /autoware/engage autoware_auto_vehicle_msgs/msg/Engage '{engage: 
 
 The self-driving simulation demo has been successfully launched!
 
-## 6. Troubleshooting
+## Troubleshooting
 
 In case of any problems with running the sample AWSIM binary with Autoware, start with checking our [Troubleshooting page](https://tier4.github.io/AWSIM/DeveloperGuide/TroubleShooting/) with the most common problems.
 
