@@ -16,6 +16,26 @@ This page is a tutorial for setting up a AWSIM Unity project.
     2. Prepare a desktop PC with Ubuntu 22.04 installed.
     2. Install [Nvidia drivers and Vulkan Graphics API](../QuickStartDemo/#running-the-awsim-simulation-demo).
     3. Install [git](https://git-scm.com/).
+    4. Set the ROS 2 middleware and the localhost only mode in `~/.profile` (or, in `~/.bash_profile` or `~/bash_login` if either of those exists) file:
+    ``` bash
+    export ROS_LOCALHOST_ONLY=1
+    export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+    ```
+
+        !!! warning
+            A system restart is required for these changes to work.
+
+    4. Set the system optimizations by adding this code to the very bottom of your `~/.bashrc` file:
+    ``` bash
+    if [ ! -e /tmp/cycloneDDS_configured ]; then
+        sudo sysctl -w net.core.rmem_max=2147483647
+        sudo ip link set lo multicast on
+        touch /tmp/cycloneDDS_configured
+    fi
+    ```
+
+        !!! info
+            As a result, each time you run the terminal (`bash` prompt), your OS will be configured for the best ROS 2 performance. Make sure you open your terminal at least one before running any instance of AWSIM (or Editor running the AWSIM).
 
 === "Windows"
     1. Make sure your machine meets the [required hardware specifications](../QuickStartDemo/#pc-specs).
@@ -55,29 +75,53 @@ Follow the steps below to install Unity on your machine:
 
 ### Open AWSIM project
 
+
+
 To open the Unity AWSIM project in Unity Editor:
-1. Make sure you have the AWSIM repository cloned
-    ```
-    git clone git@github.com:tier4/AWSIM.git
-    ```
 
-2. Launch UnityHub.
-    ```
-    ./UnityHub.AppImage
-    ```
+=== "Using Unity Hub"
+    1. Make sure you have the AWSIM repository cloned
+        ```
+        git clone git@github.com:tier4/AWSIM.git
+        ```
 
-3. Open the project in UnityHub
+    2. Launch UnityHub.
+        ```
+        ./UnityHub.AppImage
+        ```
+
+        !!! info
+
+            If you are launching the Unity Hub from the Ubuntu applications menu (without the terminal), make sure that system optimizations are set. To be sure, run the terminal at least once before running the Unity Hub. This will apply the OS settings.
+
+    3. Open the project in UnityHub
     - Click the `Open` button
-![](image_6.png)
+    ![](image_6.png)
 
     - Navigate the directory where the AWSIM repository was cloned to
-![](image_7.png)
+    ![](image_7.png)
 
     - The project should be added to `Projects` tab in Unity Hub. To launch the project in Unity Editor simply click the `AWSIM` item
-![](image_8.png)
+    ![](image_8.png)
 
     - The project is now ready to use
-![](image_9.png)
+    ![](image_9.png)
+
+=== "Using Terminal"
+
+    1. Enter the AWSIM directory
+        ```
+        cd AWSIM
+        ```
+
+    2. If your Unity Editor is in default location, run the project using the editor command.
+        ```
+        ~/Unity/Hub/Editor/2021.1.7f1/Editor/Unity -projectPath .
+        ```
+
+        !!! info
+            If your Unity Editor is installed in different location, please adjust the path accordingly.
+
 
 !!! warning
 
@@ -87,6 +131,8 @@ To open the Unity AWSIM project in Unity Editor:
     `$ wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb`
     2. install  
     `sudo dpkg -i libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb`
+
+
 
 ### Import external packages
 
