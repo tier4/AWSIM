@@ -168,6 +168,7 @@ namespace AWSIM
         [Header("Physics Settings")]
         [SerializeField] Transform centerOfMass;
         [SerializeField] new Rigidbody rigidbody;
+        [SerializeField] Rigidbody trailer = null;
         [SerializeField] AxleSettings axleSettings;
 
         [Header("Bounding box Settngs")]
@@ -195,9 +196,16 @@ namespace AWSIM
         float lastEulerAnguleY;
         float lastSpeed;
 
+        public Transform RigidBodyTransform => rigidbody.transform;
+
+        public Transform TrailerTransform => trailer?.transform;
+
+
         // Start is called before the first frame update
         void Awake()
         {
+            if (trailer == null)
+                trailer = rigidbody;
             leftTurnSignalLight.Initialize();
             rightTurnSignalLight.Initialize();
             brakeLight.Initialize();

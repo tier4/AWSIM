@@ -14,7 +14,7 @@ namespace AWSIM.TrafficSimulation
         // MinFrontVehicleDistance is added to the threshold for the distance at which an obstacle is considered dangerous.
         // The vehicle is controlled to stop at this distance away from the obstacle(e.g. another vehicle in front of the vehicle).
         private const float MinFrontVehicleDistance = 4f;
-        private const float MinStopDistance = 0.5f;
+        private const float MinStopDistance = 1.5f;
 
         public NPCVehicleDecisionStep(NPCVehicleConfig config)
         {
@@ -84,14 +84,27 @@ namespace AWSIM.TrafficSimulation
 
             if (distanceToStopPoint <= absoluteStopDistance)
                 state.SpeedMode = NPCVehicleSpeedMode.ABSOLUTE_STOP;
-            else if (distanceToStopPoint <= suddenStopDistance || state.YieldPhase == NPCVehicleYieldPhase.YIELDING)
+            else if (distanceToStopPoint <= suddenStopDistance || needToSuddenStopDueToYielding())
                 state.SpeedMode = NPCVehicleSpeedMode.SUDDEN_STOP;
-            else if (distanceToStopPoint <= stopDistance)
+            else if (distanceToStopPoint <= stopDistance || needToStopDueToYielding())
                 state.SpeedMode = NPCVehicleSpeedMode.STOP;
-            else if (distanceToStopPoint <= slowDownDistance || state.IsTurning || state.YieldPhase == NPCVehicleYieldPhase.ENTERING_YIELDING_LANE)
+            else if (distanceToStopPoint <= slowDownDistance || state.IsTurning || state.YieldPhase == NPCVehicleYieldPhase.ENTERING_INTERSECTION)
                 state.SpeedMode = NPCVehicleSpeedMode.SLOW;
             else
                 state.SpeedMode = NPCVehicleSpeedMode.NORMAL;
+
+            bool needToSuddenStopDueToYielding()
+            {
+                return state.YieldPhase == NPCVehicleYieldPhase.YIELDING_DUE_TO_FORCING ||
+                state.YieldPhase == NPCVehicleYieldPhase.LEFT_HAND_RULE_AT_INTERSECTION;
+            }
+
+            bool needToStopDueToYielding()
+            {
+                return state.YieldPhase == NPCVehicleYieldPhase.YIELDING_DUE_TO_LANES_RULES ||
+                state.YieldPhase == NPCVehicleYieldPhase.INTERSECTION_BLOCKED ||
+                state.YieldPhase == NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION;
+            }
         }
 
         private static float CalculateTrafficLightDistance(NPCVehicleInternalState state, float suddenStopDistance)
@@ -120,7 +133,7 @@ namespace AWSIM.TrafficSimulation
         private static float CalculateYieldingDistance(NPCVehicleInternalState state)
         {
             var distanceToStopPointByRightOfWay = float.MaxValue;
-            if (state.YieldPhase == NPCVehicleYieldPhase.YIELDING)
+            if (state.YieldPhase != NPCVehicleYieldPhase.NONE && state.YieldPhase != NPCVehicleYieldPhase.ENTERING_INTERSECTION && state.YieldPhase != NPCVehicleYieldPhase.AT_INTERSECTION)
                 distanceToStopPointByRightOfWay = state.SignedDistanceToPointOnLane(state.YieldPoint);
             return onlyGreaterThan(distanceToStopPointByRightOfWay, 0);
         }
@@ -153,7 +166,7 @@ namespace AWSIM.TrafficSimulation
                 }
 
                 var currentPosition = state.FrontCenterPosition;
-                currentPosition.y = state.Vehicle.transform.position.y + 1f;
+                currentPosition.y += 1f;
 
                 Gizmos.DrawLine(currentPosition, state.TargetPoint);
 
