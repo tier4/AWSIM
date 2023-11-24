@@ -63,3 +63,36 @@ Detailed description of mentioned components is in [this section](../../Componen
 - `Vehicle Visual Effect` provides an interface for `Vehicle` to control the lighting.
 
 A detailed description of `EgoVehicle` and its components mentioned above can be found [here](../../Components/Vehicle/EgoVehicle/). The sensor placement on `EgoVehicle` used in the default scene is described [here](../../Components/Vehicle/URDFAndSensors/). Details about each of the individual sensors are available in the following sections: [`Pose`](../../Components/Vehicle/URDFAndSensors/#pose), [`GNSS`](../../Components/Sensors/GNSSSensor/), [`LiDAR`](../../Components/Sensors/LiDARSensor/LiDARSensor/), [`IMU`](../../Components/Sensors/IMUSensor/), [`Camera`](../../Components/Sensors/CameraSensor/), [`Vehicle Status`](../../Components/Sensors/VehicleStatusSensor/).
+
+
+#### FixedUpdate Limitation
+
+In AWSIM, the sensors' publishing methods are triggered from the `FixedUpdate` function and the output frequency is controlled by:
+
+```csharp
+time += Time.deltaTime;
+var interval = 1.0f / OutputHz;
+interval -= 0.00001f; // Allow for accuracy errors.
+if (time < interval)
+    return;
+timer = 0;
+```
+
+Since this code runs within the FixedUpdate method, it's essential to note that `Time.deltaTime` is equal to `Fixed Timestep`, as stated in the [Unity Time.deltaTime documentation](https://docs.unity3d.com/ScriptReference/Time-deltaTime.html). Consequently, with each invocation of FixedUpdate, the `time` variable in the sensor script will increment by a constant value of `Fixed Timestep`, independent of the actual passage of real-time. Additionally, as outlined in the [Unity documentation](https://docs.unity3d.com/Manual/ExecutionOrder.html), the `FixedUpdate` method might execute multiple times before the `Update` method is called, resulting in extremely small time intervals between successive FixedUpdate calls. The diagram below illustrates the mechanism of invoking the FixedUpdate event function."
+
+![](fixed_update_execution.jpg)
+
+During each frame (game tick) following actions are performed:
+
+- first, the `Delta Time` is calculated as the difference between the current frame and the previous frame,
+- next, the `Delta Time` is added to the `Time` (regular time),
+- afterward, a check is made to determine how much `Fixed Time` (physics time) is behind the `Time`,
+- if the difference between `Time` and `Fixed Time` is equal to or greater then `Fixed Timestep`, the `Fixed Update` event function is invoked,
+- if `FixedUpdate` function were called, the `Fixed Timestep` is added to the `Fixed Time`,
+- once again, a check is performed to assess how much `Fixed Time` is behind the `Time`,
+- <strong>if necessary, the `FixedUpdate` function is called again,</strong>
+- if the difference between the `Time` and the `Fixed Time` is smaller than the `Fixed Timestep`, the `Update` method is called, followed be scene rendering and other Unity event functions.
+
+As a consequence, this engine feature may result in unexpected behavior when FPS (Frames Per Second) are unstable or under certain combinations of FPS, Fixed Timestep, and sensor OutputHz
+
+In case of low frame rates, it is advisable to reduce the `Time Scale` of the simulation. The Time Scale value impacts simulation time, which refers to the time that is simulated within the model and might or might not progress at the same rate as real-time. Therefore, by reducing the time scale, the progression of simulation time slows down, allowing the simulation more time to perform its tasks.
