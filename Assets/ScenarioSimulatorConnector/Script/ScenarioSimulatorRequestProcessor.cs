@@ -134,35 +134,6 @@ namespace AWSIM
 
         #endregion
 
-        #region [Unity Message = Fixed Update]
-
-        private void FixedUpdate()
-        {
-            /*
-            lock (lockOnFrameUpdate)
-            {
-                // Has the initialize request been received?
-                if (!isInitialized)
-                {
-                    return;
-                }
-
-                if (stepExecution) 
-                {
-                    fixedUpdateCount++;
-
-                    // Stop time when FixedUpdate() has been called a target number of times.
-                    if (fixedUpdateCount > targetFixedUpdateCount)
-                    {
-                        isFixedUpdating = false;
-                    }
-                }
-            }
-            */
-        }
-
-        #endregion
-
         #region [Public Methods]
 
         public SimulationResponse Process(SimulationRequest request)
@@ -266,9 +237,6 @@ namespace AWSIM
                 double elapsedSec = Math.Abs(Math.Abs(request.CurrentSimulationTime) - Math.Abs(prevUpdateFrameTime));
                 prevUpdateFrameTime = request.CurrentSimulationTime;
 
-                //fixedUpdateCount = 0;
-                //targetFixedUpdateCount = (int)(elapsedSec / fixedDeltaTime);
-
                 // start time flow
                 mainContext.Send(_ =>
                 {
@@ -278,9 +246,6 @@ namespace AWSIM
                         Time.timeScale = realtimeFactor;
                     }
                 }, null);
-                
-                // waiting
-                // while (isFixedUpdating) { }
 
                 int waitTime = Mathf.CeilToInt((float) (elapsedSec * 1000.0 * stepDurationInPercentage));
                 Thread.Sleep(waitTime);
