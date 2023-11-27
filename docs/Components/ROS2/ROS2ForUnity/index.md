@@ -21,7 +21,10 @@ All required dependencies are installed and can be used e.g. as a complete set o
 Only asset libraries and generated messages are installed therefore *ROS2* instance must be sourced.
 
 By default, asset `R2FU` in *AWSIM* is prepared in *standalone mode*.
-Thanks to this, *ROS2* instance doesn't need to be sourced - all you have to do is run the *Unity* editor.
+
+!!! warning
+
+    To avoid internal conflicts between the standalone libraries, and sourced ones, *ROS2* instance shouldn't be sourced before running AWSIM or the *Unity* Editor.
 
 !!! question "Can't see topics"
     There are no errors but I can't see topics published by `R2FU`

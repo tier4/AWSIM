@@ -23,6 +23,24 @@ This page is a tutorial for setting up a AWSIM Unity project.
     2. Prepare a desktop PC with Windows 10 or 11 (64 bit) installed.
     3. Install [git](https://git-scm.com/).
 
+### ROS 2
+
+AWSIM comes with a *standalone* flavor of [`Ros2ForUnity`](../../Components/ROS2/ROS2ForUnity/index.md). This means that, to avoid internal conflicts between different ROS 2 versions, you shouldn't run the Editor or AWSIM binary with ROS 2 sourced.
+
+!!! warning
+
+    Do not run the AWSIM, Unity Hub, or the Editor with ROS 2 sourced.
+
+=== "Ubuntu 22"
+    - Make sure that the terminal which you are using to run Unity Hub, Editor, or AWSIM doesn't have ROS 2 sourced.
+    - It is common to have ROS 2 sourced automatically with `~/.bashrc` or `~/.profile`. Make sure it is not obscuring your working environment:
+        - Running Unity Hub from the Ubuntu GUI menu takes the environment configuration from `~/.profile`.
+        - Running Unity Hub from the terminal uses the current terminal configuration from `~/.profile` and `~/.bashrc`.
+        - Running Unity Editor from the UnityHub inherits the environment setup from the Unity Hub. 
+
+=== "Windows"
+    - Make sure your Windows environment variables are ROS 2 free.
+
 ### Unity installation
 
 !!! info
@@ -56,7 +74,8 @@ Follow the steps below to install Unity on your machine:
 ### Open AWSIM project
 
 To open the Unity AWSIM project in Unity Editor:
-1. Make sure you have the AWSIM repository cloned
+
+1. Make sure you have the AWSIM repository cloned and ROS 2 is not sourced.
     ```
     git clone git@github.com:tier4/AWSIM.git
     ```
@@ -66,7 +85,7 @@ To open the Unity AWSIM project in Unity Editor:
     ./UnityHub.AppImage
     ```
 
-3. Open the project in UnityHub
+3. Open the project in UnityHub.
     - Click the `Open` button
 ![](image_6.png)
 
