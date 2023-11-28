@@ -368,7 +368,7 @@ namespace AWSIM.TrafficSimulation
 					if (!isOnIntersection(state))
 						continue;
 
-					if (state.YieldPhase == NPCVehicleYieldPhase.YIELDING_DUE_TO_LANES_RULES)
+					if (isYieldingDueToLanes(state))
 						continue;
 
 					if (!refState.intersectOverall(state))
@@ -379,6 +379,7 @@ namespace AWSIM.TrafficSimulation
 						&& !turnInTheSameWay(refState, state)
 					) // && !needToYield(refState, state)
 					{
+						// Debug.Log($"isIntersectionBusy: {refState.Vehicle.VehicleID} has intersection busy by {state.Vehicle.VehicleID}");
 						refState.DominatingVehicle = state.Vehicle.RigidBodyTransform;
 						refState.YieldPoint = GetStopPoint(refState.FollowingLanes[0]);
 						return true;
@@ -397,10 +398,13 @@ namespace AWSIM.TrafficSimulation
 					if (refState.Vehicle.VehicleID == state.Vehicle.VehicleID)
 						continue;
 
+					if (state.IsStoppedByFrontVehicle)
+						continue;
+
 					if (!isEnteringIntersection(refState))
 						continue;
 
-					if (state.YieldPhase == NPCVehicleYieldPhase.YIELDING_DUE_TO_LANES_RULES)
+					if (isYieldingDueToLanes(state))
 						continue;
 
 					if (!refState.intersectOverall(state))
@@ -424,6 +428,16 @@ namespace AWSIM.TrafficSimulation
 				return false;
 			}
 
+			private bool isYieldingDueToLanes(NPCVehicleInternalState refState)
+			{
+				return refState.YieldPhase == NPCVehicleYieldPhase.INTERSECTION_BLOCKED ||
+				refState.YieldPhase == NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION ||
+				refState.YieldPhase == NPCVehicleYieldPhase.LEFT_HAND_RULE_AT_INTERSECTION ||
+				refState.YieldPhase == NPCVehicleYieldPhase.LANES_RULES_ENTERING_INTERSECTION ||
+				refState.YieldPhase == NPCVehicleYieldPhase.LANES_RULES_AT_INTERSECTION ||
+				refState.YieldPhase == NPCVehicleYieldPhase.FORCING_PRIORITY;
+			}
+
 			private bool isLeftHandRuleOnIntersection(
 				NPCVehicleInternalState refState,
 				IReadOnlyList<NPCVehicleInternalState> states
@@ -437,7 +451,7 @@ namespace AWSIM.TrafficSimulation
 					if (!isOnIntersection(state))
 						continue;
 
-					if (state.YieldPhase == NPCVehicleYieldPhase.YIELDING_DUE_TO_LANES_RULES)
+					if (isYieldingDueToLanes(state))
 						continue;
 
 					if (!refState.intersectNowFront(state))
@@ -451,7 +465,8 @@ namespace AWSIM.TrafficSimulation
 					)
 					{
 						refState.DominatingVehicle = state.Vehicle.RigidBodyTransform;
-						refState.YieldPoint = state.FrontCenterPosition;
+						refState.YieldPoint = refState.FrontCenterPosition;
+						Debug.Log($"isLeftHandRuleOnIntersection: {refState.Vehicle.VehicleID} has left {state.Vehicle.VehicleID}");
 						return true;
 					}
 				}
@@ -469,8 +484,10 @@ namespace AWSIM.TrafficSimulation
 						continue;
 					if (someState.CurrentFollowingLane.RightOfWayLanes.Count == 0)
 						continue;
-					if (someState.YieldPhase == NPCVehicleYieldPhase.YIELDING_DUE_TO_LANES_RULES)
+					if (isYieldingDueToLanes(someState))
 						continue;
+					// if (someState.IsStoppedByFrontVehicle)
+					// 	continue;
 
 					if (needToYield(refState, someState) && refState.intersectNowFront(someState))
 					{
@@ -513,11 +530,11 @@ namespace AWSIM.TrafficSimulation
 					|| refState.FirstLaneWithIntersection == null
 				)
 					return false;
-				if (
-					refState.FirstLaneWithIntersection.TurnDirection
-					!= state.FirstLaneWithIntersection.TurnDirection
-				)
-					return false;
+				// if (
+				// 	refState.FirstLaneWithIntersection.TurnDirection
+				// 	== state.FirstLaneWithIntersection.TurnDirection
+				// )
+				// 	return true;
 				return Vector3.Distance(
 						refState.FirstIntersectionWaypoint.Value,
 						state.FirstIntersectionWaypoint.Value
@@ -602,6 +619,8 @@ namespace AWSIM.TrafficSimulation
 				{
 					if (isYieldingNow(state))
 						continue;
+					// if (isYieldingDueToLanes(state))
+					// 	continue;
 					if (!IsLaneDominatedBy(lane, state))
 						continue;
 					if (!refState.intersectOverall(state))
@@ -687,6 +706,10 @@ namespace AWSIM.TrafficSimulation
 						if (refState.ShouldDespawn)
 							continue;
 
+						// if (refState.Vehicle.VehicleID == 30)
+						// {
+						// 	Debug.Log($"{refState.Vehicle.VehicleID} YieldPhase: {refState.YieldPhase}");
+						// }
 						switch (refState.YieldPhase)
 						{
 							case NPCVehicleYieldPhase.NONE:
@@ -703,6 +726,11 @@ namespace AWSIM.TrafficSimulation
 										NPCVehicleYieldPhase.ENTERING_INTERSECTION;
 									break;
 								}
+								else if (isOnIntersection(refState))
+								{
+									refState.YieldPhase = NPCVehicleYieldPhase.AT_INTERSECTION;
+									break;
+								}
 								break;
 							case NPCVehicleYieldPhase.ENTERING_INTERSECTION:
 								if (isOnIntersection(refState))
@@ -715,7 +743,7 @@ namespace AWSIM.TrafficSimulation
 									refState.YieldLane = refState.FirstLaneWithIntersection;
 									refState.YieldPoint = GetStopPoint(refState.YieldLane);
 									refState.YieldPhase =
-										NPCVehicleYieldPhase.YIELDING_DUE_TO_LANES_RULES;
+										NPCVehicleYieldPhase.LANES_RULES_ENTERING_INTERSECTION;
 									break;
 								}
 								if (isIntersectionBusy(refState, States))
@@ -741,13 +769,13 @@ namespace AWSIM.TrafficSimulation
 									refState.YieldLane = refState.CurrentFollowingLane;
 									refState.YieldPoint = GetStopPoint(refState.YieldLane, 1);
 									refState.YieldPhase =
-										NPCVehicleYieldPhase.YIELDING_DUE_TO_LANES_RULES;
+										NPCVehicleYieldPhase.LANES_RULES_AT_INTERSECTION;
 									break;
 								}
 								if (isSomeVehicleForcingPriority(refState, States))
 								{
 									refState.YieldPhase =
-										NPCVehicleYieldPhase.YIELDING_DUE_TO_FORCING;
+										NPCVehicleYieldPhase.FORCING_PRIORITY;
 									break;
 								}
 								if (isLeftHandRuleOnIntersection(refState, States))
@@ -761,13 +789,17 @@ namespace AWSIM.TrafficSimulation
 								if (!isIntersectionBusy(refState, States))
 									refState.YieldPhase = NPCVehicleYieldPhase.NONE;
 								break;
-							case NPCVehicleYieldPhase.YIELDING_DUE_TO_LANES_RULES:
+							case NPCVehicleYieldPhase.LANES_RULES_ENTERING_INTERSECTION:
+							case NPCVehicleYieldPhase.LANES_RULES_AT_INTERSECTION:
 								if (
 									!ShouldYield(refState, States)
 									|| refState.SignedDistanceToPointOnLane(refState.YieldPoint)
 										< -2f
 								)
+								{
+									refState.YieldLane = null;
 									refState.YieldPhase = NPCVehicleYieldPhase.NONE;
+								}
 								break;
 							case NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION:
 								if (!isLeftHandRuleEnteringIntersection(refState, States))
@@ -777,7 +809,7 @@ namespace AWSIM.TrafficSimulation
 								if (!isLeftHandRuleOnIntersection(refState, States))
 									refState.YieldPhase = NPCVehicleYieldPhase.NONE;
 								break;
-							case NPCVehicleYieldPhase.YIELDING_DUE_TO_FORCING:
+							case NPCVehicleYieldPhase.FORCING_PRIORITY:
 								if (!isSomeVehicleForcingPriority(refState, States))
 									refState.YieldPhase = NPCVehicleYieldPhase.NONE;
 								break;
@@ -1101,12 +1133,12 @@ namespace AWSIM.TrafficSimulation
 				currentPosition.y += 3f;
 
 				// Pose
-				// if (state.Vehicle.VehicleID == stateID)
+				// if (state.Vehicle.VehicleID == 22 || state.Vehicle.VehicleID == 18)
 				// {
-				// Gizmos.color = Color.green;
-				// Gizmos.DrawSphere(state.FrontCenterPosition, 1.2f);
-				// Gizmos.color = Color.red;
-				// Gizmos.DrawSphere(state.BackCenterPosition, 1.2f);
+				// 	Gizmos.color = Color.green;
+				// 	Gizmos.DrawSphere(state.FrontCenterPosition, 1.2f);
+				// 	Gizmos.color = Color.red;
+				// 	Gizmos.DrawSphere(state.BackCenterPosition, 1.2f);
 				// }
 
 				// Start Stop
@@ -1141,7 +1173,7 @@ namespace AWSIM.TrafficSimulation
 				switch (state.YieldPhase)
 				{
 					case NPCVehicleYieldPhase.INTERSECTION_BLOCKED:
-						Gizmos.color = Color.magenta;
+						Gizmos.color = Color.blue;
 						break;
 					case NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION:
 						Gizmos.color = Color.gray;
@@ -1149,13 +1181,17 @@ namespace AWSIM.TrafficSimulation
 					case NPCVehicleYieldPhase.LEFT_HAND_RULE_AT_INTERSECTION:
 						Gizmos.color = Color.black;
 						break;
-					case NPCVehicleYieldPhase.YIELDING_DUE_TO_LANES_RULES:
+					case NPCVehicleYieldPhase.LANES_RULES_ENTERING_INTERSECTION:
+						Gizmos.color = Color.yellow;
+						break;
+					case NPCVehicleYieldPhase.LANES_RULES_AT_INTERSECTION:
 						Gizmos.color = Color.red;
 						break;
-					case NPCVehicleYieldPhase.YIELDING_DUE_TO_FORCING:
-						Gizmos.color = Color.blue;
+					case NPCVehicleYieldPhase.FORCING_PRIORITY:
+						Gizmos.color = Color.magenta;
 						break;
 				}
+
 				Gizmos.DrawSphere(currentPosition, 0.5f);
 				if (state.DominatingVehicle != null)
 					Gizmos.DrawLine(currentPosition, state.DominatingVehicle.transform.position);

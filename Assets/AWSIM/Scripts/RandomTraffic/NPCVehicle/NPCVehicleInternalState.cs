@@ -21,11 +21,9 @@ namespace AWSIM.TrafficSimulation
         INTERSECTION_BLOCKED,
         LEFT_HAND_RULE_ENTERING_INTERSECTION,
         LEFT_HAND_RULE_AT_INTERSECTION,
-        YIELDING_DUE_TO_LANES_RULES,
-        YIELDING_DUE_TO_FORCING
-        // ON_YIELDING_LANE,
-        // ENTERING_YIELDING_LANE,
-        // SPECIAL,
+        LANES_RULES_ENTERING_INTERSECTION,
+        LANES_RULES_AT_INTERSECTION,
+        FORCING_PRIORITY
     }
 
     /// <summary>
@@ -208,7 +206,9 @@ namespace AWSIM.TrafficSimulation
                         for (int j = laneIndex; j < lane.Waypoints.Length - 1; j++)
                         {
                             if (Vector3.Distance(refLane.Waypoints[i + 1], lane.Waypoints[j + 1]) < 1f)
+                            {
                                 return true;
+                            }
 
                             if (CheckIfLinesIntersect(refLane.Waypoints[i], refLane.Waypoints[i + 1], lane.Waypoints[j], lane.Waypoints[j + 1]))
                             {
@@ -219,7 +219,7 @@ namespace AWSIM.TrafficSimulation
 
                     if (lane.name == state.CurrentFollowingLane.name)
                     {
-                        for (int i = 0; i < refLane.Waypoints.Length - 1; i++)
+                        for (int i = refLaneIndex; i < refLane.Waypoints.Length - 1; i++)
                         {
                             if (CheckIfLinesIntersect(refLane.Waypoints[i], refLane.Waypoints[i + 1], state.BackCenterPosition, state.CurrentFollowingLane.Waypoints[state.WaypointIndex]))
                             {
@@ -230,7 +230,7 @@ namespace AWSIM.TrafficSimulation
 
                     if (refLane.name == CurrentFollowingLane.name)
                     {
-                        for (int j = 0; j < lane.Waypoints.Length - 1; j++)
+                        for (int j = laneIndex; j < lane.Waypoints.Length - 1; j++)
                         {
                             if (CheckIfLinesIntersect(BackCenterPosition, CurrentFollowingLane.Waypoints[WaypointIndex], lane.Waypoints[j], lane.Waypoints[j + 1]))
                             {
@@ -247,38 +247,39 @@ namespace AWSIM.TrafficSimulation
             }
             return false;
 
-            // Vector3 PoseA = CurrentFollowingLane.Waypoints[0];
-            // Vector3? GoalAn = LastIntersectionWaypoint();
-            // Vector3 PoseB = state.CurrentFollowingLane.Waypoints[0];
-            // Vector3? GoalBn = state.LastIntersectionWaypoint();
-            // if (GoalAn == null || GoalBn == null)
-            //     return false;
-            // Vector3 GoalA = GoalAn.Value;
-            // Vector3 GoalB = GoalBn.Value;
-            // PoseA.y = 0;
-            // GoalA.y = 0;
-            // PoseB.y = 0;
-            // GoalB.y = 0;
-            // return CheckIfLinesIntersect(PoseA, GoalA, PoseB, GoalB);
 
-            bool CheckIfLinesIntersect(Vector3 A1, Vector3 B1, Vector3 A2, Vector3 B2)
+            bool CheckIfLinesIntersect(Vector3 A1, Vector3 B1, Vector3 A2, Vector3 B2, bool verbose = false)
             {
-                if (Vector3.Distance(B1, B2) < 1f)
-                    return true;
-                Vector3 u = B1 - A1;
-                Vector3 v = B2 - A2;
-                Vector3 w = A1 - A2;
+                Vector2 line1point1 = new Vector2(A1.x, A1.z);
+                Vector2 line1point2 = new Vector2(B1.x, B1.z);
+                Vector2 line2point1 = new Vector2(A2.x, A2.z);
+                Vector2 line2point2 = new Vector2(B2.x, B2.z);
 
-                Vector3 n = Vector3.Cross(u, v);
-                float d = Vector3.Dot(n, n);
 
-                if (d < 0.000001f) // Checking if lines are (almost) parallel
+                Vector2 a = line1point2 - line1point1;
+                Vector2 b = line2point1 - line2point2;
+                Vector2 c = line1point1 - line2point1;
+
+                float alphaNumerator = b.y * c.x - b.x * c.y;
+                float betaNumerator = a.x * c.y - a.y * c.x;
+                float denominator = a.y * b.x - a.x * b.y;
+
+                if (denominator == 0)
+                {
                     return false;
-
-                float sI = Vector3.Dot(Vector3.Cross(u, w), n) / d;
-                float tI = Vector3.Dot(Vector3.Cross(v, w), n) / d;
-
-                return (sI >= 0 && sI <= 1 && tI >= 0 && tI <= 1);
+                }
+                else if (denominator > 0)
+                {
+                    if (alphaNumerator < 0 || alphaNumerator > denominator || betaNumerator < 0 || betaNumerator > denominator)
+                    {
+                        return false;
+                    }
+                }
+                else if (alphaNumerator > 0 || alphaNumerator < denominator || betaNumerator > 0 || betaNumerator < denominator)
+                {
+                    return false;
+                }
+                return true;
             }
         }
         public bool intersectNow(NPCVehicleInternalState state)
@@ -325,40 +326,49 @@ namespace AWSIM.TrafficSimulation
 
             return CheckIfLinesIntersect(PoseA, NearestA, PoseB, NearestB);
 
-            bool CheckIfLinesIntersect(Vector3 A1, Vector3 B1, Vector3 A2, Vector3 B2)
+            bool CheckIfLinesIntersect(Vector3 A1, Vector3 B1, Vector3 A2, Vector3 B2, bool verbose = false)
             {
-                if (Vector3.Distance(B1, B2) < 1f)
-                    return true;
-                Vector3 u = B1 - A1;
-                Vector3 v = B2 - A2;
-                Vector3 w = A1 - A2;
+                Vector2 line1point1 = new Vector2(A1.x, A1.z);
+                Vector2 line1point2 = new Vector2(B1.x, B1.z);
+                Vector2 line2point1 = new Vector2(A2.x, A2.z);
+                Vector2 line2point2 = new Vector2(B2.x, B2.z);
 
-                Vector3 n = Vector3.Cross(u, v);
-                float d = Vector3.Dot(n, n);
+                Vector2 a = line1point2 - line1point1;
+                Vector2 b = line2point1 - line2point2;
+                Vector2 c = line1point1 - line2point1;
 
-                if (d < 0.000001f) // Checking if lines are (almost) parallel
+                float alphaNumerator = b.y * c.x - b.x * c.y;
+                float betaNumerator = a.x * c.y - a.y * c.x;
+                float denominator = a.y * b.x - a.x * b.y;
+
+                if (denominator == 0)
+                {
                     return false;
-
-                float sI = Vector3.Dot(Vector3.Cross(u, w), n) / d;
-                float tI = Vector3.Dot(Vector3.Cross(v, w), n) / d;
-
-                return (sI >= 0 && sI <= 1 && tI >= 0 && tI <= 1);
+                }
+                else if (denominator > 0)
+                {
+                    if (alphaNumerator < 0 || alphaNumerator > denominator || betaNumerator < 0 || betaNumerator > denominator)
+                    {
+                        return false;
+                    }
+                }
+                else if (alphaNumerator > 0 || alphaNumerator < denominator || betaNumerator > 0 || betaNumerator < denominator)
+                {
+                    return false;
+                }
+                return true;
             }
         }
         public bool intersectNowFront(NPCVehicleInternalState state)
         {
-            // Vector3 PoseA = CurrentFollowingLane.Waypoints[WaypointIndex];
-            // Vector3 GoalA = CurrentFollowingLane.Waypoints[CurrentFollowingLane.Waypoints.Length - 1];
-            // Vector3 PoseB = state.BackCenterPosition;
-            // Vector3 GoalB = state.CurrentFollowingLane.Waypoints[state.CurrentFollowingLane.Waypoints.Length - 1];
-            // return CheckIfLinesIntersect(PoseA, GoalA, PoseB, GoalB);
-
             for (int i = WaypointIndex; i < CurrentFollowingLane.Waypoints.Length - 1; i++)
             {
                 for (int j = state.WaypointIndex; j < state.CurrentFollowingLane.Waypoints.Length - 1; j++)
                 {
                     if (Vector3.Distance(CurrentFollowingLane.Waypoints[i + 1], state.CurrentFollowingLane.Waypoints[j + 1]) < 1f)
+                    {
                         return true;
+                    }
 
                     if (CheckIfLinesIntersect(CurrentFollowingLane.Waypoints[i], CurrentFollowingLane.Waypoints[i + 1], state.CurrentFollowingLane.Waypoints[j], state.CurrentFollowingLane.Waypoints[j + 1]))
                     {
@@ -372,7 +382,9 @@ namespace AWSIM.TrafficSimulation
             for (int j = state.WaypointIndex; j < state.CurrentFollowingLane.Waypoints.Length - 1; j++)
             {
                 if (Vector3.Distance(NearestA, state.CurrentFollowingLane.Waypoints[j + 1]) < 1f)
+                {
                     return true;
+                }
 
                 if (CheckIfLinesIntersect(PoseA, NearestA, state.CurrentFollowingLane.Waypoints[j], state.CurrentFollowingLane.Waypoints[j + 1]))
                 {
@@ -385,7 +397,9 @@ namespace AWSIM.TrafficSimulation
             for (int i = WaypointIndex; i < CurrentFollowingLane.Waypoints.Length - 1; i++)
             {
                 if (Vector3.Distance(CurrentFollowingLane.Waypoints[i + 1], NearestB) < 1f)
+                {
                     return true;
+                }
 
                 if (CheckIfLinesIntersect(CurrentFollowingLane.Waypoints[i], CurrentFollowingLane.Waypoints[i + 1], PoseB, NearestB))
                 {
@@ -395,24 +409,38 @@ namespace AWSIM.TrafficSimulation
 
             return false;
 
-            bool CheckIfLinesIntersect(Vector3 A1, Vector3 B1, Vector3 A2, Vector3 B2)
+            bool CheckIfLinesIntersect(Vector3 A1, Vector3 B1, Vector3 A2, Vector3 B2, bool verbose = false)
             {
-                if (Vector3.Distance(B1, B2) < 1f)
-                    return true;
-                Vector3 u = B1 - A1;
-                Vector3 v = B2 - A2;
-                Vector3 w = A1 - A2;
+                Vector2 line1point1 = new Vector2(A1.x, A1.z);
+                Vector2 line1point2 = new Vector2(B1.x, B1.z);
+                Vector2 line2point1 = new Vector2(A2.x, A2.z);
+                Vector2 line2point2 = new Vector2(B2.x, B2.z);
 
-                Vector3 n = Vector3.Cross(u, v);
-                float d = Vector3.Dot(n, n);
 
-                if (d < 0.000001f) // Checking if lines are (almost) parallel
+                Vector2 a = line1point2 - line1point1;
+                Vector2 b = line2point1 - line2point2;
+                Vector2 c = line1point1 - line2point1;
+
+                float alphaNumerator = b.y * c.x - b.x * c.y;
+                float betaNumerator = a.x * c.y - a.y * c.x;
+                float denominator = a.y * b.x - a.x * b.y;
+
+                if (denominator == 0)
+                {
                     return false;
-
-                float sI = Vector3.Dot(Vector3.Cross(u, w), n) / d;
-                float tI = Vector3.Dot(Vector3.Cross(v, w), n) / d;
-
-                return (sI >= 0 && sI <= 1 && tI >= 0 && tI <= 1);
+                }
+                else if (denominator > 0)
+                {
+                    if (alphaNumerator < 0 || alphaNumerator > denominator || betaNumerator < 0 || betaNumerator > denominator)
+                    {
+                        return false;
+                    }
+                }
+                else if (alphaNumerator > 0 || alphaNumerator < denominator || betaNumerator > 0 || betaNumerator < denominator)
+                {
+                    return false;
+                }
+                return true;
             }
         }
 

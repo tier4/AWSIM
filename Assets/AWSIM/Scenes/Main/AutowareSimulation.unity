@@ -1709,6 +1709,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5691233761136004364, guid: 79986cfb6e0bdb5faac0a66247830abc, type: 3}
+      propertyPath: seed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5691233761136004364, guid: 79986cfb6e0bdb5faac0a66247830abc, type: 3}
       propertyPath: maxVehicleCount
       value: 30
       objectReference: {fileID: 0}
@@ -1718,7 +1722,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5691233761136004364, guid: 79986cfb6e0bdb5faac0a66247830abc, type: 3}
       propertyPath: randomTrafficSims.Array.data[1].enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5691233761136004364, guid: 79986cfb6e0bdb5faac0a66247830abc, type: 3}
       propertyPath: randomTrafficSims.Array.data[2].enabled
@@ -1726,15 +1730,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5691233761136004364, guid: 79986cfb6e0bdb5faac0a66247830abc, type: 3}
       propertyPath: randomTrafficSims.Array.data[3].enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5691233761136004364, guid: 79986cfb6e0bdb5faac0a66247830abc, type: 3}
       propertyPath: randomTrafficSims.Array.data[4].enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5691233761136004364, guid: 79986cfb6e0bdb5faac0a66247830abc, type: 3}
       propertyPath: randomTrafficSims.Array.data[5].enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5691233761136004364, guid: 79986cfb6e0bdb5faac0a66247830abc, type: 3}
       propertyPath: randomTrafficSims.Array.data[5].npcPrefabs.Array.size

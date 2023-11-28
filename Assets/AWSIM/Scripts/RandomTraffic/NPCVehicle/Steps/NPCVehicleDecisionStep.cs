@@ -81,29 +81,30 @@ namespace AWSIM.TrafficSimulation
                 return;
             }
             state.IsStoppedByFrontVehicle = false;
-
+            // Debug.Log($"{state.Vehicle.VehicleID} to stop yielding point: {distanceToStopPointByRightOfWay}");
             if (distanceToStopPoint <= absoluteStopDistance)
                 state.SpeedMode = NPCVehicleSpeedMode.ABSOLUTE_STOP;
             else if (distanceToStopPoint <= suddenStopDistance || needToSuddenStopDueToYielding())
                 state.SpeedMode = NPCVehicleSpeedMode.SUDDEN_STOP;
             else if (distanceToStopPoint <= stopDistance || needToStopDueToYielding())
                 state.SpeedMode = NPCVehicleSpeedMode.STOP;
-            else if (distanceToStopPoint <= slowDownDistance || state.IsTurning || state.YieldPhase == NPCVehicleYieldPhase.ENTERING_INTERSECTION)
+            else if (distanceToStopPoint <= slowDownDistance || state.IsTurning)//|| state.YieldPhase == NPCVehicleYieldPhase.ENTERING_INTERSECTION
                 state.SpeedMode = NPCVehicleSpeedMode.SLOW;
             else
                 state.SpeedMode = NPCVehicleSpeedMode.NORMAL;
 
             bool needToSuddenStopDueToYielding()
             {
-                return state.YieldPhase == NPCVehicleYieldPhase.YIELDING_DUE_TO_FORCING ||
-                state.YieldPhase == NPCVehicleYieldPhase.LEFT_HAND_RULE_AT_INTERSECTION;
+                return false;
+                // state.YieldPhase == NPCVehicleYieldPhase.FORCING_PRIORITY ||
+                // state.YieldPhase == NPCVehicleYieldPhase.LEFT_HAND_RULE_AT_INTERSECTION;
             }
 
             bool needToStopDueToYielding()
             {
-                return state.YieldPhase == NPCVehicleYieldPhase.YIELDING_DUE_TO_LANES_RULES ||
-                state.YieldPhase == NPCVehicleYieldPhase.INTERSECTION_BLOCKED ||
-                state.YieldPhase == NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION;
+                return false;
+                // state.YieldPhase == NPCVehicleYieldPhase.INTERSECTION_BLOCKED ||
+                // state.YieldPhase == NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION;
             }
         }
 
@@ -150,6 +151,12 @@ namespace AWSIM.TrafficSimulation
         {
             foreach (var state in states)
             {
+
+                // if (state.Vehicle.VehicleID == 4)
+                // {
+                //     Gizmos.color = Color.red;
+                //     Gizmos.DrawSphere(state.YieldPoint, 1.2f);
+                // }
                 switch (state.SpeedMode)
                 {
                     case NPCVehicleSpeedMode.ABSOLUTE_STOP:
