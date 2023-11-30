@@ -166,8 +166,14 @@ namespace RGLUnityPlugin
         static RGLNativeAPI()
         {
             string ros2SourcedCodename = Environment.GetEnvironmentVariable("ROS_DISTRO");
-            string ros2BuildType = string.IsNullOrEmpty(ros2SourcedCodename) ? "standalone" : "sourced";
-            Debug.Log($"RGL uses {ros2BuildType} ROS version.");
+            bool isRos2Sourced = !string.IsNullOrEmpty(ros2SourcedCodename);
+            if (isRos2Sourced)
+            {
+                Debug.LogError(
+                    "You should not source ROS2 in 'RobotecGPULidar' standalone build. " +
+                    "RGLUnityPlugin might not work correctly."
+                );
+            }
 
             try
             {
