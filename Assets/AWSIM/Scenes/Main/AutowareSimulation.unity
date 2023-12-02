@@ -4296,6 +4296,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lexus RX450h 2015 Sample Sensor
       objectReference: {fileID: 0}
+    - target: {fileID: 4981081891045692866, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
+      propertyPath: sleepVelocityThreshold
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 5650763240072318842, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_RootOrder
       value: 0
