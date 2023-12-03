@@ -29,8 +29,6 @@ The following section describes Unity Editor components settings.
 | Ego Vehicle | Transform of ego vehicle |
 | Vehicle Layer Mask | LayerMask that masks only vehicle(NPC and ego) colliders |
 | Ground Layer Mask | LayerMask that masks only ground colliders of the map |
-| Culling Distance | Distance at which NPCs are culled relative to EgoVehicle |
-| Culling Hz | Culling operation cycle |
 | **NPC Vehicle Settings** | |
 | Max Vehicle Count | Maximum number of NPC vehicles to be spawned in simulation|
 | NPC Prefabs | Prefabs representing controlled vehicles.<br/> They must have `NPCVehicle` component attached. |

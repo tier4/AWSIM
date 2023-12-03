@@ -33,18 +33,25 @@ Please make sure that your machine meets the following requirements in order to 
 ### Localhost settings
 
 The simulation is based on the appropriate network setting, which allows for trouble-free communication of the AWSIM simulation with the Autoware software.
-To apply required localhost settings please add the following lines to `~/.bashrc` file.
+To apply required localhost settings please add the following lines to `~/.bashrc` file:
 
 ``` bash
-export ROS_LOCALHOST_ONLY=1
-export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-
 if [ ! -e /tmp/cycloneDDS_configured ]; then
 	sudo sysctl -w net.core.rmem_max=2147483647
 	sudo ip link set lo multicast on
 	touch /tmp/cycloneDDS_configured
 fi
 ```
+
+and these lines to `~/.profile` **or in either of files:** `~/.bash_profile` *or* `~/.bash_login`:
+
+``` bash
+export ROS_LOCALHOST_ONLY=1
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+```
+
+!!! warning
+    A system restart is required for these changes to work.
 
 ## Start the demo
 
@@ -181,7 +188,7 @@ ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehic
 ```
 ![](Image_2.png)
 
-## 5. Let's run the self-Driving simulation
+## Let's run the self-Driving simulation
 
 1. Launch AWSIM and Autoware according to the steps described earlier in this document.
 ![](Image_top.png)
@@ -212,7 +219,7 @@ ros2 topic pub /autoware/engage autoware_auto_vehicle_msgs/msg/Engage '{engage: 
 
 The self-driving simulation demo has been successfully launched!
 
-## 6. Troubleshooting
+## Troubleshooting
 
 In case of any problems with running the sample AWSIM binary with Autoware, start with checking our [Troubleshooting page](https://tier4.github.io/AWSIM/DeveloperGuide/TroubleShooting/) with the most common problems.
 

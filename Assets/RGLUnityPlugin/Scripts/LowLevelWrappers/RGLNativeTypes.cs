@@ -12,24 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
+
 namespace RGLUnityPlugin
 {
-	public enum RGLStatus
+	public enum RGLStatus : Int32
 	{
 		SUCCESS = 0,
 		INVALID_ARGUMENT,
 		INVALID_STATE,
 		LOGGING_ERROR,
 		INVALID_API_OBJECT,
+		INVALID_FILE_PATH,
+		TAPE_ERROR,
+		UDP_ERROR,
+		ROS2_ERROR,
 		INVALID_PIPELINE,
+		INITIALIZATION_ERROR,
 		NOT_IMPLEMENTED = 404,
 		INTERNAL_EXCEPTION = 500,
 	};
 
-	public enum RGLField
+	public enum RGLField : Int32
 	{
 		UNKNOWN = -1,
-		XYZ_F32 = 1,
+		XYZ_VEC3_F32 = 1,
 		INTENSITY_F32,
 		IS_HIT_I32,
 		RAY_IDX_U32,
@@ -48,7 +55,7 @@ namespace RGLUnityPlugin
 		DYNAMIC_FORMAT = 13842,
 	}
 	
-	public enum RGLLogLevel
+	public enum RGLLogLevel : Int32
 	{
 		ALL = 0,
 		TRACE = 0,
@@ -60,18 +67,27 @@ namespace RGLUnityPlugin
 		OFF = 6,
 	};
 
-	public enum RGLAxis
+	public enum RGLAxis : Int32
 	{
 		RGL_AXIS_X = 1,
 		RGL_AXIS_Y = 2,
 		RGL_AXIS_Z = 3,
 	};
 
-	public enum RGLVelodyneModel
+	public enum RGLLidarModel : Int32
 	{
 		RGL_VELODYNE_VLP16 = 1,
 		RGL_VELODYNE_VLP32C = 2,
 		RGL_VELODYNE_VLS128 = 3,
+		RGL_HESAI_PANDAR_40P = 4,
+		RGL_HESAI_PANDAR_QT64 = 5,
+	};
+
+	public enum RGLUdpOptions : UInt32
+	{
+		RGL_UDP_NO_ADDITIONAL_OPTIONS     = 0,
+		RGL_UDP_ENABLE_HESAI_UDP_SEQUENCE = 1 << 0,
+		RGL_UDP_DUAL_RETURN               = 1 << 1,
 	};
 
 	public enum RGLQosPolicyReliability
@@ -95,7 +111,7 @@ namespace RGLUnityPlugin
 		QOS_POLICY_HISTORY_KEEP_ALL = 2,
 	};
 	
-	public enum RGLExtension
+	public enum RGLExtension : Int32
 	{
 		RGL_EXTENSION_PCL = 0,
 		RGL_EXTENSION_ROS2 = 1,

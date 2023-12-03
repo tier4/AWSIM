@@ -16,12 +16,50 @@ This page is a tutorial for setting up a AWSIM Unity project.
     2. Prepare a desktop PC with Ubuntu 22.04 installed.
     2. Install [Nvidia drivers and Vulkan Graphics API](../QuickStartDemo/#running-the-awsim-simulation-demo).
     3. Install [git](https://git-scm.com/).
+    4. Set the ROS 2 middleware and the localhost only mode in `~/.profile` (or, in `~/.bash_profile` or `~/bash_login` if either of those exists) file:
+    ``` bash
+    export ROS_LOCALHOST_ONLY=1
+    export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+    ```
+
+        !!! warning
+            A system restart is required for these changes to work.
+
+    4. Set the system optimizations by adding this code to the very bottom of your `~/.bashrc` file:
+    ``` bash
+    if [ ! -e /tmp/cycloneDDS_configured ]; then
+        sudo sysctl -w net.core.rmem_max=2147483647
+        sudo ip link set lo multicast on
+        touch /tmp/cycloneDDS_configured
+    fi
+    ```
+
+        !!! info
+            As a result, each time you run the terminal (`bash` prompt), your OS will be configured for the best ROS 2 performance. Make sure you open your terminal at least one before running any instance of AWSIM (or Editor running the AWSIM).
 
 === "Windows"
     1. Make sure your machine meets the [required hardware specifications](../QuickStartDemo/#pc-specs).
         - *NOTE: PC requirements may vary depending on simulation contents which may change as the simulator develops*
     2. Prepare a desktop PC with Windows 10 or 11 (64 bit) installed.
     3. Install [git](https://git-scm.com/).
+
+### ROS 2
+
+AWSIM comes with a *standalone* flavor of [`Ros2ForUnity`](../../Components/ROS2/ROS2ForUnity/index.md). This means that, to avoid internal conflicts between different ROS 2 versions, you shouldn't run the Editor or AWSIM binary with ROS 2 sourced.
+
+!!! warning
+
+    Do not run the AWSIM, Unity Hub, or the Editor with ROS 2 sourced.
+
+=== "Ubuntu 22"
+    - Make sure that the terminal which you are using to run Unity Hub, Editor, or AWSIM doesn't have ROS 2 sourced.
+    - It is common to have ROS 2 sourced automatically with `~/.bashrc` or `~/.profile`. Make sure it is not obscuring your working environment:
+        - Running Unity Hub from the Ubuntu GUI menu takes the environment configuration from `~/.profile`.
+        - Running Unity Hub from the terminal uses the current terminal configuration from `~/.profile` and `~/.bashrc`.
+        - Running Unity Editor from the UnityHub inherits the environment setup from the Unity Hub. 
+
+=== "Windows"
+    - Make sure your Windows environment variables are ROS 2 free.
 
 ### Unity installation
 
@@ -56,28 +94,49 @@ Follow the steps below to install Unity on your machine:
 ### Open AWSIM project
 
 To open the Unity AWSIM project in Unity Editor:
-1. Make sure you have the AWSIM repository cloned
-    ```
-    git clone git@github.com:tier4/AWSIM.git
-    ```
 
-2. Launch UnityHub.
-    ```
-    ./UnityHub.AppImage
-    ```
+=== "Using Unity Hub"
+    1. Make sure you have the AWSIM repository cloned and ROS 2 is not sourced.
+        ```
+        git clone git@github.com:tier4/AWSIM.git
+        ```
 
-3. Open the project in UnityHub
-    - Click the `Open` button
-![](image_6.png)
+    2. Launch UnityHub.
+        ```
+        ./UnityHub.AppImage
+        ```
 
-    - Navigate the directory where the AWSIM repository was cloned to
-![](image_7.png)
+        !!! info
 
-    - The project should be added to `Projects` tab in Unity Hub. To launch the project in Unity Editor simply click the `AWSIM` item
-![](image_8.png)
+            If you are launching the Unity Hub from the Ubuntu applications menu (without the terminal), make sure that system optimizations are set. To be sure, run the terminal at least once before running the Unity Hub. This will apply the OS settings.
 
-    - The project is now ready to use
-![](image_9.png)
+    3. Open the project in UnityHub
+        - Click the `Open` button
+        ![](image_6.png)
+
+        - Navigate the directory where the AWSIM repository was cloned to
+        ![](image_7.png)
+
+        - The project should be added to `Projects` tab in Unity Hub. To launch the project in Unity Editor simply click the `AWSIM` item
+        ![](image_8.png)
+
+        - The project is now ready to use
+        ![](image_9.png)
+
+=== "Using Terminal"
+
+    1. Enter the AWSIM directory (make sure ROS 2 is not sourced).
+        ```
+        cd AWSIM
+        ```
+
+    2. If your Unity Editor is in default location, run the project using the editor command.
+        ```
+        ~/Unity/Hub/Editor/2021.1.7f1/Editor/Unity -projectPath .
+        ```
+
+        !!! info
+            If your Unity Editor is installed in different location, please adjust the path accordingly.
 
 !!! warning
 

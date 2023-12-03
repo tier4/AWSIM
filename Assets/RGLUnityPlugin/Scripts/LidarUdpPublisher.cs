@@ -24,22 +24,38 @@ namespace RGLUnityPlugin
         public string sourceIP = "0.0.0.0";
         public string destinationIP = "255.255.255.255";
         public int destinationPort = 2368;
+
+        private string sourceIPOnAwake;
+        private string destinationIPOnAwake;
+        private int destinationPortOnAwake;
+
+        public bool enableHesaiUdpSequence = false;
+        public bool useDualReturnFormat = false;  // Still single return data but packed in the dual return packet format
+                                                  // The second return will be the same as the first return
+        public bool ensureHesaiRosDriverOrientation = false;  // When developing raw Hesai packets (based on LiDARs manuals),
+                                                              // the difference between the coordinate systems in the ROS2 driver
+                                                              // and LiDAR speciations was noted.
+                                                              // Due to the use of the ROS driver on many real vehicles,
+                                                              // it was decided to prepare a workaround in AWSIM.
         public bool emitRawPackets = true;
 
-        private RGLVelodyneModel currentRGLLidarModel = RGLVelodyneModel.RGL_VELODYNE_VLP16;
+        private RGLLidarModel currentRGLLidarModel = 0;  // To be set when validating lidar model
+        private RGLUdpOptions currentRGLUdpOptions = 0;  // To be set when validating lidar model
         private RGLNodeSequence rglSubgraphUdpPublishing;
 
-        private readonly string udpPublishingNodeId = "UDP_PUBLISHING";
+        private const string udpPublishingNodeId = "UDP_PUBLISHING";
 
         private LidarSensor lidarSensor;
 
         private static readonly float maxRangeForVelodyneLegacyPacketFormat = 262.14f;
 
-        private static readonly Dictionary<LidarModel, RGLVelodyneModel> UnityToRGLLidarModelsMapping = new Dictionary<LidarModel, RGLVelodyneModel>
+        private static readonly Dictionary<LidarModel, RGLLidarModel> UnityToRGLLidarModelsMapping = new Dictionary<LidarModel, RGLLidarModel>
         {
-            { LidarModel.VelodyneVLP16, RGLVelodyneModel.RGL_VELODYNE_VLP16 },
-            { LidarModel.VelodyneVLP32C, RGLVelodyneModel.RGL_VELODYNE_VLP32C },
-            { LidarModel.VelodyneVLS128, RGLVelodyneModel.RGL_VELODYNE_VLS128 }
+            { LidarModel.VelodyneVLP16, RGLLidarModel.RGL_VELODYNE_VLP16 },
+            { LidarModel.VelodyneVLP32C, RGLLidarModel.RGL_VELODYNE_VLP32C },
+            { LidarModel.VelodyneVLS128, RGLLidarModel.RGL_VELODYNE_VLS128 },
+            { LidarModel.HesaiPandar40P, RGLLidarModel.RGL_HESAI_PANDAR_40P },
+            { LidarModel.HesaiPandarQT, RGLLidarModel.RGL_HESAI_PANDAR_QT64 }
         };
 
         // To be called when adding this component
@@ -55,9 +71,14 @@ namespace RGLUnityPlugin
                 return;
             }
 
-            // Velodyne model will be updated when validating lidar model
+            sourceIPOnAwake = sourceIP;
+            destinationIPOnAwake = destinationIP;
+            destinationPortOnAwake = destinationPort;
+
+            // Node parameters will be updated when validating lidar model
             rglSubgraphUdpPublishing = new RGLNodeSequence()
-                .AddNodePointsUdpPublishVelodyne(udpPublishingNodeId, currentRGLLidarModel, sourceIP, destinationIP, destinationPort);
+                .AddNodePointsUdpPublish(udpPublishingNodeId, RGLLidarModel.RGL_VELODYNE_VLP16, RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS,
+                    sourceIPOnAwake, destinationIPOnAwake, destinationPortOnAwake);
         }
 
         private void Start()
@@ -66,8 +87,13 @@ namespace RGLUnityPlugin
             lidarSensor.onLidarModelChange += ValidateLidarModel;
 
             // We can connect to world frame, because we need only DISTANCE field which is in lidar frame anyway.
-            // This way we don't need to dupicate transform nodes to have compacted and non-compacted point cloud in lidar frame.
+            // This way we don't need to duplicate transform nodes to have compacted and non-compacted point cloud in lidar frame.
             lidarSensor.ConnectToWorldFrame(rglSubgraphUdpPublishing, false);
+
+            if (ensureHesaiRosDriverOrientation)
+            {
+                OnValidate();  // Needed to handle this flag on startup
+            }
 
             ValidateLidarModel();
         }
@@ -79,10 +105,38 @@ namespace RGLUnityPlugin
                 return;
             }
 
+            if (sourceIPOnAwake != sourceIP)
+            {
+                sourceIP = sourceIPOnAwake;
+                Debug.LogWarning("`sourceIP` parameter cannot be changed in simulation runtime");
+            }
+
+            if (destinationIPOnAwake != destinationIP)
+            {
+                destinationIP = destinationIPOnAwake;
+                Debug.LogWarning("`destinationIP` parameter cannot be changed in simulation runtime");
+            }
+
+            if (destinationPortOnAwake != destinationPort)
+            {
+                destinationPort = destinationPortOnAwake;
+                Debug.LogWarning("`destinationPort` parameter cannot be changed in simulation runtime");
+            }
+
             if (emitRawPackets != rglSubgraphUdpPublishing.IsActive(udpPublishingNodeId))
             {
                 rglSubgraphUdpPublishing.SetActive(udpPublishingNodeId, emitRawPackets);
             }
+
+            if (ensureHesaiRosDriverOrientation && (lidarSensor.configuration.minHAngle != -90.0f || lidarSensor.configuration.maxHAngle != 270.0f))
+            {
+                lidarSensor.configuration.minHAngle = -90.0f;
+                lidarSensor.configuration.maxHAngle = 270.0f;
+                lidarSensor.OnValidate();
+                return;  // UpdateRGLSubgraph() will be called when validating new LiDAR model configuration
+            }
+
+            UpdateRGLSubgraph();
         }
 
         public void OnEnable()
@@ -137,17 +191,22 @@ namespace RGLUnityPlugin
                 return;
             }
 
-            // Currently, all of the supported models use Velodyne Legacy Packet Format
-            if (modelToValidate.maxRange > maxRangeForVelodyneLegacyPacketFormat)
+            // Currently, all of the supported Velodyne models use Legacy Packet Format
+            if (IsVelodyne((LidarModel)detectedUnityLidarModel) && modelToValidate.maxRange > maxRangeForVelodyneLegacyPacketFormat)
             {
                 Debug.LogWarning($"Max range of lidar '{lidarSensor.name}' exceeds max range supported by Velodyne Legacy Packet Format (262.14m). Consider reducing its value to ensure proper work.");
             }
 
-            if (currentRGLLidarModel != UnityToRGLLidarModelsMapping[detectedUnityLidarModel.Value])
-            {
-                currentRGLLidarModel = UnityToRGLLidarModelsMapping[detectedUnityLidarModel.Value];
-                rglSubgraphUdpPublishing.UpdateNodePointsUdpPublishVelodyne(udpPublishingNodeId, currentRGLLidarModel, sourceIP, destinationIP, destinationPort);
-            }
+            currentRGLLidarModel = UnityToRGLLidarModelsMapping[detectedUnityLidarModel.Value];
+            UpdateRGLSubgraph();
+        }
+
+        private void UpdateRGLSubgraph()
+        {
+            HandleUdpOptionsFlags();
+            rglSubgraphUdpPublishing.UpdateNodePointsUdpPublish(
+                udpPublishingNodeId, currentRGLLidarModel, currentRGLUdpOptions,
+                sourceIPOnAwake, destinationIPOnAwake, destinationPortOnAwake);
         }
 
         /// <summary>
@@ -170,6 +229,44 @@ namespace RGLUnityPlugin
                 Destroy(this);
             }
             return true;
+        }
+
+        private void HandleUdpOptionsFlags()
+        {
+            bool currentLidarIsHesai = currentRGLLidarModel == RGLLidarModel.RGL_HESAI_PANDAR_40P ||
+                                       currentRGLLidarModel == RGLLidarModel.RGL_HESAI_PANDAR_QT64;
+
+            if (!currentLidarIsHesai)
+            {
+                if (enableHesaiUdpSequence)
+                {
+                    enableHesaiUdpSequence = false;
+                    currentRGLUdpOptions = RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS;
+                    Debug.LogWarning($"{name}: enableHesaiUdpSequence option is not available for selected LiDAR model. Disabling...");
+                }
+
+                if (useDualReturnFormat)
+                {
+                    useDualReturnFormat = false;
+                    currentRGLUdpOptions = RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS;
+                    Debug.LogWarning($"{name}: useDualReturnFormat option is not available for selected LiDAR model. Disabling...");
+                }
+
+                return;
+            }
+
+            int udpOptionsConstruction = (int)RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS;
+            udpOptionsConstruction += enableHesaiUdpSequence ? (int)RGLUdpOptions.RGL_UDP_ENABLE_HESAI_UDP_SEQUENCE : 0;
+            udpOptionsConstruction += useDualReturnFormat ? (int)RGLUdpOptions.RGL_UDP_DUAL_RETURN : 0;
+
+            currentRGLUdpOptions = (RGLUdpOptions)udpOptionsConstruction;
+        }
+
+        private bool IsVelodyne(LidarModel model)
+        {
+            return model == LidarModel.VelodyneVLP16 ||
+                   model == LidarModel.VelodyneVLP32C ||
+                   model == LidarModel.VelodyneVLS128;
         }
     }
 }
