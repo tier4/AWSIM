@@ -1,15 +1,26 @@
 using ROS2;
+using System;
 
 namespace AWSIM
 {
     /// <summary>
-    /// Static class which provide Time Source object of type chosen in TimeSourceSelector.
+    /// Static class which provide Time Source object of type TimeSourceSelector.TimeSourceType.
     /// </summary>
     public static class TimeSourceProvider
     {
-        #region [Variable]
+        public enum TimeSourceType
+        {
+            UNITY,
+            SS2
+        }
 
-        private static TimeSourceSelector timeSourceSelector = null;
+        #region [Event]
+
+        public static event Action onTimeSourceChanged;
+
+        #endregion
+
+        #region [Variable]
 
         private static ITimeSource currentTimeSource = null;
 
@@ -21,15 +32,13 @@ namespace AWSIM
 
         public static void Initialize()
         {
-            timeSourceSelector = UnityEngine.Object.FindObjectOfType<TimeSourceSelector>();
-            currentTimeSource = null;
+            currentTimeSource = new UnityTimeSource();  // default time source
             isInitalized = true;
         }
 
         public static void Dispose()
         {
             isInitalized = false;
-            timeSourceSelector = null;
             currentTimeSource = null;
         }
 
@@ -38,10 +47,10 @@ namespace AWSIM
         #region [Public Methods]
 
         /// <summary>
-        /// Returns current TimeSource. The type of required TimeSource is selected in TimeSourceSelector object.
-        /// In case of scene without TimeSourceSelect object, the method returns default time source.
+        /// Returns current TimeSource.
+        /// In case of current TimeSource equal to null, default TimeSource will be created.
         /// </summary>
-        /// <returns>ITimeSource of type chosen in TimeSourceSelector.</returns>
+        /// <returns>Current ITimeSource.</returns>
         public static ITimeSource GetTimeSource()
         {
             // lazy initialization
@@ -50,27 +59,47 @@ namespace AWSIM
                 Initialize();
             }
 
-            // return time source of type from time source selector
-            if(timeSourceSelector != null && timeSourceSelector.Type == TimeSourceSelector.TimeSourceType.SS2)
+            // default time source
+            if(currentTimeSource == null)
+            {
+                currentTimeSource = new UnityTimeSource();
+            }
+
+            return currentTimeSource;
+        }
+
+
+        /// <summary>
+        /// If the current time source differ from requested, new time source
+        /// will be instantiated and event onTimeSource Changed dispatched.
+        /// </summary>
+        /// <param name="type">Type of requested time source.</param>
+        public static void SetTimeSource(TimeSourceType type)
+        {
+            // lazy initialization
+            if(!isInitalized)
+            {
+                Initialize();
+            }
+
+            // ss2 time source
+            if(type == TimeSourceType.SS2)
             {
                 if(currentTimeSource == null || !(currentTimeSource is ExternalTimeSource))
                 {
                     currentTimeSource = new ExternalTimeSource();
-                    return currentTimeSource;
+                    onTimeSourceChanged?.Invoke();
                 }
 
-                return currentTimeSource;
+                return;
             }
 
             // default time source
             if(currentTimeSource == null || !(currentTimeSource is UnityTimeSource))
             {
                 currentTimeSource = new UnityTimeSource();
-                return currentTimeSource;
+                onTimeSourceChanged?.Invoke();
             }
-
-            return currentTimeSource;
-
         }
 
         #endregion
