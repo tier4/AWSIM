@@ -1,4 +1,10 @@
-# Running AWSIM with `scenario_simulator_v2`
+
+
+# Using OpenSCENARIO
+  
+!!! warning
+    
+    Running AWSIM with scenario_simulator_v2 is still a prototype, so stable running is not guaranteed.
 
 Below you can find instructions on how to setup the scenario execution using `scenario_simulator_v2` with AWSIM as a simulator
 The instruction assumes using the Ubuntu OS.
@@ -10,36 +16,39 @@ Follow [Setup Unity Project tutorial](https://tier4.github.io/AWSIM/GettingStart
 
 In order to configure the Autoware software with the AWSIM demo, please:
 
-1. Clone [Autoware](https://github.com/autowarefoundation/autoware) and move to the directory.
+1. Clone RobotecAI's [Autoware](https://github.com/RobotecAI/autoware-1/tree/awsim-ss2-stable) and move to the directory.
    ```
    git clone https://github.com/autowarefoundation/autoware.git
    cd autoware
    ```
-2. Configure the environment. (Skip if Autoware environment has been configured before)
+2. Check out to the `awsim-ss2-stable` branch
+   ```
+   git checkout awsim-ss2-stable
+   ```
+3. Configure the environment. (Skip if Autoware environment has been configured before)
    ```
    ./setup-dev-env.sh
    ```
-3. Create the `src` directory and clone external dependent repositories into it.
+4. Create the `src` directory and clone external dependent repositories into it.
    ```
    mkdir src
    vcs import src < autoware.repos
    vcs import src < simulator.repos
    ```
-4. Download `shinjuku_map.zip`
+5. Download `shinjuku_map.zip`  
+   [archive](https://drive.google.com/file/d/15aoZDEMnKL3cw8Zt_jh3zyiy_o35W0pr/view?usp=drive_link){.md-button .md-button--primary} 
  
-   [archive](https://drive.google.com/file/d/15aoZDEMnKL3cw8Zt_jh3zyiy_o35W0pr/view?usp=drive_link){.md-button .md-button--primary}
- 
-5. Unzip it to `src/simulator` directory
+6. Unzip it to `src/simulator` directory
    ```
    unzip <Download directory>/shinjuku_map.zip -d src/simulator
    ```
-6. Install dependent ROS packages.
+7. Install dependent ROS packages.
    ```
    source /opt/ros/humble/setup.bash
    rosdep update
    rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
    ```
-7. Build the workspace.
+8. Build the workspace.
    ```
    colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-w"
    ```
@@ -56,7 +65,7 @@ In order to configure the Autoware software with the AWSIM demo, please:
    scenario:='$(find-pkg-share scenario_test_runner)/scenario/sample_awsim.yaml'          \
    sensor_model:=awsim_sensor_kit  vehicle_model:=sample_vehicle                          \
    launch_simple_sensor_simulator:=false autoware_launch_file:="e2e_simulator.launch.xml" \
-   initialize_duration:=60 port:=8080
+   initialize_duration:=260 port:=8080
    ```
    ![ss2_awsim.png](ss2_awsim.png)
 
