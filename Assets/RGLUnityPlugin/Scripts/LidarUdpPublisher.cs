@@ -276,6 +276,7 @@ namespace RGLUnityPlugin
         private bool IsValidIpAddress(in string ip)
         {
             bool foundMyIp = false;
+            if (ip == "0.0.0.0") return true;
             foreach (var nic in NetworkInterface.GetAllNetworkInterfaces())
             {
                 foreach (var unicast in nic.GetIPProperties().UnicastAddresses)
