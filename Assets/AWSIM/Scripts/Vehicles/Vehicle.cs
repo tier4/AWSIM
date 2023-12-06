@@ -205,6 +205,21 @@ namespace AWSIM
         /// </summary>
         public Vector3 AngularVelocity { get; private set; }
 
+        /// <summary>
+        /// Vehicle angular velocity in the local coordinate system of the vehicle (rad/s)
+        /// </summary>
+        public Vector3 LocalAngularVelocity => m_transform.InverseTransformDirection(AngularVelocity);
+
+        /// <summary>
+        /// Vehicle angular acceleration (rad/s^2)
+        /// </summary>
+        public Vector3 AngularAcceleration { get; private set; }
+
+        /// <summary>
+        /// Vehicle angular acceleration in the local coordinate system of the vehicle (rad/s^2)
+        /// </summary>
+        public Vector3 LocalAngularAcceleration => m_transform.InverseTransformDirection(AngularAcceleration);
+
 
         private float sleepTimer = 0.0f; ///Count the time until CanSleep is switched to true
 
@@ -219,6 +234,7 @@ namespace AWSIM
         Vector3 lastVelocity;
         Vector3 lastPosition;
         Quaternion lastRotation;
+        Vector3 lastAngularVelocity;
 
         // Sleep position & rotation
         Vector3 sleepPositon;
@@ -283,7 +299,9 @@ namespace AWSIM
                 LocalAcceleration = m_transform.InverseTransformDirection(acceleration);
 
                 // Angular velocity.
+                lastAngularVelocity = AngularVelocity;
                 AngularVelocity = ((transform.rotation.eulerAngles - lastRotation.eulerAngles) / Time.deltaTime) * Mathf.Deg2Rad;
+                AngularAcceleration = ((AngularVelocity - lastAngularVelocity) / Time.deltaTime);
             }
 
             void PreUpdateWheels()
