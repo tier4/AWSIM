@@ -15,8 +15,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.NetworkInformation;
+//using System.Net.Sockets; // for IPv6 checking
 
 namespace RGLUnityPlugin
 {
@@ -276,14 +276,11 @@ namespace RGLUnityPlugin
         private bool IsValidIpAddress(in string ip)
         {
             bool foundMyIp = false;
-            IPAddress ipAddress;
             foreach (var nic in NetworkInterface.GetAllNetworkInterfaces())
             {
-                var properties = nic.GetIPProperties();
-                foreach (var unicast in properties.UnicastAddresses)
+                foreach (var unicast in nic.GetIPProperties().UnicastAddresses)
                 {
                     //if (unicast.Address.AddressFamily == AddressFamily.InterNetworkV6) continue; // skip for IPv6
-                    ipAddress = unicast.Address;
                     if (unicast.Address.ToString() == ip)
                     {
                         foundMyIp = true;
