@@ -275,26 +275,16 @@ namespace RGLUnityPlugin
 
         private bool IsValidIpAddress(in string ip)
         {
-            bool foundMyIp = false;
             if (ip == "0.0.0.0") return true;
             foreach (var nic in NetworkInterface.GetAllNetworkInterfaces())
             {
                 foreach (var unicast in nic.GetIPProperties().UnicastAddresses)
                 {
                     //if (unicast.Address.AddressFamily == AddressFamily.InterNetworkV6) continue; // skip for IPv6
-                    if (unicast.Address.ToString() == ip)
-                    {
-                        foundMyIp = true;
-                        break;
-                    }
+                    if (unicast.Address.ToString() == ip) return true;
                 }
-                if (foundMyIp) break;
             }
-            if (!foundMyIp)
-            {
-                Debug.LogError($"{transform.parent.name}:{name}: {ip} is invalid IP address.");
-            }
-            return foundMyIp;
+            return false;
         }
     }
 }
