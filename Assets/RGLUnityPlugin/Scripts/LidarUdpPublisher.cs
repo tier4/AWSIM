@@ -77,7 +77,14 @@ namespace RGLUnityPlugin
             destinationIPOnAwake = destinationIP;
             destinationPortOnAwake = destinationPort;
 
-            IsValidIpAddress(sourceIPOnAwake);
+            if (!IsValidIpAddress(sourceIPOnAwake))
+            {
+                var detailedName = transform.parent != null ? $"{transform.parent.name}:{name}" : name;
+                Debug.LogError($"{detailedName}: IP address '{sourceIPOnAwake}' is invalid. " +
+                               "Disabling component. Please restart the simulation with a correct IP address.");
+                OnDisable();
+                return;
+            }
 
             // Node parameters will be updated when validating lidar model
             rglSubgraphUdpPublishing = new RGLNodeSequence()
