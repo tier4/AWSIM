@@ -287,7 +287,6 @@ namespace RGLUnityPlugin
             {
                 foreach (var unicast in nic.GetIPProperties().UnicastAddresses)
                 {
-                    //if (unicast.Address.AddressFamily == AddressFamily.InterNetworkV6) continue; // skip for IPv6
                     if (unicast.Address.ToString() == ip) return true;
                 }
             }
