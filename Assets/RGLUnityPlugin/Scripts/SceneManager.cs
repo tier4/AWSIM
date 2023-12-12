@@ -66,9 +66,6 @@ namespace RGLUnityPlugin
         // Since categoryId can be changed in the runtime, this is filled only on object removal / simulation end.
         private readonly Dictionary<string, int> semanticDict = new Dictionary<string, int>();
 
-        // Using the same TimeSource as AWSIM does
-        public static ITimeSource TimeSource { get; } = AWSIM.SimulatorROS2Node.TimeSource;
-
         private int lastUpdateFrame = -1;
         private int lastFixedUpdateFrame = -1;
 
@@ -197,7 +194,7 @@ namespace RGLUnityPlugin
         {
             int seconds;
             uint nanoseconds;
-            TimeSource.GetTime(out seconds, out nanoseconds);
+            AWSIM.SimulatorROS2Node.TimeSource.GetTime(out seconds, out nanoseconds);
             UInt64 timeNs = (UInt64)(seconds * 1e9) + nanoseconds;
             RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_scene_set_time(IntPtr.Zero, timeNs));
         }
