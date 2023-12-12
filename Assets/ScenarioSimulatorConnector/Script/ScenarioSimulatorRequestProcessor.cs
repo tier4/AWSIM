@@ -73,7 +73,6 @@ namespace AWSIM
         private void preprocessTrafficLights() {
             trafficLights = new Dictionary<long, TrafficLight>();
             var trafficLightObjects = FindObjectsOfType<TrafficLightLaneletID>();
-            Debug.Log("Found " + trafficLightObjects.Length + " traffic light objects");
             for (int i = 0; i < trafficLightObjects.Length; i++) {
                 AWSIM.TrafficLightLaneletID laneletId = trafficLightObjects[i];
                 GameObject obj = laneletId.gameObject;
@@ -544,18 +543,6 @@ namespace AWSIM
         private UpdateTrafficLightsResponse UpdateTrafficLights(UpdateTrafficLightsRequest request) 
         {
             var states = request.States;
-            string lights_ids = "";
-            for (int i = 0; i < states.Count; i++) {
-                lights_ids = lights_ids + " " + states[i].Id + ":\n";
-                var signals = states[i].TrafficLightStatus;
-                for (int j = 0; j < signals.Count; j++) {
-                    lights_ids = lights_ids + "  " + signals[j].Color + " ";
-                    lights_ids = lights_ids + signals[j].Shape + " ";
-                    lights_ids = lights_ids + signals[j].Status + "\n";
-                }
-                lights_ids = lights_ids + "\n";
-            }
-            Debug.Log("Received ligths " + lights_ids);
 
             mainContext.Send(_ =>
             {
@@ -563,7 +550,6 @@ namespace AWSIM
                 foreach (var state in states) {
                     foreach(var signal in state.TrafficLightStatus) {
                         var bulb = fromProto(signal);
-                        Debug.Log("Setting " + bulb.Type.ToString() + " " + bulb.Color.ToString() + " " + bulb.Status.ToString());
                         trafficLights[state.Id].SetBulbData(bulb);
                     }
                 }
