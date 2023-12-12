@@ -18,7 +18,7 @@ In order to configure the Autoware software with the AWSIM demo, please:
 
 1. Clone RobotecAI's [Autoware](https://github.com/RobotecAI/autoware-1/tree/awsim-ss2-stable) and move to the directory.
    ```
-   git clone https://github.com/autowarefoundation/autoware.git
+   git clone git@github.com:RobotecAI/autoware-1.git
    cd autoware
    ```
 2. Check out to the `awsim-ss2-stable` branch
