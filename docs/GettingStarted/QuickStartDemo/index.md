@@ -113,7 +113,7 @@ To run the simulator, please follow the steps below.
 
     1. Download `AWSIM_v1.1.0.zip`.
 
-        [Download AWSIM Demo for ubuntu](https://github.com/tier4/AWSIM/releases/download/v1.1.0/AWSIM_v1.1.0.zip){.md-button .md-button--primary}
+        [Download AWSIM Demo for ubuntu](https://github.com/tier4/AWSIM/releases/download/v1.2.0/AWSIM_v1.2.0.zip){.md-button .md-button--primary}
     
     2. Unzip the downloaded file.
 

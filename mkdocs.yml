@@ -38,7 +38,7 @@ nav:
   - Getting started:
     - Quick Start Demo: GettingStarted/QuickStartDemo/index.md
     - Setup Unity Project: GettingStarted/SetupUnityProject/index.md
-    - Running with Scenario simulator: GettingStarted/RunningWithScenarioSimulator/index.md
+    - Using OpenSCENARIO: GettingStarted/UsingOpenSCENARIO/index.md
 
   - Introduction:
     - Autoware: Introduction/Autoware/index.md
