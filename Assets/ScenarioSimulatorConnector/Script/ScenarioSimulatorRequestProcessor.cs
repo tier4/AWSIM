@@ -70,7 +70,9 @@ namespace AWSIM
         #region [Traffic lights]
 
         private Dictionary<long, TrafficLight> trafficLights;
+        private List<long> modifiedTrafficLights;
         private void preprocessTrafficLights() {
+            modifiedTrafficLights = new List<long>();
             trafficLights = new Dictionary<long, TrafficLight>();
             var trafficLightObjects = FindObjectsOfType<TrafficLightLaneletID>();
             for (int i = 0; i < trafficLightObjects.Length; i++) {
@@ -83,16 +85,28 @@ namespace AWSIM
             }
         }
 
-        private void resetTrafficLights() {
+        private void resetSingleTraffcLight(TrafficLight light) {
+            light.SetBulbData(
+                new TrafficLight.BulbData(TrafficLight.BulbType.GREEN_BULB,  TrafficLight.BulbColor.GREEN, TrafficLight.BulbStatus.SOLID_OFF));
+            light.SetBulbData(
+                new TrafficLight.BulbData(TrafficLight.BulbType.RED_BULB, TrafficLight.BulbColor.RED, TrafficLight.BulbStatus.SOLID_OFF));
+            light.SetBulbData(
+                new TrafficLight.BulbData(TrafficLight.BulbType.YELLOW_BULB, TrafficLight.BulbColor.YELLOW, TrafficLight.BulbStatus.SOLID_OFF));
+        }
+
+        private void resetModifiedTrafficLights() {
+            foreach(var trafficLightId in modifiedTrafficLights) {
+                resetSingleTraffcLight(trafficLights[trafficLightId]);
+            }
+            modifiedTrafficLights.Clear();
+        }
+
+        private void resetAllTrafficLights() {
             foreach(var light in trafficLights) {
-                light.Value.SetBulbData(
-                    new TrafficLight.BulbData(TrafficLight.BulbType.GREEN_BULB,  TrafficLight.BulbColor.GREEN, TrafficLight.BulbStatus.SOLID_OFF));
-                light.Value.SetBulbData(
-                    new TrafficLight.BulbData(TrafficLight.BulbType.RED_BULB, TrafficLight.BulbColor.RED, TrafficLight.BulbStatus.SOLID_OFF));
-                light.Value.SetBulbData(
-                    new TrafficLight.BulbData(TrafficLight.BulbType.YELLOW_BULB, TrafficLight.BulbColor.YELLOW, TrafficLight.BulbStatus.SOLID_OFF));
+                resetSingleTraffcLight(light.Value);
             }
         }
+
         private TrafficLight.BulbData fromProto(SimulationApiSchema.TrafficLight proto) {
             var t = new TrafficLight.BulbType();
             switch (proto.Shape) {
@@ -169,6 +183,7 @@ namespace AWSIM
 
             entityInstanceDic = new Dictionary<string, GameObject>();
             preprocessTrafficLights();
+            resetAllTrafficLights();
         }
 
         public void Dispose()
@@ -546,11 +561,12 @@ namespace AWSIM
 
             mainContext.Send(_ =>
             {
-                resetTrafficLights();
+                resetModifiedTrafficLights();
                 foreach (var state in states) {
                     foreach(var signal in state.TrafficLightStatus) {
                         var bulb = fromProto(signal);
                         trafficLights[state.Id].SetBulbData(bulb);
+                        modifiedTrafficLights.Add(state.Id);
                     }
                 }
             }, null);
