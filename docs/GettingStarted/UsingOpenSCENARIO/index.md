@@ -70,30 +70,6 @@ In order to configure the Autoware software with the AWSIM demo, please:
    ```
    ![ss2_awsim.png](ss2_awsim.png)
 
-## Other sample scenarios
-
-### Conventional traffic lights demo
-
-```
-ros2 launch scenario_test_runner scenario_test_runner.launch.py                                           \
-architecture_type:=awf/universe  record:=false                                                            \
-scenario:='$(find-pkg-share scenario_test_runner)/scenario/sample_awsim_conventional_traffic_lights.yaml' \
-sensor_model:=awsim_sensor_kit  vehicle_model:=sample_vehicle                                             \
-launch_simple_sensor_simulator:=false autoware_launch_file:="e2e_simulator.launch.xml"                    \
-initialize_duration:=260 port:=8080
-```
-
-### V2I traffic lights demo
-
-```
-ros2 launch scenario_test_runner scenario_test_runner.launch.py                                  \
-architecture_type:=awf/universe  record:=false                                                   \
-scenario:='$(find-pkg-share scenario_test_runner)/scenario/sample_awsim_v2i_traffic_lights.yaml' \
-sensor_model:=awsim_sensor_kit  vehicle_model:=sample_vehicle                                    \
-launch_simple_sensor_simulator:=false autoware_launch_file:="e2e_simulator.launch.xml"           \
-initialize_duration:=260 port:=8080
-```
-
 ## Troubleshooting
 
 In case of problems, make sure that the [regular demo](https://tier4.github.io/AWSIM/GettingStarted/QuickStartDemo/) work well with the Autoware built above. Follow the [troubleshooting page](https://tier4.github.io/AWSIM/DeveloperGuide/TroubleShooting/) there if necessary.
