@@ -128,6 +128,10 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_gaussian_noise_distance(ref IntPtr node, float mean, float st_dev, float st_dev_rise_per_meter);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_remove_ground(ref IntPtr node, RGLAxis sensor_up_axis, float ground_angle_threshold,
+            float ground_distance_threshold, float ground_filter_distance);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_run(IntPtr node);
 
         [DllImport("RobotecGPULidar")]
@@ -474,6 +478,11 @@ namespace RGLUnityPlugin
         public static void NodeGaussianNoiseDistance(ref IntPtr node, float mean, float stDev, float stDevRisePerMeter)
         {
             CheckErr(rgl_node_gaussian_noise_distance(ref node, mean, stDev, stDevRisePerMeter));
+        }
+
+        public static void NodePointsRemoveGround(ref IntPtr node, float groundAngleThreshold, float groundDistanceThreshold, float groundFilterDistance)
+        {
+            CheckErr(rgl_node_points_remove_ground(ref node, RGLAxis.RGL_AXIS_Y, groundAngleThreshold, groundDistanceThreshold, groundFilterDistance));
         }
 
         public static void GraphRun(IntPtr node)
