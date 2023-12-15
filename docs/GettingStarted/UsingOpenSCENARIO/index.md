@@ -6,7 +6,7 @@
     
     Running AWSIM with scenario_simulator_v2 is still a prototype, so stable running is not guaranteed.
 
-Below you can find instructions on how to setup the scenario execution using `scenario_simulator_v2` with AWSIM as a simulator
+Below you can find instructions on how to setup the OpenSCENARIO execution using `scenario_simulator_v2` with AWSIM as a simulator
 The instruction assumes using the Ubuntu OS.
 
 ## Prerequisites
@@ -18,7 +18,7 @@ In order to configure the Autoware software with the AWSIM demo, please:
 
 1. Clone RobotecAI's [Autoware](https://github.com/RobotecAI/autoware-1/tree/awsim-ss2-stable) and move to the directory.
    ```
-   git clone https://github.com/autowarefoundation/autoware.git
+   git clone git@github.com:RobotecAI/autoware-1.git
    cd autoware
    ```
 2. Check out to the `awsim-ss2-stable` branch
@@ -36,7 +36,7 @@ In order to configure the Autoware software with the AWSIM demo, please:
    vcs import src < simulator.repos
    ```
 5. Download `shinjuku_map.zip`  
-   [archive](https://drive.google.com/file/d/15aoZDEMnKL3cw8Zt_jh3zyiy_o35W0pr/view?usp=drive_link){.md-button .md-button--primary} 
+   [archive](https://github.com/tier4/AWSIM/releases/download/v1.2.0/shinjuku_map.zip){.md-button .md-button--primary} 
  
 6. Unzip it to `src/simulator` directory
    ```
@@ -55,9 +55,10 @@ In order to configure the Autoware software with the AWSIM demo, please:
 
 ## Running the demo
 
-1. Open AutowareSimulationScenarioSimulator.unity scene placed under `Assets/AWSIM/Scenes/Main` directory
-2. Run the simulation by clicking `Play` button placed at the top section of Editor.
-3. Launch `scenario_test_runner`.
+1. Download `AWSIM_v1.2.0_ss2.zip` & Run  
+   [archive](https://github.com/tier4/AWSIM/releases/download/v1.2.0/AWSIM_v1.2.0_ss2.zip){.md-button .md-button--primary} 
+
+2. Launch `scenario_test_runner`.
    ```
    source install/setup.bash
    ros2 launch scenario_test_runner scenario_test_runner.launch.py                        \

@@ -38,8 +38,7 @@ nav:
   - Getting started:
     - Quick Start Demo: GettingStarted/QuickStartDemo/index.md
     - Setup Unity Project: GettingStarted/SetupUnityProject/index.md
-    # TODO: Will publish when more stable.
-    #- Using OpenSCENARIO: GettingStarted/UsingOpenSCENARIO/index.md 
+    - Using OpenSCENARIO: GettingStarted/UsingOpenSCENARIO/index.md 
 
 
   - Introduction:

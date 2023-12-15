@@ -111,27 +111,27 @@ To run the simulator, please follow the steps below.
 
 3. Download and Run AWSIM Demo binary.
 
-    1. Download `AWSIM_v1.1.0.zip`.
+    1. Download `AWSIM_v1.2.0.zip`.
 
-        [Download AWSIM Demo for ubuntu](https://github.com/tier4/AWSIM/releases/download/v1.1.0/AWSIM_v1.1.0.zip){.md-button .md-button--primary}
+        [Download AWSIM Demo for ubuntu](https://github.com/tier4/AWSIM/releases/download/v1.2.0/AWSIM_v1.2.0.zip){.md-button .md-button--primary}
     
     2. Unzip the downloaded file.
 
-    3. Make the `AWSIM_demo.x86_64` file executable.
+    3. Make the `AWSIM_v1.2.0.x86_64` file executable.
 
-        Rightclick the `AWSIM_demo.x86_64` file and check the `Execute` checkbox
+        Rightclick the `AWSIM_v1.2.0.x86_64` file and check the `Execute` checkbox
 
         ![](Image_1.png)
 
         or execute the command below.
 
         ```
-        chmod +x <path to AWSIM folder>/AWSIM_demo.x86_64
+        chmod +x <path to AWSIM folder>/AWSIM_v1.2.0.x86_64
         ```
 
-    4. Launch `AWSIM_demo.x86_64`.
+    4. Launch `AWSIM_v1.2.0.x86_64`.
         ```
-        ./<path to AWSIM folder>/AWSIM_demo.x86_64
+        ./<path to AWSIM folder>/AWSIM_v1.2.0.x86_64
         ``` 
         
         !!! warning
