@@ -168,7 +168,7 @@ namespace RGLUnityPlugin
             RGLNodeSequence.Connect(rglSubgraphToWorldFrame, nodeSequence);
         }
 
-        public void ConnectToLidarFrame(RGLNodeSequence nodeSequence)
+        public void ConnectToRadarFrame(RGLNodeSequence nodeSequence)
         {
             RGLNodeSequence.Connect(rglGraphRadar, nodeSequence);
         }
