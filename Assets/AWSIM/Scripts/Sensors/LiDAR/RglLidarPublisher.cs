@@ -114,17 +114,10 @@ namespace AWSIM
 
         private void OnDestroy()
         {
-            Action<RGLNodeSequence> destroySubgraphIfNotNull = subgraph =>
-            {
-                if (rglSubgraphPcl24 == null) return;
-                rglSubgraphPcl24.Clear();
-                rglSubgraphPcl24 = null;
-            };
-
-            destroySubgraphIfNotNull(rglSubgraphPcl24);
-            destroySubgraphIfNotNull(rglSubgraphPcl48);
-            destroySubgraphIfNotNull(rglSubgraphInstanceId);
-            destroySubgraphIfNotNull(rglSubgraphUnity2Ros);
+            rglSubgraphPcl24?.Clear();
+            rglSubgraphPcl48?.Clear();
+            rglSubgraphInstanceId?.Clear();
+            rglSubgraphUnity2Ros?.Clear();
         }
 
         private void ApplySubgraphState(ref RGLNodeSequence subgraph, bool activateState)
