@@ -414,7 +414,9 @@ namespace RGLUnityPlugin
 
         private static bool IsNotActiveOrParentHasLidar(GameObject gameObject)
         {
-            return !gameObject.activeInHierarchy || gameObject.GetComponentsInParent<LidarSensor>().Length != 0;
+            return !gameObject.activeInHierarchy ||
+                   gameObject.GetComponentsInParent<LidarSensor>().Length != 0 ||
+                   gameObject.GetComponentsInParent<RadarSensor>().Length != 0;
         }
     }
 }

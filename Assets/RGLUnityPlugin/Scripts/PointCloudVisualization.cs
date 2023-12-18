@@ -19,7 +19,6 @@ using UnityEngine;
 namespace RGLUnityPlugin
 {
     [System.Serializable]
-    [RequireComponent(typeof(LidarSensor))]
     public class PointCloudVisualization : MonoBehaviour
     {
         public enum PointShape
@@ -67,9 +66,10 @@ namespace RGLUnityPlugin
         private int pointCount = 0;
         private int[] indices = Array.Empty<int>();
 
-        private LidarSensor lidarSensor;
         private RGLNodeSequence rglSubgraphVisualizationOutput;
         private const string visualizationOutputNodeId = "OUT_VISUALIZATION";
+
+        private MonoBehaviour sensor;
 
         public void Awake()
         {
@@ -77,13 +77,29 @@ namespace RGLUnityPlugin
                 .AddNodePointsYield(visualizationOutputNodeId, RGLField.XYZ_VEC3_F32);
 
             rglSubgraphVisualizationOutput.SetPriority(visualizationOutputNodeId, 1);
-
-            lidarSensor = GetComponent<LidarSensor>();
         }
 
         public void Start()
         {
-            lidarSensor.ConnectToWorldFrame(rglSubgraphVisualizationOutput);
+            // Check if LiDAR is attached
+            for (var lidar = GetComponent<LidarSensor>(); lidar != null; lidar = null) {
+                lidar.ConnectToWorldFrame(rglSubgraphVisualizationOutput);
+                lidar.onNewData += OnNewLidarData;
+                sensor = lidar;
+            }
+
+            // Check if radar is attached
+            for (var radar = GetComponent<RadarSensor>(); radar != null; radar = null) {
+                radar.ConnectToWorldFrame(rglSubgraphVisualizationOutput);
+                radar.onNewData += OnNewLidarData;
+                sensor = radar;
+            }
+
+            if (sensor == null)
+            {
+                Debug.LogError($"Cannot visualize point cloud without sensor. Destroying {name}.");
+                Destroy(this);
+            }
 
             mesh = new Mesh();
             if (!material)
@@ -102,13 +118,11 @@ namespace RGLUnityPlugin
         public void OnEnable()
         {
             rglSubgraphVisualizationOutput.SetActive(visualizationOutputNodeId, true);
-            lidarSensor.onNewData += OnNewLidarData;
         }
 
         public void OnDisable()
         {
             rglSubgraphVisualizationOutput.SetActive(visualizationOutputNodeId, false);
-            lidarSensor.onNewData -= OnNewLidarData;
         }
 
         public void OnValidate()
@@ -157,7 +171,7 @@ namespace RGLUnityPlugin
 
         public void Update()
         {
-            if (!lidarSensor.enabled)
+            if (!sensor.enabled)
             {
                 mesh.Clear();
             }

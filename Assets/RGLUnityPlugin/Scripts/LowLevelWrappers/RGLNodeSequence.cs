@@ -281,6 +281,17 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence AddNodePointsRadarPostprocess(string identifier, float distanceSeparation, float azimuthSeparation)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsRadarPostprocess(ref handle.Node, distanceSeparation, azimuthSeparation);
+            handle.Type = RGLNodeType.POINTS_RADAR_POSTPROCESS;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
         //// UPDATE NODES ////
         public RGLNodeSequence UpdateNodeRaysFromMat3x4f(string identifier, Matrix4x4[] rays)
         {
@@ -384,6 +395,13 @@ namespace RGLUnityPlugin
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_REMOVE_GROUND);
             RGLNativeAPI.NodePointsRemoveGround(ref handle.Node, groundAngleThreshold, groundDistanceThreshold, groundFilterDistance);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodePointsRadarPostprocess(string identifier, float distanceSeparation, float azimuthSeparation)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_RADAR_POSTPROCESS);
+            RGLNativeAPI.NodePointsRadarPostprocess(ref handle.Node, distanceSeparation, azimuthSeparation);
             return this;
         }
 

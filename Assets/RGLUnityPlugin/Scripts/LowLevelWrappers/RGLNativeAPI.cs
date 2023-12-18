@@ -132,6 +132,9 @@ namespace RGLUnityPlugin
             float ground_distance_threshold, float ground_filter_distance);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_radar_postprocess(ref IntPtr node, float distance_separation, float azimuth_separation);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_run(IntPtr node);
 
         [DllImport("RobotecGPULidar")]
@@ -483,6 +486,11 @@ namespace RGLUnityPlugin
         public static void NodePointsRemoveGround(ref IntPtr node, float groundAngleThreshold, float groundDistanceThreshold, float groundFilterDistance)
         {
             CheckErr(rgl_node_points_remove_ground(ref node, RGLAxis.RGL_AXIS_Y, groundAngleThreshold, groundDistanceThreshold, groundFilterDistance));
+        }
+
+        public static void NodePointsRadarPostprocess(ref IntPtr node, float distanceSeparation, float azimuthSeparation)
+        {
+            CheckErr(rgl_node_points_radar_postprocess(ref node, distanceSeparation, azimuthSeparation));
         }
 
         public static void GraphRun(IntPtr node)
