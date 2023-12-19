@@ -27,7 +27,7 @@ namespace RGLUnityPlugin
                 {RadarModel.SmartmicroDRVEGRD169UltraShortRange, SmartmicroDRVEGRD169UltraShortRange},
             };
 
-        private static RadarConfiguration SmartmicroDRVEGRD169LongRange => new RadarConfiguration
+        public static RadarConfiguration SmartmicroDRVEGRD169LongRange => new RadarConfiguration
         {
             MinRange = 1.3f,
             MaxRange = 130.0f,
@@ -40,7 +40,7 @@ namespace RGLUnityPlugin
             NoiseParams = RadarConfiguration.TypicalNoiseParams,
         };
 
-        private static RadarConfiguration SmartmicroDRVEGRD169MediumRange => new RadarConfiguration
+        public static RadarConfiguration SmartmicroDRVEGRD169MediumRange => new RadarConfiguration
         {
             MinRange = 0.6f,
             MaxRange = 56.0f,
@@ -53,7 +53,7 @@ namespace RGLUnityPlugin
             NoiseParams = RadarConfiguration.TypicalNoiseParams,
         };
 
-        private static RadarConfiguration SmartmicroDRVEGRD169ShortRange => new RadarConfiguration
+        public static RadarConfiguration SmartmicroDRVEGRD169ShortRange => new RadarConfiguration
         {
             MinRange = 0.2f,
             MaxRange = 19.0f,
@@ -66,7 +66,7 @@ namespace RGLUnityPlugin
             NoiseParams = RadarConfiguration.TypicalNoiseParams,
         };
 
-        private static RadarConfiguration SmartmicroDRVEGRD169UltraShortRange => new RadarConfiguration
+        public static RadarConfiguration SmartmicroDRVEGRD169UltraShortRange => new RadarConfiguration
         {
             MinRange = 0.1f,
             MaxRange = 9.5f,

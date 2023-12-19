@@ -41,7 +41,8 @@ namespace RGLUnityPlugin
 
         public RadarModel modelPreset = RadarModel.SmartmicroDRVEGRD169MediumRange;
 
-        public RadarConfiguration configuration = RadarConfigurationLibrary.ByModel[RadarModel.SmartmicroDRVEGRD169MediumRange];
+        // It is safer to refer to concrete property instead of using dictionary here because of static initialization order.
+        public RadarConfiguration configuration = RadarConfigurationLibrary.SmartmicroDRVEGRD169MediumRange;
 
         private RGLNodeSequence rglGraphRadar;
         private RGLNodeSequence rglSubgraphToWorldFrame;
@@ -59,7 +60,7 @@ namespace RGLUnityPlugin
         private const string NoiseDistanceNodeId = "NOISE_DISTANCE";
         private const string NoiseRaysNodeId = "NOISE_RAYS";
 
-        private RadarModel? validatedPreset;
+        private RadarModel? validatedPreset = null;
 
         private float timer;
         private int fixedUpdatesInCurrentFrame = 0;
