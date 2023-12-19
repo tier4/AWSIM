@@ -6,7 +6,7 @@
     
     Running AWSIM with scenario_simulator_v2 is still a prototype, so stable running is not guaranteed.
 
-Below you can find instructions on how to setup the OpenSCENARIO execution using `scenario_simulator_v2` with AWSIM as a simulator
+Below you can find instructions on how to setup the OpenSCENARIO execution using [scenario_simulator_v2](https://github.com/tier4/scenario_simulator_v2) with AWSIM as a simulator
 The instruction assumes using the Ubuntu OS.
 
 ## Prerequisites

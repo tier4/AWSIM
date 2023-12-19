@@ -15,6 +15,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 
 namespace RGLUnityPlugin
 {
@@ -74,6 +75,15 @@ namespace RGLUnityPlugin
             sourceIPOnAwake = sourceIP;
             destinationIPOnAwake = destinationIP;
             destinationPortOnAwake = destinationPort;
+
+            if (!IsValidIpAddress(sourceIPOnAwake))
+            {
+                var detailedName = transform.parent != null ? $"{transform.parent.name}:{name}" : name;
+                Debug.LogError($"{detailedName}: IP address '{sourceIPOnAwake}' is invalid. " +
+                               "Disabling component. Please restart the simulation with a correct IP address.");
+                OnDisable();
+                return;
+            }
 
             // Node parameters will be updated when validating lidar model
             rglSubgraphUdpPublishing = new RGLNodeSequence()
@@ -267,6 +277,19 @@ namespace RGLUnityPlugin
             return model == LidarModel.VelodyneVLP16 ||
                    model == LidarModel.VelodyneVLP32C ||
                    model == LidarModel.VelodyneVLS128;
+        }
+
+        private bool IsValidIpAddress(in string ip)
+        {
+            if (ip == "0.0.0.0") return true;
+            foreach (var nic in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                foreach (var unicast in nic.GetIPProperties().UnicastAddresses)
+                {
+                    if (unicast.Address.ToString() == ip) return true;
+                }
+            }
+            return false;
         }
     }
 }
