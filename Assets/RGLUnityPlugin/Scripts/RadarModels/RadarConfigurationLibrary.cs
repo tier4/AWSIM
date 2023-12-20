@@ -29,54 +29,54 @@ namespace RGLUnityPlugin
 
         public static RadarConfiguration SmartmicroDRVEGRD169LongRange => new RadarConfiguration
         {
-            MinRange = 1.3f,
-            MaxRange = 130.0f,
-            MinAzimuthAngle = -65.0f,
-            MaxAzimuthAngle = 65.0f,
-            MinElevationAngle = -7.5f,
-            MaxElevationAngle = 7.5f,
-            RangeSeparation = 1.3f,
-            AzimuthSeparation = 8.0f,
-            NoiseParams = RadarConfiguration.TypicalNoiseParams,
+            minRange = 1.3f,
+            maxRange = 130.0f,
+            minAzimuthAngle = -65.0f,
+            maxAzimuthAngle = 65.0f,
+            minElevationAngle = -7.5f,
+            maxElevationAngle = 7.5f,
+            rangeSeparation = 1.3f,
+            azimuthSeparation = 8.0f,
+            noiseParams = RadarConfiguration.TypicalNoiseParams,
         };
 
         public static RadarConfiguration SmartmicroDRVEGRD169MediumRange => new RadarConfiguration
         {
-            MinRange = 0.6f,
-            MaxRange = 56.0f,
-            MinAzimuthAngle = -65.0f,
-            MaxAzimuthAngle = 65.0f,
-            MinElevationAngle = -7.5f,
-            MaxElevationAngle = 7.5f,
-            RangeSeparation = 0.6f,
-            AzimuthSeparation = 8.0f,
-            NoiseParams = RadarConfiguration.TypicalNoiseParams,
+            minRange = 0.6f,
+            maxRange = 56.0f,
+            minAzimuthAngle = -65.0f,
+            maxAzimuthAngle = 65.0f,
+            minElevationAngle = -7.5f,
+            maxElevationAngle = 7.5f,
+            rangeSeparation = 0.6f,
+            azimuthSeparation = 8.0f,
+            noiseParams = RadarConfiguration.TypicalNoiseParams,
         };
 
         public static RadarConfiguration SmartmicroDRVEGRD169ShortRange => new RadarConfiguration
         {
-            MinRange = 0.2f,
-            MaxRange = 19.0f,
-            MinAzimuthAngle = -65.0f,
-            MaxAzimuthAngle = 65.0f,
-            MinElevationAngle = -7.5f,
-            MaxElevationAngle = 7.5f,
-            RangeSeparation = 0.2f,
-            AzimuthSeparation = 8.0f,
-            NoiseParams = RadarConfiguration.TypicalNoiseParams,
+            minRange = 0.2f,
+            maxRange = 19.0f,
+            minAzimuthAngle = -65.0f,
+            maxAzimuthAngle = 65.0f,
+            minElevationAngle = -7.5f,
+            maxElevationAngle = 7.5f,
+            rangeSeparation = 0.2f,
+            azimuthSeparation = 8.0f,
+            noiseParams = RadarConfiguration.TypicalNoiseParams,
         };
 
         public static RadarConfiguration SmartmicroDRVEGRD169UltraShortRange => new RadarConfiguration
         {
-            MinRange = 0.1f,
-            MaxRange = 9.5f,
-            MinAzimuthAngle = -70.0f,
-            MaxAzimuthAngle = 70.0f,
-            MinElevationAngle = -14.0f,
-            MaxElevationAngle = 14.0f,
-            RangeSeparation = 0.1f,
-            AzimuthSeparation = 8.0f,
-            NoiseParams = RadarConfiguration.TypicalNoiseParams,
+            minRange = 0.1f,
+            maxRange = 9.5f,
+            minAzimuthAngle = -70.0f,
+            maxAzimuthAngle = 70.0f,
+            minElevationAngle = -14.0f,
+            maxElevationAngle = 14.0f,
+            rangeSeparation = 0.1f,
+            azimuthSeparation = 8.0f,
+            noiseParams = RadarConfiguration.TypicalNoiseParams,
         };
     }
 }

@@ -99,6 +99,7 @@ namespace RGLUnityPlugin
                 // TODO(prybicki): this is too tedious, implement automatic instantiation of RGL Scene Manager
                 Debug.LogError($"RGL Scene Manager is not present on the scene. Destroying {name}.");
                 Destroy(this);
+                return;
             }
             OnValidate();
         }
@@ -126,12 +127,12 @@ namespace RGLUnityPlugin
 
             rglGraphRadar.UpdateNodeRaysFromMat3x4f(RadarRaysNodeId, newConfig.GetRayPoses())
                 .UpdateNodeRaysSetRange(RadarRangeNodeId, newConfig.GetRayRanges())
-                .UpdateNodePointsRadarPostprocess(RadarPostprocessNodeId, newConfig.RangeSeparation, newConfig.AzimuthSeparation * Mathf.Deg2Rad)
+                .UpdateNodePointsRadarPostprocess(RadarPostprocessNodeId, newConfig.rangeSeparation, newConfig.azimuthSeparation * Mathf.Deg2Rad)
                 .UpdateNodeGaussianNoiseAngularRay(NoiseRaysNodeId,
-                    newConfig.NoiseParams.angularNoiseMean * Mathf.Deg2Rad,
-                    newConfig.NoiseParams.angularNoiseStDev * Mathf.Deg2Rad)
-                .UpdateNodeGaussianNoiseDistance(NoiseDistanceNodeId, newConfig.NoiseParams.distanceNoiseMean,
-                    newConfig.NoiseParams.distanceNoiseStDevBase, newConfig.NoiseParams.distanceNoiseStDevRisePerMeter);
+                    newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,
+                    newConfig.noiseParams.angularNoiseStDev * Mathf.Deg2Rad)
+                .UpdateNodeGaussianNoiseDistance(NoiseDistanceNodeId, newConfig.noiseParams.distanceNoiseMean,
+                    newConfig.noiseParams.distanceNoiseStDevBase, newConfig.noiseParams.distanceNoiseStDevRisePerMeter);
 
             rglGraphRadar.SetActive(NoiseDistanceNodeId, applyDistanceGaussianNoise);
             rglGraphRadar.SetActive(NoiseRaysNodeId, applyAngularGaussianNoise);

@@ -97,13 +97,22 @@ namespace AWSIM
 
             MonoBehaviour sensor = null;
             // Check if LiDAR is attached
-            for (var lidar = GetComponent<LidarSensor>(); lidar != null; lidar = null) {
+            var lidar = GetComponent<LidarSensor>();
+            if (lidar != null)
+            {
                 lidar.ConnectToLidarFrame(rglSubgraphUnity2Ros);
                 sensor = lidar;
             }
 
             // Check if radar is attached
-            for (var radar = GetComponent<RadarSensor>(); radar != null; radar = null) {
+            var radar = GetComponent<RadarSensor>();
+            if (radar != null)
+            {
+                if (sensor != null)
+                {
+                    Debug.LogError($"More than one sensor is attached to the publisher. Destroying {name}.");
+                    Destroy(this);
+                }
                 radar.ConnectToRadarFrame(rglSubgraphUnity2Ros);
                 sensor = radar;
             }

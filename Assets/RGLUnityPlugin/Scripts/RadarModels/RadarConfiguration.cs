@@ -20,41 +20,41 @@ namespace RGLUnityPlugin
     [Serializable]
     public class RadarConfiguration
     {
-        [Min(0.0f)] public float MinRange;
+        [Min(0.0f)] public float minRange;
 
-        [Min(0.0f)] public float MaxRange;
+        [Min(0.0f)] public float maxRange;
 
-        [Range(-180.0f, 180.0f)] public float MinAzimuthAngle;
+        [Range(-180.0f, 180.0f)] public float minAzimuthAngle;
 
-        [Range(-180.0f, 180.0f)] public float MaxAzimuthAngle;
+        [Range(-180.0f, 180.0f)] public float maxAzimuthAngle;
 
-        [Range(-180.0f, 180.0f)] public float MinElevationAngle;
+        [Range(-180.0f, 180.0f)] public float minElevationAngle;
 
-        [Range(-180.0f, 180.0f)] public float MaxElevationAngle;
+        [Range(-180.0f, 180.0f)] public float maxElevationAngle;
 
-        public float RangeSeparation;
-        public float AzimuthSeparation;
+        [Min(0.0f)] public float rangeSeparation;
+        [Min(0.0f)] public float azimuthSeparation;
 
-        public RadarNoiseParams NoiseParams;
+        public RadarNoiseParams noiseParams;
 
         private float azimuthResolution = 0.49f;
         private float elevationResolution = 0.49f;
 
-        private int azimuthSteps => Math.Max((int)Math.Round(((MaxAzimuthAngle - MinAzimuthAngle) / azimuthResolution)), 1);
-        private int elevationSteps => Math.Max((int)Math.Round(((MaxElevationAngle - MinElevationAngle) / elevationResolution)), 1);
+        private int azimuthSteps => Math.Max((int)Math.Round(((maxAzimuthAngle - minAzimuthAngle) / azimuthResolution)), 1);
+        private int elevationSteps => Math.Max((int)Math.Round(((maxElevationAngle - minElevationAngle) / elevationResolution)), 1);
         private int pointCloudSize => elevationSteps * azimuthSteps;
 
         public Matrix4x4[] GetRayPoses()
         {
-            if (!(MinAzimuthAngle <= MaxAzimuthAngle))
+            if (!(minAzimuthAngle <= maxAzimuthAngle))
             {
-                throw new ArgumentOutOfRangeException(nameof(MinAzimuthAngle),
+                throw new ArgumentOutOfRangeException(nameof(minAzimuthAngle),
                     "Minimum angle must be lower or equal to the maximum angle");
             }
 
-            if (!(MinElevationAngle <= MaxElevationAngle))
+            if (!(minElevationAngle <= maxElevationAngle))
             {
-                throw new ArgumentOutOfRangeException(nameof(MinElevationAngle),
+                throw new ArgumentOutOfRangeException(nameof(minElevationAngle),
                     "Minimum angle must be lower or equal to the maximum angle");
             }
 
@@ -64,8 +64,8 @@ namespace RGLUnityPlugin
                 for (int eStep = 0; eStep < elevationSteps; eStep++)
                 {
                     int idx = eStep + aStep * elevationSteps;
-                    float azimuth = MinAzimuthAngle + aStep * azimuthResolution;
-                    float elevation = MinElevationAngle + eStep * elevationResolution;
+                    float azimuth = Mathf.Min(minAzimuthAngle + aStep * azimuthResolution, maxAzimuthAngle);
+                    float elevation = Mathf.Min(minElevationAngle + eStep * elevationResolution, maxElevationAngle);
                     rayPose[idx] = Matrix4x4.Rotate(Quaternion.Euler(elevation, azimuth, 0.0f));
                 }
             }
@@ -74,13 +74,13 @@ namespace RGLUnityPlugin
 
         public Vector2[] GetRayRanges()
         {
-            if (!(MinRange <= MaxRange))
+            if (!(minRange <= maxRange))
             {
-                throw new ArgumentOutOfRangeException(nameof(MinRange),
+                throw new ArgumentOutOfRangeException(nameof(minRange),
                     "Minimum range must be lower or equal to the maximum range");
             }
 
-            return new Vector2[1] { new Vector2(MinRange, MaxRange) };
+            return new Vector2[1] { new Vector2(minRange, maxRange) };
         }
 
         public static RadarNoiseParams TypicalNoiseParams => new RadarNoiseParams

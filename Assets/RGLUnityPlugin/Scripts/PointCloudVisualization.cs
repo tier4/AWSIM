@@ -82,14 +82,23 @@ namespace RGLUnityPlugin
         public void Start()
         {
             // Check if LiDAR is attached
-            for (var lidar = GetComponent<LidarSensor>(); lidar != null; lidar = null) {
+            var lidar = GetComponent<LidarSensor>();
+            if (lidar != null)
+            {
                 lidar.ConnectToWorldFrame(rglSubgraphVisualizationOutput);
                 lidar.onNewData += OnNewLidarData;
                 sensor = lidar;
             }
 
             // Check if radar is attached
-            for (var radar = GetComponent<RadarSensor>(); radar != null; radar = null) {
+            var radar = GetComponent<RadarSensor>();
+            if (radar != null)
+            {
+                if (sensor != null)
+                {
+                    Debug.LogError($"More than one sensor is attached to the PointCloudVisualization. Destroying {name}.");
+                    Destroy(this);
+                }
                 radar.ConnectToWorldFrame(rglSubgraphVisualizationOutput);
                 radar.onNewData += OnNewLidarData;
                 sensor = radar;
@@ -180,6 +189,10 @@ namespace RGLUnityPlugin
 
         private void OnNewLidarData()
         {
+            if (!enabled)
+            {
+                return;
+            }
             pointCount = rglSubgraphVisualizationOutput.GetResultData<Vector3>(ref onlyHits);
             SetPoints(onlyHits);
         }

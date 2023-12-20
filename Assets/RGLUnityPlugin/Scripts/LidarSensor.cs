@@ -130,6 +130,7 @@ namespace RGLUnityPlugin
                 // TODO(prybicki): this is too tedious, implement automatic instantiation of RGL Scene Manager
                 Debug.LogError($"RGL Scene Manager is not present on the scene. Destroying {name}.");
                 Destroy(this);
+                return;
             }
             OnValidate();
 
