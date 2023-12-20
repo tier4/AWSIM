@@ -62,6 +62,9 @@ namespace RGLUnityPlugin
 
         private RadarModel? validatedPreset = null;
 
+        private Matrix4x4 lastTransform;
+        private Matrix4x4 currentTransform;
+
         private float timer;
         private int fixedUpdatesInCurrentFrame = 0;
         private int lastUpdateFrame = -1;
@@ -102,6 +105,9 @@ namespace RGLUnityPlugin
                 return;
             }
             OnValidate();
+
+            // Apply initial transform of the sensor.
+            lastTransform = gameObject.transform.localToWorldMatrix;
         }
 
         public void OnValidate()
@@ -156,6 +162,10 @@ namespace RGLUnityPlugin
 
             timer += Time.deltaTime;
 
+            // Update transforms
+            lastTransform = currentTransform;
+            currentTransform = gameObject.transform.localToWorldMatrix;
+
             var interval = 1.0f / automaticCaptureHz;
             if (timer + 0.00001f < interval)
                 return;
@@ -185,9 +195,29 @@ namespace RGLUnityPlugin
             rglGraphRadar.UpdateNodePointsTransform(ToRadarFrameId, radarPose.inverse);
             rglSubgraphToWorldFrame.UpdateNodePointsTransform(ToWorldFrameId, radarPose);
 
+            SetVelocityToRaytrace();
+
             rglGraphRadar.Run();
 
             onNewData?.Invoke();
+        }
+
+        private void SetVelocityToRaytrace()
+        {
+            // Calculate delta transform of lidar.
+            // Velocities must be in sensor-local coordinate frame.
+            // Sensor linear velocity in m/s.
+            Vector3 globalLinearVelocity = (currentTransform.GetColumn(3) - lastTransform.GetColumn(3)) / Time.deltaTime;
+            Vector3 localLinearVelocity = gameObject.transform.InverseTransformDirection(globalLinearVelocity);
+
+            Vector3 deltaRotation = Quaternion.LookRotation(currentTransform.GetColumn(2), currentTransform.GetColumn(1)).eulerAngles
+                                    - Quaternion.LookRotation(lastTransform.GetColumn(2), lastTransform.GetColumn(1)).eulerAngles;
+            // Fix delta rotation when switching between 0 and 360.
+            deltaRotation = new Vector3(Mathf.DeltaAngle(0, deltaRotation.x), Mathf.DeltaAngle(0, deltaRotation.y), Mathf.DeltaAngle(0, deltaRotation.z));
+            // Sensor angular velocity in rad/s.
+            Vector3 localAngularVelocity = (deltaRotation * Mathf.Deg2Rad) / Time.deltaTime;
+
+            rglGraphRadar.UpdateNodeRaytrace(RadarRaytraceNodeId, localLinearVelocity, localAngularVelocity, false);
         }
     }
 }

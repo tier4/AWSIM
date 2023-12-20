@@ -91,7 +91,7 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_raytrace(ref IntPtr node, IntPtr scene);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_raytrace_with_distortion(ref IntPtr node, IntPtr scene, IntPtr linear_velocity, IntPtr angular_velocity);
+        public static extern int rgl_node_raytrace_in_motion(ref IntPtr node, IntPtr scene, IntPtr linear_velocity, IntPtr angular_velocity, bool apply_ray_distortion);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_format(ref IntPtr node, IntPtr fields, int field_count);
@@ -395,8 +395,8 @@ namespace RGLUnityPlugin
             CheckErr(rgl_node_raytrace(ref node, IntPtr.Zero));
         }
 
-        // Raytrace with velocity distortion
-        public static void NodeRaytrace(ref IntPtr node, Vector3 linearVelocity, Vector3 angularVelocity)
+        // Raytrace with sensor velocity provided. Needed for velocity distortion feature or radar simulation.
+        public static void NodeRaytrace(ref IntPtr node, Vector3 linearVelocity, Vector3 angularVelocity, bool applyRayDistortion)
         {
             var linearVelocityFloats = IntoVec3f(linearVelocity);
             var angularVelocityFloats = IntoVec3f(angularVelocity);
@@ -407,7 +407,7 @@ namespace RGLUnityPlugin
                 {
                     fixed (float* angularVelocityFloatsPtr = angularVelocityFloats)
                     {
-                        CheckErr(rgl_node_raytrace_with_distortion(ref node, IntPtr.Zero, (IntPtr) linearVelocityFloatsPtr, (IntPtr) angularVelocityFloatsPtr));
+                        CheckErr(rgl_node_raytrace_in_motion(ref node, IntPtr.Zero, (IntPtr) linearVelocityFloatsPtr, (IntPtr) angularVelocityFloatsPtr, applyRayDistortion));
                     }
                 }
             }

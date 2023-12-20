@@ -90,10 +90,10 @@ namespace AWSIM.PointCloudFormats
             {
                 RGLField.XYZ_VEC3_F32,
                 RGLField.RADIAL_SPEED_F32,
-                // RGLField.POWER_F32
-                // RGLField.RCS_F32
-                // RGLField.NOISE_F32
-                // RGLField.SNR_F32
+                RGLField.POWER_F32,
+                RGLField.RCS_F32,
+                RGLField.NOISE_F32,
+                RGLField.SNR_F32
             };
         }
     }

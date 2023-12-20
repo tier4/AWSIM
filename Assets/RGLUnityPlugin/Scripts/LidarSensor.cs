@@ -324,7 +324,7 @@ namespace RGLUnityPlugin
             // Sensor angular velocity in rad/s.
             Vector3 localAngularVelocity = (deltaRotation * Mathf.Deg2Rad) / Time.deltaTime;
 
-            rglGraphLidar.UpdateNodeRaytrace(lidarRaytraceNodeId, localLinearVelocity, localAngularVelocity);
+            rglGraphLidar.UpdateNodeRaytrace(lidarRaytraceNodeId, localLinearVelocity, localAngularVelocity, true);
         }
     }
 }

@@ -335,10 +335,10 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence UpdateNodeRaytrace(string identifier, Vector3 linearVelocity, Vector3 angularVelocity)
+        public RGLNodeSequence UpdateNodeRaytrace(string identifier, Vector3 linearVelocity, Vector3 angularVelocity, bool applyRayDistortion)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
-            RGLNativeAPI.NodeRaytrace(ref handle.Node, linearVelocity, angularVelocity);
+            RGLNativeAPI.NodeRaytrace(ref handle.Node, linearVelocity, angularVelocity, applyRayDistortion);
             return this;
         }
 
