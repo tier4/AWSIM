@@ -42,6 +42,7 @@ This page is a tutorial for setting up a AWSIM Unity project.
         - *NOTE: PC requirements may vary depending on simulation contents which may change as the simulator develops*
     2. Prepare a desktop PC with Windows 10 or 11 (64 bit) installed.
     3. Install [git](https://git-scm.com/).
+    4. Install [Microsoft Visual C++ Redistributable packages for Visual Studio 2015, 2017, 2019, and 2022](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#visual-studio-2015-2017-2019-and-2022) (X64 Architecture)
 
 ### ROS 2
 
