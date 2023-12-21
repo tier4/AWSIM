@@ -366,6 +366,8 @@ namespace AWSIM.TrafficSimulation
 				{
 					if (refState.Vehicle.VehicleID == state.Vehicle.VehicleID)
 						continue;
+					if (state.DistanceToIntersection > minimumDistanceToIntersection)
+						continue;
 
 					if (!isOnIntersection(state))
 						continue;
@@ -414,6 +416,8 @@ namespace AWSIM.TrafficSimulation
 				foreach (var state in states)
 				{
 					if (refState.Vehicle.VehicleID == state.Vehicle.VehicleID)
+						continue;
+					if (state.DistanceToIntersection > minimumDistanceToIntersection)
 						continue;
 
 					if (!isOnIntersection(state))
@@ -498,6 +502,9 @@ namespace AWSIM.TrafficSimulation
 				{
 					if (refState.Vehicle.VehicleID == state.Vehicle.VehicleID)
 						continue;
+					if (state.DistanceToIntersection > minimumDistanceToIntersection)
+						continue;
+
 
 					// if (refState.Vehicle.VehicleID == 19 && state.Vehicle.VehicleID == 4)
 					// 	Debug.Log($"{refState.Vehicle.VehicleID}x{state.Vehicle.VehicleID} isLeftHandRuleOnIntersection here 1");
@@ -545,6 +552,11 @@ namespace AWSIM.TrafficSimulation
 			{
 				foreach (var someState in states)
 				{
+					if (refState.Vehicle.VehicleID == someState.Vehicle.VehicleID)
+						continue;
+					if (someState.DistanceToIntersection > minimumDistanceToIntersection)
+						continue;
+
 					if (someState.FollowingLanes.Count == 0)
 						continue;
 					if (someState.CurrentFollowingLane.RightOfWayLanes.Count == 0)
@@ -698,6 +710,9 @@ namespace AWSIM.TrafficSimulation
 						var angle = Vector3.Angle(refState.Forward, state.Forward);
 						Debug.Log($"{refState.Vehicle.VehicleID}x{state.Vehicle.VehicleID}: {dotFront}, {angle}");
 					}
+
+					if (state.DistanceToIntersection > minimumDistanceToIntersection)
+						continue;
 					if (isYieldingNow(state))
 						continue;
 					if (refOnIntersection && isYieldingDueToLanes(state))
@@ -727,7 +742,7 @@ namespace AWSIM.TrafficSimulation
 					// var x = state.IsNextLaneIntersection();
 					// var dis = state.SignedDistanceToPointOnLane(GetStopPoint(state.CurrentFollowingLane));
 					// Debug.Log($"{state.Vehicle.VehicleID} distance to stop: {x} {dis}");
-					return refState.DistanceToIntersection < minimumDistanceToIntersection;
+					return true; //refState.DistanceToIntersection < minimumDistanceToIntersection;
 				}
 			}
 
