@@ -96,6 +96,9 @@ nav:
       - ROS2 topic list: Components/ROS2/ROS2TopicList/index.md
       - Add custom ROS2 msg: Components/ROS2/AddACustomROS2Message/index.md
       - ROS2 For Unity: Components/ROS2/ROS2ForUnity/index.md
+    - OpenSCENARIO:
+      - Setup Unity project for scenario simulation: Components/ScenarioSimulation/SetupUnityProjectForScenarioSimulation/index.md
+      - Preparing the connection between AWSIM and scenario_simulator_v2: Components/ScenarioSimulation/PreparingTheConnectionBetweenAWSIMAndScenarioSimulator/index.md
 
   - Developer guide:
     - How to Contribute: DeveloperGuide/HowToContribute/index.md
