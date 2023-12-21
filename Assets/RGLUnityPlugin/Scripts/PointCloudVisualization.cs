@@ -98,6 +98,7 @@ namespace RGLUnityPlugin
                 {
                     Debug.LogError($"More than one sensor is attached to the PointCloudVisualization. Destroying {name}.");
                     Destroy(this);
+                    return;
                 }
                 radar.ConnectToWorldFrame(rglSubgraphVisualizationOutput);
                 radar.onNewData += OnNewLidarData;
@@ -108,6 +109,7 @@ namespace RGLUnityPlugin
             {
                 Debug.LogError($"Cannot visualize point cloud without sensor. Destroying {name}.");
                 Destroy(this);
+                return;
             }
 
             mesh = new Mesh();

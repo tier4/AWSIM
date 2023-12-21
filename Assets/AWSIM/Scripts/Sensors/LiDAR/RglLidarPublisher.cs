@@ -112,6 +112,7 @@ namespace AWSIM
                 {
                     Debug.LogError($"More than one sensor is attached to the publisher. Destroying {name}.");
                     Destroy(this);
+                    return;
                 }
                 radar.ConnectToRadarFrame(rglSubgraphUnity2Ros);
                 sensor = radar;
@@ -121,6 +122,7 @@ namespace AWSIM
             {
                 Debug.LogError($"Cannot publish point cloud to ROS2 without sensor. Destroying {name}.");
                 Destroy(this);
+                return;
             }
 
             didStart = true;
