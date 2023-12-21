@@ -54,7 +54,11 @@ namespace AWSIM.TrafficSimulation
         private static void UpdateSpeedMode(NPCVehicleInternalState state, NPCVehicleConfig config)
         {
             if (state.ShouldDespawn)
+            {
+                if (state.Vehicle.VehicleID == 151)
+                    Debug.Log($"{state.Vehicle.VehicleID} speedMode:!!! DESPAWN !!!");
                 return;
+            }
 
             var absoluteStopDistance = CalculateStoppableDistance(state.Speed, config.AbsoluteDeceleration) + MinStopDistance;
             var suddenStopDistance = CalculateStoppableDistance(state.Speed, config.SuddenDeceleration) + 2 * MinStopDistance;
@@ -66,22 +70,15 @@ namespace AWSIM.TrafficSimulation
             var distanceToStopPointByRightOfWay = CalculateYieldingDistance(state);
             var distanceToStopPoint = Mathf.Min(distanceToStopPointByFrontVehicle, distanceToStopPointByTrafficLight, distanceToStopPointByRightOfWay);
 
-            // Speed mode updated by front vehicle is SLOW or SUDDEN_STOP/ABSOLUTE_STOP.
-            // STOP state is not used to prevent the state from changing every frame.
-            if (distanceToStopPointByFrontVehicle <= suddenStopDistance)
-            {
-                state.IsStoppedByFrontVehicle = true;
-                state.SpeedMode = NPCVehicleSpeedMode.ABSOLUTE_STOP;
-                return;
-            }
-            else if (distanceToStopPointByFrontVehicle <= stopDistance)
-            {
-                state.IsStoppedByFrontVehicle = true;
-                state.SpeedMode = NPCVehicleSpeedMode.SUDDEN_STOP;
-                return;
-            }
             state.IsStoppedByFrontVehicle = false;
-            // Debug.Log($"{state.Vehicle.VehicleID} to stop yielding point: {distanceToStopPointByRightOfWay}");
+            if (distanceToStopPointByFrontVehicle <= stopDistance)
+            {
+                state.IsStoppedByFrontVehicle = true;
+                Debug.Log($"{state.Vehicle.VehicleID} speedMode: {state.SpeedMode}, distanceToStopPointByFrontVehicle <= stopDistance: {distanceToStopPointByFrontVehicle}");
+            }
+
+            if (state.Vehicle.VehicleID == 151)
+                Debug.Log($"{state.Vehicle.VehicleID} speedMode: {state.SpeedMode}, distance stop point: {distanceToStopPoint}");
             if (distanceToStopPoint <= absoluteStopDistance)
                 state.SpeedMode = NPCVehicleSpeedMode.ABSOLUTE_STOP;
             else if (distanceToStopPoint <= suddenStopDistance || needToSuddenStopDueToYielding())
@@ -136,7 +133,7 @@ namespace AWSIM.TrafficSimulation
             var distanceToStopPointByRightOfWay = float.MaxValue;
             if (state.YieldPhase != NPCVehicleYieldPhase.NONE && state.YieldPhase != NPCVehicleYieldPhase.ENTERING_INTERSECTION && state.YieldPhase != NPCVehicleYieldPhase.AT_INTERSECTION)
                 distanceToStopPointByRightOfWay = state.SignedDistanceToPointOnLane(state.YieldPoint);
-            return onlyGreaterThan(distanceToStopPointByRightOfWay, 0);
+            return onlyGreaterThan(distanceToStopPointByRightOfWay, -3);
         }
 
         private static float CalculateStoppableDistance(float speed, float deceleration)
@@ -152,7 +149,7 @@ namespace AWSIM.TrafficSimulation
             foreach (var state in states)
             {
 
-                // if (state.Vehicle.VehicleID == 4)
+                // if (state.Vehicle.VehicleID == 4 || state.Vehicle.VehicleID == 4)
                 // {
                 //     Gizmos.color = Color.red;
                 //     Gizmos.DrawSphere(state.YieldPoint, 1.2f);

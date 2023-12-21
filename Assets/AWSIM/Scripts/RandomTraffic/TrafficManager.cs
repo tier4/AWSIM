@@ -244,7 +244,7 @@ namespace AWSIM.TrafficSimulation
 
             var defaultColor = Gizmos.color;
             npcVehicleSimulator?.ShowGizmos();
-            DrawSpawnPoints();
+            // DrawSpawnPoints();
 
             Gizmos.color = defaultColor;
         }

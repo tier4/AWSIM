@@ -19,8 +19,10 @@ namespace AWSIM.TrafficSimulation
 	/// </summary>
 	public class NPCVehicleCognitionStep : IDisposable
 	{
-		public static int refID = 1; //9;
-		public static int stateID = 0; //6;
+		public static int refID = 151;
+		public static int stateID = -23;
+
+		public static float minimumDistanceToIntersection = 10f;
 
 		/// <summary>
 		/// NativeContainer compatible data of NPC vehicles for JobSystem input.
@@ -332,19 +334,19 @@ namespace AWSIM.TrafficSimulation
 					&& state.TrafficLightPassability == TrafficLightPassability.RED;
 			}
 
+			public bool isCloseToFirstWaypoint(NPCVehicleInternalState state, TrafficLane lane)
+			{
+				return Vector3.Distance(state.FrontCenterPosition, lane.Waypoints[0]) < 8f;
+			}
+
 			public bool isEnteringIntersection(NPCVehicleInternalState refState)
 			{
-				return (
-					refState.FollowingLanes.Count > 1 && refState.FollowingLanes[1].intersectionLane
-				);
+				return refState.FollowingLanes.Count > 1 && refState.FollowingLanes[1].intersectionLane;// && isCloseToFirstWaypoint(refState, refState.FollowingLanes[1]);
 			}
 
 			public bool isOnIntersection(NPCVehicleInternalState refState)
 			{
-				return (
-					refState.FollowingLanes.Count > 0
-					&& refState.CurrentFollowingLane.intersectionLane
-				);
+				return refState.FollowingLanes.Count > 0 && refState.CurrentFollowingLane.intersectionLane;
 			}
 
 			public bool isYieldingLane(NPCVehicleInternalState refState)
@@ -368,11 +370,27 @@ namespace AWSIM.TrafficSimulation
 					if (!isOnIntersection(state))
 						continue;
 
+					if (refState.Vehicle.VehicleID == refID && state.Vehicle.VehicleID == stateID)
+					{
+						Debug.Log($"{refState.Vehicle.VehicleID}x{state.Vehicle.VehicleID} aft isOnIntersection ");
+					}
+
 					if (isYieldingDueToLanes(state))
 						continue;
 
+					if (refState.Vehicle.VehicleID == refID && state.Vehicle.VehicleID == stateID)
+					{
+						Debug.Log($"{refState.Vehicle.VehicleID}x{state.Vehicle.VehicleID} aft isYieldingDueToLanes ");
+					}
+
 					if (!refState.intersectOverall(state))
 						continue;
+
+					if (refState.Vehicle.VehicleID == refID && state.Vehicle.VehicleID == stateID)
+					{
+						Debug.Log($"{refState.Vehicle.VehicleID}x{state.Vehicle.VehicleID} aft intersectOverall ");
+					}
+
 
 					if (
 						!theSameIntersectionLane(refState, state)
@@ -398,17 +416,43 @@ namespace AWSIM.TrafficSimulation
 					if (refState.Vehicle.VehicleID == state.Vehicle.VehicleID)
 						continue;
 
-					if (state.IsStoppedByFrontVehicle)
+					if (!isOnIntersection(state))
+						if (state.DistanceToFrontVehicle < state.DistanceToIntersection)
+							continue;
+
+					// if (state.IsStoppedByFrontVehicle)
+					// 	continue;
+
+					if (refState.Vehicle.VehicleID == refID && state.Vehicle.VehicleID == stateID)
+					{
+						Debug.Log($"{refState.Vehicle.VehicleID}x{state.Vehicle.VehicleID} here 1 ");
+					}
+
+					if (!isOnIntersection(state) && !isEnteringIntersection(state))
 						continue;
 
-					if (!isEnteringIntersection(refState))
+					if (refState.Vehicle.VehicleID == refID && state.Vehicle.VehicleID == stateID)
+					{
+						Debug.Log($"{refState.Vehicle.VehicleID}x{state.Vehicle.VehicleID} here 2 ");
+					}
+
+					if (isYieldingBeforeIntersection(state))
 						continue;
 
-					if (isYieldingDueToLanes(state))
-						continue;
+					if (refState.Vehicle.VehicleID == refID && state.Vehicle.VehicleID == stateID)
+					{
+						Debug.Log($"{refState.Vehicle.VehicleID}x{state.Vehicle.VehicleID} here 3 ");
+					}
+
 
 					if (!refState.intersectOverall(state))
 						continue;
+
+
+					if (refState.Vehicle.VehicleID == refID && state.Vehicle.VehicleID == stateID)
+					{
+						Debug.Log($"{refState.Vehicle.VehicleID}x{state.Vehicle.VehicleID} here 4 ");
+					}
 					// if (isVehicleOnTheLeft(refState, state))
 					// {
 					// 	Debug.Log($"isLeftHandRuleEnteringIntersection: {state.Vehicle.VehicleID} is on the left side of {refState.Vehicle.VehicleID}");
@@ -438,6 +482,13 @@ namespace AWSIM.TrafficSimulation
 				refState.YieldPhase == NPCVehicleYieldPhase.FORCING_PRIORITY;
 			}
 
+			private bool isYieldingBeforeIntersection(NPCVehicleInternalState refState)
+			{
+				return refState.YieldPhase == NPCVehicleYieldPhase.INTERSECTION_BLOCKED ||
+				refState.YieldPhase == NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION ||
+				refState.YieldPhase == NPCVehicleYieldPhase.LANES_RULES_ENTERING_INTERSECTION;
+			}
+
 			private bool isLeftHandRuleOnIntersection(
 				NPCVehicleInternalState refState,
 				IReadOnlyList<NPCVehicleInternalState> states
@@ -448,19 +499,33 @@ namespace AWSIM.TrafficSimulation
 					if (refState.Vehicle.VehicleID == state.Vehicle.VehicleID)
 						continue;
 
+					// if (refState.Vehicle.VehicleID == 19 && state.Vehicle.VehicleID == 4)
+					// 	Debug.Log($"{refState.Vehicle.VehicleID}x{state.Vehicle.VehicleID} isLeftHandRuleOnIntersection here 1");
+
 					if (!isOnIntersection(state))
 						continue;
+
+					// if (refState.Vehicle.VehicleID == 19 && state.Vehicle.VehicleID == 4)
+					// 	Debug.Log($"{refState.Vehicle.VehicleID}x{state.Vehicle.VehicleID} isLeftHandRuleOnIntersection here 2");
 
 					if (isYieldingDueToLanes(state))
 						continue;
 
+					var x = refState.intersectNowFront(state);
+					if (refState.Vehicle.VehicleID == 19 && state.Vehicle.VehicleID == 4)
+						Debug.Log($"{refState.Vehicle.VehicleID}x{state.Vehicle.VehicleID} intersectNowFront: {x}");
+
 					if (!refState.intersectNowFront(state))
 						continue;
 
+					if (refState.Vehicle.VehicleID == 19 && state.Vehicle.VehicleID == 4)
+						Debug.Log($"{refState.Vehicle.VehicleID}x{state.Vehicle.VehicleID} isLeftHandRuleOnIntersection here 4");
+
 					if (
 						isVehicleOnTheLeft(refState, state)
-						&& !theSameIntersectionLane(refState, state)
 						&& !isVehicleOnBehindAndFollow(refState, state)
+						&& !turnInTheSameWay(refState, state)
+						&& !theSameIntersectionLane(refState, state)
 						&& !needToYield(state, refState)
 					)
 					{
@@ -574,6 +639,14 @@ namespace AWSIM.TrafficSimulation
 				return (dotBack < 0f || dotFront < 0f)
 					&& Vector3.Angle(refState.Forward, state.Forward) < 90f;
 			}
+			static bool isOnParallelLane(NPCVehicleInternalState refState, NPCVehicleInternalState state)
+			{
+				if (state.FirstIntersectionWaypoint != null) return false;
+				var refPosition = refState.FrontCenterPosition;
+				var positionFront = state.FirstIntersectionWaypoint.Value;
+				var dotFront = Vector3.Dot(refState.Forward, positionFront - refPosition);
+				return dotFront > 0f && Vector3.Angle(refState.Forward, state.Forward) > 150f;
+			}
 
 			private static Vector3 GetStopPoint(TrafficLane lane, int waypointIndex = 0)
 			{
@@ -584,7 +657,7 @@ namespace AWSIM.TrafficSimulation
 
 			private bool ShouldYield(
 				NPCVehicleInternalState refState,
-				IReadOnlyList<NPCVehicleInternalState> states
+				IReadOnlyList<NPCVehicleInternalState> states, bool refOnIntersection
 			)
 			{
 				Transform dominatingVehicle = null;
@@ -593,7 +666,7 @@ namespace AWSIM.TrafficSimulation
 
 				foreach (var lane in refState.YieldLane.RightOfWayLanes)
 				{
-					if (IsLaneDominatedByAny(lane, states, refState, out dominatingVehicle))
+					if (IsLaneDominatedByAny(lane, states, refState, refOnIntersection, out dominatingVehicle))
 					{
 						refState.DominatingVehicle = dominatingVehicle;
 						return true;
@@ -610,17 +683,25 @@ namespace AWSIM.TrafficSimulation
 			bool IsLaneDominatedByAny(
 				TrafficLane lane,
 				IReadOnlyList<NPCVehicleInternalState> states,
-				NPCVehicleInternalState refState,
+				NPCVehicleInternalState refState, bool refOnIntersection,
 				out Transform dominatingVehicle
 			)
 			{
 				dominatingVehicle = null;
 				foreach (var state in states)
 				{
+					if (refState.Vehicle.VehicleID == 35 && (state.Vehicle.VehicleID == stateID || state.Vehicle.VehicleID == 43))
+					{
+						var refPosition = refState.FrontCenterPosition;
+						var positionFront = state.FrontCenterPosition;
+						var dotFront = Vector3.Dot(refState.Forward, positionFront - refPosition);
+						var angle = Vector3.Angle(refState.Forward, state.Forward);
+						Debug.Log($"{refState.Vehicle.VehicleID}x{state.Vehicle.VehicleID}: {dotFront}, {angle}");
+					}
 					if (isYieldingNow(state))
 						continue;
-					// if (isYieldingDueToLanes(state))
-					// 	continue;
+					if (refOnIntersection && isYieldingDueToLanes(state))
+						continue;
 					if (!IsLaneDominatedBy(lane, state))
 						continue;
 					if (!refState.intersectOverall(state))
@@ -646,9 +727,7 @@ namespace AWSIM.TrafficSimulation
 					// var x = state.IsNextLaneIntersection();
 					// var dis = state.SignedDistanceToPointOnLane(GetStopPoint(state.CurrentFollowingLane));
 					// Debug.Log($"{state.Vehicle.VehicleID} distance to stop: {x} {dis}");
-					return refState.SignedDistanceToPointOnLane(
-							GetStopPoint(refState.FirstLaneWithIntersection)
-						) < 30f;
+					return refState.DistanceToIntersection < minimumDistanceToIntersection;
 				}
 			}
 
@@ -691,6 +770,7 @@ namespace AWSIM.TrafficSimulation
 				}
 			}
 
+
 			/// <summary>
 			/// Checks traffic conditions on right of ways.
 			/// This method consists of the following steps:<br/>
@@ -706,15 +786,18 @@ namespace AWSIM.TrafficSimulation
 						if (refState.ShouldDespawn)
 							continue;
 
-						// if (refState.Vehicle.VehicleID == 30)
-						// {
-						// 	Debug.Log($"{refState.Vehicle.VehicleID} YieldPhase: {refState.YieldPhase}");
-						// }
+						if (refState.Vehicle.VehicleID == refID || refState.Vehicle.VehicleID == stateID)
+						{
+							Debug.Log($"{refState.Vehicle.VehicleID} YieldPhase: {refState.YieldPhase}");
+						}
 						switch (refState.YieldPhase)
 						{
 							case NPCVehicleYieldPhase.NONE:
 								if (isEnteringIntersection(refState))
 								{
+									if (refState.DistanceToIntersection > minimumDistanceToIntersection)
+										break;
+
 									if (isYieldingLane(refState))
 										refState.YieldLane = refState.FirstLaneWithIntersection;
 									else
@@ -728,6 +811,10 @@ namespace AWSIM.TrafficSimulation
 								}
 								else if (isOnIntersection(refState))
 								{
+									if (isYieldingLane(refState))
+										refState.YieldLane = refState.FirstLaneWithIntersection;
+									else
+										refState.YieldLane = null;
 									refState.YieldPhase = NPCVehicleYieldPhase.AT_INTERSECTION;
 									break;
 								}
@@ -738,8 +825,10 @@ namespace AWSIM.TrafficSimulation
 									refState.YieldPhase = NPCVehicleYieldPhase.AT_INTERSECTION;
 									break;
 								}
-								if (refState.YieldLane != null && ShouldYield(refState, States))
+								if (refState.YieldLane != null && ShouldYield(refState, States, false))
 								{
+									if (refState.SignedDistanceToPointOnLane(GetStopPoint(refState.YieldLane)) < -1.5f)
+										break;
 									refState.YieldLane = refState.FirstLaneWithIntersection;
 									refState.YieldPoint = GetStopPoint(refState.YieldLane);
 									refState.YieldPhase =
@@ -764,8 +853,10 @@ namespace AWSIM.TrafficSimulation
 									refState.YieldPhase = NPCVehicleYieldPhase.NONE;
 									break;
 								}
-								if (refState.YieldLane != null && ShouldYield(refState, States))
+								if (refState.YieldLane != null && ShouldYield(refState, States, true))
 								{
+									if (refState.SignedDistanceToPointOnLane(GetStopPoint(refState.YieldLane, 1)) < -1.5f)
+										break;
 									refState.YieldLane = refState.CurrentFollowingLane;
 									refState.YieldPoint = GetStopPoint(refState.YieldLane, 1);
 									refState.YieldPhase =
@@ -792,9 +883,9 @@ namespace AWSIM.TrafficSimulation
 							case NPCVehicleYieldPhase.LANES_RULES_ENTERING_INTERSECTION:
 							case NPCVehicleYieldPhase.LANES_RULES_AT_INTERSECTION:
 								if (
-									!ShouldYield(refState, States)
+									!ShouldYield(refState, States, refState.YieldPhase == NPCVehicleYieldPhase.LANES_RULES_AT_INTERSECTION)
 									|| refState.SignedDistanceToPointOnLane(refState.YieldPoint)
-										< -2f
+										< -3f
 								)
 								{
 									refState.YieldLane = null;
@@ -1142,18 +1233,18 @@ namespace AWSIM.TrafficSimulation
 				// }
 
 				// Start Stop
-				// if (state.Vehicle.VehicleID == stateID || state.Vehicle.VehicleID == refID)
-				// {
-				//     Vector3 PoseA = state.CurrentFollowingLane.Waypoints[0];
-				//     Vector3? Goaln = state.LastIntersectionWaypoint();
-				//     if (Goaln != null)
-				//     {
-				//         Gizmos.color = Color.green;
-				//         Gizmos.DrawSphere(PoseA, 2.2f);
-				//         Gizmos.color = Color.red;
-				//         Gizmos.DrawSphere(Goaln.Value, 2.2f);
-				//     }
-				// }
+				if (state.Vehicle.VehicleID == stateID || state.Vehicle.VehicleID == refID)
+				{
+					Vector3 PoseA = state.FrontCenterPosition;
+					Vector3? Goaln = state.BackCenterPosition;
+					if (Goaln != null)
+					{
+						Gizmos.color = Color.green;
+						Gizmos.DrawSphere(PoseA, 0.5f);
+						Gizmos.color = Color.red;
+						Gizmos.DrawSphere(Goaln.Value, 0.5f);
+					}
+				}
 
 				// Dominating vehicle
 				// if (state.Vehicle.VehicleID == refID && state.DominatingVehicle != null)

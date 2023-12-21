@@ -105,6 +105,17 @@ namespace AWSIM.TrafficSimulation
         public float DistanceToNextLane
             => SignedDistanceToPointOnLane(CurrentFollowingLane.Waypoints[CurrentFollowingLane.Waypoints.Length - 1]);
 
+        public float DistanceToIntersection
+        {
+            get
+            {
+                if (FirstLaneWithIntersection == null) return float.MaxValue;
+                return SignedDistanceToPointOnLane(FirstLaneWithIntersection.StopLine != null
+                    ? FirstLaneWithIntersection.StopLine.CenterPoint
+                    : FirstLaneWithIntersection.Waypoints[0]);
+            }
+        }
+
         private int routeIndex = 0;
 
         // TODO: Calculate distance along the lane
@@ -149,6 +160,7 @@ namespace AWSIM.TrafficSimulation
                 return FirstLaneWithIntersection.Waypoints[0];
             }
         }
+
 
         /// <summary>
         /// Get the next lane of <paramref name="target"/>.<br/>
@@ -245,7 +257,7 @@ namespace AWSIM.TrafficSimulation
                 if (refLane.intersectionLane)
                     break;
             }
-            return false;
+            return CheckIfLinesIntersect(BackCenterPosition, CurrentFollowingLane.Waypoints[WaypointIndex], state.BackCenterPosition, state.CurrentFollowingLane.Waypoints[state.WaypointIndex]);
 
 
             bool CheckIfLinesIntersect(Vector3 A1, Vector3 B1, Vector3 A2, Vector3 B2, bool verbose = false)
@@ -378,7 +390,7 @@ namespace AWSIM.TrafficSimulation
             }
 
             Vector3 PoseA = FrontCenterPosition;
-            Vector3 NearestA = CurrentFollowingLane.Waypoints[WaypointIndex]; ;//CurrentFollowingLane.Waypoints[CurrentFollowingLane.Waypoints.Length - 1];
+            Vector3 NearestA = CurrentFollowingLane.Waypoints[WaypointIndex];//CurrentFollowingLane.Waypoints[CurrentFollowingLane.Waypoints.Length - 1];
             for (int j = state.WaypointIndex; j < state.CurrentFollowingLane.Waypoints.Length - 1; j++)
             {
                 if (Vector3.Distance(NearestA, state.CurrentFollowingLane.Waypoints[j + 1]) < 1f)
@@ -407,7 +419,7 @@ namespace AWSIM.TrafficSimulation
                 }
             }
 
-            return false;
+            return CheckIfLinesIntersect(PoseA, NearestA, PoseB, NearestB);
 
             bool CheckIfLinesIntersect(Vector3 A1, Vector3 B1, Vector3 A2, Vector3 B2, bool verbose = false)
             {
@@ -415,7 +427,6 @@ namespace AWSIM.TrafficSimulation
                 Vector2 line1point2 = new Vector2(B1.x, B1.z);
                 Vector2 line2point1 = new Vector2(A2.x, A2.z);
                 Vector2 line2point2 = new Vector2(B2.x, B2.z);
-
 
                 Vector2 a = line1point2 - line1point1;
                 Vector2 b = line2point1 - line2point2;

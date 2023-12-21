@@ -1710,11 +1710,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5691233761136004364, guid: 79986cfb6e0bdb5faac0a66247830abc, type: 3}
       propertyPath: seed
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5691233761136004364, guid: 79986cfb6e0bdb5faac0a66247830abc, type: 3}
       propertyPath: maxVehicleCount
-      value: 30
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5691233761136004364, guid: 79986cfb6e0bdb5faac0a66247830abc, type: 3}
       propertyPath: randomTrafficSims.Array.size
@@ -1780,6 +1780,10 @@ PrefabInstance:
       propertyPath: randomTrafficSims.Array.data[5].spawnableLanes.Array.data[2]
       value: 
       objectReference: {fileID: 828997201}
+    - target: {fileID: 6353643638167469801, guid: 79986cfb6e0bdb5faac0a66247830abc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79986cfb6e0bdb5faac0a66247830abc, type: 3}
 --- !u!4 &7194879542484243889 stripped
