@@ -116,6 +116,8 @@ namespace AWSIM.TrafficSimulation
             }
         }
 
+        public bool BehindVehicleBeforeIntersection => DistanceToIntersection > DistanceToFrontVehicle;
+
         private int routeIndex = 0;
 
         // TODO: Calculate distance along the lane
@@ -161,6 +163,14 @@ namespace AWSIM.TrafficSimulation
             }
         }
 
+        public bool yieldingPriorityAtTrafficLight => (!CurrentFollowingLane.intersectionLane
+                    && TrafficLightPassability == TrafficLightPassability.RED);
+
+        public bool isEnteringIntersection => FollowingLanes.Count > 1 && FollowingLanes[1].intersectionLane;
+
+        public bool isOnIntersection => FollowingLanes.Count > 0 && CurrentFollowingLane.intersectionLane;
+
+        public bool isEnteringYieldingLane => FirstLaneWithIntersection?.RightOfWayLanes.Count > 0;
 
         /// <summary>
         /// Get the next lane of <paramref name="target"/>.<br/>

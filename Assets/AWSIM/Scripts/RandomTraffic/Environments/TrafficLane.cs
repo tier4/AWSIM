@@ -119,6 +119,11 @@ namespace AWSIM.TrafficSimulation
             set => stopLine = value;
         }
 
+        public Vector3 GetStopPoint(int waypointIndex = 0)
+        {
+            return StopLine == null ? Waypoints[waypointIndex] : StopLine.CenterPoint;
+        }
+
         /// <summary>
         /// Get speed limit in m/s.
         /// </summary>
