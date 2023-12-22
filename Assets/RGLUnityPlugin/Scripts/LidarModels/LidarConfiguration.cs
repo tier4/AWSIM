@@ -32,49 +32,34 @@ namespace RGLUnityPlugin
             HesaiAT128,
         }
 
-        /// <summary>
-        /// Method that rays are generated
-        /// </summary>
+        [Tooltip("Method that rays are generated")]
         public RayGenerateMethod rayGenerateMethod;
 
-        /// <summary>
-        /// Geometry description of lidar array
-        /// </summary>
+        [Tooltip("Geometry description of lidar array")]
         public LaserArray laserArray;
 
-        /// <summary>
-        /// The horiontal resolution of laser array firings (in degrees)
-        /// </summary>
+        [Tooltip("The horizontal resolution of laser array firings (in degrees)")]
         [Min(0)] public float horizontalResolution;
 
-        /// <summary>
-        /// Min horizontal angle (left)
-        /// </summary>
+        [Tooltip("Min horizontal angle (left)")]
         [Range(-360.0f, 360.0f)] public float minHAngle;
 
-        /// <summary>
-        /// Max horizontal angle (right)
-        /// </summary>
+        [Tooltip("Max horizontal angle (right)")]
         [Range(-360.0f, 360.0f)] public float maxHAngle;
 
-        /// <summary>
-        /// Minimum range of the sensor.
-        /// </summary>
+        [Tooltip("Minimum range of the sensor")]
         [DrawIf("rayGenerateMethod", RayGenerateMethod.RotatingLidarEqualRange)] [Min(0)] public float minRange;
 
-        /// <summary>
-        /// Maximum range of the sensor.
-        /// </summary>
+        [Tooltip("Maximum range of the sensor")]
         [DrawIf("rayGenerateMethod", RayGenerateMethod.RotatingLidarEqualRange)] [Min(0)] public float maxRange;
 
-        /// <summary>
-        /// Time between two consecutive firings of the whole laser array (in milliseconds). Usually, it consists of firing time for all the lasers and recharge time.
-        /// </summary>
+        [Tooltip("Time between two consecutive firings of the whole laser array (in milliseconds). Usually, it consists of firing time for all the lasers and recharge time.")]
         [Min(0)] public float laserArrayCycleTime;
 
-        /// <summary>
-        /// Lidar noise paramteres
-        /// </summary>
+        [Tooltip("Represents the deviation of photons from a single beam emitted by a LiDAR sensor (in degrees). Used for simulating snow only (private feature).")]
+        [Range(0.0f, 360.0f)] public float beamDivergence;
+
+        [Tooltip("Lidar noise parameters")]
         public LidarNoiseParams noiseParams;
 
         public int HorizontalSteps => Math.Max((int)Math.Round(((maxHAngle - minHAngle) / horizontalResolution)), 1);
