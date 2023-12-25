@@ -699,6 +699,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2447834225210429337, guid: c9c7c425e7acd59449a3e4ad9b27c8eb, type: 3}
+      propertyPath: stepExecution
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2447834225210429337, guid: c9c7c425e7acd59449a3e4ad9b27c8eb, type: 3}
       propertyPath: egoFollowCamera
       value: 
       objectReference: {fileID: 2122627083}
