@@ -69,6 +69,11 @@ To run the simulator, please follow the steps below.
     ```
     sudo ubuntu-drivers autoinstall
     ```
+
+        !!! warning
+        
+            Currently, there are cases where the Nvidia driver version is too high, resulting in Segmentation fault. In that case, please lower the Nvidia driver version (525 is recommended.)
+
     3. Reboot your machine to make the installed driver detected by the system.
     ```
     sudo reboot
