@@ -65,6 +65,7 @@ namespace AWSIM.TrafficSimulation
         public float Yaw { get; set; }
         public float Speed { get; set; }
         public float YawSpeed { get; set; }
+        public float Width { get; set; }
 
         // Output from any steps
         public bool ShouldDespawn { get; set; }
@@ -79,22 +80,24 @@ namespace AWSIM.TrafficSimulation
         public Vector3 FrontCenterPosition =>
             Position + Quaternion.AngleAxis(Yaw, Vector3.up) * FrontCenterLocalPosition;
 
-        public Vector3 BackCenterPosition
+        public Vector3 ExpandedBackCenterPosition(float extensionToRear = 0f)
         {
-            get
+
+            var backCenterPositionRaw = BackCenterLocalPosition;
+            backCenterPositionRaw.z -= extensionToRear;
+            if (Vehicle.TrailerTransform)
             {
-                if (Vehicle.TrailerTransform)
-                {
-                    var yaw = Vehicle.TrailerTransform.rotation.eulerAngles.y;
-                    return Vehicle.TrailerTransform.position + Quaternion.AngleAxis(yaw, Vector3.up) * BackCenterLocalPosition;
-                }
-                else
-                {
-                    return Position + Quaternion.AngleAxis(Yaw, Vector3.up) * BackCenterLocalPosition;
-                }
+                var yaw = Vehicle.TrailerTransform.rotation.eulerAngles.y;
+                return Vehicle.TrailerTransform.position + Quaternion.AngleAxis(yaw, Vector3.up) * backCenterPositionRaw;
             }
+            else
+            {
+                return Position + Quaternion.AngleAxis(Yaw, Vector3.up) * backCenterPositionRaw;
+            }
+
         }
 
+        public Vector3 BackCenterPosition => ExpandedBackCenterPosition(0);
 
         public float DistanceToTargetPoint
             => SignedDistanceToPointOnLane(TargetPoint);
@@ -243,7 +246,7 @@ namespace AWSIM.TrafficSimulation
                     {
                         for (int i = refLaneIndex; i < refLane.Waypoints.Length - 1; i++)
                         {
-                            if (CheckIfLinesIntersect(refLane.Waypoints[i], refLane.Waypoints[i + 1], state.BackCenterPosition, state.CurrentFollowingLane.Waypoints[state.WaypointIndex]))
+                            if (CheckIfLinesIntersect(refLane.Waypoints[i], refLane.Waypoints[i + 1], state.ExpandedBackCenterPosition(), state.CurrentFollowingLane.Waypoints[state.WaypointIndex]))
                             {
                                 return true;
                             }
@@ -254,7 +257,7 @@ namespace AWSIM.TrafficSimulation
                     {
                         for (int j = laneIndex; j < lane.Waypoints.Length - 1; j++)
                         {
-                            if (CheckIfLinesIntersect(BackCenterPosition, CurrentFollowingLane.Waypoints[WaypointIndex], lane.Waypoints[j], lane.Waypoints[j + 1]))
+                            if (CheckIfLinesIntersect(ExpandedBackCenterPosition(), CurrentFollowingLane.Waypoints[WaypointIndex], lane.Waypoints[j], lane.Waypoints[j + 1]))
                             {
                                 return true;
                             }
@@ -267,7 +270,7 @@ namespace AWSIM.TrafficSimulation
                 if (refLane.intersectionLane)
                     break;
             }
-            return CheckIfLinesIntersect(BackCenterPosition, CurrentFollowingLane.Waypoints[WaypointIndex], state.BackCenterPosition, state.CurrentFollowingLane.Waypoints[state.WaypointIndex]);
+            return CheckIfLinesIntersect(ExpandedBackCenterPosition(), CurrentFollowingLane.Waypoints[WaypointIndex], state.ExpandedBackCenterPosition(), state.CurrentFollowingLane.Waypoints[state.WaypointIndex]);
 
 
             bool CheckIfLinesIntersect(Vector3 A1, Vector3 B1, Vector3 A2, Vector3 B2, bool verbose = false)
@@ -320,7 +323,7 @@ namespace AWSIM.TrafficSimulation
                 }
             }
 
-            Vector3 PoseA = BackCenterPosition;
+            Vector3 PoseA = ExpandedBackCenterPosition(state.Width);
             Vector3 NearestA = CurrentFollowingLane.Waypoints[WaypointIndex]; ;//CurrentFollowingLane.Waypoints[CurrentFollowingLane.Waypoints.Length - 1];
             for (int j = state.WaypointIndex; j < state.CurrentFollowingLane.Waypoints.Length - 1; j++)
             {
@@ -333,7 +336,7 @@ namespace AWSIM.TrafficSimulation
                 }
             }
 
-            Vector3 PoseB = state.BackCenterPosition;
+            Vector3 PoseB = state.ExpandedBackCenterPosition(Width);
             Vector3 NearestB = state.CurrentFollowingLane.Waypoints[state.WaypointIndex]; //state.CurrentFollowingLane.Waypoints[state.CurrentFollowingLane.Waypoints.Length - 1];
             for (int i = WaypointIndex; i < CurrentFollowingLane.Waypoints.Length - 1; i++)
             {
@@ -400,7 +403,7 @@ namespace AWSIM.TrafficSimulation
             }
 
             Vector3 PoseA = FrontCenterPosition;
-            Vector3 NearestA = CurrentFollowingLane.Waypoints[WaypointIndex];//CurrentFollowingLane.Waypoints[CurrentFollowingLane.Waypoints.Length - 1];
+            Vector3 NearestA = CurrentFollowingLane.Waypoints[WaypointIndex];
             for (int j = state.WaypointIndex; j < state.CurrentFollowingLane.Waypoints.Length - 1; j++)
             {
                 if (Vector3.Distance(NearestA, state.CurrentFollowingLane.Waypoints[j + 1]) < 1f)
@@ -414,8 +417,8 @@ namespace AWSIM.TrafficSimulation
                 }
             }
 
-            Vector3 PoseB = state.BackCenterPosition;
-            Vector3 NearestB = state.CurrentFollowingLane.Waypoints[state.WaypointIndex]; //state.CurrentFollowingLane.Waypoints[state.CurrentFollowingLane.Waypoints.Length - 1];
+            Vector3 PoseB = state.ExpandedBackCenterPosition(Width);
+            Vector3 NearestB = state.CurrentFollowingLane.Waypoints[state.WaypointIndex];
             for (int i = WaypointIndex; i < CurrentFollowingLane.Waypoints.Length - 1; i++)
             {
                 if (Vector3.Distance(CurrentFollowingLane.Waypoints[i + 1], NearestB) < 1f)
@@ -512,7 +515,8 @@ namespace AWSIM.TrafficSimulation
                     x = 0f,
                     y = 0f,
                     z = vehicle.Bounds.min.z
-                }
+                },
+                Width = vehicle.Bounds.size.x
             };
             state.FollowingLanes.Add(lane);
             return state;
