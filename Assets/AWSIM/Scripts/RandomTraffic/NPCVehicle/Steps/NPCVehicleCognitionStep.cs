@@ -343,13 +343,9 @@ namespace AWSIM.TrafficSimulation
 			static private bool startOnTheSameSide(NPCVehicleInternalState refState, NPCVehicleInternalState otherState)
 			{
 				if (otherState.FirstLaneWithIntersection == null || refState.FirstLaneWithIntersection == null)
-				{
 					return false;
-				}
 				else
-				{
 					return Vector3.Distance(refState.FirstIntersectionWaypoint.Value, otherState.FirstIntersectionWaypoint.Value) < 3f;
-				}
 			}
 
 			static private bool isVehicleOnTheLeft(NPCVehicleInternalState refState, NPCVehicleInternalState otherState)
@@ -485,7 +481,7 @@ namespace AWSIM.TrafficSimulation
 				return false;
 			}
 
-			public bool isSomeVehicleForcingPriority(NPCVehicleInternalState refState, IReadOnlyList<NPCVehicleInternalState> states)
+			static private bool isSomeVehicleForcingPriority(NPCVehicleInternalState refState, IReadOnlyList<NPCVehicleInternalState> states)
 			{
 				foreach (var otherState in states)
 				{
@@ -532,66 +528,46 @@ namespace AWSIM.TrafficSimulation
 				return false;
 			}
 
-			bool IsLaneDominatedByAny(TrafficLane lane, IReadOnlyList<NPCVehicleInternalState> states,
+			static private bool IsLaneDominatedByAny(TrafficLane lane, IReadOnlyList<NPCVehicleInternalState> states,
 				NPCVehicleInternalState refState, bool refOnIntersection, out Transform dominatingVehicle)
 			{
 				dominatingVehicle = null;
-				foreach (var state in states)
+				foreach (var otherState in states)
 				{
-					if (!shouldBeConsideredForYielding(refState, state))
+					if (!shouldBeConsideredForYielding(refState, otherState))
 						continue;
 
-					if (refState.Vehicle.VehicleID == 35 && (state.Vehicle.VehicleID == stateID || state.Vehicle.VehicleID == 43))
-					{
-						var refPosition = refState.FrontCenterPosition;
-						var positionFront = state.FrontCenterPosition;
-						var dotFront = Vector3.Dot(refState.Forward, positionFront - refPosition);
-						var angle = Vector3.Angle(refState.Forward, state.Forward);
-						Debug.Log($"{refState.Vehicle.VehicleID}x{state.Vehicle.VehicleID}: {dotFront}, {angle}");
-					}
+					if (otherState.yieldingPriorityAtTrafficLight)
+						continue;
 
-					if (state.yieldingPriorityAtTrafficLight)
+					if (refOnIntersection && isYieldingDueToLanes(otherState))
 						continue;
-					if (refOnIntersection && isYieldingDueToLanes(state))
+
+					if (!IsLaneDominatedBy(lane, otherState))
 						continue;
-					if (!IsLaneDominatedBy(lane, state))
+
+					if (!refOnIntersection && !refState.intersectOverall(otherState))
 						continue;
-					if (!refOnIntersection && !refState.intersectOverall(state))
+
+					if (refOnIntersection && !refState.intersectNowFront(otherState))
 						continue;
-					if (refOnIntersection && !refState.intersectNowFront(state))
-						continue;
-					dominatingVehicle = state.Vehicle.RigidBodyTransform;
+
+					dominatingVehicle = otherState.Vehicle.RigidBodyTransform;
 					return true;
 				}
 				return false;
 			}
 
-			static bool IsLaneDominatedBy(TrafficLane lane, NPCVehicleInternalState state)
+			static private bool IsLaneDominatedBy(TrafficLane lane, NPCVehicleInternalState state)
 			{
-				if (state.FirstLaneWithIntersection == lane && IsDistanceToStopPointExceeded(state))
-					return true;
-				return false;
-
-				static bool IsDistanceToStopPointExceeded(NPCVehicleInternalState refState)
-				{
-					if (refState.CurrentFollowingLane.intersectionLane)
-						return true;
-					else if (!refState.IsNextLaneIntersection())
-						return false;
-					else
-						return true;
-				}
+				return (state.CurrentFollowingLane.intersectionLane || state.IsNextLaneIntersection()) && state.FirstLaneWithIntersection == lane;
 			}
 
 			/// Check if <paramref name="lane"/> is dominated by a vehicle whose position is <paramref name="vehiclePosition"/> and forward direction is <paramref name="vehicleForward"/>.
 			/// All vehicles trying to pass on a non-priority lane needs to yield if any vehicle dominates the right of way lane.<br/>
 			/// It is implemented for vehicles for which lane information is not explicitly maintained, such as EGO vehicles.
 			/// </summary>
-			static bool IsLaneDominatedBy(
-				TrafficLane lane,
-				Vector3 vehiclePosition,
-				Vector3 vehicleForward
-			)
+			static private bool IsLaneDominatedBy(TrafficLane lane, Vector3 vehiclePosition, Vector3 vehicleForward)
 			{
 				vehiclePosition.y = 0f;
 				vehicleForward.y = 0f;
@@ -606,7 +582,6 @@ namespace AWSIM.TrafficSimulation
 					if (Vector3.Angle(wp1 - wp0, vehicleForward) < 30f)
 						return true;
 				}
-
 				return false;
 
 				static bool IsInLaneSection(Vector3 v, Vector3 w, Vector3 p, float extent = 2f)
