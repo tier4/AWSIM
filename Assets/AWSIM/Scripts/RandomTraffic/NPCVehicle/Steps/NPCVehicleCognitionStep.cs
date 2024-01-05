@@ -319,7 +319,54 @@ namespace AWSIM.TrafficSimulation
 			// In/Out
 			public IReadOnlyList<NPCVehicleInternalState> States;
 
-			static bool needToYield(NPCVehicleInternalState refState, NPCVehicleInternalState otherState)
+
+			static private bool isYieldingDueToLanes(NPCVehicleInternalState refState)
+			{
+				return refState.YieldPhase == NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION ||
+				refState.YieldPhase == NPCVehicleYieldPhase.LEFT_HAND_RULE_AT_INTERSECTION ||
+				refState.YieldPhase == NPCVehicleYieldPhase.LANES_RULES_ENTERING_INTERSECTION ||
+				refState.YieldPhase == NPCVehicleYieldPhase.LANES_RULES_AT_INTERSECTION;
+			}
+
+			static private bool isYieldingDueToLanesBeforeIntersection(NPCVehicleInternalState refState)
+			{
+				return
+				refState.YieldPhase == NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION ||
+				refState.YieldPhase == NPCVehicleYieldPhase.LANES_RULES_ENTERING_INTERSECTION;
+			}
+
+			static private bool theSameIntersectionLane(NPCVehicleInternalState refState, NPCVehicleInternalState otherState)
+			{
+				return refState.FirstLaneWithIntersection?.name == otherState.FirstLaneWithIntersection?.name;
+			}
+
+			static private bool startOnTheSameSide(NPCVehicleInternalState refState, NPCVehicleInternalState otherState)
+			{
+				if (otherState.FirstLaneWithIntersection == null || refState.FirstLaneWithIntersection == null)
+				{
+					return false;
+				}
+				else
+				{
+					return Vector3.Distance(refState.FirstIntersectionWaypoint.Value, otherState.FirstIntersectionWaypoint.Value) < 3f;
+				}
+			}
+
+			static private bool isVehicleOnTheLeft(NPCVehicleInternalState refState, NPCVehicleInternalState otherState)
+			{
+				Vector3 refPosition = new Vector3(refState.FrontCenterPosition.x, 0f, refState.FrontCenterPosition.z);
+				Vector3 positionBack = new Vector3(otherState.BackCenterPosition.x, 0f, otherState.BackCenterPosition.z);
+				Vector3 positionFront = new Vector3(otherState.FrontCenterPosition.x, 0f, otherState.FrontCenterPosition.z);
+				var crossFront = Vector3.Cross(refState.Forward, positionFront - refPosition).y;
+				var crossBack = Vector3.Cross(refState.Forward, positionBack - refPosition).y;
+				return crossFront < 0f || crossBack < 0f;
+			}
+
+
+			/// <summary>
+			/// Check if the refState must yield priority based on RightOfWayLanes to otherState at the intersection
+			/// </summary>
+			static private bool needToYield(NPCVehicleInternalState refState, NPCVehicleInternalState otherState)
 			{
 				if (otherState.FirstLaneWithIntersection != null && refState.FirstLaneWithIntersection != null)
 				{
@@ -334,85 +381,43 @@ namespace AWSIM.TrafficSimulation
 				return false;
 			}
 
-			static bool shouldBeConsideredForYielding(NPCVehicleInternalState refState, NPCVehicleInternalState otherState)
+			/// <summary>
+			/// Check if the refState must consider the otherState when examining yielding priority
+			/// </summary>
+			static private bool shouldBeConsideredForYielding(NPCVehicleInternalState refState, NPCVehicleInternalState otherState)
 			{
 				if (refState.Vehicle.VehicleID == otherState.Vehicle.VehicleID)
 					return false;
-				if (otherState.BehindVehicleBeforeIntersection)
+				if (otherState.ObstructedByVehicleBehindIntersection)
 					return false;
 				if (otherState.DistanceToIntersection > minimumDistanceToIntersection)
 					return false;
 				return true;
 			}
 
-			private bool isIntersectionBusy(NPCVehicleInternalState refState, IReadOnlyList<NPCVehicleInternalState> states)
-			{
-				foreach (var state in states)
-				{
-					if (!shouldBeConsideredForYielding(refState, state))
-						continue;
-
-					if (!state.isOnIntersection)
-						continue;
-
-					if (refState.Vehicle.VehicleID == refID && state.Vehicle.VehicleID == stateID)
-					{
-						Debug.Log($"{refState.Vehicle.VehicleID}x{state.Vehicle.VehicleID} aft isOnIntersection ");
-					}
-
-					if (isYieldingDueToLanes(refState, state))
-						continue;
-
-					if (refState.Vehicle.VehicleID == refID && state.Vehicle.VehicleID == stateID)
-					{
-						Debug.Log($"{refState.Vehicle.VehicleID}x{state.Vehicle.VehicleID} aft isYieldingDueToLanes ");
-					}
-
-					if (!refState.intersectOverall(state))
-						continue;
-
-					if (refState.Vehicle.VehicleID == refID && state.Vehicle.VehicleID == stateID)
-					{
-						Debug.Log($"{refState.Vehicle.VehicleID}x{state.Vehicle.VehicleID} aft intersectOverall ");
-					}
-
-
-					if (!theSameIntersectionLane(refState, state) && !turnInTheSameWay(refState, state))
-					{
-						refState.DominatingVehicle = state.Vehicle.RigidBodyTransform;
-						refState.YieldPoint = refState.FollowingLanes[0].GetStopPoint();
-						return true;
-					}
-				}
-				return false;
-			}
-
-			private bool isLeftHandRuleEnteringIntersection(
-				NPCVehicleInternalState refState,
-				IReadOnlyList<NPCVehicleInternalState> states
+			private bool isLeftHandRuleEnteringIntersection(NPCVehicleInternalState refState, IReadOnlyList<NPCVehicleInternalState> states
 			)
 			{
-				foreach (var state in states)
+				foreach (var otherState in states)
 				{
-					if (!shouldBeConsideredForYielding(refState, state))
+					if (!shouldBeConsideredForYielding(refState, otherState))
 						continue;
 
-					if (!state.isOnIntersection && !state.isEnteringIntersection)
-						continue;
-
-					if (isYieldingBeforeIntersection(state))
-						continue;
-
-					// if (state.YieldPhase == NPCVehicleYieldPhase.LANES_RULES_AT_INTERSECTION)
+					// if (!otherState.isOnIntersection && !otherState.isEnteringIntersection)
 					// 	continue;
 
-					if (!refState.intersectOverall(state))
+					if (isYieldingDueToLanesBeforeIntersection(otherState) || otherState.yieldingPriorityAtTrafficLight)
 						continue;
 
-					if (isVehicleOnTheLeft(refState, state) && !isVehicleOnBehindAndFollow(refState, state)
-						&& !state.yieldingPriorityAtTrafficLight && !turnInTheSameWay(refState, state))
+					if (startOnTheSameSide(refState, otherState))
+						continue;
+
+					if (!isVehicleOnTheLeft(refState, otherState))
+						continue;
+
+					if (refState.intersectOverall(otherState))
 					{
-						refState.DominatingVehicle = state.Vehicle.RigidBodyTransform;
+						refState.DominatingVehicle = otherState.Vehicle.RigidBodyTransform;
 						refState.YieldPoint = refState.FollowingLanes[0].GetStopPoint();
 						return true;
 					}
@@ -420,132 +425,92 @@ namespace AWSIM.TrafficSimulation
 				return false;
 			}
 
-			private bool isYieldingDueToLanes(NPCVehicleInternalState refState, NPCVehicleInternalState someState)
-			{
-				return (someState.YieldPhase == NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION ||
-				someState.YieldPhase == NPCVehicleYieldPhase.LEFT_HAND_RULE_AT_INTERSECTION ||
-				someState.YieldPhase == NPCVehicleYieldPhase.LANES_RULES_ENTERING_INTERSECTION ||
-				someState.YieldPhase == NPCVehicleYieldPhase.LANES_RULES_AT_INTERSECTION);
-			}
 
-			private bool isYieldingBeforeIntersection(NPCVehicleInternalState refState)
+			private bool isLeftHandRuleOnIntersection(NPCVehicleInternalState refState, IReadOnlyList<NPCVehicleInternalState> states)
 			{
-				return
-				refState.YieldPhase == NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION ||
-				refState.YieldPhase == NPCVehicleYieldPhase.LANES_RULES_ENTERING_INTERSECTION;
-			}
-
-			private bool isLeftHandRuleOnIntersection(
-				NPCVehicleInternalState refState,
-				IReadOnlyList<NPCVehicleInternalState> states
-			)
-			{
-				foreach (var state in states)
+				foreach (var otherState in states)
 				{
-					if (!shouldBeConsideredForYielding(refState, state))
+					if (!shouldBeConsideredForYielding(refState, otherState))
 						continue;
 
-
-					if (!state.isOnIntersection)
+					if (!otherState.isOnIntersection)
 						continue;
 
-					if (isYieldingDueToLanes(refState, state))
+					if (isYieldingDueToLanes(otherState))
 						continue;
 
-					if (!refState.intersectNowFront(state))
+					if (startOnTheSameSide(refState, otherState))
 						continue;
 
-					if (isVehicleOnTheLeft(refState, state) && !isVehicleOnBehindAndFollow(refState, state)
-						&& !turnInTheSameWay(refState, state) && !theSameIntersectionLane(refState, state)
-						&& !needToYield(state, refState))
+					if (!isVehicleOnTheLeft(refState, otherState))
+						continue;
+
+					if (needToYield(otherState, refState))
+						continue;
+
+					if (refState.intersectNowFront(otherState)) // && !theSameIntersectionLane(refState, otherState)
 					{
-						refState.DominatingVehicle = state.Vehicle.RigidBodyTransform;
+						refState.DominatingVehicle = otherState.Vehicle.RigidBodyTransform;
 						refState.YieldPoint = refState.FrontCenterPosition;
-						Debug.Log($"{refState.Vehicle.VehicleID}x{state.Vehicle.VehicleID} isLeftHandRuleOnIntersection");
-
 						return true;
 					}
 				}
 				return false;
 			}
 
-			public bool isSomeVehicleForcingPriority(
-				NPCVehicleInternalState refState,
-				IReadOnlyList<NPCVehicleInternalState> states
-			)
+
+			static private bool isIntersectionBusy(NPCVehicleInternalState refState, IReadOnlyList<NPCVehicleInternalState> states)
 			{
-				foreach (var someState in states)
+				foreach (var otherState in states)
 				{
-					if (!shouldBeConsideredForYielding(refState, someState))
+					if (!shouldBeConsideredForYielding(refState, otherState))
 						continue;
 
-					if (someState.FollowingLanes.Count == 0)
-						continue;
-					if (someState.CurrentFollowingLane.RightOfWayLanes.Count == 0)
-						continue;
-					if (isYieldingDueToLanes(refState, someState))
+					if (!otherState.isOnIntersection)
 						continue;
 
-					if (needToYield(refState, someState) && refState.intersectNowFront(someState))
+					if (isYieldingDueToLanes(otherState))
+						continue;
+
+					if (startOnTheSameSide(refState, otherState))
+						continue;
+
+					if (refState.intersectOverall(otherState)) // && !theSameIntersectionLane(refState, otherState)
 					{
-						refState.YieldPoint = refState.FrontCenterPosition;
-						refState.YieldLane = someState.CurrentFollowingLane;
-						refState.DominatingVehicle = someState.Vehicle.RigidBodyTransform;
-						Debug.Log($"{refState.Vehicle.VehicleID}x{someState.Vehicle.VehicleID} isSomeVehicleForcingPriority");
+						refState.DominatingVehicle = otherState.Vehicle.RigidBodyTransform;
+						refState.YieldPoint = refState.FollowingLanes[0].GetStopPoint();
 						return true;
 					}
 				}
 				return false;
 			}
 
-			bool theSameIntersectionLane(
-				NPCVehicleInternalState refState,
-				NPCVehicleInternalState state
-			)
+			public bool isSomeVehicleForcingPriority(NPCVehicleInternalState refState, IReadOnlyList<NPCVehicleInternalState> states)
 			{
-				if (state.FirstLaneWithIntersection == null || refState.FirstLaneWithIntersection == null)
-					return false;
-				return refState.FirstLaneWithIntersection.name == state.FirstLaneWithIntersection.name;
+				foreach (var otherState in states)
+				{
+					if (!shouldBeConsideredForYielding(refState, otherState))
+						continue;
+
+					if (isYieldingDueToLanes(otherState))
+						continue;
+
+					if (!needToYield(refState, otherState))
+						continue;
+
+					if (refState.intersectNowFront(otherState))
+					{
+						refState.YieldLane = otherState.CurrentFollowingLane;
+						refState.YieldPoint = refState.FrontCenterPosition;
+						refState.DominatingVehicle = otherState.Vehicle.RigidBodyTransform;
+						return true;
+					}
+				}
+				return false;
 			}
 
-			bool turnInTheSameWay(NPCVehicleInternalState refState, NPCVehicleInternalState state)
-			{
-				if (state.FirstLaneWithIntersection == null || refState.FirstLaneWithIntersection == null)
-					return false;
 
-				return Vector3.Distance(refState.FirstIntersectionWaypoint.Value, state.FirstIntersectionWaypoint.Value) < 3f;
-			}
-
-			bool isVehicleOnTheLeft(NPCVehicleInternalState refState, NPCVehicleInternalState state)
-			{
-				var refPosition = refState.FrontCenterPosition;
-				var positionBack = state.BackCenterPosition;
-				var positionFront = state.FrontCenterPosition;
-				refPosition.y = 0f;
-				positionBack.y = 0f;
-				positionFront.y = 0f;
-				var crossFront = Vector3.Cross(refState.Forward, positionFront - refPosition).y;
-				var crossBack = Vector3.Cross(refState.Forward, positionBack - refPosition).y;
-				return crossFront < 0f || crossBack < 0f;
-			}
-
-			bool isVehicleOnBehindAndFollow(NPCVehicleInternalState refState, NPCVehicleInternalState state)
-			{
-				var refPosition = refState.FrontCenterPosition;
-				var positionBack = state.BackCenterPosition;
-				var positionFront = state.FrontCenterPosition;
-				refPosition.y = 0f;
-				positionBack.y = 0f;
-				positionFront.y = 0f;
-				var dotBack = Vector3.Dot(refState.Forward, positionBack - refPosition);
-				var dotFront = Vector3.Dot(refState.Forward, positionFront - refPosition);
-				return (dotBack < 0f || dotFront < 0f) && Vector3.Angle(refState.Forward, state.Forward) < 90f;
-			}
-
-			private bool ShouldYield(
-				NPCVehicleInternalState refState,
-				IReadOnlyList<NPCVehicleInternalState> states, bool refOnIntersection
-			)
+			private bool ShouldYield(NPCVehicleInternalState refState, IReadOnlyList<NPCVehicleInternalState> states, bool refOnIntersection)
 			{
 				Transform dominatingVehicle = null;
 				if (refState.YieldLane == null)
@@ -567,19 +532,14 @@ namespace AWSIM.TrafficSimulation
 				return false;
 			}
 
-			bool IsLaneDominatedByAny(
-				TrafficLane lane,
-				IReadOnlyList<NPCVehicleInternalState> states,
-				NPCVehicleInternalState refState, bool refOnIntersection,
-				out Transform dominatingVehicle
-			)
+			bool IsLaneDominatedByAny(TrafficLane lane, IReadOnlyList<NPCVehicleInternalState> states,
+				NPCVehicleInternalState refState, bool refOnIntersection, out Transform dominatingVehicle)
 			{
 				dominatingVehicle = null;
 				foreach (var state in states)
 				{
 					if (!shouldBeConsideredForYielding(refState, state))
 						continue;
-
 
 					if (refState.Vehicle.VehicleID == 35 && (state.Vehicle.VehicleID == stateID || state.Vehicle.VehicleID == 43))
 					{
@@ -592,7 +552,7 @@ namespace AWSIM.TrafficSimulation
 
 					if (state.yieldingPriorityAtTrafficLight)
 						continue;
-					if (refOnIntersection && isYieldingDueToLanes(refState, state))
+					if (refOnIntersection && isYieldingDueToLanes(state))
 						continue;
 					if (!IsLaneDominatedBy(lane, state))
 						continue;
@@ -687,7 +647,7 @@ namespace AWSIM.TrafficSimulation
 							case NPCVehicleYieldPhase.NONE:
 								if (refState.isEnteringIntersection)
 								{
-									if (refState.BehindVehicleBeforeIntersection)
+									if (refState.ObstructedByVehicleBehindIntersection)
 										break;
 									if (refState.DistanceToIntersection > minimumDistanceToIntersection)
 										break;

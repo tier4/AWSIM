@@ -119,7 +119,7 @@ namespace AWSIM.TrafficSimulation
             }
         }
 
-        public bool BehindVehicleBeforeIntersection => DistanceToIntersection > DistanceToFrontVehicle;
+        public bool ObstructedByVehicleBehindIntersection => DistanceToIntersection > DistanceToFrontVehicle;
 
         private int routeIndex = 0;
 
