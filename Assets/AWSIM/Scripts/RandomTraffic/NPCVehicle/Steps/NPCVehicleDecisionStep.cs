@@ -55,8 +55,6 @@ namespace AWSIM.TrafficSimulation
         {
             if (state.ShouldDespawn)
             {
-                if (state.Vehicle.VehicleID == 151)
-                    Debug.Log($"{state.Vehicle.VehicleID} speedMode:!!! DESPAWN !!!");
                 return;
             }
 
@@ -74,35 +72,20 @@ namespace AWSIM.TrafficSimulation
             if (distanceToStopPointByFrontVehicle <= stopDistance)
             {
                 state.IsStoppedByFrontVehicle = true;
-                Debug.Log($"{state.Vehicle.VehicleID} speedMode: {state.SpeedMode}, distanceToStopPointByFrontVehicle <= stopDistance: {distanceToStopPointByFrontVehicle}");
             }
 
-            if (state.Vehicle.VehicleID == 151)
-                Debug.Log($"{state.Vehicle.VehicleID} speedMode: {state.SpeedMode}, distance stop point: {distanceToStopPoint}");
+            // if (state.Vehicle.VehicleID == 76)
+            //     Debug.Log($"{state.Vehicle.VehicleID} speedMode: {state.SpeedMode}, distance stop point: {distanceToStopPoint}");
             if (distanceToStopPoint <= absoluteStopDistance)
                 state.SpeedMode = NPCVehicleSpeedMode.ABSOLUTE_STOP;
-            else if (distanceToStopPoint <= suddenStopDistance || needToSuddenStopDueToYielding())
+            else if (distanceToStopPoint <= suddenStopDistance)
                 state.SpeedMode = NPCVehicleSpeedMode.SUDDEN_STOP;
-            else if (distanceToStopPoint <= stopDistance || needToStopDueToYielding())
+            else if (distanceToStopPoint <= stopDistance)
                 state.SpeedMode = NPCVehicleSpeedMode.STOP;
-            else if (distanceToStopPoint <= slowDownDistance || state.IsTurning)//|| state.YieldPhase == NPCVehicleYieldPhase.ENTERING_INTERSECTION
+            else if (distanceToStopPoint <= slowDownDistance || state.IsTurning)
                 state.SpeedMode = NPCVehicleSpeedMode.SLOW;
             else
                 state.SpeedMode = NPCVehicleSpeedMode.NORMAL;
-
-            bool needToSuddenStopDueToYielding()
-            {
-                return false;
-                // state.YieldPhase == NPCVehicleYieldPhase.FORCING_PRIORITY ||
-                // state.YieldPhase == NPCVehicleYieldPhase.LEFT_HAND_RULE_AT_INTERSECTION;
-            }
-
-            bool needToStopDueToYielding()
-            {
-                return false;
-                // state.YieldPhase == NPCVehicleYieldPhase.INTERSECTION_BLOCKED ||
-                // state.YieldPhase == NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION;
-            }
         }
 
         private static float CalculateTrafficLightDistance(NPCVehicleInternalState state, float suddenStopDistance)
@@ -133,7 +116,7 @@ namespace AWSIM.TrafficSimulation
             var distanceToStopPointByRightOfWay = float.MaxValue;
             if (state.YieldPhase != NPCVehicleYieldPhase.NONE && state.YieldPhase != NPCVehicleYieldPhase.ENTERING_INTERSECTION && state.YieldPhase != NPCVehicleYieldPhase.AT_INTERSECTION)
                 distanceToStopPointByRightOfWay = state.SignedDistanceToPointOnLane(state.YieldPoint);
-            return onlyGreaterThan(distanceToStopPointByRightOfWay, -3);
+            return onlyGreaterThan(distanceToStopPointByRightOfWay, -float.MaxValue);
         }
 
         private static float CalculateStoppableDistance(float speed, float deceleration)
