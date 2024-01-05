@@ -51,6 +51,12 @@ namespace AWSIM.TrafficSimulation
         [Header("Debug")]
         [SerializeField] protected bool showGizmos = false;
 
+        [SerializeField] protected bool showYieldingPhase = false;
+
+        [SerializeField] protected bool showObstacleChecking = false;
+
+        [SerializeField] protected bool showSpawnPoints = false;
+
         public RandomTrafficSimulatorConfiguration[] randomTrafficSims;
         public RouteTrafficSimulatorConfiguration[] routeTrafficSims;
         public NPCVehicleSimulator npcVehicleSimulator;
@@ -263,7 +269,7 @@ namespace AWSIM.TrafficSimulation
             {
                 foreach (var lane in randomTrafficConf.spawnableLanes)
                 {
-                    Gizmos.DrawSphere(lane.Waypoints[0], 5.0f);
+                    Gizmos.DrawCube(lane.Waypoints[0], new Vector3(2.5f, 0.2f, 2.5f));
                 }
             }
 
@@ -272,7 +278,7 @@ namespace AWSIM.TrafficSimulation
             {
                 if (routeTrafficSimConf.route.Length > 0)
                 {
-                    Gizmos.DrawSphere(routeTrafficSimConf.route[0].Waypoints[0], 5.0f);
+                    Gizmos.DrawCube(routeTrafficSimConf.route[0].Waypoints[0], new Vector3(2.5f, 0.2f, 2.5f));
                 }
             }
         }
@@ -283,8 +289,9 @@ namespace AWSIM.TrafficSimulation
                 return;
 
             var defaultColor = Gizmos.color;
-            npcVehicleSimulator?.ShowGizmos();
-            // DrawSpawnPoints();
+            npcVehicleSimulator?.ShowGizmos(showYieldingPhase, showObstacleChecking);
+            if (showSpawnPoints)
+                DrawSpawnPoints();
 
             Gizmos.color = defaultColor;
         }
