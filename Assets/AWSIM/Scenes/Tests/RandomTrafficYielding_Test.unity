@@ -173,6 +173,17 @@ MonoBehaviour:
     HistoryPolicy: 1
     Depth: 1
   publishHz: 100
+--- !u!114 &58401034 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4184592130289181344, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+  m_PrefabInstance: {fileID: 1667437902}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830ab73cebda3db4580ebd3ece935931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &98240729
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,6 +220,50 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &272315379 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4184592130189078973, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+  m_PrefabInstance: {fileID: 1667437902}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830ab73cebda3db4580ebd3ece935931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &348337243 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4184592131525687607, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+  m_PrefabInstance: {fileID: 1667437902}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830ab73cebda3db4580ebd3ece935931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &477224132 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4184592130621307688, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+  m_PrefabInstance: {fileID: 1667437902}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830ab73cebda3db4580ebd3ece935931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &514084612 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4184592131027296450, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+  m_PrefabInstance: {fileID: 1667437902}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830ab73cebda3db4580ebd3ece935931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &543989979
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,6 +479,17 @@ Transform:
   m_Father: {fileID: 543989980}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &788423014 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4184592130307506483, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+  m_PrefabInstance: {fileID: 1667437902}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830ab73cebda3db4580ebd3ece935931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &797679383
 GameObject:
   m_ObjectHideFlags: 0
@@ -623,6 +689,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 988705866}
   m_CullTransparentMesh: 1
+--- !u!114 &1030884686 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4184592131228990349, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+  m_PrefabInstance: {fileID: 1667437902}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830ab73cebda3db4580ebd3ece935931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1153077009
 GameObject:
   m_ObjectHideFlags: 0
@@ -1190,8 +1267,103 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nishishinjuku RandomTraffic_Test
       objectReference: {fileID: 0}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: maxVehicleCount
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: showSpawnPoints
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: randomTrafficSims.Array.data[0].enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: randomTrafficSims.Array.data[1].enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: randomTrafficSims.Array.data[2].enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: randomTrafficSims.Array.data[3].enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: randomTrafficSims.Array.data[4].enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: randomTrafficSims.Array.data[5].enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: randomTrafficSims.Array.data[2].spawnableLanes.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: randomTrafficSims.Array.data[3].spawnableLanes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: randomTrafficSims.Array.data[2].spawnableLanes.Array.data[0]
+      value: 
+      objectReference: {fileID: 348337243}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: randomTrafficSims.Array.data[2].spawnableLanes.Array.data[1]
+      value: 
+      objectReference: {fileID: 1030884686}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: randomTrafficSims.Array.data[2].spawnableLanes.Array.data[2]
+      value: 
+      objectReference: {fileID: 1806707683}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: randomTrafficSims.Array.data[2].spawnableLanes.Array.data[3]
+      value: 
+      objectReference: {fileID: 1704107013}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: randomTrafficSims.Array.data[2].spawnableLanes.Array.data[4]
+      value: 
+      objectReference: {fileID: 1704107013}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: randomTrafficSims.Array.data[3].spawnableLanes.Array.data[0]
+      value: 
+      objectReference: {fileID: 1991549108}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: randomTrafficSims.Array.data[3].spawnableLanes.Array.data[1]
+      value: 
+      objectReference: {fileID: 477224132}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: randomTrafficSims.Array.data[3].spawnableLanes.Array.data[2]
+      value: 
+      objectReference: {fileID: 514084612}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: randomTrafficSims.Array.data[4].spawnableLanes.Array.data[0]
+      value: 
+      objectReference: {fileID: 58401034}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: randomTrafficSims.Array.data[4].spawnableLanes.Array.data[1]
+      value: 
+      objectReference: {fileID: 272315379}
+    - target: {fileID: 4718487487307423889, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+      propertyPath: randomTrafficSims.Array.data[4].spawnableLanes.Array.data[2]
+      value: 
+      objectReference: {fileID: 788423014}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+--- !u!114 &1704107013 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4184592129769345386, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+  m_PrefabInstance: {fileID: 1667437902}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830ab73cebda3db4580ebd3ece935931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1728502837
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,6 +1514,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1769275389}
   m_CullTransparentMesh: 1
+--- !u!114 &1806707683 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4184592130468249837, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+  m_PrefabInstance: {fileID: 1667437902}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830ab73cebda3db4580ebd3ece935931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1991549108 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4184592131711252050, guid: 8d52446e16e57dba7a0184fbc9ec9036, type: 3}
+  m_PrefabInstance: {fileID: 1667437902}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830ab73cebda3db4580ebd3ece935931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2122627082
 GameObject:
   m_ObjectHideFlags: 0

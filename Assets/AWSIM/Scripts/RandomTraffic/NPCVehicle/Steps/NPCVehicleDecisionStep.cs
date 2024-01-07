@@ -74,8 +74,6 @@ namespace AWSIM.TrafficSimulation
                 state.IsStoppedByFrontVehicle = true;
             }
 
-            // if (state.Vehicle.VehicleID == 76)
-            //     Debug.Log($"{state.Vehicle.VehicleID} speedMode: {state.SpeedMode}, distance stop point: {distanceToStopPoint}");
             if (distanceToStopPoint <= absoluteStopDistance)
                 state.SpeedMode = NPCVehicleSpeedMode.ABSOLUTE_STOP;
             else if (distanceToStopPoint <= suddenStopDistance)
@@ -131,12 +129,6 @@ namespace AWSIM.TrafficSimulation
         {
             foreach (var state in states)
             {
-
-                // if (state.Vehicle.VehicleID == 4 || state.Vehicle.VehicleID == 4)
-                // {
-                //     Gizmos.color = Color.red;
-                //     Gizmos.DrawSphere(state.YieldPoint, 1.2f);
-                // }
                 switch (state.SpeedMode)
                 {
                     case NPCVehicleSpeedMode.ABSOLUTE_STOP:

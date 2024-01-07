@@ -19,13 +19,6 @@ namespace AWSIM.TrafficSimulation
 	/// </summary>
 	public class NPCVehicleCognitionStep : IDisposable
 	{
-
-		public static int refID = 175;
-		public static int stateID = 24;
-		// if (refState.Vehicle.VehicleID == 19 && state.Vehicle.VehicleID == 4)
-		// 	Debug.Log($"{refState.Vehicle.VehicleID}x{state.Vehicle.VehicleID} isLeftHandRuleOnIntersection here 1");
-
-
 		/// <summary>
 		/// NativeContainer compatible data of NPC vehicles for JobSystem input.
 		/// </summary>
@@ -409,7 +402,7 @@ namespace AWSIM.TrafficSimulation
 					if (!isVehicleOnTheLeft(refState, otherState))
 						continue;
 
-					if (refState.intersectOverall(otherState))
+					if (intersectOverall(refState, otherState))
 					{
 						refState.DominatingVehicle = otherState.Vehicle.RigidBodyTransform;
 						refState.YieldPoint = refState.FollowingLanes[0].GetStopPoint();
@@ -443,7 +436,7 @@ namespace AWSIM.TrafficSimulation
 					if (shouldHavePriority(otherState, refState))
 						continue;
 
-					if (refState.intersectNowFront(otherState))
+					if (intersectNowFront(refState, otherState))
 					{
 						refState.DominatingVehicle = otherState.Vehicle.RigidBodyTransform;
 						refState.YieldPoint = refState.FrontCenterPosition;
@@ -469,7 +462,7 @@ namespace AWSIM.TrafficSimulation
 					if (isEnteringFromTheSameSide(refState, otherState))
 						continue;
 
-					if (refState.intersectOverall(otherState))
+					if (intersectOverall(refState, otherState))
 					{
 						refState.DominatingVehicle = otherState.Vehicle.RigidBodyTransform;
 						refState.YieldPoint = refState.FollowingLanes[0].GetStopPoint();
@@ -492,7 +485,7 @@ namespace AWSIM.TrafficSimulation
 					if (!shouldHavePriority(refState, otherState))
 						continue;
 
-					if (refState.intersectNowFront(otherState))
+					if (intersectNowFront(refState, otherState))
 					{
 						refState.YieldPoint = refState.FrontCenterPosition;
 						refState.DominatingVehicle = otherState.Vehicle.RigidBodyTransform;
@@ -553,10 +546,10 @@ namespace AWSIM.TrafficSimulation
 						if (!IsLaneDominatedBy(lane, otherState))
 							continue;
 
-						if (!refOnIntersection && !refState.intersectOverall(otherState))
+						if (!refOnIntersection && !intersectOverall(refState, otherState))
 							continue;
 
-						if (refOnIntersection && !refState.intersectNowFront(otherState))
+						if (refOnIntersection && !intersectNowFront(refState, otherState))
 							continue;
 
 						dominatingVehicle = otherState.Vehicle.RigidBodyTransform;
@@ -606,6 +599,145 @@ namespace AWSIM.TrafficSimulation
 			}
 
 
+			static private bool CheckIfLinesIntersect(Vector3 A1, Vector3 B1, Vector3 A2, Vector3 B2)
+			{
+				Vector2 line1point1 = new Vector2(A1.x, A1.z);
+				Vector2 line1point2 = new Vector2(B1.x, B1.z);
+				Vector2 line2point1 = new Vector2(A2.x, A2.z);
+				Vector2 line2point2 = new Vector2(B2.x, B2.z);
+
+				Vector2 a = line1point2 - line1point1;
+				Vector2 b = line2point1 - line2point2;
+				Vector2 c = line1point1 - line2point1;
+
+				float alphaNumerator = b.y * c.x - b.x * c.y;
+				float betaNumerator = a.x * c.y - a.y * c.x;
+				float denominator = a.y * b.x - a.x * b.y;
+
+				if (denominator == 0)
+				{
+					return false;
+				}
+				else if (denominator > 0)
+				{
+					if (alphaNumerator < 0 || alphaNumerator > denominator || betaNumerator < 0 || betaNumerator > denominator)
+						return false;
+				}
+				else if (alphaNumerator > 0 || alphaNumerator < denominator || betaNumerator > 0 || betaNumerator < denominator)
+				{
+					return false;
+				}
+				return true;
+			}
+
+			static private bool intersectOverall(NPCVehicleInternalState refState, NPCVehicleInternalState otherState)
+			{
+				Vector3? refStartNullable = refState.FirstIntersectionWaypoint;
+				Vector3? otherStartNullable = otherState.FirstIntersectionWaypoint;
+				if (refStartNullable == null || otherStartNullable == null)
+					return false;
+				Vector3? refGoalNullable = refState.LastIntersectionWaypoint;
+				Vector3? otherGoalNullable = otherState.LastIntersectionWaypoint;
+				if (refGoalNullable == null || otherGoalNullable == null)
+					return false;
+
+				if (!CheckIfLinesIntersect(refStartNullable.Value, refGoalNullable.Value, otherStartNullable.Value, otherGoalNullable.Value))
+					return false;
+
+				var refLane = refState.FirstLaneWithIntersection;
+				var otherLane = otherState.FirstLaneWithIntersection;
+
+				var refFirstWaypointIndex = (refLane.name == refState.CurrentFollowingLane.name) ? refState.WaypointIndex : 0;
+				var otherFirstWaypointIndex = (otherLane.name == otherState.CurrentFollowingLane.name) ? otherState.WaypointIndex : 0;
+				// check the intersection between all waypoints of these lanes (starting from CurrentWaypoint)
+				for (int i = refFirstWaypointIndex; i < refLane.Waypoints.Length - 1; i++)
+				{
+					for (int j = otherFirstWaypointIndex; j < otherLane.Waypoints.Length - 1; j++)
+					{
+						if (Vector3.Distance(refLane.Waypoints[i + 1], otherLane.Waypoints[j + 1]) < 1f)
+							return true;
+
+						if (CheckIfLinesIntersect(refLane.Waypoints[i], refLane.Waypoints[i + 1], otherLane.Waypoints[j], otherLane.Waypoints[j + 1]))
+							return true;
+					}
+				}
+
+				if (refLane.name == refState.CurrentFollowingLane.name)
+				{
+					// Check short section [BackCenterPosition->CurrentWaypoint] with all sections from otherLane
+					for (int j = otherFirstWaypointIndex; j < otherLane.Waypoints.Length - 1; j++)
+					{
+						if (CheckIfLinesIntersect(refState.BackCenterPosition, refState.CurrentWaypoint, otherLane.Waypoints[j], otherLane.Waypoints[j + 1]))
+							return true;
+					}
+				}
+
+
+				if (otherLane.name == otherState.CurrentFollowingLane.name)
+				{
+					// Check short section [otherState.BackCenterPosition->otherState.CurrentWaypoint] with all sections from otherLane
+					for (int i = refFirstWaypointIndex; i < refLane.Waypoints.Length - 1; i++)
+					{
+						if (CheckIfLinesIntersect(refLane.Waypoints[i], refLane.Waypoints[i + 1], otherState.BackCenterPosition, otherState.CurrentWaypoint))
+							return true;
+					}
+				}
+
+				// Check short sections [BackCenterPosition->CurrentWaypoint]x[otherState.BackCenterPosition->otherState.CurrentWaypoint]
+				return CheckIfLinesIntersect(refState.BackCenterPosition, refState.CurrentWaypoint, otherState.BackCenterPosition, otherState.CurrentWaypoint);
+			}
+
+			static private bool intersectNowFront(NPCVehicleInternalState refState, NPCVehicleInternalState otherState)
+			{
+				if (!refState.CurrentFollowingLane.intersectionLane || !otherState.CurrentFollowingLane.intersectionLane)
+					return false;
+
+				var refLane = refState.CurrentFollowingLane;
+				var otherLane = otherState.CurrentFollowingLane;
+				// check the intersection between all waypoints of current lanes (starting from CurrentWaypoint)
+				for (int i = refState.WaypointIndex; i < refState.CurrentFollowingLane.Waypoints.Length - 1; i++)
+				{
+					for (int j = otherState.WaypointIndex; j < otherState.CurrentFollowingLane.Waypoints.Length - 1; j++)
+					{
+						if (Vector3.Distance(refLane.Waypoints[i + 1], otherLane.Waypoints[j + 1]) < 1f)
+							return true;
+
+						if (CheckIfLinesIntersect(refLane.Waypoints[i], refLane.Waypoints[i + 1], otherLane.Waypoints[j], otherLane.Waypoints[j + 1]))
+							return true;
+					}
+				}
+
+				Vector3 refPose = refState.FrontCenterPosition;
+				Vector3 refNearestWaypoint = refState.CurrentWaypoint;
+				// Check short section [FrontCenterPosition->CurrentWaypoint] with all sections from otherLane
+				for (int j = otherState.WaypointIndex; j < otherState.CurrentFollowingLane.Waypoints.Length - 1; j++)
+				{
+					if (Vector3.Distance(refNearestWaypoint, otherLane.Waypoints[j + 1]) < 1f)
+						return true;
+
+					if (CheckIfLinesIntersect(refPose, refNearestWaypoint, otherLane.Waypoints[j], otherLane.Waypoints[j + 1]))
+						return true;
+				}
+
+				//BackCenterPosition is extended by the Width due to the use of lines intersection analysis (not bounding-boxes)
+				//vehicles have their own width - this can cause collisions at perpendicular intersections
+				Vector3 otherPose = otherState.ExpandedBackCenterPosition(refState.Width);
+				Vector3 otherNearestWaypoint = otherState.CurrentWaypoint;
+				// Check short section [otherState.ExpandedBackCenterPosition->otherState.CurrentWaypoint] with all sections from otherLane
+				for (int i = refState.WaypointIndex; i < refState.CurrentFollowingLane.Waypoints.Length - 1; i++)
+				{
+					if (Vector3.Distance(refLane.Waypoints[i + 1], otherNearestWaypoint) < 1f)
+						return true;
+
+					if (CheckIfLinesIntersect(refLane.Waypoints[i], refLane.Waypoints[i + 1], otherPose, otherNearestWaypoint))
+						return true;
+				}
+
+				// Check short sections [BackCenterPosition->CurrentWaypoint]x[[otherState.ExpandedBackCenterPosition->otherState.CurrentWaypoint]
+				return CheckIfLinesIntersect(refPose, refNearestWaypoint, otherPose, otherNearestWaypoint);
+			}
+
+
 			/// <summary>
 			/// Checks traffic conditions on right of ways.
 			/// This method consists of the following steps:<br/>
@@ -615,16 +747,9 @@ namespace AWSIM.TrafficSimulation
 			{
 				foreach (var refState in States)
 				{
-					// var here = "here";
-					// try
-					// {
 					if (refState.ShouldDespawn)
 						continue;
 
-					// if (refState.Vehicle.VehicleID == refID || refState.Vehicle.VehicleID == stateID)
-					// {
-					// 	Debug.Log($"{refState.Vehicle.VehicleID} YieldPhase: {refState.YieldPhase}");
-					// }
 					switch (refState.YieldPhase)
 					{
 						case NPCVehicleYieldPhase.NONE:
@@ -724,21 +849,6 @@ namespace AWSIM.TrafficSimulation
 							throw new Exception($"Unattended NPCVehicleYieldPhase case: {refState.YieldPhase}");
 							break;
 					}
-					// }
-					// catch (InvalidOperationException ex)
-					// {
-					// 	Debug.Log(
-					// 		$"{refState.Vehicle.VehicleID} ### InvalidOperationException: {here} "
-					// 			+ ex.Message
-					// 	);
-					// }
-					// catch (NullReferenceException ex)
-					// {
-					// 	Debug.Log(
-					// 		$"{refState.Vehicle.VehicleID} ### NullReferenceException: {here} "
-					// 			+ ex.Message
-					// 	);
-					// }
 				}
 			}
 		}
@@ -1037,15 +1147,6 @@ namespace AWSIM.TrafficSimulation
 				{
 					var stateCurrentPosition = state.FrontCenterPosition;
 					stateCurrentPosition.y = state.Vehicle.transform.position.y + 2f;
-
-					// Pose
-					// if (state.Vehicle.VehicleID == refID || state.Vehicle.VehicleID == stateID)
-					// {
-					// 	Gizmos.color = Color.green;
-					// 	Gizmos.DrawSphere(state.FrontCenterPosition, 0.4f);
-					// 	Gizmos.color = Color.red;
-					// 	Gizmos.DrawSphere(state.ExpandedBackCenterPosition(state.Width), 0.4f);
-					// }
 
 					if (state.YieldPhase == NPCVehicleYieldPhase.NONE ||
 						state.YieldPhase == NPCVehicleYieldPhase.ENTERING_INTERSECTION ||
