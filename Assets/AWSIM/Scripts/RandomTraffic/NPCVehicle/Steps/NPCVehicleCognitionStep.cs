@@ -340,7 +340,7 @@ namespace AWSIM.TrafficSimulation
 				return refState.FirstLaneWithIntersection?.name == otherState.FirstLaneWithIntersection?.name;
 			}
 
-			static private bool startOnTheSameSide(NPCVehicleInternalState refState, NPCVehicleInternalState otherState)
+			static private bool isEnteringFromTheSameSide(NPCVehicleInternalState refState, NPCVehicleInternalState otherState)
 			{
 				if (otherState.FirstLaneWithIntersection == null || refState.FirstLaneWithIntersection == null)
 					return false;
@@ -390,11 +390,7 @@ namespace AWSIM.TrafficSimulation
 			/// </summary>
 			static private bool isEnteringIntersection(NPCVehicleInternalState refState)
 			{
-				if (refState.ObstructedByVehicleBehindIntersection)
-					return false;
-				if (refState.DistanceToIntersection > minimumDistanceToIntersection)
-					return false;
-				return true;
+				return refState.DistanceToIntersection <= minimumDistanceToIntersection && !refState.ObstructedByVehicleBehindIntersection;
 			}
 
 			static private bool isLeftHandRuleEnteringIntersection(NPCVehicleInternalState refState, IReadOnlyList<NPCVehicleInternalState> states)
@@ -407,7 +403,7 @@ namespace AWSIM.TrafficSimulation
 					if (isYieldingDueToLanesBeforeIntersection(otherState) || otherState.yieldingPriorityAtTrafficLight)
 						continue;
 
-					if (startOnTheSameSide(refState, otherState))
+					if (isEnteringFromTheSameSide(refState, otherState))
 						continue;
 
 					if (!isVehicleOnTheLeft(refState, otherState))
@@ -436,7 +432,7 @@ namespace AWSIM.TrafficSimulation
 					if (isYieldingDueToRules(otherState))
 						continue;
 
-					if (startOnTheSameSide(refState, otherState))
+					if (isEnteringFromTheSameSide(refState, otherState))
 						continue;
 
 					if (!isVehicleOnTheLeft(refState, otherState))
@@ -470,7 +466,7 @@ namespace AWSIM.TrafficSimulation
 					if (isYieldingDueToRules(otherState))
 						continue;
 
-					if (startOnTheSameSide(refState, otherState))
+					if (isEnteringFromTheSameSide(refState, otherState))
 						continue;
 
 					if (refState.intersectOverall(otherState))
@@ -619,130 +615,130 @@ namespace AWSIM.TrafficSimulation
 			{
 				foreach (var refState in States)
 				{
-					var here = "here";
-					try
+					// var here = "here";
+					// try
+					// {
+					if (refState.ShouldDespawn)
+						continue;
+
+					// if (refState.Vehicle.VehicleID == refID || refState.Vehicle.VehicleID == stateID)
+					// {
+					// 	Debug.Log($"{refState.Vehicle.VehicleID} YieldPhase: {refState.YieldPhase}");
+					// }
+					switch (refState.YieldPhase)
 					{
-						if (refState.ShouldDespawn)
-							continue;
+						case NPCVehicleYieldPhase.NONE:
+							refState.YieldLane = null;
+							if (isEnteringIntersection(refState))
+							{
+								refState.YieldPoint = refState.FirstLaneWithIntersection.GetStopPoint();
+								refState.YieldPhase = NPCVehicleYieldPhase.ENTERING_INTERSECTION;
+							}
+							else if (refState.isOnIntersection)
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.AT_INTERSECTION;
+							}
 
-						if (refState.Vehicle.VehicleID == refID || refState.Vehicle.VehicleID == stateID)
-						{
-							Debug.Log($"{refState.Vehicle.VehicleID} YieldPhase: {refState.YieldPhase}");
-						}
-						switch (refState.YieldPhase)
-						{
-							case NPCVehicleYieldPhase.NONE:
-								refState.YieldLane = null;
-								if (isEnteringIntersection(refState))
-								{
-									refState.YieldPoint = refState.FirstLaneWithIntersection.GetStopPoint();
-									refState.YieldPhase = NPCVehicleYieldPhase.ENTERING_INTERSECTION;
-								}
-								else if (refState.isOnIntersection)
-								{
-									refState.YieldPhase = NPCVehicleYieldPhase.AT_INTERSECTION;
-								}
+							if (refState.YieldPhase != NPCVehicleYieldPhase.NONE)
+								if (refState.isIntersectionWithYieldingLane)
+									refState.YieldLane = refState.FirstLaneWithIntersection;
+								else
+									refState.YieldLane = null;
+							break;
 
-								if (refState.YieldPhase != NPCVehicleYieldPhase.NONE)
-									if (refState.isIntersectionWithYieldingLane)
-										refState.YieldLane = refState.FirstLaneWithIntersection;
-									else
-										refState.YieldLane = null;
-								break;
+						case NPCVehicleYieldPhase.ENTERING_INTERSECTION:
+							if (refState.isOnIntersection)
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.AT_INTERSECTION;
+							}
+							else if (ShouldYieldDueToLanes(refState, States, false))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.LANES_RULES_ENTERING_INTERSECTION;
+							}
+							else if (isIntersectionBusy(refState, States))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.INTERSECTION_BLOCKED;
+							}
+							else if (isLeftHandRuleEnteringIntersection(refState, States))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION;
+							}
+							break;
 
-							case NPCVehicleYieldPhase.ENTERING_INTERSECTION:
-								if (refState.isOnIntersection)
-								{
-									refState.YieldPhase = NPCVehicleYieldPhase.AT_INTERSECTION;
-								}
-								else if (ShouldYieldDueToLanes(refState, States, false))
-								{
-									refState.YieldPhase = NPCVehicleYieldPhase.LANES_RULES_ENTERING_INTERSECTION;
-								}
-								else if (isIntersectionBusy(refState, States))
-								{
-									refState.YieldPhase = NPCVehicleYieldPhase.INTERSECTION_BLOCKED;
-								}
-								else if (isLeftHandRuleEnteringIntersection(refState, States))
-								{
-									refState.YieldPhase = NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION;
-								}
-								break;
+						case NPCVehicleYieldPhase.AT_INTERSECTION:
+							if (!refState.isOnIntersection)
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
+							}
+							else if (ShouldYieldDueToLanes(refState, States, true))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.LANES_RULES_AT_INTERSECTION;
+							}
+							else if (isSomeVehicleForcingPriority(refState, States))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.FORCING_PRIORITY;
+							}
+							else if (isLeftHandRuleOnIntersection(refState, States))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.LEFT_HAND_RULE_AT_INTERSECTION;
+							}
+							break;
 
-							case NPCVehicleYieldPhase.AT_INTERSECTION:
-								if (!refState.isOnIntersection)
-								{
-									refState.YieldPhase = NPCVehicleYieldPhase.NONE;
-								}
-								else if (ShouldYieldDueToLanes(refState, States, true))
-								{
-									refState.YieldPhase = NPCVehicleYieldPhase.LANES_RULES_AT_INTERSECTION;
-								}
-								else if (isSomeVehicleForcingPriority(refState, States))
-								{
-									refState.YieldPhase = NPCVehicleYieldPhase.FORCING_PRIORITY;
-								}
-								else if (isLeftHandRuleOnIntersection(refState, States))
-								{
-									refState.YieldPhase = NPCVehicleYieldPhase.LEFT_HAND_RULE_AT_INTERSECTION;
-								}
-								break;
-
-							case NPCVehicleYieldPhase.INTERSECTION_BLOCKED:
-								if (!isIntersectionBusy(refState, States))
-								{
-									refState.YieldPhase = NPCVehicleYieldPhase.NONE;
-								}
-								break;
-							case NPCVehicleYieldPhase.LANES_RULES_ENTERING_INTERSECTION:
-								if (!ShouldYieldDueToLanes(refState, States, false))
-								{
-									refState.YieldPhase = NPCVehicleYieldPhase.NONE;
-								}
-								break;
-							case NPCVehicleYieldPhase.LANES_RULES_AT_INTERSECTION:
-								if (!ShouldYieldDueToLanes(refState, States, true))
-								{
-									refState.YieldPhase = NPCVehicleYieldPhase.NONE;
-								}
-								break;
-							case NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION:
-								if (refState.isOnIntersection || !isLeftHandRuleEnteringIntersection(refState, States))
-								{
-									refState.YieldPhase = NPCVehicleYieldPhase.NONE;
-								}
-								break;
-							case NPCVehicleYieldPhase.LEFT_HAND_RULE_AT_INTERSECTION:
-								if (!isLeftHandRuleOnIntersection(refState, States))
-								{
-									refState.YieldPhase = NPCVehicleYieldPhase.NONE;
-								}
-								break;
-							case NPCVehicleYieldPhase.FORCING_PRIORITY:
-								if (!isSomeVehicleForcingPriority(refState, States))
-								{
-									refState.YieldPhase = NPCVehicleYieldPhase.NONE;
-								}
-								break;
-							default:
-								Debug.Log("### ERROR CASES!!");
-								break;
-						}
+						case NPCVehicleYieldPhase.INTERSECTION_BLOCKED:
+							if (!isIntersectionBusy(refState, States))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
+							}
+							break;
+						case NPCVehicleYieldPhase.LANES_RULES_ENTERING_INTERSECTION:
+							if (!ShouldYieldDueToLanes(refState, States, false))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
+							}
+							break;
+						case NPCVehicleYieldPhase.LANES_RULES_AT_INTERSECTION:
+							if (!ShouldYieldDueToLanes(refState, States, true))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
+							}
+							break;
+						case NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION:
+							if (refState.isOnIntersection || !isLeftHandRuleEnteringIntersection(refState, States))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
+							}
+							break;
+						case NPCVehicleYieldPhase.LEFT_HAND_RULE_AT_INTERSECTION:
+							if (!isLeftHandRuleOnIntersection(refState, States))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
+							}
+							break;
+						case NPCVehicleYieldPhase.FORCING_PRIORITY:
+							if (!isSomeVehicleForcingPriority(refState, States))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
+							}
+							break;
+						default:
+							throw new Exception($"Unattended NPCVehicleYieldPhase case: {refState.YieldPhase}");
+							break;
 					}
-					catch (InvalidOperationException ex)
-					{
-						Debug.Log(
-							$"{refState.Vehicle.VehicleID} ### InvalidOperationException: {here} "
-								+ ex.Message
-						);
-					}
-					catch (NullReferenceException ex)
-					{
-						Debug.Log(
-							$"{refState.Vehicle.VehicleID} ### NullReferenceException: {here} "
-								+ ex.Message
-						);
-					}
+					// }
+					// catch (InvalidOperationException ex)
+					// {
+					// 	Debug.Log(
+					// 		$"{refState.Vehicle.VehicleID} ### InvalidOperationException: {here} "
+					// 			+ ex.Message
+					// 	);
+					// }
+					// catch (NullReferenceException ex)
+					// {
+					// 	Debug.Log(
+					// 		$"{refState.Vehicle.VehicleID} ### NullReferenceException: {here} "
+					// 			+ ex.Message
+					// 	);
+					// }
 				}
 			}
 		}
@@ -1043,17 +1039,17 @@ namespace AWSIM.TrafficSimulation
 					stateCurrentPosition.y = state.Vehicle.transform.position.y + 2f;
 
 					// Pose
-					if (state.Vehicle.VehicleID == refID || state.Vehicle.VehicleID == stateID)
-					{
-						Gizmos.color = Color.green;
-						Gizmos.DrawSphere(state.FrontCenterPosition, 0.4f);
-						Gizmos.color = Color.red;
-						Gizmos.DrawSphere(state.ExpandedBackCenterPosition(state.Width), 0.4f);
-					}
+					// if (state.Vehicle.VehicleID == refID || state.Vehicle.VehicleID == stateID)
+					// {
+					// 	Gizmos.color = Color.green;
+					// 	Gizmos.DrawSphere(state.FrontCenterPosition, 0.4f);
+					// 	Gizmos.color = Color.red;
+					// 	Gizmos.DrawSphere(state.ExpandedBackCenterPosition(state.Width), 0.4f);
+					// }
 
-					if (state.YieldPhase == NPCVehicleYieldPhase.NONE
-						|| state.YieldPhase == NPCVehicleYieldPhase.ENTERING_INTERSECTION
-						|| state.YieldPhase == NPCVehicleYieldPhase.AT_INTERSECTION)
+					if (state.YieldPhase == NPCVehicleYieldPhase.NONE ||
+						state.YieldPhase == NPCVehicleYieldPhase.ENTERING_INTERSECTION ||
+						state.YieldPhase == NPCVehicleYieldPhase.AT_INTERSECTION)
 					{
 						continue;
 					}

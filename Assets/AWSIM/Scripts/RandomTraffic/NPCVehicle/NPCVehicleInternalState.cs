@@ -102,11 +102,13 @@ namespace AWSIM.TrafficSimulation
         public float DistanceToTargetPoint
             => SignedDistanceToPointOnLane(TargetPoint);
 
+        public Vector3 CurrentWaypoint => CurrentFollowingLane.Waypoints[WaypointIndex];
+
         public float DistanceToCurrentWaypoint
-            => SignedDistanceToPointOnLane(CurrentFollowingLane.Waypoints[WaypointIndex]);
+            => SignedDistanceToPointOnLane(CurrentWaypoint);
 
         public float DistanceToNextLane
-            => SignedDistanceToPointOnLane(CurrentFollowingLane.Waypoints[CurrentFollowingLane.Waypoints.Length - 1]);
+            => CurrentFollowingLane?.Waypoints?.LastOrDefault() != null ? SignedDistanceToPointOnLane(CurrentFollowingLane.Waypoints.Last()) : float.MaxValue;
 
         public float DistanceToIntersection
         {
@@ -148,32 +150,17 @@ namespace AWSIM.TrafficSimulation
             return false;
         }
 
-        public Vector3? LastIntersectionWaypoint
-        {
-            get
-            {
-                if (FirstLaneWithIntersection == null) return null;
-                return FirstLaneWithIntersection.Waypoints[FirstLaneWithIntersection.Waypoints.Length - 1];
-            }
-        }
+        public Vector3? LastIntersectionWaypoint => FirstLaneWithIntersection?.Waypoints?.LastOrDefault();
 
-        public Vector3? FirstIntersectionWaypoint
-        {
-            get
-            {
-                if (FirstLaneWithIntersection == null) return null;
-                return FirstLaneWithIntersection.Waypoints[0];
-            }
-        }
+        public Vector3? FirstIntersectionWaypoint => FirstLaneWithIntersection?.Waypoints?.FirstOrDefault();
 
         public bool yieldingPriorityAtTrafficLight => (!CurrentFollowingLane.intersectionLane
                     && TrafficLightPassability == TrafficLightPassability.RED);
 
-        public bool isEnteringIntersection => FollowingLanes.Count > 1 && FollowingLanes[1].intersectionLane;
-
         public bool isOnIntersection => FollowingLanes.Count > 0 && CurrentFollowingLane.intersectionLane;
 
-        public bool isEnteringYieldingLane => FirstLaneWithIntersection?.RightOfWayLanes.Count > 0;
+        public bool isIntersectionWithYieldingLane => FirstLaneWithIntersection?.RightOfWayLanes.Count > 0;
+
 
         /// <summary>
         /// Get the next lane of <paramref name="target"/>.<br/>
@@ -204,73 +191,61 @@ namespace AWSIM.TrafficSimulation
             return FollowingLanes.First();
         }
 
-        public bool intersectOverall(NPCVehicleInternalState state)
+        public bool intersectOverall(NPCVehicleInternalState otherState)
         {
-            if (FollowingLanes.Count == 0 && state.FollowingLanes.Count == 0)
-                return false;
-            if (CurrentFollowingLane.Waypoints.Length == 0 && state.CurrentFollowingLane.Waypoints.Length == 0)
-                return false;
-
             Vector3? refStartNullable = FirstIntersectionWaypoint;
+            Vector3? otherStartNullable = otherState.FirstIntersectionWaypoint;
+            if (refStartNullable == null || otherStartNullable == null)
+                return false;
             Vector3? refGoalNullable = LastIntersectionWaypoint;
-            Vector3? stateStartNullable = state.FirstIntersectionWaypoint;
-            Vector3? stateGoalNullable = state.LastIntersectionWaypoint;
-            if (refStartNullable == null || refGoalNullable == null || stateStartNullable == null || stateGoalNullable == null)
-                return false;
-            if (!CheckIfLinesIntersect(refStartNullable.Value, refGoalNullable.Value, stateStartNullable.Value, stateGoalNullable.Value))
+            Vector3? otherGoalNullable = otherState.LastIntersectionWaypoint;
+            if (refGoalNullable == null || otherGoalNullable == null)
                 return false;
 
-            foreach (TrafficLane refLane in FollowingLanes)
+            if (!CheckIfLinesIntersect(refStartNullable.Value, refGoalNullable.Value, otherStartNullable.Value, otherGoalNullable.Value))
+                return false;
+
+            var refLane = FirstLaneWithIntersection;
+            var otherLane = otherState.FirstLaneWithIntersection;
+
+            var refFirstWaypointIndex = (refLane.name == CurrentFollowingLane.name) ? WaypointIndex : 0;
+            var otherFirstWaypointIndex = (otherLane.name == otherState.CurrentFollowingLane.name) ? otherState.WaypointIndex : 0;
+            // check the intersection between all waypoints of these lanes (starting from CurrentWaypoint)
+            for (int i = refFirstWaypointIndex; i < refLane.Waypoints.Length - 1; i++)
             {
-                foreach (TrafficLane lane in state.FollowingLanes)
+                for (int j = otherFirstWaypointIndex; j < otherLane.Waypoints.Length - 1; j++)
                 {
-                    var refLaneIndex = (refLane.name == CurrentFollowingLane.name) ? WaypointIndex : 0;
-                    var laneIndex = (lane.name == state.CurrentFollowingLane.name) ? state.WaypointIndex : 0;
-                    for (int i = refLaneIndex; i < refLane.Waypoints.Length - 1; i++)
-                    {
-                        for (int j = laneIndex; j < lane.Waypoints.Length - 1; j++)
-                        {
-                            if (Vector3.Distance(refLane.Waypoints[i + 1], lane.Waypoints[j + 1]) < 1f)
-                            {
-                                return true;
-                            }
+                    if (Vector3.Distance(refLane.Waypoints[i + 1], otherLane.Waypoints[j + 1]) < 1f)
+                        return true;
 
-                            if (CheckIfLinesIntersect(refLane.Waypoints[i], refLane.Waypoints[i + 1], lane.Waypoints[j], lane.Waypoints[j + 1]))
-                            {
-                                return true;
-                            }
-                        }
-                    }
-
-                    if (lane.name == state.CurrentFollowingLane.name)
-                    {
-                        for (int i = refLaneIndex; i < refLane.Waypoints.Length - 1; i++)
-                        {
-                            if (CheckIfLinesIntersect(refLane.Waypoints[i], refLane.Waypoints[i + 1], state.ExpandedBackCenterPosition(), state.CurrentFollowingLane.Waypoints[state.WaypointIndex]))
-                            {
-                                return true;
-                            }
-                        }
-                    }
-
-                    if (refLane.name == CurrentFollowingLane.name)
-                    {
-                        for (int j = laneIndex; j < lane.Waypoints.Length - 1; j++)
-                        {
-                            if (CheckIfLinesIntersect(ExpandedBackCenterPosition(), CurrentFollowingLane.Waypoints[WaypointIndex], lane.Waypoints[j], lane.Waypoints[j + 1]))
-                            {
-                                return true;
-                            }
-                        }
-                    }
-
-                    if (lane.intersectionLane)
-                        break;
+                    if (CheckIfLinesIntersect(refLane.Waypoints[i], refLane.Waypoints[i + 1], otherLane.Waypoints[j], otherLane.Waypoints[j + 1]))
+                        return true;
                 }
-                if (refLane.intersectionLane)
-                    break;
             }
-            return CheckIfLinesIntersect(ExpandedBackCenterPosition(), CurrentFollowingLane.Waypoints[WaypointIndex], state.ExpandedBackCenterPosition(), state.CurrentFollowingLane.Waypoints[state.WaypointIndex]);
+
+            if (refLane.name == CurrentFollowingLane.name)
+            {
+                // Check short section [BackCenterPosition->CurrentWaypoint] with all sections from otherLane
+                for (int j = otherFirstWaypointIndex; j < otherLane.Waypoints.Length - 1; j++)
+                {
+                    if (CheckIfLinesIntersect(BackCenterPosition, CurrentWaypoint, otherLane.Waypoints[j], otherLane.Waypoints[j + 1]))
+                        return true;
+                }
+            }
+
+
+            if (otherLane.name == otherState.CurrentFollowingLane.name)
+            {
+                // Check short section [otherState.BackCenterPosition->otherState.CurrentWaypoint] with all sections from otherLane
+                for (int i = refFirstWaypointIndex; i < refLane.Waypoints.Length - 1; i++)
+                {
+                    if (CheckIfLinesIntersect(refLane.Waypoints[i], refLane.Waypoints[i + 1], otherState.BackCenterPosition, otherState.CurrentWaypoint))
+                        return true;
+                }
+            }
+
+            // Check short sections [BackCenterPosition->CurrentWaypoint]x[otherState.BackCenterPosition->otherState.CurrentWaypoint]
+            return CheckIfLinesIntersect(BackCenterPosition, CurrentWaypoint, otherState.BackCenterPosition, otherState.CurrentWaypoint);
 
 
             bool CheckIfLinesIntersect(Vector3 A1, Vector3 B1, Vector3 A2, Vector3 B2, bool verbose = false)
@@ -307,132 +282,54 @@ namespace AWSIM.TrafficSimulation
                 return true;
             }
         }
-        public bool intersectNow(NPCVehicleInternalState state)
+
+        public bool intersectNowFront(NPCVehicleInternalState otherState)
         {
+            if (!CurrentFollowingLane.intersectionLane || !otherState.CurrentFollowingLane.intersectionLane)
+                return false;
+
+            var refLane = CurrentFollowingLane;
+            var otherLane = otherState.CurrentFollowingLane;
+            // check the intersection between all waypoints of current lanes (starting from CurrentWaypoint)
             for (int i = WaypointIndex; i < CurrentFollowingLane.Waypoints.Length - 1; i++)
             {
-                for (int j = state.WaypointIndex; j < state.CurrentFollowingLane.Waypoints.Length - 1; j++)
+                for (int j = otherState.WaypointIndex; j < otherState.CurrentFollowingLane.Waypoints.Length - 1; j++)
                 {
-                    if (Vector3.Distance(CurrentFollowingLane.Waypoints[i + 1], state.CurrentFollowingLane.Waypoints[j + 1]) < 1f)
+                    if (Vector3.Distance(refLane.Waypoints[i + 1], otherLane.Waypoints[j + 1]) < 1f)
                         return true;
 
-                    if (CheckIfLinesIntersect(CurrentFollowingLane.Waypoints[i], CurrentFollowingLane.Waypoints[i + 1], state.CurrentFollowingLane.Waypoints[j], state.CurrentFollowingLane.Waypoints[j + 1]))
-                    {
+                    if (CheckIfLinesIntersect(refLane.Waypoints[i], refLane.Waypoints[i + 1], otherLane.Waypoints[j], otherLane.Waypoints[j + 1]))
                         return true;
-                    }
                 }
             }
 
-            Vector3 PoseA = ExpandedBackCenterPosition(state.Width);
-            Vector3 NearestA = CurrentFollowingLane.Waypoints[WaypointIndex]; ;//CurrentFollowingLane.Waypoints[CurrentFollowingLane.Waypoints.Length - 1];
-            for (int j = state.WaypointIndex; j < state.CurrentFollowingLane.Waypoints.Length - 1; j++)
+            Vector3 refPose = FrontCenterPosition;
+            Vector3 refNearestWaypoint = CurrentWaypoint;
+            // Check short section [FrontCenterPosition->CurrentWaypoint] with all sections from otherLane
+            for (int j = otherState.WaypointIndex; j < otherState.CurrentFollowingLane.Waypoints.Length - 1; j++)
             {
-                if (Vector3.Distance(NearestA, state.CurrentFollowingLane.Waypoints[j + 1]) < 1f)
+                if (Vector3.Distance(refNearestWaypoint, otherLane.Waypoints[j + 1]) < 1f)
                     return true;
 
-                if (CheckIfLinesIntersect(PoseA, NearestA, state.CurrentFollowingLane.Waypoints[j], state.CurrentFollowingLane.Waypoints[j + 1]))
-                {
+                if (CheckIfLinesIntersect(refPose, refNearestWaypoint, otherLane.Waypoints[j], otherLane.Waypoints[j + 1]))
                     return true;
-                }
             }
 
-            Vector3 PoseB = state.ExpandedBackCenterPosition(Width);
-            Vector3 NearestB = state.CurrentFollowingLane.Waypoints[state.WaypointIndex]; //state.CurrentFollowingLane.Waypoints[state.CurrentFollowingLane.Waypoints.Length - 1];
+            //BackCenterPosition is extended by the Width due to the use of lines intersection analysis (not bounding-boxes)
+            //vehicles have their own width - this can cause collisions at perpendicular intersections
+            Vector3 otherPose = otherState.ExpandedBackCenterPosition(Width);
+            Vector3 otherNearestWaypoint = otherState.CurrentWaypoint;
+            // Check short section [otherState.ExpandedBackCenterPosition->otherState.CurrentWaypoint] with all sections from otherLane
             for (int i = WaypointIndex; i < CurrentFollowingLane.Waypoints.Length - 1; i++)
             {
-                if (Vector3.Distance(CurrentFollowingLane.Waypoints[i + 1], NearestB) < 1f)
+                if (Vector3.Distance(refLane.Waypoints[i + 1], otherNearestWaypoint) < 1f)
                     return true;
 
-                if (CheckIfLinesIntersect(CurrentFollowingLane.Waypoints[i], CurrentFollowingLane.Waypoints[i + 1], PoseB, NearestB))
-                {
+                if (CheckIfLinesIntersect(refLane.Waypoints[i], refLane.Waypoints[i + 1], otherPose, otherNearestWaypoint))
                     return true;
-                }
             }
 
-            return CheckIfLinesIntersect(PoseA, NearestA, PoseB, NearestB);
-
-            bool CheckIfLinesIntersect(Vector3 A1, Vector3 B1, Vector3 A2, Vector3 B2, bool verbose = false)
-            {
-                Vector2 line1point1 = new Vector2(A1.x, A1.z);
-                Vector2 line1point2 = new Vector2(B1.x, B1.z);
-                Vector2 line2point1 = new Vector2(A2.x, A2.z);
-                Vector2 line2point2 = new Vector2(B2.x, B2.z);
-
-                Vector2 a = line1point2 - line1point1;
-                Vector2 b = line2point1 - line2point2;
-                Vector2 c = line1point1 - line2point1;
-
-                float alphaNumerator = b.y * c.x - b.x * c.y;
-                float betaNumerator = a.x * c.y - a.y * c.x;
-                float denominator = a.y * b.x - a.x * b.y;
-
-                if (denominator == 0)
-                {
-                    return false;
-                }
-                else if (denominator > 0)
-                {
-                    if (alphaNumerator < 0 || alphaNumerator > denominator || betaNumerator < 0 || betaNumerator > denominator)
-                    {
-                        return false;
-                    }
-                }
-                else if (alphaNumerator > 0 || alphaNumerator < denominator || betaNumerator > 0 || betaNumerator < denominator)
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
-        public bool intersectNowFront(NPCVehicleInternalState state)
-        {
-            for (int i = WaypointIndex; i < CurrentFollowingLane.Waypoints.Length - 1; i++)
-            {
-                for (int j = state.WaypointIndex; j < state.CurrentFollowingLane.Waypoints.Length - 1; j++)
-                {
-                    if (Vector3.Distance(CurrentFollowingLane.Waypoints[i + 1], state.CurrentFollowingLane.Waypoints[j + 1]) < 1f)
-                    {
-                        return true;
-                    }
-
-                    if (CheckIfLinesIntersect(CurrentFollowingLane.Waypoints[i], CurrentFollowingLane.Waypoints[i + 1], state.CurrentFollowingLane.Waypoints[j], state.CurrentFollowingLane.Waypoints[j + 1]))
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            Vector3 PoseA = FrontCenterPosition;
-            Vector3 NearestA = CurrentFollowingLane.Waypoints[WaypointIndex];
-            for (int j = state.WaypointIndex; j < state.CurrentFollowingLane.Waypoints.Length - 1; j++)
-            {
-                if (Vector3.Distance(NearestA, state.CurrentFollowingLane.Waypoints[j + 1]) < 1f)
-                {
-                    return true;
-                }
-
-                if (CheckIfLinesIntersect(PoseA, NearestA, state.CurrentFollowingLane.Waypoints[j], state.CurrentFollowingLane.Waypoints[j + 1]))
-                {
-                    return true;
-                }
-            }
-
-            Vector3 PoseB = state.ExpandedBackCenterPosition(Width);
-            Vector3 NearestB = state.CurrentFollowingLane.Waypoints[state.WaypointIndex];
-            for (int i = WaypointIndex; i < CurrentFollowingLane.Waypoints.Length - 1; i++)
-            {
-                if (Vector3.Distance(CurrentFollowingLane.Waypoints[i + 1], NearestB) < 1f)
-                {
-                    return true;
-                }
-
-                if (CheckIfLinesIntersect(CurrentFollowingLane.Waypoints[i], CurrentFollowingLane.Waypoints[i + 1], PoseB, NearestB))
-                {
-                    return true;
-                }
-            }
-
-            return CheckIfLinesIntersect(PoseA, NearestA, PoseB, NearestB);
+            return CheckIfLinesIntersect(refPose, refNearestWaypoint, otherPose, otherNearestWaypoint);
 
             bool CheckIfLinesIntersect(Vector3 A1, Vector3 B1, Vector3 A2, Vector3 B2, bool verbose = false)
             {
