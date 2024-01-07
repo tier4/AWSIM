@@ -35,15 +35,16 @@ Assets/AWSIM/Prefabs/RobotecGPULidars/*
 
 The table of available prefabs can be found below:
 
-| LiDAR                 | Path                     | Appearance                                       |
-| :-------------------- | :----------------------- | :----------------------------------------------- |
-| *HESAI Pandar40P*     | `HesaiPandar40P.prefab`  | <img src=imgs_prefabs/pandar40p.png width=150px> |
-| *HESAI PandarQT64*    | `HesaiPandarQT64.prefab` | <img src=imgs_prefabs/pandarqt.png width=150px>  |
-| *HESAI AT128 E2X*     | `HesaiAT128E2X.prefab`   | <img src=imgs_prefabs/at128e2x.png width=150px>  |
-| *Ouster OS1-64*       | `OusterOS1-64.prefab`    | <img src=imgs_prefabs/os1-64.png width=150px>    |
-| *Velodyne VLP-16*     | `VelodyneVLP16.prefab`   | <img src=imgs_prefabs/vlp16.png width=150px>     |
-| *Velodyne VLC-32C*    | `VelodyneVLP32C.prefab`  | <img src=imgs_prefabs/vlp32.png width=150px>     |
-| *Velodyne VLS-128-AP* | `VelodyneVLS128.prefab`  | <img src=imgs_prefabs/vls128.png width=150px>    |
+| LiDAR                 | Path                     | Appearance                                        |
+| :-------------------- | :----------------------- | :------------------------------------------------ |
+| *HESAI Pandar40P*     | `HesaiPandar40P.prefab`  | <img src=imgs_prefabs/pandar40p.png width=150px>  |
+| *HESAI PandarQT64*    | `HesaiPandarQT64.prefab` | <img src=imgs_prefabs/pandarqt.png width=150px>   |
+| *HESAI PandarXT32*    | `HesaiPandarXT32.prefab` | <img src=imgs_prefabs/pandarxt32.png width=150px> |
+| *HESAI AT128 E2X*     | `HesaiAT128E2X.prefab`   | <img src=imgs_prefabs/at128e2x.png width=150px>   |
+| *Ouster OS1-64*       | `OusterOS1-64.prefab`    | <img src=imgs_prefabs/os1-64.png width=150px>     |
+| *Velodyne VLP-16*     | `VelodyneVLP16.prefab`   | <img src=imgs_prefabs/vlp16.png width=150px>      |
+| *Velodyne VLC-32C*    | `VelodyneVLP32C.prefab`  | <img src=imgs_prefabs/vlp32.png width=150px>      |
+| *Velodyne VLS-128-AP* | `VelodyneVLS128.prefab`  | <img src=imgs_prefabs/vls128.png width=150px>     |
 
 ### Link in the default Scene
 ![link](link.png)

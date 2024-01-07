@@ -71,7 +71,7 @@ namespace AWSIM.PointCloudMapping
             rglSubgraphMapping = new RGLNodeSequence()
                 .AddNodePointsTransform(rosWorldTransformNodeId, worldTransform)
                 .AddNodePointsDownsample(downsampleNodeId, new Vector3(leafSize, leafSize, leafSize))
-                .AddNodePointsTemporalMerge(temporalMergeNodeId, new RGLField[1] {RGLField.XYZ_F32});
+                .AddNodePointsTemporalMerge(temporalMergeNodeId, new RGLField[1] {RGLField.XYZ_VEC3_F32});
 
             rglSubgraphMapping.SetActive(downsampleNodeId, enableDownsampling);
 

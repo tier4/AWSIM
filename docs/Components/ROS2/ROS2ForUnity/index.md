@@ -21,7 +21,10 @@ All required dependencies are installed and can be used e.g. as a complete set o
 Only asset libraries and generated messages are installed therefore *ROS2* instance must be sourced.
 
 By default, asset `R2FU` in *AWSIM* is prepared in *standalone mode*.
-Thanks to this, *ROS2* instance doesn't need to be sourced - all you have to do is run the *Unity* editor.
+
+!!! warning
+
+    To avoid internal conflicts between the standalone libraries, and sourced ones, *ROS2* instance shouldn't be sourced before running AWSIM or the *Unity* Editor.
 
 !!! question "Can't see topics"
     There are no errors but I can't see topics published by `R2FU`
@@ -295,6 +298,30 @@ namespace AWSIM
     }
 }
 ```
+
+#### Upper limit to publish rate
+
+The above example demonstrates the implementation of the `'publish'` method within the `FixedUpdate` Unity event method. However, this approach has certain limitations. The maximum output frequency is directly tied to the current value of `Fixed TimeStep` specified in the `Project Settings`. Considering that the AWSIM is targeting a frame rate of 60 frames per second (FPS), the current `Fixed TimeStep` is set to 1/60s. And this impose 60Hz as a limitation on the publish rate for any sensor, which is implemented within `FixedUpdate` method. In case a higher output frequency be necessary, an alternative implementation must be considered or adjustments made to the `Fixed TimeStep` setting in the `Editor->Project Settings->Time`.
+
+The table provided below presents a list of sensors along with examples of topics that are constrained by the `Fixed TimeStep` limitation.
+
+| Object | Topic |
+|:-|:-|
+| GNSS Sensor | /sensing/gnss/pose |
+| IMU Sensor | /sensing/imu/tamagawa/imu_raw |
+| Traffic Camera | /sensing/camera/traffic_light/image_raw |
+| Pose Sensor | /awsim/ground_truth/vehicle/pose |
+| OdometrySensor | /awsim/ground_truth/localization/kinematic_state |
+| LIDAR | /sensing/lidar/top/pointcloud_raw |
+| Vehicle Status | /vehicle/status/velocity_status |
+
+If the sensor or any other publishing object within AWSIM does not have any direct correlation with physics (i.e., does not require synchronization with physics), it can be implemented without using the `FixedUpdate` method. Consequently, this allows the bypass of upper limits imposed by the `Fixed TimeStep`.
+
+The table presented below shows a list of objects that are not constrained by the `Fixed TimeStep` limitation.
+
+| Object | Topic |
+|:-|:-|
+| Clock | /clock |
 
 ### Subscribe to the topic
 In order to subscribe messages, a subscriber object must be created.
