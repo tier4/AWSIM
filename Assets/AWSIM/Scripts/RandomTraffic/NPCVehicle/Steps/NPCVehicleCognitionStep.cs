@@ -274,7 +274,7 @@ namespace AWSIM.TrafficSimulation
         /// Check traffic conditions(EGOVehicle and NPCVehicle) on right of ways.
         /// This job is sequential.
         /// </summary>
-		private struct RightOfWayCheckJob
+        private struct RightOfWayCheckJob
         {
             public static float minimumDistanceToIntersection = 18f;
 
