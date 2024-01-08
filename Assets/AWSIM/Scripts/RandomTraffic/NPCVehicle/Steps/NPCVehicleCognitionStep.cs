@@ -633,10 +633,7 @@ namespace AWSIM.TrafficSimulation
                         if (!IsLaneDominatedBy(lane, otherState))
                             continue;
 
-                        if (!refOnIntersection && !intersectOverall(refState, otherState))
-                            continue;
-
-                        if (refOnIntersection && !intersectNowFront(refState, otherState))
+                        if (!intersectOverall(refState, otherState))
                             continue;
 
                         dominatingVehicle = otherState.Vehicle.RigidBodyTransform;

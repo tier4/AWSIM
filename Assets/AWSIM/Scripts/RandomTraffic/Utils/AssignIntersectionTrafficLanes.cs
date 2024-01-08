@@ -11,9 +11,6 @@ namespace AWSIM.TrafficSimulation
     [ExecuteInEditMode]
     public class AssignIntersectionTrafficLanes : MonoBehaviour
     {
-        [SerializeField, Tooltip("Intersections parent - reference to parent of the GameObjects with the Intersection script.")]
-        public GameObject intersectionsObjectsParent;
-
         [SerializeField, Tooltip("TrafficLanes parent - reference to parent of the GameObjects with the TrafficLane script.")]
         public GameObject trafficLanesObjectsParent;
 
