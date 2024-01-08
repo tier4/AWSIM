@@ -7,299 +7,273 @@ using UnityEngine.Profiling;
 
 namespace AWSIM.TrafficSimulation
 {
-	/// <summary>
-	/// Cognition step implementation for a NPC vehicle simulation.
-	/// This step checks the followings:<br/>
-	/// - Ground existence<br/>
-	/// - Next lane and waypoint to follow<br/>
-	/// - Traffic light states<br/>
-	/// - Traffic conditions(EGOVehicle and NPCVehicle) on right of ways<br/>
-	/// - Sharp curves to be passed slowly<br/>
-	/// - Front obstacles to be kept distance
-	/// </summary>
-	public class NPCVehicleCognitionStep : IDisposable
-	{
-		/// <summary>
-		/// NativeContainer compatible data of NPC vehicles for JobSystem input.
-		/// </summary>
-		private struct NativeState
-		{
-			public Vector3 Extents;
-			public Vector3 FrontCenterPosition;
-			public float Yaw;
-			public int WaypointCount;
+    /// <summary>
+    /// Cognition step implementation for a NPC vehicle simulation.
+    /// This step checks the followings:<br/>
+    /// - Ground existence<br/>
+    /// - Next lane and waypoint to follow<br/>
+    /// - Traffic light states<br/>
+    /// - Traffic conditions(EGOVehicle and NPCVehicle) on right of ways<br/>
+    /// - Sharp curves to be passed slowly<br/>
+    /// - Front obstacles to be kept distance
+    /// </summary>
+    public class NPCVehicleCognitionStep : IDisposable
+    {
+        /// <summary>
+        /// NativeContainer compatible data of NPC vehicles for JobSystem input.
+        /// </summary>
+        private struct NativeState
+        {
+            public Vector3 Extents;
+            public Vector3 FrontCenterPosition;
+            public float Yaw;
+            public int WaypointCount;
 
-			public static NativeState Create(NPCVehicleInternalState state, int waypointCount)
-			{
-				return new NativeState
-				{
-					Extents = state.Vehicle.Bounds.extents,
-					FrontCenterPosition = state.FrontCenterPosition,
-					Yaw = state.Yaw,
-					WaypointCount = waypointCount
-				};
-			}
-		}
+            public static NativeState Create(NPCVehicleInternalState state, int waypointCount)
+            {
+                return new NativeState
+                {
+                    Extents = state.Vehicle.Bounds.extents,
+                    FrontCenterPosition = state.FrontCenterPosition,
+                    Yaw = state.Yaw,
+                    WaypointCount = waypointCount
+                };
+            }
+        }
 
-		/// <summary>
-		/// Check next lane and waypoint to follow.
-		/// </summary>
-		private struct NextWaypointCheckJob
-		{
-			// In/Out
-			public IReadOnlyList<NPCVehicleInternalState> States;
+        /// <summary>
+        /// Check next lane and waypoint to follow.
+        /// </summary>
+        private struct NextWaypointCheckJob
+        {
+            // In/Out
+            public IReadOnlyList<NPCVehicleInternalState> States;
 
-			public void Execute()
-			{
-				foreach (var state in States)
-				{
-					var isCloseToTarget = state.DistanceToCurrentWaypoint <= 1f;
+            public void Execute()
+            {
+                foreach (var state in States)
+                {
+                    var isCloseToTarget = state.DistanceToCurrentWaypoint <= 1f;
 
-					if (!isCloseToTarget)
-						continue;
+                    if (!isCloseToTarget)
+                        continue;
 
-					if (state.WaypointIndex >= state.CurrentFollowingLane.Waypoints.Length - 1)
-					{
-						state.ExtendFollowingLane();
-						state.RemoveCurrentFollowingLane();
-						state.WaypointIndex = 1;
-					}
-					else
-					{
-						state.WaypointIndex++;
-					}
+                    if (state.WaypointIndex >= state.CurrentFollowingLane.Waypoints.Length - 1)
+                    {
+                        state.ExtendFollowingLane();
+                        state.RemoveCurrentFollowingLane();
+                        state.WaypointIndex = 1;
+                    }
+                    else
+                    {
+                        state.WaypointIndex++;
+                    }
 
-					// Despawn if there are no lanes to follow.
-					if (state.FollowingLanes.Count == 0)
-						state.ShouldDespawn = true;
-				}
-			}
-		}
+                    // Despawn if there are no lanes to follow.
+                    if (state.FollowingLanes.Count == 0)
+                        state.ShouldDespawn = true;
+                }
+            }
+        }
 
-		/// <summary>
-		/// Read native data from <see cref="NPCVehicleInternalState"/>
-		/// This job is sequential.
-		/// </summary>
-		private struct ReadStateJob
-		{
-			// In
-			public IReadOnlyList<NPCVehicleInternalState> States;
+        /// <summary>
+        /// Read native data from <see cref="NPCVehicleInternalState"/>
+        /// This job is sequential.
+        /// </summary>
+        private struct ReadStateJob
+        {
+            // In
+            public IReadOnlyList<NPCVehicleInternalState> States;
 
-			// Out
-			public NativeArray<NativeState> Results;
+            // Out
+            public NativeArray<NativeState> Results;
 
-			/// <summary>
-			/// Waypoints followed by the vehicle.
-			/// Waypoints of all vehicles are merged into one native array.
-			/// </summary>
-			public NativeArray<Vector3> Waypoints;
+            /// <summary>
+            /// Waypoints followed by the vehicle.
+            /// Waypoints of all vehicles are merged into one native array.
+            /// </summary>
+            public NativeArray<Vector3> Waypoints;
 
-			public void Execute()
-			{
-				for (var i = 0; i < States.Count; i++)
-				{
-					if (States[i].Vehicle == null)
-						return;
+            public void Execute()
+            {
+                for (var i = 0; i < States.Count; i++)
+                {
+                    if (States[i].Vehicle == null)
+                        return;
 
-					var srcIndex = States[i].WaypointIndex;
-					var dstIndex = 0;
-					var offset = i * MaxWaypointCount;
-					foreach (var lane in States[i].FollowingLanes)
-					{
-						var length = Mathf.Min(
-							MaxWaypointCount - dstIndex,
-							lane.Waypoints.Length - srcIndex
-						);
+                    var srcIndex = States[i].WaypointIndex;
+                    var dstIndex = 0;
+                    var offset = i * MaxWaypointCount;
+                    foreach (var lane in States[i].FollowingLanes)
+                    {
+                        var length = Mathf.Min(
+                            MaxWaypointCount - dstIndex,
+                            lane.Waypoints.Length - srcIndex);
 
-						NativeArray<Vector3>.Copy(
-							lane.Waypoints,
-							srcIndex,
-							Waypoints,
-							offset + dstIndex,
-							length
-						);
+                        NativeArray<Vector3>.Copy(lane.Waypoints, srcIndex, Waypoints, offset + dstIndex, length);
 
-						dstIndex += length;
+                        dstIndex += length;
 
-						if (dstIndex >= MaxWaypointCount - 1)
-							break;
+                        if (dstIndex >= MaxWaypointCount - 1)
+                            break;
 
-						srcIndex = 1;
-					}
+                        srcIndex = 1;
+                    }
 
-					Results[i] = NativeState.Create(States[i], dstIndex);
-				}
-			}
-		}
+                    Results[i] = NativeState.Create(States[i], dstIndex);
+                }
+            }
 
-		/// <summary>
-		/// Outputs <see cref="RaycastCommand"/> for checking ground existence.
-		/// </summary>
-		private struct GroundCheckJob : IJobParallelFor
-		{
-			// In
-			[ReadOnly]
-			public NativeArray<NativeState> NativeStates;
+        }
 
-			[WriteOnly]
-			public NativeArray<RaycastCommand> Commands;
+        /// <summary>
+        /// Outputs <see cref="RaycastCommand"/> for checking ground existence.
+        /// </summary>
+        private struct GroundCheckJob : IJobParallelFor
+        {
+            // In
+            [ReadOnly] public NativeArray<NativeState> NativeStates;
+            [WriteOnly] public NativeArray<RaycastCommand> Commands;
 
-			public LayerMask GroundLayerMask;
+            public LayerMask GroundLayerMask;
 
-			public void Execute(int index)
-			{
-				Commands[index] = new RaycastCommand
-				{
-					from = NativeStates[index].FrontCenterPosition + Vector3.up * 2f,
-					direction = Vector3.down,
-					distance = 10f,
-					layerMask = GroundLayerMask,
-					maxHits = 1
-				};
-			}
-		}
+            public void Execute(int index)
+            {
+                Commands[index] = new RaycastCommand
+                {
+                    from = NativeStates[index].FrontCenterPosition + Vector3.up * 2f,
+                    direction = Vector3.down,
+                    distance = 10f,
+                    layerMask = GroundLayerMask,
+                    maxHits = 1
+                };
+            }
+        }
 
-		/// <summary>
-		/// Outputs <see cref="BoxcastCommand"/> for checking front obstacles.
-		/// </summary>
-		private struct ObstacleCheckJob : IJobParallelFor
-		{
-			public LayerMask VehicleLayerMask;
+        /// <summary>
+        /// Outputs <see cref="BoxcastCommand"/> for checking front obstacles.
+        /// </summary>
+        private struct ObstacleCheckJob : IJobParallelFor
+        {
+            public LayerMask VehicleLayerMask;
 
-			[ReadOnly]
-			public NativeArray<NativeState> States;
+            [ReadOnly] public NativeArray<NativeState> States;
+            [ReadOnly] public NativeArray<Vector3> Waypoints;
 
-			[ReadOnly]
-			public NativeArray<Vector3> Waypoints;
+            [WriteOnly] public NativeArray<BoxcastCommand> Commands;
 
-			[WriteOnly]
-			public NativeArray<BoxcastCommand> Commands;
+            public void Execute(int index)
+            {
+                var stateIndex = index / MaxBoxcastCount;
+                var waypointIndex = index % MaxBoxcastCount;
+                var waypointOffset = stateIndex * MaxWaypointCount;
 
-			public void Execute(int index)
-			{
-				var stateIndex = index / MaxBoxcastCount;
-				var waypointIndex = index % MaxBoxcastCount;
-				var waypointOffset = stateIndex * MaxWaypointCount;
+                if (waypointIndex >= States[stateIndex].WaypointCount)
+                {
+                    Commands[index] = new BoxcastCommand();
+                    return;
+                }
 
-				if (waypointIndex >= States[stateIndex].WaypointCount)
-				{
-					Commands[index] = new BoxcastCommand();
-					return;
-				}
+                var startPoint = waypointIndex == 0
+                    ? States[stateIndex].FrontCenterPosition
+                    : Waypoints[waypointOffset + waypointIndex - 1];
 
-				var startPoint =
-					waypointIndex == 0
-						? States[stateIndex].FrontCenterPosition
-						: Waypoints[waypointOffset + waypointIndex - 1];
+                // Reduce the detection range so that large sized vehicles can pass each other.
+                var boxCastExtents = States[stateIndex].Extents * 0.5f;
+                boxCastExtents.y *= 3;
+                boxCastExtents.z = 0.1f;
+                var endPoint = Waypoints[waypointOffset + waypointIndex];
 
-				// Reduce the detection range so that large sized vehicles can pass each other.
-				var boxCastExtents = States[stateIndex].Extents * 0.5f;
-				boxCastExtents.y *= 3;
-				boxCastExtents.z = 0.1f;
-				var endPoint = Waypoints[waypointOffset + waypointIndex];
+                var distance = Vector3.Distance(startPoint, endPoint);
+                var direction = (endPoint - startPoint).normalized;
+                var rotation = Quaternion.LookRotation(direction);
+                Commands[index] = new BoxcastCommand(
+                    startPoint,
+                    boxCastExtents,
+                    rotation,
+                    direction,
+                    distance,
+                    VehicleLayerMask
+                );
+            }
+        }
 
-				var distance = Vector3.Distance(startPoint, endPoint);
-				var direction = (endPoint - startPoint).normalized;
-				var rotation = Quaternion.LookRotation(direction);
-				Commands[index] = new BoxcastCommand(
-					startPoint,
-					boxCastExtents,
-					rotation,
-					direction,
-					distance,
-					VehicleLayerMask
-				);
-			}
-		}
+        /// <summary>
+        /// Calculate distance to the obstacle detected by boxcasts.
+        /// </summary>
+        private struct CalculateObstacleDistanceJob : IJobParallelFor
+        {
+            [ReadOnly] public NativeArray<RaycastHit> HitInfoArray;
+            [ReadOnly] public NativeArray<BoxcastCommand> Commands;
+            [ReadOnly] public NativeArray<NativeState> NativeStates;
 
-		/// <summary>
-		/// Calculate distance to the obstacle detected by boxcasts.
-		/// </summary>
-		private struct CalculateObstacleDistanceJob : IJobParallelFor
-		{
-			[ReadOnly]
-			public NativeArray<RaycastHit> HitInfoArray;
+            public NativeArray<float> Distances;
 
-			[ReadOnly]
-			public NativeArray<BoxcastCommand> Commands;
+            public void Execute(int index)
+            {
+                var hasHit = false;
+                var totalDistance = 0f;
+                var boxcastCount = Mathf.Min(MaxBoxcastCount, NativeStates[index].WaypointCount);
+                for (var commandIndex = index * MaxBoxcastCount;
+                     commandIndex < index * MaxBoxcastCount + boxcastCount;
+                     commandIndex++)
+                {
+                    var hitInfo = HitInfoArray[commandIndex];
+                    hasHit = hitInfo.distance != 0f || hitInfo.point != Vector3.zero;
+                    if (hasHit)
+                    {
+                        totalDistance += hitInfo.distance;
+                        break;
+                    }
+                    totalDistance += Commands[commandIndex].distance;
+                }
 
-			[ReadOnly]
-			public NativeArray<NativeState> NativeStates;
+                Distances[index] = hasHit
+                    ? totalDistance
+                    : float.MaxValue;
+            }
+        }
 
-			public NativeArray<float> Distances;
+        /// <summary>
+        /// Check sharp curve existence.
+        /// </summary>
+        private struct CurveCheckJob : IJobParallelFor
+        {
+            [ReadOnly] public NativeArray<NativeState> NativeStates;
+            [ReadOnly] public NativeArray<Vector3> Waypoints;
 
-			public void Execute(int index)
-			{
-				var hasHit = false;
-				var totalDistance = 0f;
-				var boxcastCount = Mathf.Min(MaxBoxcastCount, NativeStates[index].WaypointCount);
-				for (
-					var commandIndex = index * MaxBoxcastCount;
-					commandIndex < index * MaxBoxcastCount + boxcastCount;
-					commandIndex++
-				)
-				{
-					var hitInfo = HitInfoArray[commandIndex];
-					hasHit = hitInfo.distance != 0f || hitInfo.point != Vector3.zero;
-					if (hasHit)
-					{
-						totalDistance += hitInfo.distance;
-						break;
-					}
-					totalDistance += Commands[commandIndex].distance;
-				}
+            [WriteOnly] public NativeArray<bool> IsTurnings;
 
-				Distances[index] = hasHit ? totalDistance : float.MaxValue;
-			}
-		}
+            public void Execute(int index)
+            {
+                var state = NativeStates[index];
+                var currentForward = Quaternion.AngleAxis(state.Yaw, Vector3.up) * Vector3.forward;
+                var currentWaypointIndex = index * MaxWaypointCount;
+                var elapsedDistance = Vector3.Distance(state.FrontCenterPosition, Waypoints[currentWaypointIndex]);
+                var turnAngle = 0f;
+                while (elapsedDistance < 40f)
+                {
+                    var currentWaypoint = Waypoints[currentWaypointIndex];
+                    currentWaypointIndex++;
 
-		/// <summary>
-		/// Check sharp curve existence.
-		/// </summary>
-		private struct CurveCheckJob : IJobParallelFor
-		{
-			[ReadOnly]
-			public NativeArray<NativeState> NativeStates;
+                    if (currentWaypointIndex >= index * MaxWaypointCount + state.WaypointCount)
+                        break;
 
-			[ReadOnly]
-			public NativeArray<Vector3> Waypoints;
+                    var nextWaypoint = Waypoints[currentWaypointIndex];
+                    var nextForward = nextWaypoint - currentWaypoint;
+                    elapsedDistance += Vector3.Distance(currentWaypoint, nextWaypoint);
+                    turnAngle += Vector3.Angle(currentForward, nextForward);
+                    currentForward = nextForward;
+                }
 
-			[WriteOnly]
-			public NativeArray<bool> IsTurnings;
+                IsTurnings[index] = turnAngle > 45f;
+            }
+        }
 
-			public void Execute(int index)
-			{
-				var state = NativeStates[index];
-				var currentForward = Quaternion.AngleAxis(state.Yaw, Vector3.up) * Vector3.forward;
-				var currentWaypointIndex = index * MaxWaypointCount;
-				var elapsedDistance = Vector3.Distance(
-					state.FrontCenterPosition,
-					Waypoints[currentWaypointIndex]
-				);
-				var turnAngle = 0f;
-				while (elapsedDistance < 40f)
-				{
-					var currentWaypoint = Waypoints[currentWaypointIndex];
-					currentWaypointIndex++;
-
-					if (currentWaypointIndex >= index * MaxWaypointCount + state.WaypointCount)
-						break;
-
-					var nextWaypoint = Waypoints[currentWaypointIndex];
-					var nextForward = nextWaypoint - currentWaypoint;
-					elapsedDistance += Vector3.Distance(currentWaypoint, nextWaypoint);
-					turnAngle += Vector3.Angle(currentForward, nextForward);
-					currentForward = nextForward;
-				}
-
-				IsTurnings[index] = turnAngle > 45f;
-			}
-		}
-
-		/// <summary>
-		/// Check traffic conditions(EGOVehicle and NPCVehicle) on right of ways.
-		/// This job is sequential.
-		/// </summary>
+        /// <summary>
+        /// Check traffic conditions(EGOVehicle and NPCVehicle) on right of ways.
+        /// This job is sequential.
+        /// </summary>
 		private struct RightOfWayCheckJob
 		{
 			public static float minimumDistanceToIntersection = 18f;
@@ -312,6 +286,119 @@ namespace AWSIM.TrafficSimulation
 			// In/Out
 			public IReadOnlyList<NPCVehicleInternalState> States;
 
+			/// <summary>
+			/// Checks traffic conditions on right of ways.
+			/// This method consists of the following steps:<br/>
+			/// - Find
+			/// </summary>
+			public void Execute()
+			{
+				foreach (var refState in States)
+				{
+					if (refState.ShouldDespawn)
+						continue;
+
+					switch (refState.YieldPhase)
+					{
+						case NPCVehicleYieldPhase.NONE:
+							refState.YieldLane = null;
+							if (isEnteringIntersection(refState))
+							{
+								refState.YieldPoint = refState.FirstLaneWithIntersection.GetStopPoint();
+								refState.YieldPhase = NPCVehicleYieldPhase.ENTERING_INTERSECTION;
+							}
+							else if (refState.isOnIntersection)
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.AT_INTERSECTION;
+							}
+
+							if (refState.YieldPhase != NPCVehicleYieldPhase.NONE)
+								if (refState.isIntersectionWithYieldingLane)
+									refState.YieldLane = refState.FirstLaneWithIntersection;
+								else
+									refState.YieldLane = null;
+							break;
+
+						case NPCVehicleYieldPhase.ENTERING_INTERSECTION:
+							if (refState.isOnIntersection)
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.AT_INTERSECTION;
+							}
+							else if (ShouldYieldDueToLanes(refState, States, false))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.LANES_RULES_ENTERING_INTERSECTION;
+							}
+							else if (isIntersectionBusy(refState, States))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.INTERSECTION_BLOCKED;
+							}
+							else if (isLeftHandRuleEnteringIntersection(refState, States))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION;
+							}
+							break;
+
+						case NPCVehicleYieldPhase.AT_INTERSECTION:
+							if (!refState.isOnIntersection)
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
+							}
+							else if (ShouldYieldDueToLanes(refState, States, true))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.LANES_RULES_AT_INTERSECTION;
+							}
+							else if (isSomeVehicleForcingPriority(refState, States))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.FORCING_PRIORITY;
+							}
+							else if (isLeftHandRuleOnIntersection(refState, States))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.LEFT_HAND_RULE_AT_INTERSECTION;
+							}
+							break;
+
+						case NPCVehicleYieldPhase.INTERSECTION_BLOCKED:
+							if (!isIntersectionBusy(refState, States))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
+							}
+							break;
+						case NPCVehicleYieldPhase.LANES_RULES_ENTERING_INTERSECTION:
+							if (!ShouldYieldDueToLanes(refState, States, false))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
+							}
+							break;
+						case NPCVehicleYieldPhase.LANES_RULES_AT_INTERSECTION:
+							if (!ShouldYieldDueToLanes(refState, States, true))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
+							}
+							break;
+						case NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION:
+							if (refState.isOnIntersection || !isLeftHandRuleEnteringIntersection(refState, States))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
+							}
+							break;
+						case NPCVehicleYieldPhase.LEFT_HAND_RULE_AT_INTERSECTION:
+							if (!isLeftHandRuleOnIntersection(refState, States))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
+							}
+							break;
+						case NPCVehicleYieldPhase.FORCING_PRIORITY:
+							if (!isSomeVehicleForcingPriority(refState, States))
+							{
+								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
+							}
+							break;
+						default:
+							throw new Exception($"Unattended NPCVehicleYieldPhase case: {refState.YieldPhase}");
+							break;
+					}
+				}
+			}
 
 			static private bool isYieldingDueToRules(NPCVehicleInternalState refState)
 			{
@@ -560,7 +647,7 @@ namespace AWSIM.TrafficSimulation
 
 				static bool IsLaneDominatedBy(TrafficLane lane, NPCVehicleInternalState state)
 				{
-					return (state.CurrentFollowingLane.intersectionLane || state.IsNextLaneIntersection()) && state.FirstLaneWithIntersection == lane;
+					return (state.CurrentFollowingLane.intersectionLane || state.IsNextLaneIntersection) && state.FirstLaneWithIntersection == lane;
 				}
 
 				/// Check if <paramref name="lane"/> is dominated by a vehicle whose position is <paramref name="vehiclePosition"/> and forward direction is <paramref name="vehicleForward"/>.
@@ -736,408 +823,283 @@ namespace AWSIM.TrafficSimulation
 				// Check short sections [BackCenterPosition->CurrentWaypoint]x[[otherState.ExpandedBackCenterPosition->otherState.CurrentWaypoint]
 				return CheckIfLinesIntersect(refPose, refNearestWaypoint, otherPose, otherNearestWaypoint);
 			}
-
-
-			/// <summary>
-			/// Checks traffic conditions on right of ways.
-			/// This method consists of the following steps:<br/>
-			/// - Find
-			/// </summary>
-			public void Execute()
-			{
-				foreach (var refState in States)
-				{
-					if (refState.ShouldDespawn)
-						continue;
-
-					switch (refState.YieldPhase)
-					{
-						case NPCVehicleYieldPhase.NONE:
-							refState.YieldLane = null;
-							if (isEnteringIntersection(refState))
-							{
-								refState.YieldPoint = refState.FirstLaneWithIntersection.GetStopPoint();
-								refState.YieldPhase = NPCVehicleYieldPhase.ENTERING_INTERSECTION;
-							}
-							else if (refState.isOnIntersection)
-							{
-								refState.YieldPhase = NPCVehicleYieldPhase.AT_INTERSECTION;
-							}
-
-							if (refState.YieldPhase != NPCVehicleYieldPhase.NONE)
-								if (refState.isIntersectionWithYieldingLane)
-									refState.YieldLane = refState.FirstLaneWithIntersection;
-								else
-									refState.YieldLane = null;
-							break;
-
-						case NPCVehicleYieldPhase.ENTERING_INTERSECTION:
-							if (refState.isOnIntersection)
-							{
-								refState.YieldPhase = NPCVehicleYieldPhase.AT_INTERSECTION;
-							}
-							else if (ShouldYieldDueToLanes(refState, States, false))
-							{
-								refState.YieldPhase = NPCVehicleYieldPhase.LANES_RULES_ENTERING_INTERSECTION;
-							}
-							else if (isIntersectionBusy(refState, States))
-							{
-								refState.YieldPhase = NPCVehicleYieldPhase.INTERSECTION_BLOCKED;
-							}
-							else if (isLeftHandRuleEnteringIntersection(refState, States))
-							{
-								refState.YieldPhase = NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION;
-							}
-							break;
-
-						case NPCVehicleYieldPhase.AT_INTERSECTION:
-							if (!refState.isOnIntersection)
-							{
-								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
-							}
-							else if (ShouldYieldDueToLanes(refState, States, true))
-							{
-								refState.YieldPhase = NPCVehicleYieldPhase.LANES_RULES_AT_INTERSECTION;
-							}
-							else if (isSomeVehicleForcingPriority(refState, States))
-							{
-								refState.YieldPhase = NPCVehicleYieldPhase.FORCING_PRIORITY;
-							}
-							else if (isLeftHandRuleOnIntersection(refState, States))
-							{
-								refState.YieldPhase = NPCVehicleYieldPhase.LEFT_HAND_RULE_AT_INTERSECTION;
-							}
-							break;
-
-						case NPCVehicleYieldPhase.INTERSECTION_BLOCKED:
-							if (!isIntersectionBusy(refState, States))
-							{
-								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
-							}
-							break;
-						case NPCVehicleYieldPhase.LANES_RULES_ENTERING_INTERSECTION:
-							if (!ShouldYieldDueToLanes(refState, States, false))
-							{
-								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
-							}
-							break;
-						case NPCVehicleYieldPhase.LANES_RULES_AT_INTERSECTION:
-							if (!ShouldYieldDueToLanes(refState, States, true))
-							{
-								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
-							}
-							break;
-						case NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION:
-							if (refState.isOnIntersection || !isLeftHandRuleEnteringIntersection(refState, States))
-							{
-								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
-							}
-							break;
-						case NPCVehicleYieldPhase.LEFT_HAND_RULE_AT_INTERSECTION:
-							if (!isLeftHandRuleOnIntersection(refState, States))
-							{
-								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
-							}
-							break;
-						case NPCVehicleYieldPhase.FORCING_PRIORITY:
-							if (!isSomeVehicleForcingPriority(refState, States))
-							{
-								refState.YieldPhase = NPCVehicleYieldPhase.NONE;
-							}
-							break;
-						default:
-							throw new Exception($"Unattended NPCVehicleYieldPhase case: {refState.YieldPhase}");
-							break;
-					}
-				}
-			}
 		}
 
-		/// <summary>
-		/// Check traffic light states.
-		/// This job is sequential.
-		/// </summary>
-		private struct TrafficLightCheckJob
-		{
-			// In/Out
-			public IReadOnlyList<NPCVehicleInternalState> States;
+        /// <summary>
+        /// Check traffic light states.
+        /// This job is sequential.
+        /// </summary>
+        private struct TrafficLightCheckJob
+        {
+            // In/Out
+            public IReadOnlyList<NPCVehicleInternalState> States;
 
-			public void Execute()
-			{
-				foreach (var state in States)
-				{
-					if (state.ShouldDespawn)
-						continue;
+            public void Execute()
+            {
+                foreach (var state in States)
+                {
+                    if (state.ShouldDespawn)
+                        continue;
 
-					// Find next stop line with a traffic light.
-					// If the vehicle is stopping, use cached stop line.
-					// This is in case a vehicle crosses the stop line while stopping.
-					if (state.TrafficLightPassability != TrafficLightPassability.RED)
-					{
-						// Find far traffic light by extending lane to follow.
-						// This is done because if a lane is too short, it may not be able to stop at a stop line.
-						if (state.FollowingLanes.Count < 3)
-						{
-							state.ExtendFollowingLane();
-						}
+                    // Find next stop line with a traffic light.
+                    // If the vehicle is stopping, use cached stop line.
+                    // This is in case a vehicle crosses the stop line while stopping.
+                    if (state.TrafficLightPassability != TrafficLightPassability.RED)
+                    {
+                        // Find far traffic light by extending lane to follow.
+                        // This is done because if a lane is too short, it may not be able to stop at a stop line.
+                        if (state.FollowingLanes.Count < 3)
+                        {
+                            state.ExtendFollowingLane();
+                        }
 
-						state.TrafficLightLane = null;
-						foreach (var lane in state.FollowingLanes)
-						{
-							if (lane.StopLine?.TrafficLight == null)
-								continue;
+                        state.TrafficLightLane = null;
+                        foreach (var lane in state.FollowingLanes)
+                        {
+                            if (lane.StopLine?.TrafficLight == null)
+                                continue;
 
-							state.TrafficLightLane = lane;
-							break;
-						}
-					}
+                            state.TrafficLightLane = lane;
+                            break;
+                        }
 
-					var trafficLight = state.TrafficLightLane?.StopLine.TrafficLight;
-					if (trafficLight == null)
-					{
-						state.TrafficLightPassability = TrafficLightPassability.GREEN;
-						continue;
-					}
+                    }
 
-					var intersectionLane = state.GetOrExtendNextLane(state.TrafficLightLane);
-					if (intersectionLane == null)
-						continue;
-					state.TrafficLightPassability = RandomTrafficUtils.GetPassability(
-						trafficLight,
-						intersectionLane.TurnDirection
-					);
-				}
-			}
-		}
+                    var trafficLight = state.TrafficLightLane?.StopLine.TrafficLight;
+                    if (trafficLight == null)
+                    {
+                        state.TrafficLightPassability = TrafficLightPassability.GREEN;
+                        continue;
+                    }
 
-		/// <summary>
-		/// Write native data to <see cref="NPCVehicleInternalState"/>.
-		/// This job is sequential.
-		/// </summary>
-		private struct WriteStateJob
-		{
-			[ReadOnly]
-			public NativeArray<RaycastHit> GroundHitInfoArray;
+                    var intersectionLane = state.GetOrExtendNextLane(state.TrafficLightLane);
+                    if (intersectionLane == null)
+                        continue;
+                    state.TrafficLightPassability =
+                        RandomTrafficUtils.GetPassability(trafficLight, intersectionLane.TurnDirection);
+                }
+            }
+        }
 
-			[ReadOnly]
-			public NativeArray<float> ObstacleDistances;
+        /// <summary>
+        /// Write native data to <see cref="NPCVehicleInternalState"/>.
+        /// This job is sequential.
+        /// </summary>
+        private struct WriteStateJob
+        {
+            [ReadOnly] public NativeArray<RaycastHit> GroundHitInfoArray;
+            [ReadOnly] public NativeArray<float> ObstacleDistances;
+            [ReadOnly] public NativeArray<bool> IsTurnings;
 
-			[ReadOnly]
-			public NativeArray<bool> IsTurnings;
+            public IReadOnlyList<NPCVehicleInternalState> States;
 
-			public IReadOnlyList<NPCVehicleInternalState> States;
+            public void Execute()
+            {
+                for (var i = 0; i < States.Count; i++)
+                {
+                    if (GroundHitInfoArray[i].collider == null)
+                        States[i].ShouldDespawn = true;
 
-			public void Execute()
-			{
-				for (var i = 0; i < States.Count; i++)
-				{
-					if (GroundHitInfoArray[i].collider == null)
-						States[i].ShouldDespawn = true;
+                    States[i].DistanceToFrontVehicle = ObstacleDistances[i];
+                    States[i].IsTurning = IsTurnings[i];
+                }
+            }
+        }
 
-					States[i].DistanceToFrontVehicle = ObstacleDistances[i];
-					States[i].IsTurning = IsTurnings[i];
-				}
-			}
-		}
+        /// <summary>
+        /// Maximum number of waypoints held per vehicle.
+        /// Calculation cost is proportional to this value.
+        /// </summary>
+        private const int MaxWaypointCount = 10;
 
-		/// <summary>
-		/// Maximum number of waypoints held per vehicle.
-		/// Calculation cost is proportional to this value.
-		/// </summary>
-		private const int MaxWaypointCount = 10;
+        /// <summary>
+        /// Maximum number of boxcasts executed per vehicle.
+        /// Calculation cost is proportional to this value.
+        /// This value should be less than or equal to <see cref="MaxWaypointCount"/>.
+        /// </summary>
+        private const int MaxBoxcastCount = 5;
 
-		/// <summary>
-		/// Maximum number of boxcasts executed per vehicle.
-		/// Calculation cost is proportional to this value.
-		/// This value should be less than or equal to <see cref="MaxWaypointCount"/>.
-		/// </summary>
-		private const int MaxBoxcastCount = 5;
+        private readonly LayerMask vehicleLayerMask;
+        private readonly LayerMask groundLayerMask;
 
-		private readonly LayerMask vehicleLayerMask;
-		private readonly LayerMask groundLayerMask;
+        // Native states
+        private NativeArray<NativeState> nativeStates;
+        private NativeArray<Vector3> waypoints;
 
-		// Native states
-		private NativeArray<NativeState> nativeStates;
-		private NativeArray<Vector3> waypoints;
+        // Ground Check
+        private NativeArray<RaycastCommand> raycastCommands;
+        private NativeArray<RaycastHit> groundHitInfoArray;
 
-		// Ground Check
-		private NativeArray<RaycastCommand> raycastCommands;
-		private NativeArray<RaycastHit> groundHitInfoArray;
+        // Obstacle Check
+        private NativeArray<BoxcastCommand> boxcastCommands;
+        private NativeArray<RaycastHit> obstacleHitInfoArray;
+        private NativeArray<float> obstacleDistances;
 
-		// Obstacle Check
-		private NativeArray<BoxcastCommand> boxcastCommands;
-		private NativeArray<RaycastHit> obstacleHitInfoArray;
-		private NativeArray<float> obstacleDistances;
+        // Curve Check
+        private NativeArray<bool> isTurnings;
 
-		// Curve Check
-		private NativeArray<bool> isTurnings;
+        // Job Handles
+        private JobHandle groundCheckJobHandle;
+        private JobHandle raycastJobHandle;
+        private JobHandle obstacleCheckJobHandle;
+        private JobHandle boxcastJobHandle;
+        private JobHandle calculateObstacleDistanceJobHandle;
+        private JobHandle curveCheckJobHandle;
 
-		// Job Handles
-		private JobHandle groundCheckJobHandle;
-		private JobHandle raycastJobHandle;
-		private JobHandle obstacleCheckJobHandle;
-		private JobHandle boxcastJobHandle;
-		private JobHandle calculateObstacleDistanceJobHandle;
-		private JobHandle curveCheckJobHandle;
+        public NPCVehicleCognitionStep(LayerMask vehicleLayerMask, LayerMask groundLayerMask, int maxVehicleCount)
+        {
+            this.vehicleLayerMask = vehicleLayerMask;
+            this.groundLayerMask = groundLayerMask;
 
-		public NPCVehicleCognitionStep(
-			LayerMask vehicleLayerMask,
-			LayerMask groundLayerMask,
-			int maxVehicleCount
-		)
-		{
-			this.vehicleLayerMask = vehicleLayerMask;
-			this.groundLayerMask = groundLayerMask;
+            nativeStates = new NativeArray<NativeState>(maxVehicleCount, Allocator.Persistent);
+            waypoints = new NativeArray<Vector3>(maxVehicleCount * MaxWaypointCount, Allocator.Persistent);
 
-			nativeStates = new NativeArray<NativeState>(maxVehicleCount, Allocator.Persistent);
-			waypoints = new NativeArray<Vector3>(
-				maxVehicleCount * MaxWaypointCount,
-				Allocator.Persistent
-			);
+            raycastCommands = new NativeArray<RaycastCommand>(maxVehicleCount, Allocator.Persistent);
+            groundHitInfoArray = new NativeArray<RaycastHit>(maxVehicleCount, Allocator.Persistent);
 
-			raycastCommands = new NativeArray<RaycastCommand>(
-				maxVehicleCount,
-				Allocator.Persistent
-			);
-			groundHitInfoArray = new NativeArray<RaycastHit>(maxVehicleCount, Allocator.Persistent);
+            boxcastCommands = new NativeArray<BoxcastCommand>(maxVehicleCount * MaxBoxcastCount, Allocator.Persistent);
+            obstacleHitInfoArray =
+                new NativeArray<RaycastHit>(maxVehicleCount * MaxBoxcastCount, Allocator.Persistent);
+            obstacleDistances = new NativeArray<float>(maxVehicleCount, Allocator.Persistent);
 
-			boxcastCommands = new NativeArray<BoxcastCommand>(
-				maxVehicleCount * MaxBoxcastCount,
-				Allocator.Persistent
-			);
-			obstacleHitInfoArray = new NativeArray<RaycastHit>(
-				maxVehicleCount * MaxBoxcastCount,
-				Allocator.Persistent
-			);
-			obstacleDistances = new NativeArray<float>(maxVehicleCount, Allocator.Persistent);
+            isTurnings = new NativeArray<bool>(maxVehicleCount, Allocator.Persistent);
+        }
 
-			isTurnings = new NativeArray<bool>(maxVehicleCount, Allocator.Persistent);
-		}
+        public void Dispose()
+        {
+            var dependsOn = JobHandle.CombineDependencies(
+                raycastJobHandle, calculateObstacleDistanceJobHandle, curveCheckJobHandle);
 
-		public void Dispose()
-		{
-			var dependsOn = JobHandle.CombineDependencies(
-				raycastJobHandle,
-				calculateObstacleDistanceJobHandle,
-				curveCheckJobHandle
-			);
+            nativeStates.Dispose(dependsOn);
+            waypoints.Dispose(dependsOn);
 
-			nativeStates.Dispose(dependsOn);
-			waypoints.Dispose(dependsOn);
+            raycastCommands.Dispose(dependsOn);
+            groundHitInfoArray.Dispose(dependsOn);
 
-			raycastCommands.Dispose(dependsOn);
-			groundHitInfoArray.Dispose(dependsOn);
+            boxcastCommands.Dispose(dependsOn);
+            obstacleHitInfoArray.Dispose(dependsOn);
+            obstacleDistances.Dispose(dependsOn);
 
-			boxcastCommands.Dispose(dependsOn);
-			obstacleHitInfoArray.Dispose(dependsOn);
-			obstacleDistances.Dispose(dependsOn);
+            isTurnings.Dispose(dependsOn);
+        }
 
-			isTurnings.Dispose(dependsOn);
-		}
+        public void Execute(
+            IReadOnlyList<NPCVehicleInternalState> states,
+            Transform egoTransform)
+        {
+            Profiler.BeginSample("Cognition.CheckNextWaypoint");
 
-		public void Execute(IReadOnlyList<NPCVehicleInternalState> states, Transform egoTransform)
-		{
-			Profiler.BeginSample("Cognition.CheckNextWaypoint");
+            new NextWaypointCheckJob
+            {
+                States = states
+            }.Execute();
 
-			new NextWaypointCheckJob { States = states }.Execute();
+            Profiler.EndSample();
+            Profiler.BeginSample("Cognition.ReadState");
 
-			Profiler.EndSample();
-			Profiler.BeginSample("Cognition.ReadState");
+            new ReadStateJob
+            {
+                Results = nativeStates,
+                Waypoints = waypoints,
+                States = states
+            }.Execute();
 
-			new ReadStateJob
-			{
-				Results = nativeStates,
-				Waypoints = waypoints,
-				States = states
-			}.Execute();
+            Profiler.EndSample();
 
-			Profiler.EndSample();
+            Profiler.BeginSample("Cognition.JobSchedule");
 
-			Profiler.BeginSample("Cognition.JobSchedule");
+            obstacleCheckJobHandle =
+                new ObstacleCheckJob
+                {
+                    Commands = boxcastCommands,
+                    States = nativeStates,
+                    VehicleLayerMask = vehicleLayerMask,
+                    Waypoints = waypoints
+                }.Schedule(boxcastCommands.Length, 16);
 
-			obstacleCheckJobHandle = new ObstacleCheckJob
-			{
-				Commands = boxcastCommands,
-				States = nativeStates,
-				VehicleLayerMask = vehicleLayerMask,
-				Waypoints = waypoints
-			}.Schedule(boxcastCommands.Length, 16);
+            boxcastJobHandle =
+                BoxcastCommand.ScheduleBatch(
+                    boxcastCommands,
+                    obstacleHitInfoArray,
+                    16,
+                    obstacleCheckJobHandle);
 
-			boxcastJobHandle = BoxcastCommand.ScheduleBatch(
-				boxcastCommands,
-				obstacleHitInfoArray,
-				16,
-				obstacleCheckJobHandle
-			);
+            // Start background jobs
+            JobHandle.ScheduleBatchedJobs();
 
-			// Start background jobs
-			JobHandle.ScheduleBatchedJobs();
+            groundCheckJobHandle =
+                new GroundCheckJob
+                {
+                    Commands = raycastCommands,
+                    GroundLayerMask = groundLayerMask,
+                    NativeStates = nativeStates
+                }.Schedule(nativeStates.Length, 8);
 
-			groundCheckJobHandle = new GroundCheckJob
-			{
-				Commands = raycastCommands,
-				GroundLayerMask = groundLayerMask,
-				NativeStates = nativeStates
-			}.Schedule(nativeStates.Length, 8);
+            raycastJobHandle =
+                RaycastCommand.ScheduleBatch(
+                    raycastCommands,
+                    groundHitInfoArray,
+                    8,
+                    groundCheckJobHandle);
 
-			raycastJobHandle = RaycastCommand.ScheduleBatch(
-				raycastCommands,
-				groundHitInfoArray,
-				8,
-				groundCheckJobHandle
-			);
+            calculateObstacleDistanceJobHandle = new CalculateObstacleDistanceJob
+            {
+                HitInfoArray = obstacleHitInfoArray,
+                Commands = boxcastCommands,
+                NativeStates = nativeStates,
+                Distances = obstacleDistances
+            }.Schedule(nativeStates.Length, 8, boxcastJobHandle);
 
-			calculateObstacleDistanceJobHandle = new CalculateObstacleDistanceJob
-			{
-				HitInfoArray = obstacleHitInfoArray,
-				Commands = boxcastCommands,
-				NativeStates = nativeStates,
-				Distances = obstacleDistances
-			}.Schedule(nativeStates.Length, 8, boxcastJobHandle);
+            curveCheckJobHandle = new CurveCheckJob
+            {
+                NativeStates = nativeStates,
+                Waypoints = waypoints,
+                IsTurnings = isTurnings
+            }.Schedule(nativeStates.Length, 8);
 
-			curveCheckJobHandle = new CurveCheckJob
-			{
-				NativeStates = nativeStates,
-				Waypoints = waypoints,
-				IsTurnings = isTurnings
-			}.Schedule(nativeStates.Length, 8);
+            // Start rest background jobs
+            JobHandle.ScheduleBatchedJobs();
 
-			// Start rest background jobs
-			JobHandle.ScheduleBatchedJobs();
+            Profiler.EndSample();
+            Profiler.BeginSample("Cognition.CheckRightOfWay");
 
-			Profiler.EndSample();
-			Profiler.BeginSample("Cognition.CheckRightOfWay");
+            new RightOfWayCheckJob
+            {
+                EGOTransform = egoTransform,
+                States = states
+            }.Execute();
 
-			new RightOfWayCheckJob { EGOTransform = egoTransform, States = states }.Execute();
+            Profiler.EndSample();
+            Profiler.BeginSample("Cognition.CheckTrafficLight");
 
-			Profiler.EndSample();
-			Profiler.BeginSample("Cognition.CheckTrafficLight");
+            new TrafficLightCheckJob
+            {
+                States = states
+            }.Execute();
 
-			new TrafficLightCheckJob { States = states }.Execute();
+            Profiler.EndSample();
+            Profiler.BeginSample("Cognition.WaitJobs");
 
-			Profiler.EndSample();
-			Profiler.BeginSample("Cognition.WaitJobs");
+            obstacleCheckJobHandle.Complete();
+            groundCheckJobHandle.Complete();
+            boxcastJobHandle.Complete();
+            raycastJobHandle.Complete();
+            calculateObstacleDistanceJobHandle.Complete();
+            curveCheckJobHandle.Complete();
 
-			obstacleCheckJobHandle.Complete();
-			groundCheckJobHandle.Complete();
-			boxcastJobHandle.Complete();
-			raycastJobHandle.Complete();
-			calculateObstacleDistanceJobHandle.Complete();
-			curveCheckJobHandle.Complete();
+            Profiler.EndSample();
+            Profiler.BeginSample("Cognition.WriteState");
 
-			Profiler.EndSample();
-			Profiler.BeginSample("Cognition.WriteState");
+            new WriteStateJob
+            {
+                GroundHitInfoArray = groundHitInfoArray,
+                ObstacleDistances = obstacleDistances,
+                IsTurnings = isTurnings,
+                States = states
+            }.Execute();
 
-			new WriteStateJob
-			{
-				GroundHitInfoArray = groundHitInfoArray,
-				ObstacleDistances = obstacleDistances,
-				IsTurnings = isTurnings,
-				States = states
-			}.Execute();
-
-			Profiler.EndSample();
-		}
+            Profiler.EndSample();
+        }
 
 		public void ShowGizmos(IReadOnlyList<NPCVehicleInternalState> states, bool showYieldingPhase, bool showObstacleChecking)
 		{
@@ -1187,20 +1149,15 @@ namespace AWSIM.TrafficSimulation
 			if (showObstacleChecking)
 			{
 				for (var stateIndex = 0; stateIndex < states.Count; stateIndex++)
-				{
+            	{
 					Gizmos.color = states[stateIndex].IsStoppedByFrontVehicle
 						? new Color(1f, 0.2f, 0f)
 						: Color.cyan;
 
-					var boxcastCount = Mathf.Min(
-						MaxBoxcastCount,
-						nativeStates[stateIndex].WaypointCount
-					);
-					for (
-						var commandIndex = stateIndex * MaxBoxcastCount;
-						commandIndex < stateIndex * MaxBoxcastCount + boxcastCount;
-						commandIndex++
-					)
+					var boxcastCount = Mathf.Min(MaxBoxcastCount, nativeStates[stateIndex].WaypointCount);
+					for (var commandIndex = stateIndex * MaxBoxcastCount;
+							commandIndex < stateIndex * MaxBoxcastCount + boxcastCount;
+							commandIndex++)
 					{
 						var hitInfo = obstacleHitInfoArray[commandIndex];
 						var hasHit = hitInfo.collider != null;
@@ -1208,15 +1165,13 @@ namespace AWSIM.TrafficSimulation
 						var command = boxcastCommands[commandIndex];
 						var startPoint = command.center;
 						var direction = command.direction;
-						var distance = hasHit ? hitInfo.distance : command.distance;
+						var distance = hasHit
+							? hitInfo.distance
+							: command.distance;
 						var extents = command.halfExtents;
 						var destination = startPoint + distance * direction;
 						var rotation = Quaternion.LookRotation(direction);
-						Gizmos.matrix = Matrix4x4.TRS(
-							(destination + startPoint) / 2f,
-							rotation,
-							Vector3.one
-						);
+						Gizmos.matrix = Matrix4x4.TRS((destination + startPoint) / 2f, rotation, Vector3.one);
 						var cubeSize = extents * 2f;
 						cubeSize.z = distance;
 						Gizmos.DrawWireCube(Vector3.zero, cubeSize);
@@ -1224,8 +1179,8 @@ namespace AWSIM.TrafficSimulation
 
 						if (hasHit)
 							break;
-					}
-				}
+                	}
+            	}
 			}
 		}
 	}

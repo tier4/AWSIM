@@ -82,7 +82,6 @@ namespace AWSIM.TrafficSimulation
 
         public Vector3 ExpandedBackCenterPosition(float extensionToRear = 0f)
         {
-
             var backCenterPositionRaw = BackCenterLocalPosition;
             backCenterPositionRaw.z -= extensionToRear;
             if (Vehicle.TrailerTransform)
@@ -94,7 +93,6 @@ namespace AWSIM.TrafficSimulation
             {
                 return Position + Quaternion.AngleAxis(Yaw, Vector3.up) * backCenterPositionRaw;
             }
-
         }
 
         public Vector3 BackCenterPosition => ExpandedBackCenterPosition(0f);
@@ -136,12 +134,7 @@ namespace AWSIM.TrafficSimulation
 
         public TrafficLane FirstLaneWithIntersection => FollowingLanes.FirstOrDefault(lane => lane.intersectionLane == true);
 
-        public bool IsNextLaneIntersection()
-        {
-            if (FollowingLanes.Count > 0)
-                return FollowingLanes[1].intersectionLane;
-            return false;
-        }
+        public bool IsNextLaneIntersection => FollowingLanes.Count > 0 && FollowingLanes[1].intersectionLane;
 
         public Vector3? LastIntersectionWaypoint
             => FirstLaneWithIntersection?.Waypoints?.Any() != true ? (Vector3?)null
