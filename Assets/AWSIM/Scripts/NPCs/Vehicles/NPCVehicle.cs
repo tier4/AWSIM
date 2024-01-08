@@ -197,9 +197,7 @@ namespace AWSIM
         float lastSpeed;
 
         public Transform RigidBodyTransform => rigidbody.transform;
-
         public Transform TrailerTransform => trailer?.transform;
-
 
         // Start is called before the first frame update
         void Awake()

@@ -97,7 +97,7 @@ namespace AWSIM.TrafficSimulation
 
         }
 
-        public Vector3 BackCenterPosition => ExpandedBackCenterPosition(0);
+        public Vector3 BackCenterPosition => ExpandedBackCenterPosition(0f);
 
         public float DistanceToTargetPoint
             => SignedDistanceToPointOnLane(TargetPoint);
@@ -108,18 +108,12 @@ namespace AWSIM.TrafficSimulation
             => SignedDistanceToPointOnLane(CurrentWaypoint);
 
         public float DistanceToNextLane
-            => CurrentFollowingLane?.Waypoints?.LastOrDefault() != null ? SignedDistanceToPointOnLane(CurrentFollowingLane.Waypoints.Last()) : float.MaxValue;
+            => CurrentFollowingLane?.Waypoints?.Any() != true ? float.MaxValue
+            : SignedDistanceToPointOnLane(CurrentFollowingLane.Waypoints.Last());
 
         public float DistanceToIntersection
-        {
-            get
-            {
-                if (FirstLaneWithIntersection == null) return float.MaxValue;
-                return SignedDistanceToPointOnLane(FirstLaneWithIntersection.StopLine != null
-                    ? FirstLaneWithIntersection.StopLine.CenterPoint
-                    : FirstLaneWithIntersection.Waypoints[0]);
-            }
-        }
+            => FirstLaneWithIntersection == null ? float.MaxValue
+            : SignedDistanceToPointOnLane(FirstLaneWithIntersection.StopLine?.CenterPoint ?? FirstLaneWithIntersection.Waypoints[0]);
 
         public bool ObstructedByVehicleBehindIntersection => DistanceToIntersection > DistanceToFrontVehicle;
 
@@ -138,8 +132,7 @@ namespace AWSIM.TrafficSimulation
             return hasPassedThePoint ? -distance : distance;
         }
 
-        public TrafficLane CurrentFollowingLane
-            => FollowingLanes.FirstOrDefault();
+        public TrafficLane CurrentFollowingLane => FollowingLanes.FirstOrDefault();
 
         public TrafficLane FirstLaneWithIntersection => FollowingLanes.FirstOrDefault(lane => lane.intersectionLane == true);
 
@@ -150,9 +143,13 @@ namespace AWSIM.TrafficSimulation
             return false;
         }
 
-        public Vector3? LastIntersectionWaypoint => FirstLaneWithIntersection?.Waypoints?.LastOrDefault();
+        public Vector3? LastIntersectionWaypoint
+            => FirstLaneWithIntersection?.Waypoints?.Any() != true ? (Vector3?)null
+            : FirstLaneWithIntersection.Waypoints.Last();
 
-        public Vector3? FirstIntersectionWaypoint => FirstLaneWithIntersection?.Waypoints?.FirstOrDefault();
+        public Vector3? FirstIntersectionWaypoint
+            => FirstLaneWithIntersection?.Waypoints?.Any() != true ? (Vector3?)null
+            : FirstLaneWithIntersection.Waypoints.First();
 
         public bool yieldingPriorityAtTrafficLight => (!CurrentFollowingLane.intersectionLane
                     && TrafficLightPassability == TrafficLightPassability.RED);
