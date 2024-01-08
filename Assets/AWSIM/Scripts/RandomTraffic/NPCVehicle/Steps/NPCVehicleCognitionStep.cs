@@ -1149,7 +1149,7 @@ namespace AWSIM.TrafficSimulation
 			if (showObstacleChecking)
 			{
 				for (var stateIndex = 0; stateIndex < states.Count; stateIndex++)
-            	{
+				{
 					Gizmos.color = states[stateIndex].IsStoppedByFrontVehicle
 						? new Color(1f, 0.2f, 0f)
 						: Color.cyan;
@@ -1179,8 +1179,8 @@ namespace AWSIM.TrafficSimulation
 
 						if (hasHit)
 							break;
-                	}
-            	}
+					}
+				}
 			}
 		}
 	}
