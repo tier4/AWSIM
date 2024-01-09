@@ -180,7 +180,7 @@ namespace AWSIM.TrafficSimulation
 
                 // Reduce the detection range so that large sized vehicles can pass each other.
                 var boxCastExtents = States[stateIndex].Extents * 0.5f;
-                boxCastExtents.y *= 3;
+                boxCastExtents.y *= 1;
                 boxCastExtents.z = 0.1f;
                 var endPoint = Waypoints[waypointOffset + waypointIndex];
 
@@ -278,7 +278,9 @@ namespace AWSIM.TrafficSimulation
         {
             public static float minimumDistanceToIntersection = 18f;
 
-            public static float maximumOverrunStopPointForLaneRules = 3f;
+            public static float maximumOverrunStopPointForLaneRules = 1f;
+
+            public static float differenceOrientationDegreesImplyingPerpendicularRoad = 35f;
 
             // In
             public Transform EGOTransform;
@@ -364,7 +366,7 @@ namespace AWSIM.TrafficSimulation
                             }
                             break;
                         case NPCVehicleYieldPhase.LANES_RULES_ENTERING_INTERSECTION:
-                            if (!ShouldYieldDueToLanes(refState, States, false))
+                            if (refState.isOnIntersection || !ShouldYieldDueToLanes(refState, States, false))
                             {
                                 refState.YieldPhase = NPCVehicleYieldPhase.NONE;
                             }
@@ -543,7 +545,7 @@ namespace AWSIM.TrafficSimulation
                     if (!otherState.isOnIntersection)
                         continue;
 
-                    if (isYieldingDueToRules(otherState))
+                    if (isYieldingDueToRules(otherState) && isOnPerpendicularRoad(refState, otherState))
                         continue;
 
                     if (isEnteringFromTheSameSide(refState, otherState))
@@ -557,6 +559,13 @@ namespace AWSIM.TrafficSimulation
                     }
                 }
                 return false;
+
+                static bool isOnPerpendicularRoad(NPCVehicleInternalState refState, NPCVehicleInternalState otherState)
+                {
+                    var diffAngleDegrees = Mathf.Abs(refState.Yaw - otherState.Yaw);
+                    return (diffAngleDegrees < differenceOrientationDegreesImplyingPerpendicularRoad ||
+                        diffAngleDegrees > 180f - differenceOrientationDegreesImplyingPerpendicularRoad);
+                }
             }
 
             static private bool isSomeVehicleForcingPriority(NPCVehicleInternalState refState, IReadOnlyList<NPCVehicleInternalState> states)
@@ -627,7 +636,7 @@ namespace AWSIM.TrafficSimulation
                         if (otherState.yieldingPriorityAtTrafficLight)
                             continue;
 
-                        if (refOnIntersection && isYieldingDueToRules(otherState))
+                        if (refOnIntersection && (isYieldingDueToRules(otherState) || otherState.YieldPhase == NPCVehicleYieldPhase.INTERSECTION_BLOCKED))
                             continue;
 
                         if (!IsLaneDominatedBy(lane, otherState))
