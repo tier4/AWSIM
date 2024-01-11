@@ -15,11 +15,9 @@ namespace AWSIM
         public float Offset = 0.0f;
         public float Height = 5.0f;
         public float HeightMultiplier = 0.5f;
-        float HeightDamping = 2.0f;
-        float RotationDamping = 1.5f;
 
+        private float heightDamping = 2.0f;
 
-        float targetAngle = 0.0f;
 
         void LateUpdate()
         {
@@ -30,19 +28,20 @@ namespace AWSIM
             if (target == null)
                 return;
 
-            targetAngle = target.eulerAngles.y;
-
+            // calculate height for camera
             float newHeight = target.position.y + Height;
-            float currentRotationAngle = target.eulerAngles.y;
-            float currentHeight = transform.position.y;
+            float currentCameraHeight = transform.position.y;
+            currentCameraHeight = Mathf.Lerp(currentCameraHeight, newHeight, heightDamping * Time.deltaTime);
 
-            currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, targetAngle, RotationDamping * Time.deltaTime);
-            currentHeight = Mathf.Lerp(currentHeight, newHeight, HeightDamping * Time.deltaTime);
-            Quaternion currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
-            transform.position = target.position;
-            transform.position -= (currentRotation * Vector3.forward * Distance + currentRotation * Vector3.right * Offset);
-            Vector3 pos = transform.position;
-            pos.y = currentHeight;
+            // calculate rotation for camera
+            float currentRotationAngle = target.eulerAngles.y;
+            Quaternion currentCameraRotation = Quaternion.Euler(0, currentRotationAngle, 0);
+
+            // set camera position and orientation
+            Vector3 pos = target.position;
+            pos -= (currentCameraRotation * Vector3.forward * Distance + currentCameraRotation * Vector3.right * Offset);
+            pos.y = currentCameraHeight;
+
             transform.position = pos;
             transform.LookAt(target.position + Vector3.up * Height * HeightMultiplier);
         }
