@@ -17,10 +17,8 @@ namespace AWSIM
         public float HeightMultiplier = 0.5f;
         float HeightDamping = 2.0f;
         float RotationDamping = 1.5f;
-        float VelocityDamping = 5.0f;
 
-        Vector3 lastPos = Vector3.zero;
-        Vector3 velocity = Vector3.zero;
+
         float targetAngle = 0.0f;
 
         void LateUpdate()
@@ -31,16 +29,6 @@ namespace AWSIM
 #endif
             if (target == null)
                 return;
-
-            Vector3 newVelocity = (target.position - lastPos) / Time.deltaTime;
-            lastPos = target.position;
-            newVelocity.y = 0.0f;
-
-            if (newVelocity.magnitude > 1.0f)
-            {
-                velocity = Vector3.Lerp(velocity, newVelocity, VelocityDamping * Time.deltaTime);
-                targetAngle = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
-            }
 
             targetAngle = target.eulerAngles.y;
 
