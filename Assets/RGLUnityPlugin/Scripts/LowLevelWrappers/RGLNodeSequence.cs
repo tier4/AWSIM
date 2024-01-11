@@ -270,6 +270,28 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence AddNodePointsRemoveGround(string identifier, float groundAngleThreshold, float groundDistanceThreshold, float groundFilterDistance)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsRemoveGround(ref handle.Node, groundAngleThreshold, groundDistanceThreshold, groundFilterDistance);
+            handle.Type = RGLNodeType.POINTS_REMOVE_GROUND;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLNodeSequence AddNodePointsRadarPostprocess(string identifier, float distanceSeparation, float azimuthSeparation)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsRadarPostprocess(ref handle.Node, distanceSeparation, azimuthSeparation);
+            handle.Type = RGLNodeType.POINTS_RADAR_POSTPROCESS;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
         //// UPDATE NODES ////
         public RGLNodeSequence UpdateNodeRaysFromMat3x4f(string identifier, Matrix4x4[] rays)
         {
@@ -313,10 +335,10 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence UpdateNodeRaytrace(string identifier, Vector3 linearVelocity, Vector3 angularVelocity)
+        public RGLNodeSequence UpdateNodeRaytrace(string identifier, Vector3 linearVelocity, Vector3 angularVelocity, bool applyRayDistortion)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
-            RGLNativeAPI.NodeRaytrace(ref handle.Node, linearVelocity, angularVelocity);
+            RGLNativeAPI.NodeRaytrace(ref handle.Node, linearVelocity, angularVelocity, applyRayDistortion);
             return this;
         }
 
@@ -326,7 +348,7 @@ namespace RGLUnityPlugin
             RGLNativeAPI.NodePointsTransform(ref handle.Node, transform);
             return this;
         }
-        
+
         public RGLNodeSequence UpdateNodePointsDownsample(string identifier, Vector3 leafDims)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_DOWNSAMPLE);
@@ -366,6 +388,20 @@ namespace RGLUnityPlugin
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.GAUSSIAN_NOISE_DISTANCE);
             RGLNativeAPI.NodeGaussianNoiseDistance(ref handle.Node, mean, stDev, stDevRisePerMeter);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodePointsRemoveGround(string identifier, float groundAngleThreshold, float groundDistanceThreshold, float groundFilterDistance)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_REMOVE_GROUND);
+            RGLNativeAPI.NodePointsRemoveGround(ref handle.Node, groundAngleThreshold, groundDistanceThreshold, groundFilterDistance);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodePointsRadarPostprocess(string identifier, float distanceSeparation, float azimuthSeparation)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_RADAR_POSTPROCESS);
+            RGLNativeAPI.NodePointsRadarPostprocess(ref handle.Node, distanceSeparation, azimuthSeparation);
             return this;
         }
 

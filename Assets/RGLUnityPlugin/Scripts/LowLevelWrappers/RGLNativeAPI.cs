@@ -91,7 +91,7 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_raytrace(ref IntPtr node, IntPtr scene);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_raytrace_with_distortion(ref IntPtr node, IntPtr scene, IntPtr linear_velocity, IntPtr angular_velocity);
+        public static extern int rgl_node_raytrace_in_motion(ref IntPtr node, IntPtr scene, IntPtr linear_velocity, IntPtr angular_velocity, bool apply_ray_distortion);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_format(ref IntPtr node, IntPtr fields, int field_count);
@@ -126,6 +126,13 @@ namespace RGLUnityPlugin
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_gaussian_noise_distance(ref IntPtr node, float mean, float st_dev, float st_dev_rise_per_meter);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_remove_ground(ref IntPtr node, RGLAxis sensor_up_axis, float ground_angle_threshold,
+            float ground_distance_threshold, float ground_filter_distance);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_radar_postprocess(ref IntPtr node, float distance_separation, float azimuth_separation);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_run(IntPtr node);
@@ -388,8 +395,8 @@ namespace RGLUnityPlugin
             CheckErr(rgl_node_raytrace(ref node, IntPtr.Zero));
         }
 
-        // Raytrace with velocity distortion
-        public static void NodeRaytrace(ref IntPtr node, Vector3 linearVelocity, Vector3 angularVelocity)
+        // Raytrace with sensor velocity provided. Needed for velocity distortion feature or radar simulation.
+        public static void NodeRaytrace(ref IntPtr node, Vector3 linearVelocity, Vector3 angularVelocity, bool applyRayDistortion)
         {
             var linearVelocityFloats = IntoVec3f(linearVelocity);
             var angularVelocityFloats = IntoVec3f(angularVelocity);
@@ -400,7 +407,7 @@ namespace RGLUnityPlugin
                 {
                     fixed (float* angularVelocityFloatsPtr = angularVelocityFloats)
                     {
-                        CheckErr(rgl_node_raytrace_with_distortion(ref node, IntPtr.Zero, (IntPtr) linearVelocityFloatsPtr, (IntPtr) angularVelocityFloatsPtr));
+                        CheckErr(rgl_node_raytrace_in_motion(ref node, IntPtr.Zero, (IntPtr) linearVelocityFloatsPtr, (IntPtr) angularVelocityFloatsPtr, applyRayDistortion));
                     }
                 }
             }
@@ -474,6 +481,16 @@ namespace RGLUnityPlugin
         public static void NodeGaussianNoiseDistance(ref IntPtr node, float mean, float stDev, float stDevRisePerMeter)
         {
             CheckErr(rgl_node_gaussian_noise_distance(ref node, mean, stDev, stDevRisePerMeter));
+        }
+
+        public static void NodePointsRemoveGround(ref IntPtr node, float groundAngleThreshold, float groundDistanceThreshold, float groundFilterDistance)
+        {
+            CheckErr(rgl_node_points_remove_ground(ref node, RGLAxis.RGL_AXIS_Y, groundAngleThreshold, groundDistanceThreshold, groundFilterDistance));
+        }
+
+        public static void NodePointsRadarPostprocess(ref IntPtr node, float distanceSeparation, float azimuthSeparation)
+        {
+            CheckErr(rgl_node_points_radar_postprocess(ref node, distanceSeparation, azimuthSeparation));
         }
 
         public static void GraphRun(IntPtr node)
