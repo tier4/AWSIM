@@ -123,6 +123,9 @@ This part of the tutorial shows how to add a *LiDAR* sensor using [RGL](https://
     !!! example "Example Lidar Sensor configuration"
         ![lidar sensor configuration example](lidar_sensor_configuration.png)
 
+    !!! note "Gaussian noise"
+        Gaussian noise should be disabled to achieve a more accurate map.
+
 4. Attach *RGL Mapping Adapter* (script) to previously created `Lidar` *Object* by clicking on the 'Add Component' button, searching for the script and selecting it.
 
     ![add rgl mapping adapter script](point_cloud_mapping_add_lidar_adapter_script.gif)
@@ -134,10 +137,15 @@ This part of the tutorial shows how to add a *LiDAR* sensor using [RGL](https://
     !!! example "Example RGL Mapping Adapter configuration"
         ![rgl mapping adapter configuration example](rgl_mapping_adapter_configuration.png)
 
-#### Effect of `Leaf Size` to Point Cloud Data (PCD) generation
-A small `Leaf Size` could result in a noisy PCD, while a large `Leaf Size` could result in excessive filtering such that objects like buildings are not recorded in the PCD.
+    !!! note "Downsampling"
+        Please note that downsampling is applied on the single LiDAR scans only. If you would like to filter merged scans use the external tool described below.
 
-In the following examples, it can be observed that when a `Leaf Size` is 1.0, point clouds exist on roads in which they shouldn't appear.
+#### Effect of `Leaf Size` to Point Cloud Data (PCD) generation
+Downsampling aims to reduce PCD size which for large point clouds may achieve gigabytes in exchange for map details. It is essential to find the best balance between the size and acceptable details level.
+
+A small `Leaf Size` results in a more detailed PCD, while a large `Leaf Size` could result in excessive filtering such that objects like buildings are not recorded in the PCD.
+
+In the following examples, it can be observed that when a `Leaf Size` is 1.0, point cloud is very detailed.
 When a `Leaf Size` is 100.0, buildings are filtered out and results in an empty PCD.
 A `Leaf Size` of 10.0 results in a reasonable PCD in the given example.
 
@@ -171,6 +179,10 @@ A `Leaf Size` of 10.0 results in a reasonable PCD in the given example.
     !!! example "Example Point Cloud Mapper configuration"
         ![point cloud mapper configuration example](point_cloud_mapper_configuration2.png)
 
+    !!! note "Lanelet visualization"
+        ![point cloud mapper disabled lanelet visualizer](point_cloud_mapper_disable_ll.png)
+        It is recommended to disable Lanelet Visualizer by setting `Material` to `None` and `Width` equal to zero. Rendered Lanelet is not ignored by the LiDAR so it would be captured in the PCD.
+
 ### Effect of `Capture Location Interval` to PCD generation
 
 If the `Capture Location Interval` is too small, it could result in a sparse PCD where some region of the map is captured well but the other regions aren't captured at all.
@@ -193,36 +205,34 @@ If the Vehicle stops moving for longer and you see the following message in the 
 
 The Point cloud `*.pcd` file is saved to the location you specified in the [Point Cloud Mapper](#setup-pointcloudmapper).
 
-### Convert the PCD
-!!! info "Install required tools"
-    The tools required for PCD conversion can be installed on Ubuntu with the following command
+### PCD postprocessing
+!!! info "Install required tool"
+    The tool (`DownsampleLargePCD`) required for PCD conversion can be found under [the link](https://github.com/RobotecAI/downsample-large-pcd). [README](https://github.com/RobotecAI/downsample-large-pcd/blob/main/README.md) contains building instruction and usage.
 
-    ```bash
+The generated PCD file is typically too large. Therefore you need to downsample it. Also, it should be converted to ASCII format because `Autoware` accepts only this format. `PointCloudMapper` returns PCD in binary format.
+
+1. Change the working directory to the location with `DownsampleLargePCD` tool.
+1. Use this tool to downsample and save PCD in ASCII format.
+    ```
+    ./DownsampleLargePCD -in <PATH_TO_INPUT_PCD> -out <PATH_TO_OUTPUT_PCD> -leaf 0.2,0.2,0.2
+    ```
+    - Assuming input PCD is in your working directory and named `in_cloud.pcd` and output PCD is to be named `out_cloud.pcd` the command will be:
+        ```
+        ./DownsampleLargePCD -in in_cloud.pcd -out out_cloud.pcd -leaf 0.2,0.2,0.2
+        ```
+    - You can also save PCD in binary format by adding `-binary 1` option.
+
+1. Your PCD is ready to use.
+
+!!! Note "Converting PCD format without downsampling"
+    If you don't want to downsample your PCD you can convert PCD file to ASCII format with `pcl_convert_pcd_ascii_binary` tool. This tool is available in the `pcl-tools` package and can be installed on Ubuntu with the following command:
+    ```
     sudo apt install pcl-tools
     ```
-
-The generated PCD file is typically too large.
-Therefore you need to down-sample it.
-
-1. Change directory to the one you specified [earlier](#setup-pointcloudmapper).
-
+    To convert your PCD use command:
     ```
-    cd <PATH_TO_PCD_FILE>
+    pcl_convert_pcd_ascii_binary <PATH_TO_INPUT_PCD> <PATH_TO_OUTPUT_PCD> 0
     ```
-
-1. Down-sample the PCD `output.pcd` generated in simulation.
-
-    ```
-    pcl_voxel_grid <PCD_FILE_NAME> downsampled.pcd -leaf 0.2 0.2 0.2
-    ```
-
-1. Convert the down-sampled file into an ASCII format.
-
-    ```
-    pcl_convert_pcd_ascii_binary downsampled.pcd final.pcd 0
-    ```
-
-1. The `final.pcd` is a ready to use point cloud file.
 
 ## Verify the PCD
 To verify your PCD you can launch the [*Autoware*](https://github.com/autowarefoundation/autoware) with the PCD file specified.
