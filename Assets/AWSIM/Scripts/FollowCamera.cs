@@ -25,7 +25,55 @@ namespace AWSIM
         [Tooltip("Camera height multiplier")]
         public float HeightMultiplier = 0.5f;
 
+        [Tooltip("Maximum camera rotation speed around the target")]
+        public float MaxRotateAroundSpeed = 32.0f;
+
         private float heightDamping = 2.0f;
+
+        private float rotateAroundSpeed = 0.0f;
+        private float currentCameraDirection = 0.0f;
+
+        void Update()
+        {
+            // rotate around to left
+            if(Input.GetKey(KeyCode.Keypad1))
+            {
+                rotateAroundSpeed = MaxRotateAroundSpeed;
+            }
+            // rotate around to right
+            else if(Input.GetKey(KeyCode.Keypad3))
+            {
+                rotateAroundSpeed = MaxRotateAroundSpeed * -1f;
+            }
+            // back view
+            else if(Input.GetKeyDown(KeyCode.Keypad2))
+            {
+                rotateAroundSpeed = 0f;
+                currentCameraDirection = 0.0f;
+            }
+            // front view
+            else if(Input.GetKeyDown(KeyCode.Keypad8))
+            {
+                rotateAroundSpeed = 0f;
+                currentCameraDirection = 180.0f;
+            }
+            // left view
+            else if(Input.GetKeyDown(KeyCode.Keypad4))
+            {
+                rotateAroundSpeed = 0f;
+                currentCameraDirection = 90.0f;
+            }
+            // right view
+            else if(Input.GetKeyDown(KeyCode.Keypad6))
+            {
+                rotateAroundSpeed = 0f;
+                currentCameraDirection = 270.0f;
+            }
+            else
+            {
+                rotateAroundSpeed = 0f;
+            }
+        }
 
         void LateUpdate()
         {
@@ -45,6 +93,18 @@ namespace AWSIM
             float currentRotationAngle = target.eulerAngles.y;
             Quaternion currentCameraRotation = Quaternion.Euler(0, currentRotationAngle, 0);
 
+            // include additional rotation for camera rotating around target
+            currentCameraDirection += rotateAroundSpeed * Time.deltaTime;
+            if(currentCameraDirection > 360)
+            {
+                currentCameraDirection -= 360f;
+            }
+            if(currentCameraDirection < -360f)
+            {
+                currentCameraDirection += 360f;
+            }
+            currentCameraRotation *= Quaternion.Euler(0f, currentCameraDirection, 0f);
+
             // set camera position and orientation
             Vector3 pos = target.position;
             pos -= (currentCameraRotation * Vector3.forward * Distance + currentCameraRotation * Vector3.right * Offset);
@@ -53,5 +113,7 @@ namespace AWSIM
             transform.position = pos;
             transform.LookAt(target.position + Vector3.up * Height * HeightMultiplier);
         }
+
+
     }
 }
