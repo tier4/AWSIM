@@ -10,14 +10,22 @@ namespace AWSIM
     /// </summary>
     public class FollowCamera : MonoBehaviour
     {
+        [Tooltip("Transform of object to follow")]
         public Transform target;
+
+        [Tooltip("The distance between the camera and the target object")]
         public float Distance = 10.0f;
+
+        [Tooltip("Lateral offset of the camera position")]
         public float Offset = 0.0f;
+
+        [Tooltip("Height of the camera above the target object")]
         public float Height = 5.0f;
+
+        [Tooltip("Camera height multiplier")]
         public float HeightMultiplier = 0.5f;
 
         private float heightDamping = 2.0f;
-
 
         void LateUpdate()
         {
