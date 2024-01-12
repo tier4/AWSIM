@@ -144,5 +144,26 @@ namespace AWSIM
         }
 
         #endregion
+
+        #region [GUI]
+
+        void OnGUI()
+        {
+            if(rotateCameraAroundActive)
+            {
+                GUIStyle style = new GUIStyle()
+                {
+                    fontSize = 24,
+                    normal = new GUIStyleState()
+                    {
+                        textColor = Color.white,
+                    },
+                    alignment = TextAnchor.MiddleCenter,
+                };
+                GUI.Label(new Rect(Screen.width * 0.5f - 100f, 0f, 200f, 40f), "Camera Rotate Around Mode", style);
+            }
+        }
+
+        #endregion
     }
 }
