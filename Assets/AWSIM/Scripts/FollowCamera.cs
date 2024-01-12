@@ -10,6 +10,11 @@ namespace AWSIM
     /// </summary>
     public class FollowCamera : MonoBehaviour
     {
+        /// <summary>
+        /// Event dispatched when the Rotate Camera Around activation status changed.
+        /// </summary>
+        public event Action<bool> onActivateRotateCameraAround;
+
         [Tooltip("Transform of object to follow")]
         public Transform target;
 
@@ -33,8 +38,22 @@ namespace AWSIM
         private float rotateAroundSpeed = 0.0f;
         private float currentCameraDirection = 0.0f;
 
+        private bool rotateCameraAroundActive = false;
+
         void Update()
         {
+            // turn on or off the camera rotate around feature
+            if(Input.GetKeyDown(KeyCode.C))
+            {
+                rotateCameraAroundActive = !rotateCameraAroundActive;
+                onActivateRotateCameraAround?.Invoke(rotateCameraAroundActive);
+            }
+
+            if(!rotateCameraAroundActive)
+            {
+                return;
+            }
+
             // rotate around to left
             if(Input.GetKey(KeyCode.Keypad1))
             {
