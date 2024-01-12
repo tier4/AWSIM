@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace AWSIM
@@ -10,10 +8,16 @@ namespace AWSIM
     /// </summary>
     public class FollowCamera : MonoBehaviour
     {
+        #region [Events]
+
         /// <summary>
         /// Event dispatched when the Rotate Camera Around activation status changed.
         /// </summary>
         public event Action<bool> onActivateRotateCameraAround;
+
+        #endregion
+
+        #region [Public Vars]
 
         [Tooltip("Transform of object to follow")]
         public Transform target;
@@ -33,12 +37,18 @@ namespace AWSIM
         [Tooltip("Maximum camera rotation speed around the target")]
         public float MaxRotateAroundSpeed = 32.0f;
 
-        private float heightDamping = 2.0f;
+        #endregion
 
+        #region [Private Vars]
+
+        private float heightDamping = 2.0f;
         private float rotateAroundSpeed = 0.0f;
         private float currentCameraDirection = 0.0f;
-
         private bool rotateCameraAroundActive = false;
+
+        #endregion
+
+        #region [Unity Event Methods]
 
         void Update()
         {
@@ -133,6 +143,6 @@ namespace AWSIM
             transform.LookAt(target.position + Vector3.up * Height * HeightMultiplier);
         }
 
-
+        #endregion
     }
 }
