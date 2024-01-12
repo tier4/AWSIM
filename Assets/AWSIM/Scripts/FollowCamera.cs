@@ -153,7 +153,7 @@ namespace AWSIM
             {
                 GUIStyle style = new GUIStyle()
                 {
-                    fontSize = 24,
+                    fontSize = 18,
                     normal = new GUIStyleState()
                     {
                         textColor = Color.white,
