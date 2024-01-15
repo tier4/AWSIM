@@ -2,15 +2,15 @@
 The `RandomTrafficSimulator` assumes that there are 10 phases of yielding priority:
 
 !!! note "RandomTrafficYielding scene"
-    If you would like to see how `RandomTrafficSimulator` with yielding rules works or run some tests, we encourage you to familiarize yourself with the `RandomTrafficYielding` scene described in this [section](../../../ProjectGuide/Scenes/#randomtrafficyielding).
+    If you would like to see how `RandomTrafficSimulator` with yielding rules works or run some tests, we encourage you to familiarize yourself with the `RandomTrafficYielding` scene described in this [section](../../../../ProjectGuide/Scenes/#randomtrafficyielding).
 
 1. `NONE` - state in which it is only checked if a vehicle is approaching the intersection. If yes, a transition to state `ENTERING_INTERSECTION` is made.
 
-1. `ENTERING_INTERSECTION` - state in which it is checked if any of the situations `LANES_RULES_ENTERING_INTERSECTION`, `LEFT_HAND_RULE_ENTERING_INTERSECTION`,  `INTERSECTION_BLOCKED`  occur, if yes the state of the vehicle is changed to one matching the situation - to determine if the vehicle must yield priority. If none of these situations occur only the entry into the intersection will result in a transition to `AT_INTERSECTION`.
+2. `ENTERING_INTERSECTION` - state in which it is checked if any of the situations `LANES_RULES_ENTERING_INTERSECTION`, `LEFT_HAND_RULE_ENTERING_INTERSECTION`,  `INTERSECTION_BLOCKED`  occur, if yes the state of the vehicle is changed to one matching the situation - to determine if the vehicle must yield priority. If none of these situations occur only the entry into the intersection will result in a transition to `AT_INTERSECTION`.
 
-1. `AT_INTERSECTION` - state in which it is checked if any of the situations `LANES_RULES_AT_INTERSECTION`, `LEFT_HAND_RULE_AT_INTERSECTION`,  `FORCING_PRIORITY`  occur, if yes the state of the vehicle is changed to one matching the situation - to determine if the vehicle must yield priority. If none of these situations occur only leaving the intersection will result in a transition to `NONE`.
+3. `AT_INTERSECTION` - state in which it is checked if any of the situations `LANES_RULES_AT_INTERSECTION`, `LEFT_HAND_RULE_AT_INTERSECTION`,  `FORCING_PRIORITY`  occur, if yes the state of the vehicle is changed to one matching the situation - to determine if the vehicle must yield priority. If none of these situations occur only leaving the intersection will result in a transition to `NONE`.
 
-1.  `INTERSECTION_BLOCKED` -  when vehicle A is approaching the intersection, it yields priority to vehicle B, which should yield priority, but is forcing it - this refers to a situation in which vehicle B has entered the intersection and has already passed its stop point vehicle B isn’t going to stop but has to leave the intersection. Until now, vehicle A has continued to pass through the intersection without taking vehicle B into account, now it is checking if any vehicle is forcing priority (vehicle A has `INTERSECTION_BLOCKED` state).
+4.  `INTERSECTION_BLOCKED` -  when vehicle A is approaching the intersection, it yields priority to vehicle B, which should yield priority, but is forcing it - this refers to a situation in which vehicle B has entered the intersection and has already passed its stop point vehicle B isn’t going to stop but has to leave the intersection. Until now, vehicle A has continued to pass through the intersection without taking vehicle B into account, now it is checking if any vehicle is forcing priority (vehicle A has `INTERSECTION_BLOCKED` state).
 <br>**(vehicle A is red car with blue sphere, B is the white car to which it points)**
 ![image](INTERSECTION_BLOCKED.png)
 
