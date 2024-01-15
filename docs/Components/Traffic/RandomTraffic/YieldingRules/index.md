@@ -2,7 +2,7 @@
 The `RandomTrafficSimulator` assumes that there are 10 phases of yielding priority:
 
 !!! note "RandomTrafficYielding scene"
-    If you would like to see how `RandomTrafficSimulator` with yielding rules works or run some tests, we encourage you to familiarize yourself with the `RandomTrafficYielding` scene described in this [section](../../../ProjectGuide/Scenes/).
+    If you would like to see how `RandomTrafficSimulator` with yielding rules works or run some tests, we encourage you to familiarize yourself with the `RandomTrafficYielding` scene described in this [section](../../../ProjectGuide/Scenes/#randomtrafficyielding).
 
 1. `NONE` - state in which it is only checked if a vehicle is approaching the intersection. If yes, a transition to state `ENTERING_INTERSECTION` is made.
 
