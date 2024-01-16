@@ -30,6 +30,8 @@ namespace RGLUnityPlugin
             RotatingLidarDifferentLaserRanges,
             // Rays are generated in specific way to HesaiAT128 lidar
             HesaiAT128,
+            // Rays are generated in specific way to HesaiQT128C2X lidar
+            HesaiQT128C2X,
         }
 
         [Tooltip("Method that rays are generated")]
@@ -67,8 +69,7 @@ namespace RGLUnityPlugin
 
         public Matrix4x4[] GetRayPoses()
         {
-            // Ray poses are generated the same way for all of the RayGenerateMethod's
-
+            // Config validation
             if (!(minHAngle <= maxHAngle))
             {
                 throw new ArgumentOutOfRangeException(nameof(minHAngle),
@@ -87,20 +88,14 @@ namespace RGLUnityPlugin
                     "Horizontal resolution must be positive");
             }
 
-            Matrix4x4[] rayPose = new Matrix4x4[PointCloudSize];
-
-            Matrix4x4[] laserPoses = laserArray.GetLaserPoses();
-            for (int hStep = 0; hStep < HorizontalSteps; hStep++)
+            return rayGenerateMethod switch
             {
-                for (int laserId = 0; laserId < laserPoses.Length; laserId++)
-                {
-                    int idx = laserId + hStep * laserPoses.Length;
-                    float azimuth = minHAngle + hStep * horizontalResolution;
-                    rayPose[idx] = Matrix4x4.Rotate(Quaternion.Euler(0.0f, azimuth, 0.0f)) * laserPoses[laserId];
-                }
-            }
-
-            return rayPose;
+                RayGenerateMethod.RotatingLidarEqualRange => GetRayPosesCommonLidar(),
+                RayGenerateMethod.RotatingLidarDifferentLaserRanges => GetRayPosesCommonLidar(),
+                RayGenerateMethod.HesaiAT128 => GetRayPosesCommonLidar(),
+                RayGenerateMethod.HesaiQT128C2X => GetRayPosesHesaiQT128C2X(),
+                _ => throw new ArgumentOutOfRangeException(),
+            };
         }
 
         public Vector2[] GetRayRanges()
@@ -110,6 +105,7 @@ namespace RGLUnityPlugin
                 RayGenerateMethod.RotatingLidarEqualRange => new Vector2[1] {new Vector2(minRange, maxRange)},
                 RayGenerateMethod.RotatingLidarDifferentLaserRanges => GetRayRangesFromLasers(),
                 RayGenerateMethod.HesaiAT128 => GetRayRangesHesaiAT128(),
+                RayGenerateMethod.HesaiQT128C2X => GetRayRangesFromLasers(),
                 _ => throw new ArgumentOutOfRangeException(),
             };
         }
@@ -121,30 +117,6 @@ namespace RGLUnityPlugin
             for (int i = 0; i < HorizontalSteps; i++)
             {
                 Array.Copy(laserRanges, 0, rayRanges, i * laserRanges.Length, laserRanges.Length);
-            }
-            return rayRanges;
-        }
-
-        private Vector2[] GetRayRangesHesaiAT128()
-        {
-            // All channels fire laser pulses that measure the far field (＞ 7.2 m)
-            // Additionally, the NF-enabled channels also fire laser pulses that measure only the near field (0.5 to 7.2 m), at a time other
-            // than these channels' far field firings.
-            // NF-enabled channels are marked with minRange set to NEAR_FIELD_MIN_RANGE.
-            const float NEAR_FIELD_MIN_RANGE = 0.5f;
-            const float FAR_FIELD_MIN_RANGE = 7.2f;
-
-            Vector2[] rayRanges = new Vector2[PointCloudSize];
-            Vector2[] laserRanges = laserArray.GetLaserRanges();
-            for (int i = 0; i < PointCloudSize; i++)
-            {
-                rayRanges[i] = laserRanges[i % laserRanges.Length];
-                // The horizontal resolution for the near field is 2 times greater than for the far field.
-                // To simulate it, every second minimum range of the ray will be set for the far field.
-                if (rayRanges[i].x == NEAR_FIELD_MIN_RANGE && (i / laserRanges.Length) % 2 == 1)
-                {
-                    rayRanges[i].x = FAR_FIELD_MIN_RANGE;
-                }
             }
             return rayRanges;
         }
@@ -190,5 +162,73 @@ namespace RGLUnityPlugin
             angularNoiseMean = 0.0f,
             distanceNoiseMean = 0.0f,
         };
+
+        public Matrix4x4[] GetRayPosesCommonLidar()
+        {
+            Matrix4x4[] rayPoses = new Matrix4x4[PointCloudSize];
+
+            Matrix4x4[] laserPoses = laserArray.GetLaserPoses();
+            for (int hStep = 0; hStep < HorizontalSteps; hStep++)
+            {
+                for (int laserId = 0; laserId < laserPoses.Length; laserId++)
+                {
+                    int idx = laserId + hStep * laserPoses.Length;
+                    float azimuth = minHAngle + hStep * horizontalResolution;
+                    rayPoses[idx] = Matrix4x4.Rotate(Quaternion.Euler(0.0f, azimuth, 0.0f)) * laserPoses[laserId];
+                }
+            }
+
+            return rayPoses;
+        }
+
+        /// HesaiAT128
+        private Vector2[] GetRayRangesHesaiAT128()
+        {
+            // All channels fire laser pulses that measure the far field (＞ 7.2 m)
+            // Additionally, the NF-enabled channels also fire laser pulses that measure only the near field (0.5 to 7.2 m), at a time other
+            // than these channels' far field firings.
+            // NF-enabled channels are marked with minRange set to NEAR_FIELD_MIN_RANGE.
+            const float NEAR_FIELD_MIN_RANGE = 0.5f;
+            const float FAR_FIELD_MIN_RANGE = 7.2f;
+
+            Vector2[] rayRanges = new Vector2[PointCloudSize];
+            Vector2[] laserRanges = laserArray.GetLaserRanges();
+            for (int i = 0; i < PointCloudSize; i++)
+            {
+                rayRanges[i] = laserRanges[i % laserRanges.Length];
+                // The horizontal resolution for the near field is 2 times greater than for the far field.
+                // To simulate it, every second minimum range of the ray will be set for the far field.
+                if (rayRanges[i].x == NEAR_FIELD_MIN_RANGE && (i / laserRanges.Length) % 2 == 1)
+                {
+                    rayRanges[i].x = FAR_FIELD_MIN_RANGE;
+                }
+            }
+            return rayRanges;
+        }
+
+        /// HesaiQT128C2X
+        private static int hesaiQT128LasersBankLength = 32;
+        private Matrix4x4[] GetRayPosesHesaiQT128C2X()
+        {
+            Matrix4x4[] rayPoses = new Matrix4x4[PointCloudSize];
+
+            Matrix4x4[] laserPoses = laserArray.GetLaserPoses();
+            for (int hStep = 0; hStep < HorizontalSteps; hStep++)
+            {
+                for (int laserId = 0; laserId < laserPoses.Length; laserId++)
+                {
+                    int idx = laserId + hStep * laserPoses.Length;
+                    float highResolutionAddition = 0.0f;
+                    if (laserId > 3 * hesaiQT128LasersBankLength - 1)
+                    {
+                        highResolutionAddition = horizontalResolution / 2;
+                    }
+                    float azimuth = minHAngle + hStep * horizontalResolution + highResolutionAddition;
+                    rayPoses[idx] = Matrix4x4.Rotate(Quaternion.Euler(0.0f, azimuth, 0.0f)) * laserPoses[laserId];
+                }
+            }
+
+            return rayPoses;
+        }
     }
 }

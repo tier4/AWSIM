@@ -31,6 +31,8 @@ namespace RGLUnityPlugin
                 {LidarModel.OusterOS1_64, OusterOS1_64},
                 {LidarModel.HesaiAT128E2X, HesaiAT128E2X},
                 {LidarModel.HesaiPandarXT32, HesaiPandarXT32},
+                {LidarModel.HesaiQT128C2X, HesaiQT128C2X},
+                {LidarModel.HesaiPandar128E4X, HesaiPandar128E4X},
             };
 
         public static LidarConfiguration RangeMeter => new LidarConfiguration
@@ -170,6 +172,30 @@ namespace RGLUnityPlugin
             rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
             minRange = 0.05f,
             maxRange = 120.0f,
+            beamDivergence = 0.13f,
+        };
+
+        public static LidarConfiguration HesaiQT128C2X => new LidarConfiguration
+        {
+            laserArray = LaserArrayLibrary.HesaiQT128C2X,
+            horizontalResolution = 0.8f,
+            laserArrayCycleTime = 0.11111f,
+            minHAngle = 0.0f,
+            maxHAngle = 360.0f,
+            noiseParams = LidarConfiguration.TypicalNoiseParams,
+            rayGenerateMethod = LidarConfiguration.RayGenerateMethod.HesaiQT128C2X,
+            beamDivergence = 0.13f,
+        };
+
+        public static LidarConfiguration HesaiPandar128E4X => new LidarConfiguration
+        {
+            laserArray = LaserArrayLibrary.HesaiPandar128E4X,
+            horizontalResolution = 0.2f,
+            laserArrayCycleTime = 0.027778f,
+            minHAngle = 0.0f,
+            maxHAngle = 360.0f,
+            noiseParams = LidarConfiguration.TypicalNoiseParams,
+            rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarDifferentLaserRanges,
             beamDivergence = 0.13f,
         };
     }
