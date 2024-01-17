@@ -202,10 +202,11 @@ namespace RGLUnityPlugin
             }
 
             // Currently, all of the supported Velodyne models use Legacy Packet Format
-            if (IsVelodyne((LidarModel)detectedUnityLidarModel) && modelToValidate.maxRange > maxRangeForVelodyneLegacyPacketFormat)
-            {
-                Debug.LogWarning($"Max range of lidar '{lidarSensor.name}' exceeds max range supported by Velodyne Legacy Packet Format (262.14m). Consider reducing its value to ensure proper work.");
-            }
+            // TODO fix it
+            // if (IsVelodyne((LidarModel)detectedUnityLidarModel) && modelToValidate.maxRange > maxRangeForVelodyneLegacyPacketFormat)
+            // {
+            //     Debug.LogWarning($"Max range of lidar '{lidarSensor.name}' exceeds max range supported by Velodyne Legacy Packet Format (262.14m). Consider reducing its value to ensure proper work.");
+            // }
 
             currentRGLLidarModel = UnityToRGLLidarModelsMapping[detectedUnityLidarModel.Value];
             UpdateRGLSubgraph();

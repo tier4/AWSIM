@@ -24,20 +24,6 @@ namespace RGLUnityPlugin
     // The order of the lasers in the array is the order of theirs ID. They not necessarily ordered by their angular offset, ring IDs or time offset.
     public static class LaserArrayLibrary
     {
-        public static readonly Dictionary<LidarModel, LaserArray> ByModel =
-            new Dictionary<LidarModel, LaserArray>
-            {
-                {LidarModel.HesaiPandar40P, HesaiPandar40P},
-                {LidarModel.HesaiPandarQT, HesaiPandarQT},
-                {LidarModel.VelodyneVLP16, VelodyneVLP16},
-                {LidarModel.VelodyneVLP32C, VelodyneVLP32C},
-                {LidarModel.VelodyneVLS128, VelodyneVLS128},
-                {LidarModel.OusterOS1_64, OusterOS1_64},
-                {LidarModel.HesaiPandarXT32, HesaiPandarXT32},
-                {LidarModel.HesaiQT128C2X, HesaiQT128C2X},
-                {LidarModel.HesaiPandar128E4X, HesaiPandar128E4X},
-            };
-
         // https://web2019.blob.core.windows.net/uploads/Pandar40P_User_Manual_402-en-211010.pdf
         public static LaserArray HesaiPandar40P => new LaserArray
         {
