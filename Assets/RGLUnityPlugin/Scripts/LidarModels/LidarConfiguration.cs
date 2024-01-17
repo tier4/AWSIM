@@ -187,10 +187,15 @@ namespace RGLUnityPlugin
     {
         private static int hesaiQT128LasersBankLength = 32;
 
+        // Lasers (channels) in HesaiQT128C2X are divided into 4 banks: Bank A, Bank B, Bank C, Bank D.
+        // Firing sequence for the one scan is:
+        //   1. Banks CDB fire; Bank A rests
+        //   2. The horizontal step moves by half of the horizontal resolution
+        //   3. Banks CDA fire, Bank B rests
+        // It results in high resolution (doubled resolution) for lasers in banks C and D.
         public override Matrix4x4[] GetRayPoses()
         {
             Matrix4x4[] rayPoses = new Matrix4x4[PointCloudSize];
-
             Matrix4x4[] laserPoses = laserArray.GetLaserPoses();
             for (int hStep = 0; hStep < HorizontalSteps; hStep++)
             {
@@ -198,7 +203,7 @@ namespace RGLUnityPlugin
                 {
                     int idx = laserId + hStep * laserPoses.Length;
                     float highResolutionAddition = 0.0f;
-                    if (laserId > 3 * hesaiQT128LasersBankLength - 1)
+                    if (laserId >= 3 * hesaiQT128LasersBankLength)
                     {
                         highResolutionAddition = horizontalResolution / 2;
                     }
@@ -206,7 +211,6 @@ namespace RGLUnityPlugin
                     rayPoses[idx] = Matrix4x4.Rotate(Quaternion.Euler(0.0f, azimuth, 0.0f)) * laserPoses[laserId];
                 }
             }
-
             return rayPoses;
         }
     }
