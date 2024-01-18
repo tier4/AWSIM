@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RGLUnityPlugin
@@ -212,6 +213,85 @@ namespace RGLUnityPlugin
                 }
             }
             return rayPoses;
+        }
+    }
+
+    /// <summary>
+    /// Lidar configuration for HesaiPandar128E4X lidar.
+    /// It contains properties and ray-generating methods specific to this lidar.
+    /// </summary>
+    [Serializable]
+    public class HesaiPandar128E4XLidarConfiguration : BaseLidarConfiguration
+    {
+        private int nextSubstepLaserIdForHighRes = 95;
+
+        private static readonly Dictionary<bool, LaserArray> HighResolutionModeToLaserArrayMapping =
+            new Dictionary<bool, LaserArray>()
+            {
+                { false, LaserArrayLibrary.HesaiPandar128E4X },
+                { true, LaserArrayLibrary.HesaiPandar128E4XHighRes }
+            };
+
+        public bool highResolutionMode;
+
+        // Properties with custom setter cannot be serialized
+        // This is a workaround to switch lasers if high resolution mode has changed
+        // This method is called at the beginning of every ray-generating methods
+        private void EnsureProperLasersAssigned()
+        {
+            if (laserArray.lasers.Length != HighResolutionModeToLaserArrayMapping[highResolutionMode].lasers.Length)
+            {
+                laserArray.lasers = HighResolutionModeToLaserArrayMapping[highResolutionMode].lasers;
+            }
+        }
+
+        // In standard mode, rays are generated uniformly.
+        // In high resolution mode, first rays (up to `nextSubstepLaserIdForHighRes`) are generated on standard horizontal angle
+        // Next rays (after `nextSubstepLaserIdForHighRes`) are shifted by half of the horizontal resolution
+        // Some lasers fire on both horizontal states. This is taken into account in the order of the lasers in `laserArray.lasers`.
+        public override Matrix4x4[] GetRayPoses()
+        {
+            EnsureProperLasersAssigned();
+            if (!highResolutionMode)
+            {
+                return base.GetRayPoses();
+            }
+
+            Matrix4x4[] rayPoses = new Matrix4x4[PointCloudSize];
+            Matrix4x4[] laserPoses = laserArray.GetLaserPoses();
+            for (int hStep = 0; hStep < HorizontalSteps; hStep++)
+            {
+                for (int laserId = 0; laserId < laserPoses.Length; laserId++)
+                {
+                    int idx = laserId + hStep * laserPoses.Length;
+                    float highResolutionAddition = 0.0f;
+                    if (laserId >= nextSubstepLaserIdForHighRes)
+                    {
+                        highResolutionAddition = horizontalResolution / 2;
+                    }
+                    float azimuth = minHAngle + hStep * horizontalResolution + highResolutionAddition;
+                    rayPoses[idx] = Matrix4x4.Rotate(Quaternion.Euler(0.0f, azimuth, 0.0f)) * laserPoses[laserId];
+                }
+            }
+            return rayPoses;
+        }
+
+        public override Vector2[] GetRayRanges()
+        {
+            EnsureProperLasersAssigned();
+            return base.GetRayRanges();
+        }
+
+        public override float[] GetRayTimeOffsets()
+        {
+            EnsureProperLasersAssigned();
+            return base.GetRayTimeOffsets();
+        }
+
+        public override int[] GetRayRingIds()
+        {
+            EnsureProperLasersAssigned();
+            return base.GetRayRingIds();
         }
     }
 }

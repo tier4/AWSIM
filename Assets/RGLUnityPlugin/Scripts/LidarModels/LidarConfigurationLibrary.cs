@@ -176,7 +176,7 @@ namespace RGLUnityPlugin
             beamDivergence = 0.13f,
         };
 
-        public static BaseLidarConfiguration HesaiPandar128E4X => new LaserBasedRangeLidarConfiguration()
+        public static BaseLidarConfiguration HesaiPandar128E4X => new HesaiPandar128E4XLidarConfiguration()
         {
             laserArray = LaserArrayLibrary.HesaiPandar128E4X,
             horizontalResolution = 0.2f,
@@ -185,6 +185,7 @@ namespace RGLUnityPlugin
             maxHAngle = 360.0f,
             noiseParams = LidarNoiseParams.TypicalNoiseParams,
             beamDivergence = 0.13f,
+            highResolutionMode = false,
         };
     }
 }
