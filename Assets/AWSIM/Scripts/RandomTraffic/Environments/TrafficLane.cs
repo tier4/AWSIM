@@ -15,7 +15,8 @@ namespace AWSIM.TrafficSimulation
         {
             STRAIGHT = 0,
             LEFT = 1,
-            RIGHT = 2
+            RIGHT = 2,
+            NULL = 3
         }
 
         [SerializeField, Tooltip("Waypoints in this lane.")]
@@ -32,6 +33,8 @@ namespace AWSIM.TrafficSimulation
         private StopLine stopLine;
         [SerializeField, Tooltip("Speed limit in m/s")]
         private float speedLimit;
+        [SerializeField, Tooltip("Is intersection lane")]
+        public bool intersectionLane;
 
         /// <summary>
         /// Get waypoints in this lane.
@@ -65,6 +68,11 @@ namespace AWSIM.TrafficSimulation
         {
             get => stopLine;
             set => stopLine = value;
+        }
+
+        public Vector3 GetStopPoint(int waypointIndex = 0)
+        {
+            return StopLine == null ? Waypoints[waypointIndex] : StopLine.CenterPoint;
         }
 
         /// <summary>

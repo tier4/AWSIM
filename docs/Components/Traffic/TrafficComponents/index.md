@@ -125,6 +125,13 @@ The `EgoVehicle` field provides the information about Ego vehicle used for corre
 
 `Show Gizmos` checkbox specifies whether the [Gizmos](#gizmos) visualization should be displayed when running the simulation.
 
+`Show Yielding Phase` checkbox specifies whether yielding phases should be displayed by Gizmos - in the form of spheres above vehicles, details in the [Markings](../RandomTraffic/RandomTrafficSimulator/) section.
+
+`Show Obstacle Checking` checkbox specifies whether obstacle checking should be displayed by Gizmos - in the form of boxes in front of vehicles
+
+`Show Spawn Points` checkbox specifies whether spawn points should be displayed by Gizmos - in the form of flat cuboids on roads.
+
+
 !!! note "Gizmos performance"
     Gizmos have a high computational load.
     Enabling them may cause the simulation to lag.

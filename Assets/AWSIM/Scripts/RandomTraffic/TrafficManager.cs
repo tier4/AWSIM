@@ -45,7 +45,9 @@ public class TrafficManager : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField] protected bool showGizmos = false;
-
+    [SerializeField] protected bool showYieldingPhase = false;
+    [SerializeField] protected bool showObstacleChecking = false;
+    [SerializeField] protected bool showSpawnPoints = false;
     public RandomTrafficSimulatorConfiguration[] randomTrafficSims;
     public RouteTrafficSimulatorConfiguration[] routeTrafficSims;
     public NPCVehicleSimulator npcVehicleSimulator;
@@ -86,6 +88,7 @@ public class TrafficManager : MonoBehaviour
 
     void Start()
     {
+        verifyIntegrationEnvironmentElements();
         trafficSimulatorNodes = new List<ITrafficSimulator>();
         if (npcVehicleSimulator == null)
         {
@@ -118,6 +121,44 @@ public class TrafficManager : MonoBehaviour
             routeTs.enabled = routeTrafficSimConf.enabled;
             trafficSimulatorNodes.Add(routeTs);
         }
+    }
+    private void verifyIntegrationEnvironmentElements()
+    {
+        GameObject trafficLanesObject = GameObject.Find("TrafficLanes");
+        if (trafficLanesObject == null)
+        {
+            Debug.LogError("VerifyIntegrationEnvironmentElements error: Object 'TrafficLanes' not found in the scene.");
+        }
+
+        Transform[] children = trafficLanesObject.GetComponentsInChildren<Transform>();
+        HashSet<string> uniqueNames = new HashSet<string>();
+        bool isAnyIntersectionLane = false;
+        bool isAnyTrafficScript = false;
+        foreach (Transform child in children)
+        {
+            var trafficScript = child.gameObject.GetComponent<TrafficLane>();
+            if (trafficScript)
+            {
+                isAnyTrafficScript = true;
+                if (trafficScript.intersectionLane)
+                {
+                    isAnyIntersectionLane = true;
+                }
+                if (!uniqueNames.Add(child.name))
+                {
+                    Debug.LogError("VerifyIntegrationEnvironmentElements error: Found repeated child name in the 'TrafficLanes' object: " + child.name);
+                }
+            }
+        }
+        if (!isAnyIntersectionLane)
+        {
+            Debug.LogError("VerifyIntegrationEnvironmentElements error: Not found any TrafficLane with 'IntersectionLane' set to true.");
+        }
+        if (!isAnyTrafficScript)
+        {
+            Debug.LogError("VerifyIntegrationEnvironmentElements error: Not found any TrafficLane with 'TrafficScript'.");
+        }
+
     }
 
     private void FixedUpdate()
@@ -206,14 +247,36 @@ public class TrafficManager : MonoBehaviour
         npcVehicleSimulator?.Dispose();
     }
 
+    private void DrawSpawnPoints()
+    {
+        Gizmos.color = Color.cyan;
+        foreach (var randomTrafficConf in randomTrafficSims)
+        {
+            foreach (var lane in randomTrafficConf.spawnableLanes)
+            {
+                Gizmos.DrawCube(lane.Waypoints[0], new Vector3(2.5f, 0.2f, 2.5f));
+            }
+        }
+
+        Gizmos.color = Color.magenta;
+        foreach (var routeTrafficSimConf in routeTrafficSims)
+        {
+            if (routeTrafficSimConf.route.Length > 0)
+            {
+                Gizmos.DrawCube(routeTrafficSimConf.route[0].Waypoints[0], new Vector3(2.5f, 0.2f, 2.5f));
+            }
+        }
+    }
+
     private void OnDrawGizmos()
     {
         if (!showGizmos)
             return;
 
         var defaultColor = Gizmos.color;
-
-        npcVehicleSimulator?.ShowGizmos();
+        npcVehicleSimulator?.ShowGizmos(showYieldingPhase, showObstacleChecking);
+        if (showSpawnPoints)
+            DrawSpawnPoints();
 
         Gizmos.color = defaultColor;
     }

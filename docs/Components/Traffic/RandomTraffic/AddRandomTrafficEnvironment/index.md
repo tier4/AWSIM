@@ -65,6 +65,26 @@ For each right turn lane that yields to the opposite straight or left turn lane,
 ![](stop_lines.png)
 If there is no visible stop line, a `StopLine` component should be added to the scene, near the center of the intersection and associated with `TrafficLane`.
 
+## Assign Intersection TrafficLanes
+To make the yielding rules work properly, it is necessary to catagorize the `TrafficLanes`. 
+The ones that belong to an intersection have the `IntersectionLane` variable set to true.
+
+To automate the assignment of the corresponding `IntersectionLane` to each `TrafficLane`, the script `AssignIntersectionTrafficLanes` can be used.
+![](intersectionlane_script.png)
+
+1. At the time of assignment, add it as a component to some object in the scene (e.g. to the `Environment` object).
+2. Disable the component (uncheck the checkbox next to the script name).
+3. Assign to `TrafficLanesObjectsParent` *GameObject*, which contains all `TrafficLanes` objects.
+4. Check all 4 options.
+5. Enable the component (check the checkbox next to the script name).
+
+Check the log to see if all operations were completed:
+![](log.png)
+
+As a result, the names of `TrafficLane` objects should have prefixes with sequential numbers and `TrafficLane` at intersections should be marked. `TrafficLanes` with `IntersectionLane` set to *True* are displayed by *Gizmos* in green color, if `IntersectionLane` is *False* their color is white.
+<br>![](names.png)
+![](intersectionlane.png)
+
 ## Check final configuration
 
 Once all the components are ready, the simulation can be run.

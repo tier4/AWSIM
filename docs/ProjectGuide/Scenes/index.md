@@ -61,6 +61,17 @@ Replace the lights and configuration with your own and check whether it works co
 <source src="light_test.mp4" type="video/mp4">
 </video>
 
+## RandomTrafficYielding
+The `RandomTrafficYielding` was developed to conduct a tests of a developed yielding rules at the single intersection.
+
+<video width="1920" controls>
+<source src="yielding_rules.mp4" type="video/mp4">
+</video>
+
+## RandomTrafficYieldingBirdEye
+The `RandomTrafficYielding` was developed to conduct a tests of a developed yielding rules with multiple vehicles moving around the entire environment.
+![yielding_rules_birdeye](yielding_rules_birdeye.png)
+
 ## RGL test scenes
 The scenes described below are used for tests related to the external library `RGLUnityPlugin` (`RGL`) - you can read more about it in this [section](../../Components/Sensors/LiDARSensor/RGLUnityPlugin/).
 
