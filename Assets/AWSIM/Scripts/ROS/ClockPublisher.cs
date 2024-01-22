@@ -16,20 +16,11 @@ namespace AWSIM
 
         IPublisher<rosgraph_msgs.msg.Clock> clockPublisher;
         rosgraph_msgs.msg.Clock clockMsg;
-        float timer = 0;
+        float timeScale = 1.0f;
 
-        void PublishClock()
-        {
-            SimulatorROS2Node.UpdateROSClockTime(clockMsg.Clock_);
-            clockPublisher.Publish(clockMsg);
-        }
 
-        void Start()
-        {
-            InvokeRepeating("PublishClock", 1.0f, 1.0f/publishHz);
-        }
+        #region [Life Cycle]
 
-        // Start is called before the first frame update
         void Awake()
         {
             var qos = qosSettings.GetQoSProfile();
@@ -37,10 +28,38 @@ namespace AWSIM
             clockMsg = new rosgraph_msgs.msg.Clock();
         }
 
-
         void OnDestroy()
         {
             SimulatorROS2Node.RemovePublisher<rosgraph_msgs.msg.Clock>(clockPublisher);
+        }
+
+        #endregion
+
+        void Start()
+        {
+            timeScale = Time.timeScale;
+            InvokeRepeating("PublishClock", 1.0f, timeScale/publishHz);
+        }
+
+        void Update() 
+        {
+            if (Mathf.Abs(Time.timeScale - timeScale) > 0.01f)
+            {
+                timeScale = Time.timeScale;
+                OnTimeScaleChanged();
+            }
+        }
+
+        void OnTimeScaleChanged()
+        {
+            CancelInvoke();
+            InvokeRepeating("PublishClock", 0.0f, timeScale/publishHz);
+        }
+
+        void PublishClock()
+        {
+            SimulatorROS2Node.UpdateROSClockTime(clockMsg.Clock_);
+            clockPublisher.Publish(clockMsg);
         }
     }
 }
