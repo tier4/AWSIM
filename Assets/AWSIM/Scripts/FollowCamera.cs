@@ -45,7 +45,7 @@ namespace AWSIM
         public KeyCode RotateAroundModeToggle = KeyCode.C;
 
         [Tooltip("Maximum camera rotation speed around the target")]
-        public float MaxRotateAroundSpeed = 32.0f;
+        public float MaxRotateAroundSpeed = 64.0f;
 
 
         #endregion
