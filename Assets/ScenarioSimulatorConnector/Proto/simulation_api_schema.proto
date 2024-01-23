@@ -325,6 +325,20 @@ message FollowPolylineTrajectoryResponse {
 }
 
 /**
+ * Requests updating simulation step time.
+ **/
+message UpdateStepTimeRequest {
+  double simulation_step_time = 1;
+}
+
+/**
+ * Response of updating simulation step time.
+ **/
+message UpdateStepTimeResponse {
+  Result result = 1; // Result of [UpdateStepTimeRequest](#UpdateStepTimeRequest)
+}
+
+/**
  * Universal message for Request
  **/
 message SimulationRequest {
@@ -342,6 +356,7 @@ message SimulationRequest {
     UpdateTrafficLightsRequest update_traffic_lights = 11;
     FollowPolylineTrajectoryRequest follow_polyline_trajectory = 12;
     AttachPseudoTrafficLightDetectorRequest attach_pseudo_traffic_light_detector = 13;
+    UpdateStepTimeRequest update_step_time = 14;
   }
 }
 
@@ -364,5 +379,6 @@ message SimulationResponse {
     UpdateTrafficLightsResponse update_traffic_lights = 11;
     FollowPolylineTrajectoryResponse follow_polyline_trajectory = 12;
     AttachPseudoTrafficLightDetectorResponse attach_pseudo_traffic_light_detector = 13;
+    UpdateStepTimeResponse update_step_time = 14;
   }
 }

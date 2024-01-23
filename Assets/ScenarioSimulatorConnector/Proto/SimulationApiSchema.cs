@@ -126,58 +126,64 @@ namespace SimulationApiSchema {
             "YWplY3RvcnlSZXF1ZXN0EgwKBG5hbWUYASABKAkSPgoKdHJhamVjdG9yeRgC",
             "IAEoCzIqLnRyYWZmaWNfc2ltdWxhdG9yX21zZ3MuUG9seWxpbmVUcmFqZWN0",
             "b3J5IlEKIEZvbGxvd1BvbHlsaW5lVHJhamVjdG9yeVJlc3BvbnNlEi0KBnJl",
-            "c3VsdBgBIAEoCzIdLnNpbXVsYXRpb25fYXBpX3NjaGVtYS5SZXN1bHQi6AgK",
-            "EVNpbXVsYXRpb25SZXF1ZXN0Ej4KCmluaXRpYWxpemUYASABKAsyKC5zaW11",
-            "bGF0aW9uX2FwaV9zY2hlbWEuSW5pdGlhbGl6ZVJlcXVlc3RIABJBCgx1cGRh",
-            "dGVfZnJhbWUYAiABKAsyKS5zaW11bGF0aW9uX2FwaV9zY2hlbWEuVXBkYXRl",
-            "RnJhbWVSZXF1ZXN0SAASUAoUc3Bhd25fdmVoaWNsZV9lbnRpdHkYAyABKAsy",
-            "MC5zaW11bGF0aW9uX2FwaV9zY2hlbWEuU3Bhd25WZWhpY2xlRW50aXR5UmVx",
-            "dWVzdEgAElYKF3NwYXduX3BlZGVzdHJpYW5fZW50aXR5GAQgASgLMjMuc2lt",
-            "dWxhdGlvbl9hcGlfc2NoZW1hLlNwYXduUGVkZXN0cmlhbkVudGl0eVJlcXVl",
-            "c3RIABJXChhzcGF3bl9taXNjX29iamVjdF9lbnRpdHkYBSABKAsyMy5zaW11",
-            "bGF0aW9uX2FwaV9zY2hlbWEuU3Bhd25NaXNjT2JqZWN0RW50aXR5UmVxdWVz",
-            "dEgAEkUKDmRlc3Bhd25fZW50aXR5GAYgASgLMisuc2ltdWxhdGlvbl9hcGlf",
-            "c2NoZW1hLkRlc3Bhd25FbnRpdHlSZXF1ZXN0SAASUAoUdXBkYXRlX2VudGl0",
-            "eV9zdGF0dXMYByABKAsyMC5zaW11bGF0aW9uX2FwaV9zY2hlbWEuVXBkYXRl",
-            "RW50aXR5U3RhdHVzUmVxdWVzdEgAEk4KE2F0dGFjaF9saWRhcl9zZW5zb3IY",
-            "CCABKAsyLy5zaW11bGF0aW9uX2FwaV9zY2hlbWEuQXR0YWNoTGlkYXJTZW5z",
-            "b3JSZXF1ZXN0SAASVgoXYXR0YWNoX2RldGVjdGlvbl9zZW5zb3IYCSABKAsy",
-            "My5zaW11bGF0aW9uX2FwaV9zY2hlbWEuQXR0YWNoRGV0ZWN0aW9uU2Vuc29y",
-            "UmVxdWVzdEgAEl8KHGF0dGFjaF9vY2N1cGFuY3lfZ3JpZF9zZW5zb3IYCiAB",
-            "KAsyNy5zaW11bGF0aW9uX2FwaV9zY2hlbWEuQXR0YWNoT2NjdXBhbmN5R3Jp",
-            "ZFNlbnNvclJlcXVlc3RIABJSChV1cGRhdGVfdHJhZmZpY19saWdodHMYCyAB",
-            "KAsyMS5zaW11bGF0aW9uX2FwaV9zY2hlbWEuVXBkYXRlVHJhZmZpY0xpZ2h0",
-            "c1JlcXVlc3RIABJcChpmb2xsb3dfcG9seWxpbmVfdHJhamVjdG9yeRgMIAEo",
-            "CzI2LnNpbXVsYXRpb25fYXBpX3NjaGVtYS5Gb2xsb3dQb2x5bGluZVRyYWpl",
-            "Y3RvcnlSZXF1ZXN0SAASbgokYXR0YWNoX3BzZXVkb190cmFmZmljX2xpZ2h0",
-            "X2RldGVjdG9yGA0gASgLMj4uc2ltdWxhdGlvbl9hcGlfc2NoZW1hLkF0dGFj",
-            "aFBzZXVkb1RyYWZmaWNMaWdodERldGVjdG9yUmVxdWVzdEgAQgkKB3JlcXVl",
-            "c3Qi9wgKElNpbXVsYXRpb25SZXNwb25zZRI/Cgppbml0aWFsaXplGAEgASgL",
-            "Mikuc2ltdWxhdGlvbl9hcGlfc2NoZW1hLkluaXRpYWxpemVSZXNwb25zZUgA",
-            "EkIKDHVwZGF0ZV9mcmFtZRgCIAEoCzIqLnNpbXVsYXRpb25fYXBpX3NjaGVt",
-            "YS5VcGRhdGVGcmFtZVJlc3BvbnNlSAASUQoUc3Bhd25fdmVoaWNsZV9lbnRp",
-            "dHkYAyABKAsyMS5zaW11bGF0aW9uX2FwaV9zY2hlbWEuU3Bhd25WZWhpY2xl",
-            "RW50aXR5UmVzcG9uc2VIABJXChdzcGF3bl9wZWRlc3RyaWFuX2VudGl0eRgE",
-            "IAEoCzI0LnNpbXVsYXRpb25fYXBpX3NjaGVtYS5TcGF3blBlZGVzdHJpYW5F",
-            "bnRpdHlSZXNwb25zZUgAElgKGHNwYXduX21pc2Nfb2JqZWN0X2VudGl0eRgF",
-            "IAEoCzI0LnNpbXVsYXRpb25fYXBpX3NjaGVtYS5TcGF3bk1pc2NPYmplY3RF",
-            "bnRpdHlSZXNwb25zZUgAEkYKDmRlc3Bhd25fZW50aXR5GAYgASgLMiwuc2lt",
-            "dWxhdGlvbl9hcGlfc2NoZW1hLkRlc3Bhd25FbnRpdHlSZXNwb25zZUgAElEK",
-            "FHVwZGF0ZV9lbnRpdHlfc3RhdHVzGAcgASgLMjEuc2ltdWxhdGlvbl9hcGlf",
-            "c2NoZW1hLlVwZGF0ZUVudGl0eVN0YXR1c1Jlc3BvbnNlSAASTwoTYXR0YWNo",
-            "X2xpZGFyX3NlbnNvchgIIAEoCzIwLnNpbXVsYXRpb25fYXBpX3NjaGVtYS5B",
-            "dHRhY2hMaWRhclNlbnNvclJlc3BvbnNlSAASVwoXYXR0YWNoX2RldGVjdGlv",
-            "bl9zZW5zb3IYCSABKAsyNC5zaW11bGF0aW9uX2FwaV9zY2hlbWEuQXR0YWNo",
-            "RGV0ZWN0aW9uU2Vuc29yUmVzcG9uc2VIABJgChxhdHRhY2hfb2NjdXBhbmN5",
-            "X2dyaWRfc2Vuc29yGAogASgLMjguc2ltdWxhdGlvbl9hcGlfc2NoZW1hLkF0",
-            "dGFjaE9jY3VwYW5jeUdyaWRTZW5zb3JSZXNwb25zZUgAElMKFXVwZGF0ZV90",
-            "cmFmZmljX2xpZ2h0cxgLIAEoCzIyLnNpbXVsYXRpb25fYXBpX3NjaGVtYS5V",
-            "cGRhdGVUcmFmZmljTGlnaHRzUmVzcG9uc2VIABJdChpmb2xsb3dfcG9seWxp",
-            "bmVfdHJhamVjdG9yeRgMIAEoCzI3LnNpbXVsYXRpb25fYXBpX3NjaGVtYS5G",
-            "b2xsb3dQb2x5bGluZVRyYWplY3RvcnlSZXNwb25zZUgAEm8KJGF0dGFjaF9w",
-            "c2V1ZG9fdHJhZmZpY19saWdodF9kZXRlY3RvchgNIAEoCzI/LnNpbXVsYXRp",
-            "b25fYXBpX3NjaGVtYS5BdHRhY2hQc2V1ZG9UcmFmZmljTGlnaHREZXRlY3Rv",
-            "clJlc3BvbnNlSABCCgoIcmVzcG9uc2ViBnByb3RvMw=="));
+            "c3VsdBgBIAEoCzIdLnNpbXVsYXRpb25fYXBpX3NjaGVtYS5SZXN1bHQiNQoV",
+            "VXBkYXRlU3RlcFRpbWVSZXF1ZXN0EhwKFHNpbXVsYXRpb25fc3RlcF90aW1l",
+            "GAEgASgBIkcKFlVwZGF0ZVN0ZXBUaW1lUmVzcG9uc2USLQoGcmVzdWx0GAEg",
+            "ASgLMh0uc2ltdWxhdGlvbl9hcGlfc2NoZW1hLlJlc3VsdCKyCQoRU2ltdWxh",
+            "dGlvblJlcXVlc3QSPgoKaW5pdGlhbGl6ZRgBIAEoCzIoLnNpbXVsYXRpb25f",
+            "YXBpX3NjaGVtYS5Jbml0aWFsaXplUmVxdWVzdEgAEkEKDHVwZGF0ZV9mcmFt",
+            "ZRgCIAEoCzIpLnNpbXVsYXRpb25fYXBpX3NjaGVtYS5VcGRhdGVGcmFtZVJl",
+            "cXVlc3RIABJQChRzcGF3bl92ZWhpY2xlX2VudGl0eRgDIAEoCzIwLnNpbXVs",
+            "YXRpb25fYXBpX3NjaGVtYS5TcGF3blZlaGljbGVFbnRpdHlSZXF1ZXN0SAAS",
+            "VgoXc3Bhd25fcGVkZXN0cmlhbl9lbnRpdHkYBCABKAsyMy5zaW11bGF0aW9u",
+            "X2FwaV9zY2hlbWEuU3Bhd25QZWRlc3RyaWFuRW50aXR5UmVxdWVzdEgAElcK",
+            "GHNwYXduX21pc2Nfb2JqZWN0X2VudGl0eRgFIAEoCzIzLnNpbXVsYXRpb25f",
+            "YXBpX3NjaGVtYS5TcGF3bk1pc2NPYmplY3RFbnRpdHlSZXF1ZXN0SAASRQoO",
+            "ZGVzcGF3bl9lbnRpdHkYBiABKAsyKy5zaW11bGF0aW9uX2FwaV9zY2hlbWEu",
+            "RGVzcGF3bkVudGl0eVJlcXVlc3RIABJQChR1cGRhdGVfZW50aXR5X3N0YXR1",
+            "cxgHIAEoCzIwLnNpbXVsYXRpb25fYXBpX3NjaGVtYS5VcGRhdGVFbnRpdHlT",
+            "dGF0dXNSZXF1ZXN0SAASTgoTYXR0YWNoX2xpZGFyX3NlbnNvchgIIAEoCzIv",
+            "LnNpbXVsYXRpb25fYXBpX3NjaGVtYS5BdHRhY2hMaWRhclNlbnNvclJlcXVl",
+            "c3RIABJWChdhdHRhY2hfZGV0ZWN0aW9uX3NlbnNvchgJIAEoCzIzLnNpbXVs",
+            "YXRpb25fYXBpX3NjaGVtYS5BdHRhY2hEZXRlY3Rpb25TZW5zb3JSZXF1ZXN0",
+            "SAASXwocYXR0YWNoX29jY3VwYW5jeV9ncmlkX3NlbnNvchgKIAEoCzI3LnNp",
+            "bXVsYXRpb25fYXBpX3NjaGVtYS5BdHRhY2hPY2N1cGFuY3lHcmlkU2Vuc29y",
+            "UmVxdWVzdEgAElIKFXVwZGF0ZV90cmFmZmljX2xpZ2h0cxgLIAEoCzIxLnNp",
+            "bXVsYXRpb25fYXBpX3NjaGVtYS5VcGRhdGVUcmFmZmljTGlnaHRzUmVxdWVz",
+            "dEgAElwKGmZvbGxvd19wb2x5bGluZV90cmFqZWN0b3J5GAwgASgLMjYuc2lt",
+            "dWxhdGlvbl9hcGlfc2NoZW1hLkZvbGxvd1BvbHlsaW5lVHJhamVjdG9yeVJl",
+            "cXVlc3RIABJuCiRhdHRhY2hfcHNldWRvX3RyYWZmaWNfbGlnaHRfZGV0ZWN0",
+            "b3IYDSABKAsyPi5zaW11bGF0aW9uX2FwaV9zY2hlbWEuQXR0YWNoUHNldWRv",
+            "VHJhZmZpY0xpZ2h0RGV0ZWN0b3JSZXF1ZXN0SAASSAoQdXBkYXRlX3N0ZXBf",
+            "dGltZRgOIAEoCzIsLnNpbXVsYXRpb25fYXBpX3NjaGVtYS5VcGRhdGVTdGVw",
+            "VGltZVJlcXVlc3RIAEIJCgdyZXF1ZXN0IsIJChJTaW11bGF0aW9uUmVzcG9u",
+            "c2USPwoKaW5pdGlhbGl6ZRgBIAEoCzIpLnNpbXVsYXRpb25fYXBpX3NjaGVt",
+            "YS5Jbml0aWFsaXplUmVzcG9uc2VIABJCCgx1cGRhdGVfZnJhbWUYAiABKAsy",
+            "Ki5zaW11bGF0aW9uX2FwaV9zY2hlbWEuVXBkYXRlRnJhbWVSZXNwb25zZUgA",
+            "ElEKFHNwYXduX3ZlaGljbGVfZW50aXR5GAMgASgLMjEuc2ltdWxhdGlvbl9h",
+            "cGlfc2NoZW1hLlNwYXduVmVoaWNsZUVudGl0eVJlc3BvbnNlSAASVwoXc3Bh",
+            "d25fcGVkZXN0cmlhbl9lbnRpdHkYBCABKAsyNC5zaW11bGF0aW9uX2FwaV9z",
+            "Y2hlbWEuU3Bhd25QZWRlc3RyaWFuRW50aXR5UmVzcG9uc2VIABJYChhzcGF3",
+            "bl9taXNjX29iamVjdF9lbnRpdHkYBSABKAsyNC5zaW11bGF0aW9uX2FwaV9z",
+            "Y2hlbWEuU3Bhd25NaXNjT2JqZWN0RW50aXR5UmVzcG9uc2VIABJGCg5kZXNw",
+            "YXduX2VudGl0eRgGIAEoCzIsLnNpbXVsYXRpb25fYXBpX3NjaGVtYS5EZXNw",
+            "YXduRW50aXR5UmVzcG9uc2VIABJRChR1cGRhdGVfZW50aXR5X3N0YXR1cxgH",
+            "IAEoCzIxLnNpbXVsYXRpb25fYXBpX3NjaGVtYS5VcGRhdGVFbnRpdHlTdGF0",
+            "dXNSZXNwb25zZUgAEk8KE2F0dGFjaF9saWRhcl9zZW5zb3IYCCABKAsyMC5z",
+            "aW11bGF0aW9uX2FwaV9zY2hlbWEuQXR0YWNoTGlkYXJTZW5zb3JSZXNwb25z",
+            "ZUgAElcKF2F0dGFjaF9kZXRlY3Rpb25fc2Vuc29yGAkgASgLMjQuc2ltdWxh",
+            "dGlvbl9hcGlfc2NoZW1hLkF0dGFjaERldGVjdGlvblNlbnNvclJlc3BvbnNl",
+            "SAASYAocYXR0YWNoX29jY3VwYW5jeV9ncmlkX3NlbnNvchgKIAEoCzI4LnNp",
+            "bXVsYXRpb25fYXBpX3NjaGVtYS5BdHRhY2hPY2N1cGFuY3lHcmlkU2Vuc29y",
+            "UmVzcG9uc2VIABJTChV1cGRhdGVfdHJhZmZpY19saWdodHMYCyABKAsyMi5z",
+            "aW11bGF0aW9uX2FwaV9zY2hlbWEuVXBkYXRlVHJhZmZpY0xpZ2h0c1Jlc3Bv",
+            "bnNlSAASXQoaZm9sbG93X3BvbHlsaW5lX3RyYWplY3RvcnkYDCABKAsyNy5z",
+            "aW11bGF0aW9uX2FwaV9zY2hlbWEuRm9sbG93UG9seWxpbmVUcmFqZWN0b3J5",
+            "UmVzcG9uc2VIABJvCiRhdHRhY2hfcHNldWRvX3RyYWZmaWNfbGlnaHRfZGV0",
+            "ZWN0b3IYDSABKAsyPy5zaW11bGF0aW9uX2FwaV9zY2hlbWEuQXR0YWNoUHNl",
+            "dWRvVHJhZmZpY0xpZ2h0RGV0ZWN0b3JSZXNwb25zZUgAEkkKEHVwZGF0ZV9z",
+            "dGVwX3RpbWUYDiABKAsyLS5zaW11bGF0aW9uX2FwaV9zY2hlbWEuVXBkYXRl",
+            "U3RlcFRpbWVSZXNwb25zZUgAQgoKCHJlc3BvbnNlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::BuiltinInterfaces.BuiltinInterfacesReflection.Descriptor, global::GeometryMsgs.GeometryMsgsReflection.Descriptor, global::TrafficSimulatorMsgs.TrafficSimulatorMsgsReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -216,8 +222,10 @@ namespace SimulationApiSchema {
             new pbr::GeneratedClrTypeInfo(typeof(global::SimulationApiSchema.UpdateTrafficLightsResponse), global::SimulationApiSchema.UpdateTrafficLightsResponse.Parser, new[]{ "Result" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SimulationApiSchema.FollowPolylineTrajectoryRequest), global::SimulationApiSchema.FollowPolylineTrajectoryRequest.Parser, new[]{ "Name", "Trajectory" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SimulationApiSchema.FollowPolylineTrajectoryResponse), global::SimulationApiSchema.FollowPolylineTrajectoryResponse.Parser, new[]{ "Result" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::SimulationApiSchema.SimulationRequest), global::SimulationApiSchema.SimulationRequest.Parser, new[]{ "Initialize", "UpdateFrame", "SpawnVehicleEntity", "SpawnPedestrianEntity", "SpawnMiscObjectEntity", "DespawnEntity", "UpdateEntityStatus", "AttachLidarSensor", "AttachDetectionSensor", "AttachOccupancyGridSensor", "UpdateTrafficLights", "FollowPolylineTrajectory", "AttachPseudoTrafficLightDetector" }, new[]{ "Request" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::SimulationApiSchema.SimulationResponse), global::SimulationApiSchema.SimulationResponse.Parser, new[]{ "Initialize", "UpdateFrame", "SpawnVehicleEntity", "SpawnPedestrianEntity", "SpawnMiscObjectEntity", "DespawnEntity", "UpdateEntityStatus", "AttachLidarSensor", "AttachDetectionSensor", "AttachOccupancyGridSensor", "UpdateTrafficLights", "FollowPolylineTrajectory", "AttachPseudoTrafficLightDetector" }, new[]{ "Response" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::SimulationApiSchema.UpdateStepTimeRequest), global::SimulationApiSchema.UpdateStepTimeRequest.Parser, new[]{ "SimulationStepTime" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::SimulationApiSchema.UpdateStepTimeResponse), global::SimulationApiSchema.UpdateStepTimeResponse.Parser, new[]{ "Result" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::SimulationApiSchema.SimulationRequest), global::SimulationApiSchema.SimulationRequest.Parser, new[]{ "Initialize", "UpdateFrame", "SpawnVehicleEntity", "SpawnPedestrianEntity", "SpawnMiscObjectEntity", "DespawnEntity", "UpdateEntityStatus", "AttachLidarSensor", "AttachDetectionSensor", "AttachOccupancyGridSensor", "UpdateTrafficLights", "FollowPolylineTrajectory", "AttachPseudoTrafficLightDetector", "UpdateStepTime" }, new[]{ "Request" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::SimulationApiSchema.SimulationResponse), global::SimulationApiSchema.SimulationResponse.Parser, new[]{ "Initialize", "UpdateFrame", "SpawnVehicleEntity", "SpawnPedestrianEntity", "SpawnMiscObjectEntity", "DespawnEntity", "UpdateEntityStatus", "AttachLidarSensor", "AttachDetectionSensor", "AttachOccupancyGridSensor", "UpdateTrafficLights", "FollowPolylineTrajectory", "AttachPseudoTrafficLightDetector", "UpdateStepTime" }, new[]{ "Response" }, null, null, null)
           }));
     }
     #endregion
@@ -6678,6 +6686,281 @@ namespace SimulationApiSchema {
 
   /// <summary>
   ///*
+  /// Requests updating simulation step time.
+  /// </summary>
+  public sealed partial class UpdateStepTimeRequest : pb::IMessage<UpdateStepTimeRequest> {
+    private static readonly pb::MessageParser<UpdateStepTimeRequest> _parser = new pb::MessageParser<UpdateStepTimeRequest>(() => new UpdateStepTimeRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<UpdateStepTimeRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::SimulationApiSchema.SimulationApiSchemaReflection.Descriptor.MessageTypes[35]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public UpdateStepTimeRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public UpdateStepTimeRequest(UpdateStepTimeRequest other) : this() {
+      simulationStepTime_ = other.simulationStepTime_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public UpdateStepTimeRequest Clone() {
+      return new UpdateStepTimeRequest(this);
+    }
+
+    /// <summary>Field number for the "simulation_step_time" field.</summary>
+    public const int SimulationStepTimeFieldNumber = 1;
+    private double simulationStepTime_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public double SimulationStepTime {
+      get { return simulationStepTime_; }
+      set {
+        simulationStepTime_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as UpdateStepTimeRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(UpdateStepTimeRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(SimulationStepTime, other.SimulationStepTime)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (SimulationStepTime != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(SimulationStepTime);
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (SimulationStepTime != 0D) {
+        output.WriteRawTag(9);
+        output.WriteDouble(SimulationStepTime);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (SimulationStepTime != 0D) {
+        size += 1 + 8;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(UpdateStepTimeRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.SimulationStepTime != 0D) {
+        SimulationStepTime = other.SimulationStepTime;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 9: {
+            SimulationStepTime = input.ReadDouble();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///*
+  /// Response of updating simulation step time.
+  /// </summary>
+  public sealed partial class UpdateStepTimeResponse : pb::IMessage<UpdateStepTimeResponse> {
+    private static readonly pb::MessageParser<UpdateStepTimeResponse> _parser = new pb::MessageParser<UpdateStepTimeResponse>(() => new UpdateStepTimeResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<UpdateStepTimeResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::SimulationApiSchema.SimulationApiSchemaReflection.Descriptor.MessageTypes[36]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public UpdateStepTimeResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public UpdateStepTimeResponse(UpdateStepTimeResponse other) : this() {
+      result_ = other.result_ != null ? other.result_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public UpdateStepTimeResponse Clone() {
+      return new UpdateStepTimeResponse(this);
+    }
+
+    /// <summary>Field number for the "result" field.</summary>
+    public const int ResultFieldNumber = 1;
+    private global::SimulationApiSchema.Result result_;
+    /// <summary>
+    /// Result of [UpdateStepTimeRequest](#UpdateStepTimeRequest)
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::SimulationApiSchema.Result Result {
+      get { return result_; }
+      set {
+        result_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as UpdateStepTimeResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(UpdateStepTimeResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(Result, other.Result)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (result_ != null) hash ^= Result.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (result_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Result);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (result_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Result);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(UpdateStepTimeResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.result_ != null) {
+        if (result_ == null) {
+          Result = new global::SimulationApiSchema.Result();
+        }
+        Result.MergeFrom(other.Result);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (result_ == null) {
+              Result = new global::SimulationApiSchema.Result();
+            }
+            input.ReadMessage(Result);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///*
   /// Universal message for Request
   /// </summary>
   public sealed partial class SimulationRequest : pb::IMessage<SimulationRequest> {
@@ -6688,7 +6971,7 @@ namespace SimulationApiSchema {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::SimulationApiSchema.SimulationApiSchemaReflection.Descriptor.MessageTypes[35]; }
+      get { return global::SimulationApiSchema.SimulationApiSchemaReflection.Descriptor.MessageTypes[37]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -6744,6 +7027,9 @@ namespace SimulationApiSchema {
           break;
         case RequestOneofCase.AttachPseudoTrafficLightDetector:
           AttachPseudoTrafficLightDetector = other.AttachPseudoTrafficLightDetector.Clone();
+          break;
+        case RequestOneofCase.UpdateStepTime:
+          UpdateStepTime = other.UpdateStepTime.Clone();
           break;
       }
 
@@ -6898,6 +7184,17 @@ namespace SimulationApiSchema {
       }
     }
 
+    /// <summary>Field number for the "update_step_time" field.</summary>
+    public const int UpdateStepTimeFieldNumber = 14;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::SimulationApiSchema.UpdateStepTimeRequest UpdateStepTime {
+      get { return requestCase_ == RequestOneofCase.UpdateStepTime ? (global::SimulationApiSchema.UpdateStepTimeRequest) request_ : null; }
+      set {
+        request_ = value;
+        requestCase_ = value == null ? RequestOneofCase.None : RequestOneofCase.UpdateStepTime;
+      }
+    }
+
     private object request_;
     /// <summary>Enum of possible cases for the "request" oneof.</summary>
     public enum RequestOneofCase {
@@ -6915,6 +7212,7 @@ namespace SimulationApiSchema {
       UpdateTrafficLights = 11,
       FollowPolylineTrajectory = 12,
       AttachPseudoTrafficLightDetector = 13,
+      UpdateStepTime = 14,
     }
     private RequestOneofCase requestCase_ = RequestOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -6954,6 +7252,7 @@ namespace SimulationApiSchema {
       if (!object.Equals(UpdateTrafficLights, other.UpdateTrafficLights)) return false;
       if (!object.Equals(FollowPolylineTrajectory, other.FollowPolylineTrajectory)) return false;
       if (!object.Equals(AttachPseudoTrafficLightDetector, other.AttachPseudoTrafficLightDetector)) return false;
+      if (!object.Equals(UpdateStepTime, other.UpdateStepTime)) return false;
       if (RequestCase != other.RequestCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -6974,6 +7273,7 @@ namespace SimulationApiSchema {
       if (requestCase_ == RequestOneofCase.UpdateTrafficLights) hash ^= UpdateTrafficLights.GetHashCode();
       if (requestCase_ == RequestOneofCase.FollowPolylineTrajectory) hash ^= FollowPolylineTrajectory.GetHashCode();
       if (requestCase_ == RequestOneofCase.AttachPseudoTrafficLightDetector) hash ^= AttachPseudoTrafficLightDetector.GetHashCode();
+      if (requestCase_ == RequestOneofCase.UpdateStepTime) hash ^= UpdateStepTime.GetHashCode();
       hash ^= (int) requestCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -7040,6 +7340,10 @@ namespace SimulationApiSchema {
         output.WriteRawTag(106);
         output.WriteMessage(AttachPseudoTrafficLightDetector);
       }
+      if (requestCase_ == RequestOneofCase.UpdateStepTime) {
+        output.WriteRawTag(114);
+        output.WriteMessage(UpdateStepTime);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -7086,6 +7390,9 @@ namespace SimulationApiSchema {
       }
       if (requestCase_ == RequestOneofCase.AttachPseudoTrafficLightDetector) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(AttachPseudoTrafficLightDetector);
+      }
+      if (requestCase_ == RequestOneofCase.UpdateStepTime) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(UpdateStepTime);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -7176,6 +7483,12 @@ namespace SimulationApiSchema {
             AttachPseudoTrafficLightDetector = new global::SimulationApiSchema.AttachPseudoTrafficLightDetectorRequest();
           }
           AttachPseudoTrafficLightDetector.MergeFrom(other.AttachPseudoTrafficLightDetector);
+          break;
+        case RequestOneofCase.UpdateStepTime:
+          if (UpdateStepTime == null) {
+            UpdateStepTime = new global::SimulationApiSchema.UpdateStepTimeRequest();
+          }
+          UpdateStepTime.MergeFrom(other.UpdateStepTime);
           break;
       }
 
@@ -7307,6 +7620,15 @@ namespace SimulationApiSchema {
             AttachPseudoTrafficLightDetector = subBuilder;
             break;
           }
+          case 114: {
+            global::SimulationApiSchema.UpdateStepTimeRequest subBuilder = new global::SimulationApiSchema.UpdateStepTimeRequest();
+            if (requestCase_ == RequestOneofCase.UpdateStepTime) {
+              subBuilder.MergeFrom(UpdateStepTime);
+            }
+            input.ReadMessage(subBuilder);
+            UpdateStepTime = subBuilder;
+            break;
+          }
         }
       }
     }
@@ -7325,7 +7647,7 @@ namespace SimulationApiSchema {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::SimulationApiSchema.SimulationApiSchemaReflection.Descriptor.MessageTypes[36]; }
+      get { return global::SimulationApiSchema.SimulationApiSchemaReflection.Descriptor.MessageTypes[38]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -7381,6 +7703,9 @@ namespace SimulationApiSchema {
           break;
         case ResponseOneofCase.AttachPseudoTrafficLightDetector:
           AttachPseudoTrafficLightDetector = other.AttachPseudoTrafficLightDetector.Clone();
+          break;
+        case ResponseOneofCase.UpdateStepTime:
+          UpdateStepTime = other.UpdateStepTime.Clone();
           break;
       }
 
@@ -7535,6 +7860,17 @@ namespace SimulationApiSchema {
       }
     }
 
+    /// <summary>Field number for the "update_step_time" field.</summary>
+    public const int UpdateStepTimeFieldNumber = 14;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::SimulationApiSchema.UpdateStepTimeResponse UpdateStepTime {
+      get { return responseCase_ == ResponseOneofCase.UpdateStepTime ? (global::SimulationApiSchema.UpdateStepTimeResponse) response_ : null; }
+      set {
+        response_ = value;
+        responseCase_ = value == null ? ResponseOneofCase.None : ResponseOneofCase.UpdateStepTime;
+      }
+    }
+
     private object response_;
     /// <summary>Enum of possible cases for the "response" oneof.</summary>
     public enum ResponseOneofCase {
@@ -7552,6 +7888,7 @@ namespace SimulationApiSchema {
       UpdateTrafficLights = 11,
       FollowPolylineTrajectory = 12,
       AttachPseudoTrafficLightDetector = 13,
+      UpdateStepTime = 14,
     }
     private ResponseOneofCase responseCase_ = ResponseOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -7591,6 +7928,7 @@ namespace SimulationApiSchema {
       if (!object.Equals(UpdateTrafficLights, other.UpdateTrafficLights)) return false;
       if (!object.Equals(FollowPolylineTrajectory, other.FollowPolylineTrajectory)) return false;
       if (!object.Equals(AttachPseudoTrafficLightDetector, other.AttachPseudoTrafficLightDetector)) return false;
+      if (!object.Equals(UpdateStepTime, other.UpdateStepTime)) return false;
       if (ResponseCase != other.ResponseCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -7611,6 +7949,7 @@ namespace SimulationApiSchema {
       if (responseCase_ == ResponseOneofCase.UpdateTrafficLights) hash ^= UpdateTrafficLights.GetHashCode();
       if (responseCase_ == ResponseOneofCase.FollowPolylineTrajectory) hash ^= FollowPolylineTrajectory.GetHashCode();
       if (responseCase_ == ResponseOneofCase.AttachPseudoTrafficLightDetector) hash ^= AttachPseudoTrafficLightDetector.GetHashCode();
+      if (responseCase_ == ResponseOneofCase.UpdateStepTime) hash ^= UpdateStepTime.GetHashCode();
       hash ^= (int) responseCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -7677,6 +8016,10 @@ namespace SimulationApiSchema {
         output.WriteRawTag(106);
         output.WriteMessage(AttachPseudoTrafficLightDetector);
       }
+      if (responseCase_ == ResponseOneofCase.UpdateStepTime) {
+        output.WriteRawTag(114);
+        output.WriteMessage(UpdateStepTime);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -7723,6 +8066,9 @@ namespace SimulationApiSchema {
       }
       if (responseCase_ == ResponseOneofCase.AttachPseudoTrafficLightDetector) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(AttachPseudoTrafficLightDetector);
+      }
+      if (responseCase_ == ResponseOneofCase.UpdateStepTime) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(UpdateStepTime);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -7813,6 +8159,12 @@ namespace SimulationApiSchema {
             AttachPseudoTrafficLightDetector = new global::SimulationApiSchema.AttachPseudoTrafficLightDetectorResponse();
           }
           AttachPseudoTrafficLightDetector.MergeFrom(other.AttachPseudoTrafficLightDetector);
+          break;
+        case ResponseOneofCase.UpdateStepTime:
+          if (UpdateStepTime == null) {
+            UpdateStepTime = new global::SimulationApiSchema.UpdateStepTimeResponse();
+          }
+          UpdateStepTime.MergeFrom(other.UpdateStepTime);
           break;
       }
 
@@ -7942,6 +8294,15 @@ namespace SimulationApiSchema {
             }
             input.ReadMessage(subBuilder);
             AttachPseudoTrafficLightDetector = subBuilder;
+            break;
+          }
+          case 114: {
+            global::SimulationApiSchema.UpdateStepTimeResponse subBuilder = new global::SimulationApiSchema.UpdateStepTimeResponse();
+            if (responseCase_ == ResponseOneofCase.UpdateStepTime) {
+              subBuilder.MergeFrom(UpdateStepTime);
+            }
+            input.ReadMessage(subBuilder);
+            UpdateStepTime = subBuilder;
             break;
           }
         }
