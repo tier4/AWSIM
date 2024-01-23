@@ -36,7 +36,7 @@ namespace AWSIM
 
         [Space(10)]
         [Header("Camera Zoom")]
-        [Tooltip("Sensitivity of camera zoom")]
+        [Tooltip("Mouse scroll wheel sensitivity for camera zoom")]
         public float ZoomSensitivity = 10f;
 
         [Space(10)]
@@ -44,9 +44,8 @@ namespace AWSIM
         [Tooltip("Toggle key between rotate around mode and follow mode")]
         public KeyCode RotateAroundModeToggle = KeyCode.C;
 
-        [Tooltip("Maximum camera rotation speed around the target")]
-        public float MaxRotateAroundSpeed = 64.0f;
-
+        [Tooltip("Mouse movement sensitivity for camera rotation around the target")]
+        public float RotateAroundSensitivity = 32.0f;
 
         #endregion
 
@@ -91,13 +90,11 @@ namespace AWSIM
             // rotate around when mouse middle button is held down
             if (Input.GetMouseButton(2))
             {
-                if (Input.GetAxis("Mouse X") < 0)
+                float mouseHorzAxis = Input.GetAxis("Mouse X");
+
+                if(Mathf.Abs(mouseHorzAxis) > 0.01f)
                 {
-                    rotateAroundSpeed = MaxRotateAroundSpeed;
-                }
-                else if (Input.GetAxis("Mouse X") > 0)
-                {
-                    rotateAroundSpeed = MaxRotateAroundSpeed * -1f;
+                    rotateAroundSpeed = RotateAroundSensitivity * mouseHorzAxis;
                 }
                 else
                 {
