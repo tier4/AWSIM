@@ -118,7 +118,7 @@ namespace RGLUnityPlugin
                 .AddNodeRaytrace(lidarRaytraceNodeId)
                 .AddNodeGaussianNoiseAngularHitpoint(noiseHitpointNodeId, 0, 0)
                 .AddNodeGaussianNoiseDistance(noiseDistanceNodeId, 0, 0, 0)
-                .AddNodePointsFilterGround(filterGroundNodeId, 20 * Mathf.Deg2Rad)
+                .AddNodePointsFilterGround(filterGroundNodeId, 0)
                 .AddNodePointsCompactByField(compactByFieldNodeId, RGLField.IS_GROUND_I32);
 
             rglSubgraphCompact = new RGLNodeSequence()
@@ -182,7 +182,7 @@ namespace RGLUnityPlugin
                              newConfig.noiseParams.angularNoiseStDev * Mathf.Deg2Rad)
                          .UpdateNodeGaussianNoiseDistance(noiseDistanceNodeId, newConfig.noiseParams.distanceNoiseMean,
                              newConfig.noiseParams.distanceNoiseStDevBase, newConfig.noiseParams.distanceNoiseStDevRisePerMeter)
-                         .UpdateNodePointsFilterGround(filterGroundNodeId, 20 * Mathf.Deg2Rad)
+                         .UpdateNodePointsFilterGround(filterGroundNodeId, newConfig.groundFilteringAngleThreshold * Mathf.Deg2Rad)
                          .UpdateNodePointsCompactByField(compactByFieldNodeId, RGLField.IS_GROUND_I32);
 
             rglGraphLidar.SetActive(noiseDistanceNodeId, applyDistanceGaussianNoise);

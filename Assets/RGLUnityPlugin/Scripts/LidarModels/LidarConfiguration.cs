@@ -73,6 +73,11 @@ namespace RGLUnityPlugin
         [Min(0)] public float laserArrayCycleTime;
 
         /// <summary>
+        /// Angle in degrees between point's normal and up vector. Points with normals with lesser angle will be filtered out.
+        /// </summary>
+        [Min(0.0f)] public float groundFilteringAngleThreshold;
+
+        /// <summary>
         /// Lidar noise paramteres
         /// </summary>
         public LidarNoiseParams noiseParams;
