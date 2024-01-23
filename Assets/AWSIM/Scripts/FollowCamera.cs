@@ -34,8 +34,13 @@ namespace AWSIM
         [Tooltip("Camera height multiplier")]
         public float HeightMultiplier = 0.5f;
 
+        [Space(10)]
+        [Tooltip("Toggle key between rotate around mode and follow mode")]
+        public KeyCode RotateAroundModeToggle = KeyCode.C;
+
         [Tooltip("Maximum camera rotation speed around the target")]
         public float MaxRotateAroundSpeed = 32.0f;
+
 
         #endregion
 
@@ -53,7 +58,7 @@ namespace AWSIM
         void Update()
         {
             // turn on or off the camera rotate around feature
-            if(Input.GetKeyDown(KeyCode.C))
+            if(Input.GetKeyDown(RotateAroundModeToggle))
             {
                 rotateCameraAroundActive = !rotateCameraAroundActive;
                 onActivateRotateCameraAround?.Invoke(rotateCameraAroundActive);
