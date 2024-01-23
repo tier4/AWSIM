@@ -140,7 +140,7 @@ namespace AWSIM
             // include additional rotation for camera rotating around target
             if(rotateCameraAroundActive)
             {
-                currentCameraDirection += rotateAroundSpeed * Time.deltaTime;
+                currentCameraDirection += rotateAroundSpeed * Time.deltaTime / Time.timeScale;
                 if(currentCameraDirection > 360)
                 {
                     currentCameraDirection -= 360f;
