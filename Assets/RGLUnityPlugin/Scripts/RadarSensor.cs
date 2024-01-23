@@ -56,6 +56,8 @@ namespace RGLUnityPlugin
         private const string ToRadarFrameId = "TO_RADAR_FRAME";
         private const string ToWorldFrameId = "TO_WORLD_FRAME";
         private const string RemoveGroundNodeId = "REMOVE_GROUND";
+        private const string FilterGroundNodeId = "FILTER_GROUND";
+        private const string CompactByFieldNodeId = "COMPACT_BY_FIELD";
         private const string RadarPostprocessNodeId = "RADAR_POSTPROCESS";
         private const string NoiseDistanceNodeId = "NOISE_DISTANCE";
         private const string NoiseRaysNodeId = "NOISE_RAYS";
@@ -85,7 +87,8 @@ namespace RGLUnityPlugin
                 .AddNodePointsCompact(CompactNodeId)
                 .AddNodeGaussianNoiseDistance(NoiseDistanceNodeId, 0, 0, 0)
                 .AddNodePointsTransform(ToRadarFrameId, Matrix4x4.identity)
-                .AddNodePointsRemoveGround(RemoveGroundNodeId, GroundAngleThreshold * Mathf.Deg2Rad, GroundDistanceThreshold, GroundFilterDistance)
+                .AddNodePointsFilterGround(FilterGroundNodeId, GroundAngleThreshold * Mathf.Deg2Rad)
+                .AddNodePointsCompactByField(CompactByFieldNodeId, RGLField.IS_GROUND_I32)
                 .AddNodePointsRadarPostprocess(RadarPostprocessNodeId, 0.1f, 0.1f);
 
             rglSubgraphToWorldFrame = new RGLNodeSequence()
