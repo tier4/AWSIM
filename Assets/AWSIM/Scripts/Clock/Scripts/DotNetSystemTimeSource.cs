@@ -4,6 +4,9 @@ using ROS2;
 
 namespace AWSIM
 {
+    /// <summary>
+    /// A thread-safe timesource class that provides the dot net system utc time.
+    /// </summary>
     public class DotNetSystemTimeSource : ITimeSource
     {
         private DateTime prevDateTime;
@@ -21,8 +24,9 @@ namespace AWSIM
         {
             lock (lockObject)
             {
-                TimeSpan timeSpan = DateTime.UtcNow - prevDateTime;
-                prevDateTime = DateTime.UtcNow;
+                DateTime currDateTime = DateTime.UtcNow;
+                TimeSpan timeSpan = currDateTime - prevDateTime;
+                prevDateTime = currDateTime;
 
                 time += timeSpan.TotalMilliseconds * 0.001f * TimeScaleProvider.TimeScale;
                 TimeUtils.TimeFromTotalSeconds(time, out seconds, out nanoseconds);
