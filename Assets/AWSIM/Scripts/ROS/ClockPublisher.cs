@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using ROS2;
+using System.Threading;
 
 namespace AWSIM
 {
@@ -16,7 +15,9 @@ namespace AWSIM
 
         IPublisher<rosgraph_msgs.msg.Clock> clockPublisher;
         rosgraph_msgs.msg.Clock clockMsg;
-        float timeScale = 1.0f;
+
+        Thread clockThread;
+        bool isRunning = false;
 
 
         #region [Life Cycle]
@@ -28,32 +29,48 @@ namespace AWSIM
             clockMsg = new rosgraph_msgs.msg.Clock();
         }
 
+        void Start()
+        {
+            TimeScaleProvider.DoUpdate();
+            StartClockThread();
+        }
+
         void OnDestroy()
         {
+            StopClockThread();
             SimulatorROS2Node.RemovePublisher<rosgraph_msgs.msg.Clock>(clockPublisher);
         }
 
         #endregion
 
-        void Start()
+        #region [Clock Thread]
+
+        void StartClockThread()
         {
-            timeScale = Time.timeScale;
-            InvokeRepeating("PublishClock", 1.0f, timeScale/publishHz);
+            clockThread = new Thread(UpdateClock)
+            {
+                Name = "Clock"
+            };
+            isRunning = true;
+            clockThread.Start();
         }
 
-        void Update() 
+        void StopClockThread()
         {
-            if (Mathf.Abs(Time.timeScale - timeScale) > 0.01f)
+            isRunning = false;
+            if (clockThread != null && clockThread.IsAlive)
             {
-                timeScale = Time.timeScale;
-                OnTimeScaleChanged();
+                clockThread.Join();
             }
         }
 
-        void OnTimeScaleChanged()
+        void UpdateClock()
         {
-            CancelInvoke();
-            InvokeRepeating("PublishClock", 0.0f, timeScale/publishHz);
+            while(isRunning)
+            {
+                Thread.Sleep(1000 / publishHz);
+                PublishClock();
+            }
         }
 
         void PublishClock()
@@ -61,5 +78,7 @@ namespace AWSIM
             SimulatorROS2Node.UpdateROSClockTime(clockMsg.Clock_);
             clockPublisher.Publish(clockMsg);
         }
+
+        #endregion
     }
 }
