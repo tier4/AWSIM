@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
 using System.Threading;
 using ROS2;
@@ -12,8 +9,7 @@ namespace AWSIM
         private DateTime prevDateTime;
         private double time;
 
-        private static readonly object lockObject = new object();
-
+        private readonly object lockObject = new object();
 
         public DotNetSystemTimeSource()
         {
@@ -31,7 +27,6 @@ namespace AWSIM
                 time += timeSpan.TotalMilliseconds * 0.001f * TimeScaleProvider.TimeScale;
                 TimeUtils.TimeFromTotalSeconds(time, out seconds, out nanoseconds);
             }
-
         }
     }
 
