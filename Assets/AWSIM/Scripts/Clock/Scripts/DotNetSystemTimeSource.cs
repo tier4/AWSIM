@@ -17,7 +17,7 @@ namespace AWSIM
 
         public DotNetSystemTimeSource()
         {
-            prevDateTime = DateTime.Now;
+            prevDateTime = DateTime.UtcNow;
             time = 0.0;
         }
 
@@ -25,8 +25,8 @@ namespace AWSIM
         {
             lock (lockObject)
             {
-                TimeSpan timeSpan = DateTime.Now - prevDateTime;
-                prevDateTime = DateTime.Now;
+                TimeSpan timeSpan = DateTime.UtcNow - prevDateTime;
+                prevDateTime = DateTime.UtcNow;
 
                 time += timeSpan.TotalMilliseconds * 0.001f * TimeScaleProvider.TimeScale;
                 TimeUtils.TimeFromTotalSeconds(time, out seconds, out nanoseconds);
