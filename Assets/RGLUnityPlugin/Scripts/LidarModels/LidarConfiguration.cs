@@ -223,8 +223,6 @@ namespace RGLUnityPlugin
     [Serializable]
     public class HesaiPandar128E4XLidarConfiguration : BaseLidarConfiguration
     {
-        private int nextSubstepLaserIdForHighRes = 95;
-
         private static readonly Dictionary<bool, LaserArray> HighResolutionModeToLaserArrayMapping =
             new Dictionary<bool, LaserArray>()
             {
@@ -246,8 +244,8 @@ namespace RGLUnityPlugin
         }
 
         // In standard mode, rays are generated uniformly.
-        // In high resolution mode, first rays (up to `nextSubstepLaserIdForHighRes`) are generated on standard horizontal angle
-        // Next rays (after `nextSubstepLaserIdForHighRes`) are shifted by half of the horizontal resolution
+        // In high resolution mode, first half of the rays are generated on standard horizontal angle
+        // Second half of the rays are shifted by half of the horizontal resolution
         // Some lasers fire on both horizontal states. This is taken into account in the order of the lasers in `laserArray.lasers`.
         public override Matrix4x4[] GetRayPoses()
         {
@@ -265,7 +263,7 @@ namespace RGLUnityPlugin
                 {
                     int idx = laserId + hStep * laserPoses.Length;
                     float highResolutionAddition = 0.0f;
-                    if (laserId >= nextSubstepLaserIdForHighRes)
+                    if (laserId >= laserPoses.Length / 2)
                     {
                         highResolutionAddition = horizontalResolution / 2;
                     }
