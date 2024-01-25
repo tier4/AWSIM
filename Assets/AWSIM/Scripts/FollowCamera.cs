@@ -52,7 +52,7 @@ namespace AWSIM
 
         [Tooltip("Mouse scroll wheel sensitivity for camera zoom")]
         [Range(50.0f, 300.0f)]
-        public float ZoomSensitivity = 10f;
+        public float ZoomSensitivity = 200f;
 
         [Space(10)]
         [Tooltip("Invert horizontal mouse movement")]
@@ -85,7 +85,7 @@ namespace AWSIM
         private float currentCameraDirection = 0.0f;
         private bool rotateCameraAroundActive = false;
 
-        private float currentHight = 0f;
+        private float currentHeight = 0f;
         private float heightAdjustmentSpeed = 0f;
 
         #endregion
@@ -100,7 +100,7 @@ namespace AWSIM
             currentCameraDirection = 0.0f;
             rotateCameraAroundActive = false;
 
-            currentHight = Height;
+            currentHeight = Height;
             heightAdjustmentSpeed = 0f;
         }
 
@@ -165,28 +165,10 @@ namespace AWSIM
             if (target == null)
                 return;
 
-            // calculate camera height adjustment
+            // calculate additional rotation, height and distance for camera
             if(rotateCameraAroundActive)
             {
-                currentHight += heightAdjustmentSpeed * Time.deltaTime / Time.timeScale;
-                currentHight = Mathf.Clamp(currentHight, Height, MaxHeight);
-            }
-            else
-            {
-                currentHight = Height;
-            }
-
-            float newHeight = target.position.y + currentHight;
-            float currentCameraHeight = transform.position.y;
-            currentCameraHeight = Mathf.Lerp(currentCameraHeight, newHeight, heightDamping * Time.deltaTime);
-
-            // calculate rotation for camera
-            float currentRotationAngle = target.eulerAngles.y;
-            Quaternion currentCameraRotation = Quaternion.Euler(0, currentRotationAngle, 0);
-
-            // include additional rotation for camera rotating around target
-            if(rotateCameraAroundActive)
-            {
+                // include additional rotation for camera rotating around target
                 currentCameraDirection += rotateAroundSpeed * Time.deltaTime / Time.timeScale;
                 if(currentCameraDirection > 360)
                 {
@@ -197,6 +179,11 @@ namespace AWSIM
                     currentCameraDirection += 360f;
                 }
 
+                // include additional height for camera above target
+                currentHeight += heightAdjustmentSpeed * Time.deltaTime / Time.timeScale;
+                currentHeight = Mathf.Clamp(currentHeight, Height, MaxHeight);
+
+                // include additional distance between camera and target
                 currentDistance += distanceAdjustmentSpeed * Time.deltaTime / Time.timeScale;
                 currentDistance = Mathf.Clamp(currentDistance, MinDistance, MaxDistance);
             }
@@ -205,8 +192,16 @@ namespace AWSIM
             {
                 currentCameraDirection = 0f;
                 currentDistance = Distance;
+                currentHeight = Height;
             }
 
+            float newHeight = target.position.y + currentHeight;
+            float currentCameraHeight = transform.position.y;
+            currentCameraHeight = Mathf.Lerp(currentCameraHeight, newHeight, heightDamping * Time.deltaTime);
+
+            // calculate rotation for camera
+            float currentRotationAngle = target.eulerAngles.y;
+            Quaternion currentCameraRotation = Quaternion.Euler(0, currentRotationAngle, 0);
             currentCameraRotation *= Quaternion.Euler(0f, currentCameraDirection, 0f);
 
             // set camera position and orientation
