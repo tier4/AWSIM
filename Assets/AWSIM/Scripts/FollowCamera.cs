@@ -55,8 +55,13 @@ namespace AWSIM
         public float ZoomSensitivity = 10f;
 
         [Space(10)]
+        [Tooltip("Invert horizontal mouse movement")]
         public bool InvertHorzAxis = false;
+
+        [Tooltip("Invert vertical mouse movement")]
         public bool InvertVertAxis = false;
+
+        [Tooltip("Invert mouse scroll wheel")]
         public bool InvertScrollWheel = false;
 
         [Space(10)]
