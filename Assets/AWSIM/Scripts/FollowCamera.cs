@@ -45,7 +45,7 @@ namespace AWSIM
         public KeyCode RotateAroundModeToggle = KeyCode.C;
 
         [Tooltip("Mouse movement sensitivity for camera rotation around the target")]
-        public float RotateAroundSensitivity = 32.0f;
+        public float RotateAroundSensitivity = 16.0f;
 
         #endregion
 
@@ -87,32 +87,26 @@ namespace AWSIM
                 return;
             }
 
-            // rotate around when mouse middle button is held down
-            if (Input.GetMouseButton(2))
-            {
-                float mouseHorzAxis = Input.GetAxis("Mouse X");
+            // get horizontal mouse movement for camera rotation
+            float mouseHorzAxis = Input.GetAxis("Mouse X");
 
-                if(Mathf.Abs(mouseHorzAxis) > 0.01f)
-                {
-                    rotateAroundSpeed = RotateAroundSensitivity * mouseHorzAxis;
-                }
-                else
-                {
-                    rotateAroundSpeed = 0f;
-                }
+            if(Mathf.Abs(mouseHorzAxis) > 0.01f)
+            {
+                rotateAroundSpeed = RotateAroundSensitivity * mouseHorzAxis * currentDistance;
             }
             else
             {
                 rotateAroundSpeed = 0f;
             }
 
+            // get mouse scroll whell for camera zoom
             if(Input.GetAxis("Mouse ScrollWheel") < 0)
             {
-                currentDistance += ZoomSensitivity * Time.deltaTime;
+                currentDistance += ZoomSensitivity * Time.deltaTime / Time.timeScale;
             }
             else if(Input.GetAxis("Mouse ScrollWheel") > 0)
             {
-                currentDistance -= ZoomSensitivity * Time.deltaTime;
+                currentDistance -= ZoomSensitivity * Time.deltaTime / Time.timeScale;
             }
         }
 
