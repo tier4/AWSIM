@@ -19,43 +19,49 @@ namespace AWSIM
 
         #region [Public Vars]
 
+        [Space(10)]
         [Tooltip("Transform of object to follow")]
         public Transform target;
 
-        [Tooltip("Toggle key between rotate around mode and follow mode")]
-        public KeyCode RotateAroundModeToggle = KeyCode.C;
-
-        [Space(10)]
         [Header("Base Settings")]
-        [Tooltip("The distance between the camera and the target object")]
+        [Tooltip("Base distance between the camera and the target object")]
         public float Distance = 10.0f;
 
         [Tooltip("Lateral offset of the camera position")]
         public float Offset = 0.0f;
 
-        [Tooltip("Height of the camera above the target object")]
+        [Tooltip("Base height of the camera above the target object")]
         public float Height = 5.0f;
 
         [Tooltip("Camera height multiplier")]
         public float HeightMultiplier = 0.5f;
 
         [Space(10)]
-        [Header("Camera Height")]
-        [Tooltip("Mouse movement sensitivity for camera height adjustment")]
-        public float HeightAdjustmentSensitivity = 1.0f;
-
-        [Tooltip("Maximum value of camera height")]
-        public float MaxHeight = 10f;
+        [Header("Camera Movement Settings")]
+        [Tooltip("Toggle key between rotate around mode and follow mode")]
+        public KeyCode RotateAroundModeToggle = KeyCode.C;
 
         [Space(10)]
-        [Header("Camera Zoom")]
+        [Tooltip("Mouse movement sensitivity for camera rotation around the target")]
+        [Range(0.0f, 100.0f)]
+        public float RotateAroundSensitivity = 16.0f;
+
+        [Tooltip("Mouse movement sensitivity for camera height adjustment")]
+        [Range(0.0f, 20.0f)]
+        public float HeightAdjustmentSensitivity = 1.0f;
+
         [Tooltip("Mouse scroll wheel sensitivity for camera zoom")]
+        [Range(0.0f, 100.0f)]
         public float ZoomSensitivity = 10f;
 
         [Space(10)]
-        [Header("Camera Rotate Around")]
-        [Tooltip("Mouse movement sensitivity for camera rotation around the target")]
-        public float RotateAroundSensitivity = 16.0f;
+        public bool InvertHorzAxis = false;
+        public bool InvertVertAxis = false;
+        public bool InvertScrollWheel = false;
+
+        [Space(10)]
+        [Tooltip("Maximum value of camera height")]
+        public float MaxHeight = 10f;
 
         #endregion
 
@@ -107,7 +113,7 @@ namespace AWSIM
             float mouseHorzAxis = Input.GetAxis("Mouse X");
             if(Mathf.Abs(mouseHorzAxis) > 0.01f)
             {
-                rotateAroundSpeed = RotateAroundSensitivity * mouseHorzAxis * currentDistance;
+                rotateAroundSpeed = RotateAroundSensitivity * mouseHorzAxis * currentDistance * (InvertHorzAxis? 1f : -1f);
             }
             else
             {
@@ -118,7 +124,7 @@ namespace AWSIM
             float mouseVertAxis = Input.GetAxis("Mouse Y");
             if(Mathf.Abs(mouseVertAxis) > 0.01f)
             {
-                heightAdjustmentSpeed = HeightAdjustmentSensitivity * mouseVertAxis * currentDistance;
+                heightAdjustmentSpeed = HeightAdjustmentSensitivity * mouseVertAxis * currentDistance * (InvertVertAxis? -1f : 1f);
             }
             else
             {
@@ -128,11 +134,11 @@ namespace AWSIM
             // get mouse scroll whell for camera zoom
             if(Input.GetAxis("Mouse ScrollWheel") < 0)
             {
-                currentDistance += ZoomSensitivity * Time.deltaTime / Time.timeScale;
+                currentDistance += ZoomSensitivity * (InvertScrollWheel? -1f : 1f) * Time.deltaTime / Time.timeScale;
             }
             else if(Input.GetAxis("Mouse ScrollWheel") > 0)
             {
-                currentDistance -= ZoomSensitivity * Time.deltaTime / Time.timeScale;
+                currentDistance -= ZoomSensitivity * (InvertScrollWheel? -1f : 1f) * Time.deltaTime / Time.timeScale;
             }
         }
 
