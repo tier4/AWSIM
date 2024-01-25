@@ -292,6 +292,19 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence AddNodePointsSimulateSnow(string identifier, float minRange, float maxRange, float rainRate,
+            float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsSimulateSnow(ref handle.Node, minRange, maxRange, rainRate,
+                meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence);
+            handle.Type = RGLNodeType.POINTS_SIMULATE_SNOW;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
         //// UPDATE NODES ////
         public RGLNodeSequence UpdateNodeRaysFromMat3x4f(string identifier, Matrix4x4[] rays)
         {
@@ -405,6 +418,15 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence UpdateNodePointsSimulateSnow(string identifier, float minRange, float maxRange, float rainRate,
+            float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_SIMULATE_SNOW);
+            RGLNativeAPI.NodePointsSimulateSnow(ref handle.Node, minRange, maxRange, rainRate,
+                meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence);
+            return this;
+        }
+
         //// NODESEQUENCE OPERATIONS ////
         public int GetResultData<T>(ref T[] data) where T : unmanaged
         {
@@ -471,6 +493,11 @@ namespace RGLUnityPlugin
             {
                 RemoveNode(node.Identifier);
             }
+        }
+
+        public bool HasNode(string identifier)
+        {
+            return nodes.Count(n => n.Identifier == identifier) != 0;
         }
 
         public bool IsActive(string identifier)

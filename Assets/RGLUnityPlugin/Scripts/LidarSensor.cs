@@ -87,6 +87,7 @@ namespace RGLUnityPlugin
         private const string noiseDistanceNodeId = "NOISE_DISTANCE";
         private const string pointsCompactNodeId = "POINTS_COMPACT";
         private const string toLidarFrameNodeId = "TO_LIDAR_FRAME";
+        private const string snowNodeId = "SNOW";
 
         private LidarModel? validatedPreset;
         private float timer;
@@ -132,10 +133,19 @@ namespace RGLUnityPlugin
                 Destroy(this);
                 return;
             }
-            OnValidate();
 
             // Apply initial transform of the sensor.
             lastTransform = gameObject.transform.localToWorldMatrix;
+
+            if (LidarSnowManager.Instance != null)
+            {
+                // Add deactivated node with some initial values. To be activated and updated when validating.
+                rglGraphLidar.AddNodePointsSimulateSnow(snowNodeId, 0.0f, 1.0f, 0.0001f, 0.0001f, 0.2f, 0.01f, 1, 0.01f);
+                rglGraphLidar.SetActive(snowNodeId, false);
+                LidarSnowManager.Instance.OnNewConfig += OnValidate;
+            }
+
+            OnValidate();
         }
 
         public void OnValidate()
@@ -178,6 +188,25 @@ namespace RGLUnityPlugin
             var angularNoiseType = newConfig.noiseParams.angularNoiseType;
             rglGraphLidar.SetActive(noiseLidarRayNodeId, applyAngularGaussianNoise && angularNoiseType == AngularNoiseType.RayBased);
             rglGraphLidar.SetActive(noiseHitpointNodeId, applyAngularGaussianNoise && angularNoiseType == AngularNoiseType.HitpointBased);
+
+            // Snow model updates
+            if (rglGraphLidar.HasNode(snowNodeId))
+            {
+                // Update snow parameters only if feature is enabled (expensive operation)
+                if (LidarSnowManager.Instance.IsSnowEnabled)
+                {
+                    rglGraphLidar.UpdateNodePointsSimulateSnow(snowNodeId,
+                        newConfig.GetRayRanges()[0].x,
+                        newConfig.GetRayRanges()[0].y,
+                        LidarSnowManager.Instance.RainRate,
+                        LidarSnowManager.Instance.MeanSnowflakeDiameter,
+                        LidarSnowManager.Instance.TerminalVelocity,
+                        LidarSnowManager.Instance.Density,
+                        newConfig.laserArray.GetLaserRingIds().Length,
+                        newConfig.beamDivergence * Mathf.Deg2Rad);
+                }
+                rglGraphLidar.SetActive(snowNodeId, LidarSnowManager.Instance.IsSnowEnabled);
+            }
 
             // If distortion is disabled, update raytrace node with no velocities provided (it disables distortion in native RGL library)
             if (!applyVelocityDistortion)

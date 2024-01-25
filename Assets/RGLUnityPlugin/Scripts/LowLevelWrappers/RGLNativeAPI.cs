@@ -135,6 +135,10 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_points_radar_postprocess(ref IntPtr node, float distance_separation, float azimuth_separation);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_simulate_snow(ref IntPtr node, float min_range, float max_range, float rain_rate,
+            float mean_snowflake_diameter, float terminal_velocity, float density, Int32 num_channels, float beam_divergence);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_run(IntPtr node);
 
         [DllImport("RobotecGPULidar")]
@@ -491,6 +495,13 @@ namespace RGLUnityPlugin
         public static void NodePointsRadarPostprocess(ref IntPtr node, float distanceSeparation, float azimuthSeparation)
         {
             CheckErr(rgl_node_points_radar_postprocess(ref node, distanceSeparation, azimuthSeparation));
+        }
+
+        public static void NodePointsSimulateSnow(ref IntPtr node, float minRange, float maxRange, float rainRate,
+            float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence)
+        {
+            CheckErr(rgl_node_points_simulate_snow(ref node, minRange, maxRange, rainRate,
+                meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence));
         }
 
         public static void GraphRun(IntPtr node)
