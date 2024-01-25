@@ -51,7 +51,7 @@ namespace AWSIM
         public float HeightAdjustmentSensitivity = 1.0f;
 
         [Tooltip("Mouse scroll wheel sensitivity for camera zoom")]
-        [Range(0.0f, 100.0f)]
+        [Range(50.0f, 300.0f)]
         public float ZoomSensitivity = 10f;
 
         [Space(10)]
@@ -63,10 +63,17 @@ namespace AWSIM
         [Tooltip("Maximum value of camera height")]
         public float MaxHeight = 10f;
 
+        [Tooltip("Minimum value of camera distance to target object")]
+        public float MinDistance = 1f;
+
+        [Tooltip("Maximum value of camera distance to target object")]
+        public float MaxDistance = 10f;
+
         #endregion
 
         #region [Private Vars]
 
+        private float distanceAdjustmentSpeed = 0f;
         private float currentDistance = 10.0f;
         private float heightDamping = 2.0f;
         private float rotateAroundSpeed = 0.0f;
@@ -82,6 +89,7 @@ namespace AWSIM
 
         void Awake()
         {
+            distanceAdjustmentSpeed = 0.0f;
             currentDistance = Distance;
             rotateAroundSpeed = 0.0f;
             currentCameraDirection = 0.0f;
@@ -132,13 +140,14 @@ namespace AWSIM
             }
 
             // get mouse scroll whell for camera zoom
-            if(Input.GetAxis("Mouse ScrollWheel") < 0)
+            float mouseScroll = Input.GetAxis("Mouse ScrollWheel");
+            if(Mathf.Abs(mouseScroll) > 0.01f)
             {
-                currentDistance += ZoomSensitivity * (InvertScrollWheel? -1f : 1f) * Time.deltaTime / Time.timeScale;
+                distanceAdjustmentSpeed = ZoomSensitivity * mouseScroll * (InvertScrollWheel? 1f : -1f);
             }
-            else if(Input.GetAxis("Mouse ScrollWheel") > 0)
+            else
             {
-                currentDistance -= ZoomSensitivity * (InvertScrollWheel? -1f : 1f) * Time.deltaTime / Time.timeScale;
+                distanceAdjustmentSpeed = 0f;
             }
         }
 
@@ -182,6 +191,9 @@ namespace AWSIM
                 {
                     currentCameraDirection += 360f;
                 }
+
+                currentDistance += distanceAdjustmentSpeed * Time.deltaTime / Time.timeScale;
+                currentDistance = Mathf.Clamp(currentDistance, MinDistance, MaxDistance);
             }
             // set camera position to base values
             else
