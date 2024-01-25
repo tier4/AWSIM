@@ -72,7 +72,7 @@ namespace AWSIM
         public float MinDistance = 1f;
 
         [Tooltip("Maximum value of camera distance to target object")]
-        public float MaxDistance = 10f;
+        public float MaxDistance = 20f;
 
         #endregion
 
