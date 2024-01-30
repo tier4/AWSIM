@@ -62,6 +62,7 @@ nav:
         - Add Colliders: Components/Vehicle/AddNewVehicle/AddColliders/index.md
         - Add Sensors: Components/Vehicle/AddNewVehicle/AddSensors/index.md
         - Add Visual Elements: Components/Vehicle/AddNewVehicle/AddVisualElements/index.md
+      - FollowCamera: Components/Vehicle/FollowCamera/index.md
     - Sensors:
       - LiDAR Sensor:
         - LiDAR Sensor: Components/Sensors/LiDARSensor/LiDARSensor/index.md
