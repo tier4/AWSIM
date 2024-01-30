@@ -185,7 +185,7 @@ namespace RGLUnityPlugin
             maxHAngle = 360.0f,
             noiseParams = LidarNoiseParams.TypicalNoiseParams,
             beamDivergence = 0.13f,
-            highResolutionMode = false,
+            highResolutionModeEnabled = false,
         };
     }
 }

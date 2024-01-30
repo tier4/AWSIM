@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RGLUnityPlugin
@@ -26,8 +25,15 @@ namespace RGLUnityPlugin
     [Serializable]
     public abstract class BaseLidarConfiguration
     {
-        [Tooltip("Geometry description of lidar array")]
-        public LaserArray laserArray;
+        // This is a workaround against serializing properties with custom getter/setter.
+        // Laser array property may be overridden to handle custom cases (change by flag).
+        [SerializeField, Tooltip("Geometry description of lidar array")]
+        protected LaserArray _laserArray;
+        public virtual LaserArray laserArray
+        {
+            get => _laserArray;
+            set => _laserArray = value;
+        }
 
         [Tooltip("The horizontal resolution of laser array firings (in degrees)")]
         [Min(0)] public float horizontalResolution;
@@ -223,25 +229,25 @@ namespace RGLUnityPlugin
     [Serializable]
     public class HesaiPandar128E4XLidarConfiguration : BaseLidarConfiguration
     {
-        private static readonly Dictionary<bool, LaserArray> HighResolutionModeToLaserArrayMapping =
-            new Dictionary<bool, LaserArray>()
-            {
-                { false, LaserArrayLibrary.HesaiPandar128E4X },
-                { true, LaserArrayLibrary.HesaiPandar128E4XHighRes }
-            };
-
-        public bool highResolutionMode;
-
-        // Properties with custom setter cannot be serialized
-        // This is a workaround to switch lasers if high resolution mode has changed
-        // This method is called at the beginning of every ray-generating methods
-        private void EnsureProperLasersAssigned()
+        // High resolution mode changes laser array
+        public override LaserArray laserArray
         {
-            if (laserArray.lasers.Length != HighResolutionModeToLaserArrayMapping[highResolutionMode].lasers.Length)
+            get
             {
-                laserArray.lasers = HighResolutionModeToLaserArrayMapping[highResolutionMode].lasers;
+                if (highResolutionModeEnabledPrev == null || highResolutionModeEnabledPrev != highResolutionModeEnabled)
+                {
+                    _laserArray = highResolutionModeEnabled
+                                  ? LaserArrayLibrary.HesaiPandar128E4XHighRes
+                                  : LaserArrayLibrary.HesaiPandar128E4X;
+                    highResolutionModeEnabledPrev = highResolutionModeEnabled;
+                }
+                return _laserArray;
             }
+            set => _laserArray = value;
         }
+
+        public bool highResolutionModeEnabled;
+        private bool? highResolutionModeEnabledPrev = null;
 
         // In standard mode, rays are generated uniformly.
         // In high resolution mode, first half of the rays are generated on standard horizontal angle
@@ -249,8 +255,7 @@ namespace RGLUnityPlugin
         // Some lasers fire on both horizontal states. This is taken into account in the order of the lasers in `laserArray.lasers`.
         public override Matrix4x4[] GetRayPoses()
         {
-            EnsureProperLasersAssigned();
-            if (!highResolutionMode)
+            if (!highResolutionModeEnabled)
             {
                 return base.GetRayPoses();
             }
@@ -272,24 +277,6 @@ namespace RGLUnityPlugin
                 }
             }
             return rayPoses;
-        }
-
-        public override Vector2[] GetRayRanges()
-        {
-            EnsureProperLasersAssigned();
-            return base.GetRayRanges();
-        }
-
-        public override float[] GetRayTimeOffsets()
-        {
-            EnsureProperLasersAssigned();
-            return base.GetRayTimeOffsets();
-        }
-
-        public override int[] GetRayRingIds()
-        {
-            EnsureProperLasersAssigned();
-            return base.GetRayRingIds();
         }
     }
 }
