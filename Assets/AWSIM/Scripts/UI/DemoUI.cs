@@ -24,6 +24,9 @@ namespace AWSIM
         {
             Time.timeScale = timeScale;
             timeScaleText.text = "x " + timeScale.ToString("F2");
+
+            // synchronisation of new timescale value with TimeScaleProvider
+            TimeScaleProvider.DoUpdate();
         }
     }
 }

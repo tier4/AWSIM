@@ -11,7 +11,8 @@ namespace AWSIM
         public enum TimeSourceType
         {
             UNITY,
-            SS2
+            SS2,
+            DOTNET
         }
 
         #region [Event]
@@ -88,6 +89,18 @@ namespace AWSIM
                 if(currentTimeSource == null || !(currentTimeSource is ExternalTimeSource))
                 {
                     currentTimeSource = new ExternalTimeSource();
+                    onTimeSourceChanged?.Invoke();
+                }
+
+                return;
+            }
+
+            // dot net system time source
+            if(type == TimeSourceType.DOTNET)
+            {
+                if(currentTimeSource == null || !(currentTimeSource is DotNetSystemTimeSource))
+                {
+                    currentTimeSource = new DotNetSystemTimeSource();
                     onTimeSourceChanged?.Invoke();
                 }
 
