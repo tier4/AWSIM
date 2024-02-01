@@ -252,6 +252,9 @@ namespace AWSIM
                 case SimulationRequest.RequestOneofCase.AttachPseudoTrafficLightDetector:
                     response.AttachPseudoTrafficLightDetector = UpdateTrafficLights(request.AttachPseudoTrafficLightDetector);
                     break;
+                case SimulationRequest.RequestOneofCase.UpdateStepTime:
+                    response.UpdateStepTime = UpdateStepTime(request.UpdateStepTime);
+                    break;
                 default:
                     Debug.Log("Case " + request.RequestCase.ToString() + " not yet supported");
                     break;
@@ -593,6 +596,19 @@ namespace AWSIM
                 }
             };
             return attachPseudoTrafficLightDetectorResponse;
+        }
+
+        private UpdateStepTimeResponse UpdateStepTime(UpdateStepTimeRequest request) 
+        {
+            var updateStepTimeResponse = new UpdateStepTimeResponse()
+            {
+                Result = new Result()
+                {
+                    Success = true,
+                    Description = "AWSIM does not need to update step time"
+                }
+            };
+            return updateStepTimeResponse;
         }
         #endregion
 
