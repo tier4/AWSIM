@@ -36,8 +36,12 @@ Camera rotation around the target can be activated by pressing the `RotateAround
 
 In the Rotate Around Mode camera view can be controlled as follows:
 
-- `mouse movement`: to adjust the camera position,
-- `mouse scroll wheel`: to zoom in or out of the camera view.
+- `hold left shift + mouse movement`: to adjust the camera position,
+- `hold left shift + mouse scroll wheel`: to zoom in or out of the camera view,
+- `left shift + left arrow`: to set left camera view,
+- `left shift + right arrow`: to set right camera view,
+- `left shift + up arrow`: to set front camera view,
+- `left shift + down arrow`: to set back camera view.
 
 
 #### Optional
