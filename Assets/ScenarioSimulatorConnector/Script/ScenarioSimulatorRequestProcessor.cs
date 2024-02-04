@@ -143,20 +143,11 @@ namespace AWSIM
 
         private bool isInitialized = false;  // has the initialize request been received
 
-        // time
-        private float realtimeFactor = 1f;
-        private float stepTime = 0.33f;
-        private double fixedDeltaTime;
-
-
-        // step execution - fixedUpdate frame counter
-
-        private int fixedUpdateCount = 0;
-        private int targetFixedUpdateCount = 0;
-        private bool isFixedUpdating = false;
+        // time - both of values below should be overwritten in Initialize ZeroMQ call
+        private float realtimeFactor = 0f;
+        private float stepTime = 0f; 
 
         #endregion
-
 
         // ------      METHODS      ------ //
 
@@ -173,8 +164,6 @@ namespace AWSIM
             timeSource.Initialize();
             
             mainContext = SynchronizationContext.Current;
-
-            fixedDeltaTime = Time.fixedDeltaTime;
 
             Time.timeScale = stepExecution? 0f : 1f;
 
@@ -315,7 +304,6 @@ namespace AWSIM
                 {
                     lock (lockOnFrameUpdate)
                     {
-                        //isFixedUpdating = true;
                         Time.timeScale = realtimeFactor;
                     }
                 }, null);
@@ -602,7 +590,7 @@ namespace AWSIM
                 Result = new Result()
                 {
                     Success = true,
-                    Description = "AWSIM does not need to update step time"
+                    Description = "Updated step time in AWSIM"
                 }
             };
             return updateStepTimeResponse;
