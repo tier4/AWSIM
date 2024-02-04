@@ -43,6 +43,7 @@ namespace RGLUnityPlugin
             rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
             minRange = 0,
             maxRange = 40,
+            beamDivergence = 0.13f,
         };
 
         public static LidarConfiguration SickMRS6000 => new LidarConfiguration
@@ -55,6 +56,7 @@ namespace RGLUnityPlugin
             rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
             minRange = 0,
             maxRange = 40,
+            beamDivergence = 0.13f,
         };
 
         public static LidarConfiguration VelodyneVLP16 => new LidarConfiguration
@@ -68,6 +70,7 @@ namespace RGLUnityPlugin
             rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
             minRange = 0,
             maxRange = 100.0f,
+            beamDivergence = 0.13f,
         };
 
         public static LidarConfiguration VelodyneVLP32C => new LidarConfiguration
@@ -81,6 +84,7 @@ namespace RGLUnityPlugin
             rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
             minRange = 0,
             maxRange = 200.0f,
+            beamDivergence = 0.13f,
         };
 
         public static LidarConfiguration VelodyneVLS128 => new LidarConfiguration
@@ -94,6 +98,7 @@ namespace RGLUnityPlugin
             rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
             minRange = 0,
             maxRange = 300.0f,
+            beamDivergence = 0.13f,
         };
 
         public static LidarConfiguration HesaiPandarQT => new LidarConfiguration
@@ -107,6 +112,7 @@ namespace RGLUnityPlugin
             rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
             minRange = 0,
             maxRange = 20.0f, // Yes, 20 meters, this is not a typo!
+            beamDivergence = 0.13f,
         };
 
         public static LidarConfiguration HesaiPandar40P => new LidarConfiguration
@@ -125,6 +131,7 @@ namespace RGLUnityPlugin
             // that vary from 130m to 230m
             // as this template supports single-value range, 200m is chosen
             maxRange = 200.0f,
+            beamDivergence = 0.13f,
         };
 
         public static LidarConfiguration OusterOS1_64 => new LidarConfiguration
@@ -137,6 +144,7 @@ namespace RGLUnityPlugin
             rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
             minRange = 0,
             maxRange = 120.0f,
+            beamDivergence = 0.13f,
         };
 
         public static LidarConfiguration HesaiAT128E2X => new LidarConfiguration
@@ -148,6 +156,7 @@ namespace RGLUnityPlugin
             maxHAngle = 60.0f,
             noiseParams = LidarConfiguration.TypicalNoiseParams,
             rayGenerateMethod = LidarConfiguration.RayGenerateMethod.HesaiAT128,
+            beamDivergence = 0.13f,
         };
 
         public static LidarConfiguration HesaiPandarXT32 => new LidarConfiguration
@@ -161,6 +170,7 @@ namespace RGLUnityPlugin
             rayGenerateMethod = LidarConfiguration.RayGenerateMethod.RotatingLidarEqualRange,
             minRange = 0.05f,
             maxRange = 120.0f,
+            beamDivergence = 0.13f,
         };
     }
 }
