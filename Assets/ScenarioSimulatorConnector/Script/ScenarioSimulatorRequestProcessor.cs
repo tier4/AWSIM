@@ -145,8 +145,8 @@ namespace AWSIM
 
         // time
         private float realtimeFactor = 1f;
+        private float stepTime = 0.33f;
         private double fixedDeltaTime;
-        private double prevUpdateFrameTime = 0d;
 
 
         // step execution - fixedUpdate frame counter
@@ -271,13 +271,12 @@ namespace AWSIM
         private InitializeResponse Initialize(InitializeRequest request) 
         {
             realtimeFactor = (float)request.RealtimeFactor;
+            stepTime = (float)request.StepTime;
             if(stepExecution)
             {
                 realtimeFactor *= (1f / stepDurationInPercentage);
             }
 
-            // set previous time and soruce time to current time from request
-            prevUpdateFrameTime = request.InitializeTime;
             BuiltinInterfaces.Time currentRosTime = request.InitializeRosTime;
             timeSource.SetTime(currentRosTime.Sec, currentRosTime.Nanosec);
 
@@ -311,9 +310,6 @@ namespace AWSIM
             // calculate how many frames to update
             if (stepExecution)
             {
-                double elapsedSec = Math.Abs(Math.Abs(request.CurrentSimulationTime) - Math.Abs(prevUpdateFrameTime));
-                prevUpdateFrameTime = request.CurrentSimulationTime;
-
                 // start time flow
                 mainContext.Send(_ =>
                 {
@@ -324,7 +320,7 @@ namespace AWSIM
                     }
                 }, null);
 
-                int waitTime = Mathf.CeilToInt((float) (elapsedSec * 1000.0 * stepDurationInPercentage));
+                int waitTime = Mathf.CeilToInt((float) (stepTime * 1000.0 * stepDurationInPercentage));
                 Thread.Sleep(waitTime);
 
                 // freez time flow
@@ -600,6 +596,7 @@ namespace AWSIM
 
         private UpdateStepTimeResponse UpdateStepTime(UpdateStepTimeRequest request) 
         {
+            stepTime = (float)request.SimulationStepTime;
             var updateStepTimeResponse = new UpdateStepTimeResponse()
             {
                 Result = new Result()
