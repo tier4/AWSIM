@@ -66,19 +66,17 @@ To add a new *LiDAR* model, perform the following steps:
 
     ![lidar_configuration](img/LidarConfiguration.png)
 
-    1. Add a new public static instance of `BaseLidarConfiguration` choosing one of the implementations:
+    Add a new item to the `ByModel` dictionary that collects *LiDAR* model enumerations with their `BaseLidarConfiguration` choosing one of the implementations:
 
-        - `UniformRangeLidarConfiguration` - lidar configuration for uniformly distributed rays along the horizontal axis with a uniform range for all the rays (it contains `minRange` and `maxRange` parameters additionally)
-        - `LaserBasedRangeLidarConfiguration` - lidar configuration for uniformly distributed rays along the horizontal axis with ranges retrieved from lasers description
-        - *Or create your custom implementations in `LidarConfiguration.cs` like:*
-            - `HesaiAT128LidarConfiguration`
-            - `HesaiQT128C2XLidarConfiguration`
-            - `HesaiPandar128E4XLidarConfiguration`
+    - `UniformRangeLidarConfiguration` - lidar configuration for uniformly distributed rays along the horizontal axis with a uniform range for all the rays (it contains `minRange` and `maxRange` parameters additionally)
+    - `LaserBasedRangeLidarConfiguration` - lidar configuration for uniformly distributed rays along the horizontal axis with ranges retrieved from lasers description
+    - *Or create your custom implementations in `LidarConfiguration.cs` like:*
+        - `HesaiAT128LidarConfiguration`
+        - `HesaiQT128C2XLidarConfiguration`
+        - `HesaiPandar128E4XLidarConfiguration`
 
-        !!! note "Lidar configuration parameters descrition"
-            Please refer to [this section](../LiDARSensor/#elements-configurable-from-the-editor-level) for the detailed description of all configuration parameters.
-
-    1. Add a new item to the `ByModel` dictionary that collects *LiDAR* model enumerations with their *LiDAR* configurations.
+    !!! note "Lidar configuration parameters descrition"
+        Please refer to [this section](../LiDARSensor/#elements-configurable-from-the-editor-level) for the detailed description of all configuration parameters.
 
 1. Done. New *LiDAR* preset should be available via *Unity Inspector*.
 
