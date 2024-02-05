@@ -87,6 +87,7 @@ namespace AWSIM
 
         private float currentHeight = 0f;
         private float heightAdjustmentSpeed = 0f;
+        private float deltaHeight = 0f;
 
         #endregion
 
@@ -102,6 +103,7 @@ namespace AWSIM
 
             currentHeight = Height;
             heightAdjustmentSpeed = 0f;
+            deltaHeight = 0f;
         }
 
         #endregion
@@ -111,47 +113,94 @@ namespace AWSIM
         void Update()
         {
             // turn on or off the camera rotate around feature
-            if(Input.GetKeyDown(RotateAroundModeToggle))
+            if (Input.GetKeyDown(RotateAroundModeToggle))
             {
                 rotateCameraAroundActive = !rotateCameraAroundActive;
                 onActivateRotateCameraAround?.Invoke(rotateCameraAroundActive);
             }
 
-            if(!rotateCameraAroundActive)
+            if (!rotateCameraAroundActive)
             {
                 return;
             }
 
-            // get horizontal mouse movement for camera rotation
-            float mouseHorzAxis = Input.GetAxis("Mouse X");
-            if(Mathf.Abs(mouseHorzAxis) > 0.01f)
+            if (Input.GetKey(KeyCode.LeftShift))
             {
-                rotateAroundSpeed = RotateAroundSensitivity * mouseHorzAxis * currentDistance * (InvertHorzAxis? 1f : -1f);
+                // front view
+                if (Input.GetKey(KeyCode.UpArrow))
+                {
+                    rotateAroundSpeed = 0f;
+                    heightAdjustmentSpeed = 0f;
+                    currentHeight = transform.position.y - target.position.y;
+                    distanceAdjustmentSpeed = 0f;
+                    currentCameraDirection = 180f;
+                }
+                // back view
+                else if (Input.GetKey(KeyCode.DownArrow))
+                {
+                    rotateAroundSpeed = 0f;
+                    heightAdjustmentSpeed = 0f;
+                    currentHeight = transform.position.y - target.position.y;
+                    distanceAdjustmentSpeed = 0f;
+                    currentCameraDirection = 0f;
+                }
+                // left view
+                else if (Input.GetKey(KeyCode.LeftArrow))
+                {
+                    rotateAroundSpeed = 0f;
+                    heightAdjustmentSpeed = 0f;
+                    currentHeight = transform.position.y - target.position.y;
+                    distanceAdjustmentSpeed = 0f;
+                    currentCameraDirection = 90f;
+                }
+                // right view
+                else if (Input.GetKey(KeyCode.RightArrow))
+                {
+                    rotateAroundSpeed = 0f;
+                    heightAdjustmentSpeed = 0f;
+                    currentHeight = transform.position.y - target.position.y;
+                    distanceAdjustmentSpeed = 0f;
+                    currentCameraDirection = 270f;
+                }
+
+                // get horizontal mouse movement for camera rotation
+                float mouseHorzAxis = Input.GetAxis("Mouse X");
+                if (Mathf.Abs(mouseHorzAxis) > 0.01f)
+                {
+                    rotateAroundSpeed = RotateAroundSensitivity * mouseHorzAxis * currentDistance * (InvertHorzAxis ? 1f : -1f);
+                }
+                else
+                {
+                    rotateAroundSpeed = 0f;
+                }
+
+                // get vertical mouse movement for camera height adjustment
+                float mouseVertAxis = Input.GetAxis("Mouse Y");
+                if (Mathf.Abs(mouseVertAxis) > 0.01f)
+                {
+                    heightAdjustmentSpeed = HeightAdjustmentSensitivity * mouseVertAxis * currentDistance * (InvertVertAxis ? -1f : 1f);
+                }
+                else
+                {
+                    heightAdjustmentSpeed = 0f;
+                }
+
+                // get mouse scroll whell for camera zoom
+                float mouseScroll = Input.GetAxis("Mouse ScrollWheel");
+                if (Mathf.Abs(mouseScroll) > 0.01f)
+                {
+                    distanceAdjustmentSpeed = ZoomSensitivity * mouseScroll * (InvertScrollWheel ? 1f : -1f);
+                }
+                else
+                {
+                    distanceAdjustmentSpeed = 0f;
+                }
+
             }
             else
             {
                 rotateAroundSpeed = 0f;
-            }
-
-            // get vertical mouse movement for camera height adjustment
-            float mouseVertAxis = Input.GetAxis("Mouse Y");
-            if(Mathf.Abs(mouseVertAxis) > 0.01f)
-            {
-                heightAdjustmentSpeed = HeightAdjustmentSensitivity * mouseVertAxis * currentDistance * (InvertVertAxis? -1f : 1f);
-            }
-            else
-            {
                 heightAdjustmentSpeed = 0f;
-            }
-
-            // get mouse scroll whell for camera zoom
-            float mouseScroll = Input.GetAxis("Mouse ScrollWheel");
-            if(Mathf.Abs(mouseScroll) > 0.01f)
-            {
-                distanceAdjustmentSpeed = ZoomSensitivity * mouseScroll * (InvertScrollWheel? 1f : -1f);
-            }
-            else
-            {
                 distanceAdjustmentSpeed = 0f;
             }
         }
@@ -180,8 +229,21 @@ namespace AWSIM
                 }
 
                 // include additional height for camera above target
-                currentHeight += heightAdjustmentSpeed * Time.deltaTime / Time.timeScale;
-                currentHeight = Mathf.Clamp(currentHeight, Height, MaxHeight);
+                deltaHeight = heightAdjustmentSpeed * Time.deltaTime / Time.timeScale;
+                if(currentHeight + deltaHeight > MaxHeight)
+                {
+                    deltaHeight = MaxHeight - currentHeight;
+                    currentHeight = MaxHeight;
+                }
+                else if(currentHeight + deltaHeight < Height)
+                {
+                    deltaHeight = Height - currentHeight;
+                    currentHeight = Height;
+                }
+                else
+                {
+                    currentHeight += deltaHeight;
+                }
 
                 // include additional distance between camera and target
                 currentDistance += distanceAdjustmentSpeed * Time.deltaTime / Time.timeScale;
@@ -193,10 +255,11 @@ namespace AWSIM
                 currentCameraDirection = 0f;
                 currentDistance = Distance;
                 currentHeight = Height;
+                deltaHeight = 0f;
             }
 
             float newHeight = target.position.y + currentHeight;
-            float currentCameraHeight = transform.position.y;
+            float currentCameraHeight = transform.position.y + deltaHeight;
             currentCameraHeight = Mathf.Lerp(currentCameraHeight, newHeight, heightDamping * Time.deltaTime);
 
             // calculate rotation for camera
