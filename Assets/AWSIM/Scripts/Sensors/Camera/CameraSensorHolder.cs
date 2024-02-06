@@ -76,8 +76,6 @@ namespace AWSIM
                         StartCoroutine(RenderCamera(cameraSensors[i], false));
                     }
                 }
-
-                yield return new WaitForFixedUpdate();
             }
         }
 
