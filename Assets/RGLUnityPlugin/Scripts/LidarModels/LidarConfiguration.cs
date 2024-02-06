@@ -200,6 +200,7 @@ namespace RGLUnityPlugin
         //   2. The horizontal step moves by half of the horizontal resolution
         //   3. Banks CDA fire, Bank B rests
         // It results in high resolution (doubled resolution) for lasers in banks C and D.
+        // Laser array for this LiDAR already contains lasers for the whole scan (two firing sequences).
         public override Matrix4x4[] GetRayPoses()
         {
             Matrix4x4[] rayPoses = new Matrix4x4[PointCloudSize];
@@ -210,6 +211,7 @@ namespace RGLUnityPlugin
                 {
                     int idx = laserId + hStep * laserPoses.Length;
                     float highResolutionAddition = 0.0f;
+                    // If 3 banks were processed, shift azimuth by half of the horizontal resolution for the next lasers
                     if (laserId >= 3 * hesaiQT128LasersBankLength)
                     {
                         highResolutionAddition = horizontalResolution / 2;
@@ -268,6 +270,7 @@ namespace RGLUnityPlugin
                 {
                     int idx = laserId + hStep * laserPoses.Length;
                     float highResolutionAddition = 0.0f;
+                    // If half of the lasers (first firing sequence) were processed, shift azimuth by half of the horizontal resolution for the next lasers
                     if (laserId >= laserPoses.Length / 2)
                     {
                         highResolutionAddition = horizontalResolution / 2;

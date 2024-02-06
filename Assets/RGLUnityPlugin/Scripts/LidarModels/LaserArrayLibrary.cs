@@ -610,6 +610,9 @@ namespace RGLUnityPlugin
             }
         };
 
+        // Laser array for this LiDAR contains more lasers than usual. It follows from the LiDAR specification, in which one scan consists of two firing sequences.
+        // The first sequence fires on standard (configured) horizontal resolution, the second sequence fires on with the offset of half of the horizontal resolution.
+        // Some lasers fire only on the one firing sequence and some of them fire on both. See manual for more details.
         public static LaserArray HesaiQT128C2X => new LaserArray
         {
             centerOfMeasurementLinearOffsetMm = new Vector3(0.0f, 58.2f, 0.0f),
@@ -954,12 +957,16 @@ namespace RGLUnityPlugin
             }
         };
 
+        // This is laser array for Hesai Pandar128E4X LiDAR that works in the high resolution mode. In this case, one scan consist of two firing sequences.
+        // The first sequence fires on standard (configured) horizontal resolution, the second sequence fires on with the offset of half of the horizontal resolution.
+        // Some lasers fire only on the one firing sequence and some of them fire on both. See manual for more details.
         public static LaserArray HesaiPandar128E4XHighRes => new LaserArray
         {
             centerOfMeasurementLinearOffsetMm = new Vector3(0.0f, 84.43f, 0.0f),
             focalDistanceMm = 0.0f,
             lasers = new[]
             {
+                // Firing Sequence 1
                 new Laser {horizontalAngularOffsetDeg = 0.148f, verticalAngularOffsetDeg = -9.836f, ringId = 5, timeOffset = 0.021185f, minRange = 1.4f, maxRange = 80f},
                 new Laser {horizontalAngularOffsetDeg = 0.147f, verticalAngularOffsetDeg = -9.171f, ringId = 6, timeOffset = 0.014896f, minRange = 0.3f, maxRange = 80f},
                 new Laser {horizontalAngularOffsetDeg = 0.146f, verticalAngularOffsetDeg = -8.496f, ringId = 7, timeOffset = 0.008607f, minRange = 1.4f, maxRange = 100f},
@@ -1056,6 +1063,7 @@ namespace RGLUnityPlugin
                 new Laser {horizontalAngularOffsetDeg = 1.408f, verticalAngularOffsetDeg = 21.653f, ringId = 126, timeOffset = 0.014896f, minRange = 0.3f, maxRange = 50f},
                 new Laser {horizontalAngularOffsetDeg = 0.196f, verticalAngularOffsetDeg = 23.044f, ringId = 127, timeOffset = 0.008607f, minRange = 0.3f, maxRange = 40f},
                 new Laser {horizontalAngularOffsetDeg = 0.286f, verticalAngularOffsetDeg = 24.765f, ringId = 128, timeOffset = 0.002318f, minRange = 0.3f, maxRange = 30f},
+                // Firing Sequence 2
                 new Laser {horizontalAngularOffsetDeg = 0.186f, verticalAngularOffsetDeg = -14.985f, ringId = 1, timeOffset = 0.048963f, minRange = 0.3f, maxRange = 60f},
                 new Laser {horizontalAngularOffsetDeg = 0.185f, verticalAngularOffsetDeg = -13.283f, ringId = 2, timeOffset = 0.042674f, minRange = 0.3f, maxRange = 80f},
                 new Laser {horizontalAngularOffsetDeg = 1.335f, verticalAngularOffsetDeg = -11.758f, ringId = 3, timeOffset = 0.036385f, minRange = 0.3f, maxRange = 80f},
