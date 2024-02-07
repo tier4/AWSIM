@@ -98,6 +98,7 @@ namespace RGLUnityPlugin
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_yield(ref IntPtr node, IntPtr fields, int field_count);
+
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_compact_by_field(ref IntPtr node, RGLField field);
 
