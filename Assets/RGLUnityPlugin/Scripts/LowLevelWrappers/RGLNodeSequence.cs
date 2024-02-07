@@ -159,6 +159,7 @@ namespace RGLUnityPlugin
             AddNode(handle);
             return this;
         }
+
         public RGLNodeSequence AddNodePointsCompactByField(string identifier, RGLField field)
         {
             CheckNodeNotExist(identifier);
