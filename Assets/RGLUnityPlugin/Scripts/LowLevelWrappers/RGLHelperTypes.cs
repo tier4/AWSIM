@@ -26,7 +26,6 @@ namespace RGLUnityPlugin
         POINTS_TRANSFORM,
         POINTS_FORMAT,
         POINTS_YIELD,
-        POINTS_COMPACT,
         POINTS_COMPACT_BY_FIELD,
         POINTS_DOWNSAMPLE,
         POINTS_TEMPORAL_MERGE,
