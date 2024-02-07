@@ -98,9 +98,6 @@ namespace RGLUnityPlugin
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_yield(ref IntPtr node, IntPtr fields, int field_count);
-
-        [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_points_compact(ref IntPtr node);
         
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_compact_by_field(ref IntPtr node, RGLField field);
@@ -131,7 +128,7 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_gaussian_noise_distance(ref IntPtr node, float mean, float st_dev, float st_dev_rise_per_meter);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_points_filter_ground(ref IntPtr node, RGLAxis sensor_up_axis, float ground_angle_threshold);
+        public static extern int rgl_node_points_filter_ground(ref IntPtr node, IntPtr sensor_up_vector, float ground_angle_threshold);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_radar_postprocess(ref IntPtr node, float distance_separation, float azimuth_separation);
@@ -436,11 +433,6 @@ namespace RGLUnityPlugin
                 }
             }
         }
-
-        public static void NodePointsCompact(ref IntPtr node)
-        {
-            CheckErr(rgl_node_points_compact(ref node));
-        }
         
         public static void NodePointsCompactByField(ref IntPtr node, RGLField field)
         {
@@ -492,7 +484,15 @@ namespace RGLUnityPlugin
 
         public static void NodePointsFilterGround(ref IntPtr node, float groundAngleThreshold)
         {
-            CheckErr(rgl_node_points_filter_ground(ref node, RGLAxis.RGL_AXIS_Y, groundAngleThreshold));
+            var upVector = IntoVec3f(new Vector3(0, 1, 0));
+
+            unsafe
+            {
+                fixed (float* upVectorPtr = upVector)
+                {
+                    CheckErr(rgl_node_points_filter_ground(ref node, (IntPtr) upVectorPtr, groundAngleThreshold));
+                }
+            }
         }
 
         public static void NodePointsRadarPostprocess(ref IntPtr node, float distanceSeparation, float azimuthSeparation)

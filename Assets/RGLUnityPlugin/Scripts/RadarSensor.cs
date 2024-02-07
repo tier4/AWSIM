@@ -55,7 +55,6 @@ namespace RGLUnityPlugin
         private const string CompactNodeId = "COMPACT";
         private const string ToRadarFrameId = "TO_RADAR_FRAME";
         private const string ToWorldFrameId = "TO_WORLD_FRAME";
-        private const string RemoveGroundNodeId = "REMOVE_GROUND";
         private const string FilterGroundNodeId = "FILTER_GROUND";
         private const string CompactByFieldNodeId = "COMPACT_BY_FIELD";
         private const string RadarPostprocessNodeId = "RADAR_POSTPROCESS";
@@ -84,7 +83,7 @@ namespace RGLUnityPlugin
                 .AddNodeRaysTransform(RadarPoseNodeId, Matrix4x4.identity)
                 .AddNodeGaussianNoiseAngularRay(NoiseRaysNodeId, 0, 0)
                 .AddNodeRaytrace(RadarRaytraceNodeId)
-                .AddNodePointsCompact(CompactNodeId)
+                .AddNodePointsCompactByField(CompactNodeId, RGLField.IS_HIT_I32)
                 .AddNodeGaussianNoiseDistance(NoiseDistanceNodeId, 0, 0, 0)
                 .AddNodePointsTransform(ToRadarFrameId, Matrix4x4.identity)
                 .AddNodePointsFilterGround(FilterGroundNodeId, GroundAngleThreshold * Mathf.Deg2Rad)

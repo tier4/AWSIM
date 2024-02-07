@@ -159,17 +159,6 @@ namespace RGLUnityPlugin
             AddNode(handle);
             return this;
         }
-
-        public RGLNodeSequence AddNodePointsCompact(string identifier)
-        {
-            CheckNodeNotExist(identifier);
-            RGLNodeHandle handle = new RGLNodeHandle();
-            RGLNativeAPI.NodePointsCompact(ref handle.Node);
-            handle.Identifier = identifier;
-            handle.Type = RGLNodeType.POINTS_COMPACT;
-            AddNode(handle);
-            return this;
-        }
         
         public RGLNodeSequence AddNodePointsCompactByField(string identifier, RGLField field)
         {
