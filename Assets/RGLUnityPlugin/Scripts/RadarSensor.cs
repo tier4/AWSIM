@@ -70,7 +70,7 @@ namespace RGLUnityPlugin
         private int lastUpdateFrame = -1;
 
         // Remove Ground Node parameters
-        private const float GroundAngleThreshold = 5.0f;
+        private const float GroundAngleThreshold = 10.0f;
         private const float GroundDistanceThreshold = 0.005f;
         private const float GroundFilterDistance = 0.5f;
 
