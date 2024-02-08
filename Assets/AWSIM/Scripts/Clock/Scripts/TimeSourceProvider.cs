@@ -1,3 +1,4 @@
+using AWSIM.Samples;
 using ROS2;
 using System;
 
@@ -12,7 +13,8 @@ namespace AWSIM
         {
             UNITY,
             SS2,
-            DOTNET
+            DOTNET,
+            DOTNET_SIMULATION,
         }
 
         #region [Event]
@@ -101,6 +103,18 @@ namespace AWSIM
                 if(currentTimeSource == null || !(currentTimeSource is DotNetSystemTimeSource))
                 {
                     currentTimeSource = new DotNetSystemTimeSource();
+                    onTimeSourceChanged?.Invoke();
+                }
+
+                return;
+            }
+
+            // dot net simulation time source
+            if(type == TimeSourceType.DOTNET_SIMULATION)
+            {
+                if(currentTimeSource == null || !(currentTimeSource is DotNetSimulationTimeSource))
+                {
+                    currentTimeSource = new DotNetSimulationTimeSource();
                     onTimeSourceChanged?.Invoke();
                 }
 
