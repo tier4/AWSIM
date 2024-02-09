@@ -11,13 +11,13 @@ namespace AWSIM
     {
         private DateTime prevDateTime;
         private double time;
+        private bool hasStarted = false;
 
         private readonly object lockObject = new object();
 
         public DotNetSystemTimeSource()
         {
-            prevDateTime = DateTime.UtcNow;
-            time = 0.0;
+            hasStarted = false;
         }
 
         public void GetTime(out int seconds, out uint nanoseconds)
@@ -25,10 +25,23 @@ namespace AWSIM
             lock (lockObject)
             {
                 DateTime currDateTime = DateTime.UtcNow;
+
+                if(!hasStarted)
+                {
+                    hasStarted = true;
+
+                    // this return the same as ROS2.Clock.Now.Seconds();
+                    // get the time in millisecond since epoch
+                    long timeOffset = ((DateTimeOffset)currDateTime).ToUnixTimeMilliseconds();
+                    time = (double)timeOffset * 0.001;
+
+                    prevDateTime = currDateTime;
+                }
+
                 TimeSpan timeSpan = currDateTime - prevDateTime;
                 prevDateTime = currDateTime;
 
-                time += timeSpan.TotalMilliseconds * 0.001f * TimeScaleProvider.TimeScale;
+                time += timeSpan.TotalMilliseconds * 0.001 * TimeScaleProvider.TimeScale;
                 TimeUtils.TimeFromTotalSeconds(time, out seconds, out nanoseconds);
             }
         }
