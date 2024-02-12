@@ -5,7 +5,8 @@ using ROS2;
 namespace AWSIM
 {
     /// <summary>
-    /// A thread-safe timesource class that provides the dot net system utc time.
+    /// A thread-safe timesource class that provides the dot net system utc time since epoch.
+    /// This timesource takes into account the value of the simulation timescale.
     /// </summary>
     public class DotNetSystemTimeSource : ITimeSource
     {
@@ -30,7 +31,6 @@ namespace AWSIM
                 {
                     hasStarted = true;
 
-                    // this return the same as ROS2.Clock.Now.Seconds();
                     // get the time in millisecond since epoch
                     long timeOffset = ((DateTimeOffset)currDateTime).ToUnixTimeMilliseconds();
                     time = (double)timeOffset * 0.001;
