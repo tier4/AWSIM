@@ -43,7 +43,7 @@ namespace AWSIM
             }
             else if(string.CompareOrdinal(type.ToLower(), "system") == 0)
             {
-                SetType(TimeSourceProvider.TimeSourceType.DOTNET);
+                SetType(TimeSourceProvider.TimeSourceType.DOTNET_SYSTEM);
             }
             else if(string.CompareOrdinal(type.ToLower(), "ss2") == 0)
             {

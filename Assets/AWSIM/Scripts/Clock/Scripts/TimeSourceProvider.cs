@@ -13,7 +13,7 @@ namespace AWSIM
         {
             UNITY,
             SS2,
-            DOTNET,
+            DOTNET_SYSTEM,
             DOTNET_SIMULATION,
             ROS2,
         }
@@ -99,7 +99,7 @@ namespace AWSIM
             }
 
             // dot net system time source
-            if(type == TimeSourceType.DOTNET)
+            if(type == TimeSourceType.DOTNET_SYSTEM)
             {
                 if(currentTimeSource == null || !(currentTimeSource is DotNetSystemTimeSource))
                 {
