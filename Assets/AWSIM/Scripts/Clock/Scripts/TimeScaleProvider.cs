@@ -31,10 +31,7 @@ namespace AWSIM
         {
             lock(lockObject)
             {
-                if (Mathf.Abs(Time.timeScale - timeScale) > 0.01f)
-                {
-                    timeScale = Time.timeScale;
-                }
+                timeScale = Time.timeScale;
             }
         }
 
