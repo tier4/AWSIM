@@ -45,6 +45,10 @@ namespace AWSIM
             {
                 SetType(TimeSourceProvider.TimeSourceType.SS2);
             }
+            else if(string.CompareOrdinal(type.ToLower(), "ros2") == 0)
+            {
+                SetType(TimeSourceProvider.TimeSourceType.ROS2);
+            }
             else
             {
                 Debug.LogWarning("TimeSourceSelector: " + type + " is not recognized as a valid time source.");

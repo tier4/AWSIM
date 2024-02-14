@@ -15,6 +15,7 @@ namespace AWSIM
             SS2,
             DOTNET,
             DOTNET_SIMULATION,
+            ROS2,
         }
 
         #region [Event]
@@ -115,6 +116,18 @@ namespace AWSIM
                 if(currentTimeSource == null || !(currentTimeSource is DotNetSimulationTimeSource))
                 {
                     currentTimeSource = new DotNetSimulationTimeSource();
+                    onTimeSourceChanged?.Invoke();
+                }
+
+                return;
+            }
+
+            // ros2 time source
+            if(type == TimeSourceType.ROS2)
+            {
+                if(currentTimeSource == null || !(currentTimeSource is ROS2TimeSource))
+                {
+                    currentTimeSource = new ROS2TimeSource();
                     onTimeSourceChanged?.Invoke();
                 }
 
