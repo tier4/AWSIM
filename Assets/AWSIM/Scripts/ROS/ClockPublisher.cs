@@ -32,6 +32,7 @@ namespace AWSIM
         void Start()
         {
             TimeScaleProvider.DoUpdate();
+            TimeAsDoubleProvider.DoUpdate();
             StartClockThread();
         }
 
@@ -39,6 +40,15 @@ namespace AWSIM
         {
             StopClockThread();
             SimulatorROS2Node.RemovePublisher<rosgraph_msgs.msg.Clock>(clockPublisher);
+        }
+
+        #endregion
+
+        #region [Main Thread]
+
+        void Update()
+        {
+            TimeAsDoubleProvider.DoUpdate();
         }
 
         #endregion
