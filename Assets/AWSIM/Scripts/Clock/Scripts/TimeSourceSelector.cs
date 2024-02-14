@@ -33,7 +33,11 @@ namespace AWSIM
                 return;
             }
 
-            if(string.CompareOrdinal(type.ToLower(), "simulation") == 0)
+            if(string.CompareOrdinal(type.ToLower(), "unity") == 0)
+            {
+                SetType(TimeSourceProvider.TimeSourceType.UNITY);
+            }
+            else if(string.CompareOrdinal(type.ToLower(), "simulation") == 0)
             {
                 SetType(TimeSourceProvider.TimeSourceType.DOTNET_SIMULATION);
             }
