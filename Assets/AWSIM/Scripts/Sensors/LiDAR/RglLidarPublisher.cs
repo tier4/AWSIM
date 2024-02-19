@@ -14,87 +14,216 @@
 
 using System;
 using UnityEngine;
-using AWSIM.PointCloudFormats;
 using RGLUnityPlugin;
+using sensor_msgs.msg;
 
 namespace AWSIM
 {
+    /// <summary>
+    /// Quality of service settings for RGL
+    /// </summary>
+    [Serializable]
+    public class RglQos
+    {
+        public RGLQosPolicyReliability reliabilityPolicy = RGLQosPolicyReliability.QOS_POLICY_RELIABILITY_BEST_EFFORT;
+        public RGLQosPolicyDurability durabilityPolicy = RGLQosPolicyDurability.QOS_POLICY_DURABILITY_VOLATILE;
+        public RGLQosPolicyHistory historyPolicy = RGLQosPolicyHistory.QOS_POLICY_HISTORY_KEEP_LAST;
+        public int historyDepth = 5;
+    }
+
+    /// <summary>
+    /// Base class for publisher. It contains:
+    /// - serializable fields for topic information and checkbox for publishing activation
+    /// - RGL subgraph
+    /// - Abstract methods for initialization (creating subgraph) and validation (handling parameters update)
+    /// - Method for instant subgraph destruction
+    /// </summary>
+    [Serializable]
+    public abstract class BasePublisher
+    {
+        [Tooltip("Topic name to publish on. Resolved on simulation startup only.")]
+        public string topic = "topic";
+        [Tooltip("If false, publishing will be stopped.")]
+        public bool publish = true;
+
+        protected RGLNodeSequence publisherSubgraph;
+
+        public void OnDestroy()
+        {
+            publisherSubgraph?.Clear();
+        }
+
+        public abstract void OnValidate();
+        public abstract void Initialize(RGLNodeSequence parentSubgraph, string frameId, RglQos qos);
+    }
+
+    /// <summary>
+    /// Publisher for PointCloud2 message
+    /// </summary>
+    [Serializable]
+    public class PointCloud2Publisher : BasePublisher
+    {
+        private const string FormatNodeId = "FORMAT";
+        private const string PublishNodeId = "PUBLISH";
+
+        [Tooltip("Allows to select one of the built-in PointCloud2 fieldsets.")]
+        public PointCloudFormat fieldsPreset;
+        private PointCloudFormat? fieldsPresetPrev = null;
+        [Tooltip("Fields to be present in the message.")]
+        public RGLField[] fields;
+
+        public override void OnValidate()
+        {
+            // If fields preset has changed, update fields array
+            if (fieldsPresetPrev == null || fieldsPreset != fieldsPresetPrev)
+            {
+                // Do not update fields if preset is Custom (it may override user selection)
+                if (fieldsPreset != PointCloudFormat.Custom)
+                {
+                    fields = PointCloudFormatLibrary.ByFormat[fieldsPreset];
+                }
+                fieldsPresetPrev = fieldsPreset;
+            }
+
+            // To enable/disable subgraph apply desired state to both nodes
+            publisherSubgraph?.SetActive(FormatNodeId, publish);
+            publisherSubgraph?.SetActive(PublishNodeId, publish);
+        }
+
+        public override void Initialize(RGLNodeSequence parentSubgraph, string frameId, RglQos qos)
+        {
+            publisherSubgraph = new RGLNodeSequence()
+                .AddNodePointsFormat(FormatNodeId, fields)
+                .AddNodePointsRos2Publish(PublishNodeId, topic, frameId, qos.reliabilityPolicy, qos.durabilityPolicy, qos.historyPolicy, qos.historyDepth);
+            RGLNodeSequence.Connect(parentSubgraph, publisherSubgraph);
+        }
+    }
+
+    /// <summary>
+    /// Publisher for RadarScan message
+    /// </summary>
+    [Serializable]
+    public class RadarScanPublisher : BasePublisher
+    {
+        private const string PublishNodeId = "PUBLISH";
+
+        public override void OnValidate()
+        {
+            publisherSubgraph?.SetActive(PublishNodeId, publish);
+        }
+
+        public override void Initialize(RGLNodeSequence parentSubgraph, string frameId, RglQos qos)
+        {
+            publisherSubgraph = new RGLNodeSequence()
+                .AddNodePublishRos2RadarScan(PublishNodeId, topic, frameId, qos.reliabilityPolicy, qos.durabilityPolicy, qos.historyPolicy, qos.historyDepth);
+            RGLNodeSequence.Connect(parentSubgraph, publisherSubgraph);
+        }
+    }
+
+    public enum PublisherType : UInt32
+    {
+        PointCloud2,
+        RadarScan
+    }
+
+    /// <summary>
+    /// Wrapper for the publisher that changes its type depending on the PublisherType enum.
+    /// </summary>
+    [Serializable]
+    public class PublisherWrapper
+    {
+        public PublisherType publisherType;
+        private PublisherType? publisherTypePrev = null;
+        [SerializeReference]
+        public BasePublisher publisher;
+
+        private bool isInitialized = false;
+
+        // Allow creating PublisherWrapper based on any publisher
+        public PublisherWrapper(BasePublisher publisher)
+        {
+            publisherType = publisher switch
+            {
+                PointCloud2Publisher _ => PublisherType.PointCloud2,
+                RadarScanPublisher _ => PublisherType.RadarScan,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            publisherTypePrev = publisherType;
+            this.publisher = publisher;
+        }
+
+        public void OnValidate()
+        {
+            // If publisher type has changed, create a new publisher
+            if (publisherTypePrev == null || publisherType != publisherTypePrev)
+            {
+                publisher = publisherType switch
+                {
+                    PublisherType.PointCloud2 => new PointCloud2Publisher(),
+                    PublisherType.RadarScan => new RadarScanPublisher(),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+                publisherTypePrev = publisherType;
+            }
+            publisher.OnValidate();
+        }
+
+        public void OnDestroy()
+        {
+            publisher.OnDestroy();
+        }
+
+        public void Initialize(RGLNodeSequence parentSubgraph, string frameId, RglQos qos)
+        {
+            if (isInitialized)
+            {
+                throw new InvalidOperationException("Publisher is already initialized");
+            }
+            publisher.Initialize(parentSubgraph, frameId, qos);
+            isInitialized = true;
+        }
+    }
+
     /// <summary>
     /// ROS2 publishing component for Robotec GPU Lidar Unity Plugin.
     /// </summary>
     public class RglLidarPublisher : MonoBehaviour
     {
-        public string pcl24Topic = "lidar/pointcloud";
-        public string pcl48Topic = "lidar/pointcloud_ex";
-        public string instanceIdTopic = "lidar/instance_id";
-        public string radarTopic = "radar/pointcloud";
-        public string frameID = "world";
-        public bool publishPCL24 = true;
-        public bool publishPCL48 = true;
-        public bool publishInstanceId = false;
-        public bool publishRadar = false;
+        [Tooltip("Frame the data is associated with. Resolved on simulation startup only.")]
+        public string frameId = "world";
+        [Tooltip("Quality of service settings. Resolved on simulation startup only.")]
+        public RglQos qos;
 
-        public RGLQosPolicyReliability reliabilityPolicy = RGLQosPolicyReliability.QOS_POLICY_RELIABILITY_BEST_EFFORT;
-        public RGLQosPolicyDurability durabilityPolicy = RGLQosPolicyDurability.QOS_POLICY_DURABILITY_VOLATILE;
-        public RGLQosPolicyHistory historyPolicy = RGLQosPolicyHistory.QOS_POLICY_HISTORY_KEEP_LAST;
-        public int historyDepth = 5;
+        [Tooltip(
+            "Array of publishers. They are initialized on simulation startup only and updates of parameters are not supported.")]
+        public PublisherWrapper[] publishers =
+        {
+            new PublisherWrapper(new PointCloud2Publisher()
+            {
+                topic = "lidar/pointcloud",
+                publish = true,
+                fieldsPreset = PointCloudFormat.Pcl24,
+            }),
+            new PublisherWrapper(new PointCloud2Publisher()
+            {
+                topic = "lidar/pointcloud_ex",
+                publish = true,
+                fieldsPreset = PointCloudFormat.Pcl48,
+            }),
+        };
+
+        private const string TransformNodeId = "UNITY_TO_ROS";
 
         private RGLNodeSequence rglSubgraphUnity2Ros;
-        private RGLNodeSequence rglSubgraphPcl24;
-        private RGLNodeSequence rglSubgraphPcl48;
-        private RGLNodeSequence rglSubgraphInstanceId;
-        private RGLNodeSequence rglSubgraphRadar;
-
-        private bool didStart = false;
 
         private void Awake()
         {
             rglSubgraphUnity2Ros = new RGLNodeSequence()
-                .AddNodePointsTransform("UNITY_TO_ROS", ROS2.Transformations.Unity2RosMatrix4x4());
-        }
-
-        private void OnEnable()
-        {
-            if (publishPCL24 && rglSubgraphPcl24 == null)
-            {
-                rglSubgraphPcl24 = new RGLNodeSequence()
-                    .AddNodePointsFormat("PCL24_FORMAT", FormatPCL24.GetRGLFields())
-                    .AddNodePointsRos2Publish("PCL24_PUB", pcl24Topic, frameID, reliabilityPolicy, durabilityPolicy, historyPolicy, historyDepth);
-                RGLNodeSequence.Connect(rglSubgraphUnity2Ros, rglSubgraphPcl24);
-            }
-
-            if (publishPCL48 && rglSubgraphPcl48 == null)
-            {
-                rglSubgraphPcl48 = new RGLNodeSequence()
-                    .AddNodePointsFormat("PCL48_FORMAT", FormatPCL48.GetRGLFields())
-                    .AddNodePointsRos2Publish("PCL48_PUB", pcl48Topic, frameID, reliabilityPolicy, durabilityPolicy, historyPolicy, historyDepth);
-                RGLNodeSequence.Connect(rglSubgraphUnity2Ros, rglSubgraphPcl48);
-            }
-
-            if (publishInstanceId && rglSubgraphInstanceId == null)
-            {
-                rglSubgraphInstanceId = new RGLNodeSequence()
-                    .AddNodePointsFormat("ML_FORMAT", FormatMLInstanceSegmentation.GetRGLFields())
-                    .AddNodePointsRos2Publish("ML_PUB", instanceIdTopic, frameID, reliabilityPolicy, durabilityPolicy, historyPolicy, historyDepth);
-                RGLNodeSequence.Connect(rglSubgraphUnity2Ros, rglSubgraphInstanceId);
-            }
-
-            if (publishRadar && rglSubgraphRadar == null)
-            {
-                rglSubgraphRadar = new RGLNodeSequence()
-                    .AddNodePointsFormat("RADAR_FORMAT", FormatRadarSmartMicro.GetRGLFields())
-                    .AddNodePointsRos2Publish("RADAR_PUB", radarTopic, frameID, reliabilityPolicy, durabilityPolicy, historyPolicy, historyDepth);
-                RGLNodeSequence.Connect(rglSubgraphUnity2Ros, rglSubgraphRadar);
-            }
+                .AddNodePointsTransform(TransformNodeId, ROS2.Transformations.Unity2RosMatrix4x4());
         }
 
         private void Start()
         {
-            if (!publishPCL24 && !publishPCL48 && !publishInstanceId && !publishRadar)
-            {
-                Debug.LogWarning("All lidar message formats are disabled. Nothing to publish!");
-            }
-
             MonoBehaviour sensor = null;
             // Check if LiDAR is attached
             var lidar = GetComponent<LidarSensor>();
@@ -125,63 +254,38 @@ namespace AWSIM
                 return;
             }
 
-            didStart = true;
+            foreach (var publisher in publishers)
+            {
+                publisher.Initialize(rglSubgraphUnity2Ros, frameId, qos);
+            }
         }
 
         public void OnValidate()
         {
-            if (!enabled)
+            foreach (var publisher in publishers)
             {
-                return;
+                publisher.OnValidate();
             }
+        }
 
-            ApplySubgraphState(ref rglSubgraphPcl24, publishPCL24);
-            ApplySubgraphState(ref rglSubgraphPcl48, publishPCL48);
-            ApplySubgraphState(ref rglSubgraphInstanceId, publishInstanceId);
-            ApplySubgraphState(ref rglSubgraphRadar, publishRadar);
+        private void OnEnable()
+        {
+            rglSubgraphUnity2Ros?.SetActive(TransformNodeId, true);
         }
 
         private void OnDisable()
         {
-            ApplySubgraphState(ref rglSubgraphPcl24, false);
-            ApplySubgraphState(ref rglSubgraphPcl48, false);
-            ApplySubgraphState(ref rglSubgraphInstanceId, false);
-            ApplySubgraphState(ref rglSubgraphRadar, false);
+            // Only one node in this subgraph so the whole subgraph will be disconnected from the sensor graph
+            rglSubgraphUnity2Ros?.SetActive(TransformNodeId, false);
         }
 
         private void OnDestroy()
         {
-            rglSubgraphPcl24?.Clear();
-            rglSubgraphPcl48?.Clear();
-            rglSubgraphInstanceId?.Clear();
+            foreach (var publisher in publishers)
+            {
+                publisher.OnDestroy();
+            }
             rglSubgraphUnity2Ros?.Clear();
-            rglSubgraphRadar?.Clear();
-        }
-
-        private void ApplySubgraphState(ref RGLNodeSequence subgraph, bool activateState)
-        {
-            if (subgraph == null)
-            {
-                if (didStart && activateState == true)
-                {
-                    Debug.LogWarning("Cannot activate the publisher because it was not created. Please activate it before the simulation starts.");
-                }
-                return;
-            }
-
-            if (activateState == RGLNodeSequence.AreConnected(rglSubgraphUnity2Ros, subgraph))
-            {
-                return;
-            }
-
-            if (activateState)
-            {
-                RGLNodeSequence.Connect(rglSubgraphUnity2Ros, subgraph);
-            }
-            else
-            {
-                RGLNodeSequence.Disconnect(rglSubgraphUnity2Ros, subgraph);
-            }
         }
     }
 }
