@@ -105,6 +105,7 @@ namespace AWSIM
             const string EmissiveColor = "_EmissiveColor";
             const string EmissiveIntensity = "_EmissiveIntensity";
             const string EmissiveExposureWeight = "_EmissiveExposureWeight";
+            const string LightOnFlag = "_LightOn";
             const float flashIntervalSec = 0.5f;                // flash bulb lighting interval(sec).
 
             float timer = 0;                            // used for flashing status.     NOTE: Might as well make it static and refer to the same time. 
@@ -210,6 +211,10 @@ namespace AWSIM
                     var config = bulbColorConfigPairs[color];
                     material.SetColor(EmissiveColor, config.Color * config.Intensity);
                     material.SetFloat(EmissiveExposureWeight, config.ExposureWeight);
+                    if(material.HasProperty(LightOnFlag))
+                    {
+                        material.SetInt(LightOnFlag, 1);
+                    }
                     this.isLightOn = true;
                     timer = 0;
                 }
@@ -217,6 +222,10 @@ namespace AWSIM
                 {
                     material.SetColor(EmissiveColor, defaultEmissiveColor);
                     material.SetFloat(EmissiveExposureWeight, defaultEmissiveExposureWeight);
+                    if(material.HasProperty(LightOnFlag))
+                    {
+                        material.SetInt(LightOnFlag, 0);
+                    }
                     this.isLightOn = false;
                     timer = 0;
                 }
