@@ -141,12 +141,7 @@ namespace AWSIM
         // Allow creating PublisherWrapper based on any BasePublisher
         public PublisherWrapper(BasePublisher publisher)
         {
-            publisherType = publisher switch
-            {
-                PointCloud2Publisher _ => PublisherType.PointCloud2,
-                RadarScanPublisher _ => PublisherType.RadarScan,
-                _ => throw new ArgumentOutOfRangeException()
-            };
+            publisherType = GetPublisherType(publisher);
             publisherTypePrev = publisherType;
             this.publisher = publisher;
         }
@@ -162,12 +157,7 @@ namespace AWSIM
             // If publisher type has changed, create a new publisher
             if (publisherTypePrev == null || publisherType != publisherTypePrev)
             {
-                publisher = publisherType switch
-                {
-                    PublisherType.PointCloud2 => new PointCloud2Publisher(),
-                    PublisherType.RadarScan => new RadarScanPublisher(),
-                    _ => throw new ArgumentOutOfRangeException()
-                };
+                publisher = CreatePublisher(publisherType);
                 publisherTypePrev = publisherType;
             }
             publisher.OnValidate();
@@ -186,6 +176,26 @@ namespace AWSIM
             }
             publisher.Initialize(parentSubgraph, frameId, qos);
             isInitialized = true;
+        }
+
+        private PublisherType GetPublisherType(BasePublisher inPublisher)
+        {
+            return inPublisher switch
+            {
+                PointCloud2Publisher _ => PublisherType.PointCloud2,
+                RadarScanPublisher _ => PublisherType.RadarScan,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
+
+        private BasePublisher CreatePublisher(PublisherType inPublisherType)
+        {
+            return inPublisherType switch
+            {
+                PublisherType.PointCloud2 => new PointCloud2Publisher(),
+                PublisherType.RadarScan => new RadarScanPublisher(),
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 
