@@ -15,7 +15,6 @@
 using System;
 using UnityEngine;
 using RGLUnityPlugin;
-using sensor_msgs.msg;
 
 namespace AWSIM
 {
@@ -139,7 +138,7 @@ namespace AWSIM
 
         private bool isInitialized = false;
 
-        // Allow creating PublisherWrapper based on any publisher
+        // Allow creating PublisherWrapper based on any BasePublisher
         public PublisherWrapper(BasePublisher publisher)
         {
             publisherType = publisher switch
@@ -150,6 +149,12 @@ namespace AWSIM
             };
             publisherTypePrev = publisherType;
             this.publisher = publisher;
+        }
+
+        // Implicit conversion from any BasePublisher to PublisherWrapper
+        public static implicit operator PublisherWrapper(BasePublisher publisher)
+        {
+            return new PublisherWrapper(publisher);
         }
 
         public void OnValidate()
@@ -198,18 +203,18 @@ namespace AWSIM
             "Array of publishers. They are initialized on simulation startup only and updates of parameters are not supported.")]
         public PublisherWrapper[] publishers =
         {
-            new PublisherWrapper(new PointCloud2Publisher()
+            new PointCloud2Publisher()
             {
                 topic = "lidar/pointcloud",
                 publish = true,
                 fieldsPreset = PointCloudFormat.Pcl24,
-            }),
-            new PublisherWrapper(new PointCloud2Publisher()
+            },
+            new PointCloud2Publisher()
             {
                 topic = "lidar/pointcloud_ex",
                 publish = true,
                 fieldsPreset = PointCloudFormat.Pcl48,
-            }),
+            },
         };
 
         private const string TransformNodeId = "UNITY_TO_ROS";
