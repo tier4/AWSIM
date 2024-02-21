@@ -9,8 +9,8 @@ namespace AWSIM
     /// </summary>
     public class GroudSlipMultiplier : MonoBehaviour
     {
-        [Range(0, 1)] float forwardSlip;
-        [Range(0, 1)] float sidewaySlip;
+        [Range(0, 1)] [SerializeField] float forwardSlip;
+        [Range(0, 1)] [SerializeField] float sidewaySlip;
 
         /// <summary>
         /// Slip multiplier in foward direction.
