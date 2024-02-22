@@ -114,7 +114,7 @@ namespace RGLUnityPlugin
                 .AddNodeGaussianNoiseDistance(noiseDistanceNodeId, 0, 0, 0);
 
             rglSubgraphCompact = new RGLNodeSequence()
-                .AddNodePointsCompact(pointsCompactNodeId);
+                .AddNodePointsCompactByField(pointsCompactNodeId, RGLField.IS_HIT_I32);
 
             rglSubgraphToLidarFrame = new RGLNodeSequence()
                 .AddNodePointsTransform(toLidarFrameNodeId, Matrix4x4.identity);
