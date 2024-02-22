@@ -137,6 +137,17 @@ namespace RGLUnityPlugin
             AddNode(handle);
             return this;
         }
+        
+        public RGLNodeSequence AddNodePointsFilterGround(string identifier, float groundAngleThreshold)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsFilterGround(ref handle.Node, groundAngleThreshold);
+            handle.Identifier = identifier;
+            handle.Type = RGLNodeType.POINTS_FILTER_GROUND;
+            AddNode(handle);
+            return this;
+        }
 
         public RGLNodeSequence AddNodePointsTransform(string identifier, Matrix4x4 transform)
         {
@@ -149,13 +160,13 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence AddNodePointsCompact(string identifier)
+        public RGLNodeSequence AddNodePointsCompactByField(string identifier, RGLField field)
         {
             CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
-            RGLNativeAPI.NodePointsCompact(ref handle.Node);
+            RGLNativeAPI.NodePointsCompactByField(ref handle.Node, field);
             handle.Identifier = identifier;
-            handle.Type = RGLNodeType.POINTS_COMPACT;
+            handle.Type = RGLNodeType.POINTS_COMPACT_BY_FIELD;
             AddNode(handle);
             return this;
         }
@@ -265,17 +276,6 @@ namespace RGLUnityPlugin
             RGLNodeHandle handle = new RGLNodeHandle();
             RGLNativeAPI.NodeGaussianNoiseDistance(ref handle.Node, mean, stDev, stDevRisePerMeter);
             handle.Type = RGLNodeType.GAUSSIAN_NOISE_DISTANCE;
-            handle.Identifier = identifier;
-            AddNode(handle);
-            return this;
-        }
-
-        public RGLNodeSequence AddNodePointsRemoveGround(string identifier, float groundAngleThreshold, float groundDistanceThreshold, float groundFilterDistance)
-        {
-            CheckNodeNotExist(identifier);
-            RGLNodeHandle handle = new RGLNodeHandle();
-            RGLNativeAPI.NodePointsRemoveGround(ref handle.Node, groundAngleThreshold, groundDistanceThreshold, groundFilterDistance);
-            handle.Type = RGLNodeType.POINTS_REMOVE_GROUND;
             handle.Identifier = identifier;
             AddNode(handle);
             return this;
@@ -404,10 +404,17 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence UpdateNodePointsRemoveGround(string identifier, float groundAngleThreshold, float groundDistanceThreshold, float groundFilterDistance)
+        public RGLNodeSequence UpdateNodePointsFilterGround(string identifier, float groundAngleThreshold)
         {
-            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_REMOVE_GROUND);
-            RGLNativeAPI.NodePointsRemoveGround(ref handle.Node, groundAngleThreshold, groundDistanceThreshold, groundFilterDistance);
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_FILTER_GROUND);
+            RGLNativeAPI.NodePointsFilterGround(ref handle.Node, groundAngleThreshold);
+            return this;
+        }
+        
+        public RGLNodeSequence UpdateNodePointsCompactByField(string identifier, RGLField field)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_COMPACT_BY_FIELD);
+            RGLNativeAPI.NodePointsCompactByField(ref handle.Node, field);
             return this;
         }
 
