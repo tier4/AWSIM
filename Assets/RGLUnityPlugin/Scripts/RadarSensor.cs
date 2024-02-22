@@ -45,17 +45,17 @@ namespace RGLUnityPlugin
         public RadarConfiguration configuration = RadarConfigurationLibrary.SmartmicroDRVEGRD169MediumRange;
 
         private RGLNodeSequence rglGraphRadar;
-        private RGLNodeSequence rglSubgraphToWorldFrame;
+        private RGLNodeSequence rglSubgraphToRadarFrame;
         private SceneManager sceneManager;
 
         private const string RadarRaysNodeId = "RADAR_RAYS";
         private const string RadarRangeNodeId = "RADAR_RANGE";
         private const string RadarPoseNodeId = "RADAR_POSE";
         private const string RadarRaytraceNodeId = "RADAR_RAYTRACE";
-        private const string CompactNodeId = "COMPACT";
+        private const string CompactHitsNodeId = "COMPACT_BY_HITS";
         private const string ToRadarFrameId = "TO_RADAR_FRAME";
-        private const string ToWorldFrameId = "TO_WORLD_FRAME";
-        private const string RemoveGroundNodeId = "REMOVE_GROUND";
+        private const string FilterGroundNodeId = "FILTER_GROUND";
+        private const string CompactNonGroundNodeId = "COMPACT_BY_GROUND";
         private const string RadarPostprocessNodeId = "RADAR_POSTPROCESS";
         private const string NoiseDistanceNodeId = "NOISE_DISTANCE";
         private const string NoiseRaysNodeId = "NOISE_RAYS";
@@ -70,9 +70,7 @@ namespace RGLUnityPlugin
         private int lastUpdateFrame = -1;
 
         // Remove Ground Node parameters
-        private const float GroundAngleThreshold = 5.0f;
-        private const float GroundDistanceThreshold = 0.005f;
-        private const float GroundFilterDistance = 0.5f;
+        private const float GroundAngleThreshold = 10.0f;
 
         public void Awake()
         {
@@ -82,16 +80,16 @@ namespace RGLUnityPlugin
                 .AddNodeRaysTransform(RadarPoseNodeId, Matrix4x4.identity)
                 .AddNodeGaussianNoiseAngularRay(NoiseRaysNodeId, 0, 0)
                 .AddNodeRaytrace(RadarRaytraceNodeId)
-                .AddNodePointsCompact(CompactNodeId)
+                .AddNodePointsCompactByField(CompactHitsNodeId, RGLField.IS_HIT_I32)
                 .AddNodeGaussianNoiseDistance(NoiseDistanceNodeId, 0, 0, 0)
-                .AddNodePointsTransform(ToRadarFrameId, Matrix4x4.identity)
-                .AddNodePointsRemoveGround(RemoveGroundNodeId, GroundAngleThreshold * Mathf.Deg2Rad, GroundDistanceThreshold, GroundFilterDistance)
+                .AddNodePointsFilterGround(FilterGroundNodeId, GroundAngleThreshold * Mathf.Deg2Rad)
+                .AddNodePointsCompactByField(CompactNonGroundNodeId, RGLField.IS_GROUND_I32)
                 .AddNodePointsRadarPostprocess(RadarPostprocessNodeId, 0.1f, 0.1f);
 
-            rglSubgraphToWorldFrame = new RGLNodeSequence()
-                .AddNodePointsTransform(ToWorldFrameId, Matrix4x4.identity);
+            rglSubgraphToRadarFrame = new RGLNodeSequence()
+                .AddNodePointsTransform(ToRadarFrameId, Matrix4x4.identity);
 
-            RGLNodeSequence.Connect(rglGraphRadar, rglSubgraphToWorldFrame);
+            RGLNodeSequence.Connect(rglGraphRadar, rglSubgraphToRadarFrame);
         }
 
         public void Start()
@@ -175,12 +173,12 @@ namespace RGLUnityPlugin
             Capture();
         }
 
-        public void ConnectToWorldFrame(RGLNodeSequence nodeSequence, bool compacted = true)
+        public void ConnectToRadarFrame(RGLNodeSequence nodeSequence)
         {
-            RGLNodeSequence.Connect(rglSubgraphToWorldFrame, nodeSequence);
+            RGLNodeSequence.Connect(rglSubgraphToRadarFrame, nodeSequence);
         }
 
-        public void ConnectToRadarFrame(RGLNodeSequence nodeSequence)
+        public void ConnectToWorldFrame(RGLNodeSequence nodeSequence)
         {
             RGLNodeSequence.Connect(rglGraphRadar, nodeSequence);
         }
@@ -192,8 +190,7 @@ namespace RGLUnityPlugin
             // Set radar pose
             Matrix4x4 radarPose = gameObject.transform.localToWorldMatrix;
             rglGraphRadar.UpdateNodeRaysTransform(RadarPoseNodeId, radarPose);
-            rglGraphRadar.UpdateNodePointsTransform(ToRadarFrameId, radarPose.inverse);
-            rglSubgraphToWorldFrame.UpdateNodePointsTransform(ToWorldFrameId, radarPose);
+            rglSubgraphToRadarFrame.UpdateNodePointsTransform(ToRadarFrameId, radarPose);
 
             SetVelocityToRaytrace();
 
