@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using RGLUnityPlugin;
 
@@ -31,7 +32,7 @@ namespace AWSIM
     }
 
     /// <summary>
-    /// Base class for publisher. It contains:
+    /// Base class for the publisher. It contains:
     /// - serializable fields for topic information and checkbox for publishing activation
     /// - RGL subgraph
     /// - Abstract methods for initialization (creating subgraph) and validation (handling parameters update)
@@ -119,86 +120,6 @@ namespace AWSIM
         }
     }
 
-    public enum PublisherType : UInt32
-    {
-        PointCloud2,
-        RadarScan
-    }
-
-    /// <summary>
-    /// Wrapper for the publisher that changes its type depending on the PublisherType enum.
-    /// </summary>
-    [Serializable]
-    public class PublisherWrapper
-    {
-        public PublisherType publisherType;
-        private PublisherType? publisherTypePrev = null;
-        [SerializeReference]
-        public BasePublisher publisher;
-
-        private bool isInitialized = false;
-
-        // Allow creating PublisherWrapper based on any BasePublisher
-        public PublisherWrapper(BasePublisher publisher)
-        {
-            publisherType = GetPublisherType(publisher);
-            publisherTypePrev = publisherType;
-            this.publisher = publisher;
-        }
-
-        // Implicit conversion from any BasePublisher to PublisherWrapper
-        public static implicit operator PublisherWrapper(BasePublisher publisher)
-        {
-            return new PublisherWrapper(publisher);
-        }
-
-        public void OnValidate()
-        {
-            // If publisher type has changed, create a new publisher
-            if (publisherTypePrev == null || publisherType != publisherTypePrev)
-            {
-                publisher = CreatePublisher(publisherType);
-                publisherTypePrev = publisherType;
-            }
-            publisher.OnValidate();
-        }
-
-        public void OnDestroy()
-        {
-            publisher.OnDestroy();
-        }
-
-        public void Initialize(RGLNodeSequence parentSubgraph, string frameId, RglQos qos)
-        {
-            if (isInitialized)
-            {
-                throw new InvalidOperationException("Publisher is already initialized");
-            }
-            publisher.Initialize(parentSubgraph, frameId, qos);
-            isInitialized = true;
-        }
-
-        private PublisherType GetPublisherType(BasePublisher inPublisher)
-        {
-            return inPublisher switch
-            {
-                PointCloud2Publisher _ => PublisherType.PointCloud2,
-                RadarScanPublisher _ => PublisherType.RadarScan,
-                _ => throw new ArgumentOutOfRangeException()
-            };
-        }
-
-        private BasePublisher CreatePublisher(PublisherType inPublisherType)
-        {
-            return inPublisherType switch
-            {
-                PublisherType.PointCloud2 => new PointCloud2Publisher(),
-                PublisherType.RadarScan => new RadarScanPublisher(),
-                _ => throw new ArgumentOutOfRangeException()
-            };
-        }
-    }
-
     /// <summary>
     /// ROS2 publishing component for Robotec GPU Lidar Unity Plugin.
     /// </summary>
@@ -209,10 +130,14 @@ namespace AWSIM
         [Tooltip("Quality of service settings. Resolved on simulation startup only.")]
         public RglQos qos;
 
-        [Tooltip(
-            "Array of publishers. They are initialized on simulation startup only and updates of parameters are not supported.")]
-        public PublisherWrapper[] publishers =
+        // There was an attempt to enclose all kinds of publishers into one List by creating PublisherWrapper with BasePublisher and an enum
+        // to allow the selection of publisher type by the user and instantiate the concrete publisher (e.g. PointCloud2Publisher or RadarScanPublisher).
+        // Still, the unity serialization didn't handle that implementation properly (all publishers were cleared when adding/removing elements from the List).
+
+        [Tooltip("Array of PointCloud2 publishers. They are initialized on simulation startup only and updates of parameters are not supported in runtime.")]
+        public List<PointCloud2Publisher> pointCloud2Publishers = new List<PointCloud2Publisher>()
         {
+            // Default PointCloud2 publishers
             new PointCloud2Publisher()
             {
                 topic = "lidar/pointcloud",
@@ -226,6 +151,9 @@ namespace AWSIM
                 fieldsPreset = PointCloudFormat.Pcl48,
             },
         };
+
+        [Tooltip("Array of RadarScan publishers. They are initialized on simulation startup only and updates of parameters are not supported in runtime.")]
+        public List<RadarScanPublisher> radarScanPublishers = new List<RadarScanPublisher>();
 
         private const string TransformNodeId = "UNITY_TO_ROS";
 
@@ -269,7 +197,11 @@ namespace AWSIM
                 return;
             }
 
-            foreach (var publisher in publishers)
+            foreach (var publisher in pointCloud2Publishers)
+            {
+                publisher.Initialize(rglSubgraphUnity2Ros, frameId, qos);
+            }
+            foreach (var publisher in radarScanPublishers)
             {
                 publisher.Initialize(rglSubgraphUnity2Ros, frameId, qos);
             }
@@ -277,7 +209,11 @@ namespace AWSIM
 
         public void OnValidate()
         {
-            foreach (var publisher in publishers)
+            foreach (var publisher in pointCloud2Publishers)
+            {
+                publisher.OnValidate();
+            }
+            foreach (var publisher in radarScanPublishers)
             {
                 publisher.OnValidate();
             }
@@ -296,7 +232,11 @@ namespace AWSIM
 
         private void OnDestroy()
         {
-            foreach (var publisher in publishers)
+            foreach (var publisher in pointCloud2Publishers)
+            {
+                publisher.OnDestroy();
+            }
+            foreach (var publisher in radarScanPublishers)
             {
                 publisher.OnDestroy();
             }
