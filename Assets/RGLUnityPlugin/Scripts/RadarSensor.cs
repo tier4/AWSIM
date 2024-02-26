@@ -190,7 +190,7 @@ namespace RGLUnityPlugin
             // Set radar pose
             Matrix4x4 radarPose = gameObject.transform.localToWorldMatrix;
             rglGraphRadar.UpdateNodeRaysTransform(RadarPoseNodeId, radarPose);
-            rglSubgraphToRadarFrame.UpdateNodePointsTransform(ToRadarFrameId, radarPose);
+            rglSubgraphToRadarFrame.UpdateNodePointsTransform(ToRadarFrameId, radarPose.inverse);
 
             SetVelocityToRaytrace();
 
