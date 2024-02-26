@@ -35,16 +35,18 @@ Assets/AWSIM/Prefabs/RobotecGPULidars/*
 
 The table of available prefabs can be found below:
 
-| LiDAR                 | Path                     | Appearance                                        |
-| :-------------------- | :----------------------- | :------------------------------------------------ |
-| *HESAI Pandar40P*     | `HesaiPandar40P.prefab`  | <img src=imgs_prefabs/pandar40p.png width=150px>  |
-| *HESAI PandarQT64*    | `HesaiPandarQT64.prefab` | <img src=imgs_prefabs/pandarqt.png width=150px>   |
-| *HESAI PandarXT32*    | `HesaiPandarXT32.prefab` | <img src=imgs_prefabs/pandarxt32.png width=150px> |
-| *HESAI AT128 E2X*     | `HesaiAT128E2X.prefab`   | <img src=imgs_prefabs/at128e2x.png width=150px>   |
-| *Ouster OS1-64*       | `OusterOS1-64.prefab`    | <img src=imgs_prefabs/os1-64.png width=150px>     |
-| *Velodyne VLP-16*     | `VelodyneVLP16.prefab`   | <img src=imgs_prefabs/vlp16.png width=150px>      |
-| *Velodyne VLC-32C*    | `VelodyneVLP32C.prefab`  | <img src=imgs_prefabs/vlp32.png width=150px>      |
-| *Velodyne VLS-128-AP* | `VelodyneVLS128.prefab`  | <img src=imgs_prefabs/vls128.png width=150px>     |
+| LiDAR                 | Path                       | Appearance                                          |
+| :-------------------- | :-----------------------   | :------------------------------------------------   |
+| *HESAI Pandar40P*     | `HesaiPandar40P.prefab`    | <img src=imgs_prefabs/pandar40p.png width=150px>    |
+| *HESAI PandarQT64*    | `HesaiPandarQT64.prefab`   | <img src=imgs_prefabs/pandarqt.png width=150px>     |
+| *HESAI PandarXT32*    | `HesaiPandarXT32.prefab`   | <img src=imgs_prefabs/pandarxt32.png width=150px>   |
+| *HESAI QT128C2X*      | `HesaiQT128C2X.prefab`     | <img src=imgs_prefabs/qt1238c2x.png width=150px>    |
+| *HESAI Pandar128E4X*  | `HesaiPandar128E4X.prefab` | <img src=imgs_prefabs/pandar128e4x.png width=150px> |
+| *HESAI AT128 E2X*     | `HesaiAT128E2X.prefab`     | <img src=imgs_prefabs/at128e2x.png width=150px>     |
+| *Ouster OS1-64*       | `OusterOS1-64.prefab`      | <img src=imgs_prefabs/os1-64.png width=150px>       |
+| *Velodyne VLP-16*     | `VelodyneVLP16.prefab`     | <img src=imgs_prefabs/vlp16.png width=150px>        |
+| *Velodyne VLC-32C*    | `VelodyneVLP32C.prefab`    | <img src=imgs_prefabs/vlp32.png width=150px>        |
+| *Velodyne VLS-128-AP* | `VelodyneVLS128.prefab`    | <img src=imgs_prefabs/vls128.png width=150px>       |
 
 ### Link in the default Scene
 ![link](link.png)
@@ -89,13 +91,6 @@ The pipeline consists of:
 - removing non-hits from the result point cloud,
 - transforming point cloud to sensor frame coordinate system.
 
-`LidarSensor` provides public methods to extend this pipeline with additional `RGL` nodes.
-In this way, other components can request point cloud processing operations and receive data in the desired format.
-
-`LidarSensor` component in the output provides 3 types of data.
-Two of them: *rosPCL24* and *rosPCL48* are point clouds that are published by the [*RglLidarPublisher*](#rgl-lidar-publisher-script) component.
-Whereas vector *onlyHits* is used for visualization by the [*PointCloudVisualization*](#point-cloud-visualization-script) component.
-
 #### Elements configurable from the editor level
 - `Automatic Capture Hz` - the rate of sensor processing (default: `10Hz`)
 - `Model Preset` - allows selecting one of the built-in *LiDAR* models (default: `RangeMeter`)
@@ -103,16 +98,12 @@ Whereas vector *onlyHits* is used for visualization by the [*PointCloudVisualiza
 - `Apply Angular Gaussian Noise` - enable/disable angular *Gaussian* noise (default: `true`)
 - `Apply Velocity Distortion` - enable/disable velocity distortion (default: `false`)
 - *Configuration*:
-    - `Ray Generate Method` - method that lidar's rays are generated:
-        1. `Rotating Lidar Equal Range` - rays are generated for rotating lidar with equal range for all of the lasers (described with `Min Range` and `Max Range`)
-        2. `Rotating Lidar Different Laser Ranges` - rays are generated for rotating lidar with different ranges for the lasers (described in `Laser Array`)
-        3. `Hesai AT128` - rays are generated in specific way to Hesai AT128 lidar
     - `Laser Array` - geometry description of lidar's array of lasers, should be prepared on the basis of the manual for a given model of *LiDAR* (default: loaded from `LaserArrayLibrary`)
     - `Horizontal Resolution` - the horiontal resolution of laser array firings
     - `Min H Angle` - minimum horizontal angle, left (default: `0`)
     - `Max H Angle` - maximum horizontal angle, right (default: `0`)
-    - `Min Range` - minimum range of the sensor (applied when `Ray Generate Method` is `Rotating Lidar Equal Range`)
-    - `Max Range` - maximum range of the sensor (applied when `Ray Generate Method` is `Rotating Lidar Equal Range`)
+    - `Laser Array Cycle Time` - time between two consecutive firings of the whole laser array in milliseconds (default: `0`); used for velocity distortion feature.
+    - `Beam Divergence` - represents the deviation of photons from a single beam emitted by a LiDAR sensor (in degrees); used for simulating snow only (private feature).
     - *Noise Params*: 
         - `Angular Noise Type` - angular noise type<br>(default: `Ray Based`)
         - `Angular Noise St Dev` - angular noise standard deviation in degree<br>(default: `0.05729578`)
@@ -120,13 +111,30 @@ Whereas vector *onlyHits* is used for visualization by the [*PointCloudVisualiza
         - `Distance Noise St Dev Base` - distance noise standard deviation base in meters<br>(default: `0.02`)
         - `Distance Noise Rise Per Meter` - distance noise standard deviation rise per meter<br>(default: `0`)
         - `Distance Noise Mean` - distance noise mean in meters<br>(default: `0`)
+    - *Additional options (available for some Lidar Model Preset)*
+        - `Min Range` - minimum range of the sensor (if not avaiable, the range is different for each laser in `Laser Array`)
+        - `Max Range` - maximum range of the sensor (if not avaiable, the range is different for each laser in `Laser Array`)
+        - `High Resolution Mode Enabled` - whether to activate high resolution mode (available for `Hesai Pandar 128E4X` LiDAR model)
 
 #### Output Data
-|  Category  |    Type    | Description                                                                               |
-| :--------: | :--------: | :---------------------------------------------------------------------------------------- |
-| *onlyHits* | Vector3[ ] | Vertices for visualization in *Unity's* coordinate system                                 |
-| *rosPCL24* |  byte[ ]   | Vertices for publishing *Autoware* format pointcloud in *ROS2* coordinate system          |
-| *rosPCL48* |  byte[ ]   | Vertices for publishing extended *Autoware* format pointcloud in *ROS2* coordinate system |
+`LidarSensor` provides public methods to extend this pipeline with additional `RGL` nodes.
+In this way, other components can request point cloud processing operations and receive data in the desired format.
+
+Example of how to get XYZ point cloud data:
+
+1. To obtain point cloud data from another component you have to create a new `RGLNodeSequence` with RGL node to yield XYZ field and connect it to `LidarSensor`:
+   ```cs
+   rglOutSubgraph = new RGLNodeSequence().AddNodePointsYield("OUT_XYZ", RGLField.XYZ_F32);
+   lidarSensor = GetComponent<LidarSensor>();
+   lidarSensor.ConnectToWorldFrame(rglOutSubgraph); // you can also connect to Lidar frame using ConnectToLidarFrame
+   // You can add a callback to receive a notification when new data is ready
+   lidarSensor.onNewData += HandleLidarDataMethod;
+   ```
+1. To get data from `RGLNodeSequence` call `GetResultData`:
+   ```cs
+   Vector3[] xyz = new Vector3[0];
+   rglOutSubgraph.GetResultData<Vector3>(ref xyz);
+   ```
 
 ## Rgl Lidar Publisher (script)
 ![script_ros2](script_ros2.png)
@@ -207,7 +215,7 @@ To ensure the publication of the information described in this section, *GameObj
 Point cloud containing intensity is published on the *ROS2* topic via `RglLidarPublisher` component. The intensity value is stored in the `intensity` field of the `sensor_msgs/PointCloud2` message.
 
 ### Instance segmentation
-`RGL Unity Plugin` allows assigning an ID to *GameObjects* to produce a point cloud containing information about hit objects. It can be used for instance/semantic segmentation tasks.
+`RGL Unity Plugin` allows assigning an ID to *GameObjects* to produce a point cloud containing information about hit objects. It can be used for instance/semantic segmentation tasks. [This](../ReadMaterialInformation/#add-id-assignment) tutorial describes how to do it.
 
 !!! note "LidarInstanceSegmentationDemo"
     If you would like to see how `LidarInstanceSegmentationDemo` works using `RGL` or run some tests, we encourage you to familiarize yourself with this [section](../../../../ProjectGuide/Scenes/#rgl-test-scenes).

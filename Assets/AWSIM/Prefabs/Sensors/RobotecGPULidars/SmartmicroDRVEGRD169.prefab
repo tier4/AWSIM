@@ -95,15 +95,15 @@ MonoBehaviour:
   applyAngularGaussianNoise: 1
   modelPreset: 1
   configuration:
-    MinRange: 0.6
-    MaxRange: 56
-    MinAzimuthAngle: -65
-    MaxAzimuthAngle: 65
-    MinElevationAngle: -7.5
-    MaxElevationAngle: 7.5
-    RangeSeparation: 0.6
-    AzimuthSeparation: 8
-    NoiseParams:
+    minRange: 0.6
+    maxRange: 56
+    minAzimuthAngle: -65
+    maxAzimuthAngle: 65
+    minElevationAngle: -7.5
+    maxElevationAngle: 7.5
+    rangeSeparation: 0.6
+    azimuthSeparation: 8
+    noiseParams:
       angularNoiseStDev: 0.057295784
       angularNoiseMean: 0
       distanceNoiseStDevBase: 0.02

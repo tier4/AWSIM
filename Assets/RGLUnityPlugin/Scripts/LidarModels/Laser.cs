@@ -54,11 +54,13 @@ namespace RGLUnityPlugin
 
         /// <summary>
         /// Minimum range of the laser.
+        /// Note: May be ignored for some `LidarConfiguration`s (e.g. `UniformRangeLidarConfiguration`)
         /// </summary>
         public float minRange;
 
         /// <summary>
         /// Maximum range of the laser.
+        /// Note: May be ignored for some `LidarConfiguration`s (e.g. `UniformRangeLidarConfiguration`)
         /// </summary>
         public float maxRange;
 
@@ -79,6 +81,6 @@ namespace RGLUnityPlugin
             return obj is Laser equatable && Equals(equatable);
         }
 
-        public override int GetHashCode() => (horizontalAngularOffsetDeg, verticalAngularOffsetDeg, verticalLinearOffsetMm, ringId).GetHashCode();
+        public override int GetHashCode() => (horizontalAngularOffsetDeg, verticalAngularOffsetDeg, verticalLinearOffsetMm, ringId, timeOffset, minRange, maxRange).GetHashCode();
     }
 }
