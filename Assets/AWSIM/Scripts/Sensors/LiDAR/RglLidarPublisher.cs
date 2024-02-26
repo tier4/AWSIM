@@ -134,7 +134,7 @@ namespace AWSIM
         // to allow the selection of publisher type by the user and instantiate the concrete publisher (e.g. PointCloud2Publisher or RadarScanPublisher).
         // Still, the unity serialization didn't handle that implementation properly (all publishers were cleared when adding/removing elements from the List).
 
-        [Tooltip("Array of PointCloud2 publishers. They are initialized on simulation startup only and updates of parameters are not supported in runtime.")]
+        [Tooltip("Array of PointCloud2 publishers. They are initialized on simulation startup and updates of their parameters are not supported in runtime.")]
         public List<PointCloud2Publisher> pointCloud2Publishers = new List<PointCloud2Publisher>()
         {
             // Default PointCloud2 publishers
@@ -152,7 +152,7 @@ namespace AWSIM
             },
         };
 
-        [Tooltip("Array of RadarScan publishers. They are initialized on simulation startup only and updates of parameters are not supported in runtime.")]
+        [Tooltip("Array of RadarScan publishers. They are initialized on simulation startup and updates of their parameters are not supported in runtime.")]
         public List<RadarScanPublisher> radarScanPublishers = new List<RadarScanPublisher>();
 
         private const string TransformNodeId = "UNITY_TO_ROS";
