@@ -12,7 +12,7 @@ namespace AWSIM
     {
         [SerializeField] TrafficManager trafficManager;
         [SerializeField] Transform egoTransform;
-        private TimeSourceSelector timeSourceSelector;
+        [SerializeField] TimeSourceSelector timeSourceSelector;
 
         [Header("Player Config")]
         [SerializeField] string commandLineConfigParam = "--json_path";
@@ -42,7 +42,11 @@ namespace AWSIM
 
         void Awake()
         {
-            CollectComponents();
+            // check if time source selector is present
+            if(timeSourceSelector == null)
+            {
+                Debug.LogWarning("TimeSource: There is no TimeSourceSelector object assigned in the inspector. The default time source will be used.");
+            }
 
 #if !UNITY_EDITOR
             // initialize
@@ -68,16 +72,6 @@ namespace AWSIM
 
                 // set time source
                 timeSourceSelector?.SetType(config.TimeSource);
-            }
-        }
-
-        void CollectComponents()
-        {
-            // get time source selector
-            timeSourceSelector = FindObjectOfType<TimeSourceSelector>();
-            if(timeSourceSelector == null)
-            {
-                Debug.LogWarning("TimeSource: There is no TimeSourceSelector object in the active scene. The default time source will be used.");
             }
         }
     }
