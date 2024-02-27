@@ -54,6 +54,8 @@ nav:
     - External Libraries: ProjectGuide/ExternalLibraries/index.md
 
   - Components:
+    - Clock:
+      - Clock Publisher: Components/Clock/ClockPublisher/index.md
     - Vehicle:
       - Ego Vehicle: Components/Vehicle/EgoVehicle/index.md
       - URDF And Sensors: Components/Vehicle/URDFAndSensors/index.md
