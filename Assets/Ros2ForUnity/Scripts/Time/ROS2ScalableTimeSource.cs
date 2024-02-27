@@ -21,6 +21,7 @@ namespace ROS2
 /// <summary>
 /// ros2 time source (system time by default).
 /// </summary>
+[System.Obsolete("This TimeSource is deprecated and will be removed in the future versions. Please use DotNetSystemTimeSource instead.")]
 public class ROS2ScalableTimeSource : ITimeSource
 {
   private Thread mainThread;

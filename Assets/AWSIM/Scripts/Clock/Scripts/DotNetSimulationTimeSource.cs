@@ -5,10 +5,11 @@ using ROS2;
 namespace AWSIM
 {
     /// <summary>
-    /// A thread-safe timesource class that provides the dot net system utc time since epoch.
-    /// This timesource takes into account the value of the simulation timescale.
+    /// A thread-safe timesource class that provides simulation time based on the dot net system utc time.
+    /// This time source takes into account the value of the simulation timescale and
+    /// starts at zero value when the simulation is started.
     /// </summary>
-    public class DotNetSystemTimeSource : ITimeSource
+    public class DotNetSimulationTimeSource : ITimeSource
     {
         private DateTime prevDateTime;
         private double time;
@@ -16,7 +17,7 @@ namespace AWSIM
 
         private readonly object lockObject = new object();
 
-        public DotNetSystemTimeSource()
+        public DotNetSimulationTimeSource()
         {
             hasStarted = false;
         }
@@ -30,10 +31,7 @@ namespace AWSIM
                 if(!hasStarted)
                 {
                     hasStarted = true;
-
-                    // get the time in millisecond since epoch
-                    long timeOffset = ((DateTimeOffset)currDateTime).ToUnixTimeMilliseconds();
-                    time = (double)timeOffset * 0.001;
+                    time = 0.0;
 
                     prevDateTime = currDateTime;
                 }
@@ -41,7 +39,7 @@ namespace AWSIM
                 TimeSpan timeSpan = currDateTime - prevDateTime;
                 prevDateTime = currDateTime;
 
-                time += timeSpan.TotalMilliseconds * 0.001 * TimeScaleProvider.TimeScale;
+                time += timeSpan.TotalMilliseconds * 0.001f * TimeScaleProvider.TimeScale;
                 TimeUtils.TimeFromTotalSeconds(time, out seconds, out nanoseconds);
             }
         }

@@ -3,20 +3,20 @@ using UnityEngine;
 namespace AWSIM
 {
     /// <summary>
-    /// A thread-safe static class to provide the value of the time scale of the simulation.
+    /// A thread-safe static class to provide the value of the Unity time as double.
     /// </summary>
-    public static class TimeScaleProvider
+    public static class TimeAsDoubleProvider
     {
         private static readonly object lockObject = new object();
 
-        private static float timeScale = 1.0f;
-        public static float TimeScale
+        private static double timeAsDouble = 0.0;
+        public static double TimeAsDouble
         {
             get
             {
-                lock (lockObject)
+                lock(lockObject)
                 {
-                    return timeScale;
+                    return timeAsDouble;
                 }
             }
         }
@@ -25,13 +25,13 @@ namespace AWSIM
         #region [Public Methods]
 
         /// <summary>
-        /// Synchronise the value of the timeScale variable with the Time.timeScale from the Unity thread.
+        /// Synchronise the value of the timeAsDouble variable with the Time.timeAsDouble from the Unity thread.
         /// </summary>
         public static void DoUpdate()
         {
             lock(lockObject)
             {
-                timeScale = Time.timeScale;
+                timeAsDouble = Time.timeAsDouble;
             }
         }
 
