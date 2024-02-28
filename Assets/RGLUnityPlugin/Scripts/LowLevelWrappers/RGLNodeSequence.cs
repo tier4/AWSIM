@@ -237,6 +237,38 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence AddNodePublishRos2RadarScan(
+            string identifier, string topicName, string frameId,
+            RGLQosPolicyReliability reliability = RGLQosPolicyReliability.QOS_POLICY_RELIABILITY_SYSTEM_DEFAULT,
+            RGLQosPolicyDurability durability = RGLQosPolicyDurability.QOS_POLICY_DURABILITY_SYSTEM_DEFAULT,
+            RGLQosPolicyHistory history = RGLQosPolicyHistory.QOS_POLICY_HISTORY_SYSTEM_DEFAULT,
+            int historyDepth = 5)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePublishRos2RadarScan(ref handle.Node, topicName, frameId, reliability, durability, history, historyDepth);
+            handle.Identifier = identifier;
+            handle.Type = RGLNodeType.PUBLISH_ROS2_RADARSCAN;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLNodeSequence AddNodePublishRos2RadarScan(
+            string identifier, string topicName, string frameId,
+            RGLQosPolicyReliability reliability = RGLQosPolicyReliability.QOS_POLICY_RELIABILITY_SYSTEM_DEFAULT,
+            RGLQosPolicyDurability durability = RGLQosPolicyDurability.QOS_POLICY_DURABILITY_SYSTEM_DEFAULT,
+            RGLQosPolicyHistory history = RGLQosPolicyHistory.QOS_POLICY_HISTORY_SYSTEM_DEFAULT,
+            int historyDepth = 5)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePublishRos2RadarScan(ref handle.Node, topicName, frameId, reliability, durability, history, historyDepth);
+            handle.Identifier = identifier;
+            handle.Type = RGLNodeType.PUBLISH_ROS2_RADARSCAN;
+            AddNode(handle);
+            return this;
+        }
+
         public RGLNodeSequence AddNodePointsUdpPublish(string identifier, RGLLidarModel lidarModel, RGLReturnMode returnMode, RGLUdpOptions udpOptions, string deviceIp, string destIp, int destPort)
         {
             CheckNodeNotExist(identifier);
@@ -440,14 +472,14 @@ namespace RGLUnityPlugin
             RGLNodeHandle handle = ValidateOutputNode();
             unsafe
             {
-                return RGLNativeAPI.GraphGetResult<T>(handle.Node, handle.OutputField, ref data, sizeof(T));
+                return RGLNativeAPI.GraphGetResult<T>(handle.Node, handle.OutputField.Value, ref data, sizeof(T));
             }
         }
 
         public int GetResultDataRaw(ref byte[] data, int expectedPointSize)
         {
             RGLNodeHandle handle = ValidateOutputNode();
-            return RGLNativeAPI.GraphGetResult<byte>(handle.Node, handle.OutputField, ref data, expectedPointSize);
+            return RGLNativeAPI.GraphGetResult<byte>(handle.Node, handle.OutputField.Value, ref data, expectedPointSize);
         }
 
         public int GetPointCloudCount(string identifier = null, RGLField field = RGLField.XYZ_VEC3_F32)
@@ -568,7 +600,7 @@ namespace RGLUnityPlugin
             {
                 throw new RGLException("Attempted to get result data from empty NodeSequence!");
             }
-            if (outputNode.OutputField == RGLField.UNKNOWN)
+            if (outputNode.OutputField == null)
             {
                 throw new RGLException("Attempted to get result data but output node was not found on the last position in the NodeSequence!");
             }
