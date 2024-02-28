@@ -86,8 +86,11 @@ namespace AWSIM
             }
 
             // To enable/disable subgraph apply desired state to both nodes
-            publisherSubgraph?.SetActive(FormatNodeId, publish);
-            publisherSubgraph?.SetActive(PublishNodeId, publish);
+            if (publisherSubgraph != null)
+            {
+                publisherSubgraph.SetActive(FormatNodeId, publish);
+                publisherSubgraph.SetActive(PublishNodeId, publish);
+            }
         }
 
         public override void Initialize(RGLNodeSequence parentSubgraph, string frameId, RglQos qos)

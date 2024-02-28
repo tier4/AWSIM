@@ -148,7 +148,7 @@ Currently, `RglLidarPublisher` implements ROS2 publishers for two message types:
 - [sensor_msgs/PointCloud2](https://docs.ros2.org/latest/api/sensor_msgs/msg/PointCloud2.html)
 - [radar_msgs/RadarScan](http://docs.ros.org/en/noetic/api/radar_msgs/html/msg/RadarScan.html)
 
-`PointCloud2` message allows publishing of the point cloud with different points attributes (described by `fields` parameter). In order to easily select different frequently used field sets `RglLidarPublisher` have several field presets defined:
+`PointCloud2` message allows publishing point clouds with different points attributes (described by `fields` parameter). In order to easily select different frequently used field sets `RglLidarPublisher` has several field presets defined:
 
 | Preset     | Description            | Fields                             |
 | :--------: | :--------------------- | :---------------------------------- |
@@ -178,7 +178,7 @@ Currently, `RglLidarPublisher` implements ROS2 publishers for two message types:
     - `Publish` - If false, publishing will be stopped
 
 !!! note "Elements configurable in simulation runtime"
-    Once the simulation starts, only the `Publish` flag is handled. All of the publishers are initialized on the simulation startup and updates of their parameters are not supported in runtime.
+    Once the simulation starts, only the `Publish` flag is handled. All of the publishers are initialized on the simulation startup and updates of their parameters are not supported in runtime. Any changes to the publishing configuration are ignored.
 
 #### Default Publishing Topics
 - Frequency: `10Hz`
