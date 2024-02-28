@@ -46,19 +46,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87ba9656cbd67467f8119d8666b098aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pcl24Topic: lidar/pointcloud
-  pcl48Topic: lidar/pointcloud_ex
-  instanceIdTopic: lidar/instance_id
-  radarTopic: radar/pointcloud
-  frameID: world
-  publishPCL24: 0
-  publishPCL48: 0
-  publishInstanceId: 0
-  publishRadar: 1
-  reliabilityPolicy: 2
-  durabilityPolicy: 2
-  historyPolicy: 1
-  historyDepth: 5
+  frameId: world
+  qos:
+    reliabilityPolicy: 2
+    durabilityPolicy: 2
+    historyPolicy: 1
+    historyDepth: 5
+  pointCloud2Publishers:
+  - topic: radar/pointcloud
+    publish: 1
+    fieldsPreset: 3
+    fields: 010000000f00000010000000110000001200000013000000
+  radarScanPublishers:
+  - topic: radar/radarscan
+    publish: 1
 --- !u!114 &1064337619667721443
 MonoBehaviour:
   m_ObjectHideFlags: 0
