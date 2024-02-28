@@ -478,6 +478,14 @@ PrefabInstance:
       propertyPath: instanceIdTopic
       value: vlp16/instance_id
       objectReference: {fileID: 0}
+    - target: {fileID: 5865029131659967986, guid: 9351c3661d105f12f9fe2819a1203053, type: 3}
+      propertyPath: pointCloud2Publishers.Array.data[0].topic
+      value: VelodyneVLP16/pointcloud
+      objectReference: {fileID: 0}
+    - target: {fileID: 5865029131659967986, guid: 9351c3661d105f12f9fe2819a1203053, type: 3}
+      propertyPath: pointCloud2Publishers.Array.data[1].topic
+      value: VelodyneVLP16/pointcloud_ex
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9351c3661d105f12f9fe2819a1203053, type: 3}
 --- !u!1 &1103788748
@@ -715,6 +723,14 @@ PrefabInstance:
     - target: {fileID: -3210104300672289462, guid: 34b18e0520347e64888d17bb72dc04c5, type: 3}
       propertyPath: instanceIdTopic
       value: hesaiqt64/instance_id
+      objectReference: {fileID: 0}
+    - target: {fileID: -3210104300672289462, guid: 34b18e0520347e64888d17bb72dc04c5, type: 3}
+      propertyPath: pointCloud2Publishers.Array.data[0].topic
+      value: HesaiPandarQT64/pointcloud
+      objectReference: {fileID: 0}
+    - target: {fileID: -3210104300672289462, guid: 34b18e0520347e64888d17bb72dc04c5, type: 3}
+      propertyPath: pointCloud2Publishers.Array.data[1].topic
+      value: HesaiPandarQT64/pointcloud_ex
       objectReference: {fileID: 0}
     - target: {fileID: 8071778657658549636, guid: 34b18e0520347e64888d17bb72dc04c5, type: 3}
       propertyPath: m_Name
@@ -1025,6 +1041,14 @@ PrefabInstance:
       propertyPath: instanceIdTopic
       value: hesaiat128/instance_id
       objectReference: {fileID: 0}
+    - target: {fileID: 5823733368168859464, guid: 6ae91458b98f63ddba357afdb0be727f, type: 3}
+      propertyPath: pointCloud2Publishers.Array.data[0].topic
+      value: HesaiAT128E2X/pointcloud
+      objectReference: {fileID: 0}
+    - target: {fileID: 5823733368168859464, guid: 6ae91458b98f63ddba357afdb0be727f, type: 3}
+      propertyPath: pointCloud2Publishers.Array.data[1].topic
+      value: HesaiAT128E2X/pointcloud_ex
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ae91458b98f63ddba357afdb0be727f, type: 3}
 --- !u!1001 &1219701073
@@ -1045,6 +1069,14 @@ PrefabInstance:
     - target: {fileID: -4029857326591278918, guid: 8d984c5e45c176ab088ad8f798eceff7, type: 3}
       propertyPath: instanceIdTopic
       value: vls128/instance_id
+      objectReference: {fileID: 0}
+    - target: {fileID: -4029857326591278918, guid: 8d984c5e45c176ab088ad8f798eceff7, type: 3}
+      propertyPath: pointCloud2Publishers.Array.data[0].topic
+      value: VelodyneVLS128/pointcloud
+      objectReference: {fileID: 0}
+    - target: {fileID: -4029857326591278918, guid: 8d984c5e45c176ab088ad8f798eceff7, type: 3}
+      propertyPath: pointCloud2Publishers.Array.data[1].topic
+      value: VelodyneVLS128/pointcloud_ex
       objectReference: {fileID: 0}
     - target: {fileID: 7245255253604249416, guid: 8d984c5e45c176ab088ad8f798eceff7, type: 3}
       propertyPath: m_RootOrder
@@ -1600,6 +1632,14 @@ PrefabInstance:
     - target: {fileID: 6585696430321227412, guid: 73f113c9713f1891ea88c29955c74344, type: 3}
       propertyPath: instanceIdTopic
       value: hesai40p/instance_id
+      objectReference: {fileID: 0}
+    - target: {fileID: 6585696430321227412, guid: 73f113c9713f1891ea88c29955c74344, type: 3}
+      propertyPath: pointCloud2Publishers.Array.data[0].topic
+      value: HesaiPandar40P/pointcloud
+      objectReference: {fileID: 0}
+    - target: {fileID: 6585696430321227412, guid: 73f113c9713f1891ea88c29955c74344, type: 3}
+      propertyPath: pointCloud2Publishers.Array.data[1].topic
+      value: HesaiPandar40P/pointcloud_ex
       objectReference: {fileID: 0}
     - target: {fileID: 8634644705376915353, guid: 73f113c9713f1891ea88c29955c74344, type: 3}
       propertyPath: m_Name
