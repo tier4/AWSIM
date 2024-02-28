@@ -114,6 +114,10 @@ namespace RGLUnityPlugin
             RGLQosPolicyReliability qos_reliability, RGLQosPolicyDurability qos_durability, RGLQosPolicyHistory qos_history, int qos_depth);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_publish_ros2_radarscan(ref IntPtr node, [MarshalAs(UnmanagedType.LPStr)] string topic_name, [MarshalAs(UnmanagedType.LPStr)] string frame_id,
+            RGLQosPolicyReliability qos_reliability, RGLQosPolicyDurability qos_durability, RGLQosPolicyHistory qos_history, int qos_depth);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_udp_publish(
             ref IntPtr node, RGLLidarModel lidar_model, RGLUdpOptions udp_options, [MarshalAs(UnmanagedType.LPStr)] string device_ip,
             [MarshalAs(UnmanagedType.LPStr)] string dest_ip, int dest_port);
@@ -464,6 +468,13 @@ namespace RGLUnityPlugin
             RGLQosPolicyReliability qos_reliability, RGLQosPolicyDurability qos_durability, RGLQosPolicyHistory qos_history, int qos_depth)
         {
             CheckErr(rgl_node_points_ros2_publish_with_qos(ref node, topicName, frameId, qos_reliability, qos_durability, qos_history, qos_depth));
+        }
+
+        public static void NodePublishRos2RadarScan(
+            ref IntPtr node, string topicName, string frameId,
+            RGLQosPolicyReliability qos_reliability, RGLQosPolicyDurability qos_durability, RGLQosPolicyHistory qos_history, int qos_depth)
+        {
+            CheckErr(rgl_node_publish_ros2_radarscan(ref node, topicName, frameId, qos_reliability, qos_durability, qos_history, qos_depth));
         }
 
         public static void NodePointsUdpPublish(ref IntPtr node, RGLLidarModel lidarModel, RGLUdpOptions udpOptions, string deviceIp, string destIp, int destPort)
