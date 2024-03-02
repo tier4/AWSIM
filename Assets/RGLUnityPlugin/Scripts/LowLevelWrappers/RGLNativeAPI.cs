@@ -135,7 +135,7 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_points_filter_ground(ref IntPtr node, IntPtr sensor_up_vector, float ground_angle_threshold);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_points_radar_postprocess(ref IntPtr node, float distance_separation, float azimuth_separation);
+        public static extern int rgl_node_points_radar_postprocess(ref IntPtr node, IntPtr ranged_separations, int ranged_separations_count, float azimuth_separation);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_simulate_snow(ref IntPtr node, float min_range, float max_range, float rain_rate,
@@ -510,9 +510,15 @@ namespace RGLUnityPlugin
             }
         }
 
-        public static void NodePointsRadarPostprocess(ref IntPtr node, float distanceSeparation, float azimuthSeparation)
+        public static void NodePointsRadarPostprocess(ref IntPtr node, RangedSeparations[] rangedSeparations, float azimuthSeparation)
         {
-            CheckErr(rgl_node_points_radar_postprocess(ref node, distanceSeparation, azimuthSeparation));
+            unsafe
+            {
+                fixed (RangedSeparations* pRangedSeparations = rangedSeparations)
+                {
+                    CheckErr(rgl_node_points_radar_postprocess(ref node, (IntPtr) pRangedSeparations, rangedSeparations.Length, azimuthSeparation));
+                }
+            }
         }
 
         public static void NodePointsSimulateSnow(ref IntPtr node, float minRange, float maxRange, float rainRate,

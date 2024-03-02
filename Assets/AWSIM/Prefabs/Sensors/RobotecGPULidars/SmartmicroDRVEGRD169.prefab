@@ -102,10 +102,19 @@ MonoBehaviour:
     maxAzimuthAngle: 65
     minElevationAngle: -7.5
     maxElevationAngle: 7.5
-    rangeSeparation: 0.6
+    rangedSeparations:
+    - separationsUpperDistanceRange: 9.5
+      distanceSeparation: 0.15
+      velocitySeparation: 0.15
+    - separationsUpperDistanceRange: 19
+      distanceSeparation: 0.3
+      velocitySeparation: 0.3
+    - separationsUpperDistanceRange: 56
+      distanceSeparation: 0.6
+      velocitySeparation: 0.3
     azimuthSeparation: 8
     noiseParams:
-      angularNoiseStDev: 0.057295784
+      angularNoiseStDev: 2
       angularNoiseMean: 0
       distanceNoiseStDevBase: 0.02
       distanceNoiseStDevRisePerMeter: 0

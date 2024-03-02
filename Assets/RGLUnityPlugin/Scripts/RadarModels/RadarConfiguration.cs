@@ -18,6 +18,14 @@ using UnityEngine;
 namespace RGLUnityPlugin
 {
     [Serializable]
+    public struct RangedSeparations
+    {
+        [Min(0.0f)] public float separationsUpperDistanceRange;
+        [Min(0.0f)] public float distanceSeparation;
+        [Min(0.0f)] public float velocitySeparation;
+    }
+
+    [Serializable]
     public class RadarConfiguration
     {
         [Min(0.0f)] public float minRange;
@@ -32,7 +40,7 @@ namespace RGLUnityPlugin
 
         [Range(-180.0f, 180.0f)] public float maxElevationAngle;
 
-        [Min(0.0f)] public float rangeSeparation;
+        public RangedSeparations[] rangedSeparations;
         [Min(0.0f)] public float azimuthSeparation;
 
         public RadarNoiseParams noiseParams;
@@ -82,14 +90,5 @@ namespace RGLUnityPlugin
 
             return new Vector2[1] { new Vector2(minRange, maxRange) };
         }
-
-        public static RadarNoiseParams TypicalNoiseParams => new RadarNoiseParams
-        {
-            angularNoiseMean = Mathf.Rad2Deg * 0.0f,
-            angularNoiseStDev = Mathf.Rad2Deg * 0.001f,
-            distanceNoiseStDevBase = 0.02f,
-            distanceNoiseStDevRisePerMeter = 0.0f,
-            distanceNoiseMean = 0.0f,
-        };
     }
 }
