@@ -30,28 +30,33 @@ namespace RGLUnityPlugin
                     maxAzimuthAngle = 65.0f,
                     minElevationAngle = -7.5f,
                     maxElevationAngle = 7.5f,
-                    rangedSeparations = new[]
+                    separations = new[]
                     {
-                        new RangedSeparations
+                        new RadarSeparations
                         {
-                            separationsUpperDistanceRange = 19.0f,
+                            minRange = 1.3f,
+                            maxRange = 19.0f,
                             distanceSeparation = 0.3f,
-                            velocitySeparation = 0.3f
+                            speedSeparation = 0.3f,
+                            azimuthSeparation = 8.0f
                         },
-                        new RangedSeparations
+                        new RadarSeparations
                         {
-                            separationsUpperDistanceRange = 56.0f,
+                            minRange = 19.0f,
+                            maxRange = 56.0f,
                             distanceSeparation = 0.6f,
-                            velocitySeparation = 0.3f
+                            speedSeparation = 0.3f,
+                            azimuthSeparation = 8.0f
                         },
-                        new RangedSeparations
+                        new RadarSeparations
                         {
-                            separationsUpperDistanceRange = 130.0f,
+                            minRange = 56.0f,
+                            maxRange = 130.0f,
                             distanceSeparation = 1.3f,
-                            velocitySeparation = 0.15f
+                            speedSeparation = 0.15f,
+                            azimuthSeparation = 8.0f
                         }
                     },
-                    azimuthSeparation = 8.0f,
                     noiseParams = RadarNoiseParams.TypicalNoiseParams,
                 }},
 
@@ -63,28 +68,33 @@ namespace RGLUnityPlugin
                     maxAzimuthAngle = 65.0f,
                     minElevationAngle = -7.5f,
                     maxElevationAngle = 7.5f,
-                    rangedSeparations = new[]
+                    separations = new[]
                     {
-                        new RangedSeparations
+                        new RadarSeparations
                         {
-                            separationsUpperDistanceRange = 9.5f,
+                            minRange = 0.6f,
+                            maxRange = 9.5f,
                             distanceSeparation = 0.15f,
-                            velocitySeparation = 0.15f
+                            speedSeparation = 0.15f,
+                            azimuthSeparation = 8.0f
                         },
-                        new RangedSeparations
+                        new RadarSeparations
                         {
-                            separationsUpperDistanceRange = 19.0f,
+                            minRange = 9.5f,
+                            maxRange = 19.0f,
                             distanceSeparation = 0.3f,
-                            velocitySeparation = 0.3f
+                            speedSeparation = 0.3f,
+                            azimuthSeparation = 8.0f
                         },
-                        new RangedSeparations
+                        new RadarSeparations
                         {
-                            separationsUpperDistanceRange = 56.0f,
+                            minRange = 9.5f,
+                            maxRange = 56.0f,
                             distanceSeparation = 0.6f,
-                            velocitySeparation = 0.3f
+                            speedSeparation = 0.3f,
+                            azimuthSeparation = 8.0f
                         },
                     },
-                    azimuthSeparation = 8.0f,
                     noiseParams = RadarNoiseParams.TypicalNoiseParams,
                 }},
 
@@ -96,22 +106,25 @@ namespace RGLUnityPlugin
                     maxAzimuthAngle = 65.0f,
                     minElevationAngle = -7.5f,
                     maxElevationAngle = 7.5f,
-                    rangedSeparations = new[]
+                    separations = new[]
                     {
-                        new RangedSeparations
+                        new RadarSeparations
                         {
-                            separationsUpperDistanceRange = 9.5f,
+                            minRange = 0.2f,
+                            maxRange = 9.5f,
                             distanceSeparation = 0.15f,
-                            velocitySeparation = 0.15f
+                            speedSeparation = 0.15f,
+                            azimuthSeparation = 8.0f
                         },
-                        new RangedSeparations
+                        new RadarSeparations
                         {
-                            separationsUpperDistanceRange = 19.0f,
+                            minRange = 9.5f,
+                            maxRange = 19.0f,
                             distanceSeparation = 0.3f,
-                            velocitySeparation = 0.3f
+                            speedSeparation = 0.3f,
+                            azimuthSeparation = 8.0f
                         },
                     },
-                    azimuthSeparation = 8.0f,
                     noiseParams = RadarNoiseParams.TypicalNoiseParams,
                 }},
 
@@ -123,16 +136,17 @@ namespace RGLUnityPlugin
                     maxAzimuthAngle = 70.0f,
                     minElevationAngle = -14.0f,
                     maxElevationAngle = 14.0f,
-                    rangedSeparations = new[]
+                    separations = new[]
                     {
-                        new RangedSeparations
+                        new RadarSeparations
                         {
-                            separationsUpperDistanceRange = 9.5f,
+                            minRange = 0.1f,
+                            maxRange = 9.5f,
                             distanceSeparation = 0.15f,
-                            velocitySeparation = 0.15f
+                            speedSeparation = 0.15f,
+                            azimuthSeparation = 8.0f
                         },
                     },
-                    azimuthSeparation = 8.0f,
                     noiseParams = RadarNoiseParams.TypicalNoiseParams,
                 }}
             };

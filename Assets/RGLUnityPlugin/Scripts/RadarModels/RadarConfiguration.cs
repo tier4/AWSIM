@@ -18,11 +18,13 @@ using UnityEngine;
 namespace RGLUnityPlugin
 {
     [Serializable]
-    public struct RangedSeparations
+    public struct RadarSeparations
     {
-        [Min(0.0f)] public float separationsUpperDistanceRange;
+        [Min(0.0f)] public float minRange;
+        [Min(0.0f)] public float maxRange;
         [Min(0.0f)] public float distanceSeparation;
-        [Min(0.0f)] public float velocitySeparation;
+        [Min(0.0f)] public float speedSeparation;
+        [Min(0.0f)] public float azimuthSeparation;
     }
 
     [Serializable]
@@ -40,8 +42,7 @@ namespace RGLUnityPlugin
 
         [Range(-180.0f, 180.0f)] public float maxElevationAngle;
 
-        public RangedSeparations[] rangedSeparations;
-        [Min(0.0f)] public float azimuthSeparation;
+        public RadarSeparations[] separations;
 
         public RadarNoiseParams noiseParams;
 

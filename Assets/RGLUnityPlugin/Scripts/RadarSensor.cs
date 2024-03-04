@@ -83,7 +83,7 @@ namespace RGLUnityPlugin
                 .AddNodeGaussianNoiseDistance(NoiseDistanceNodeId, 0, 0, 0)
                 .AddNodePointsFilterGround(FilterGroundNodeId, GroundAngleThreshold * Mathf.Deg2Rad)
                 .AddNodePointsCompactByField(CompactNonGroundNodeId, RGLField.IS_GROUND_I32)
-                .AddNodePointsRadarPostprocess(RadarPostprocessNodeId, new []{new RangedSeparations()}, 0.1f);
+                .AddNodePointsRadarPostprocess(RadarPostprocessNodeId, new []{new RadarSeparations()});
 
             rglSubgraphToRadarFrame = new RGLNodeSequence()
                 .AddNodePointsTransform(ToRadarFrameId, Matrix4x4.identity);
@@ -130,7 +130,7 @@ namespace RGLUnityPlugin
 
             rglGraphRadar.UpdateNodeRaysFromMat3x4f(RadarRaysNodeId, newConfig.GetRayPoses())
                 .UpdateNodeRaysSetRange(RadarRangeNodeId, newConfig.GetRayRanges())
-                .UpdateNodePointsRadarPostprocess(RadarPostprocessNodeId, newConfig.rangedSeparations, newConfig.azimuthSeparation * Mathf.Deg2Rad)
+                .UpdateNodePointsRadarPostprocess(RadarPostprocessNodeId, newConfig.separations)
                 .UpdateNodeGaussianNoiseAngularRay(NoiseRaysNodeId,
                     newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,
                     newConfig.noiseParams.angularNoiseStDev * Mathf.Deg2Rad)

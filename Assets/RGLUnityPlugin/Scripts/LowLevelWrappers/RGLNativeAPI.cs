@@ -135,7 +135,7 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_points_filter_ground(ref IntPtr node, IntPtr sensor_up_vector, float ground_angle_threshold);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_points_radar_postprocess(ref IntPtr node, IntPtr ranged_separations, int ranged_separations_count, float azimuth_separation);
+        public static extern int rgl_node_points_radar_postprocess(ref IntPtr node, IntPtr separations, int separations_count);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_simulate_snow(ref IntPtr node, float min_range, float max_range, float rain_rate,
@@ -510,13 +510,20 @@ namespace RGLUnityPlugin
             }
         }
 
-        public static void NodePointsRadarPostprocess(ref IntPtr node, RangedSeparations[] rangedSeparations, float azimuthSeparation)
+        public static void NodePointsRadarPostprocess(ref IntPtr node, RadarSeparations[] radarSeparations)
         {
+            RadarSeparations[] radarSeparationsCopy = new RadarSeparations[radarSeparations.Length];
+            radarSeparations.CopyTo(radarSeparationsCopy, 0);
+            for (int i = 0; i < radarSeparationsCopy.Length; ++i)
+            {
+                radarSeparationsCopy[i].azimuthSeparation *= Mathf.Deg2Rad;
+            }
+
             unsafe
             {
-                fixed (RangedSeparations* pRangedSeparations = rangedSeparations)
+                fixed (RadarSeparations* pRadarSeparations = radarSeparationsCopy)
                 {
-                    CheckErr(rgl_node_points_radar_postprocess(ref node, (IntPtr) pRangedSeparations, rangedSeparations.Length, azimuthSeparation));
+                    CheckErr(rgl_node_points_radar_postprocess(ref node, (IntPtr) pRadarSeparations, radarSeparationsCopy.Length));
                 }
             }
         }
