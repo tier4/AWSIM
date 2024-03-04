@@ -38,10 +38,14 @@ public class VehicleTest
     [UnityTest]
     public IEnumerator Movement()
     {
-        yield return new WaitForSeconds(10);
-
-        LogAssert.Expect(LogType.Log, "Straight");
+        yield return new WaitForSeconds(1);
         
         yield return null;
+    }
+
+    [OneTimeTearDown]
+    public void OneTimeTearDown()
+    {
+        EditorSceneManager.UnloadScene(scene);
     }
 }

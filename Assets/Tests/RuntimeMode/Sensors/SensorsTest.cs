@@ -168,9 +168,9 @@ public class SensorsTest
     }
 
 
-    [UnityTearDown]
-    public IEnumerator TearDown()
+    [OneTimeTearDown]
+    public void OneTimeTearDown()
     {
-        yield return new WaitForEndOfFrame();
+        EditorSceneManager.UnloadScene(scene);
     }
 }

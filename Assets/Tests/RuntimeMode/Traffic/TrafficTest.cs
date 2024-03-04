@@ -8,13 +8,30 @@ using UnityEngine.SceneManagement;
 
 public class TrafficTest
 {
+    // Scene handling
     AsyncOperation sceneLoader;
+    string sceneName = "TrafficTest";
+    Scene scene;
+    AsyncOperation aOp;
+
+    [OneTimeSetUp]
+    public void OneTimeSetUp()
+    {
+        // Scene async operation
+        aOp = EditorSceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+    }
 
     [UnitySetUp]
     public IEnumerator Setup()
     {
-        yield return EditorSceneManager.LoadSceneAsync("TrafficTest", LoadSceneMode.Additive);
+        yield return new WaitUntil(() => aOp.isDone);
+        scene = EditorSceneManager.GetSceneByName(sceneName);
+        EditorSceneManager.SetActiveScene(scene);
+
+        Assert.NotNull(scene);
+        yield return null;
     }
+
 
     [UnityTest]
     public IEnumerator Movement()
@@ -25,5 +42,11 @@ public class TrafficTest
         Debug.Log("Movement");
         
         yield return null;
+    }
+
+    [OneTimeTearDown]
+    public void OneTimeTearDown()
+    {
+        EditorSceneManager.UnloadScene(scene);
     }
 }
