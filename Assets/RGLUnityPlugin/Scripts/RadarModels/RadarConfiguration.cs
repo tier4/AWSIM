@@ -20,30 +20,43 @@ namespace RGLUnityPlugin
     [Serializable]
     public struct RadarSeparations
     {
+        [Tooltip("Minimum distance range for the separations")]
         [Min(0.0f)] public float minRange;
+        [Tooltip("Maximum distance range for the separations")]
         [Min(0.0f)] public float maxRange;
+        [Tooltip("Maximum distance difference to create a new radar detection")]
         [Min(0.0f)] public float distanceSeparation;
+        [Tooltip("Maximum radial speed difference to create a new radar detection")]
         [Min(0.0f)] public float speedSeparation;
+        [Tooltip("Maximum azimuth difference to create a new radar detection")]
         [Min(0.0f)] public float azimuthSeparation;
     }
 
     [Serializable]
     public class RadarConfiguration
     {
+        [Tooltip("Minimum range of the sensor")]
         [Min(0.0f)] public float minRange;
 
+        [Tooltip("Maximum range of the sensor")]
         [Min(0.0f)] public float maxRange;
 
+        [Tooltip("Minimum azimuth angle (left)")]
         [Range(-180.0f, 180.0f)] public float minAzimuthAngle;
 
+        [Tooltip("Maximum azimuth angle (right)")]
         [Range(-180.0f, 180.0f)] public float maxAzimuthAngle;
 
+        [Tooltip("Minimum elevation angle (down)")]
         [Range(-180.0f, 180.0f)] public float minElevationAngle;
 
+        [Tooltip("Maximum elevation angle (up)")]
         [Range(-180.0f, 180.0f)] public float maxElevationAngle;
 
+        [Tooltip("Radar separation settings with their operating range (separations should cover the whole sensor range)")]
         public RadarSeparations[] separations;
 
+        [Tooltip("Radar noise parameters")]
         public RadarNoiseParams noiseParams;
 
         private float azimuthResolution = 0.49f;
