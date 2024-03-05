@@ -146,14 +146,19 @@ namespace AWSIM
         /// </summary>
         [SerializeField] Camera cameraObject;
 
+        [SerializeField] bool enableLensDistortionCorrection = false;
+
         RenderTexture targetRenderTexture;
         RenderTexture distortedRenderTexture;
+        RenderTexture distortionCorrectionRenderTexture;
 
         [SerializeField] ComputeShader distortionShader;
         [SerializeField] ComputeShader rosImageShader;
+        [SerializeField] ComputeShader distortionCorrectionShader;
 
         int shaderKernelIdx = -1;
         int rosShaderKernelIdx = -1;
+        int cameraDistortionCorrectionShaderKernelIdx = -1;
         ComputeBuffer computeBuffer;
 
         OutputData outputData = new OutputData();
@@ -167,6 +172,8 @@ namespace AWSIM
         private int distortionShaderGroupSizeX;
         private int distortionShaderGroupSizeY;
         private int rosImageShaderGroupSizeX;
+        private int distortionCorrectionShaderGroupSizeX;
+        private int distortionCorrectionShaderGroupSizeY;
 
         private int bytesPerPixel = 3;
 
@@ -194,6 +201,7 @@ namespace AWSIM
 
             shaderKernelIdx = distortionShader.FindKernel("DistortTexture");
             rosShaderKernelIdx = rosImageShader.FindKernel("RosImageShaderKernel");
+            cameraDistortionCorrectionShaderKernelIdx = distortionCorrectionShader.FindKernel("CameraDistortionCorrection");
 
             // Set camera parameters
             cameraObject.usePhysicalProperties = true;
@@ -204,10 +212,14 @@ namespace AWSIM
                 out var distortionShaderThreadsPerGroupX, out var distortionShaderthreadsPerGroupY, out _);
             rosImageShader.GetKernelThreadGroupSizes(rosShaderKernelIdx,
                 out var rosImageShaderThreadsPerGroupX, out _ , out _);
+            distortionCorrectionShader.GetKernelThreadGroupSizes(cameraDistortionCorrectionShaderKernelIdx,
+                out var distortionCorrectionShaderThreadsPerGroupX, out var distortionCorrectionShaderthreadsPerGroupY, out _);
 
             distortionShaderGroupSizeX = ((distortedRenderTexture.width + (int)distortionShaderThreadsPerGroupX - 1) / (int)distortionShaderThreadsPerGroupX);
             distortionShaderGroupSizeY = ((distortedRenderTexture.height + (int)distortionShaderthreadsPerGroupY - 1) / (int)distortionShaderthreadsPerGroupY);
             rosImageShaderGroupSizeX = (((cameraParameters.width * cameraParameters.height) * sizeof(uint)) / ((int)rosImageShaderThreadsPerGroupX * sizeof(uint)));
+            distortionCorrectionShaderGroupSizeX = ((distortedRenderTexture.width + (int)distortionCorrectionShaderThreadsPerGroupX - 1) / (int)distortionCorrectionShaderThreadsPerGroupX);
+            distortionCorrectionShaderGroupSizeY = ((distortedRenderTexture.height + (int)distortionCorrectionShaderthreadsPerGroupY - 1) / (int)distortionCorrectionShaderthreadsPerGroupY);
         }
 
         public void DoRender()
@@ -220,7 +232,14 @@ namespace AWSIM
             distortionShader.SetTexture(shaderKernelIdx, "_InputTexture", targetRenderTexture);
             distortionShader.SetTexture(shaderKernelIdx, "_DistortedTexture", distortedRenderTexture);
             distortionShader.Dispatch(shaderKernelIdx, distortionShaderGroupSizeX, distortionShaderGroupSizeY, 1);
-            rosImageShader.SetTexture(rosShaderKernelIdx, "_InputTexture", distortedRenderTexture);
+            if (enableLensDistortionCorrection) {
+                distortionCorrectionShader.SetTexture(cameraDistortionCorrectionShaderKernelIdx, "_InputTexture", distortedRenderTexture);
+                distortionCorrectionShader.SetTexture(cameraDistortionCorrectionShaderKernelIdx, "_DistortedTexture", distortionCorrectionRenderTexture);
+                distortionCorrectionShader.Dispatch(cameraDistortionCorrectionShaderKernelIdx, distortionCorrectionShaderGroupSizeX, distortionCorrectionShaderGroupSizeY, 1);    
+                rosImageShader.SetTexture(rosShaderKernelIdx, "_InputTexture", distortionCorrectionRenderTexture);
+            } else {
+                rosImageShader.SetTexture(rosShaderKernelIdx, "_InputTexture", distortedRenderTexture);
+            }
             rosImageShader.SetBuffer(rosShaderKernelIdx, "_RosImageBuffer", computeBuffer);
             rosImageShader.Dispatch(rosShaderKernelIdx, rosImageShaderGroupSizeX, 1, 1);
 
@@ -265,9 +284,15 @@ namespace AWSIM
         {
             if (imageOnGui.show)
             {
-                GUI.DrawTexture(new Rect(imageOnGui.xAxis, imageOnGui.yAxis,
-                    distortedRenderTexture.width / imageOnGui.scale, distortedRenderTexture.height / imageOnGui.scale),
-                    distortedRenderTexture);
+                if (enableLensDistortionCorrection) {
+                    GUI.DrawTexture(new Rect(imageOnGui.xAxis, imageOnGui.yAxis,
+                        distortionCorrectionRenderTexture.width / imageOnGui.scale, distortionCorrectionRenderTexture.height / imageOnGui.scale),
+                        distortionCorrectionRenderTexture);
+                } else {
+                    GUI.DrawTexture(new Rect(imageOnGui.xAxis, imageOnGui.yAxis,
+                        distortedRenderTexture.width / imageOnGui.scale, distortedRenderTexture.height / imageOnGui.scale),
+                        distortedRenderTexture);
+                }
             }
         }
 
@@ -310,7 +335,20 @@ namespace AWSIM
                 enableRandomWrite = true
             };
 
+            distortionCorrectionRenderTexture = new RenderTexture(
+                cameraParameters.width, cameraParameters.height, 24, RenderTextureFormat.BGRA32, RenderTextureReadWrite.sRGB)
+            {
+                dimension = TextureDimension.Tex2D,
+                antiAliasing = 1,
+                useMipMap = false,
+                useDynamicScale = false,
+                wrapMode = TextureWrapMode.Clamp,
+                filterMode = FilterMode.Bilinear,
+                enableRandomWrite = true
+            };
+
             distortedRenderTexture.Create();
+            distortionCorrectionRenderTexture.Create();
 
             cameraObject.targetTexture = targetRenderTexture;
         }
@@ -328,6 +366,18 @@ namespace AWSIM
             distortionShader.SetFloat("_p1", cameraParameters.p1);
             distortionShader.SetFloat("_p2", -cameraParameters.p2); // TODO: Find out why 'minus' is needed for proper distortion
             distortionShader.SetFloat("_k3", -cameraParameters.k3); // TODO: Find out why 'minus' is needed for proper distortion
+
+            distortionCorrectionShader.SetInt("_width", cameraParameters.width);
+            distortionCorrectionShader.SetInt("_height", cameraParameters.height);
+            distortionCorrectionShader.SetFloat("_fx", cameraParameters.fx);
+            distortionCorrectionShader.SetFloat("_fy", cameraParameters.fy);
+            distortionCorrectionShader.SetFloat("_cx", cameraParameters.cx);
+            distortionCorrectionShader.SetFloat("_cy", cameraParameters.cy);
+            distortionCorrectionShader.SetFloat("_k1", -cameraParameters.k1); // TODO: Find out why 'minus' is needed for proper distortion
+            distortionCorrectionShader.SetFloat("_k2", -cameraParameters.k2); // TODO: Find out why 'minus' is needed for proper distortion
+            distortionCorrectionShader.SetFloat("_p1", cameraParameters.p1);
+            distortionCorrectionShader.SetFloat("_p2", -cameraParameters.p2); // TODO: Find out why 'minus' is needed for proper distortion
+            distortionCorrectionShader.SetFloat("_k3", -cameraParameters.k3); // TODO: Find out why 'minus' is needed for proper distortion
 
             rosImageShader.SetInt("_width", cameraParameters.width);
             rosImageShader.SetInt("_height", cameraParameters.height);
