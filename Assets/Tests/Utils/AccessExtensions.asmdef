@@ -1,12 +1,7 @@
 {
-    "name": "Tests",
+    "name": "AccessExtensions",
     "rootNamespace": "",
-    "references": [
-        "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner",
-        "AWSIM",
-        "AccessExtensions"
-    ],
+    "references": [],
     "includePlatforms": [
         "Editor"
     ],

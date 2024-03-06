@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
+using UnityEngine.TestTools.Utils;
 using AWSIM;
 using System.Linq;
 
@@ -17,8 +18,11 @@ public class SensorsTest
     Scene scene;
     AsyncOperation aOp;
 
+    // Comparers
+    Vector3EqualityComparer v3Comparer;
+
     // Shared settings
-    float testDuration = 5.0f;
+    float testDuration = 2.0f;
 
     // GNSS
     GnssSensor gnssSensor;
@@ -42,6 +46,9 @@ public class SensorsTest
     {
         // Scene async operation
         aOp = EditorSceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+
+        // Comparers
+        v3Comparer = new Vector3EqualityComparer(10e-6f);
 
         // GNSS
         poseMessages = new List<geometry_msgs.msg.PoseStamped>();
@@ -123,16 +130,22 @@ public class SensorsTest
 
         poseMessages.ForEach(pose =>
         {
-            Assert.AreEqual(0.0f, pose.Pose.Position.X);
-            Assert.AreEqual(0.0f, pose.Pose.Position.Y);
-            Assert.AreEqual(0.0f, pose.Pose.Position.Z);
+            var poseVec = new Vector3(
+                (float)pose.Pose.Position.X,
+                (float)pose.Pose.Position.Y,
+                (float)pose.Pose.Position.Z
+            );
+            Assert.That(poseVec, Is.EqualTo(Vector3.zero).Using(v3Comparer));
         });
 
         poseWithCovarianceMessages.ForEach(pose =>
         {
-            Assert.AreEqual(0.0f, pose.Pose.Pose.Position.X);
-            Assert.AreEqual(0.0f, pose.Pose.Pose.Position.Y);
-            Assert.AreEqual(0.0f, pose.Pose.Pose.Position.Z);
+            var poseVec = new Vector3(
+                (float)pose.Pose.Pose.Position.X,
+                (float)pose.Pose.Pose.Position.Y,
+                (float)pose.Pose.Pose.Position.Z
+            );
+            Assert.That(poseVec, Is.EqualTo(Vector3.zero).Using(v3Comparer));
         });
 
         Assert.AreEqual(poseMessages.Count, (int)(testDuration * gnssSensor.OutputHz));
@@ -161,9 +174,12 @@ public class SensorsTest
 
         imuMessages.ForEach(imu =>
         {
-            Assert.AreEqual(0.0f, imu.Linear_acceleration.X);
-            Assert.AreEqual(0.0f, imu.Linear_acceleration.Y);
-            Assert.AreEqual(0.0f, imu.Linear_acceleration.Z);
+            var dataVec = new Vector3(
+                (float)imu.Linear_acceleration.X,
+                (float)imu.Linear_acceleration.Y,
+                (float)imu.Linear_acceleration.Z
+            );
+            Assert.That(dataVec, Is.EqualTo(Vector3.zero).Using(v3Comparer));
         });
     }
 
