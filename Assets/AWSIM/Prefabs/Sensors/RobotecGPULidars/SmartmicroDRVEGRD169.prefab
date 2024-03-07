@@ -96,28 +96,26 @@ MonoBehaviour:
   applyAngularGaussianNoise: 1
   modelPreset: 1
   configuration:
-    minRange: 0.6
-    maxRange: 56
     minAzimuthAngle: -65
     maxAzimuthAngle: 65
     minElevationAngle: -7.5
     maxElevationAngle: 7.5
-    separations:
-    - minRange: 0.6
-      maxRange: 9.5
-      distanceSeparation: 0.15
-      speedSeparation: 0.15
-      azimuthSeparation: 8
-    - minRange: 9.5
-      maxRange: 19
-      distanceSeparation: 0.3
-      speedSeparation: 0.3
-      azimuthSeparation: 8
-    - minRange: 9.5
-      maxRange: 56
-      distanceSeparation: 0.6
-      speedSeparation: 0.3
-      azimuthSeparation: 8
+    parametersScopes:
+    - beginDistance: 0.6
+      endDistance: 9.5
+      distanceSeparationThreshold: 0.15
+      radialSpeedSeparationThreshold: 0.15
+      azimuthSeparationThreshold: 8
+    - beginDistance: 9.5
+      endDistance: 19
+      distanceSeparationThreshold: 0.3
+      radialSpeedSeparationThreshold: 0.3
+      azimuthSeparationThreshold: 8
+    - beginDistance: 19
+      endDistance: 56
+      distanceSeparationThreshold: 0.6
+      radialSpeedSeparationThreshold: 0.3
+      azimuthSeparationThreshold: 8
     noiseParams:
       angularNoiseStDev: 2
       angularNoiseMean: 0

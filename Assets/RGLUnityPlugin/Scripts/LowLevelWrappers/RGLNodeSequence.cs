@@ -297,11 +297,12 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence AddNodePointsRadarPostprocess(string identifier, RadarSeparations[] radarSeparations)
+        public RGLNodeSequence AddNodePointsRadarPostprocess(string identifier, RadarParametersScope[] radarParametersScopes,
+            float rayAzimuthStep, float rayElevationStep, float frequency)
         {
             CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
-            RGLNativeAPI.NodePointsRadarPostprocess(ref handle.Node, radarSeparations);
+            RGLNativeAPI.NodePointsRadarPostprocess(ref handle.Node, radarParametersScopes, rayAzimuthStep, rayElevationStep, frequency);
             handle.Type = RGLNodeType.POINTS_RADAR_POSTPROCESS;
             handle.Identifier = identifier;
             AddNode(handle);
@@ -420,10 +421,11 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence UpdateNodePointsRadarPostprocess(string identifier, RadarSeparations[] radarSeparations)
+        public RGLNodeSequence UpdateNodePointsRadarPostprocess(string identifier, RadarParametersScope[] radarParametersScopes,
+            float rayAzimuthStep, float rayElevationStep, float frequency)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_RADAR_POSTPROCESS);
-            RGLNativeAPI.NodePointsRadarPostprocess(ref handle.Node, radarSeparations);
+            RGLNativeAPI.NodePointsRadarPostprocess(ref handle.Node, radarParametersScopes, rayAzimuthStep, rayElevationStep, frequency);
             return this;
         }
 

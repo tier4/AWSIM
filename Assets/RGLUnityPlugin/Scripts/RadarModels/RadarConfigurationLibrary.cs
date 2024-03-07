@@ -24,37 +24,35 @@ namespace RGLUnityPlugin
             {
                 {RadarModel.SmartmicroDRVEGRD169LongRange, () => new RadarConfiguration
                 {
-                    minRange = 1.3f,
-                    maxRange = 130.0f,
                     minAzimuthAngle = -65.0f,
                     maxAzimuthAngle = 65.0f,
                     minElevationAngle = -7.5f,
                     maxElevationAngle = 7.5f,
-                    separations = new[]
+                    parametersScopes = new[]
                     {
-                        new RadarSeparations
+                        new RadarParametersScope
                         {
-                            minRange = 1.3f,
-                            maxRange = 19.0f,
-                            distanceSeparation = 0.3f,
-                            speedSeparation = 0.3f,
-                            azimuthSeparation = 8.0f
+                            beginDistance = 1.3f,
+                            endDistance = 19.0f,
+                            distanceSeparationThreshold = 0.3f,
+                            radialSpeedSeparationThreshold = 0.3f,
+                            azimuthSeparationThreshold = 8.0f
                         },
-                        new RadarSeparations
+                        new RadarParametersScope
                         {
-                            minRange = 19.0f,
-                            maxRange = 56.0f,
-                            distanceSeparation = 0.6f,
-                            speedSeparation = 0.3f,
-                            azimuthSeparation = 8.0f
+                            beginDistance = 19.0f,
+                            endDistance = 56.0f,
+                            distanceSeparationThreshold = 0.6f,
+                            radialSpeedSeparationThreshold = 0.3f,
+                            azimuthSeparationThreshold = 8.0f
                         },
-                        new RadarSeparations
+                        new RadarParametersScope
                         {
-                            minRange = 56.0f,
-                            maxRange = 130.0f,
-                            distanceSeparation = 1.3f,
-                            speedSeparation = 0.15f,
-                            azimuthSeparation = 8.0f
+                            beginDistance = 56.0f,
+                            endDistance = 130.0f,
+                            distanceSeparationThreshold = 1.3f,
+                            radialSpeedSeparationThreshold = 0.15f,
+                            azimuthSeparationThreshold = 8.0f
                         }
                     },
                     noiseParams = RadarNoiseParams.TypicalNoiseParams,
@@ -62,37 +60,35 @@ namespace RGLUnityPlugin
 
                 {RadarModel.SmartmicroDRVEGRD169MediumRange, () => new RadarConfiguration
                 {
-                    minRange = 0.6f,
-                    maxRange = 56.0f,
                     minAzimuthAngle = -65.0f,
                     maxAzimuthAngle = 65.0f,
                     minElevationAngle = -7.5f,
                     maxElevationAngle = 7.5f,
-                    separations = new[]
+                    parametersScopes = new[]
                     {
-                        new RadarSeparations
+                        new RadarParametersScope
                         {
-                            minRange = 0.6f,
-                            maxRange = 9.5f,
-                            distanceSeparation = 0.15f,
-                            speedSeparation = 0.15f,
-                            azimuthSeparation = 8.0f
+                            beginDistance = 0.6f,
+                            endDistance = 9.5f,
+                            distanceSeparationThreshold = 0.15f,
+                            radialSpeedSeparationThreshold = 0.15f,
+                            azimuthSeparationThreshold = 8.0f
                         },
-                        new RadarSeparations
+                        new RadarParametersScope
                         {
-                            minRange = 9.5f,
-                            maxRange = 19.0f,
-                            distanceSeparation = 0.3f,
-                            speedSeparation = 0.3f,
-                            azimuthSeparation = 8.0f
+                            beginDistance = 9.5f,
+                            endDistance = 19.0f,
+                            distanceSeparationThreshold = 0.3f,
+                            radialSpeedSeparationThreshold = 0.3f,
+                            azimuthSeparationThreshold = 8.0f
                         },
-                        new RadarSeparations
+                        new RadarParametersScope
                         {
-                            minRange = 9.5f,
-                            maxRange = 56.0f,
-                            distanceSeparation = 0.6f,
-                            speedSeparation = 0.3f,
-                            azimuthSeparation = 8.0f
+                            beginDistance = 19.0f,
+                            endDistance = 56.0f,
+                            distanceSeparationThreshold = 0.6f,
+                            radialSpeedSeparationThreshold = 0.3f,
+                            azimuthSeparationThreshold = 8.0f
                         },
                     },
                     noiseParams = RadarNoiseParams.TypicalNoiseParams,
@@ -100,29 +96,27 @@ namespace RGLUnityPlugin
 
                 {RadarModel.SmartmicroDRVEGRD169ShortRange, () => new RadarConfiguration
                 {
-                    minRange = 0.2f,
-                    maxRange = 19.0f,
                     minAzimuthAngle = -65.0f,
                     maxAzimuthAngle = 65.0f,
                     minElevationAngle = -7.5f,
                     maxElevationAngle = 7.5f,
-                    separations = new[]
+                    parametersScopes = new[]
                     {
-                        new RadarSeparations
+                        new RadarParametersScope
                         {
-                            minRange = 0.2f,
-                            maxRange = 9.5f,
-                            distanceSeparation = 0.15f,
-                            speedSeparation = 0.15f,
-                            azimuthSeparation = 8.0f
+                            beginDistance = 0.2f,
+                            endDistance = 9.5f,
+                            distanceSeparationThreshold = 0.15f,
+                            radialSpeedSeparationThreshold = 0.15f,
+                            azimuthSeparationThreshold = 8.0f
                         },
-                        new RadarSeparations
+                        new RadarParametersScope
                         {
-                            minRange = 9.5f,
-                            maxRange = 19.0f,
-                            distanceSeparation = 0.3f,
-                            speedSeparation = 0.3f,
-                            azimuthSeparation = 8.0f
+                            beginDistance = 9.5f,
+                            endDistance = 19.0f,
+                            distanceSeparationThreshold = 0.3f,
+                            radialSpeedSeparationThreshold = 0.3f,
+                            azimuthSeparationThreshold = 8.0f
                         },
                     },
                     noiseParams = RadarNoiseParams.TypicalNoiseParams,
@@ -130,21 +124,19 @@ namespace RGLUnityPlugin
 
                 {RadarModel.SmartmicroDRVEGRD169UltraShortRange, () => new RadarConfiguration
                 {
-                    minRange = 0.1f,
-                    maxRange = 9.5f,
                     minAzimuthAngle = -70.0f,
                     maxAzimuthAngle = 70.0f,
                     minElevationAngle = -14.0f,
                     maxElevationAngle = 14.0f,
-                    separations = new[]
+                    parametersScopes = new[]
                     {
-                        new RadarSeparations
+                        new RadarParametersScope
                         {
-                            minRange = 0.1f,
-                            maxRange = 9.5f,
-                            distanceSeparation = 0.15f,
-                            speedSeparation = 0.15f,
-                            azimuthSeparation = 8.0f
+                            beginDistance = 0.1f,
+                            endDistance = 9.5f,
+                            distanceSeparationThreshold = 0.15f,
+                            radialSpeedSeparationThreshold = 0.15f,
+                            azimuthSeparationThreshold = 8.0f
                         },
                     },
                     noiseParams = RadarNoiseParams.TypicalNoiseParams,

@@ -13,34 +13,29 @@
 // limitations under the License.
 
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace RGLUnityPlugin
 {
     [Serializable]
-    public struct RadarSeparations
+    public struct RadarParametersScope
     {
-        [Tooltip("Minimum distance range for the separations")]
-        [Min(0.0f)] public float minRange;
-        [Tooltip("Maximum distance range for the separations")]
-        [Min(0.0f)] public float maxRange;
+        [Tooltip("Beginning distance range for the parameters.")]
+        [Min(0.0f)] public float beginDistance;
+        [Tooltip("End range distance for the parameters")]
+        [Min(0.0f)] public float endDistance;
         [Tooltip("Maximum distance difference to create a new radar detection")]
-        [Min(0.0f)] public float distanceSeparation;
+        [Min(0.0f)] public float distanceSeparationThreshold;
         [Tooltip("Maximum radial speed difference to create a new radar detection")]
-        [Min(0.0f)] public float speedSeparation;
+        [Min(0.0f)] public float radialSpeedSeparationThreshold;
         [Tooltip("Maximum azimuth difference to create a new radar detection")]
-        [Min(0.0f)] public float azimuthSeparation;
+        [Min(0.0f)] public float azimuthSeparationThreshold;
     }
 
     [Serializable]
     public class RadarConfiguration
     {
-        [Tooltip("Minimum range of the sensor")]
-        [Min(0.0f)] public float minRange;
-
-        [Tooltip("Maximum range of the sensor")]
-        [Min(0.0f)] public float maxRange;
-
         [Tooltip("Minimum azimuth angle (left)")]
         [Range(-180.0f, 180.0f)] public float minAzimuthAngle;
 
@@ -53,17 +48,19 @@ namespace RGLUnityPlugin
         [Tooltip("Maximum elevation angle (up)")]
         [Range(-180.0f, 180.0f)] public float maxElevationAngle;
 
-        [Tooltip("Radar separation settings with their operating range (separations should cover the whole sensor range)")]
-        public RadarSeparations[] separations;
+        [Tooltip("Radar scopes of parameters")]
+        public RadarParametersScope[] parametersScopes;
 
         [Tooltip("Radar noise parameters")]
         public RadarNoiseParams noiseParams;
 
-        private float azimuthResolution = 0.49f;
-        private float elevationResolution = 0.49f;
+        [NonSerialized]
+        public float azimuthResolution = 0.49f;
+        [NonSerialized]
+        public float elevationResolution = 0.49f;
 
-        private int azimuthSteps => Math.Max((int)Math.Round(((maxAzimuthAngle - minAzimuthAngle) / azimuthResolution)), 1);
-        private int elevationSteps => Math.Max((int)Math.Round(((maxElevationAngle - minElevationAngle) / elevationResolution)), 1);
+        private int azimuthSteps => Math.Max((int)Math.Round((maxAzimuthAngle - minAzimuthAngle) / azimuthResolution), 1);
+        private int elevationSteps => Math.Max((int)Math.Round((maxElevationAngle - minElevationAngle) / elevationResolution), 1);
         private int pointCloudSize => elevationSteps * azimuthSteps;
 
         public Matrix4x4[] GetRayPoses()
@@ -96,13 +93,10 @@ namespace RGLUnityPlugin
 
         public Vector2[] GetRayRanges()
         {
-            if (!(minRange <= maxRange))
-            {
-                throw new ArgumentOutOfRangeException(nameof(minRange),
-                    "Minimum range must be lower or equal to the maximum range");
-            }
+            float minRange = parametersScopes.Min(s => s.beginDistance);
+            float maxRange = parametersScopes.Max(s => s.endDistance);
 
-            return new Vector2[1] { new Vector2(minRange, maxRange) };
+            return new[] { new Vector2(minRange, maxRange) };
         }
     }
 }

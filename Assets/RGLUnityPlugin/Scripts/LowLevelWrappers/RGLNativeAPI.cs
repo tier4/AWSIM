@@ -138,7 +138,8 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_points_filter_ground(ref IntPtr node, IntPtr sensor_up_vector, float ground_angle_threshold);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_points_radar_postprocess(ref IntPtr node, IntPtr separations, int separations_count);
+        public static extern int rgl_node_points_radar_postprocess(ref IntPtr node, IntPtr radar_scopes, int radar_scopes_count,
+            float ray_azimuth_step, float ray_elevation_step, float frequency);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_simulate_snow(ref IntPtr node, float min_range, float max_range, float rain_rate,
@@ -516,20 +517,22 @@ namespace RGLUnityPlugin
             }
         }
 
-        public static void NodePointsRadarPostprocess(ref IntPtr node, RadarSeparations[] radarSeparations)
+        public static void NodePointsRadarPostprocess(ref IntPtr node, RadarParametersScope[] radarParametersScopes,
+            float rayAzimuthStep, float rayElevationStep, float frequency)
         {
-            RadarSeparations[] radarSeparationsCopy = new RadarSeparations[radarSeparations.Length];
-            radarSeparations.CopyTo(radarSeparationsCopy, 0);
-            for (int i = 0; i < radarSeparationsCopy.Length; ++i)
+            RadarParametersScope[] radarParametersScopesCopy = new RadarParametersScope[radarParametersScopes.Length];
+            radarParametersScopes.CopyTo(radarParametersScopesCopy, 0);
+            for (int i = 0; i < radarParametersScopesCopy.Length; ++i)
             {
-                radarSeparationsCopy[i].azimuthSeparation *= Mathf.Deg2Rad;
+                radarParametersScopesCopy[i].azimuthSeparationThreshold *= Mathf.Deg2Rad;
             }
 
             unsafe
             {
-                fixed (RadarSeparations* pRadarSeparations = radarSeparationsCopy)
+                fixed (RadarParametersScope* pRadarParametersScopes = radarParametersScopesCopy)
                 {
-                    CheckErr(rgl_node_points_radar_postprocess(ref node, (IntPtr) pRadarSeparations, radarSeparationsCopy.Length));
+                    CheckErr(rgl_node_points_radar_postprocess(ref node, (IntPtr) pRadarParametersScopes,
+                        radarParametersScopesCopy.Length, rayAzimuthStep, rayElevationStep, frequency));
                 }
             }
         }
