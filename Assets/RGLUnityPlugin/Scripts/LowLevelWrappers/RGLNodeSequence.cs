@@ -357,20 +357,6 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence UpdateNodeRaytrace(string identifier)
-        {
-            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
-            RGLNativeAPI.NodeRaytrace(ref handle.Node);
-            return this;
-        }
-
-        public RGLNodeSequence UpdateNodeRaytrace(string identifier, Vector3 linearVelocity, Vector3 angularVelocity, bool applyRayDistortion)
-        {
-            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
-            RGLNativeAPI.NodeRaytrace(ref handle.Node, linearVelocity, angularVelocity, applyRayDistortion);
-            return this;
-        }
-
         public RGLNodeSequence UpdateNodePointsTransform(string identifier, Matrix4x4 transform)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_TRANSFORM);
@@ -447,6 +433,22 @@ namespace RGLUnityPlugin
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_SIMULATE_SNOW);
             RGLNativeAPI.NodePointsSimulateSnow(ref handle.Node, minRange, maxRange, rainRate,
                 meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence);
+            return this;
+        }
+
+        //// CONFIGURE NODES ////
+
+        public RGLNodeSequence ConfigureNodeRaytraceVelocity(string identifier, Vector3 linearVelocity, Vector3 angularVelocity)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
+            RGLNativeAPI.NodeRaytraceConfigureVelocity(handle.Node, linearVelocity, angularVelocity);
+            return this;
+        }
+
+        public RGLNodeSequence ConfigureNodeRaytraceDistortion(string identifier, bool enable)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
+            RGLNativeAPI.NodeRaytraceConfigureDistortion(handle.Node, enable);
             return this;
         }
 

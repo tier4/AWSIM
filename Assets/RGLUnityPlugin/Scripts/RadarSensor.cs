@@ -89,6 +89,8 @@ namespace RGLUnityPlugin
                 .AddNodePointsTransform(ToRadarFrameId, Matrix4x4.identity);
 
             RGLNodeSequence.Connect(rglGraphRadar, rglSubgraphToRadarFrame);
+
+            rglGraphRadar.ConfigureNodeRaytraceDistortion(RadarRaytraceNodeId, false); // Ensure no distortion for radar
         }
 
         public void Start()
@@ -213,7 +215,7 @@ namespace RGLUnityPlugin
             // Sensor angular velocity in rad/s.
             Vector3 localAngularVelocity = (deltaRotation * Mathf.Deg2Rad) / Time.deltaTime;
 
-            rglGraphRadar.UpdateNodeRaytrace(RadarRaytraceNodeId, localLinearVelocity, localAngularVelocity, false);
+            rglGraphRadar.ConfigureNodeRaytraceVelocity(RadarRaytraceNodeId, localLinearVelocity, localAngularVelocity);
         }
     }
 }

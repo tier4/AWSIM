@@ -91,7 +91,10 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_raytrace(ref IntPtr node, IntPtr scene);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_raytrace_in_motion(ref IntPtr node, IntPtr scene, IntPtr linear_velocity, IntPtr angular_velocity, bool apply_ray_distortion);
+        public static extern int rgl_node_raytrace_configure_velocity(IntPtr node, IntPtr linear_velocity, IntPtr angular_velocity);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_raytrace_configure_distortion(IntPtr node, bool enable);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_format(ref IntPtr node, IntPtr fields, int field_count);
@@ -402,22 +405,25 @@ namespace RGLUnityPlugin
             CheckErr(rgl_node_raytrace(ref node, IntPtr.Zero));
         }
 
-        // Raytrace with sensor velocity provided. Needed for velocity distortion feature or radar simulation.
-        public static void NodeRaytrace(ref IntPtr node, Vector3 linearVelocity, Vector3 angularVelocity, bool applyRayDistortion)
+        public static void NodeRaytraceConfigureVelocity(IntPtr node, Vector3 linearVelocity, Vector3 angularVelocity)
         {
             var linearVelocityFloats = IntoVec3f(linearVelocity);
             var angularVelocityFloats = IntoVec3f(angularVelocity);
-
             unsafe
             {
                 fixed (float* linearVelocityFloatsPtr = linearVelocityFloats)
                 {
                     fixed (float* angularVelocityFloatsPtr = angularVelocityFloats)
                     {
-                        CheckErr(rgl_node_raytrace_in_motion(ref node, IntPtr.Zero, (IntPtr) linearVelocityFloatsPtr, (IntPtr) angularVelocityFloatsPtr, applyRayDistortion));
+                        CheckErr(rgl_node_raytrace_configure_velocity(node, (IntPtr) linearVelocityFloatsPtr, (IntPtr) angularVelocityFloatsPtr));
                     }
                 }
             }
+        }
+
+        public static void NodeRaytraceConfigureDistortion(IntPtr node, bool enable)
+        {
+            CheckErr(rgl_node_raytrace_configure_distortion(node, enable));
         }
 
         public static void NodePointsFormat(ref IntPtr node, RGLField[] fields)
