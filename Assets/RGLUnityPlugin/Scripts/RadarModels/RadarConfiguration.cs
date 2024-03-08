@@ -48,8 +48,8 @@ namespace RGLUnityPlugin
         [Tooltip("Maximum elevation angle (up)")]
         [Range(-180.0f, 180.0f)] public float maxElevationAngle;
 
-        [Tooltip("List of radar scope parameters")]
-        public RadarScopeParameters[] scopeParametersList;
+        [Tooltip("Array of radar scope parameters")]
+        public RadarScopeParameters[] scopeParameters;
 
         [Tooltip("Radar noise parameters")]
         public RadarNoiseParams noiseParams;
@@ -93,8 +93,8 @@ namespace RGLUnityPlugin
 
         public Vector2[] GetRayRanges()
         {
-            float minRange = scopeParametersList.Min(s => s.beginDistance);
-            float maxRange = scopeParametersList.Max(s => s.endDistance);
+            float minRange = scopeParameters.Min(s => s.beginDistance);
+            float maxRange = scopeParameters.Max(s => s.endDistance);
 
             return new[] { new Vector2(minRange, maxRange) };
         }

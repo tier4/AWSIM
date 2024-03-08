@@ -28,7 +28,7 @@ namespace RGLUnityPlugin
                     maxAzimuthAngle = 65.0f,
                     minElevationAngle = -7.5f,
                     maxElevationAngle = 7.5f,
-                    scopeParametersList = new[]
+                    scopeParameters = new[]
                     {
                         new RadarScopeParameters
                         {
@@ -64,7 +64,7 @@ namespace RGLUnityPlugin
                     maxAzimuthAngle = 65.0f,
                     minElevationAngle = -7.5f,
                     maxElevationAngle = 7.5f,
-                    scopeParametersList = new[]
+                    scopeParameters = new[]
                     {
                         new RadarScopeParameters
                         {
@@ -100,7 +100,7 @@ namespace RGLUnityPlugin
                     maxAzimuthAngle = 65.0f,
                     minElevationAngle = -7.5f,
                     maxElevationAngle = 7.5f,
-                    scopeParametersList = new[]
+                    scopeParameters = new[]
                     {
                         new RadarScopeParameters
                         {
@@ -128,7 +128,7 @@ namespace RGLUnityPlugin
                     maxAzimuthAngle = 70.0f,
                     minElevationAngle = -14.0f,
                     maxElevationAngle = 14.0f,
-                    scopeParametersList = new[]
+                    scopeParameters = new[]
                     {
                         new RadarScopeParameters
                         {

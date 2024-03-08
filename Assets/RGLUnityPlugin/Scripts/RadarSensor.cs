@@ -132,7 +132,7 @@ namespace RGLUnityPlugin
 
             rglGraphRadar.UpdateNodeRaysFromMat3x4f(RadarRaysNodeId, newConfig.GetRayPoses())
                 .UpdateNodeRaysSetRange(RadarRangeNodeId, newConfig.GetRayRanges())
-                .UpdateNodePointsRadarPostprocess(RadarPostprocessNodeId, newConfig.scopeParametersList,
+                .UpdateNodePointsRadarPostprocess(RadarPostprocessNodeId, newConfig.scopeParameters,
                     newConfig.azimuthResolution, newConfig.elevationResolution, automaticCaptureHz)
                 .UpdateNodeGaussianNoiseAngularRay(NoiseRaysNodeId,
                     newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,
