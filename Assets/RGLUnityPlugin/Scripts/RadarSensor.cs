@@ -41,8 +41,7 @@ namespace RGLUnityPlugin
 
         public RadarModel modelPreset = RadarModel.SmartmicroDRVEGRD169MediumRange;
 
-        // It is safer to refer to concrete property instead of using dictionary here because of static initialization order.
-        public RadarConfiguration configuration = RadarConfigurationLibrary.SmartmicroDRVEGRD169MediumRange;
+        public RadarConfiguration configuration = RadarConfigurationLibrary.ByModel[RadarModel.SmartmicroDRVEGRD169MediumRange]();
 
         private RGLNodeSequence rglGraphRadar;
         private RGLNodeSequence rglSubgraphToRadarFrame;
@@ -84,12 +83,14 @@ namespace RGLUnityPlugin
                 .AddNodeGaussianNoiseDistance(NoiseDistanceNodeId, 0, 0, 0)
                 .AddNodePointsFilterGround(FilterGroundNodeId, GroundAngleThreshold * Mathf.Deg2Rad)
                 .AddNodePointsCompactByField(CompactNonGroundNodeId, RGLField.IS_GROUND_I32)
-                .AddNodePointsRadarPostprocess(RadarPostprocessNodeId, 0.1f, 0.1f);
+                .AddNodePointsRadarPostprocess(RadarPostprocessNodeId, new []{new RadarScopeParameters()}, 0.1f, 0.1f, 0.1f);
 
             rglSubgraphToRadarFrame = new RGLNodeSequence()
                 .AddNodePointsTransform(ToRadarFrameId, Matrix4x4.identity);
 
             RGLNodeSequence.Connect(rglGraphRadar, rglSubgraphToRadarFrame);
+
+            rglGraphRadar.ConfigureNodeRaytraceDistortion(RadarRaytraceNodeId, false); // Ensure no distortion for radar
         }
 
         public void Start()
@@ -116,7 +117,7 @@ namespace RGLUnityPlugin
             bool firstValidation = validatedPreset == null;
             if (!firstValidation && presetChanged)
             {
-                configuration = RadarConfigurationLibrary.ByModel[modelPreset];
+                configuration = RadarConfigurationLibrary.ByModel[modelPreset]();
             }
             ApplyConfiguration(configuration);
             validatedPreset = modelPreset;
@@ -131,7 +132,8 @@ namespace RGLUnityPlugin
 
             rglGraphRadar.UpdateNodeRaysFromMat3x4f(RadarRaysNodeId, newConfig.GetRayPoses())
                 .UpdateNodeRaysSetRange(RadarRangeNodeId, newConfig.GetRayRanges())
-                .UpdateNodePointsRadarPostprocess(RadarPostprocessNodeId, newConfig.rangeSeparation, newConfig.azimuthSeparation * Mathf.Deg2Rad)
+                .UpdateNodePointsRadarPostprocess(RadarPostprocessNodeId, newConfig.scopeParameters,
+                    newConfig.azimuthResolution, newConfig.elevationResolution, automaticCaptureHz)
                 .UpdateNodeGaussianNoiseAngularRay(NoiseRaysNodeId,
                     newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,
                     newConfig.noiseParams.angularNoiseStDev * Mathf.Deg2Rad)
@@ -214,7 +216,7 @@ namespace RGLUnityPlugin
             // Sensor angular velocity in rad/s.
             Vector3 localAngularVelocity = (deltaRotation * Mathf.Deg2Rad) / Time.deltaTime;
 
-            rglGraphRadar.UpdateNodeRaytrace(RadarRaytraceNodeId, localLinearVelocity, localAngularVelocity, false);
+            rglGraphRadar.ConfigureNodeRaytraceVelocity(RadarRaytraceNodeId, localLinearVelocity, localAngularVelocity);
         }
     }
 }

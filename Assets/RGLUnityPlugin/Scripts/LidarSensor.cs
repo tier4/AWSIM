@@ -208,11 +208,7 @@ namespace RGLUnityPlugin
                 rglGraphLidar.SetActive(snowNodeId, LidarSnowManager.Instance.IsSnowEnabled);
             }
 
-            // If distortion is disabled, update raytrace node with no velocities provided (it disables distortion in native RGL library)
-            if (!applyVelocityDistortion)
-            {
-                rglGraphLidar.UpdateNodeRaytrace(lidarRaytraceNodeId);
-            }
+            rglGraphLidar.ConfigureNodeRaytraceDistortion(lidarRaytraceNodeId, applyVelocityDistortion);
         }
 
         public void OnEnable()
@@ -353,7 +349,7 @@ namespace RGLUnityPlugin
             // Sensor angular velocity in rad/s.
             Vector3 localAngularVelocity = (deltaRotation * Mathf.Deg2Rad) / Time.deltaTime;
 
-            rglGraphLidar.UpdateNodeRaytrace(lidarRaytraceNodeId, localLinearVelocity, localAngularVelocity, true);
+            rglGraphLidar.ConfigureNodeRaytraceVelocity(lidarRaytraceNodeId, localLinearVelocity, localAngularVelocity);
         }
     }
 }
