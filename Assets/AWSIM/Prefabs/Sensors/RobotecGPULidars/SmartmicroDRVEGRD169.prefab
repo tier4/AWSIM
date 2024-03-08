@@ -100,7 +100,7 @@ MonoBehaviour:
     maxAzimuthAngle: 65
     minElevationAngle: -7.5
     maxElevationAngle: 7.5
-    parametersScopes:
+    scopeParametersList:
     - beginDistance: 0.6
       endDistance: 9.5
       distanceSeparationThreshold: 0.15

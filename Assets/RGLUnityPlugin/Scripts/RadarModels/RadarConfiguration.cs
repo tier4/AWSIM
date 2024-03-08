@@ -19,17 +19,17 @@ using UnityEngine;
 namespace RGLUnityPlugin
 {
     [Serializable]
-    public struct RadarParametersScope
+    public struct RadarScopeParameters
     {
-        [Tooltip("Beginning distance range for the parameters.")]
+        [Tooltip("Beginning of distance range for this scope")]
         [Min(0.0f)] public float beginDistance;
-        [Tooltip("End range distance for the parameters")]
+        [Tooltip("End of distance range for this scope")]
         [Min(0.0f)] public float endDistance;
-        [Tooltip("Maximum distance difference to create a new radar detection")]
+        [Tooltip("Minimum distance difference to create separate detections")]
         [Min(0.0f)] public float distanceSeparationThreshold;
-        [Tooltip("Maximum radial speed difference to create a new radar detection")]
+        [Tooltip("Minimum radial speed difference to create separate detections")]
         [Min(0.0f)] public float radialSpeedSeparationThreshold;
-        [Tooltip("Maximum azimuth difference to create a new radar detection")]
+        [Tooltip("Minimum azimuth difference to create separate detections")]
         [Min(0.0f)] public float azimuthSeparationThreshold;
     }
 
@@ -48,8 +48,8 @@ namespace RGLUnityPlugin
         [Tooltip("Maximum elevation angle (up)")]
         [Range(-180.0f, 180.0f)] public float maxElevationAngle;
 
-        [Tooltip("Radar scopes of parameters")]
-        public RadarParametersScope[] parametersScopes;
+        [Tooltip("List of radar scope parameters")]
+        public RadarScopeParameters[] scopeParametersList;
 
         [Tooltip("Radar noise parameters")]
         public RadarNoiseParams noiseParams;
@@ -59,9 +59,9 @@ namespace RGLUnityPlugin
         [NonSerialized]
         public float elevationResolution = 0.49f;
 
-        private int azimuthSteps => Math.Max((int)Math.Round((maxAzimuthAngle - minAzimuthAngle) / azimuthResolution), 1);
-        private int elevationSteps => Math.Max((int)Math.Round((maxElevationAngle - minElevationAngle) / elevationResolution), 1);
-        private int pointCloudSize => elevationSteps * azimuthSteps;
+        private int azimuthStepCount => Math.Max((int)Math.Round((maxAzimuthAngle - minAzimuthAngle) / azimuthResolution), 1);
+        private int elevationStepCount => Math.Max((int)Math.Round((maxElevationAngle - minElevationAngle) / elevationResolution), 1);
+        private int pointCloudSize => elevationStepCount * azimuthStepCount;
 
         public Matrix4x4[] GetRayPoses()
         {
@@ -78,11 +78,11 @@ namespace RGLUnityPlugin
             }
 
             Matrix4x4[] rayPose = new Matrix4x4[pointCloudSize];
-            for (int aStep = 0; aStep < azimuthSteps; aStep++)
+            for (int aStep = 0; aStep < azimuthStepCount; aStep++)
             {
-                for (int eStep = 0; eStep < elevationSteps; eStep++)
+                for (int eStep = 0; eStep < elevationStepCount; eStep++)
                 {
-                    int idx = eStep + aStep * elevationSteps;
+                    int idx = eStep + aStep * elevationStepCount;
                     float azimuth = Mathf.Min(minAzimuthAngle + aStep * azimuthResolution, maxAzimuthAngle);
                     float elevation = Mathf.Min(minElevationAngle + eStep * elevationResolution, maxElevationAngle);
                     rayPose[idx] = Matrix4x4.Rotate(Quaternion.Euler(elevation, azimuth, 0.0f));
@@ -93,8 +93,8 @@ namespace RGLUnityPlugin
 
         public Vector2[] GetRayRanges()
         {
-            float minRange = parametersScopes.Min(s => s.beginDistance);
-            float maxRange = parametersScopes.Max(s => s.endDistance);
+            float minRange = scopeParametersList.Min(s => s.beginDistance);
+            float maxRange = scopeParametersList.Max(s => s.endDistance);
 
             return new[] { new Vector2(minRange, maxRange) };
         }

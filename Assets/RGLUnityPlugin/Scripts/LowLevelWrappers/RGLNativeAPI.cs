@@ -517,19 +517,19 @@ namespace RGLUnityPlugin
             }
         }
 
-        public static void NodePointsRadarPostprocess(ref IntPtr node, RadarParametersScope[] radarParametersScopes,
+        public static void NodePointsRadarPostprocess(ref IntPtr node, RadarScopeParameters[] radarParametersScopes,
             float rayAzimuthStep, float rayElevationStep, float frequency)
         {
-            RadarParametersScope[] radarParametersScopesCopy = new RadarParametersScope[radarParametersScopes.Length];
-            radarParametersScopes.CopyTo(radarParametersScopesCopy, 0);
+            RadarScopeParameters[] radarParametersScopesCopy = new RadarScopeParameters[radarParametersScopes.Length];
             for (int i = 0; i < radarParametersScopesCopy.Length; ++i)
             {
+                radarParametersScopesCopy[i] = radarParametersScopes[i];
                 radarParametersScopesCopy[i].azimuthSeparationThreshold *= Mathf.Deg2Rad;
             }
 
             unsafe
             {
-                fixed (RadarParametersScope* pRadarParametersScopes = radarParametersScopesCopy)
+                fixed (RadarScopeParameters* pRadarParametersScopes = radarParametersScopesCopy)
                 {
                     CheckErr(rgl_node_points_radar_postprocess(ref node, (IntPtr) pRadarParametersScopes,
                         radarParametersScopesCopy.Length, rayAzimuthStep, rayElevationStep, frequency));

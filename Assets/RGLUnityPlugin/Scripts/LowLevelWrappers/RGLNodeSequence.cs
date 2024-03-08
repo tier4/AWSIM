@@ -297,7 +297,7 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence AddNodePointsRadarPostprocess(string identifier, RadarParametersScope[] radarParametersScopes,
+        public RGLNodeSequence AddNodePointsRadarPostprocess(string identifier, RadarScopeParameters[] radarParametersScopes,
             float rayAzimuthStep, float rayElevationStep, float frequency)
         {
             CheckNodeNotExist(identifier);
@@ -421,7 +421,7 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence UpdateNodePointsRadarPostprocess(string identifier, RadarParametersScope[] radarParametersScopes,
+        public RGLNodeSequence UpdateNodePointsRadarPostprocess(string identifier, RadarScopeParameters[] radarParametersScopes,
             float rayAzimuthStep, float rayElevationStep, float frequency)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_RADAR_POSTPROCESS);

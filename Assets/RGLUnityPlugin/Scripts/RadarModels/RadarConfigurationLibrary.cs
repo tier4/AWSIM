@@ -28,9 +28,9 @@ namespace RGLUnityPlugin
                     maxAzimuthAngle = 65.0f,
                     minElevationAngle = -7.5f,
                     maxElevationAngle = 7.5f,
-                    parametersScopes = new[]
+                    scopeParametersList = new[]
                     {
-                        new RadarParametersScope
+                        new RadarScopeParameters
                         {
                             beginDistance = 1.3f,
                             endDistance = 19.0f,
@@ -38,7 +38,7 @@ namespace RGLUnityPlugin
                             radialSpeedSeparationThreshold = 0.3f,
                             azimuthSeparationThreshold = 8.0f
                         },
-                        new RadarParametersScope
+                        new RadarScopeParameters
                         {
                             beginDistance = 19.0f,
                             endDistance = 56.0f,
@@ -46,7 +46,7 @@ namespace RGLUnityPlugin
                             radialSpeedSeparationThreshold = 0.3f,
                             azimuthSeparationThreshold = 8.0f
                         },
-                        new RadarParametersScope
+                        new RadarScopeParameters
                         {
                             beginDistance = 56.0f,
                             endDistance = 130.0f,
@@ -64,9 +64,9 @@ namespace RGLUnityPlugin
                     maxAzimuthAngle = 65.0f,
                     minElevationAngle = -7.5f,
                     maxElevationAngle = 7.5f,
-                    parametersScopes = new[]
+                    scopeParametersList = new[]
                     {
-                        new RadarParametersScope
+                        new RadarScopeParameters
                         {
                             beginDistance = 0.6f,
                             endDistance = 9.5f,
@@ -74,7 +74,7 @@ namespace RGLUnityPlugin
                             radialSpeedSeparationThreshold = 0.15f,
                             azimuthSeparationThreshold = 8.0f
                         },
-                        new RadarParametersScope
+                        new RadarScopeParameters
                         {
                             beginDistance = 9.5f,
                             endDistance = 19.0f,
@@ -82,7 +82,7 @@ namespace RGLUnityPlugin
                             radialSpeedSeparationThreshold = 0.3f,
                             azimuthSeparationThreshold = 8.0f
                         },
-                        new RadarParametersScope
+                        new RadarScopeParameters
                         {
                             beginDistance = 19.0f,
                             endDistance = 56.0f,
@@ -100,9 +100,9 @@ namespace RGLUnityPlugin
                     maxAzimuthAngle = 65.0f,
                     minElevationAngle = -7.5f,
                     maxElevationAngle = 7.5f,
-                    parametersScopes = new[]
+                    scopeParametersList = new[]
                     {
-                        new RadarParametersScope
+                        new RadarScopeParameters
                         {
                             beginDistance = 0.2f,
                             endDistance = 9.5f,
@@ -110,7 +110,7 @@ namespace RGLUnityPlugin
                             radialSpeedSeparationThreshold = 0.15f,
                             azimuthSeparationThreshold = 8.0f
                         },
-                        new RadarParametersScope
+                        new RadarScopeParameters
                         {
                             beginDistance = 9.5f,
                             endDistance = 19.0f,
@@ -128,9 +128,9 @@ namespace RGLUnityPlugin
                     maxAzimuthAngle = 70.0f,
                     minElevationAngle = -14.0f,
                     maxElevationAngle = 14.0f,
-                    parametersScopes = new[]
+                    scopeParametersList = new[]
                     {
-                        new RadarParametersScope
+                        new RadarScopeParameters
                         {
                             beginDistance = 0.1f,
                             endDistance = 9.5f,
