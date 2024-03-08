@@ -234,7 +234,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c65d1fdc35027290e9b91e2c6ecab1fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  publishHz: 10
   imageOnGui:
     show: 1
     scale: 4
@@ -253,8 +252,10 @@ MonoBehaviour:
     p2: 0
     k3: 0
   cameraObject: {fileID: 1748890876559847002}
+  enableLensDistortionCorrection: 0
   distortionShader: {fileID: 7200000, guid: 8ba118ba5fd3df74da56fc7b5c68f16c, type: 3}
   rosImageShader: {fileID: 7200000, guid: ec3733322406d6750a0ad58713c14110, type: 3}
+  distortionCorrectionShader: {fileID: 7200000, guid: bbfe0d1195f24668aaac68048b7f2daf, type: 3}
 --- !u!114 &7800869322880189815
 MonoBehaviour:
   m_ObjectHideFlags: 0
