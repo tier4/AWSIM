@@ -91,7 +91,10 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_raytrace(ref IntPtr node, IntPtr scene);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_raytrace_in_motion(ref IntPtr node, IntPtr scene, IntPtr linear_velocity, IntPtr angular_velocity, bool apply_ray_distortion);
+        public static extern int rgl_node_raytrace_configure_velocity(IntPtr node, IntPtr linear_velocity, IntPtr angular_velocity);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_raytrace_configure_distortion(IntPtr node, bool enable);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_format(ref IntPtr node, IntPtr fields, int field_count);
@@ -135,7 +138,8 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_points_filter_ground(ref IntPtr node, IntPtr sensor_up_vector, float ground_angle_threshold);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_points_radar_postprocess(ref IntPtr node, float distance_separation, float azimuth_separation);
+        public static extern int rgl_node_points_radar_postprocess(ref IntPtr node, IntPtr radar_scopes, int radar_scopes_count,
+            float ray_azimuth_step, float ray_elevation_step, float frequency);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_simulate_snow(ref IntPtr node, float min_range, float max_range, float rain_rate,
@@ -402,22 +406,25 @@ namespace RGLUnityPlugin
             CheckErr(rgl_node_raytrace(ref node, IntPtr.Zero));
         }
 
-        // Raytrace with sensor velocity provided. Needed for velocity distortion feature or radar simulation.
-        public static void NodeRaytrace(ref IntPtr node, Vector3 linearVelocity, Vector3 angularVelocity, bool applyRayDistortion)
+        public static void NodeRaytraceConfigureVelocity(IntPtr node, Vector3 linearVelocity, Vector3 angularVelocity)
         {
             var linearVelocityFloats = IntoVec3f(linearVelocity);
             var angularVelocityFloats = IntoVec3f(angularVelocity);
-
             unsafe
             {
                 fixed (float* linearVelocityFloatsPtr = linearVelocityFloats)
                 {
                     fixed (float* angularVelocityFloatsPtr = angularVelocityFloats)
                     {
-                        CheckErr(rgl_node_raytrace_in_motion(ref node, IntPtr.Zero, (IntPtr) linearVelocityFloatsPtr, (IntPtr) angularVelocityFloatsPtr, applyRayDistortion));
+                        CheckErr(rgl_node_raytrace_configure_velocity(node, (IntPtr) linearVelocityFloatsPtr, (IntPtr) angularVelocityFloatsPtr));
                     }
                 }
             }
+        }
+
+        public static void NodeRaytraceConfigureDistortion(IntPtr node, bool enable)
+        {
+            CheckErr(rgl_node_raytrace_configure_distortion(node, enable));
         }
 
         public static void NodePointsFormat(ref IntPtr node, RGLField[] fields)
@@ -517,9 +524,24 @@ namespace RGLUnityPlugin
             }
         }
 
-        public static void NodePointsRadarPostprocess(ref IntPtr node, float distanceSeparation, float azimuthSeparation)
+        public static void NodePointsRadarPostprocess(ref IntPtr node, RadarScopeParameters[] radarParametersScopes,
+            float rayAzimuthStep, float rayElevationStep, float frequency)
         {
-            CheckErr(rgl_node_points_radar_postprocess(ref node, distanceSeparation, azimuthSeparation));
+            RadarScopeParameters[] radarParametersScopesCopy = new RadarScopeParameters[radarParametersScopes.Length];
+            for (int i = 0; i < radarParametersScopesCopy.Length; ++i)
+            {
+                radarParametersScopesCopy[i] = radarParametersScopes[i];
+                radarParametersScopesCopy[i].azimuthSeparationThreshold *= Mathf.Deg2Rad;
+            }
+
+            unsafe
+            {
+                fixed (RadarScopeParameters* pRadarParametersScopes = radarParametersScopesCopy)
+                {
+                    CheckErr(rgl_node_points_radar_postprocess(ref node, (IntPtr) pRadarParametersScopes,
+                        radarParametersScopesCopy.Length, rayAzimuthStep, rayElevationStep, frequency));
+                }
+            }
         }
 
         public static void NodePointsSimulateSnow(ref IntPtr node, float minRange, float maxRange, float rainRate,
