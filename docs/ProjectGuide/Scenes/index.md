@@ -109,6 +109,14 @@ The `LidarInstanceSegmentationDemo` is a demo scene for instance segmentation fe
 
 ![InstanceSegmentationDemo](InstanceSegmentationDemo.png)
 
+### RadarSceneDevelop
+
+The scene `RadarSceneDevelop` demonstrates the use of the `RadarSensor` component along with `LiDARSensor`.
+LiDAR hit points are shown as small red points, and radar hit points are shown as bigger blue boxes.
+
+![RadarTestScene.png](RadarTestScene.png)
+
+
 To run demo scene:
 
 1. Open scene: `Assets/AWSIM/Scenes/Samples/LidarInstanceSegmentationDemo.unity`
