@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.TestTools;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +7,6 @@ using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools.Utils;
 using AWSIM;
-using System.Linq;
 
 public class SensorsTest
 {

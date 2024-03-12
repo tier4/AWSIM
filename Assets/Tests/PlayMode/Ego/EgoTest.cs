@@ -154,7 +154,6 @@ public class EgoTest
         Vector3 egoInitialPosition = egoGameObject.transform.position; 
         
         // Vehicle should not move when gear is set to PARK.
-        Debug.Log("Testing PARK gear.");
         gearCommandPublisher.Publish(parkGearCommand);
         yield return new WaitForSeconds(0.1f);
         for (int i = 0; i < movementCommands; i++)
@@ -166,7 +165,6 @@ public class EgoTest
         Assert.That(egoInitialPosition, Is.EqualTo(egoGameObject.transform.position).Using(v3Comparer));
 
         // Vehicle should move forward when the gear is set to DRIVE and the acceleration is >0.
-        Debug.Log("Testing DRIVE gear.");
         gearCommandPublisher.Publish(driveGearCommand);
         yield return new WaitForSeconds(0.1f);
         for (int i = 0; i < movementCommands; i++)
@@ -177,7 +175,6 @@ public class EgoTest
         Assert.That(egoGameObject.transform.position.z > 1.0f);
 
         // Vehicle go back when reverse gear is on.
-        Debug.Log("Testing REVERSE gear.");
         gearCommandPublisher.Publish(parkGearCommand);
         yield return new WaitForSeconds(0.1f);
         var egoLastPosition = egoGameObject.transform.position;

@@ -2,8 +2,6 @@ using NUnit.Framework;
 using UnityEngine;
 using AWSIM;
 using UnityEngine.TestTools.Utils;
-using System.Collections;
-using UnityEngine.TestTools;
 
 namespace Sensors
 {
