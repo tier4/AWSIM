@@ -160,6 +160,7 @@ namespace RGLUnityPlugin
             }
             ApplyConfiguration(configuration);
             validatedPreset = modelPreset;
+            onLidarModelChange?.Invoke();
         }
 
         private void ApplyConfiguration(BaseLidarConfiguration newConfig)
@@ -168,8 +169,6 @@ namespace RGLUnityPlugin
             {
                 return;
             }
-
-            onLidarModelChange?.Invoke();
 
             rglGraphLidar.UpdateNodeRaysFromMat3x4f(lidarRaysNodeId, newConfig.GetRayPoses())
                          .UpdateNodeRaysSetRange(lidarRangeNodeId, newConfig.GetRayRanges())
