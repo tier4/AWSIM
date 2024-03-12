@@ -223,6 +223,13 @@ namespace AWSIM
 
         private float sleepTimer = 0.0f; ///Count the time until CanSleep is switched to true
 
+        // Vehicle dynamics parameters used for calculating of front wheel angles.
+        public float wheelBase;
+        public float tread;
+
+        // Vehicle's true front wheel angles considering Ackermann geometry.
+        private float leftWheelAngle;
+        private float rightWheelAngle;
 
 
         // Cache components.
@@ -246,6 +253,9 @@ namespace AWSIM
             m_rigidbody = GetComponent<Rigidbody>();
             m_transform = transform;
             wheels = new Wheel[] { frontAxle.LeftWheel, frontAxle.RightWheel, rearAxle.LeftWheel, rearAxle.RightWheel };
+
+            wheelBase = Mathf.Abs(wheels[0].transform.localPosition.z - wheels[2].transform.localPosition.z);
+            tread = Mathf.Abs(wheels[0].transform.localPosition.x - wheels[1].transform.localPosition.x);
 
             // Set center of mass position.
             if (centerOfMassTransform != null)
@@ -307,8 +317,26 @@ namespace AWSIM
             void PreUpdateWheels()
             {
                 // Steer angle is front-only.
-                frontAxle.LeftWheel.UpdateWheelSteerAngle(SteerAngle);
-                frontAxle.RightWheel.UpdateWheelSteerAngle(SteerAngle);
+                if (SteerAngle > 0.01)
+                {
+                    leftWheelAngle = Mathf.Asin(1 / Mathf.Sqrt(Mathf.Pow((1 / Mathf.Tan(Mathf.Abs(SteerAngle) * Mathf.Deg2Rad) + tread / wheelBase), 2) + 1)) * Mathf.Rad2Deg;
+                    rightWheelAngle = SteerAngle;
+                }
+
+                else if (SteerAngle < -0.01)
+                {
+                    leftWheelAngle = SteerAngle;
+                    rightWheelAngle = -Mathf.Asin(1 / Mathf.Sqrt(Mathf.Pow((1 / Mathf.Tan(Mathf.Abs(SteerAngle) * Mathf.Deg2Rad) + tread / wheelBase), 2) + 1)) * Mathf.Rad2Deg;
+                }
+
+                else
+                {
+                    leftWheelAngle = SteerAngle;
+                    rightWheelAngle = SteerAngle;
+                }
+
+                frontAxle.LeftWheel.UpdateWheelSteerAngle(leftWheelAngle);
+                frontAxle.RightWheel.UpdateWheelSteerAngle(rightWheelAngle);
 
                 foreach (var wheel in wheels)
                 {
@@ -442,8 +470,33 @@ namespace AWSIM
                 var perWheelAcceleration = acceleration / wheels.Length;
 
                 // Update the acceleration output by each wheel.
-                foreach (var wheel in wheels)
-                    wheel.UpdateWheelForce(perWheelAcceleration);
+                // Calculate the radius of the arc drawn by each wheel based on the radius of the arc drawn by the front wheels, which are on the outside when the vehicle turns, to obtain dif1, dif2, and dif3, and weight the magnitude of the force applied.
+                // These dif1, dif2, and dif3 are used to control the speed of each wheel when the vehicle turns.
+                var dif1 = Mathf.Sin(SteerAngle * Mathf.Deg2Rad) / Mathf.Sin(Mathf.Asin(1 / Mathf.Sqrt(Mathf.Pow((1 / Mathf.Tan(Mathf.Abs(SteerAngle) * Mathf.Deg2Rad) + tread / wheelBase), 2) + 1)));
+                var dif2 = Mathf.Sin(SteerAngle * Mathf.Deg2Rad) / Mathf.Tan(Mathf.Asin(1 / Mathf.Sqrt(Mathf.Pow((1 / Mathf.Tan(Mathf.Abs(SteerAngle) * Mathf.Deg2Rad) + tread / wheelBase), 2) + 1)));
+                var dif3 = Mathf.Sin(SteerAngle * Mathf.Deg2Rad) * (1 / Mathf.Tan(Mathf.Asin(1 / Mathf.Sqrt(Mathf.Pow((1 / Mathf.Tan(Mathf.Abs(SteerAngle) * Mathf.Deg2Rad) + tread / wheelBase), 2) + 1))) - tread / wheelBase);
+                
+                if (SteerAngle > 0.001)
+                {
+                    frontAxle.LeftWheel.UpdateWheelForce(perWheelAcceleration);
+                    frontAxle.RightWheel.UpdateWheelForce(perWheelAcceleration * dif1);
+                    rearAxle.LeftWheel.UpdateWheelForce(perWheelAcceleration * dif2);
+                    rearAxle.RightWheel.UpdateWheelForce(perWheelAcceleration * dif3);
+                }
+
+                else if (SteerAngle < -0.001)
+                {
+                    frontAxle.LeftWheel.UpdateWheelForce(perWheelAcceleration * dif1);
+                    frontAxle.RightWheel.UpdateWheelForce(perWheelAcceleration);
+                    rearAxle.LeftWheel.UpdateWheelForce(perWheelAcceleration * dif3);
+                    rearAxle.RightWheel.UpdateWheelForce(perWheelAcceleration * dif2);                    
+                }
+
+                else
+                {
+                    foreach (var wheel in wheels)
+                        wheel.UpdateWheelForce(perWheelAcceleration);
+                }
             }
         }
     }
