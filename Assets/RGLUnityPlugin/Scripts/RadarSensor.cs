@@ -131,10 +131,13 @@ namespace RGLUnityPlugin
                 return;
             }
 
+            float radarFrequencyHz = newConfig.frequency * 1000000000.0f; // GHz to Hz
+
             rglGraphRadar.UpdateNodeRaysFromMat3x4f(RadarRaysNodeId, newConfig.GetRayPoses())
                 .UpdateNodeRaysSetRange(RadarRangeNodeId, newConfig.GetRayRanges())
                 .UpdateNodePointsRadarPostprocess(RadarPostprocessNodeId, newConfig.scopeParameters,
-                    newConfig.azimuthResolution, newConfig.elevationResolution, automaticCaptureHz, newConfig.powerTransmittedDbm,
+                    newConfig.azimuthResolution * Mathf.Deg2Rad, newConfig.elevationResolution * Mathf.Deg2Rad,
+                    radarFrequencyHz, newConfig.powerTransmittedDbm,
                     newConfig.antennaGainDbi, newConfig.receivedNoiseMeanDbm, newConfig.receivedNoiseStDevDbm)
                 .UpdateNodeGaussianNoiseAngularRay(NoiseRaysNodeId,
                     newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,

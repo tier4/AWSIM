@@ -48,6 +48,9 @@ namespace RGLUnityPlugin
         [Tooltip("Maximum elevation angle (up)")]
         [Range(-180.0f, 180.0f)] public float maxElevationAngle;
 
+        [Tooltip("The frequency of the radar (in GHz)")]
+        [Range(0.0f, 100.0f)] public float frequency = 79.0f;
+
         [Tooltip("The power transmitted by the radar (in dBm)")]
         [Range(0.0f, 100.0f)] public float powerTransmittedDbm = 31.0f;
 
