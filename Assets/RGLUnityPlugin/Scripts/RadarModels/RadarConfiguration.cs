@@ -48,6 +48,18 @@ namespace RGLUnityPlugin
         [Tooltip("Maximum elevation angle (up)")]
         [Range(-180.0f, 180.0f)] public float maxElevationAngle;
 
+        [Tooltip("The power transmitted by the radar (in dBm)")]
+        [Range(0.0f, 100.0f)] public float powerTransmittedDbm = 31.0f;
+
+        [Tooltip("The gain of the radar's antenna (in dBi)")]
+        [Range(0.0f, 100.0f)] public float antennaGainDbi = 27.0f;
+
+        [Tooltip("The mean of the received noise (in dB)")]
+        public float receivedNoiseMeanDbm = 0.0f;
+
+        [Tooltip("The standard deviation of the received noise (in dB)")]
+        public float receivedNoiseStDevDbm = 0.02f;
+
         [Tooltip("Array of radar scope parameters")]
         public RadarScopeParameters[] scopeParameters;
 
@@ -55,9 +67,9 @@ namespace RGLUnityPlugin
         public RadarNoiseParams noiseParams;
 
         [NonSerialized]
-        public float azimuthResolution = 0.49f;
+        public float azimuthResolution = 1.99f;
         [NonSerialized]
-        public float elevationResolution = 0.49f;
+        public float elevationResolution = 1.49f;
 
         private int azimuthStepCount => Math.Max((int)Math.Round((maxAzimuthAngle - minAzimuthAngle) / azimuthResolution), 1);
         private int elevationStepCount => Math.Max((int)Math.Round((maxElevationAngle - minElevationAngle) / elevationResolution), 1);

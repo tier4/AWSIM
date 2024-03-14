@@ -298,11 +298,13 @@ namespace RGLUnityPlugin
         }
 
         public RGLNodeSequence AddNodePointsRadarPostprocess(string identifier, RadarScopeParameters[] radarParametersScopes,
-            float rayAzimuthStep, float rayElevationStep, float frequency)
+            float rayAzimuthStep, float rayElevationStep, float frequency, float powerTransmittedDbm,
+            float antennaGainDbi, float receivedNoiseMeanDbm, float receivedNoiseStDevDbm)
         {
             CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
-            RGLNativeAPI.NodePointsRadarPostprocess(ref handle.Node, radarParametersScopes, rayAzimuthStep, rayElevationStep, frequency);
+            RGLNativeAPI.NodePointsRadarPostprocess(ref handle.Node, radarParametersScopes, rayAzimuthStep, rayElevationStep, frequency,
+                powerTransmittedDbm, antennaGainDbi, receivedNoiseMeanDbm, receivedNoiseStDevDbm);
             handle.Type = RGLNodeType.POINTS_RADAR_POSTPROCESS;
             handle.Identifier = identifier;
             AddNode(handle);
@@ -422,10 +424,12 @@ namespace RGLUnityPlugin
         }
 
         public RGLNodeSequence UpdateNodePointsRadarPostprocess(string identifier, RadarScopeParameters[] radarParametersScopes,
-            float rayAzimuthStep, float rayElevationStep, float frequency)
+            float rayAzimuthStep, float rayElevationStep, float frequency, float powerTransmittedDbm,
+            float antennaGainDbi, float receivedNoiseMeanDbm, float receivedNoiseStDevDbm)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_RADAR_POSTPROCESS);
-            RGLNativeAPI.NodePointsRadarPostprocess(ref handle.Node, radarParametersScopes, rayAzimuthStep, rayElevationStep, frequency);
+            RGLNativeAPI.NodePointsRadarPostprocess(ref handle.Node, radarParametersScopes, rayAzimuthStep, rayElevationStep, frequency,
+                powerTransmittedDbm, antennaGainDbi, receivedNoiseMeanDbm, receivedNoiseStDevDbm);
             return this;
         }
 

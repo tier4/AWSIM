@@ -38,7 +38,7 @@ namespace RGLUnityPlugin
         {
             angularNoiseMean = 0.0f,
             angularNoiseStDev = 2.0f,
-            distanceNoiseStDevBase = 0.02f,
+            distanceNoiseStDevBase = 0.2f,
             distanceNoiseStDevRisePerMeter = 0.0f,
             distanceNoiseMean = 0.0f,
         };
