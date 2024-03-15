@@ -298,13 +298,13 @@ namespace RGLUnityPlugin
         }
 
         public RGLNodeSequence AddNodePointsRadarPostprocess(string identifier, RadarScopeParameters[] radarParametersScopes,
-            float rayAzimuthStep, float rayElevationStep, float frequency, float powerTransmittedDbm,
-            float antennaGainDbi, float receivedNoiseMeanDbm, float receivedNoiseStDevDbm)
+            float rayAzimuthStep, float rayElevationStep, float frequency, float powerTransmitted,
+            float antennaGain, float receivedNoiseMean, float receivedNoiseStDev)
         {
             CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
             RGLNativeAPI.NodePointsRadarPostprocess(ref handle.Node, radarParametersScopes, rayAzimuthStep, rayElevationStep, frequency,
-                powerTransmittedDbm, antennaGainDbi, receivedNoiseMeanDbm, receivedNoiseStDevDbm);
+                powerTransmitted, antennaGain, receivedNoiseMean, receivedNoiseStDev);
             handle.Type = RGLNodeType.POINTS_RADAR_POSTPROCESS;
             handle.Identifier = identifier;
             AddNode(handle);
@@ -424,12 +424,12 @@ namespace RGLUnityPlugin
         }
 
         public RGLNodeSequence UpdateNodePointsRadarPostprocess(string identifier, RadarScopeParameters[] radarParametersScopes,
-            float rayAzimuthStep, float rayElevationStep, float frequency, float powerTransmittedDbm,
-            float antennaGainDbi, float receivedNoiseMeanDbm, float receivedNoiseStDevDbm)
+            float rayAzimuthStep, float rayElevationStep, float frequency, float powerTransmitted,
+            float antennaGain, float receivedNoiseMean, float receivedNoiseStDev)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_RADAR_POSTPROCESS);
-            RGLNativeAPI.NodePointsRadarPostprocess(ref handle.Node, radarParametersScopes, rayAzimuthStep, rayElevationStep, frequency,
-                powerTransmittedDbm, antennaGainDbi, receivedNoiseMeanDbm, receivedNoiseStDevDbm);
+            RGLNativeAPI.NodePointsRadarPostprocess(ref handle.Node, radarParametersScopes, rayAzimuthStep, rayElevationStep,
+                frequency, powerTransmitted, antennaGain, receivedNoiseMean, receivedNoiseStDev);
             return this;
         }
 

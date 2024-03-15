@@ -139,8 +139,8 @@ namespace RGLUnityPlugin
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_radar_postprocess(ref IntPtr node, IntPtr radar_scopes, int radar_scopes_count,
-            float ray_azimuth_step, float ray_elevation_step, float frequency, float powerTransmittedDbm,
-            float antennaGainDbi, float received_noise_mean_dbm, float received_noise_st_dev_dbm);
+            float ray_azimuth_step, float ray_elevation_step, float frequency, float power_transmitted_dbm,
+            float antenna_gain_dbi, float received_noise_mean_dbm, float received_noise_st_dev_dbm);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_simulate_snow(ref IntPtr node, float min_range, float max_range, float rain_rate,
@@ -519,9 +519,10 @@ namespace RGLUnityPlugin
         }
 
         public static void NodePointsRadarPostprocess(ref IntPtr node, RadarScopeParameters[] radarParametersScopes,
-            float rayAzimuthStep, float rayElevationStep, float frequency, float powerTransmittedDbm,
-            float antennaGainDbi, float receivedNoiseMeanDbm, float receivedNoiseStDevDbm)
+            float rayAzimuthStep, float rayElevationStep, float frequency, float powerTransmitted,
+            float antennaGain, float receivedNoiseMean, float receivedNoiseStDev)
         {
+            // Make a copy to convert azimuthSeparationThreshold units (deg to rad)
             RadarScopeParameters[] radarParametersScopesCopy = new RadarScopeParameters[radarParametersScopes.Length];
             for (int i = 0; i < radarParametersScopesCopy.Length; ++i)
             {
@@ -535,7 +536,7 @@ namespace RGLUnityPlugin
                 {
                     CheckErr(rgl_node_points_radar_postprocess(ref node, (IntPtr) pRadarParametersScopes,
                         radarParametersScopesCopy.Length, rayAzimuthStep, rayElevationStep, frequency,
-                        powerTransmittedDbm, antennaGainDbi, receivedNoiseMeanDbm, receivedNoiseStDevDbm));
+                        powerTransmitted, antennaGain, receivedNoiseMean, receivedNoiseStDev));
                 }
             }
         }
