@@ -612,12 +612,13 @@ namespace RGLUnityPlugin
                 throw new RGLException($"Attempted to connect node '{nodeToConnect.Identifier}' twice!");
             }
 
-            // Collect previous and next nodes that are connected
+            // Collect previous and next nodes to the nodeToConnect that are connected
             RGLNodeHandle[] prevNodes = GetPreviousNodes(nodeToConnect, true);
             RGLNodeHandle[] nextNodes = GetNextNodes(nodeToConnect, true);
 
-            // Nodes are connected with each other. Need to disconnect them.
-            if (prevNodes.Length != 0 && nextNodes.Length != 0)
+            // If there are any other connected (active) nodes in this sequence, prevNodes and nextNodes are connected
+            // Before connecting a new node between them, we have to disconnect them first
+            if (GetConnectedNodesCount() > 0)
             {
                 foreach (RGLNodeHandle prevNode in prevNodes)
                 {
@@ -648,7 +649,7 @@ namespace RGLUnityPlugin
                 throw new RGLException($"Attempted to disconnect node '{nodeToDisconnect.Identifier}' that is not connected!");
             }
 
-            // Collect previous and next nodes that are connected
+            // Collect previous and next nodes to the nodeToDisconnect that are connected
             RGLNodeHandle[] prevNodes = GetPreviousNodes(nodeToDisconnect, true);
             RGLNodeHandle[] nextNodes = GetNextNodes(nodeToDisconnect, true);
 
@@ -662,19 +663,11 @@ namespace RGLUnityPlugin
                 RGLNativeAPI.GraphNodeRemoveChild(nodeToDisconnect.Node, nextNode.Node);
             }
 
-            bool anyNodeRemained = false;
-            foreach (RGLNodeHandle node in prevNodes.ToList().Concat(nextNodes.ToList()))
-            {
-                if (nodes.Contains(node))
-                {
-                    anyNodeRemained = true;
-                    break;
-                }
-            }
+            nodeToDisconnect.Connected = false;
 
-            // Connect nodes that have become adjacent
-            // If there is no remaining nodes in this sequence - skip connecting
-            if (prevNodes.Length != 0 && nextNodes.Length != 0 && anyNodeRemained)
+            // If there are any other connected (active) nodes in this sequence, connect nodes that have become adjacent to each other
+            // Otherwise, we don't want to connect parent and child NodeSequences by omitting the current NodeSequence
+            if (GetConnectedNodesCount() > 0)
             {
                 foreach (RGLNodeHandle prevNode in prevNodes)
                 {
@@ -684,8 +677,6 @@ namespace RGLUnityPlugin
                     }
                 }
             }
-
-            nodeToDisconnect.Connected = false;
         }
 
         //// NODE GETTERS ////
@@ -753,6 +744,11 @@ namespace RGLUnityPlugin
                 outNodes.Add(nextNodesInThisSeq[nextNodeIdx]);
             }
             return outNodes.ToArray();
+        }
+
+        private int GetConnectedNodesCount()
+        {
+            return nodes.Count(n => n.Connected);
         }
 
         private void DisconnectAllChilds()
