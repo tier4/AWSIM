@@ -101,6 +101,11 @@ MonoBehaviour:
     maxAzimuthAngle: 65
     minElevationAngle: -7.5
     maxElevationAngle: 7.5
+    frequency: 79
+    powerTransmitted: 31
+    antennaGain: 27
+    receivedNoiseMean: 60
+    receivedNoiseStDev: 1
     scopeParameters:
     - beginDistance: 0.6
       endDistance: 9.5
@@ -120,7 +125,7 @@ MonoBehaviour:
     noiseParams:
       angularNoiseStDev: 2
       angularNoiseMean: 0
-      distanceNoiseStDevBase: 0.02
+      distanceNoiseStDevBase: 0.2
       distanceNoiseStDevRisePerMeter: 0
       distanceNoiseMean: 0
 --- !u!1 &4328371732713975294
@@ -257,7 +262,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2376028680156392281, guid: 938fa307d59c95841a603b702642d5da, type: 3}
 --- !u!23 &5622698951227386421
