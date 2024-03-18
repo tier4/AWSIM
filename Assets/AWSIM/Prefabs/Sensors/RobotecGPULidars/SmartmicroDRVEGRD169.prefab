@@ -104,8 +104,8 @@ MonoBehaviour:
     frequency: 79
     powerTransmitted: 31
     antennaGain: 27
-    receivedNoiseMean: 0
-    receivedNoiseStDev: 0.02
+    receivedNoiseMean: 60
+    receivedNoiseStDev: 1
     scopeParameters:
     - beginDistance: 0.6
       endDistance: 9.5

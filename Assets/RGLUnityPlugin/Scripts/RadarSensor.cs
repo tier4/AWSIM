@@ -131,7 +131,7 @@ namespace RGLUnityPlugin
                 return;
             }
 
-            float radarFrequencyHz = newConfig.frequency * 1000000000.0f; // GHz to Hz
+            float radarFrequencyHz = newConfig.frequency * 1e9f; // GHz to Hz
 
             rglGraphRadar.UpdateNodeRaysFromMat3x4f(RadarRaysNodeId, newConfig.GetRayPoses())
                 .UpdateNodeRaysSetRange(RadarRangeNodeId, newConfig.GetRayRanges())
