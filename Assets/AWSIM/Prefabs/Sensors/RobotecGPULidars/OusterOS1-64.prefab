@@ -576,6 +576,20 @@ MonoBehaviour:
           distanceNoiseMean: 0
         minRange: 0
         maxRange: 120
+--- !u!64 &6589030601773676940
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2616437725479065245}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4811946881798900607, guid: 8ce8cbe152655307595b9f7a0af6aabe, type: 3}
 --- !u!1001 &1279405457360735599
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -583,6 +597,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3068494487180298279}
     m_Modifications:
+    - target: {fileID: 835162247340553021, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954154209502910360, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -636,5 +658,10 @@ PrefabInstance:
 --- !u!4 &5995076691610956455 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+  m_PrefabInstance: {fileID: 1279405457360735599}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2616437725479065245 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3859066201442524146, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
   m_PrefabInstance: {fileID: 1279405457360735599}
   m_PrefabAsset: {fileID: 0}
