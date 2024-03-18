@@ -62,6 +62,7 @@ In summary, `Edit Mode` tests are well-suited for **testing isolated code compon
   - `GNSS`: Using the ROS 2 interface - verified the number of generated messages based on the sensor frequency.
   - `IMU`: Using the ROS 2 interface - verified the number of generated messages based on the sensor frequency.
   - `LiDAR`: Using the ROS 2 interface - verified the number of generated messages based on the sensor frequency.
+  - `Radar`: Using the ROS 2 interface - verified the number of generated messages based on the sensor frequency.
 
 **TrafficTest:**
 
