@@ -52,9 +52,6 @@ public class SensorsTest
         poseMessages = new List<geometry_msgs.msg.PoseStamped>();
         poseWithCovarianceMessages = new List<geometry_msgs.msg.PoseWithCovarianceStamped>();
 
-        //LiDAR
-        lidarMessages = new List<sensor_msgs.msg.PointCloud2>();
-
         //IMU
         imuMessages = new List<sensor_msgs.msg.Imu>();
     }
@@ -80,8 +77,8 @@ public class SensorsTest
     {
         Assert.NotNull(lidarSensor);
         RglLidarPublisher lidarRos2Publisher = lidarSensor.GetComponent<RglLidarPublisher>();
-        
-        Assert.AreEqual(((byte)lidarRos2Publisher.reliabilityPolicy) , ((byte)ROS2.ReliabilityPolicy.QOS_POLICY_RELIABILITY_BEST_EFFORT));
+
+        Assert.AreEqual(((byte)lidarRos2Publisher.qos.reliabilityPolicy) , ((byte)ROS2.ReliabilityPolicy.QOS_POLICY_RELIABILITY_BEST_EFFORT));
 
         QoSSettings QosSettingsLidar = new QoSSettings()
         {
@@ -90,18 +87,25 @@ public class SensorsTest
             HistoryPolicy = ROS2.HistoryPolicy.QOS_POLICY_HISTORY_KEEP_LAST,
             Depth = 1,
         };
-        
-        lidarSubscription = SimulatorROS2Node.CreateSubscription<sensor_msgs.msg.PointCloud2>(
-            lidarRos2Publisher.pcl24Topic, msg =>
+
+        Assert.NotZero(lidarRos2Publisher.pointCloud2Publishers.Count);
+
+        // Test all LiDAR PointCloud2 publishers
+        foreach (var publisher in lidarRos2Publisher.pointCloud2Publishers)
         {
-            lidarMessages.Add(msg);
-        }, QosSettingsLidar.GetQoSProfile());
+            lidarMessages = new List<sensor_msgs.msg.PointCloud2>();
+            lidarSubscription?.Dispose();
+            lidarSubscription = SimulatorROS2Node.CreateSubscription<sensor_msgs.msg.PointCloud2>(
+                publisher.topic, msg =>
+                {
+                    lidarMessages.Add(msg);
+                }, QosSettingsLidar.GetQoSProfile());
 
-        yield return new WaitForSeconds(testDuration);
+            yield return new WaitForSeconds(testDuration);
 
-        Assert.IsNotEmpty(lidarMessages);
-
-        Assert.AreEqual(lidarMessages.Count, (int)(testDuration * lidarSensor.AutomaticCaptureHz));
+            Assert.IsNotEmpty(lidarMessages);
+            Assert.AreEqual(lidarMessages.Count, (int)(testDuration * lidarSensor.AutomaticCaptureHz));
+        }
     }
 
     [UnityTest]
