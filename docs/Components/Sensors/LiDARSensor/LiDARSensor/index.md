@@ -30,7 +30,7 @@ The ones mounted on the top of autonomous vehicles are primarily used
 Prefabs can be found under the following path:
 
 ```
-Assets/AWSIM/Prefabs/RobotecGPULidars/*
+Assets/AWSIM/Prefabs/Sensors/RobotecGPULidars/*
 ```
 
 The table of available prefabs can be found below:
