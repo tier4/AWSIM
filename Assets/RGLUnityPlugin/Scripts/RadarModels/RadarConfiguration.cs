@@ -66,7 +66,7 @@ namespace RGLUnityPlugin
         [Tooltip("Array of radar scope parameters")]
         public RadarScopeParameters[] scopeParameters;
 
-        [Tooltip("Radar noise parameters")]
+        [NonSerialized]
         public RadarNoiseParams noiseParams;
 
         [NonSerialized]

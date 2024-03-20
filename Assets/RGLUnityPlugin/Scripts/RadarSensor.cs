@@ -36,7 +36,9 @@ namespace RGLUnityPlugin
         /// </summary>
         public OnNewDataDelegate onNewData;
 
+        [NonSerialized]
         public bool applyDistanceGaussianNoise = true;
+        [NonSerialized]
         public bool applyAngularGaussianNoise = true;
 
         public RadarModel modelPreset = RadarModel.SmartmicroDRVEGRD169MediumRange;
