@@ -43,18 +43,24 @@ In subsequent frames of the simulation, `SceneManager` synchronizes the scene be
 ### Scripts
 - `SceneManager` - responsible for syncing the scene between *Unity* and `RGL`.
 - `LidarSensor` - provide lidar configuration and create `RGL` pipeline to simulate lidar.
+- `RadarSensor` - provide radar configuration and create `RGL` pipeline to simulate radar.
 - `PointCloudVisualization` - visualize point cloud on the *Unity* scene.
 - `IntensityTexture` - adds slot for `Intensity Texture ID` to the *GameObject*
 - `SemanticCategory` - adds category ID to the *GameObject*
 - `RGLDebugger` - provides configuration for Native `RGL` debug tools (logging and tape).
 - A set of classes providing tools to define *LiDAR* specification (mostly: ray poses):
-    - `LidarModels` - enumeration of some real-world *LiDARs* names.
+    - `LidarModels` - enumeration with supported *LiDARs* models.
     - `LidarConfiguration` - top-level configuration class, horizontal ranges, distance range, laser array.
     - `LidarConfigurationLibrary` - provides a number of pre-defined `LidarConfigurations`.
     - `LaserArray` - definition of a (vertical) array of lasers.
     - `LaserArrayLibrary` - provides a number of pre-defined `LaserArrays`.
     - `Laser` - describes offsets of a single laser within a `LaserArray`.
     - `LidarNoiseParams` - describes a LiDAR noise that can be simulated
+- A set of classes providing tools to define radar specification:
+    - `RadarModels` - enumeration with supported radar models.
+    - `RadarConfiguration` - top-level configuration class, horizontal ranges, distance range, radar parameters.
+    - `LidarConfigurationLibrary` - provides a number of pre-defined `RadarConfigurations`.
+    - `RadarNoiseParams` - describes a radar noise that can be simulated
 - `LowLevelWrappers` scripts - provides some convenience code to call Native `RGL` functions.
 - `Utilities` scripts - miscellaneous utilities to make rest of the code clearer.
 
