@@ -62,15 +62,15 @@ The pipeline consists of:
     - `Max Elevation Angle` - maximum elevation angle (in degrees)
     - `Frequency` - frequency of the wave propagation by the radar (in GHz)
     - `Power Transmitted` - power transmitted by the radar (in dBm)
-    - `Antenna Gain` - gain of the radar's antenna (in dBi)
-    - `Received Noise Mean` - mean of the received noise (in dBm)
-    - `Received Noise St Dev` - standard deviation of the received noise (in dBm)
+    - `Cumulative Device Gain` - gain of the radar's antennas and any other gains of the device (in dBi)
+    - `Received Noise Mean` - mean of the received noise (in dB)
+    - `Received Noise St Dev` - standard deviation of the received noise (in dB)
     - *Scope Parameters* - radar ability to separate (distinguish) different detections varies with the distance (e.g. by employing multiple frequency bands). Scope parameters allow to configure separation thresholds for different distance ranges (scopes):
-        - `Begin Distance` - begin of the distance interval where the following parameters are used
-        - `End Distance` - end of the distance interval where the following parameters are used
-        - `Distance Separation Threshold` - minimum distance between two points to be considered as separate detections
-        - `Radial Speed Seperation Threshold` - minimum radial speed difference between two points to be considered as separate detections
-        - `Azimuth Separation Threshold` - minimum azimuth difference between two points to be considered as separate detections
+        - `Begin Distance` - begin of the distance interval where the following parameters are used (in meters)
+        - `End Distance` - end of the distance interval where the following parameters are used (in meters)
+        - `Distance Separation Threshold` - minimum distance between two points to be considered as separate detections (in meters)
+        - `Radial Speed Seperation Threshold` - minimum radial speed difference between two points to be considered as separate detections (in meters per seconds)
+        - `Azimuth Separation Threshold` - minimum azimuth difference between two points to be considered as separate detections (in degrees)
 
 #### Output Data
 
