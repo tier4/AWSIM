@@ -485,13 +485,6 @@ namespace RGLUnityPlugin
             CheckErr(rgl_node_publish_ros2_radarscan(ref node, topicName, frameId, qos_reliability, qos_durability, qos_history, qos_depth));
         }
 
-        public static void NodePublishRos2RadarScan(
-            ref IntPtr node, string topicName, string frameId,
-            RGLQosPolicyReliability qos_reliability, RGLQosPolicyDurability qos_durability, RGLQosPolicyHistory qos_history, int qos_depth)
-        {
-            CheckErr(rgl_node_publish_ros2_radarscan(ref node, topicName, frameId, qos_reliability, qos_durability, qos_history, qos_depth));
-        }
-
         public static void NodePointsUdpPublish(ref IntPtr node, RGLLidarModel lidarModel, RGLReturnMode returnMode, RGLUdpOptions udpOptions, string deviceIp, string destIp, int destPort)
         {
             CheckErr(rgl_node_points_udp_publish(ref node, lidarModel, returnMode, udpOptions, deviceIp, destIp, destPort));
