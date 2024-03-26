@@ -54,14 +54,14 @@ namespace RGLUnityPlugin
         [Tooltip("The power transmitted by the radar (in dBm)")]
         [Range(0.0f, 100.0f)] public float powerTransmitted = 31.0f;
 
-        [Tooltip("The gain of the radar's antenna (in dBi)")]
-        [Range(0.0f, 100.0f)] public float antennaGain = 27.0f;
+        [Tooltip("The gain of the radar's antennas and any other gains of the device (in dBi)")]
+        [Range(0.0f, 100.0f)] public float cumulativeDeviceGain = 60.0f;
 
-        [Tooltip("The mean of the received noise (in dBm)")]
-        public float receivedNoiseMean = 60.0f;
+        [Tooltip("The mean of the received noise (in dB)")]
+        public float receivedNoiseMean = 93.0f;
 
-        [Tooltip("The standard deviation of the received noise (in dBm)")]
-        public float receivedNoiseStDev = 1.0f;
+        [Tooltip("The standard deviation of the received noise (in dB)")]
+        public float receivedNoiseStDev = 2.0f;
 
         [Tooltip("Array of radar scope parameters")]
         public RadarScopeParameters[] scopeParameters;

@@ -139,8 +139,8 @@ namespace RGLUnityPlugin
                 .UpdateNodeRaysSetRange(RadarRangeNodeId, newConfig.GetRayRanges())
                 .UpdateNodePointsRadarPostprocess(RadarPostprocessNodeId, newConfig.scopeParameters,
                     newConfig.azimuthResolution * Mathf.Deg2Rad, newConfig.elevationResolution * Mathf.Deg2Rad,
-                    radarFrequencyHz, newConfig.powerTransmitted, newConfig.antennaGain, newConfig.receivedNoiseMean,
-                    newConfig.receivedNoiseStDev)
+                    radarFrequencyHz, newConfig.powerTransmitted, newConfig.cumulativeDeviceGain,
+                    newConfig.receivedNoiseMean, newConfig.receivedNoiseStDev)
                 .UpdateNodeGaussianNoiseAngularRay(NoiseRaysNodeId,
                     newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,
                     newConfig.noiseParams.angularNoiseStDev * Mathf.Deg2Rad)

@@ -93,8 +93,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   automaticCaptureHz: 10
-  applyDistanceGaussianNoise: 1
-  applyAngularGaussianNoise: 1
   modelPreset: 1
   configuration:
     minAzimuthAngle: -65
@@ -103,14 +101,14 @@ MonoBehaviour:
     maxElevationAngle: 7.5
     frequency: 79
     powerTransmitted: 31
-    antennaGain: 27
-    receivedNoiseMean: 60
-    receivedNoiseStDev: 1
+    cumulativeDeviceGain: 60
+    receivedNoiseMean: 93
+    receivedNoiseStDev: 2
     scopeParameters:
-    - beginDistance: 0.6
+    - beginDistance: 0.1
       endDistance: 9.5
       distanceSeparationThreshold: 0.15
-      radialSpeedSeparationThreshold: 0.15
+      radialSpeedSeparationThreshold: 0.3
       azimuthSeparationThreshold: 8
     - beginDistance: 9.5
       endDistance: 19
@@ -122,12 +120,6 @@ MonoBehaviour:
       distanceSeparationThreshold: 0.6
       radialSpeedSeparationThreshold: 0.3
       azimuthSeparationThreshold: 8
-    noiseParams:
-      angularNoiseStDev: 2
-      angularNoiseMean: 0
-      distanceNoiseStDevBase: 0.2
-      distanceNoiseStDevRisePerMeter: 0
-      distanceNoiseMean: 0
 --- !u!1 &4328371732713975294
 GameObject:
   m_ObjectHideFlags: 0

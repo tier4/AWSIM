@@ -28,11 +28,16 @@ namespace RGLUnityPlugin
                     maxAzimuthAngle = 65.0f,
                     minElevationAngle = -7.5f,
                     maxElevationAngle = 7.5f,
+                    frequency = 79.0f,
+                    powerTransmitted = 31.0f,
+                    cumulativeDeviceGain = 60.0f,
+                    receivedNoiseMean = 93.0f,
+                    receivedNoiseStDev = 2.0f,
                     scopeParameters = new[]
                     {
                         new RadarScopeParameters
                         {
-                            beginDistance = 1.3f,
+                            beginDistance = 0.2f,
                             endDistance = 19.0f,
                             distanceSeparationThreshold = 0.3f,
                             radialSpeedSeparationThreshold = 0.3f,
@@ -64,14 +69,19 @@ namespace RGLUnityPlugin
                     maxAzimuthAngle = 65.0f,
                     minElevationAngle = -7.5f,
                     maxElevationAngle = 7.5f,
+                    frequency = 79.0f,
+                    powerTransmitted = 31.0f,
+                    cumulativeDeviceGain = 60.0f,
+                    receivedNoiseMean = 93.0f,
+                    receivedNoiseStDev = 2.0f,
                     scopeParameters = new[]
                     {
                         new RadarScopeParameters
                         {
-                            beginDistance = 0.6f,
+                            beginDistance = 0.1f,
                             endDistance = 9.5f,
                             distanceSeparationThreshold = 0.15f,
-                            radialSpeedSeparationThreshold = 0.15f,
+                            radialSpeedSeparationThreshold = 0.3f,
                             azimuthSeparationThreshold = 8.0f
                         },
                         new RadarScopeParameters
@@ -100,14 +110,19 @@ namespace RGLUnityPlugin
                     maxAzimuthAngle = 65.0f,
                     minElevationAngle = -7.5f,
                     maxElevationAngle = 7.5f,
+                    frequency = 79.0f,
+                    powerTransmitted = 31.0f,
+                    cumulativeDeviceGain = 60.0f,
+                    receivedNoiseMean = 93.0f,
+                    receivedNoiseStDev = 2.0f,
                     scopeParameters = new[]
                     {
                         new RadarScopeParameters
                         {
-                            beginDistance = 0.2f,
+                            beginDistance = 0.1f,
                             endDistance = 9.5f,
                             distanceSeparationThreshold = 0.15f,
-                            radialSpeedSeparationThreshold = 0.15f,
+                            radialSpeedSeparationThreshold = 0.3f,
                             azimuthSeparationThreshold = 8.0f
                         },
                         new RadarScopeParameters
@@ -128,6 +143,11 @@ namespace RGLUnityPlugin
                     maxAzimuthAngle = 70.0f,
                     minElevationAngle = -14.0f,
                     maxElevationAngle = 14.0f,
+                    frequency = 79.0f,
+                    powerTransmitted = 31.0f,
+                    cumulativeDeviceGain = 60.0f,
+                    receivedNoiseMean = 93.0f,
+                    receivedNoiseStDev = 2.0f,
                     scopeParameters = new[]
                     {
                         new RadarScopeParameters
@@ -135,7 +155,7 @@ namespace RGLUnityPlugin
                             beginDistance = 0.1f,
                             endDistance = 9.5f,
                             distanceSeparationThreshold = 0.15f,
-                            radialSpeedSeparationThreshold = 0.15f,
+                            radialSpeedSeparationThreshold = 0.3f,
                             azimuthSeparationThreshold = 8.0f
                         },
                     },
