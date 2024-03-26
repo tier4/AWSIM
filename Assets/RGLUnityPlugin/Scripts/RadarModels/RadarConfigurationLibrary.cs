@@ -28,6 +28,11 @@ namespace RGLUnityPlugin
                     maxAzimuthAngle = 65.0f,
                     minElevationAngle = -7.5f,
                     maxElevationAngle = 7.5f,
+                    frequency = 79.0f,
+                    powerTransmitted = 31.0f,
+                    cumulativeDeviceGain = 60.0f,
+                    receivedNoiseMean = 93.0f,
+                    receivedNoiseStDev = 2.0f,
                     scopeParameters = new[]
                     {
                         new RadarScopeParameters
@@ -64,6 +69,11 @@ namespace RGLUnityPlugin
                     maxAzimuthAngle = 65.0f,
                     minElevationAngle = -7.5f,
                     maxElevationAngle = 7.5f,
+                    frequency = 79.0f,
+                    powerTransmitted = 31.0f,
+                    cumulativeDeviceGain = 60.0f,
+                    receivedNoiseMean = 93.0f,
+                    receivedNoiseStDev = 2.0f,
                     scopeParameters = new[]
                     {
                         new RadarScopeParameters
@@ -100,6 +110,11 @@ namespace RGLUnityPlugin
                     maxAzimuthAngle = 65.0f,
                     minElevationAngle = -7.5f,
                     maxElevationAngle = 7.5f,
+                    frequency = 79.0f,
+                    powerTransmitted = 31.0f,
+                    cumulativeDeviceGain = 60.0f,
+                    receivedNoiseMean = 93.0f,
+                    receivedNoiseStDev = 2.0f,
                     scopeParameters = new[]
                     {
                         new RadarScopeParameters
@@ -128,6 +143,11 @@ namespace RGLUnityPlugin
                     maxAzimuthAngle = 70.0f,
                     minElevationAngle = -14.0f,
                     maxElevationAngle = 14.0f,
+                    frequency = 79.0f,
+                    powerTransmitted = 31.0f,
+                    cumulativeDeviceGain = 60.0f,
+                    receivedNoiseMean = 93.0f,
+                    receivedNoiseStDev = 2.0f,
                     scopeParameters = new[]
                     {
                         new RadarScopeParameters
