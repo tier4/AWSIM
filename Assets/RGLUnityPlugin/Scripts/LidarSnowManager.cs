@@ -55,7 +55,7 @@ namespace RGLUnityPlugin
         public bool DoSimulateEnergyLoss { get; private set; } = true;
 
         [field: SerializeField]
-        [field: Tooltip("Minimal snowflake occupancy (in percent) of the ray beam to be included in energy loss calculation")]
+        [field: Tooltip("Minimal snowflake occupancy (in fraction of ray beam angle) included in energy loss calculation")]
         [field: Range(0.0f, 1.0f)]
         public float SnowflakeOccupancyThreshold { get; private set; } = 0.0f;
 
