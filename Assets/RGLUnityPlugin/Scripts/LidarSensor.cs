@@ -140,7 +140,7 @@ namespace RGLUnityPlugin
             if (LidarSnowManager.Instance != null)
             {
                 // Add deactivated node with some initial values. To be activated and updated when validating.
-                rglGraphLidar.AddNodePointsSimulateSnow(snowNodeId, 0.0f, 1.0f, 0.0001f, 0.0001f, 0.2f, 0.01f, 1, 0.01f);
+                rglGraphLidar.AddNodePointsSimulateSnow(snowNodeId, 0.0f, 1.0f, 0.0001f, 0.0001f, 0.2f, 0.01f, 1, 0.01f, false, 0.0f);
                 rglGraphLidar.SetActive(snowNodeId, false);
                 LidarSnowManager.Instance.OnNewConfig += OnValidate;
             }
@@ -202,7 +202,9 @@ namespace RGLUnityPlugin
                         LidarSnowManager.Instance.TerminalVelocity,
                         LidarSnowManager.Instance.Density,
                         newConfig.laserArray.GetLaserRingIds().Length,
-                        newConfig.beamDivergence * Mathf.Deg2Rad);
+                        newConfig.beamDivergence * Mathf.Deg2Rad,
+                        LidarSnowManager.Instance.DoSimulateEnergyLoss,
+                        LidarSnowManager.Instance.SnowflakeOccupancyThreshold);
                 }
                 rglGraphLidar.SetActive(snowNodeId, LidarSnowManager.Instance.IsSnowEnabled);
             }
