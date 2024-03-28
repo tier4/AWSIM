@@ -178,7 +178,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: {fileID: 0}
   intensity:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
     min: 0
     max: 1
@@ -202,10 +202,10 @@ MonoBehaviour:
   active: 0
   m_AdvancedMode: 0
   quality:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 2
   focusMode:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   focusDistance:
     m_OverrideState: 1
@@ -228,33 +228,33 @@ MonoBehaviour:
     m_Value: 20
     min: 0
   m_NearSampleCount:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 8
     min: 3
     max: 8
   m_NearMaxBlur:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 7
     min: 0
     max: 8
   m_FarSampleCount:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 14
     min: 3
     max: 16
   m_FarMaxBlur:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 13
     min: 0
     max: 16
   m_HighQualityFiltering:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   m_Resolution:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   m_PhysicallyBased:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
 --- !u!114 &-2696452528647907726
 MonoBehaviour:
@@ -268,10 +268,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcf384b154398e341b6b29969c078198, type: 3}
   m_Name: MotionBlur
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   quality:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 2
   intensity:
     m_OverrideState: 1
@@ -283,7 +283,7 @@ MonoBehaviour:
     min: 0
     max: 1500
   minimumVelocity:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
     min: 0
     max: 64
@@ -314,7 +314,7 @@ MonoBehaviour:
     min: 0
     max: 20
   m_SampleCount:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 12
     min: 2
 --- !u!114 &-1020721212055412715
@@ -332,7 +332,7 @@ MonoBehaviour:
   active: 0
   m_AdvancedMode: 0
   quality:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 2
   threshold:
     m_OverrideState: 0
@@ -365,13 +365,13 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
   m_Resolution:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 2
   m_HighQualityPrefiltering:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   m_HighQualityFiltering:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
 --- !u!114 &11400000
 MonoBehaviour:
