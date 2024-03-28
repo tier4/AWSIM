@@ -1,0 +1,29 @@
+{
+    "name": "RuntimeTests",
+    "rootNamespace": "",
+    "references": [
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "AWSIM",
+        "AccessExtensions"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "ros2cs_core.dll",
+        "ros2cs_common.dll",
+        "geometry_msgs_assembly.dll",
+        "sensor_msgs_assembly.dll",
+        "autoware_auto_vehicle_msgs_assembly.dll",
+        "autoware_auto_control_msgs_assembly.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
