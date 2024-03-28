@@ -95,6 +95,6 @@ Example of how to get XYZ point cloud data:
 
 ## Example
 
-On the screenshot below (scene `RadarSceneDevelop`) radar detections are shown as blue boxes.
+On the screenshot below (scene `RadarSceneDevelopSample`) radar detections are shown as blue boxes.
 
 ![RadarTestScene.png](radar_test_scene.png)
