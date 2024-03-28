@@ -33,5 +33,14 @@ namespace RGLUnityPlugin
 
         [Tooltip("Distance noise mean in meters")]
         public float distanceNoiseMean; // Meters
+
+        public static RadarNoiseParams TypicalNoiseParams => new RadarNoiseParams
+        {
+            angularNoiseMean = 0.0f,
+            angularNoiseStDev = 2.0f,
+            distanceNoiseStDevBase = 0.2f,
+            distanceNoiseStDevRisePerMeter = 0.0f,
+            distanceNoiseMean = 0.0f,
+        };
     }
 }

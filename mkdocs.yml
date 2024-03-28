@@ -72,6 +72,7 @@ nav:
         - Add New LiDAR: Components/Sensors/LiDARSensor/AddNewLiDAR/index.md
         - Read Material Information: Components/Sensors/LiDARSensor/ReadMaterialInformation/index.md
         - RGLUnityPlugin: Components/Sensors/LiDARSensor/RGLUnityPlugin/index.md
+      - Radar Sensor: Components/Sensors/RadarSensor/index.md
       - Camera Sensor: Components/Sensors/CameraSensor/index.md
       - IMU Sensor: Components/Sensors/IMUSensor/index.md
       - GNSS Sensor: Components/Sensors/GNSSSensor/index.md
