@@ -3,50 +3,55 @@ using UnityEditor;
 
 namespace AWSIM
 {
-
+    /// <summary>
+    /// Editor extension for camera sensor feature manager class.
+    /// </summary>
     [CustomEditor(typeof(CameraSensorFeatureManager))]
     public class CameraSensorFeatureManagerEditor : Editor
     {
-
-        private CameraSensorFeatureManager manager;
+        private bool debugMode = false;
 
         private SerializedProperty hueProperty;
         private SerializedProperty saturationProperty;
         private SerializedProperty contrastProperty;
         private SerializedProperty postExposureProperty;
+        private SerializedProperty sharpnessProperty;
 
         private SerializedProperty exposureModeProperty;
 
         private SerializedProperty bloomEffectProperty;
         private SerializedProperty chromaticAberrationProperty;
         private SerializedProperty depthOfFieldProperty;
-        private SerializedProperty motionBlurProperty;
 
 
         private void OnEnable() 
         {
-            manager = (CameraSensorFeatureManager)target;
-
             hueProperty = serializedObject.FindProperty("hue");
             saturationProperty = serializedObject.FindProperty("saturation");
             contrastProperty = serializedObject.FindProperty("contrast");
             postExposureProperty =serializedObject.FindProperty("postExposure");
+            sharpnessProperty = serializedObject.FindProperty("sharpness");
 
             exposureModeProperty = serializedObject.FindProperty("exposureMode");   
 
             bloomEffectProperty = serializedObject.FindProperty("bloomEffect");
             chromaticAberrationProperty = serializedObject.FindProperty("chromaticAberration");
             depthOfFieldProperty = serializedObject.FindProperty("depthOfField");
-            motionBlurProperty = serializedObject.FindProperty("motionBlur");
         }
 
         public override void OnInspectorGUI()
         {
             // ------    Components    ------- //
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("camera"), true);
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("cameraSensor"), true);
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("volume"), true);
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("profile"), true);
+
+            debugMode = GUILayout.Toggle(debugMode, new GUIContent("Show Components", "Debug mode to see the references to the required components"), "Button");
+
+            if(debugMode)
+            {
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("camera"), true);
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("cameraSensor"), true);
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("volume"), true);
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("profile"), true);
+            }
         
             // ------    Image Adjustment    ------- //
             EditorGUILayout.PropertyField(serializedObject.FindProperty("hue"), true);
@@ -73,6 +78,12 @@ namespace AWSIM
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("postExposureValue"), true);
             }
 
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("sharpness"), true);
+            if(sharpnessProperty.boolValue)
+            {
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("sharpnessValue"), true);
+            }
+
             // ------    Exposure Settings    ------- //
             EditorGUILayout.PropertyField(serializedObject.FindProperty("exposureMode"), true);   
             if(exposureModeProperty.enumValueIndex != 0)
@@ -82,9 +93,10 @@ namespace AWSIM
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("aperture"), true);
             }
 
-            
-            // ------   Additonal Effect    ------- //
+            // ------   Distortion Correction    ------- //
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("distortionCorrection"), true);
 
+            // ------   Additonal Effect    ------- //
             EditorGUILayout.PropertyField(serializedObject.FindProperty("bloomEffect"), true);
             if(bloomEffectProperty.boolValue)
             {

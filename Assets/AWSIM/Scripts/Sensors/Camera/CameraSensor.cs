@@ -147,6 +147,12 @@ namespace AWSIM
         [SerializeField] Camera cameraObject;
 
         [SerializeField] bool enableLensDistortionCorrection = false;
+        public bool EnableLensDistortionCorrection
+        {
+            get => enableLensDistortionCorrection;
+            set => enableLensDistortionCorrection = value;
+        }
+        
         [Range(0.0f, 1.0f)] public float sharpeningStrength = 0.0f;
 
         RenderTexture targetRenderTexture;
