@@ -28,22 +28,27 @@ namespace AWSIM
         #region [Image Adjustment"]
 
         [Header("Image Adjustment")]
+        [Tooltip("Hue shift of the color")]
         [SerializeField] private bool hue = false;
         [Range(-180f, 180f)]
         [SerializeField] private float hueValue = 0f;
         
+        [Tooltip("Saturation of the color")]
         [SerializeField] private bool saturation = false;
         [Range(-100f, 100f)]
         [SerializeField] private float saturationValue = 0f;
         
+        [Tooltip("Contrast of the image")]
         [SerializeField] private bool contrast = false;
         [Range(-100f, 100f)]
         [SerializeField] private float contrastValue = 0f;
         
+        [Tooltip("Post Exposure of the image")]
         [SerializeField] private bool postExposure = false;
         [Range(-10f, 10f)]
         [SerializeField] private float postExposureValue = 0f;
 
+        [Tooltip("Sharpness of the image")]
         [SerializeField] private bool sharpness = false;
         [Range(0f, 1f)]
         [SerializeField] private float sharpnessValue = 0f;
@@ -53,14 +58,18 @@ namespace AWSIM
         #region [Exposure Settings]
 
         [Header("Exposure Settings")]
+        [Tooltip("Camera Exposure Mode. Note: In Auto mode, the camera object will be enabled in hierarchy and it will render each frame.")]
         [SerializeField] private CameraExposureMode exposureMode = CameraExposureMode.MANUAL;
 
+        [Tooltip("Camera sensor ISO")]
         [Range(1f, 12800f)]
         [SerializeField] private int ISO = 200;
 
+        [Tooltip("Camera shutter speed. [1/sec]")]
         [Range(0.001f, 10000f)]
         [SerializeField] private float shutterSpeed = 125;
 
+        [Tooltip("Camera Aperture")]
         [Range(0.7f, 32f)]
         [SerializeField] private float aperture = 16;
 
@@ -69,6 +78,7 @@ namespace AWSIM
         #region [Distortion Correction]
 
         [Header("Lens Distortion Correction")]
+        [Tooltip("Apply Lens Distortion Correction")]
         [SerializeField] private bool distortionCorrection = false;
 
         #endregion
@@ -76,18 +86,22 @@ namespace AWSIM
         #region [Additonal Effect]
 
         [Header("Additonal Effect")]
+        [Tooltip("Enables Bloom Effect")]
         [SerializeField] private bool bloomEffect = false;
         [Range(0f, 1f)]
         [SerializeField] private float bloomValue = 0f;
 
+        [Tooltip("Enables Chromatic Aberration Effect")]
         [SerializeField] private bool chromaticAberration = false;
         [Range(0f, 1f)]
         [SerializeField] private float chromaticAberrationValue = 0f;
 
+        [Tooltip("Enables the depth of field effect. This effect depends on the aperture value of the camera.")]
         [SerializeField] private bool depthOfField = false;
         [Range(0.1f, 100f)]
         [SerializeField] private float focusDistance = 0.1f;
 
+        [Tooltip("Enables Motion Blur Effect. Note: When motion blur is active, the camera object will be enabled in hierarchy and it will render each frame.")]
         [SerializeField] private bool motionBlur = false;
 
         #endregion
