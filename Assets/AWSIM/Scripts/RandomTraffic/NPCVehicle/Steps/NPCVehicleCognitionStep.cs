@@ -614,11 +614,6 @@ namespace AWSIM.TrafficSimulation
                         refState.DominatingVehicle = dominatingVehicle;
                         return true;
                     }
-                    else if (EGOTransform == null)
-                    {
-                        Debug.Log("null");
-                        return true;
-                    }
                     else if (IsLaneDominatedByVehicle(lane, EGOTransform.position, EGOTransform.forward))
                     {
                         refState.YieldPoint = stopPoint;
