@@ -77,7 +77,7 @@ namespace AWSIM.TrafficSimulation
             npcVehicleSimulator?.ClearAll();
         }
 
-        private void Awake()
+        void Initialize()
         {
             Random.InitState(seed);
 
@@ -89,10 +89,7 @@ namespace AWSIM.TrafficSimulation
             }
             npcVehicleSimulator = new NPCVehicleSimulator(vehicleConfig, vehicleLayerMask, groundLayerMask, maxVehicleCount, _egoVehicle);
             npcVehicleSimulator.SetDummyEgo(dummyEgo);
-        }
 
-        void Start()
-        {
             verifyIntegrationEnvironmentElements();
             trafficSimulatorNodes = new List<ITrafficSimulator>();
             if (npcVehicleSimulator == null)
@@ -127,6 +124,35 @@ namespace AWSIM.TrafficSimulation
                 trafficSimulatorNodes.Add(routeTs);
             }
         }
+
+        void Dispose()
+        {
+            npcVehicleSimulator?.Dispose();
+            ClearAll();
+            Despawn();
+            spawnLanes.Clear();
+            if (dummyEgo)
+            {
+                Destroy(dummyEgo);
+                _egoVehicle = null;
+            }
+        }
+
+        void Start()
+        {
+            Initialize();
+        }
+
+        public void Restart(int newSeed = 0, int newMaxVehicleCount = 10)
+        {
+            Dispose();
+
+            seed = newSeed;
+            maxVehicleCount = newMaxVehicleCount;
+
+            Initialize();
+        }
+
         private void verifyIntegrationEnvironmentElements()
         {
             GameObject trafficLanesObject = GameObject.Find("TrafficLanes");

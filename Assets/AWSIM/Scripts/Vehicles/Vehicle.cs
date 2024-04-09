@@ -254,6 +254,10 @@ namespace AWSIM
         /// </summary>
         public Vector3 LocalAngularAcceleration => m_transform.InverseTransformDirection(AngularAcceleration);
 
+        /// <summary>
+        /// Vehicle automatic shift (P, R, N, D)
+        /// </summary>
+        public Shift AutomaticShift => AutomaticShiftInput;
 
         private float sleepTimer = 0.0f; ///Count the time until CanSleep is switched to true
 
