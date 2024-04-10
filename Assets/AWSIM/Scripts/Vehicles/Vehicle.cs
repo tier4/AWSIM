@@ -261,8 +261,6 @@ namespace AWSIM
 
         private float sleepTimer = 0.0f; ///Count the time until CanSleep is switched to true
 
-
-
         // Cache components.
         Wheel[] wheels;
         Rigidbody m_rigidbody;
@@ -493,7 +491,7 @@ namespace AWSIM
 
                     if (Speed > 0)
                     {
-                        var maxAcceleration = Speed / Time.deltaTime;
+                        var maxAcceleration = -Speed / Time.deltaTime;
                         if (acceleration > maxAcceleration)
                             acceleration = maxAcceleration;
                     }
