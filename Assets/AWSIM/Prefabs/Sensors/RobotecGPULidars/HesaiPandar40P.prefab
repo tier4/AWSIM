@@ -127,7 +127,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -4865087185505287995, guid: 456502729877cc8468a14cbd14b2f0d9, type: 3}
 --- !u!1 &7657609816789538522
@@ -224,7 +224,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6196747465395140536, guid: 456502729877cc8468a14cbd14b2f0d9, type: 3}
 --- !u!1 &7848994132742887793
@@ -321,7 +321,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1987095256127312640, guid: 456502729877cc8468a14cbd14b2f0d9, type: 3}
 --- !u!1 &8164441558762745267
@@ -455,19 +455,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87ba9656cbd67467f8119d8666b098aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pcl24Topic: lidar/pointcloud
-  pcl48Topic: lidar/pointcloud_ex
-  instanceIdTopic: lidar/instance_id
-  radarTopic: radar/pointcloud
-  frameID: world
-  publishPCL24: 1
-  publishPCL48: 1
-  publishInstanceId: 0
-  publishRadar: 0
-  reliabilityPolicy: 2
-  durabilityPolicy: 2
-  historyPolicy: 1
-  historyDepth: 5
+  frameId: world
+  qos:
+    reliabilityPolicy: 2
+    durabilityPolicy: 2
+    historyPolicy: 1
+    historyDepth: 5
+  pointCloud2Publishers:
+  - topic: lidar/pointcloud
+    publish: 1
+    fieldsPreset: 0
+    fields: 0100000002040000020000000a00000001040000
+  - topic: lidar/pointcloud_ex
+    publish: 1
+    fieldsPreset: 1
+    fields: 0100000002040000020000000a0000000104000008000000070000000b0000000004000001040000020400000c000000
+  radarScanPublishers: []
 --- !u!114 &7675420128049466981
 MonoBehaviour:
   m_ObjectHideFlags: 0
