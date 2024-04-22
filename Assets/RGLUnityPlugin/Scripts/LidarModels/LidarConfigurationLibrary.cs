@@ -85,7 +85,6 @@ namespace RGLUnityPlugin
                     beamDivergence = 0.13f,
                 }},
 
-
                 {LidarModel.HesaiPandarQT, () => new UniformRangeLidarConfiguration
                 {
                     laserArray = LaserArrayLibrary.HesaiPandarQT,
@@ -94,7 +93,7 @@ namespace RGLUnityPlugin
                     minHAngle = 0.0f,
                     maxHAngle = 360.0f,
                     noiseParams = LidarNoiseParams.TypicalNoiseParams,
-                    minRange = 0,
+                    minRange = 0.1f,
                     maxRange = 20.0f, // Yes, 20 meters, this is not a typo!
                     beamDivergence = 0.13f,
                 }},
@@ -107,7 +106,7 @@ namespace RGLUnityPlugin
                     minHAngle = 0.0f,
                     maxHAngle = 360.0f,
                     noiseParams = LidarNoiseParams.TypicalNoiseParams,
-                    minRange = 0,
+                    minRange = 0.3f,
                     // documentation is unclear on max range;
                     // on one hand there is "range capability" = 200m
                     // on the other, in appendix beams have individual ranges assigned
@@ -133,7 +132,7 @@ namespace RGLUnityPlugin
                 {LidarModel.HesaiAT128E2X, () => new HesaiAT128LidarConfiguration()
                 {
                     laserArray = LaserArrayLibrary.HesaiAT128E2X,
-                    horizontalResolution = 0.2f,
+                    horizontalResolution = 0.1f,
                     laserArrayCycleTime = 0.041666f,
                     minHAngle = -60.0f,
                     maxHAngle = 60.0f,
