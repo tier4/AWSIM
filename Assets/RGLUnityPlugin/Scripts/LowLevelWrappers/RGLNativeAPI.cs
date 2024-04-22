@@ -144,7 +144,8 @@ namespace RGLUnityPlugin
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_simulate_snow(ref IntPtr node, float min_range, float max_range, float rain_rate,
-            float mean_snowflake_diameter, float terminal_velocity, float density, Int32 num_channels, float beam_divergence);
+            float mean_snowflake_diameter, float terminal_velocity, float density, Int32 num_channels, float beam_divergence,
+            bool simulate_energy_loss, float snowflake_occupancy_threshold);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_run(IntPtr node);
@@ -542,10 +543,11 @@ namespace RGLUnityPlugin
         }
 
         public static void NodePointsSimulateSnow(ref IntPtr node, float minRange, float maxRange, float rainRate,
-            float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence)
+            float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence,
+            bool doSimulateEnergyLoss, float snowflakeOccupancyThreshold)
         {
             CheckErr(rgl_node_points_simulate_snow(ref node, minRange, maxRange, rainRate,
-                meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence));
+                meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence, doSimulateEnergyLoss, snowflakeOccupancyThreshold));
         }
 
         public static void GraphRun(IntPtr node)

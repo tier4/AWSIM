@@ -312,12 +312,14 @@ namespace RGLUnityPlugin
         }
 
         public RGLNodeSequence AddNodePointsSimulateSnow(string identifier, float minRange, float maxRange, float rainRate,
-            float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence)
+            float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence,
+            bool doSimulateEnergyLoss, float snowflakeOccupancyThreshold)
         {
             CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
             RGLNativeAPI.NodePointsSimulateSnow(ref handle.Node, minRange, maxRange, rainRate,
-                meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence);
+                meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence, doSimulateEnergyLoss,
+                snowflakeOccupancyThreshold);
             handle.Type = RGLNodeType.POINTS_SIMULATE_SNOW;
             handle.Identifier = identifier;
             AddNode(handle);
@@ -434,11 +436,13 @@ namespace RGLUnityPlugin
         }
 
         public RGLNodeSequence UpdateNodePointsSimulateSnow(string identifier, float minRange, float maxRange, float rainRate,
-            float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence)
+            float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence,
+            bool doSimulateEnergyLoss, float snowflakeOccupancyThreshold)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_SIMULATE_SNOW);
             RGLNativeAPI.NodePointsSimulateSnow(ref handle.Node, minRange, maxRange, rainRate,
-                meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence);
+                meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence, doSimulateEnergyLoss,
+                snowflakeOccupancyThreshold);
             return this;
         }
 
