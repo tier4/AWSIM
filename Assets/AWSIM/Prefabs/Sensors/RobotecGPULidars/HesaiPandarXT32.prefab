@@ -291,8 +291,8 @@ MonoBehaviour:
       type: {class: UniformRangeLidarConfiguration, ns: RGLUnityPlugin, asm: Assembly-CSharp}
       data:
         _laserArray:
-          centerOfMeasurementLinearOffsetMm: {x: 0, y: 47.7, z: 0}
-          focalDistanceMm: 0
+          centerOfMeasurementLinearOffsetMm: {x: 0, y: 46.4, z: 0}
+          focalDistanceMm: 31.5
           lasers:
           - horizontalAngularOffsetDeg: 0
             verticalAngularOffsetDeg: -15

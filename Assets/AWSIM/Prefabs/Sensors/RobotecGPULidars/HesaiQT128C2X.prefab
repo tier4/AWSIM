@@ -113,7 +113,7 @@ MonoBehaviour:
       data:
         _laserArray:
           centerOfMeasurementLinearOffsetMm: {x: 0, y: 58.2, z: 0}
-          focalDistanceMm: 0
+          focalDistanceMm: 35.4
           lasers:
           - horizontalAngularOffsetDeg: -6.2169952
             verticalAngularOffsetDeg: 18.331392
