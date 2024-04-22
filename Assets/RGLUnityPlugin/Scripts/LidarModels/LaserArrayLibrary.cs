@@ -962,7 +962,7 @@ namespace RGLUnityPlugin
         // Some lasers fire only on the one firing sequence and some of them fire on both. See manual for more details.
         public static LaserArray HesaiPandar128E4XHighRes => new LaserArray
         {
-            centerOfMeasurementLinearOffsetMm = new Vector3(0.0f, 84.43f, 0.0f),
+            centerOfMeasurementLinearOffsetMm = new Vector3(0.0f, 88.33f, 0.0f),
             focalDistanceMm = 0.0f,
             lasers = new[]
             {
