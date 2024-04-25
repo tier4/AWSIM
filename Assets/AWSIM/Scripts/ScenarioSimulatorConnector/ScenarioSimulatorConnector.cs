@@ -110,14 +110,10 @@ namespace AWSIM
                                 if (zMessage != null)
                                 {
                                     // get received message to buffer and get the size of request
-
                                     for (int i = 0; i < zMessage.Count; i++) {
-                                        long bufferSize = zMessage[i].Length;
-                                        byte[] buffer = new byte[bufferSize];
+                                        byte[] buffer = new byte[zMessage[i].Length];
                                         long requestSize = zMessage.PopBytes(buffer, 0, buffer.Length);
-                                        if (requestSize != bufferSize) {
-                                            Debug.LogWarning("[ZMQ ERROR] Received data size not equal to expected.");
-                                        }
+
                                         SimulationRequest request = SimulationRequest.Parser.ParseFrom(buffer);
                                         SimulationResponse response = requestProcessor.Process(request);
 
