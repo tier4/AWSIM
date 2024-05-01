@@ -39,7 +39,8 @@ namespace AWSIM
         [Space(10)]
         [Header("Camera Movement Settings")]
         [Tooltip("Toggle key between rotate around mode and follow mode")]
-        public KeyCode RotateAroundModeToggle = KeyCode.C;
+        public bool EnableRotateAroundMode = false;
+        private bool lastEnableRotateAroundMode = false;
 
         [Space(10)]
         [Tooltip("Mouse movement sensitivity for camera rotation around the target")]
@@ -113,8 +114,10 @@ namespace AWSIM
         void Update()
         {
             // turn on or off the camera rotate around feature
-            if (Input.GetKeyDown(RotateAroundModeToggle))
+            if (EnableRotateAroundMode != lastEnableRotateAroundMode)
             {
+                lastEnableRotateAroundMode = EnableRotateAroundMode;
+
                 rotateCameraAroundActive = !rotateCameraAroundActive;
                 onActivateRotateCameraAround?.Invoke(rotateCameraAroundActive);
             }

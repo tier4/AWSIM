@@ -14,29 +14,26 @@
 
 using System;
 using UnityEngine;
-using System.Linq;
-
 
 namespace RGLUnityPlugin
 {
+    /// <summary>
+    /// Base class for lidar configuration. It contains:
+    /// - common properties used in all of the implemented lidars.
+    /// - methods providing data to create the lidar in RGL with default implementation (may be overridden for specific lidars)
+    /// </summary>
     [Serializable]
-    public struct LidarConfiguration
+    public abstract class BaseLidarConfiguration
     {
-        public enum RayGenerateMethod
+        // This is a workaround against serializing properties with custom getter/setter.
+        // Laser array property may be overridden to handle custom cases (change by flag).
+        [SerializeField, Tooltip("Geometry description of lidar array")]
+        protected LaserArray _laserArray;
+        public virtual LaserArray laserArray
         {
-            // Rays are generated for rotating lidar with equal range for all of the lasers
-            RotatingLidarEqualRange,
-            // Rays are generated for rotating lidar with different ranges for the lasers
-            RotatingLidarDifferentLaserRanges,
-            // Rays are generated in specific way to HesaiAT128 lidar
-            HesaiAT128,
+            get => _laserArray;
+            set => _laserArray = value;
         }
-
-        [Tooltip("Method that rays are generated")]
-        public RayGenerateMethod rayGenerateMethod;
-
-        [Tooltip("Geometry description of lidar array")]
-        public LaserArray laserArray;
 
         [Tooltip("The horizontal resolution of laser array firings (in degrees)")]
         [Min(0)] public float horizontalResolution;
@@ -46,12 +43,6 @@ namespace RGLUnityPlugin
 
         [Tooltip("Max horizontal angle (right)")]
         [Range(-360.0f, 360.0f)] public float maxHAngle;
-
-        [Tooltip("Minimum range of the sensor")]
-        [DrawIf("rayGenerateMethod", RayGenerateMethod.RotatingLidarEqualRange)] [Min(0)] public float minRange;
-
-        [Tooltip("Maximum range of the sensor")]
-        [DrawIf("rayGenerateMethod", RayGenerateMethod.RotatingLidarEqualRange)] [Min(0)] public float maxRange;
 
         [Tooltip("Time between two consecutive firings of the whole laser array (in milliseconds). Usually, it consists of firing time for all the lasers and recharge time.")]
         [Min(0)] public float laserArrayCycleTime;
@@ -65,30 +56,13 @@ namespace RGLUnityPlugin
         public int HorizontalSteps => Math.Max((int)Math.Round(((maxHAngle - minHAngle) / horizontalResolution)), 1);
         public int PointCloudSize => laserArray.lasers.Length * HorizontalSteps;
 
-        public Matrix4x4[] GetRayPoses()
+        /// <summary>
+        /// Returns ray poses for the single lidar scan.
+        /// Poses are generated uniformly. May be overridden.
+        /// </summary>
+        public virtual Matrix4x4[] GetRayPoses()
         {
-            // Ray poses are generated the same way for all of the RayGenerateMethod's
-
-            if (!(minHAngle <= maxHAngle))
-            {
-                throw new ArgumentOutOfRangeException(nameof(minHAngle),
-                    "Minimum angle must be lower or equal to maximum angle");
-            }
-
-            if (maxHAngle - minHAngle > 360.0f)
-            {
-                throw new ArgumentOutOfRangeException(nameof(maxHAngle),
-                    "Horizontal range must be lower than 360 degrees");
-            }
-
-            if (!(horizontalResolution > 0.0f))
-            {
-                throw new ArgumentOutOfRangeException(nameof(horizontalResolution),
-                    "Horizontal resolution must be positive");
-            }
-
-            Matrix4x4[] rayPose = new Matrix4x4[PointCloudSize];
-
+            Matrix4x4[] rayPoses = new Matrix4x4[PointCloudSize];
             Matrix4x4[] laserPoses = laserArray.GetLaserPoses();
             for (int hStep = 0; hStep < HorizontalSteps; hStep++)
             {
@@ -96,25 +70,17 @@ namespace RGLUnityPlugin
                 {
                     int idx = laserId + hStep * laserPoses.Length;
                     float azimuth = minHAngle + hStep * horizontalResolution;
-                    rayPose[idx] = Matrix4x4.Rotate(Quaternion.Euler(0.0f, azimuth, 0.0f)) * laserPoses[laserId];
+                    rayPoses[idx] = Matrix4x4.Rotate(Quaternion.Euler(0.0f, azimuth, 0.0f)) * laserPoses[laserId];
                 }
             }
-
-            return rayPose;
+            return rayPoses;
         }
 
-        public Vector2[] GetRayRanges()
-        {
-            return rayGenerateMethod switch
-            {
-                RayGenerateMethod.RotatingLidarEqualRange => new Vector2[1] {new Vector2(minRange, maxRange)},
-                RayGenerateMethod.RotatingLidarDifferentLaserRanges => GetRayRangesFromLasers(),
-                RayGenerateMethod.HesaiAT128 => GetRayRangesHesaiAT128(),
-                _ => throw new ArgumentOutOfRangeException(),
-            };
-        }
-
-        private Vector2[] GetRayRangesFromLasers()
+        /// <summary>
+        /// Returns ranges for the generated rays.
+        /// Ranges are retrieved from lasers description. May be overridden.
+        /// </summary>
+        public virtual Vector2[] GetRayRanges()
         {
             Vector2[] rayRanges = new Vector2[PointCloudSize];
             Vector2[] laserRanges = laserArray.GetLaserRanges();
@@ -125,7 +91,76 @@ namespace RGLUnityPlugin
             return rayRanges;
         }
 
-        private Vector2[] GetRayRangesHesaiAT128()
+        /// <summary>
+        /// Returns time offsets for the generated rays.
+        /// Time offsets are retrieved from lasers description. May be overridden.
+        /// </summary>
+        public virtual float[] GetRayTimeOffsets()
+        {
+            float[] rayTimeOffsets = new float[PointCloudSize];
+            for (int hStep = 0; hStep < HorizontalSteps; hStep++)
+            {
+                for (int laserId = 0; laserId < laserArray.lasers.Length; laserId++)
+                {
+                    int idx = laserId + hStep * laserArray.lasers.Length;
+                    rayTimeOffsets[idx] = laserArray.lasers[laserId].timeOffset + laserArrayCycleTime * hStep;
+                }
+            }
+            return rayTimeOffsets;
+        }
+
+        /// <summary>
+        /// Returns ring Ids for the generated rays.
+        /// Ring Ids are retrieved from lasers description. May be overridden.
+        /// </summary>
+        public virtual int[] GetRayRingIds()
+        {
+            return laserArray.GetLaserRingIds();
+        }
+
+        /// <summary>
+        /// Returns transform from the attached game object to the LiDAR origin.
+        /// </summary>
+        public Matrix4x4 GetLidarOriginTransfrom()
+        {
+            return Matrix4x4.Translate(laserArray.centerOfMeasurementLinearOffsetMm / 1000.0f);
+        }
+    }
+
+    /// <summary>
+    /// Lidar configuration for uniformly distributed rays along the horizontal axis with ranges retrieved from lasers description.
+    /// It allows the definition of the lidar with different ranges for each laser (channel).
+    /// </summary>
+    [Serializable]
+    public class LaserBasedRangeLidarConfiguration : BaseLidarConfiguration { }
+
+    /// <summary>
+    /// Lidar configuration for uniformly distributed rays along the horizontal axis with a uniform range for all the rays.
+    /// Configuration introduces new properties for setting the minimum and maximum range of the lidar.
+    /// </summary>
+    [Serializable]
+    public class UniformRangeLidarConfiguration : BaseLidarConfiguration
+    {
+        [Tooltip("Minimum range of the sensor")]
+        [Min(0)] public float minRange;
+
+        [Tooltip("Maximum range of the sensor")]
+        [Min(0)] public float maxRange;
+
+        public override Vector2[] GetRayRanges()
+        {
+            return new Vector2[1] {new Vector2(minRange, maxRange)};
+        }
+    }
+
+    /// <summary>
+    /// Lidar configuration for HesaiAT128 lidar.
+    /// It contains properties and ray-generating methods specific to this lidar.
+    /// </summary>
+    [Serializable]
+    public class HesaiAT128LidarConfiguration : BaseLidarConfiguration
+    {
+        public override Vector2[] GetRayRanges()
         {
             // All channels fire laser pulses that measure the far field (＞ 7.2 m)
             // Additionally, the NF-enabled channels also fire laser pulses that measure only the near field (0.5 to 7.2 m), at a time other
@@ -148,47 +183,103 @@ namespace RGLUnityPlugin
             }
             return rayRanges;
         }
+    }
 
-        public float[] GetRayTimeOffsets()
+    /// <summary>
+    /// Lidar configuration for HesaiQT128C2X lidar.
+    /// It contains properties and ray-generating methods specific to this lidar.
+    /// </summary>
+    [Serializable]
+    public class HesaiQT128C2XLidarConfiguration : BaseLidarConfiguration
+    {
+        private static int hesaiQT128LasersBankLength = 32;
+
+        // Lasers (channels) in HesaiQT128C2X are divided into 4 banks: Bank A, Bank B, Bank C, Bank D.
+        // Firing sequence for the one scan is:
+        //   1. Banks CDB fire; Bank A rests
+        //   2. The horizontal step moves by half of the horizontal resolution
+        //   3. Banks CDA fire, Bank B rests
+        // It results in high resolution (doubled resolution) for lasers in banks C and D.
+        // Laser array for this LiDAR already contains lasers for the whole scan (two firing sequences).
+        public override Matrix4x4[] GetRayPoses()
         {
-            float[] rayTimeOffsets = new float[PointCloudSize];
+            Matrix4x4[] rayPoses = new Matrix4x4[PointCloudSize];
+            Matrix4x4[] laserPoses = laserArray.GetLaserPoses();
             for (int hStep = 0; hStep < HorizontalSteps; hStep++)
             {
-                for (int laserId = 0; laserId < laserArray.lasers.Length; laserId++)
+                for (int laserId = 0; laserId < laserPoses.Length; laserId++)
                 {
-                    int idx = laserId + hStep * laserArray.lasers.Length;
-                    rayTimeOffsets[idx] = laserArray.lasers[laserId].timeOffset + laserArrayCycleTime * hStep;
+                    int idx = laserId + hStep * laserPoses.Length;
+                    float highResolutionAddition = 0.0f;
+                    // If 3 banks were processed, shift azimuth by half of the horizontal resolution for the next lasers
+                    if (laserId >= 3 * hesaiQT128LasersBankLength)
+                    {
+                        highResolutionAddition = horizontalResolution / 2;
+                    }
+                    float azimuth = minHAngle + hStep * horizontalResolution + highResolutionAddition;
+                    rayPoses[idx] = Matrix4x4.Rotate(Quaternion.Euler(0.0f, azimuth, 0.0f)) * laserPoses[laserId];
                 }
             }
-            return rayTimeOffsets;
+            return rayPoses;
+        }
+    }
+
+    /// <summary>
+    /// Lidar configuration for HesaiPandar128E4X lidar.
+    /// It contains properties and ray-generating methods specific to this lidar.
+    /// </summary>
+    [Serializable]
+    public class HesaiPandar128E4XLidarConfiguration : BaseLidarConfiguration
+    {
+        // High resolution mode changes laser array
+        public override LaserArray laserArray
+        {
+            get
+            {
+                if (highResolutionModeEnabledPrev == null || highResolutionModeEnabledPrev != highResolutionModeEnabled)
+                {
+                    _laserArray = highResolutionModeEnabled
+                                  ? LaserArrayLibrary.HesaiPandar128E4XHighRes
+                                  : LaserArrayLibrary.HesaiPandar128E4X;
+                    highResolutionModeEnabledPrev = highResolutionModeEnabled;
+                }
+                return _laserArray;
+            }
+            set => _laserArray = value;
         }
 
-        /// <summary>
-        /// Returns transform from the attached game object to the LiDAR origin.
-        /// </summary>
-        public Matrix4x4 GetLidarOriginTransfrom()
+        public bool highResolutionModeEnabled;
+        private bool? highResolutionModeEnabledPrev = null;
+
+        // In standard mode, rays are generated uniformly.
+        // In high resolution mode, first half of the rays are generated on standard horizontal angle
+        // Second half of the rays are shifted by half of the horizontal resolution
+        // Some lasers fire on both horizontal states. This is taken into account in the order of the lasers in `laserArray.lasers`.
+        public override Matrix4x4[] GetRayPoses()
         {
-            return Matrix4x4.Translate(laserArray.centerOfMeasurementLinearOffsetMm / 1000.0f);
+            if (!highResolutionModeEnabled)
+            {
+                return base.GetRayPoses();
+            }
+
+            Matrix4x4[] rayPoses = new Matrix4x4[PointCloudSize];
+            Matrix4x4[] laserPoses = laserArray.GetLaserPoses();
+            for (int hStep = 0; hStep < HorizontalSteps; hStep++)
+            {
+                for (int laserId = 0; laserId < laserPoses.Length; laserId++)
+                {
+                    int idx = laserId + hStep * laserPoses.Length;
+                    float highResolutionAddition = 0.0f;
+                    // If half of the lasers (first firing sequence) were processed, shift azimuth by half of the horizontal resolution for the next lasers
+                    if (laserId >= laserPoses.Length / 2)
+                    {
+                        highResolutionAddition = horizontalResolution / 2;
+                    }
+                    float azimuth = minHAngle + hStep * horizontalResolution + highResolutionAddition;
+                    rayPoses[idx] = Matrix4x4.Rotate(Quaternion.Euler(0.0f, azimuth, 0.0f)) * laserPoses[laserId];
+                }
+            }
+            return rayPoses;
         }
-
-        public static LidarNoiseParams TypicalNoiseParams => new LidarNoiseParams
-        {
-            angularNoiseType = AngularNoiseType.RayBased,
-            angularNoiseMean = Mathf.Rad2Deg * 0.0f,
-            angularNoiseStDev = Mathf.Rad2Deg * 0.001f,
-            distanceNoiseStDevBase = 0.02f,
-            distanceNoiseStDevRisePerMeter = 0.0f,
-            distanceNoiseMean = 0.0f,
-        };
-
-        public static LidarNoiseParams ZeroNoiseParams => new LidarNoiseParams
-        {
-            angularNoiseType = AngularNoiseType.RayBased,
-            angularNoiseStDev = 0.0f,
-            distanceNoiseStDevBase = 0.0f,
-            distanceNoiseStDevRisePerMeter = 0.0f,
-            angularNoiseMean = 0.0f,
-            distanceNoiseMean = 0.0f,
-        };
     }
 }

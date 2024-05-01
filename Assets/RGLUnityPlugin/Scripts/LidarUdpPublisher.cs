@@ -12,16 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
+using UnityEngine.Assertions;
 
 namespace RGLUnityPlugin
 {
     [RequireComponent(typeof(LidarSensor))]
     public class LidarUdpPublisher : MonoBehaviour
     {
+        public RGLReturnMode returnMode = RGLReturnMode.SingleReturnStrongest;
+
         public string sourceIP = "0.0.0.0";
         public string destinationIP = "255.255.255.255";
         public int destinationPort = 2368;
@@ -30,18 +34,21 @@ namespace RGLUnityPlugin
         private string destinationIPOnAwake;
         private int destinationPortOnAwake;
 
+        public bool emitRawPackets = true;
+
+        [Header("Hesai LiDARs Flags")]
+
+        [Tooltip("Enable labeling the sequence number of Point Cloud UDP packets. It increases the packet size by an additional field.")]
         public bool enableHesaiUdpSequence = false;
-        public bool useDualReturnFormat = false;  // Still single return data but packed in the dual return packet format
-                                                  // The second return will be the same as the first return
+        [Tooltip("Enable a workaround for the difference between the coordinate systems in the ROS2 driver and Hesai LiDAR manuals.")]
         public bool ensureHesaiRosDriverOrientation = false;  // When developing raw Hesai packets (based on LiDARs manuals),
                                                               // the difference between the coordinate systems in the ROS2 driver
                                                               // and LiDAR speciations was noted.
                                                               // Due to the use of the ROS driver on many real vehicles,
                                                               // it was decided to prepare a workaround in AWSIM.
-        public bool emitRawPackets = true;
+        [Tooltip("Enable a feature that allows to distinguish point data between no laser emission and return signal rejection.")]
+        public bool enableHesaiUpCloseBlockageDetection = false; // Only supported for Hesai QT128C2X
 
-        private RGLLidarModel currentRGLLidarModel = 0;  // To be set when validating lidar model
-        private RGLUdpOptions currentRGLUdpOptions = 0;  // To be set when validating lidar model
         private RGLNodeSequence rglSubgraphUdpPublishing;
 
         private const string udpPublishingNodeId = "UDP_PUBLISHING";
@@ -56,8 +63,48 @@ namespace RGLUnityPlugin
             { LidarModel.VelodyneVLP32C, RGLLidarModel.RGL_VELODYNE_VLP32C },
             { LidarModel.VelodyneVLS128, RGLLidarModel.RGL_VELODYNE_VLS128 },
             { LidarModel.HesaiPandar40P, RGLLidarModel.RGL_HESAI_PANDAR_40P },
-            { LidarModel.HesaiPandarQT, RGLLidarModel.RGL_HESAI_PANDAR_QT64 }
+            { LidarModel.HesaiPandarQT, RGLLidarModel.RGL_HESAI_PANDAR_QT64 },
+            { LidarModel.HesaiQT128C2X, RGLLidarModel.RGL_HESAI_QT128C2X },
+            { LidarModel.HesaiPandar128E4X, RGLLidarModel.RGL_HESAI_PANDAR_128E4X }
         };
+
+        // Note: When selecting dual return mode, there will be still single return data but packed in the dual return packet format
+        // The second return will be the same as the first return
+        private static readonly Dictionary<LidarModel, List<RGLReturnMode>> SupportedLidarsAndReturnModes = new Dictionary<LidarModel, List<RGLReturnMode>>
+        {
+            { LidarModel.VelodyneVLP16, new List<RGLReturnMode>()
+                { RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast } },
+            { LidarModel.VelodyneVLP32C, new List<RGLReturnMode>()
+                { RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast } },
+            { LidarModel.VelodyneVLS128, new List<RGLReturnMode>()
+                { RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast } },
+            { LidarModel.HesaiPandar40P, new List<RGLReturnMode>()
+                { RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast, RGLReturnMode.DualReturnLastStrongest } },
+            { LidarModel.HesaiPandarQT, new List<RGLReturnMode>()
+                { RGLReturnMode.SingleReturnFirst, RGLReturnMode.SingleReturnLast, RGLReturnMode.DualReturnFirstLast } },
+            { LidarModel.HesaiQT128C2X, new List<RGLReturnMode>()
+                { RGLReturnMode.SingleReturnFirst, RGLReturnMode.SingleReturnSecond, RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast,
+                  RGLReturnMode.DualReturnLastStrongest, RGLReturnMode.DualReturnFirstLast, RGLReturnMode.DualReturnFirstStrongest,
+                  RGLReturnMode.DualReturnStrongestSecondStrongest, RGLReturnMode.DualReturnFirstSecond } },
+            { LidarModel.HesaiPandar128E4X, new List<RGLReturnMode>()
+                { RGLReturnMode.SingleReturnFirst, RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast,
+                  RGLReturnMode.DualReturnLastStrongest, RGLReturnMode.DualReturnFirstLast, RGLReturnMode.DualReturnFirstStrongest } }
+        };
+
+        private bool IsVelodyne(LidarModel model)
+        {
+            return model == LidarModel.VelodyneVLP16 ||
+                   model == LidarModel.VelodyneVLP32C ||
+                   model == LidarModel.VelodyneVLS128;
+        }
+
+        private bool IsHesai(LidarModel model)
+        {
+            return model == LidarModel.HesaiPandar40P ||
+                   model == LidarModel.HesaiPandarQT ||
+                   model == LidarModel.HesaiQT128C2X ||
+                   model == LidarModel.HesaiPandar128E4X;
+        }
 
         // To be called when adding this component
         private void Reset()
@@ -87,29 +134,25 @@ namespace RGLUnityPlugin
 
             // Node parameters will be updated when validating lidar model
             rglSubgraphUdpPublishing = new RGLNodeSequence()
-                .AddNodePointsUdpPublish(udpPublishingNodeId, RGLLidarModel.RGL_VELODYNE_VLP16, RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS,
+                .AddNodePointsUdpPublish(udpPublishingNodeId, RGLLidarModel.RGL_VELODYNE_VLP16, RGLReturnMode.SingleReturnStrongest, RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS,
                     sourceIPOnAwake, destinationIPOnAwake, destinationPortOnAwake);
         }
 
         private void Start()
         {
             lidarSensor = GetComponent<LidarSensor>();
-            lidarSensor.onLidarModelChange += ValidateLidarModel;
+            lidarSensor.onLidarModelChange += HandleNewLidarModel;
 
             // We can connect to world frame, because we need only DISTANCE field which is in lidar frame anyway.
             // This way we don't need to duplicate transform nodes to have compacted and non-compacted point cloud in lidar frame.
             lidarSensor.ConnectToWorldFrame(rglSubgraphUdpPublishing, false);
 
-            if (ensureHesaiRosDriverOrientation)
-            {
-                OnValidate();  // Needed to handle this flag on startup
-            }
-
-            ValidateLidarModel();
+            HandleNewLidarModel();
         }
 
         public void OnValidate()
         {
+            // `rglSubgraphUdpPublishing` is constructed on simulation startup. `OnValidate` works only in runtime.
             if (rglSubgraphUdpPublishing == null)
             {
                 return;
@@ -138,21 +181,13 @@ namespace RGLUnityPlugin
                 rglSubgraphUdpPublishing.SetActive(udpPublishingNodeId, emitRawPackets);
             }
 
-            if (ensureHesaiRosDriverOrientation && (lidarSensor.configuration.minHAngle != -90.0f || lidarSensor.configuration.maxHAngle != 270.0f))
-            {
-                lidarSensor.configuration.minHAngle = -90.0f;
-                lidarSensor.configuration.maxHAngle = 270.0f;
-                lidarSensor.OnValidate();
-                return;  // UpdateRGLSubgraph() will be called when validating new LiDAR model configuration
-            }
-
-            UpdateRGLSubgraph();
+            HandleNewLidarModel();
         }
 
         public void OnEnable()
         {
             rglSubgraphUdpPublishing?.SetActive(udpPublishingNodeId, emitRawPackets);
-            ValidateLidarModel();
+            HandleNewLidarModel();
         }
 
         public void OnDisable()
@@ -167,7 +202,7 @@ namespace RGLUnityPlugin
             rglSubgraphUdpPublishing = null;
         }
 
-        private void ValidateLidarModel()
+        private void HandleNewLidarModel()
         {
             if (lidarSensor == null || !enabled)
             {
@@ -175,48 +210,100 @@ namespace RGLUnityPlugin
             }
 
             var modelToValidate = lidarSensor.configuration;
+            // Horizontal field of view must be 360 degrees
             if (modelToValidate.maxHAngle - modelToValidate.minHAngle != 360)
             {
-                Debug.LogError("Lidar model configuration not supported for UDP publishing " +
+                Debug.LogError($"{name}: Lidar model configuration not supported for UDP publishing " +
                                "- horizontal field of view different than 360 degrees. Disabling component...");
                 OnDisable();
             }
 
-            LidarModel? detectedUnityLidarModel = null;
-            foreach(var unityLidarModel in UnityToRGLLidarModelsMapping.Keys)
-            {
-                var unityLidarConfig = LidarConfigurationLibrary.ByModel[unityLidarModel];
-                if (modelToValidate.laserArray.lasers.SequenceEqual(unityLidarConfig.laserArray.lasers))
-                {
-                    detectedUnityLidarModel = unityLidarModel;
-                    break;
-                }
-            }
+            LidarModel currentLidarModel = lidarSensor.modelPreset;
 
-            if (detectedUnityLidarModel == null)
+            if (!UnityToRGLLidarModelsMapping.ContainsKey(currentLidarModel))
             {
-                Debug.LogError("Lidar model configuration not supported for UDP publishing " +
-                               $"- lasers doesn't match any supported Lidar models ({string.Join(", ", UnityToRGLLidarModelsMapping.Keys)}). Disabling component...");
+                Debug.LogError($"{name}: Lidar model preset not supported for UDP publishing. " +
+                               $"Please select one of: [{string.Join(", ", UnityToRGLLidarModelsMapping.Keys)}]. Disabling component...");
+                OnDisable();
+                return;
+            }
+            if (!SupportedLidarsAndReturnModes.ContainsKey(currentLidarModel) || SupportedLidarsAndReturnModes[currentLidarModel].Count == 0)
+            {
+                Debug.LogError($"{name}: Lidar model preset doesn't have specification for supported return modes. It is most likely due to implementation error. " +
+                               "Please contact to the project maintainers. Disabling component...");
                 OnDisable();
                 return;
             }
 
-            // Currently, all of the supported Velodyne models use Legacy Packet Format
-            if (IsVelodyne((LidarModel)detectedUnityLidarModel) && modelToValidate.maxRange > maxRangeForVelodyneLegacyPacketFormat)
+            // Check if lidar configuration doesn't exceed max range for Velodyne Legacy Packet Format
+            // Currently, all of the supported Velodyne models use this packet format
+            if (IsVelodyne(currentLidarModel) && modelToValidate.GetRayRanges().Max(v => v.y) > maxRangeForVelodyneLegacyPacketFormat)
             {
-                Debug.LogWarning($"Max range of lidar '{lidarSensor.name}' exceeds max range supported by Velodyne Legacy Packet Format (262.14m). Consider reducing its value to ensure proper work.");
+                Debug.LogWarning($"Max range of lidar '{lidarSensor.name}' exceeds max range supported by Velodyne Legacy Packet Format ({maxRangeForVelodyneLegacyPacketFormat}m). " +
+                                 "Consider reducing its value to ensure proper work.");
             }
 
-            currentRGLLidarModel = UnityToRGLLidarModelsMapping[detectedUnityLidarModel.Value];
-            UpdateRGLSubgraph();
+            // This is a workaround for the difference between the coordinate systems in the ROS2 driver and Hesai LiDAR manuals
+            // The order of the points is changed to be encoded to match ROS2 coordinate system
+            if (ensureHesaiRosDriverOrientation && IsHesai(currentLidarModel) && (lidarSensor.configuration.minHAngle != -90.0f || lidarSensor.configuration.maxHAngle != 270.0f))
+            {
+                lidarSensor.configuration.minHAngle = -90.0f;
+                lidarSensor.configuration.maxHAngle = 270.0f;
+                lidarSensor.OnValidate();  // This will trigger `HandleNewLidarModel()` again
+                return;
+            }
+
+            // Check if supported return mode is selected
+            if (!SupportedLidarsAndReturnModes[currentLidarModel].Contains(returnMode))
+            {
+                Debug.LogError($"{name}: Return mode for selected lidar model preset is not supported. " +
+                               $"Please select one of: [{string.Join(", ", SupportedLidarsAndReturnModes[currentLidarModel])}]. " +
+                               "Setting the first supported return mode...");
+                returnMode = SupportedLidarsAndReturnModes[currentLidarModel][0];
+            }
+
+            // Update RGL subgraph
+            rglSubgraphUdpPublishing.UpdateNodePointsUdpPublish(
+                udpPublishingNodeId, UnityToRGLLidarModelsMapping[currentLidarModel], returnMode, GetUdpOptions(currentLidarModel),
+                sourceIPOnAwake, destinationIPOnAwake, destinationPortOnAwake);
         }
 
-        private void UpdateRGLSubgraph()
+        private RGLUdpOptions GetUdpOptions(LidarModel currentLidarModel)
         {
-            HandleUdpOptionsFlags();
-            rglSubgraphUdpPublishing.UpdateNodePointsUdpPublish(
-                udpPublishingNodeId, currentRGLLidarModel, currentRGLUdpOptions,
-                sourceIPOnAwake, destinationIPOnAwake, destinationPortOnAwake);
+            // Validate current model and option flags
+            if (!IsHesai(currentLidarModel) && enableHesaiUdpSequence)
+            {
+                enableHesaiUdpSequence = false;
+                Debug.LogWarning($"{name}: enableHesaiUdpSequence option is not available for selected LiDAR model. Disabling option...");
+            }
+            if ((currentLidarModel == LidarModel.HesaiQT128C2X || currentLidarModel == LidarModel.HesaiPandar128E4X) && !enableHesaiUdpSequence)
+            {
+                enableHesaiUdpSequence = true;
+                Debug.LogWarning($"{name}: enableHesaiUdpSequence option must be enabled for selected LiDAR model. Enabling option...");
+            }
+            if (currentLidarModel != LidarModel.HesaiQT128C2X  && enableHesaiUpCloseBlockageDetection)
+            {
+                enableHesaiUpCloseBlockageDetection = false;
+                Debug.LogWarning($"{name}: enableHesaiUpCloseBlockageDetection option is only available for Hesai QT128C2X LiDAR model. Disabling option...");
+            }
+
+            // Construct RGLUdpOptions
+            // We need to cast to the underlying type of the enum to be able to add multiple udp options
+            Assert.IsTrue(Enum.GetUnderlyingType(typeof(RGLUdpOptions)) == typeof(UInt32)); // Check if we are casting properly
+            UInt32 udpOptions = (UInt32)RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS;
+            udpOptions += enableHesaiUdpSequence ? (UInt32)RGLUdpOptions.RGL_UDP_ENABLE_HESAI_UDP_SEQUENCE : 0;
+            udpOptions += enableHesaiUpCloseBlockageDetection ? (UInt32)RGLUdpOptions.RGL_UDP_UP_CLOSE_BLOCKAGE_DETECTION : 0;
+
+            // Check if high resolution mode is enabled (available only on Hesai Pandar128E4X)
+            if (currentLidarModel == LidarModel.HesaiPandar128E4X)
+            {
+                if (((HesaiPandar128E4XLidarConfiguration)lidarSensor.configuration).highResolutionModeEnabled)
+                {
+                    udpOptions += (UInt32)RGLUdpOptions.RGL_UDP_HIGH_RESOLUTION_MODE;
+                }
+            }
+
+            return (RGLUdpOptions)udpOptions;
         }
 
         /// <summary>
@@ -229,7 +316,7 @@ namespace RGLUnityPlugin
                 return false;
             }
 
-            Debug.LogError($"Loaded RGL plugin does not include support for UDP Raw Packet, removing component");
+            Debug.LogError("Loaded RGL plugin does not include support for UDP Raw Packet, removing component");
             if (Application.isEditor && !Application.isPlaying)  // In edit mode
             {
                 DestroyImmediate(this);
@@ -239,44 +326,6 @@ namespace RGLUnityPlugin
                 Destroy(this);
             }
             return true;
-        }
-
-        private void HandleUdpOptionsFlags()
-        {
-            bool currentLidarIsHesai = currentRGLLidarModel == RGLLidarModel.RGL_HESAI_PANDAR_40P ||
-                                       currentRGLLidarModel == RGLLidarModel.RGL_HESAI_PANDAR_QT64;
-
-            if (!currentLidarIsHesai)
-            {
-                if (enableHesaiUdpSequence)
-                {
-                    enableHesaiUdpSequence = false;
-                    currentRGLUdpOptions = RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS;
-                    Debug.LogWarning($"{name}: enableHesaiUdpSequence option is not available for selected LiDAR model. Disabling...");
-                }
-
-                if (useDualReturnFormat)
-                {
-                    useDualReturnFormat = false;
-                    currentRGLUdpOptions = RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS;
-                    Debug.LogWarning($"{name}: useDualReturnFormat option is not available for selected LiDAR model. Disabling...");
-                }
-
-                return;
-            }
-
-            int udpOptionsConstruction = (int)RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS;
-            udpOptionsConstruction += enableHesaiUdpSequence ? (int)RGLUdpOptions.RGL_UDP_ENABLE_HESAI_UDP_SEQUENCE : 0;
-            udpOptionsConstruction += useDualReturnFormat ? (int)RGLUdpOptions.RGL_UDP_DUAL_RETURN : 0;
-
-            currentRGLUdpOptions = (RGLUdpOptions)udpOptionsConstruction;
-        }
-
-        private bool IsVelodyne(LidarModel model)
-        {
-            return model == LidarModel.VelodyneVLP16 ||
-                   model == LidarModel.VelodyneVLP32C ||
-                   model == LidarModel.VelodyneVLS128;
         }
 
         private bool IsValidIpAddress(in string ip)

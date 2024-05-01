@@ -35,10 +35,10 @@ namespace RGLUnityPlugin
 
 	public enum RGLField : Int32
 	{
-		UNKNOWN = -1,
 		XYZ_VEC3_F32 = 1,
 		INTENSITY_F32,
 		IS_HIT_I32,
+		IS_GROUND_I32,
 		RAY_IDX_U32,
 		ENTITY_ID_I32,
 		DISTANCE_F32,
@@ -54,6 +54,9 @@ namespace RGLUnityPlugin
 		RCS_F32,
 		NOISE_F32,
 		SNR_F32,
+		NORMAL_VEC3_F32,
+		INCIDENT_ANGLE_F32,
+		RAY_POSE_MAT3x4_F32,
 		// Dummy fields
 		PADDING_8 = 1024,
 		PADDING_16,
@@ -61,7 +64,7 @@ namespace RGLUnityPlugin
 		// Dynamic fields
 		DYNAMIC_FORMAT = 13842,
 	}
-	
+
 	public enum RGLLogLevel : Int32
 	{
 		ALL = 0,
@@ -88,13 +91,30 @@ namespace RGLUnityPlugin
 		RGL_VELODYNE_VLS128 = 3,
 		RGL_HESAI_PANDAR_40P = 4,
 		RGL_HESAI_PANDAR_QT64 = 5,
+		RGL_HESAI_QT128C2X = 6,
+		RGL_HESAI_PANDAR_128E4X = 7,
+	};
+
+	// Items have been renamed to be displayed in Unity nicer.
+	public enum RGLReturnMode : UInt32
+	{
+		/* RGL_RETURN_FIRST */ SingleReturnFirst = 1 << 29, // Three of the most significant bits encode the number of returns
+		/* RGL_RETURN_SECOND */ SingleReturnSecond,
+		/* RGL_RETURN_LAST */ SingleReturnLast,
+		/* RGL_RETURN_STRONGEST */ SingleReturnStrongest,
+		/* RGL_RETURN_LAST_STRONGEST */ DualReturnLastStrongest = 2 << 29,
+		/* RGL_RETURN_FIRST_LAST */ DualReturnFirstLast,
+		/* RGL_RETURN_FIRST_STRONGEST */ DualReturnFirstStrongest,
+		/* RGL_RETURN_STRONGEST_SECOND_STRONGEST */ DualReturnStrongestSecondStrongest,
+		/* RGL_RETURN_FIRST_SECOND */ DualReturnFirstSecond,
 	};
 
 	public enum RGLUdpOptions : UInt32
 	{
-		RGL_UDP_NO_ADDITIONAL_OPTIONS     = 0,
-		RGL_UDP_ENABLE_HESAI_UDP_SEQUENCE = 1 << 0,
-		RGL_UDP_DUAL_RETURN               = 1 << 1,
+		RGL_UDP_NO_ADDITIONAL_OPTIONS       = 0,
+		RGL_UDP_ENABLE_HESAI_UDP_SEQUENCE   = 1 << 0,
+		RGL_UDP_HIGH_RESOLUTION_MODE        = 1 << 1,
+		RGL_UDP_UP_CLOSE_BLOCKAGE_DETECTION = 1 << 2,
 	};
 
 	public enum RGLQosPolicyReliability
@@ -117,7 +137,7 @@ namespace RGLUnityPlugin
 		QOS_POLICY_HISTORY_KEEP_LAST = 1,
 		QOS_POLICY_HISTORY_KEEP_ALL = 2,
 	};
-	
+
 	public enum RGLExtension : Int32
 	{
 		RGL_EXTENSION_PCL = 0,

@@ -1,5 +1,6 @@
 {
     "TimeScale": 0.2,
+    "TimeSource": "simulation",
     "RandomTrafficSeed": 33,
     "MaxVehicleCount": 2,
     "Ego": {

@@ -55,6 +55,8 @@ nav:
     - External Libraries: ProjectGuide/ExternalLibraries/index.md
 
   - Components:
+    - Clock:
+      - Clock Publisher: Components/Clock/ClockPublisher/index.md
     - Vehicle:
       - Ego Vehicle: Components/Vehicle/EgoVehicle/index.md
       - URDF And Sensors: Components/Vehicle/URDFAndSensors/index.md
@@ -63,6 +65,7 @@ nav:
         - Add Colliders: Components/Vehicle/AddNewVehicle/AddColliders/index.md
         - Add Sensors: Components/Vehicle/AddNewVehicle/AddSensors/index.md
         - Add Visual Elements: Components/Vehicle/AddNewVehicle/AddVisualElements/index.md
+      - Customize Slip: Components/Vehicle/CustomizeSlip/index.md
       - FollowCamera: Components/Vehicle/FollowCamera/index.md
     - Sensors:
       - LiDAR Sensor:
@@ -70,6 +73,7 @@ nav:
         - Add New LiDAR: Components/Sensors/LiDARSensor/AddNewLiDAR/index.md
         - Read Material Information: Components/Sensors/LiDARSensor/ReadMaterialInformation/index.md
         - RGLUnityPlugin: Components/Sensors/LiDARSensor/RGLUnityPlugin/index.md
+      - Radar Sensor: Components/Sensors/RadarSensor/index.md
       - Camera Sensor: Components/Sensors/CameraSensor/index.md
       - IMU Sensor: Components/Sensors/IMUSensor/index.md
       - GNSS Sensor: Components/Sensors/GNSSSensor/index.md

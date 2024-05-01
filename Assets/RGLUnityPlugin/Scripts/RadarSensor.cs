@@ -36,26 +36,27 @@ namespace RGLUnityPlugin
         /// </summary>
         public OnNewDataDelegate onNewData;
 
+        [NonSerialized]
         public bool applyDistanceGaussianNoise = true;
+        [NonSerialized]
         public bool applyAngularGaussianNoise = true;
 
         public RadarModel modelPreset = RadarModel.SmartmicroDRVEGRD169MediumRange;
 
-        // It is safer to refer to concrete property instead of using dictionary here because of static initialization order.
-        public RadarConfiguration configuration = RadarConfigurationLibrary.SmartmicroDRVEGRD169MediumRange;
+        public RadarConfiguration configuration = RadarConfigurationLibrary.ByModel[RadarModel.SmartmicroDRVEGRD169MediumRange]();
 
         private RGLNodeSequence rglGraphRadar;
-        private RGLNodeSequence rglSubgraphToWorldFrame;
+        private RGLNodeSequence rglSubgraphToRadarFrame;
         private SceneManager sceneManager;
 
         private const string RadarRaysNodeId = "RADAR_RAYS";
         private const string RadarRangeNodeId = "RADAR_RANGE";
         private const string RadarPoseNodeId = "RADAR_POSE";
         private const string RadarRaytraceNodeId = "RADAR_RAYTRACE";
-        private const string CompactNodeId = "COMPACT";
+        private const string CompactHitsNodeId = "COMPACT_BY_HITS";
         private const string ToRadarFrameId = "TO_RADAR_FRAME";
-        private const string ToWorldFrameId = "TO_WORLD_FRAME";
-        private const string RemoveGroundNodeId = "REMOVE_GROUND";
+        private const string FilterGroundNodeId = "FILTER_GROUND";
+        private const string CompactNonGroundNodeId = "COMPACT_BY_GROUND";
         private const string RadarPostprocessNodeId = "RADAR_POSTPROCESS";
         private const string NoiseDistanceNodeId = "NOISE_DISTANCE";
         private const string NoiseRaysNodeId = "NOISE_RAYS";
@@ -70,9 +71,7 @@ namespace RGLUnityPlugin
         private int lastUpdateFrame = -1;
 
         // Remove Ground Node parameters
-        private const float GroundAngleThreshold = 5.0f;
-        private const float GroundDistanceThreshold = 0.005f;
-        private const float GroundFilterDistance = 0.5f;
+        private const float GroundAngleThreshold = 10.0f;
 
         public void Awake()
         {
@@ -82,16 +81,19 @@ namespace RGLUnityPlugin
                 .AddNodeRaysTransform(RadarPoseNodeId, Matrix4x4.identity)
                 .AddNodeGaussianNoiseAngularRay(NoiseRaysNodeId, 0, 0)
                 .AddNodeRaytrace(RadarRaytraceNodeId)
-                .AddNodePointsCompact(CompactNodeId)
+                .AddNodePointsCompactByField(CompactHitsNodeId, RGLField.IS_HIT_I32)
                 .AddNodeGaussianNoiseDistance(NoiseDistanceNodeId, 0, 0, 0)
-                .AddNodePointsTransform(ToRadarFrameId, Matrix4x4.identity)
-                .AddNodePointsRemoveGround(RemoveGroundNodeId, GroundAngleThreshold * Mathf.Deg2Rad, GroundDistanceThreshold, GroundFilterDistance)
-                .AddNodePointsRadarPostprocess(RadarPostprocessNodeId, 0.1f, 0.1f);
+                .AddNodePointsFilterGround(FilterGroundNodeId, GroundAngleThreshold * Mathf.Deg2Rad)
+                .AddNodePointsCompactByField(CompactNonGroundNodeId, RGLField.IS_GROUND_I32)
+                .AddNodePointsRadarPostprocess(RadarPostprocessNodeId, new []{new RadarScopeParameters()},
+                    0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f);
 
-            rglSubgraphToWorldFrame = new RGLNodeSequence()
-                .AddNodePointsTransform(ToWorldFrameId, Matrix4x4.identity);
+            rglSubgraphToRadarFrame = new RGLNodeSequence()
+                .AddNodePointsTransform(ToRadarFrameId, Matrix4x4.identity);
 
-            RGLNodeSequence.Connect(rglGraphRadar, rglSubgraphToWorldFrame);
+            RGLNodeSequence.Connect(rglGraphRadar, rglSubgraphToRadarFrame);
+
+            rglGraphRadar.ConfigureNodeRaytraceDistortion(RadarRaytraceNodeId, false); // Ensure no distortion for radar
         }
 
         public void Start()
@@ -118,7 +120,7 @@ namespace RGLUnityPlugin
             bool firstValidation = validatedPreset == null;
             if (!firstValidation && presetChanged)
             {
-                configuration = RadarConfigurationLibrary.ByModel[modelPreset];
+                configuration = RadarConfigurationLibrary.ByModel[modelPreset]();
             }
             ApplyConfiguration(configuration);
             validatedPreset = modelPreset;
@@ -131,9 +133,14 @@ namespace RGLUnityPlugin
                 return;
             }
 
+            float radarFrequencyHz = newConfig.frequency * 1e9f; // GHz to Hz
+
             rglGraphRadar.UpdateNodeRaysFromMat3x4f(RadarRaysNodeId, newConfig.GetRayPoses())
                 .UpdateNodeRaysSetRange(RadarRangeNodeId, newConfig.GetRayRanges())
-                .UpdateNodePointsRadarPostprocess(RadarPostprocessNodeId, newConfig.rangeSeparation, newConfig.azimuthSeparation * Mathf.Deg2Rad)
+                .UpdateNodePointsRadarPostprocess(RadarPostprocessNodeId, newConfig.scopeParameters,
+                    newConfig.azimuthResolution * Mathf.Deg2Rad, newConfig.elevationResolution * Mathf.Deg2Rad,
+                    radarFrequencyHz, newConfig.powerTransmitted, newConfig.cumulativeDeviceGain,
+                    newConfig.receivedNoiseMean, newConfig.receivedNoiseStDev)
                 .UpdateNodeGaussianNoiseAngularRay(NoiseRaysNodeId,
                     newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,
                     newConfig.noiseParams.angularNoiseStDev * Mathf.Deg2Rad)
@@ -175,12 +182,12 @@ namespace RGLUnityPlugin
             Capture();
         }
 
-        public void ConnectToWorldFrame(RGLNodeSequence nodeSequence, bool compacted = true)
+        public void ConnectToRadarFrame(RGLNodeSequence nodeSequence)
         {
-            RGLNodeSequence.Connect(rglSubgraphToWorldFrame, nodeSequence);
+            RGLNodeSequence.Connect(rglSubgraphToRadarFrame, nodeSequence);
         }
 
-        public void ConnectToRadarFrame(RGLNodeSequence nodeSequence)
+        public void ConnectToWorldFrame(RGLNodeSequence nodeSequence)
         {
             RGLNodeSequence.Connect(rglGraphRadar, nodeSequence);
         }
@@ -192,8 +199,7 @@ namespace RGLUnityPlugin
             // Set radar pose
             Matrix4x4 radarPose = gameObject.transform.localToWorldMatrix;
             rglGraphRadar.UpdateNodeRaysTransform(RadarPoseNodeId, radarPose);
-            rglGraphRadar.UpdateNodePointsTransform(ToRadarFrameId, radarPose.inverse);
-            rglSubgraphToWorldFrame.UpdateNodePointsTransform(ToWorldFrameId, radarPose);
+            rglSubgraphToRadarFrame.UpdateNodePointsTransform(ToRadarFrameId, radarPose.inverse);
 
             SetVelocityToRaytrace();
 
@@ -217,7 +223,7 @@ namespace RGLUnityPlugin
             // Sensor angular velocity in rad/s.
             Vector3 localAngularVelocity = (deltaRotation * Mathf.Deg2Rad) / Time.deltaTime;
 
-            rglGraphRadar.UpdateNodeRaytrace(RadarRaytraceNodeId, localLinearVelocity, localAngularVelocity, false);
+            rglGraphRadar.ConfigureNodeRaytraceVelocity(RadarRaytraceNodeId, localLinearVelocity, localAngularVelocity);
         }
     }
 }
