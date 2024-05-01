@@ -71,6 +71,12 @@ namespace RGLUnityPlugin
         [SerializeReference]
         public BaseLidarConfiguration configuration = LidarConfigurationLibrary.ByModel[LidarModel.RangeMeter]();
 
+        /// <summary>
+        /// Encapsulates description of a output restriction to allow fault injection.
+        /// </summary>
+        [SerializeReference]
+        public LidarOutputRestriction outputRestriction = new LidarOutputRestriction(LidarConfigurationLibrary.ByModel[LidarModel.RangeMeter]().PointCloudSize);
+
         private RGLNodeSequence rglGraphLidar;
         private RGLNodeSequence rglSubgraphCompact;
         private RGLNodeSequence rglSubgraphToLidarFrame;
@@ -158,9 +164,13 @@ namespace RGLUnityPlugin
             {
                 configuration = LidarConfigurationLibrary.ByModel[modelPreset]();
             }
+
+            outputRestriction.Update(configuration);
+
             ApplyConfiguration(configuration);
             validatedPreset = modelPreset;
             onLidarModelChange?.Invoke();
+
         }
 
         private void ApplyConfiguration(BaseLidarConfiguration newConfig)
@@ -212,6 +222,8 @@ namespace RGLUnityPlugin
             {
                 rglGraphLidar.UpdateNodeRaytrace(lidarRaytraceNodeId);
             }
+
+            outputRestriction.ApplyRestriction(rglGraphLidar, lidarRaytraceNodeId);
         }
 
         public void OnEnable()

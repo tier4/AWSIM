@@ -427,6 +427,13 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence ApplyLidarOutputRestriction(string identifier, sbyte[] raysMask)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
+            RGLNativeAPI.NodeRaytraceConfigureMask(ref handle.Node, raysMask, raysMask.Length);
+            return this;
+        }
+
         //// NODESEQUENCE OPERATIONS ////
         public int GetResultData<T>(ref T[] data) where T : unmanaged
         {
