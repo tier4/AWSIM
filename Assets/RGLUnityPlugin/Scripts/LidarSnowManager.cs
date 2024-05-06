@@ -50,6 +50,15 @@ namespace RGLUnityPlugin
         [field: Range(0.01f, 0.2f)]
         public float Density { get; private set; } = 0.07f;
 
+        [field: SerializeField]
+        [field: Tooltip("If true, a more sophisticated method is used, which takes into account the energy loss of the lidar beam when hitting snowflakes")]
+        public bool DoSimulateEnergyLoss { get; private set; } = true;
+
+        [field: SerializeField]
+        [field: Tooltip("Minimal snowflake occupancy (in fraction of ray beam angle) included in energy loss calculation")]
+        [field: Range(0.0f, 1.0f)]
+        public float SnowflakeOccupancyThreshold { get; private set; } = 0.0f;
+
         public bool IsSnowEnabled { get; private set; } = false;
 
         private void Awake()

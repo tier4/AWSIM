@@ -35,10 +35,10 @@ namespace RGLUnityPlugin
 
 	public enum RGLField : Int32
 	{
-		UNKNOWN = -1,
 		XYZ_VEC3_F32 = 1,
 		INTENSITY_F32,
 		IS_HIT_I32,
+		IS_GROUND_I32,
 		RAY_IDX_U32,
 		ENTITY_ID_I32,
 		DISTANCE_F32,
@@ -54,6 +54,9 @@ namespace RGLUnityPlugin
 		RCS_F32,
 		NOISE_F32,
 		SNR_F32,
+		NORMAL_VEC3_F32,
+		INCIDENT_ANGLE_F32,
+		RAY_POSE_MAT3x4_F32,
 		// Dummy fields
 		PADDING_8 = 1024,
 		PADDING_16,
@@ -61,7 +64,7 @@ namespace RGLUnityPlugin
 		// Dynamic fields
 		DYNAMIC_FORMAT = 13842,
 	}
-	
+
 	public enum RGLLogLevel : Int32
 	{
 		ALL = 0,

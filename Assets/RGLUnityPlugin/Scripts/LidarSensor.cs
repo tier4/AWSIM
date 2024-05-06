@@ -120,7 +120,7 @@ namespace RGLUnityPlugin
                 .AddNodeGaussianNoiseDistance(noiseDistanceNodeId, 0, 0, 0);
 
             rglSubgraphCompact = new RGLNodeSequence()
-                .AddNodePointsCompact(pointsCompactNodeId);
+                .AddNodePointsCompactByField(pointsCompactNodeId, RGLField.IS_HIT_I32);
 
             rglSubgraphToLidarFrame = new RGLNodeSequence()
                 .AddNodePointsTransform(toLidarFrameNodeId, Matrix4x4.identity);
@@ -146,7 +146,7 @@ namespace RGLUnityPlugin
             if (LidarSnowManager.Instance != null)
             {
                 // Add deactivated node with some initial values. To be activated and updated when validating.
-                rglGraphLidar.AddNodePointsSimulateSnow(snowNodeId, 0.0f, 1.0f, 0.0001f, 0.0001f, 0.2f, 0.01f, 1, 0.01f);
+                rglGraphLidar.AddNodePointsSimulateSnow(snowNodeId, 0.0f, 1.0f, 0.0001f, 0.0001f, 0.2f, 0.01f, 1, 0.01f, false, 0.0f);
                 rglGraphLidar.SetActive(snowNodeId, false);
                 LidarSnowManager.Instance.OnNewConfig += OnValidate;
             }
@@ -170,7 +170,6 @@ namespace RGLUnityPlugin
             ApplyConfiguration(configuration);
             validatedPreset = modelPreset;
             onLidarModelChange?.Invoke();
-
         }
 
         private void ApplyConfiguration(BaseLidarConfiguration newConfig)
@@ -212,17 +211,14 @@ namespace RGLUnityPlugin
                         LidarSnowManager.Instance.TerminalVelocity,
                         LidarSnowManager.Instance.Density,
                         newConfig.laserArray.GetLaserRingIds().Length,
-                        newConfig.beamDivergence * Mathf.Deg2Rad);
+                        newConfig.beamDivergence * Mathf.Deg2Rad,
+                        LidarSnowManager.Instance.DoSimulateEnergyLoss,
+                        LidarSnowManager.Instance.SnowflakeOccupancyThreshold);
                 }
                 rglGraphLidar.SetActive(snowNodeId, LidarSnowManager.Instance.IsSnowEnabled);
             }
 
-            // If distortion is disabled, update raytrace node with no velocities provided (it disables distortion in native RGL library)
-            if (!applyVelocityDistortion)
-            {
-                rglGraphLidar.UpdateNodeRaytrace(lidarRaytraceNodeId);
-            }
-
+            rglGraphLidar.ConfigureNodeRaytraceDistortion(lidarRaytraceNodeId, applyVelocityDistortion);
             outputRestriction.ApplyRestriction(rglGraphLidar, lidarRaytraceNodeId);
         }
 
@@ -364,7 +360,7 @@ namespace RGLUnityPlugin
             // Sensor angular velocity in rad/s.
             Vector3 localAngularVelocity = (deltaRotation * Mathf.Deg2Rad) / Time.deltaTime;
 
-            rglGraphLidar.UpdateNodeRaytrace(lidarRaytraceNodeId, localLinearVelocity, localAngularVelocity, true);
+            rglGraphLidar.ConfigureNodeRaytraceVelocity(lidarRaytraceNodeId, localLinearVelocity, localAngularVelocity);
         }
     }
 }

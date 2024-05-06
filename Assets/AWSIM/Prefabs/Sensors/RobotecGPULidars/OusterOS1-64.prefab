@@ -46,19 +46,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87ba9656cbd67467f8119d8666b098aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pcl24Topic: lidar/pointcloud
-  pcl48Topic: lidar/pointcloud_ex
-  instanceIdTopic: lidar/instance_id
-  radarTopic: radar/pointcloud
-  frameID: world
-  publishPCL24: 1
-  publishPCL48: 1
-  publishInstanceId: 0
-  publishRadar: 0
-  reliabilityPolicy: 2
-  durabilityPolicy: 2
-  historyPolicy: 1
-  historyDepth: 5
+  frameId: world
+  qos:
+    reliabilityPolicy: 2
+    durabilityPolicy: 2
+    historyPolicy: 1
+    historyDepth: 5
+  pointCloud2Publishers:
+  - topic: lidar/pointcloud
+    publish: 1
+    fieldsPreset: 0
+    fields: 0100000002040000020000000a00000001040000
+  - topic: lidar/pointcloud_ex
+    publish: 1
+    fieldsPreset: 1
+    fields: 0100000002040000020000000a0000000104000008000000070000000b0000000004000001040000020400000c000000
+  radarScanPublishers: []
 --- !u!114 &4572956135196922574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,6 +576,20 @@ MonoBehaviour:
           distanceNoiseMean: 0
         minRange: 0
         maxRange: 120
+--- !u!64 &6589030601773676940
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2616437725479065245}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4811946881798900607, guid: 8ce8cbe152655307595b9f7a0af6aabe, type: 3}
 --- !u!1001 &1279405457360735599
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -580,6 +597,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3068494487180298279}
     m_Modifications:
+    - target: {fileID: 835162247340553021, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954154209502910360, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -633,5 +658,10 @@ PrefabInstance:
 --- !u!4 &5995076691610956455 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4824364556834783176, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
+  m_PrefabInstance: {fileID: 1279405457360735599}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2616437725479065245 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3859066201442524146, guid: bfb91601c53aa4e7691adab30a410cf1, type: 3}
   m_PrefabInstance: {fileID: 1279405457360735599}
   m_PrefabAsset: {fileID: 0}

@@ -254,10 +254,12 @@ namespace AWSIM
         /// </summary>
         public Vector3 LocalAngularAcceleration => m_transform.InverseTransformDirection(AngularAcceleration);
 
+        /// <summary>
+        /// Vehicle automatic shift (P, R, N, D)
+        /// </summary>
+        public Shift AutomaticShift => AutomaticShiftInput;
 
         private float sleepTimer = 0.0f; ///Count the time until CanSleep is switched to true
-
-
 
         // Cache components.
         Wheel[] wheels;
@@ -489,7 +491,7 @@ namespace AWSIM
 
                     if (Speed > 0)
                     {
-                        var maxAcceleration = Speed / Time.deltaTime;
+                        var maxAcceleration = -Speed / Time.deltaTime;
                         if (acceleration > maxAcceleration)
                             acceleration = maxAcceleration;
                     }
