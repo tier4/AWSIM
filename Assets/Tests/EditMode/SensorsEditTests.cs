@@ -30,9 +30,9 @@ namespace Sensors
                 Assert.That(data.LinearAcceleration.y, Is.EqualTo(Physics.gravity.y).Using(floatComparer));
             };
 
-            sensor.call("Start");
+            sensor.Call("Start");
             sensor.SetPrivateFieldValue<float>("timer", 1.0f);
-            sensor.call("FixedUpdate");
+            sensor.Call("FixedUpdate");
 
             Assert.IsTrue(dataReceived);
             UnityEngine.Object.DestroyImmediate(go);
@@ -51,9 +51,9 @@ namespace Sensors
                 Assert.That(data.LinearAcceleration, Is.EqualTo(Vector3.zero).Using(v3Comparer));
             };
 
-            sensor.call("Start");
+            sensor.Call("Start");
             sensor.SetPrivateFieldValue<float>("timer", 1.0f);
-            sensor.call("FixedUpdate");
+            sensor.Call("FixedUpdate");
 
             Assert.IsTrue(dataReceived);
             UnityEngine.Object.DestroyImmediate(go);
@@ -85,9 +85,9 @@ namespace Sensors
                 Assert.That(data.MgrsPosition, Is.EqualTo(Vector3.zero).Using(v3Comparer));
             };
 
-            sensor.call("Start");
+            sensor.Call("Start");
             sensor.SetPrivateFieldValue<float>("timer", 1.0f);
-            sensor.call("FixedUpdate");
+            sensor.Call("FixedUpdate");
 
             Assert.IsTrue(dataReceived);
             UnityEngine.Object.DestroyImmediate(go);
@@ -113,9 +113,9 @@ namespace Sensors
                 Assert.That(data.MgrsPosition, Is.EqualTo(value).Using(v3Comparer));
             };
 
-            sensor.call("Start");
+            sensor.Call("Start");
             sensor.SetPrivateFieldValue<float>("timer", 1.0f);
-            sensor.call("FixedUpdate");
+            sensor.Call("FixedUpdate");
 
             Assert.IsTrue(dataReceived);
             UnityEngine.Object.DestroyImmediate(go);
@@ -143,9 +143,9 @@ namespace Sensors
                 Assert.That(data.MgrsPosition, Is.EqualTo(expectedResult).Using(v3Comparer));
             };
 
-            sensor.call("Start");
+            sensor.Call("Start");
             sensor.SetPrivateFieldValue<float>("timer", 1.0f);
-            sensor.call("FixedUpdate");
+            sensor.Call("FixedUpdate");
 
             Assert.IsTrue(dataReceived);
             UnityEngine.Object.DestroyImmediate(go);
