@@ -22,7 +22,10 @@ The framework enables testing code in both `Edit Mode` and `Play Mode`.
 In summary, `Edit Mode` tests are well-suited for **testing isolated code components** and editor-related functionality, while `Play Mode` tests are more appropriate for **integration testing** within the runtime environment of a Unity application or game.
 
 ## Tips for writing good tests
-
+- Prioritize EditMode testing over PlayMode. 
+- Create one test class per class as much as possible.
+- Write tests from a high-risk point of view.
+- Add the suffix `Test` to the test class. (ex. `ImuSensorTest`)
 
 ## Running tests
 
