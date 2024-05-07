@@ -1,14 +1,14 @@
 using NUnit.Framework;
 using AWSIM;
-
 using autoware_auto_vehicle_msgs.msg;
 
-namespace Ego
+public class VehicleRos2InputTest
 {
     public class TurnSignalInput
     {
         [OneTimeSetUp]
-        public void OneTimeSetUp() {
+        public void OneTimeSetUp()
+        {
             // ROS 2 Unity handler is required to load ROS 2 message assemblies
             var ros2UnityCore = new ROS2.ROS2UnityCore();
         }
@@ -23,7 +23,7 @@ namespace Ego
         [TestCaseSource(nameof(ros2UnityHazardTestCases))]
         public void Ros2Unity(byte light, Vehicle.TurnSignal result)
         {
-            var command = new TurnIndicatorsCommand() {Command = light};
+            var command = new TurnIndicatorsCommand() { Command = light };
             Assert.AreEqual(result, VehicleROS2Utility.RosToUnityTurnSignal(command));
         }
 
@@ -44,7 +44,8 @@ namespace Ego
     public class GearsInput
     {
         [OneTimeSetUp]
-        public void OneTimeSetUp() {
+        public void OneTimeSetUp()
+        {
             // ROS 2 Unity handler is required to load ROS 2 message assemblies
             var ros2UnityCore = new ROS2.ROS2UnityCore();
             ros2UnityCore.DestroyNow();
@@ -62,7 +63,7 @@ namespace Ego
         [TestCaseSource(nameof(ros2UnityGearTestCases))]
         public void Ros2Unity(byte gear, Vehicle.Shift result)
         {
-            var command = new GearCommand() {Command = gear};
+            var command = new GearCommand() { Command = gear };
             Assert.AreEqual(result, VehicleROS2Utility.RosToUnityShift(command));
         }
 
@@ -79,5 +80,4 @@ namespace Ego
             Assert.AreEqual(VehicleROS2Utility.UnityToRosShift(gear), result);
         }
     }
-    
 }

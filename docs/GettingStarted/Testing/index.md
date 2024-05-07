@@ -21,6 +21,9 @@ The framework enables testing code in both `Edit Mode` and `Play Mode`.
 
 In summary, `Edit Mode` tests are well-suited for **testing isolated code components** and editor-related functionality, while `Play Mode` tests are more appropriate for **integration testing** within the runtime environment of a Unity application or game.
 
+## Tips for writing good tests
+
+
 ## Running tests
 
 1. To access the Unity Test Framework in the Unity Editor, open the `Test Runner` window; go to `Window > General > Test Runner`.
@@ -51,18 +54,18 @@ In summary, `Edit Mode` tests are well-suited for **testing isolated code compon
 
 ### Play mode tests
 
-**EgoTests:**
+**Vehicle ROS2 Input Test:**
 
   - `GearChanging`: Using the ROS 2 interface - changing gear from `PARK` to `DRIVE` and moving forward, then changing gear from `DRIVE` to `PARK` and `REVERSE` and moving backward. Checking the expected vehicle positions.
   - `TurningLeft`: Using the ROS 2 interface - moving the Ego vehicle and turning left. Check if the goal position is valid.
   - `TurningRight`: Using the ROS 2 interface - moving the Ego vehicle and turning right. Check if the goal position is valid.
 
-**SensorsTest:**
+**Sensors Test:**
 
   - `GNSS`: Using the ROS 2 interface - verified the number of generated messages based on the sensor frequency.
   - `IMU`: Using the ROS 2 interface - verified the number of generated messages based on the sensor frequency.
 
-**TrafficTest:**
+**Traffic Test:**
 
   - `Despawn`: Assuring that the NPCs despawn correctly when reaching the end of the lanelet.
   - `RandomTrafficSpawn`: Checking the correctness of spawning multiple NPCs on multiple lanes.
