@@ -39,7 +39,6 @@ nav:
     - Quick Start Demo: GettingStarted/QuickStartDemo/index.md
     - Setup Unity Project: GettingStarted/SetupUnityProject/index.md
     - Using OpenSCENARIO: GettingStarted/UsingOpenSCENARIO/index.md 
-    - Testing: GettingStarted/Testing/index.md
 
 
   - Introduction:
@@ -53,6 +52,7 @@ nav:
     - Scenes: ProjectGuide/Scenes/index.md
     - Git Branch: ProjectGuide/GitBranch/index.md
     - External Libraries: ProjectGuide/ExternalLibraries/index.md
+    - Testing: GettingStarted/Testing/index.md
 
   - Components:
     - Clock:

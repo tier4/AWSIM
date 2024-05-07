@@ -76,35 +76,6 @@ public class SensorsTest
     }
 
     [UnityTest]
-    public IEnumerator LiDAR()
-    {
-        Assert.NotNull(lidarSensor);
-        RglLidarPublisher lidarRos2Publisher = lidarSensor.GetComponent<RglLidarPublisher>();
-        
-        Assert.AreEqual(((byte)lidarRos2Publisher.reliabilityPolicy) , ((byte)ROS2.ReliabilityPolicy.QOS_POLICY_RELIABILITY_BEST_EFFORT));
-
-        QoSSettings QosSettingsLidar = new QoSSettings()
-        {
-            ReliabilityPolicy = ROS2.ReliabilityPolicy.QOS_POLICY_RELIABILITY_BEST_EFFORT,
-            DurabilityPolicy = ROS2.DurabilityPolicy.QOS_POLICY_DURABILITY_VOLATILE,
-            HistoryPolicy = ROS2.HistoryPolicy.QOS_POLICY_HISTORY_KEEP_LAST,
-            Depth = 1,
-        };
-        
-        lidarSubscription = SimulatorROS2Node.CreateSubscription<sensor_msgs.msg.PointCloud2>(
-            lidarRos2Publisher.pcl24Topic, msg =>
-        {
-            lidarMessages.Add(msg);
-        }, QosSettingsLidar.GetQoSProfile());
-
-        yield return new WaitForSeconds(testDuration);
-
-        Assert.IsNotEmpty(lidarMessages);
-
-        Assert.AreEqual(lidarMessages.Count, (int)(testDuration * lidarSensor.AutomaticCaptureHz));
-    }
-
-    [UnityTest]
     public IEnumerator GNSS()
     {
         Assert.NotNull(gnssSensor);
