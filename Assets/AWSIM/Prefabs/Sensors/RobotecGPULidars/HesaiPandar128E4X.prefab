@@ -194,7 +194,7 @@ MonoBehaviour:
       type: {class: HesaiPandar128E4XLidarConfiguration, ns: RGLUnityPlugin, asm: Assembly-CSharp}
       data:
         _laserArray:
-          centerOfMeasurementLinearOffsetMm: {x: 0, y: 84.43, z: 0}
+          centerOfMeasurementLinearOffsetMm: {x: 0, y: 88.33, z: 0}
           focalDistanceMm: 0
           lasers:
           - horizontalAngularOffsetDeg: 0.186

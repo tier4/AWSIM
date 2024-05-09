@@ -574,7 +574,7 @@ MonoBehaviour:
           distanceNoiseStDevBase: 0.02
           distanceNoiseStDevRisePerMeter: 0
           distanceNoiseMean: 0
-        minRange: 0
+        minRange: 0.8
         maxRange: 120
 --- !u!64 &6589030601773676940
 MeshCollider:
