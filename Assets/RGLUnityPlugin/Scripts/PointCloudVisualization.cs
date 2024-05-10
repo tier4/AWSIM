@@ -19,7 +19,6 @@ using UnityEngine;
 namespace RGLUnityPlugin
 {
     [System.Serializable]
-    [RequireComponent(typeof(LidarSensor))]
     public class PointCloudVisualization : MonoBehaviour
     {
         public enum PointShape
@@ -67,9 +66,10 @@ namespace RGLUnityPlugin
         private int pointCount = 0;
         private int[] indices = Array.Empty<int>();
 
-        private LidarSensor lidarSensor;
         private RGLNodeSequence rglSubgraphVisualizationOutput;
         private const string visualizationOutputNodeId = "OUT_VISUALIZATION";
+
+        private MonoBehaviour sensor;
 
         public void Awake()
         {
@@ -77,13 +77,40 @@ namespace RGLUnityPlugin
                 .AddNodePointsYield(visualizationOutputNodeId, RGLField.XYZ_VEC3_F32);
 
             rglSubgraphVisualizationOutput.SetPriority(visualizationOutputNodeId, 1);
-
-            lidarSensor = GetComponent<LidarSensor>();
         }
 
         public void Start()
         {
-            lidarSensor.ConnectToWorldFrame(rglSubgraphVisualizationOutput);
+            // Check if LiDAR is attached
+            var lidar = GetComponent<LidarSensor>();
+            if (lidar != null)
+            {
+                lidar.ConnectToWorldFrame(rglSubgraphVisualizationOutput);
+                lidar.onNewData += OnNewLidarData;
+                sensor = lidar;
+            }
+
+            // Check if radar is attached
+            var radar = GetComponent<RadarSensor>();
+            if (radar != null)
+            {
+                if (sensor != null)
+                {
+                    Debug.LogError($"More than one sensor is attached to the PointCloudVisualization. Destroying {name}.");
+                    Destroy(this);
+                    return;
+                }
+                radar.ConnectToWorldFrame(rglSubgraphVisualizationOutput);
+                radar.onNewData += OnNewLidarData;
+                sensor = radar;
+            }
+
+            if (sensor == null)
+            {
+                Debug.LogError($"Cannot visualize point cloud without sensor. Destroying {name}.");
+                Destroy(this);
+                return;
+            }
 
             mesh = new Mesh();
             if (!material)
@@ -102,13 +129,11 @@ namespace RGLUnityPlugin
         public void OnEnable()
         {
             rglSubgraphVisualizationOutput.SetActive(visualizationOutputNodeId, true);
-            lidarSensor.onNewData += OnNewLidarData;
         }
 
         public void OnDisable()
         {
             rglSubgraphVisualizationOutput.SetActive(visualizationOutputNodeId, false);
-            lidarSensor.onNewData -= OnNewLidarData;
         }
 
         public void OnValidate()
@@ -157,7 +182,7 @@ namespace RGLUnityPlugin
 
         public void Update()
         {
-            if (!lidarSensor.enabled)
+            if (!sensor.enabled)
             {
                 mesh.Clear();
             }
@@ -166,6 +191,10 @@ namespace RGLUnityPlugin
 
         private void OnNewLidarData()
         {
+            if (!enabled)
+            {
+                return;
+            }
             pointCount = rglSubgraphVisualizationOutput.GetResultData<Vector3>(ref onlyHits);
             SetPoints(onlyHits);
         }

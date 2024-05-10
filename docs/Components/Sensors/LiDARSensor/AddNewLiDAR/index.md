@@ -45,13 +45,11 @@ To add a new *LiDAR* model, perform the following steps:
             - `minRange` - minimum range of the laser (set if lasers have different ranges)
             - `maxRange` - maximum range of the laser (set if lasers have different ranges)
 
-    1. To define a new laser distribution create a new entry to the `LaserArrayLibrary.cs`
+    1. To define a new laser distribution create a new class in the `LaserArrayLibrary.cs`
 
         ![lidar_array](img/LidarLaserArray.png)
 
-        1. Add a new public static instance of `LaserArray` with the definition.
-
-        1. Add a new item to the `ByModel` dictionary that collects *LiDAR* model enumerations with their laser array definitions.
+        - Add a new public static instance of `LaserArray` with the definition.
 
         In this example, `NewLidarModel` laser distribution consists of 5 lasers with
         
@@ -68,19 +66,17 @@ To add a new *LiDAR* model, perform the following steps:
 
     ![lidar_configuration](img/LidarConfiguration.png)
 
-    1. Add a new public static instance of `LidarConfiguration` with the definition:
+    Add a new item to the `ByModel` dictionary that collects *LiDAR* model enumerations with their `BaseLidarConfiguration` choosing one of the implementations:
 
-        - `laserArray` - laser distribution array created in the previous step (it could be also generated uniformly with `LaserArray.Uniform()`)
-        - `horizontalResolution` - horizontal resolution of laser array firings in degrees (laser array will be rotated according to this resolution)
-        - `laserArrayCycleTime` - time between two consecutive firings of the whole laser array in milliseconds. Usually, it consists of firing time for all the lasers and recharge time. Skip this parameter if all of the rays are fired at the same time.
-        - `minHAngle` - minimum horizontal angle of the *LiDAR*
-        - `maxHAngle` - maximum horizontal angle of the *LiDAR*
-        - `noiseParams` - *LiDAR* noise parameters (see `LidarNoiseParams.cs` for more details)
-        - `rayGenerateMethod` - if *LiDAR* has equal range for all of the lasers choose `RotatingLidarEqualRange` and configure `minRange` and `maxRange` in the `LidarConfiguration`. Otherwise, choose `RotatingLidarDifferentLaserRanges` and define ranges in `LaserArray`.
-        - `minRange` - minimum range of the sensor (applied when `Ray Generate Method` is `Rotating Lidar Equal Range`)
-        - `maxRange` - maximum range of the sensor (applied when `Ray Generate Method` is `Rotating Lidar Equal Range`)
+    - `UniformRangeLidarConfiguration` - lidar configuration for uniformly distributed rays along the horizontal axis with a uniform range for all the rays (it contains `minRange` and `maxRange` parameters additionally)
+    - `LaserBasedRangeLidarConfiguration` - lidar configuration for uniformly distributed rays along the horizontal axis with ranges retrieved from lasers description
+    - *Or create your custom implementations in `LidarConfiguration.cs` like:*
+        - `HesaiAT128LidarConfiguration`
+        - `HesaiQT128C2XLidarConfiguration`
+        - `HesaiPandar128E4XLidarConfiguration`
 
-    1. Add a new item to the `ByModel` dictionary that collects *LiDAR* model enumerations with their *LiDAR* configurations.
+    !!! note "Lidar configuration parameters descrition"
+        Please refer to [this section](../LiDARSensor/#elements-configurable-from-the-editor-level) for the detailed description of all configuration parameters.
 
 1. Done. New *LiDAR* preset should be available via *Unity Inspector*.
 

@@ -61,11 +61,22 @@ Replace the lights and configuration with your own and check whether it works co
 <source src="light_test.mp4" type="video/mp4">
 </video>
 
+## RandomTrafficYielding
+The `RandomTrafficYielding` was developed to conduct a tests of a developed yielding rules at the single intersection.
+
+<video width="1920" controls>
+<source src="yielding_rules.mp4" type="video/mp4">
+</video>
+
+## RandomTrafficYieldingBirdEye
+The `RandomTrafficYielding` was developed to conduct a tests of a developed yielding rules with multiple vehicles moving around the entire environment.
+![yielding_rules_birdeye](yielding_rules_birdeye.png)
+
 ## RGL test scenes
 The scenes described below are used for tests related to the external library `RGLUnityPlugin` (`RGL`) - you can read more about it in this [section](../../Components/Sensors/LiDARSensor/RGLUnityPlugin/).
 
-### LidarSceneDevelop
-The scene `LidarSceneDevelop` can be used as a complete, minimalistic example of how to setup `RGL`.
+### LidarSceneDevelopSample
+The scene `LidarSceneDevelopSample` can be used as a complete, minimalistic example of how to setup `RGL`.
 It contains `RGLSceneManager` component, four lidars, and an environment composed of floor and walls.
 
 <video width="1920" controls>
@@ -110,3 +121,9 @@ To run demo scene:
     - Channel name: `enitity_id`,
     - To better visualization disable `Autocompute` intensity and set min to `0` and max to `50`.
 
+### RadarSceneDevelopSample
+
+The scene `RadarSceneDevelopSample` demonstrates the use of the `RadarSensor` component along with `LiDARSensor`.
+LiDAR hit points are shown as small red points, and radar hit points are shown as bigger blue boxes.
+
+![RadarTestScene.png](RadarTestScene.png)

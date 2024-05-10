@@ -1,0 +1,384 @@
+syntax = "proto3";
+
+import "builtin_interfaces.proto";
+import "geometry_msgs.proto";
+import "traffic_simulator_msgs.proto";
+
+package simulation_api_schema;
+
+/**
+ * Entity status passed over the protobuf interface
+ **/
+message EntityStatus {
+  traffic_simulator_msgs.EntityType type = 1;            // Type of the entity.
+  traffic_simulator_msgs.EntitySubtype subtype = 2;      // subtype of the entity.
+  double time = 3;                                       // Current simulation time.
+  string name = 4;                                       // Name of the entity.
+  traffic_simulator_msgs.ActionStatus action_status = 5; // Action status of the entity.
+  geometry_msgs.Pose pose = 6;                           // Pose in map coordinate of the entity.
+}
+
+/**
+ * Result of the request
+ **/
+message Result {
+  bool success = 1;       // If true, the request was succeeded
+  string description = 2; // Description of why the request was failed.
+}
+
+/**
+ * Parameter configuration of the traffic light detector emulator
+ **/
+message PseudoTrafficLightDetectorConfiguration {
+  string architecture_type = 1;        // Autoware architecture type.
+}
+
+/**
+ * Parameter configuration of the lidar sensor
+ **/
+message LidarConfiguration {
+  string entity = 1;                   // Name of the entity which you want to attach lidar.
+  double horizontal_resolution = 2;    // Horizontal resolutions of the lidar. (unit : radian)
+  repeated double vertical_angles = 3; // Vertical resolutions of the lidar. (unit : radian)
+  double scan_duration = 4;            // Scan duration of the lidar. (unit: second)
+  string architecture_type = 5;        // Autoware architecture type.
+  double lidar_sensor_delay = 6;       // lidar sensor delay. (unit : second) It delays publishing timing.
+}
+
+/**
+ * Parameter configuration of the detection sensor
+ **/
+message DetectionSensorConfiguration {
+  string entity = 1;                                  // Name of the entity which you want to attach detection sensor.
+  double update_duration = 2;                         // Update duration of the detection sensor. (unit : second)
+  double range = 3;                                   // Sensor detection range. (unit : meter)
+  string architecture_type = 4;                       // Autoware architecture type.
+  bool detect_all_objects_in_range = 5;               // If false, simulator publish detection result only lidar ray was hit. If true, simulator publish detection result of entities in range.
+  double pos_noise_stddev = 6;                        // standard deviation of position noise.
+  int32 random_seed = 7;                              // random_seed for noise generation.
+  double probability_of_lost = 8;                     // probability of lost recognition. (0.0 ~ 1.0)
+  double object_recognition_delay = 9;                // object recognition delay. (unit : second) It delays only the position recognition.
+  double object_recognition_ground_truth_delay = 10;  // object recognition ground truth delay. (unit : second) It delays only the position recognition.
+}
+
+/**
+ * Parameter configuration of the occupancy grid sensor
+ **/
+message OccupancyGridSensorConfiguration {
+  string entity = 1;            // Name of the entity which you want to attach detection sensor.
+  double update_duration = 2;   // Update duration of the detection sensor. (unit : second)
+  double resolution = 3;        // Resolution of the occupancy grid. (unit : meter)
+  uint32 width = 4;             // Width of the occupancy grid. (unit : pixel)
+  uint32 height = 5;            // Height of the occupancy grid. (unit : pixel)
+  string architecture_type = 6; // Autoware architecture type.
+  double range = 7;             // Sensor detection range. (unit : meter)
+  bool filter_by_range = 8;     // If false, simulator publish detection result only lidar ray was hit. If true, simulator publish detection result of entities in range.
+}
+
+/**
+ * Updated entity status by the simulator.
+ **/
+message UpdatedEntityStatus {
+  string name = 1;                                       // Name of the entity.
+  traffic_simulator_msgs.ActionStatus action_status = 2; // Action status of the entity.
+  geometry_msgs.Pose pose = 3;                           // Pose of the entity in the map coordinate.
+}
+
+/**
+ * Requests initializing simulation.
+ **/
+message InitializeRequest {
+  double realtime_factor = 1;                      // Realtime factor of the simulation.
+  double step_time = 2;                            // Step time of the simulation.
+  double initialize_time = 3;                      // Simulation time at initialization
+  builtin_interfaces.Time initialize_ros_time = 4; // ROS time at initialization
+  string lanelet2_map_path = 5;                    // Path to lanelet2 map file
+}
+
+/**
+ * Result of initializing simulation.
+ **/
+message InitializeResponse {
+  Result result = 1; // Result of [InitializeRequest](#InitializeRequest)
+}
+
+/**
+ * Requests updating simulation frame.
+ **/
+message UpdateFrameRequest {
+  double current_simulation_time = 1;
+  double current_scenario_time = 2;
+  builtin_interfaces.Time current_ros_time = 3;
+}
+
+/**
+ * Response of updating simulation frame.
+ **/
+message UpdateFrameResponse {
+  Result result = 1; // Result of [UpdateFrameRequest](#UpdateFrameRequest)
+}
+
+/**
+ * Requests spawning vehicle entity.
+ **/
+message SpawnVehicleEntityRequest {
+  traffic_simulator_msgs.VehicleParameters parameters = 1; // Parameters of vehicle entity.
+  bool is_ego = 2;                                         // If true, the entity is Ego vehicle. (Autoware vehicle.)
+  string asset_key = 3;                                    // Asset key of the entity simulator entity
+  geometry_msgs.Pose pose = 4;                             // Entity initial pose
+  double initial_speed = 5;                                // Entity initial speed
+}
+
+/**
+ * Response of spawning vehicle entity.
+ **/
+message SpawnVehicleEntityResponse {
+  Result result = 1; // Result of [SpawnVehicleEntityResponse](#SpawnVehicleEntityResponse)
+}
+
+/**
+ * Requests spawning pedestrian entity.
+ **/
+message SpawnPedestrianEntityRequest {
+  traffic_simulator_msgs.PedestrianParameters parameters = 1; // Parameters of pedestrian entity.
+  string asset_key = 2;                                       // Asset key of the entity simulator entity
+  geometry_msgs.Pose pose = 3;                                // Entity initial pose
+}
+
+/**
+ * Response of spawning vehicle entity.
+ **/
+message SpawnPedestrianEntityResponse {
+  Result result = 1; // Result of [SpawnPedestrianEntityResponse](#SpawnPedestrianEntityResponse)
+}
+
+/**
+ * Requests spawning misc object entity
+ **/
+message SpawnMiscObjectEntityRequest {
+  traffic_simulator_msgs.MiscObjectParameters parameters = 1; // Parameters of misc object entity.
+  string asset_key = 2;                                       // Asset key of the entity simulator entity
+  geometry_msgs.Pose pose = 3;                                // Entity initial pose
+}
+
+/**
+ * Response of spawning misc object entity
+ **/
+message SpawnMiscObjectEntityResponse {
+  Result result = 1; // Result of [SpawnPedestrianEntityResponse](#SpawnPedestrianEntityResponse)
+}
+
+/**
+ * Requests despawning entity.
+ **/
+message DespawnEntityRequest {
+  string name = 1; // Name of the entity you want to despawn.
+}
+
+/**
+ * Response of despawning entity.
+ **/
+message DespawnEntityResponse {
+  Result result = 1; // Result of [DespawnEntityRequest](#DespawnEntityRequest)
+}
+
+/**
+ * Requests updating entity status.
+ **/
+message UpdateEntityStatusRequest {
+  repeated EntityStatus status = 1;        // List of updated entity status in traffic simulator.
+  bool npc_logic_started = 2;              // Npc logic started flag
+}
+
+/**
+ * Response of updating entity status.
+ **/
+message UpdateEntityStatusResponse {
+  Result result = 1;                       // Result of [UpdateEntityStatusRequest](#UpdateEntityStatusRequest)
+  repeated UpdatedEntityStatus status = 2; // List of updated entity status in sensor/dynamics simulator
+}
+
+/**
+ * Requests attaching a traffic light detector emulator.
+ **/
+message AttachPseudoTrafficLightDetectorRequest {
+  PseudoTrafficLightDetectorConfiguration configuration = 1; // Configuration of the traffic light detector emulator.
+}
+
+/**
+ * Response of attaching a traffic light detector emulator.
+ **/
+message AttachPseudoTrafficLightDetectorResponse {
+  Result result = 1; // Result of [AttachPseudoTrafficLightDetectorRequest](#AttachPseudoTrafficLightDetectorRequest)
+}
+
+/**
+ * Requests attaching a lidar sensor to the target entity.
+ **/
+message AttachLidarSensorRequest {
+  LidarConfiguration configuration = 1; // Configuration of the lidar sensor.
+}
+
+/**
+ * Response of attaching a lidar sensor to the target entity.
+ **/
+message AttachLidarSensorResponse {
+  Result result = 1; // Result of [AttachLidarSensorRequest](#AttachLidarSensorRequest)
+}
+
+/**
+ * Requests attaching detection sensor to the target entity.
+ **/
+message AttachDetectionSensorRequest {
+  DetectionSensorConfiguration configuration = 1; // Configuration of the detection sensor.
+}
+
+/**
+ * Response of attaching detection sensor to the target entity.
+ **/
+message AttachDetectionSensorResponse {
+  Result result = 1; // Result of [AttachDetectionSensorRequest](#AttachDetectionSensorRequest)
+}
+
+/**
+ * Requests attaching detection sensor to the target entity.
+ **/
+ message AttachOccupancyGridSensorRequest {
+  OccupancyGridSensorConfiguration configuration = 1; // Configuration of the occupancy grid sensor.
+}
+
+/**
+ * Response of attaching occupancy grid sensor to the target entity.
+ **/
+message AttachOccupancyGridSensorResponse {
+  Result result = 1; // Result of [AttachOccupancyGridSensorRequest](#AttachOccupancyGridRequest)
+}
+
+message TrafficLight {
+  enum Color {
+    RED = 0;
+    AMBER = 1;
+    GREEN = 2;
+    WHITE = 3;
+    UNKNOWN_COLOR = 4;
+  }
+
+  enum Shape {
+    CIRCLE = 0;
+    LEFT_ARROW = 1;
+    RIGHT_ARROW = 2;
+    UP_ARROW = 3;
+    UP_LEFT_ARROW = 4;
+    UP_RIGHT_ARROW = 5;
+    DOWN_ARROW = 6;
+    DOWN_LEFT_ARROW = 7;
+    DOWN_RIGHT_ARROW = 8;
+    CROSS = 9;
+    UNKNOWN_SHAPE = 10;
+  }
+
+  enum Status {
+    SOLID_OFF = 0;
+    SOLID_ON = 1;
+    FLASHING = 2;
+    UNKNOWN_STATUS = 3;
+  }
+
+  Color color = 1;
+  Shape shape = 2;
+  Status status = 3;
+  float confidence = 4;
+}
+
+message TrafficSignal {
+  int32 id = 1;
+  repeated TrafficLight traffic_light_status = 2;
+}
+
+/**
+ * Requests updating traffic lights in simulation.
+ **/
+message UpdateTrafficLightsRequest {
+  repeated TrafficSignal states = 1;
+}
+
+/**
+ * Response of updating traffic lights in simulation.
+ **/
+message UpdateTrafficLightsResponse {
+  Result result = 1; // Result of [DespawnEntityRequest](#DespawnEntityRequest)
+}
+
+/**
+ * Request to make an entity follow a trajectory.
+ **/
+message FollowPolylineTrajectoryRequest {
+  string name = 1;
+  traffic_simulator_msgs.PolylineTrajectory trajectory = 2;
+}
+
+/**
+ * Response whether the entity's trajectory following request has been accepted.
+ **/
+message FollowPolylineTrajectoryResponse {
+  Result result = 1;
+}
+
+/**
+ * Requests updating simulation step time.
+ **/
+message UpdateStepTimeRequest {
+  double simulation_step_time = 1;
+}
+
+/**
+ * Response of updating simulation step time.
+ **/
+message UpdateStepTimeResponse {
+  Result result = 1; // Result of [UpdateStepTimeRequest](#UpdateStepTimeRequest)
+}
+
+/**
+ * Universal message for Request
+ **/
+message SimulationRequest {
+  oneof request {
+    InitializeRequest initialize = 1;
+    UpdateFrameRequest update_frame = 2;
+    SpawnVehicleEntityRequest spawn_vehicle_entity = 3;
+    SpawnPedestrianEntityRequest spawn_pedestrian_entity = 4;
+    SpawnMiscObjectEntityRequest  spawn_misc_object_entity = 5;
+    DespawnEntityRequest despawn_entity = 6;
+    UpdateEntityStatusRequest update_entity_status = 7;
+    AttachLidarSensorRequest attach_lidar_sensor = 8;
+    AttachDetectionSensorRequest attach_detection_sensor = 9;
+    AttachOccupancyGridSensorRequest attach_occupancy_grid_sensor = 10;
+    UpdateTrafficLightsRequest update_traffic_lights = 11;
+    FollowPolylineTrajectoryRequest follow_polyline_trajectory = 12;
+    AttachPseudoTrafficLightDetectorRequest attach_pseudo_traffic_light_detector = 13;
+    UpdateStepTimeRequest update_step_time = 14;
+  }
+}
+
+
+/**
+ * Universal message for Response
+ **/
+message SimulationResponse {
+  oneof response {
+    InitializeResponse initialize = 1;
+    UpdateFrameResponse update_frame = 2;
+    SpawnVehicleEntityResponse spawn_vehicle_entity = 3;
+    SpawnPedestrianEntityResponse spawn_pedestrian_entity = 4;
+    SpawnMiscObjectEntityResponse  spawn_misc_object_entity = 5;
+    DespawnEntityResponse despawn_entity = 6;
+    UpdateEntityStatusResponse update_entity_status = 7;
+    AttachLidarSensorResponse attach_lidar_sensor = 8;
+    AttachDetectionSensorResponse attach_detection_sensor = 9;
+    AttachOccupancyGridSensorResponse attach_occupancy_grid_sensor = 10;
+    UpdateTrafficLightsResponse update_traffic_lights = 11;
+    FollowPolylineTrajectoryResponse follow_polyline_trajectory = 12;
+    AttachPseudoTrafficLightDetectorResponse attach_pseudo_traffic_light_detector = 13;
+    UpdateStepTimeResponse update_step_time = 14;
+  }
+}

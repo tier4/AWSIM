@@ -39,7 +39,7 @@ namespace AWSIM.TrafficSimulation
             LayerMask vehicleLayerMask,
             LayerMask groundLayerMask,
             int maxVehicleCount,
-            GameObject egoVehicle) 
+            GameObject egoVehicle)
         {
             vehicleStates = new List<NPCVehicleInternalState>();
             cognitionStep = new NPCVehicleCognitionStep(vehicleLayerMask, groundLayerMask, maxVehicleCount);
@@ -47,7 +47,7 @@ namespace AWSIM.TrafficSimulation
             controlStep = new NPCVehicleControlStep(config);
             visualizationStep = new NPCVehicleVisualizationStep();
             this.maxVehicleCount = maxVehicleCount;
-            EGOVehicle = egoVehicle.transform; 
+            EGOVehicle = egoVehicle.transform;
         }
 
 
@@ -56,7 +56,7 @@ namespace AWSIM.TrafficSimulation
         /// </summary>
         public void UnregisterEgo()
         {
-            if(dummyEgo)
+            if (dummyEgo)
             {
                 EGOVehicle = dummyEgo;
             }
@@ -69,7 +69,7 @@ namespace AWSIM.TrafficSimulation
         {
             dummyEgo = ego.transform;
         }
-        
+
         /// <summary>
         /// Registers Ego vehicle.
         /// </summary>
@@ -142,15 +142,15 @@ namespace AWSIM.TrafficSimulation
         /// <summary>
         /// Show editor gizmos for debugging.
         /// </summary>
-        public void ShowGizmos()
+        public void ShowGizmos(bool showYieldingPhase, bool showObstacleChecking)
         {
             decisionStep.ShowGizmos(VehicleStates);
-            cognitionStep.ShowGizmos(VehicleStates);
+            cognitionStep.ShowGizmos(VehicleStates, showYieldingPhase, showObstacleChecking);
         }
 
         public void ClearAll()
         {
-            foreach (var state in VehicleStates) 
+            foreach (var state in VehicleStates)
             {
                 state.ShouldDespawn = true;
             }

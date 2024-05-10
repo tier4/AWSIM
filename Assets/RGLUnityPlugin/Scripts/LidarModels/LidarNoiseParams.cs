@@ -42,5 +42,25 @@ namespace RGLUnityPlugin
 
         [Tooltip("Distance noise mean in meters")]
         public float distanceNoiseMean; // Meters
+
+        public static LidarNoiseParams TypicalNoiseParams => new LidarNoiseParams
+        {
+            angularNoiseType = AngularNoiseType.RayBased,
+            angularNoiseMean = Mathf.Rad2Deg * 0.0f,
+            angularNoiseStDev = Mathf.Rad2Deg * 0.001f,
+            distanceNoiseStDevBase = 0.02f,
+            distanceNoiseStDevRisePerMeter = 0.0f,
+            distanceNoiseMean = 0.0f,
+        };
+
+        public static LidarNoiseParams ZeroNoiseParams => new LidarNoiseParams
+        {
+            angularNoiseType = AngularNoiseType.RayBased,
+            angularNoiseStDev = 0.0f,
+            distanceNoiseStDevBase = 0.0f,
+            distanceNoiseStDevRisePerMeter = 0.0f,
+            angularNoiseMean = 0.0f,
+            distanceNoiseMean = 0.0f,
+        };
     }
 }

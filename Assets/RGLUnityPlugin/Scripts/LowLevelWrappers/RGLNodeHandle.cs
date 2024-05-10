@@ -36,7 +36,7 @@ namespace RGLUnityPlugin
         /// <summary>
         /// Stores output field that can be received.
         /// </summary>
-        public RGLField OutputField = RGLField.UNKNOWN;
+        public RGLField? OutputField = null;
 
         /// <summary>
         /// Allows calling correct API call to modify node's arguments.

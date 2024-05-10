@@ -91,7 +91,10 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_raytrace(ref IntPtr node, IntPtr scene);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_raytrace_with_distortion(ref IntPtr node, IntPtr scene, IntPtr linear_velocity, IntPtr angular_velocity);
+        public static extern int rgl_node_raytrace_configure_velocity(IntPtr node, IntPtr linear_velocity, IntPtr angular_velocity);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_raytrace_configure_distortion(IntPtr node, bool enable);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_format(ref IntPtr node, IntPtr fields, int field_count);
@@ -100,7 +103,7 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_points_yield(ref IntPtr node, IntPtr fields, int field_count);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_points_compact(ref IntPtr node);
+        public static extern int rgl_node_points_compact_by_field(ref IntPtr node, RGLField field);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_downsample(ref IntPtr node, float leaf_size_x, float leaf_size_y, float leaf_size_z);
@@ -114,8 +117,12 @@ namespace RGLUnityPlugin
             RGLQosPolicyReliability qos_reliability, RGLQosPolicyDurability qos_durability, RGLQosPolicyHistory qos_history, int qos_depth);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_publish_ros2_radarscan(ref IntPtr node, [MarshalAs(UnmanagedType.LPStr)] string topic_name, [MarshalAs(UnmanagedType.LPStr)] string frame_id,
+            RGLQosPolicyReliability qos_reliability, RGLQosPolicyDurability qos_durability, RGLQosPolicyHistory qos_history, int qos_depth);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_udp_publish(
-            ref IntPtr node, RGLLidarModel lidar_model, RGLUdpOptions udp_options, [MarshalAs(UnmanagedType.LPStr)] string device_ip,
+            ref IntPtr node, RGLLidarModel lidar_model, RGLReturnMode return_mode, RGLUdpOptions udp_options, [MarshalAs(UnmanagedType.LPStr)] string device_ip,
             [MarshalAs(UnmanagedType.LPStr)] string dest_ip, int dest_port);
 
         [DllImport("RobotecGPULidar")]
@@ -126,6 +133,19 @@ namespace RGLUnityPlugin
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_gaussian_noise_distance(ref IntPtr node, float mean, float st_dev, float st_dev_rise_per_meter);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_filter_ground(ref IntPtr node, IntPtr sensor_up_vector, float ground_angle_threshold);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_radar_postprocess(ref IntPtr node, IntPtr radar_scopes, int radar_scopes_count,
+            float ray_azimuth_step, float ray_elevation_step, float frequency, float power_transmitted,
+            float cumulative_device_gain, float received_noise_mean, float received_noise_st_dev);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_simulate_snow(ref IntPtr node, float min_range, float max_range, float rain_rate,
+            float mean_snowflake_diameter, float terminal_velocity, float density, Int32 num_channels, float beam_divergence,
+            bool simulate_energy_loss, float snowflake_occupancy_threshold);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_run(IntPtr node);
@@ -388,22 +408,25 @@ namespace RGLUnityPlugin
             CheckErr(rgl_node_raytrace(ref node, IntPtr.Zero));
         }
 
-        // Raytrace with velocity distortion
-        public static void NodeRaytrace(ref IntPtr node, Vector3 linearVelocity, Vector3 angularVelocity)
+        public static void NodeRaytraceConfigureVelocity(IntPtr node, Vector3 linearVelocity, Vector3 angularVelocity)
         {
             var linearVelocityFloats = IntoVec3f(linearVelocity);
             var angularVelocityFloats = IntoVec3f(angularVelocity);
-
             unsafe
             {
                 fixed (float* linearVelocityFloatsPtr = linearVelocityFloats)
                 {
                     fixed (float* angularVelocityFloatsPtr = angularVelocityFloats)
                     {
-                        CheckErr(rgl_node_raytrace_with_distortion(ref node, IntPtr.Zero, (IntPtr) linearVelocityFloatsPtr, (IntPtr) angularVelocityFloatsPtr));
+                        CheckErr(rgl_node_raytrace_configure_velocity(node, (IntPtr) linearVelocityFloatsPtr, (IntPtr) angularVelocityFloatsPtr));
                     }
                 }
             }
+        }
+
+        public static void NodeRaytraceConfigureDistortion(IntPtr node, bool enable)
+        {
+            CheckErr(rgl_node_raytrace_configure_distortion(node, enable));
         }
 
         public static void NodePointsFormat(ref IntPtr node, RGLField[] fields)
@@ -428,9 +451,9 @@ namespace RGLUnityPlugin
             }
         }
 
-        public static void NodePointsCompact(ref IntPtr node)
+        public static void NodePointsCompactByField(ref IntPtr node, RGLField field)
         {
-            CheckErr(rgl_node_points_compact(ref node));
+            CheckErr(rgl_node_points_compact_by_field(ref node, field));
         }
 
         public static void NodePointsDownSample(ref IntPtr node, Vector3 leafDims)
@@ -456,9 +479,16 @@ namespace RGLUnityPlugin
             CheckErr(rgl_node_points_ros2_publish_with_qos(ref node, topicName, frameId, qos_reliability, qos_durability, qos_history, qos_depth));
         }
 
-        public static void NodePointsUdpPublish(ref IntPtr node, RGLLidarModel lidarModel, RGLUdpOptions udpOptions, string deviceIp, string destIp, int destPort)
+        public static void NodePublishRos2RadarScan(
+            ref IntPtr node, string topicName, string frameId,
+            RGLQosPolicyReliability qos_reliability, RGLQosPolicyDurability qos_durability, RGLQosPolicyHistory qos_history, int qos_depth)
         {
-            CheckErr(rgl_node_points_udp_publish(ref node, lidarModel, udpOptions, deviceIp, destIp, destPort));
+            CheckErr(rgl_node_publish_ros2_radarscan(ref node, topicName, frameId, qos_reliability, qos_durability, qos_history, qos_depth));
+        }
+
+        public static void NodePointsUdpPublish(ref IntPtr node, RGLLidarModel lidarModel, RGLReturnMode returnMode, RGLUdpOptions udpOptions, string deviceIp, string destIp, int destPort)
+        {
+            CheckErr(rgl_node_points_udp_publish(ref node, lidarModel, returnMode, udpOptions, deviceIp, destIp, destPort));
         }
 
         public static void NodeGaussianNoiseAngularRay(ref IntPtr node, float mean, float stDev)
@@ -474,6 +504,50 @@ namespace RGLUnityPlugin
         public static void NodeGaussianNoiseDistance(ref IntPtr node, float mean, float stDev, float stDevRisePerMeter)
         {
             CheckErr(rgl_node_gaussian_noise_distance(ref node, mean, stDev, stDevRisePerMeter));
+        }
+
+        public static void NodePointsFilterGround(ref IntPtr node, float groundAngleThreshold)
+        {
+            var upVector = IntoVec3f(new Vector3(0, 1, 0));
+
+            unsafe
+            {
+                fixed (float* upVectorPtr = upVector)
+                {
+                    CheckErr(rgl_node_points_filter_ground(ref node, (IntPtr) upVectorPtr, groundAngleThreshold));
+                }
+            }
+        }
+
+        public static void NodePointsRadarPostprocess(ref IntPtr node, RadarScopeParameters[] radarParametersScopes,
+            float rayAzimuthStep, float rayElevationStep, float frequency, float powerTransmitted,
+            float cumulativeDeviceGain, float receivedNoiseMean, float receivedNoiseStDev)
+        {
+            // Make a copy to convert azimuthSeparationThreshold units (deg to rad)
+            RadarScopeParameters[] radarParametersScopesCopy = new RadarScopeParameters[radarParametersScopes.Length];
+            for (int i = 0; i < radarParametersScopesCopy.Length; ++i)
+            {
+                radarParametersScopesCopy[i] = radarParametersScopes[i];
+                radarParametersScopesCopy[i].azimuthSeparationThreshold *= Mathf.Deg2Rad;
+            }
+
+            unsafe
+            {
+                fixed (RadarScopeParameters* pRadarParametersScopes = radarParametersScopesCopy)
+                {
+                    CheckErr(rgl_node_points_radar_postprocess(ref node, (IntPtr) pRadarParametersScopes,
+                        radarParametersScopesCopy.Length, rayAzimuthStep, rayElevationStep, frequency,
+                        powerTransmitted, cumulativeDeviceGain, receivedNoiseMean, receivedNoiseStDev));
+                }
+            }
+        }
+
+        public static void NodePointsSimulateSnow(ref IntPtr node, float minRange, float maxRange, float rainRate,
+            float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence,
+            bool doSimulateEnergyLoss, float snowflakeOccupancyThreshold)
+        {
+            CheckErr(rgl_node_points_simulate_snow(ref node, minRange, maxRange, rainRate,
+                meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence, doSimulateEnergyLoss, snowflakeOccupancyThreshold));
         }
 
         public static void GraphRun(IntPtr node)

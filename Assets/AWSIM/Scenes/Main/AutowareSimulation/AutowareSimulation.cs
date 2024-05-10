@@ -12,6 +12,7 @@ namespace AWSIM
     {
         [SerializeField] TrafficManager trafficManager;
         [SerializeField] Transform egoTransform;
+        [SerializeField] TimeSourceSelector timeSourceSelector;
 
         [Header("Player Config")]
         [SerializeField] string commandLineConfigParam = "--json_path";
@@ -33,6 +34,7 @@ namespace AWSIM
         public class Configuration
         {
             public float TimeScale;                 // Reflected in Time.timeScale
+            public string TimeSource;               // Reflected in TimeSourceSelector
             public int RandomTrafficSeed;           // Reflected in TrafficManager.seed
             public int MaxVehicleCount;             // Reflected in TrafficManager.maxVehicleCount
             public EgoConfiguration Ego = new EgoConfiguration();
@@ -40,6 +42,11 @@ namespace AWSIM
 
         void Awake()
         {
+            // check if time source selector is present
+            if(timeSourceSelector == null)
+            {
+                Debug.LogWarning("TimeSource: There is no TimeSourceSelector object assigned in the inspector. The default time source will be used.");
+            }
 
 #if !UNITY_EDITOR
             // initialize
@@ -62,6 +69,9 @@ namespace AWSIM
 
                 var rotation = Quaternion.Euler(config.Ego.EulerAngles);
                 egoTransform.rotation = ROS2Utility.RosToUnityRotation(rotation);
+
+                // set time source
+                timeSourceSelector?.SetType(config.TimeSource);
             }
         }
     }

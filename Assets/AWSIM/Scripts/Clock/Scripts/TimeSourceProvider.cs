@@ -1,3 +1,4 @@
+using AWSIM.Samples;
 using ROS2;
 using System;
 
@@ -11,7 +12,10 @@ namespace AWSIM
         public enum TimeSourceType
         {
             UNITY,
-            SS2
+            SS2,
+            DOTNET_SYSTEM,
+            DOTNET_SIMULATION,
+            ROS2,
         }
 
         #region [Event]
@@ -88,6 +92,42 @@ namespace AWSIM
                 if(currentTimeSource == null || !(currentTimeSource is ExternalTimeSource))
                 {
                     currentTimeSource = new ExternalTimeSource();
+                    onTimeSourceChanged?.Invoke();
+                }
+
+                return;
+            }
+
+            // dot net system time source
+            if(type == TimeSourceType.DOTNET_SYSTEM)
+            {
+                if(currentTimeSource == null || !(currentTimeSource is DotNetSystemTimeSource))
+                {
+                    currentTimeSource = new DotNetSystemTimeSource();
+                    onTimeSourceChanged?.Invoke();
+                }
+
+                return;
+            }
+
+            // dot net simulation time source
+            if(type == TimeSourceType.DOTNET_SIMULATION)
+            {
+                if(currentTimeSource == null || !(currentTimeSource is DotNetSimulationTimeSource))
+                {
+                    currentTimeSource = new DotNetSimulationTimeSource();
+                    onTimeSourceChanged?.Invoke();
+                }
+
+                return;
+            }
+
+            // ros2 time source
+            if(type == TimeSourceType.ROS2)
+            {
+                if(currentTimeSource == null || !(currentTimeSource is ROS2TimeSource))
+                {
+                    currentTimeSource = new ROS2TimeSource();
                     onTimeSourceChanged?.Invoke();
                 }
 
