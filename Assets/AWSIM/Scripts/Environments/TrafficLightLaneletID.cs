@@ -10,7 +10,8 @@ namespace AWSIM
     [RequireComponent(typeof(TrafficLight))]
     public class TrafficLightLaneletID : MonoBehaviour
     {
-        public long wayID = 0;
+        public const int InitWayID = 0;
+        public long wayID = InitWayID;
         public List<long> relationID = new List<long>();
     }
 }
