@@ -289,6 +289,7 @@ namespace AWSIM.TrafficSimulation
         private void AssignLaneletElementIdToTrafficSignalGameObjects()
         {
             TrafficLight[] trafficLights = GameObject.FindObjectsOfType<TrafficLight>();
+            Dictionary<string, List<long>> verifiedTrafficLights = new Dictionary<string, List<long>>();
             var regElems = laneletMap.RegulatoryElements.Values
                     .Where(regElem => regElem.Type == RegulatoryElementType.TRAFFIC_LIGHT);
 
@@ -303,6 +304,29 @@ namespace AWSIM.TrafficSimulation
                         continue;
                     }
                     FillTrafficLightRelationIDWayID(closestTrafficLight, regElem.ID, line.ID);
+                    if (verifiedTrafficLights.ContainsKey(closestTrafficLight.name))
+                    {
+                        if(!verifiedTrafficLights[closestTrafficLight.name].Contains(line.ID))
+                        {
+                            verifiedTrafficLights[closestTrafficLight.name].Add(line.ID);
+                        }
+                    } else {
+                        verifiedTrafficLights.Add(closestTrafficLight.name, new List<long>{line.ID});
+                    }
+
+                }
+            }
+
+            foreach(var entry in verifiedTrafficLights)
+            {
+                if(entry.Value.Count >= 2)
+                {
+                    string wayIDs = "";
+                    foreach ( var wayID in entry.Value)
+                    {
+                        wayIDs += $"{wayID}, ";
+                    }
+                    Debug.LogWarning($"Verify {entry.Key} manually because may include wrong WayID and RalationID. Possible Way IDs [{wayIDs}]");
                 }
             }
         }
@@ -317,7 +341,10 @@ namespace AWSIM.TrafficSimulation
                 trafficLight.gameObject.AddComponent<TrafficLightLaneletID>();
                 trafficLightLaneletID = trafficLight.GetComponentInParent<TrafficLightLaneletID>();
             }
-
+            if (trafficLightLaneletID.wayID != TrafficLightLaneletID.InitWayID && trafficLightLaneletID.wayID != wayID)
+            {
+                trafficLightLaneletID.relationID.Clear();
+            }
             if (!trafficLightLaneletID.relationID.Contains(relationId))
             {
                 trafficLightLaneletID.relationID.Add(relationId);
