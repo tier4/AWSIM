@@ -326,7 +326,7 @@ namespace AWSIM.TrafficSimulation
                     {
                         wayIDs += $"{wayID}, ";
                     }
-                    Debug.LogWarning($"Verify {entry.Key} manually because may include wrong WayID and RalationID. Possible Way IDs [{wayIDs}]");
+                    Debug.LogWarning($"Verify '{entry.Key}' manually because may include wrong WayID and RelationID. Possible Way IDs [{wayIDs}]");
                 }
             }
         }
