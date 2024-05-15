@@ -14,6 +14,8 @@
 
 using System;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace RGLUnityPlugin
 {
@@ -34,42 +36,85 @@ namespace RGLUnityPlugin
         /// </summary>
         public bool applyOutputRestriction = false;
 
-        [Tooltip("TODO")]
-        [Range(0, 360)] public int startingHorizontalAngle;
 
-        [Tooltip("TODO")]
-        [Range(0, 360)] public int endingHorizontalAngle;
+        /// <summary>
+        /// Allows to change mode from static to blinking restriction mode.
+        /// </summary>
+        public bool applyOutputBlinking = false;
 
-        [Tooltip("TODO")]
-        [Range(0, 180)] public int startingVerticalAngle;
+         /// <summary>
+         /// Allows to change blinking from set to random periods.
+         /// </summary>
+         public bool outputBlinkingRandomizer = false;
 
-        [Tooltip("TODO")]
-        [Range(0, 180)] public int endingVerticalAngle;
+        [Tooltip("The period of the blinking in seconds.")]
+        [Min(0.0f)]
+        public float blinkingPeriod = 1.0f;
+
+        [Tooltip("The duty cycle of the blinking. 0.5 means that the restriction will be active half of the time. 1.0 means that the restriction will be active all the time. 0.0 means that the restriction will be active none of the time.")]
+        [Range(0.0f, 1.0f)]
+        public float dutyPeriod = 0.5f;
 
         private sbyte[] raysMask;
+        private sbyte[] fullMask;
         private int cloudSize;
+
+        [Tooltip("TODO")]
+        public List<LidarOutputRestrictionRange> ranges = new List<LidarOutputRestrictionRange>();
 
         private void CreateFullMask(int cloudSizeIn)
         {
             cloudSize = cloudSizeIn;
 
             raysMask = new sbyte[cloudSize];
+            fullMask = new sbyte[cloudSize];
             for (int i = 0; i < cloudSize; i++)
             {
                 raysMask[i] = 1;
+                fullMask[i] = 1;
             }
         }
 
         private void CreateRectangularMask(BaseLidarConfiguration configuration)
         {
-            int horizontalSteps = configuration.PointCloudSize / 360;
-            int verticalSteps = PointCloudSize / horizontalSteps;
+            int horizontalSteps = configuration.HorizontalSteps;
+            int verticalSteps = configuration.laserArray.lasers.Length;
 
+            foreach (var range in ranges)
+            {
+                for (int hStep = 0; hStep < horizontalSteps; hStep++)
+                {
+                    for (int laserId = 0; laserId < verticalSteps; laserId++)
+                    {
+                        int idx = laserId + hStep * verticalSteps;
+
+                        float verticalAngle = configuration.laserArray.lasers[laserId].verticalAngularOffsetDeg;
+
+                        float azimuth = configuration.minHAngle + hStep * configuration.horizontalResolution;
+                        float horizontalAngle = azimuth + configuration.laserArray.lasers[laserId].horizontalAngularOffsetDeg;
+
+                        if(horizontalAngle > range.startingHorizontalAngle && horizontalAngle < range.endingHorizontalAngle)
+                        {
+                            if(verticalAngle > range.startingVerticalAngle && verticalAngle < range.endingVerticalAngle)
+                            {
+                                raysMask[idx] = 0;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
-        public void ApplyRestriction(RGLNodeSequence rglGraphLidar, string identifier)
+        public void ApplyStaticRestriction(RGLNodeSequence rglGraphLidar, string identifier)
         {
-            rglGraphLidar.ApplyLidarOutputRestriction(identifier, raysMask);
+            if(applyOutputRestriction)
+            {
+                rglGraphLidar.ApplyLidarOutputRestriction(identifier, raysMask);
+            }
+            else
+            {
+                rglGraphLidar.ApplyLidarOutputRestriction(identifier, fullMask);
+            }
         }
 
         public void Update(BaseLidarConfiguration configuration)
@@ -80,5 +125,58 @@ namespace RGLUnityPlugin
                 CreateRectangularMask(configuration);
             }
         }
+
+        public IEnumerator BlinkingRoutine(RGLNodeSequence rglGraphLidar, string identifier)
+        {
+            if(applyOutputRestriction)
+            {
+                float dutyTime = blinkingPeriod * dutyPeriod;
+                float blinkingTime = blinkingPeriod;
+
+                while(applyOutputBlinking)
+                {
+                    if(outputBlinkingRandomizer)
+                    {
+                        blinkingTime = UnityEngine.Random.Range(0.0f, 2.0f);
+                        dutyTime = UnityEngine.Random.Range(0.0f, blinkingTime);
+                    }
+                    rglGraphLidar.ApplyLidarOutputRestriction(identifier, raysMask);
+                    yield return new WaitForSeconds(dutyTime);
+
+                    rglGraphLidar.ApplyLidarOutputRestriction(identifier, fullMask);
+                    yield return new WaitForSeconds(blinkingTime - dutyTime);
+                }
+            }
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
