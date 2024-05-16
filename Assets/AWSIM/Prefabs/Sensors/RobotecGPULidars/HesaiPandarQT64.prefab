@@ -886,7 +886,7 @@ MonoBehaviour:
           distanceNoiseStDevBase: 0.02
           distanceNoiseStDevRisePerMeter: 0
           distanceNoiseMean: 0
-        minRange: 0
+        minRange: 0.1
         maxRange: 20
 --- !u!1 &8917801437650031267
 GameObject:

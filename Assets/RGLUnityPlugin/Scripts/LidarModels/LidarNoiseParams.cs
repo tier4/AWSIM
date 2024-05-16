@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
 using UnityEngine;
 
 namespace RGLUnityPlugin
@@ -23,7 +24,7 @@ namespace RGLUnityPlugin
     }
 
     [System.Serializable]
-    public struct LidarNoiseParams
+    public struct LidarNoiseParams : IEquatable<LidarNoiseParams>
     {
         [Tooltip("Angular noise type")]
         public AngularNoiseType angularNoiseType;
@@ -62,5 +63,23 @@ namespace RGLUnityPlugin
             angularNoiseMean = 0.0f,
             distanceNoiseMean = 0.0f,
         };
+
+        //// IEquatable interface
+        public bool Equals(LidarNoiseParams other)
+        {
+            return this.angularNoiseType == other.angularNoiseType &&
+                   this.angularNoiseStDev == other.angularNoiseStDev &&
+                   this.angularNoiseMean == other.angularNoiseMean &&
+                   this.distanceNoiseStDevBase == other.distanceNoiseStDevBase &&
+                   this.distanceNoiseStDevRisePerMeter == other.distanceNoiseStDevRisePerMeter &&
+                   this.distanceNoiseMean == other.distanceNoiseMean;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is LidarNoiseParams equatable && Equals(equatable);
+        }
+
+        public override int GetHashCode() => (angularNoiseType, angularNoiseStDev, angularNoiseMean, distanceNoiseStDevBase, distanceNoiseStDevRisePerMeter, distanceNoiseMean).GetHashCode();
     }
 }

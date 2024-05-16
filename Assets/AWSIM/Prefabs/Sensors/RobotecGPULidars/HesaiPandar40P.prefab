@@ -815,5 +815,5 @@ MonoBehaviour:
           distanceNoiseStDevBase: 0.02
           distanceNoiseStDevRisePerMeter: 0
           distanceNoiseMean: 0
-        minRange: 0
+        minRange: 0.3
         maxRange: 200

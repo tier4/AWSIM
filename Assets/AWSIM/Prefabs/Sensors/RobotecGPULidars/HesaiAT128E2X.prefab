@@ -1190,7 +1190,7 @@ MonoBehaviour:
             timeOffset: 0.008264
             minRange: 0.5
             maxRange: 100
-        horizontalResolution: 0.2
+        horizontalResolution: 0.1
         minHAngle: -60
         maxHAngle: 60
         laserArrayCycleTime: 0.041666

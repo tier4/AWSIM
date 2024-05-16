@@ -93,6 +93,7 @@ namespace RGLUnityPlugin
 		RGL_HESAI_PANDAR_QT64 = 5,
 		RGL_HESAI_QT128C2X = 6,
 		RGL_HESAI_PANDAR_128E4X = 7,
+		RGL_HESAI_PANDAR_XT32 = 8,
 	};
 
 	// Items have been renamed to be displayed in Unity nicer.
