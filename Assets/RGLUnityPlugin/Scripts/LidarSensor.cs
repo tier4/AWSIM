@@ -75,7 +75,7 @@ namespace RGLUnityPlugin
         /// Encapsulates description of a output restriction to allow fault injection.
         /// </summary>
         [SerializeReference]
-        public LidarOutputRestriction outputRestriction = new LidarOutputRestriction(LidarConfigurationLibrary.ByModel[LidarModel.RangeMeter]().PointCloudSize);
+        public LidarOutputRestriction outputRestriction = new LidarOutputRestriction();
 
         private RGLNodeSequence rglGraphLidar;
         private RGLNodeSequence rglSubgraphCompact;
@@ -109,10 +109,10 @@ namespace RGLUnityPlugin
         public void Awake()
         {
             rglGraphLidar = new RGLNodeSequence()
-                .AddNodeRaysFromMat3x4f(lidarRaysNodeId, new Matrix4x4[1] {Matrix4x4.identity})
-                .AddNodeRaysSetRange(lidarRangeNodeId, new Vector2[1] {new Vector2(0.0f, Mathf.Infinity)})
-                .AddNodeRaysSetRingIds(lidarRingsNodeId, new int[1] {0})
-                .AddNodeRaysSetTimeOffsets(lidarTimeOffsetsNodeId, new float[1] {0})
+                .AddNodeRaysFromMat3x4f(lidarRaysNodeId, new Matrix4x4[1] { Matrix4x4.identity })
+                .AddNodeRaysSetRange(lidarRangeNodeId, new Vector2[1] { new Vector2(0.0f, Mathf.Infinity) })
+                .AddNodeRaysSetRingIds(lidarRingsNodeId, new int[1] { 0 })
+                .AddNodeRaysSetTimeOffsets(lidarTimeOffsetsNodeId, new float[1] { 0 })
                 .AddNodeRaysTransform(lidarPoseNodeId, Matrix4x4.identity)
                 .AddNodeGaussianNoiseAngularRay(noiseLidarRayNodeId, 0, 0)
                 .AddNodeRaytrace(lidarRaytraceNodeId)
@@ -220,9 +220,9 @@ namespace RGLUnityPlugin
 
             rglGraphLidar.ConfigureNodeRaytraceDistortion(lidarRaytraceNodeId, applyVelocityDistortion);
 
-            if(outputRestriction.applyOutputBlinking)
+            if (outputRestriction.applyOutputBlinking)
             {
-               StartCoroutine(outputRestriction.BlinkingRoutine( rglGraphLidar, lidarRaytraceNodeId));
+                StartCoroutine(outputRestriction.BlinkingRoutine(rglGraphLidar, lidarRaytraceNodeId));
             }
             else
             {
