@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Tests/PlayMode/Sensors/SensorsTest.unity
     guid: fdfe2b57b59c262db8bf3372757df0ea
+  - enabled: 1
+    path: Assets/Tests/PlayMode/VehicleDynamics/VehicleDynamicsTest.unity
+    guid: 3797dd5df5a19c8e6a66342db8c3cf49
   m_configObjects: {}
