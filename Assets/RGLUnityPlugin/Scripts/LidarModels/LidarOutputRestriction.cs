@@ -26,30 +26,37 @@ namespace RGLUnityPlugin
         /// <summary>
         /// Allows to quickly enable/disable the restriction.
         /// </summary>
-        public bool applyOutputRestriction = false;
+        public bool applyRestriction = false;
+
+        /// <summary>
+        /// List of rectangular restriction which will be apply to lidar as fault injection.
+        /// </summary>
+        public List<LidarOutputRestrictionRange> rectangularRestrictionMasks = new List<LidarOutputRestrictionRange>();
 
         /// <summary>
         /// Allows to change mode from static to blinking restriction mode.
         /// </summary>
-        public bool applyOutputBlinking = false;
-
-        /// <summary>
-        /// Allows to change blinking from set to random periods.
-        /// </summary>
-        public bool outputBlinkingRandomizer = false;
+        public bool enablePeriodicRestriction = false;
 
         [Tooltip("The period of the blinking in seconds.")]
         [Min(0.0f)]
-        public float blinkingPeriod = 1.0f;
+        public float restrictionPeriod = 1.0f;
 
         [Tooltip(@"The duty cycle of the blinking.
                 0.5 means that the restriction will be active half of the blinkingPeriod time.
                 1.0 means that the restriction will be active all the blinkingPeriod time.
                 0.0 means that the restriction will be active none of the blinkingPeriod time.")]
         [Range(0.0f, 1.0f)]
-        public float dutyRate = 0.5f;
+        public float restrictionDutyRate = 0.5f;
 
-        public List<LidarOutputRestrictionRange> ranges = new List<LidarOutputRestrictionRange>();
+        /// <summary>
+        /// Allows to change blinking from set to random periods.
+        /// </summary>
+        public bool enableRestrictionRandomizer = false;
+
+        [Tooltip("The upper bound for random value of period of the blinking in seconds.")]
+        [Min(0.0f)]
+        public float maxRandomBlinkingPerdiod = 1.0f;
 
         private sbyte[] raysMask;
         private sbyte[] fullMask;
@@ -59,7 +66,7 @@ namespace RGLUnityPlugin
 
         public void ApplyStaticRestriction(RGLNodeSequence rglGraphLidar, string identifier)
         {
-            if (applyOutputRestriction)
+            if (applyRestriction)
             {
                 rglGraphLidar.ApplyLidarOutputRestriction(identifier, raysMask);
             }
@@ -72,7 +79,7 @@ namespace RGLUnityPlugin
         public void Update(BaseLidarConfiguration configuration)
         {
             CreateFullMask(configuration.PointCloudSize);
-            if (applyOutputRestriction)
+            if (applyRestriction)
             {
                 CreateRectangularMask(configuration);
             }
@@ -80,23 +87,23 @@ namespace RGLUnityPlugin
 
         public IEnumerator BlinkingRoutine(RGLNodeSequence rglGraphLidar, string identifier)
         {
-            if (applyOutputRestriction)
+            if (applyRestriction)
             {
-                float dutyTime = blinkingPeriod * dutyRate;
-                float blinkingTime = blinkingPeriod;
+                float restrictionDutyTime = restrictionPeriod * restrictionDutyRate;
+                float restrictionTime = restrictionPeriod;
 
-                while (applyOutputBlinking)
+                while (enablePeriodicRestriction)
                 {
-                    if (outputBlinkingRandomizer)
+                    if (enableRestrictionRandomizer)
                     {
-                        blinkingTime = UnityEngine.Random.Range(0.0f, 2.0f);
-                        dutyTime = UnityEngine.Random.Range(0.0f, blinkingTime);
+                        restrictionTime = UnityEngine.Random.Range(0.0f, maxRandomBlinkingPerdiod);
+                        restrictionDutyTime = UnityEngine.Random.Range(0.0f, restrictionTime);
                     }
                     rglGraphLidar.ApplyLidarOutputRestriction(identifier, raysMask);
-                    yield return new WaitForSeconds(dutyTime);
+                    yield return new WaitForSeconds(restrictionDutyTime);
 
                     rglGraphLidar.ApplyLidarOutputRestriction(identifier, fullMask);
-                    yield return new WaitForSeconds(blinkingTime - dutyTime);
+                    yield return new WaitForSeconds(restrictionTime - restrictionDutyTime);
                 }
             }
         }
@@ -132,12 +139,13 @@ namespace RGLUnityPlugin
 
                     raysMask[idx] = 1;
 
-                    foreach (var range in ranges)
+                    foreach (var mask in rectangularRestrictionMasks)
                     {
-                        if ((horizontalAngle > range.startingHorizontalAngle && horizontalAngle < range.endingHorizontalAngle) &&
-                         (verticalAngle > range.startingVerticalAngle && verticalAngle < range.endingVerticalAngle))
+                        if ((horizontalAngle >= mask.startingHorizontalAngle && horizontalAngle <= mask.endingHorizontalAngle) &&
+                         (verticalAngle >= mask.startingVerticalAngle && verticalAngle <= mask.endingVerticalAngle))
                         {
                             raysMask[idx] = 0;
+                            break;
                         }
                     }
                 }
