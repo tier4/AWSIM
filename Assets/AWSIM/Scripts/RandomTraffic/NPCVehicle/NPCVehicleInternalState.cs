@@ -16,9 +16,14 @@ namespace AWSIM.TrafficSimulation
     public enum NPCVehicleYieldPhase
     {
         NONE,
-        ENTERING_YIELDING_LANE,
-        YIELDING,
-        ON_YIELDING_LANE
+        ENTERING_INTERSECTION,
+        AT_INTERSECTION,
+        INTERSECTION_BLOCKED,
+        LEFT_HAND_RULE_ENTERING_INTERSECTION,
+        LEFT_HAND_RULE_AT_INTERSECTION,
+        LANES_RULES_ENTERING_INTERSECTION,
+        LANES_RULES_AT_INTERSECTION,
+        FORCING_PRIORITY
     }
 
     /// <summary>
@@ -47,7 +52,7 @@ namespace AWSIM.TrafficSimulation
         public TrafficLightPassability TrafficLightPassability { get; set; }
 
         // Output from Cognition (Right of Way)
-        public TrafficLane YieldLane { get; set; }
+        public TrafficLane? YieldLane { get; set; }
         public NPCVehicleYieldPhase YieldPhase { get; set; }
         public Vector3 YieldPoint { get; set; }
 
@@ -60,6 +65,7 @@ namespace AWSIM.TrafficSimulation
         public float Yaw { get; set; }
         public float Speed { get; set; }
         public float YawSpeed { get; set; }
+        public float Width { get; set; }
 
         // Output from any steps
         public bool ShouldDespawn { get; set; }
@@ -74,17 +80,40 @@ namespace AWSIM.TrafficSimulation
         public Vector3 FrontCenterPosition =>
             Position + Quaternion.AngleAxis(Yaw, Vector3.up) * FrontCenterLocalPosition;
 
-        public Vector3 BackCenterPosition =>
-            Position + Quaternion.AngleAxis(Yaw, Vector3.up) * BackCenterLocalPosition;
+        public Vector3 ExpandedBackCenterPosition(float extensionToRear = 0f)
+        {
+            var backCenterPositionRaw = BackCenterLocalPosition;
+            backCenterPositionRaw.z -= extensionToRear;
+            if (Vehicle.TrailerTransform)
+            {
+                var yaw = Vehicle.TrailerTransform.rotation.eulerAngles.y;
+                return Vehicle.TrailerTransform.position + Quaternion.AngleAxis(yaw, Vector3.up) * backCenterPositionRaw;
+            }
+            else
+            {
+                return Position + Quaternion.AngleAxis(Yaw, Vector3.up) * backCenterPositionRaw;
+            }
+        }
+
+        public Vector3 BackCenterPosition => ExpandedBackCenterPosition(0f);
 
         public float DistanceToTargetPoint
             => SignedDistanceToPointOnLane(TargetPoint);
 
+        public Vector3 CurrentWaypoint => CurrentFollowingLane.Waypoints[WaypointIndex];
+
         public float DistanceToCurrentWaypoint
-            => SignedDistanceToPointOnLane(CurrentFollowingLane.Waypoints[WaypointIndex]);
+            => SignedDistanceToPointOnLane(CurrentWaypoint);
 
         public float DistanceToNextLane
-            => SignedDistanceToPointOnLane(CurrentFollowingLane.Waypoints[CurrentFollowingLane.Waypoints.Length - 1]);
+            => CurrentFollowingLane?.Waypoints?.Any() != true ? float.MaxValue
+            : SignedDistanceToPointOnLane(CurrentFollowingLane.Waypoints.Last());
+
+        public float DistanceToIntersection
+            => FirstLaneWithIntersection == null ? float.MaxValue
+            : SignedDistanceToPointOnLane(FirstLaneWithIntersection.StopLine?.CenterPoint ?? FirstLaneWithIntersection.Waypoints[0]);
+
+        public bool ObstructedByVehicleBehindIntersection => DistanceToIntersection > DistanceToFrontVehicle;
 
         private int routeIndex = 0;
 
@@ -101,8 +130,27 @@ namespace AWSIM.TrafficSimulation
             return hasPassedThePoint ? -distance : distance;
         }
 
-        public TrafficLane CurrentFollowingLane
-            => FollowingLanes.FirstOrDefault();
+        public TrafficLane CurrentFollowingLane => FollowingLanes.FirstOrDefault();
+
+        public TrafficLane FirstLaneWithIntersection => FollowingLanes.FirstOrDefault(lane => lane.intersectionLane == true);
+
+        public bool IsNextLaneIntersection => FollowingLanes.Count > 0 && FollowingLanes[1].intersectionLane;
+
+        public Vector3? LastIntersectionWaypoint
+            => FirstLaneWithIntersection?.Waypoints?.Any() != true ? (Vector3?)null
+            : FirstLaneWithIntersection.Waypoints.Last();
+
+        public Vector3? FirstIntersectionWaypoint
+            => FirstLaneWithIntersection?.Waypoints?.Any() != true ? (Vector3?)null
+            : FirstLaneWithIntersection.Waypoints.First();
+
+        public bool yieldingPriorityAtTrafficLight => (!CurrentFollowingLane.intersectionLane
+                    && TrafficLightPassability == TrafficLightPassability.RED);
+
+        public bool isOnIntersection => FollowingLanes.Count > 0 && CurrentFollowingLane.intersectionLane;
+
+        public bool isIntersectionWithYieldingLane => FirstLaneWithIntersection?.RightOfWayLanes.Count > 0;
+
 
         /// <summary>
         /// Get the next lane of <paramref name="target"/>.<br/>
@@ -138,10 +186,12 @@ namespace AWSIM.TrafficSimulation
             // If the internal state has route - use it. Otherwise, choose next lane randomly.
             var lastLane = FollowingLanes.Last();
             TrafficLane nextLane;
-            if(Route == null || Route.Count == 0 || routeIndex + 1 == Route.Count)
+            if (Route == null || Route.Count == 0 || routeIndex + 1 == Route.Count)
             {
                 nextLane = RandomTrafficUtils.GetRandomElement(lastLane.NextLanes);
-            } else {
+            }
+            else
+            {
                 // Todo: check if route[0] equals to the spawnlane
                 // Todo: check if next lane in route is valid (is one of lastLane.NextLanes)
                 routeIndex += 1;
@@ -178,7 +228,8 @@ namespace AWSIM.TrafficSimulation
                     x = 0f,
                     y = 0f,
                     z = vehicle.Bounds.min.z
-                }
+                },
+                Width = vehicle.Bounds.size.x
             };
             state.FollowingLanes.Add(lane);
             return state;

@@ -32,34 +32,36 @@ namespace RGLUnityPlugin
         //// NODESEQUENCES OPERATIONS ////
         public static void Connect(RGLNodeSequence parent, RGLNodeSequence child)
         {
-            if (parent.GetLastNodeOrNull(true) == null || child.GetFirstNodeOrNull(true) == null)
-            {
-                throw new RGLException("Attempted to connect empty NodeSequence!");
-            }
-
             if (parent.childs.Contains(child) || child.parents.Contains(parent))
             {
                 throw new RGLException("Attempted to connect NodeSequences twice!");
             }
 
-            RGLNativeAPI.GraphNodeAddChild(parent.GetLastNodeOrNull(true).Node, child.GetFirstNodeOrNull(true).Node);
+            // Connect nodes in RGL if NodeSequences have active nodes.
+            // They will be connected in RGL when activating the node or adding the new one.
+            if (parent.GetLastNodeOrNull(true) != null && child.GetFirstNodeOrNull(true) != null)
+            {
+                RGLNativeAPI.GraphNodeAddChild(parent.GetLastNodeOrNull(true).Node, child.GetFirstNodeOrNull(true).Node);
+            }
+
             parent.childs.Add(child);
             child.parents.Add(parent);
         }
 
         public static void Disconnect(RGLNodeSequence parent, RGLNodeSequence child)
         {
-            if (parent.GetLastNodeOrNull(true) == null || child.GetFirstNodeOrNull(true) == null)
-            {
-                throw new RGLException("Attempted to disconnect empty NodeSequence!");
-            }
-
             if (!parent.childs.Contains(child) || !child.parents.Contains(parent))
             {
                 throw new RGLException("Attempted to disconnect NodeSequences that are not connected!");
             }
 
-            RGLNativeAPI.GraphNodeRemoveChild(parent.GetLastNodeOrNull(true).Node, child.GetFirstNodeOrNull(true).Node);
+            // Disconnect RGL nodes if NodeSequences have active nodes.
+            // Otherwise they are already disconnected in RGL.
+            if (parent.GetLastNodeOrNull(true) != null && child.GetFirstNodeOrNull(true) != null)
+            {
+                RGLNativeAPI.GraphNodeRemoveChild(parent.GetLastNodeOrNull(true).Node, child.GetFirstNodeOrNull(true).Node);
+            }
+
             parent.childs.Remove(child);
             child.parents.Remove(parent);
         }
@@ -81,6 +83,17 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence AddNodeRaysSetRange(string identifier, Vector2[] ranges)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodeRaysSetRange(ref handle.Node, ranges);
+            handle.Identifier = identifier;
+            handle.Type = RGLNodeType.RAYS_SET_RANGE;
+            AddNode(handle);
+            return this;
+        }
+
         public RGLNodeSequence AddNodeRaysSetRingIds(string identifier, int[] ringIds)
         {
             CheckNodeNotExist(identifier);
@@ -88,6 +101,17 @@ namespace RGLUnityPlugin
             RGLNativeAPI.NodeRaysSetRingIds(ref handle.Node, ringIds);
             handle.Identifier = identifier;
             handle.Type = RGLNodeType.RAYS_SET_RING_IDS;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLNodeSequence AddNodeRaysSetTimeOffsets(string identifier, float[] offsets)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodeRaysSetTimeOffsets(ref handle.Node, offsets);
+            handle.Identifier = identifier;
+            handle.Type = RGLNodeType.RAYS_SET_TIME_OFFSETS;
             AddNode(handle);
             return this;
         }
@@ -103,13 +127,24 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence AddNodeRaytrace(string identifier, float range)
+        public RGLNodeSequence AddNodeRaytrace(string identifier)
         {
             CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
-            RGLNativeAPI.NodeRaytrace(ref handle.Node, range);
+            RGLNativeAPI.NodeRaytrace(ref handle.Node);
             handle.Identifier = identifier;
             handle.Type = RGLNodeType.RAYTRACE;
+            AddNode(handle);
+            return this;
+        }
+        
+        public RGLNodeSequence AddNodePointsFilterGround(string identifier, float groundAngleThreshold)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsFilterGround(ref handle.Node, groundAngleThreshold);
+            handle.Identifier = identifier;
+            handle.Type = RGLNodeType.POINTS_FILTER_GROUND;
             AddNode(handle);
             return this;
         }
@@ -125,13 +160,13 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence AddNodePointsCompact(string identifier)
+        public RGLNodeSequence AddNodePointsCompactByField(string identifier, RGLField field)
         {
             CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
-            RGLNativeAPI.NodePointsCompact(ref handle.Node);
+            RGLNativeAPI.NodePointsCompactByField(ref handle.Node, field);
             handle.Identifier = identifier;
-            handle.Type = RGLNodeType.POINTS_COMPACT;
+            handle.Type = RGLNodeType.POINTS_COMPACT_BY_FIELD;
             AddNode(handle);
             return this;
         }
@@ -202,6 +237,33 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence AddNodePublishRos2RadarScan(
+            string identifier, string topicName, string frameId,
+            RGLQosPolicyReliability reliability = RGLQosPolicyReliability.QOS_POLICY_RELIABILITY_SYSTEM_DEFAULT,
+            RGLQosPolicyDurability durability = RGLQosPolicyDurability.QOS_POLICY_DURABILITY_SYSTEM_DEFAULT,
+            RGLQosPolicyHistory history = RGLQosPolicyHistory.QOS_POLICY_HISTORY_SYSTEM_DEFAULT,
+            int historyDepth = 5)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePublishRos2RadarScan(ref handle.Node, topicName, frameId, reliability, durability, history, historyDepth);
+            handle.Identifier = identifier;
+            handle.Type = RGLNodeType.PUBLISH_ROS2_RADARSCAN;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLNodeSequence AddNodePointsUdpPublish(string identifier, RGLLidarModel lidarModel, RGLReturnMode returnMode, RGLUdpOptions udpOptions, string deviceIp, string destIp, int destPort)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsUdpPublish(ref handle.Node, lidarModel, returnMode, udpOptions, deviceIp, destIp, destPort);
+            handle.Type = RGLNodeType.POINTS_UDP_PUBLISH;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
         public RGLNodeSequence AddNodeGaussianNoiseAngularRay(string identifier, float mean, float stDev)
         {
             CheckNodeNotExist(identifier);
@@ -235,11 +297,47 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence AddNodePointsRadarPostprocess(string identifier, RadarScopeParameters[] radarParametersScopes,
+            float rayAzimuthStep, float rayElevationStep, float frequency, float powerTransmitted,
+            float cumulativeDeviceGain, float receivedNoiseMean, float receivedNoiseStDev)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsRadarPostprocess(ref handle.Node, radarParametersScopes, rayAzimuthStep, rayElevationStep, frequency,
+                powerTransmitted, cumulativeDeviceGain, receivedNoiseMean, receivedNoiseStDev);
+            handle.Type = RGLNodeType.POINTS_RADAR_POSTPROCESS;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLNodeSequence AddNodePointsSimulateSnow(string identifier, float minRange, float maxRange, float rainRate,
+            float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence,
+            bool doSimulateEnergyLoss, float snowflakeOccupancyThreshold)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsSimulateSnow(ref handle.Node, minRange, maxRange, rainRate,
+                meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence, doSimulateEnergyLoss,
+                snowflakeOccupancyThreshold);
+            handle.Type = RGLNodeType.POINTS_SIMULATE_SNOW;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
         //// UPDATE NODES ////
         public RGLNodeSequence UpdateNodeRaysFromMat3x4f(string identifier, Matrix4x4[] rays)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYS_FROM_MAT3X4F);
             RGLNativeAPI.NodeRaysFromMat3x4f(ref handle.Node, rays);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodeRaysSetRange(string identifier, Vector2[] ranges)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYS_SET_RANGE);
+            RGLNativeAPI.NodeRaysSetRange(ref handle.Node, ranges);
             return this;
         }
 
@@ -250,17 +348,17 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence UpdateNodeRaysTimeOffsets(string identifier, float[] offsets)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYS_SET_TIME_OFFSETS);
+            RGLNativeAPI.NodeRaysSetTimeOffsets(ref handle.Node, offsets);
+            return this;
+        }
+
         public RGLNodeSequence UpdateNodeRaysTransform(string identifier, Matrix4x4 transform)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYS_TRANSFORM);
             RGLNativeAPI.NodeRaysTransform(ref handle.Node, transform);
-            return this;
-        }
-
-        public RGLNodeSequence UpdateNodeRaytrace(string identifier, float range)
-        {
-            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
-            RGLNativeAPI.NodeRaytrace(ref handle.Node, range);
             return this;
         }
 
@@ -270,7 +368,7 @@ namespace RGLUnityPlugin
             RGLNativeAPI.NodePointsTransform(ref handle.Node, transform);
             return this;
         }
-        
+
         public RGLNodeSequence UpdateNodePointsDownsample(string identifier, Vector3 leafDims)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_DOWNSAMPLE);
@@ -282,6 +380,13 @@ namespace RGLUnityPlugin
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_TEMPORAL_MERGE);
             RGLNativeAPI.NodePointsTemporalMerge(ref handle.Node, fields);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodePointsUdpPublish(string identifier, RGLLidarModel lidarModel, RGLReturnMode returnMode, RGLUdpOptions udpOptions, string deviceIp, string destIp, int destPort)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_UDP_PUBLISH);
+            RGLNativeAPI.NodePointsUdpPublish(ref handle.Node, lidarModel, returnMode, udpOptions, deviceIp, destIp, destPort);
             return this;
         }
 
@@ -306,23 +411,74 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence UpdateNodePointsFilterGround(string identifier, float groundAngleThreshold)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_FILTER_GROUND);
+            RGLNativeAPI.NodePointsFilterGround(ref handle.Node, groundAngleThreshold);
+            return this;
+        }
+        
+        public RGLNodeSequence UpdateNodePointsCompactByField(string identifier, RGLField field)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_COMPACT_BY_FIELD);
+            RGLNativeAPI.NodePointsCompactByField(ref handle.Node, field);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodePointsRadarPostprocess(string identifier, RadarScopeParameters[] radarParametersScopes,
+            float rayAzimuthStep, float rayElevationStep, float frequency, float powerTransmitted,
+            float cumulativeDeviceGain, float receivedNoiseMean, float receivedNoiseStDev)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_RADAR_POSTPROCESS);
+            RGLNativeAPI.NodePointsRadarPostprocess(ref handle.Node, radarParametersScopes, rayAzimuthStep, rayElevationStep,
+                frequency, powerTransmitted, cumulativeDeviceGain, receivedNoiseMean, receivedNoiseStDev);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodePointsSimulateSnow(string identifier, float minRange, float maxRange, float rainRate,
+            float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence,
+            bool doSimulateEnergyLoss, float snowflakeOccupancyThreshold)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_SIMULATE_SNOW);
+            RGLNativeAPI.NodePointsSimulateSnow(ref handle.Node, minRange, maxRange, rainRate,
+                meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence, doSimulateEnergyLoss,
+                snowflakeOccupancyThreshold);
+            return this;
+        }
+
+        //// CONFIGURE NODES ////
+
+        public RGLNodeSequence ConfigureNodeRaytraceVelocity(string identifier, Vector3 linearVelocity, Vector3 angularVelocity)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
+            RGLNativeAPI.NodeRaytraceConfigureVelocity(handle.Node, linearVelocity, angularVelocity);
+            return this;
+        }
+
+        public RGLNodeSequence ConfigureNodeRaytraceDistortion(string identifier, bool enable)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
+            RGLNativeAPI.NodeRaytraceConfigureDistortion(handle.Node, enable);
+            return this;
+        }
+
         //// NODESEQUENCE OPERATIONS ////
         public int GetResultData<T>(ref T[] data) where T : unmanaged
         {
             RGLNodeHandle handle = ValidateOutputNode();
             unsafe
             {
-                return RGLNativeAPI.GraphGetResult<T>(handle.Node, handle.OutputField, ref data, sizeof(T));
+                return RGLNativeAPI.GraphGetResult<T>(handle.Node, handle.OutputField.Value, ref data, sizeof(T));
             }
         }
 
         public int GetResultDataRaw(ref byte[] data, int expectedPointSize)
         {
             RGLNodeHandle handle = ValidateOutputNode();
-            return RGLNativeAPI.GraphGetResult<byte>(handle.Node, handle.OutputField, ref data, expectedPointSize);
+            return RGLNativeAPI.GraphGetResult<byte>(handle.Node, handle.OutputField.Value, ref data, expectedPointSize);
         }
 
-        public int GetPointCloudCount(string identifier = null, RGLField field = RGLField.XYZ_F32)
+        public int GetPointCloudCount(string identifier = null, RGLField field = RGLField.XYZ_VEC3_F32)
         {
             RGLNodeHandle handle = identifier == null ? GetLastNodeOrNull(true) : ValidateNode(identifier);
             if (handle == null)
@@ -374,6 +530,11 @@ namespace RGLUnityPlugin
             }
         }
 
+        public bool HasNode(string identifier)
+        {
+            return nodes.Count(n => n.Identifier == identifier) != 0;
+        }
+
         public bool IsActive(string identifier)
         {
             return ValidateNode(identifier).Connected;
@@ -391,6 +552,12 @@ namespace RGLUnityPlugin
             {
                 DisconnectNode(node);
             }
+        }
+
+        public void SetPriority(string identifier, int priority)
+        {
+            RGLNodeHandle node = ValidateNode(identifier);
+            RGLNativeAPI.GraphNodeSetPriority(node.Node, priority);
         }
 
         //// PRIVATE HELPERS ////
@@ -429,7 +596,7 @@ namespace RGLUnityPlugin
             {
                 throw new RGLException("Attempted to get result data from empty NodeSequence!");
             }
-            if (outputNode.OutputField == RGLField.UNKNOWN)
+            if (outputNode.OutputField == null)
             {
                 throw new RGLException("Attempted to get result data but output node was not found on the last position in the NodeSequence!");
             }
@@ -449,12 +616,13 @@ namespace RGLUnityPlugin
                 throw new RGLException($"Attempted to connect node '{nodeToConnect.Identifier}' twice!");
             }
 
-            // Collect previous and next nodes that are connected
+            // Collect previous and next nodes to the nodeToConnect that are connected
             RGLNodeHandle[] prevNodes = GetPreviousNodes(nodeToConnect, true);
             RGLNodeHandle[] nextNodes = GetNextNodes(nodeToConnect, true);
 
-            // Nodes are connected with each other. Need to disconnect them.
-            if (prevNodes.Length != 0 && nextNodes.Length != 0)
+            // If there are any other connected (active) nodes in this sequence, prevNodes and nextNodes are connected
+            // Before connecting a new node between them, we have to disconnect them first
+            if (GetConnectedNodesCount() > 0)
             {
                 foreach (RGLNodeHandle prevNode in prevNodes)
                 {
@@ -485,7 +653,7 @@ namespace RGLUnityPlugin
                 throw new RGLException($"Attempted to disconnect node '{nodeToDisconnect.Identifier}' that is not connected!");
             }
 
-            // Collect previous and next nodes that are connected
+            // Collect previous and next nodes to the nodeToDisconnect that are connected
             RGLNodeHandle[] prevNodes = GetPreviousNodes(nodeToDisconnect, true);
             RGLNodeHandle[] nextNodes = GetNextNodes(nodeToDisconnect, true);
 
@@ -499,19 +667,11 @@ namespace RGLUnityPlugin
                 RGLNativeAPI.GraphNodeRemoveChild(nodeToDisconnect.Node, nextNode.Node);
             }
 
-            bool anyNodeRemained = false;
-            foreach (RGLNodeHandle node in prevNodes.ToList().Concat(nextNodes.ToList()))
-            {
-                if (nodes.Contains(node))
-                {
-                    anyNodeRemained = true;
-                    break;
-                }
-            }
+            nodeToDisconnect.Connected = false;
 
-            // Connect nodes that have become adjacent
-            // If there is no remaining nodes in this sequence - skip connecting
-            if (prevNodes.Length != 0 && nextNodes.Length != 0 && anyNodeRemained)
+            // If there are any other connected (active) nodes in this sequence, connect nodes that have become adjacent to each other
+            // Otherwise, we don't want to connect parent and child NodeSequences by omitting the current NodeSequence
+            if (GetConnectedNodesCount() > 0)
             {
                 foreach (RGLNodeHandle prevNode in prevNodes)
                 {
@@ -521,8 +681,6 @@ namespace RGLUnityPlugin
                     }
                 }
             }
-
-            nodeToDisconnect.Connected = false;
         }
 
         //// NODE GETTERS ////
@@ -590,6 +748,11 @@ namespace RGLUnityPlugin
                 outNodes.Add(nextNodesInThisSeq[nextNodeIdx]);
             }
             return outNodes.ToArray();
+        }
+
+        private int GetConnectedNodesCount()
+        {
+            return nodes.Count(n => n.Connected);
         }
 
         private void DisconnectAllChilds()

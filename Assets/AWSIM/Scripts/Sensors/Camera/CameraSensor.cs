@@ -126,12 +126,6 @@ namespace AWSIM
             [Range(0, 2048)] public uint yAxis = 0;
         }
 
-        /// <summary>
-        /// Data output hz.
-        /// Sensor processing and callbacks are called in this hz.
-        /// </summary>
-        [Range(0, 30)][SerializeField] uint publishHz = 10;
-
         [SerializeField] ImageOnGui imageOnGui = new ImageOnGui();
 
         [SerializeField] CameraParameters cameraParameters;
@@ -162,7 +156,6 @@ namespace AWSIM
         int rosShaderKernelIdx = -1;
         ComputeBuffer computeBuffer;
 
-        float timer = 0;
         OutputData outputData = new OutputData();
 
         private enum FocalLengthName
@@ -217,17 +210,9 @@ namespace AWSIM
             rosImageShaderGroupSizeX = (((cameraParameters.width * cameraParameters.height) * sizeof(uint)) / ((int)rosImageShaderThreadsPerGroupX * sizeof(uint)));
         }
 
-        void FixedUpdate()
+        public void DoRender()
         {
-            // Update timer.
-            timer += Time.deltaTime;
-
-            // Matching output to hz.
-            var interval = 1.0f / (int)publishHz;
-            if (timer < interval)
-                return;
-            timer = 0;
-
+            // Reander Unity Camera
             cameraObject.Render();
 
             // Set data to shader
@@ -236,10 +221,14 @@ namespace AWSIM
             distortionShader.SetTexture(shaderKernelIdx, "_DistortedTexture", distortedRenderTexture);
             distortionShader.Dispatch(shaderKernelIdx, distortionShaderGroupSizeX, distortionShaderGroupSizeY, 1);
             rosImageShader.SetTexture(rosShaderKernelIdx, "_InputTexture", distortedRenderTexture);
+            rosImageShader.SetBuffer(rosShaderKernelIdx, "_RosImageBuffer", computeBuffer);
             rosImageShader.Dispatch(rosShaderKernelIdx, rosImageShaderGroupSizeX, 1, 1);
 
             // Get data from shader
-            AsyncGPUReadback.Request(computeBuffer, request =>
+            AsyncGPUReadback.Request(computeBuffer, OnGPUReadbackRequest);
+
+            // Callback called once the AsyncGPUReadback request is fullfield.
+            void OnGPUReadbackRequest(AsyncGPUReadbackRequest request)
             {
                 if (request.hasError)
                 {
@@ -247,7 +236,7 @@ namespace AWSIM
                     return;
                 }
                 request.GetData<byte>().CopyTo(outputData.imageDataBuffer);
-            });
+            }
 
             // Update output data.
             outputData.cameraParameters = cameraParameters;
@@ -268,7 +257,6 @@ namespace AWSIM
             if (computeBuffer == null || computeBuffer.count != rosImageBufferSize)
             {
                 computeBuffer = new ComputeBuffer(rosImageBufferSize, sizeof(uint));
-                rosImageShader.SetBuffer(rosShaderKernelIdx, "_RosImageBuffer", computeBuffer);
                 outputData.imageDataBuffer = new byte[cameraParameters.width * cameraParameters.height * bytesPerPixel];
             }
         }

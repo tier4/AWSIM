@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using ROS2;
+using System.Threading;
 
 namespace AWSIM
 {
@@ -12,26 +11,17 @@ namespace AWSIM
     {
         [SerializeField] string topic;
         [SerializeField] QoSSettings qosSettings;
-        [SerializeField, Range(0, 100)] int publishHz;
+        [SerializeField, Range(1, 100)] int publishHz;
 
         IPublisher<rosgraph_msgs.msg.Clock> clockPublisher;
         rosgraph_msgs.msg.Clock clockMsg;
-        float timer = 0;
 
-        void Reset()
-        {
-            topic = "/clock";
-            qosSettings = new QoSSettings()
-            {
-                ReliabilityPolicy = ReliabilityPolicy.QOS_POLICY_RELIABILITY_BEST_EFFORT,
-                DurabilityPolicy = DurabilityPolicy.QOS_POLICY_DURABILITY_VOLATILE,
-                HistoryPolicy = HistoryPolicy.QOS_POLICY_HISTORY_KEEP_LAST,
-                Depth = 1,
-            };
-            publishHz = 100;
-        }
+        Thread clockThread;
+        bool isRunning = false;
 
-        // Start is called before the first frame update
+
+        #region [Life Cycle]
+
         void Awake()
         {
             var qos = qosSettings.GetQoSProfile();
@@ -39,22 +29,66 @@ namespace AWSIM
             clockMsg = new rosgraph_msgs.msg.Clock();
         }
 
-        void FixedUpdate()
+        void Start()
         {
-            timer += Time.deltaTime;
-            var interval = 1.0f / publishHz;
-            interval -= 0.00001f;       // Allow for accuracy errors.
-            if (timer < interval)
-                return;
-            timer = 0;
-
-            SimulatorROS2Node.UpdateROSClockTime(clockMsg.Clock_);
-            clockPublisher.Publish(clockMsg);
+            TimeScaleProvider.DoUpdate();
+            TimeAsDoubleProvider.DoUpdate();
+            StartClockThread();
         }
 
         void OnDestroy()
         {
+            StopClockThread();
             SimulatorROS2Node.RemovePublisher<rosgraph_msgs.msg.Clock>(clockPublisher);
         }
+
+        #endregion
+
+        #region [Main Thread]
+
+        void Update()
+        {
+            TimeAsDoubleProvider.DoUpdate();
+        }
+
+        #endregion
+
+        #region [Clock Thread]
+
+        void StartClockThread()
+        {
+            clockThread = new Thread(UpdateClock)
+            {
+                Name = "Clock"
+            };
+            isRunning = true;
+            clockThread.Start();
+        }
+
+        void StopClockThread()
+        {
+            isRunning = false;
+            if (clockThread != null && clockThread.IsAlive)
+            {
+                clockThread.Join();
+            }
+        }
+
+        void UpdateClock()
+        {
+            while(isRunning)
+            {
+                Thread.Sleep(1000 / publishHz);
+                PublishClock();
+            }
+        }
+
+        void PublishClock()
+        {
+            SimulatorROS2Node.UpdateROSClockTime(clockMsg.Clock_);
+            clockPublisher.Publish(clockMsg);
+        }
+
+        #endregion
     }
 }

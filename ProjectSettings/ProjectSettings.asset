@@ -129,7 +129,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.1.0
+  bundleVersion: 1.2.1
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -597,7 +597,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    1: UNITY_CCU;ALLOW_AUTHORING;ROS2
+    1: UNITY_CCU;ALLOW_AUTHORING;ROS2;ENABLE_RAYTRACING
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

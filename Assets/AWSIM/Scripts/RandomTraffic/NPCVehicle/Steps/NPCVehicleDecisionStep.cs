@@ -14,7 +14,7 @@ namespace AWSIM.TrafficSimulation
         // MinFrontVehicleDistance is added to the threshold for the distance at which an obstacle is considered dangerous.
         // The vehicle is controlled to stop at this distance away from the obstacle(e.g. another vehicle in front of the vehicle).
         private const float MinFrontVehicleDistance = 4f;
-        private const float MinStopDistance = 0.5f;
+        private const float MinStopDistance = 1.5f;
 
         public NPCVehicleDecisionStep(NPCVehicleConfig config)
         {
@@ -54,7 +54,9 @@ namespace AWSIM.TrafficSimulation
         private static void UpdateSpeedMode(NPCVehicleInternalState state, NPCVehicleConfig config)
         {
             if (state.ShouldDespawn)
+            {
                 return;
+            }
 
             var absoluteStopDistance = CalculateStoppableDistance(state.Speed, config.AbsoluteDeceleration) + MinStopDistance;
             var suddenStopDistance = CalculateStoppableDistance(state.Speed, config.SuddenDeceleration) + 2 * MinStopDistance;
@@ -66,29 +68,19 @@ namespace AWSIM.TrafficSimulation
             var distanceToStopPointByRightOfWay = CalculateYieldingDistance(state);
             var distanceToStopPoint = Mathf.Min(distanceToStopPointByFrontVehicle, distanceToStopPointByTrafficLight, distanceToStopPointByRightOfWay);
 
-            // Speed mode updated by front vehicle is SLOW or SUDDEN_STOP/ABSOLUTE_STOP.
-            // STOP state is not used to prevent the state from changing every frame.
-            if (distanceToStopPointByFrontVehicle <= suddenStopDistance)
-            {
-                state.IsStoppedByFrontVehicle = true;
-                state.SpeedMode = NPCVehicleSpeedMode.ABSOLUTE_STOP;
-                return;
-            }
-            else if (distanceToStopPointByFrontVehicle <= stopDistance)
-            {
-                state.IsStoppedByFrontVehicle = true;
-                state.SpeedMode = NPCVehicleSpeedMode.SUDDEN_STOP;
-                return;
-            }
             state.IsStoppedByFrontVehicle = false;
+            if (distanceToStopPointByFrontVehicle <= stopDistance)
+            {
+                state.IsStoppedByFrontVehicle = true;
+            }
 
             if (distanceToStopPoint <= absoluteStopDistance)
                 state.SpeedMode = NPCVehicleSpeedMode.ABSOLUTE_STOP;
-            else if (distanceToStopPoint <= suddenStopDistance || state.YieldPhase == NPCVehicleYieldPhase.YIELDING)
+            else if (distanceToStopPoint <= suddenStopDistance)
                 state.SpeedMode = NPCVehicleSpeedMode.SUDDEN_STOP;
             else if (distanceToStopPoint <= stopDistance)
                 state.SpeedMode = NPCVehicleSpeedMode.STOP;
-            else if (distanceToStopPoint <= slowDownDistance || state.IsTurning || state.YieldPhase == NPCVehicleYieldPhase.ENTERING_YIELDING_LANE)
+            else if (distanceToStopPoint <= slowDownDistance || state.IsTurning)
                 state.SpeedMode = NPCVehicleSpeedMode.SLOW;
             else
                 state.SpeedMode = NPCVehicleSpeedMode.NORMAL;
@@ -120,9 +112,9 @@ namespace AWSIM.TrafficSimulation
         private static float CalculateYieldingDistance(NPCVehicleInternalState state)
         {
             var distanceToStopPointByRightOfWay = float.MaxValue;
-            if (state.YieldPhase == NPCVehicleYieldPhase.YIELDING)
+            if (state.YieldPhase != NPCVehicleYieldPhase.NONE && state.YieldPhase != NPCVehicleYieldPhase.ENTERING_INTERSECTION && state.YieldPhase != NPCVehicleYieldPhase.AT_INTERSECTION)
                 distanceToStopPointByRightOfWay = state.SignedDistanceToPointOnLane(state.YieldPoint);
-            return onlyGreaterThan(distanceToStopPointByRightOfWay, 0);
+            return onlyGreaterThan(distanceToStopPointByRightOfWay, -float.MaxValue);
         }
 
         private static float CalculateStoppableDistance(float speed, float deceleration)
@@ -153,7 +145,7 @@ namespace AWSIM.TrafficSimulation
                 }
 
                 var currentPosition = state.FrontCenterPosition;
-                currentPosition.y = state.Vehicle.transform.position.y + 1f;
+                currentPosition.y += 1f;
 
                 Gizmos.DrawLine(currentPosition, state.TargetPoint);
 

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AWSIM.Lanelet
 {
@@ -9,16 +8,6 @@ namespace AWSIM.Lanelet
     /// <typeparam name="TPrimitive"></typeparam>
     public class PrimitiveLayer<TPrimitive> : Dictionary<long, TPrimitive> where TPrimitive : PrimitiveData
     {
-        public long GetUniqueID()
-        {
-            if (this.Count == 0)
-            {
-                return 1;
-            }
-            // Incremented max ID is an unique ID.
-            return this.Keys.Max() + 1;
-        }
-
         public bool Exists(long id)
         {
             return ContainsKey(id);
@@ -47,10 +36,6 @@ namespace AWSIM.Lanelet
             {
                 return;
             }
-            if (lanelet.ID <= 0)
-            {
-                lanelet.ID = this.Lanelets.GetUniqueID();
-            }
             Add(lanelet.LeftBound);
             Add(lanelet.RightBound);
             this.Lanelets.Add(lanelet.ID, lanelet);
@@ -65,10 +50,6 @@ namespace AWSIM.Lanelet
             if (this.Lines.Exists(line.ID))
             {
                 return;
-            }
-            if (line.ID <= 0)
-            {
-                line.ID = this.Lanelets.GetUniqueID();
             }
             foreach (var point in line.Points)
             {
@@ -87,10 +68,6 @@ namespace AWSIM.Lanelet
             {
                 return;
             }
-            if (point.ID <= 0)
-            {
-                point.ID = this.Lanelets.GetUniqueID();
-            }
             this.Points.Add(point.ID, point);
         }
 
@@ -103,11 +80,6 @@ namespace AWSIM.Lanelet
             if (this.RegulatoryElements.Exists(regElem.ID))
             {
                 return;
-            }
-
-            if (regElem.ID <= 0)
-            {
-                regElem.ID = this.RegulatoryElements.GetUniqueID();
             }
             this.RegulatoryElements.Add(regElem.ID, regElem);
         }

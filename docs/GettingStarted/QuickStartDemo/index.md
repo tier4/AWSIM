@@ -17,14 +17,6 @@ The simulation provided in the AWSIM demo is configured as follows:
 |Traffic|Randomized traffic|
 |ROS2|humble|
 
-
-## Prerequisites
-
-!!! warning
-
-    If you use Ubuntu 20.04 and ROS 2 Galactic version, please reffer to [v1.0.2](https://github.com/tier4/AWSIM/releases/tag/v1.0.2) [QuickStartDemo documentation](https://github.com/tier4/AWSIM/blob/v1.0.2/docs/GettingStarted/QuickStartDemo/index.md).
-
-
 ### PC specs
 
 Please make sure that your machine meets the following requirements in order to run the simulation correctly:
@@ -41,18 +33,25 @@ Please make sure that your machine meets the following requirements in order to 
 ### Localhost settings
 
 The simulation is based on the appropriate network setting, which allows for trouble-free communication of the AWSIM simulation with the Autoware software.
-To apply required localhost settings please add the following lines to `~/.bashrc` file.
+To apply required localhost settings please add the following lines to `~/.bashrc` file:
 
 ``` bash
-export ROS_LOCALHOST_ONLY=1
-export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-
 if [ ! -e /tmp/cycloneDDS_configured ]; then
 	sudo sysctl -w net.core.rmem_max=2147483647
 	sudo ip link set lo multicast on
 	touch /tmp/cycloneDDS_configured
 fi
 ```
+
+and these lines to `~/.profile` **or in either of files:** `~/.bash_profile` *or* `~/.bash_login`:
+
+``` bash
+export ROS_LOCALHOST_ONLY=1
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+```
+
+!!! warning
+    A system restart is required for these changes to work.
 
 ## Start the demo
 
@@ -70,6 +69,11 @@ To run the simulator, please follow the steps below.
     ```
     sudo ubuntu-drivers autoinstall
     ```
+
+        !!! warning
+        
+            Currently, there are cases where the Nvidia driver version is too high, resulting in Segmentation fault. In that case, please lower the Nvidia driver version (525 is recommended.)
+
     3. Reboot your machine to make the installed driver detected by the system.
     ```
     sudo reboot
@@ -112,27 +116,27 @@ To run the simulator, please follow the steps below.
 
 3. Download and Run AWSIM Demo binary.
 
-    1. Download `AWSIM_v1.1.0.zip`.
+    1. Download `AWSIM_v1.2.1.zip`.
 
-        [Download AWSIM Demo for ubuntu](https://github.com/tier4/AWSIM/releases/download/v1.1.0/AWSIM_v1.1.0.zip){.md-button .md-button--primary}
+        [Download AWSIM Demo for ubuntu](https://github.com/tier4/AWSIM/releases/download/v1.2.1/AWSIM_v1.2.1.zip){.md-button .md-button--primary}
     
     2. Unzip the downloaded file.
 
-    3. Make the `AWSIM_demo.x86_64` file executable.
+    3. Make the `AWSIM.x86_64` file executable.
 
-        Rightclick the `AWSIM_demo.x86_64` file and check the `Execute` checkbox
+        Rightclick the `AWSIM.x86_64` file and check the `Execute` checkbox
 
         ![](Image_1.png)
 
         or execute the command below.
 
         ```
-        chmod +x <path to AWSIM folder>/AWSIM_demo.x86_64
+        chmod +x <path to AWSIM folder>/AWSIM.x86_64
         ```
 
-    4. Launch `AWSIM_demo.x86_64`.
+    4. Launch `AWSIM.x86_64`.
         ```
-        ./<path to AWSIM folder>/AWSIM_demo.x86_64
+        ./<path to AWSIM folder>/AWSIM.x86_64
         ``` 
         
         !!! warning
@@ -189,7 +193,7 @@ ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehic
 ```
 ![](Image_2.png)
 
-## 5. Let's run the self-Driving simulation
+## Let's run the self-Driving simulation
 
 1. Launch AWSIM and Autoware according to the steps described earlier in this document.
 ![](Image_top.png)
@@ -220,7 +224,7 @@ ros2 topic pub /autoware/engage autoware_auto_vehicle_msgs/msg/Engage '{engage: 
 
 The self-driving simulation demo has been successfully launched!
 
-## 6. Troubleshooting
+## Troubleshooting
 
 In case of any problems with running the sample AWSIM binary with Autoware, start with checking our [Troubleshooting page](https://tier4.github.io/AWSIM/DeveloperGuide/TroubleShooting/) with the most common problems.
 

@@ -25,6 +25,16 @@ namespace AWSIM
         public bool IsSleep { get; private set; }
 
         /// <summary>
+        /// Slip multiplier in foward direction.
+        /// </summary>
+        public float ForwardSlipMultiplier { get; set; } = 1;
+
+        /// <summary>
+        /// Slip multiplier in sideway direction.
+        /// </summary>
+        public float SidewaySlipMultiplier { get; set; } = 1;
+
+        /// <summary>
         /// Steering angle of the wheel.
         /// </summary>
         public float SteerAngle => wheelCollider.steerAngle;
@@ -71,11 +81,12 @@ namespace AWSIM
             // TODO: Determine rotation from the speed of the wheels.
             void UpdateVisual(float speed, float steerAngle)
             {
+                // wheel position
                 wheelCollider.GetWorldPose(out var pos, out _);
                 wheelVisualTransform.position = pos;
 
                 // wheel forward rotation(pitch).
-                var additionalPitchAngle = (speed * Time.deltaTime / wheelCollider.radius) * Mathf.Rad2Deg;
+                var additionalPitchAngle = (speed / ForwardSlipMultiplier * Time.deltaTime / wheelCollider.radius) * Mathf.Rad2Deg;
                 wheelPitchAngle += additionalPitchAngle;
                 wheelPitchAngle %= 360;
 
@@ -141,12 +152,12 @@ namespace AWSIM
                 return;
 
             // Apply cancel force.
-            var lateralCancelForce = GetSkiddingCancelForce();
+            var lateralCancelForce = GetSkiddingCancelForce() * SidewaySlipMultiplier;
             vehicleRigidbody.AddForceAtPosition(lateralCancelForce, wheelHit.point, ForceMode.Force);
 
             // Apply drive force.
             // Apply a force that will result in the commanded acceleration.
-            var driveForce = acceleration * wheelHit.forwardDir;
+            var driveForce = acceleration * wheelHit.forwardDir * ForwardSlipMultiplier;
             vehicleRigidbody.AddForceAtPosition(driveForce, wheelHit.point, ForceMode.Acceleration);
 
             // Counteracts the sideway force of the tire.

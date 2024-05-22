@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poseTopic: /sensing/gnss/pose
   poseWithCovarianceStampedTopic: /sensing/gnss/pose_with_covariance
-  frameId: gnss_link
+  frameId: map
   qosSettings:
     ReliabilityPolicy: 1
     DurabilityPolicy: 2

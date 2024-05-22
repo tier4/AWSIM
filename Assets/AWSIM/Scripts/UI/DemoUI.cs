@@ -7,23 +7,37 @@ namespace AWSIM
 {
     public class DemoUI : MonoBehaviour
     {
-        [SerializeField] Text timeScaleText;
-        [SerializeField] Slider timeScaleSlider;
         [SerializeField] Text versionText;
+        [SerializeField] Text fpsText;
+
+        int frameCount;
+        float lastTime;
+        float fps;
 
         private void Start()
         {
-            timeScaleSlider.value = Time.timeScale;
-            timeScaleText.text = "x " + timeScaleSlider.value.ToString("F2");
             var version = Application.version;
             print(version);
             versionText.text = "AWSIM v " + version;
+
+            frameCount = 0;
+            lastTime = 0.0f;
         }
 
-        public void SetTimeScale(float timeScale)
+        private void Update()
         {
-            Time.timeScale = timeScale;
-            timeScaleText.text = "x " + timeScale.ToString("F2");
+            frameCount++;
+            float time = Time.realtimeSinceStartup - lastTime;
+
+            if (time >= 0.5f)
+            {
+                fps = frameCount / time;
+
+                frameCount = 0;
+                lastTime = Time.realtimeSinceStartup;
+            }
+
+            fpsText.text = fps.ToString("F0") + " fps";
         }
     }
 }

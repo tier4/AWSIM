@@ -36,7 +36,7 @@ namespace AWSIM
         /// Sensor processing and callbacks are called in this hz.
         /// </summary>
         [Range(0, 10)]
-        public int OutputHz = 1;    // Autoware's GnssSensor basically output at 1hz.
+        public int OutputHz = 5;    // Autoware's GnssSensor basically output at 1hz.
 
         /// <summary>
         /// Delegate used in callbacks.

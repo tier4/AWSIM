@@ -8,6 +8,13 @@ namespace AWSIM
     [RequireComponent(typeof(V2I))]
     public class V2IRos2Publisher : MonoBehaviour
     {
+        public enum TrafficSignalID{
+            RelationID,
+            WayID
+        }
+
+        public TrafficSignalID trafficSignalID;
+
         [SerializeField, Tooltip("On this topic, the traffic_signals are published (as a ")]
         string trafficSignalsTopic = "/v2x/traffic_signals";
         
@@ -44,33 +51,51 @@ namespace AWSIM
         private void UpdateTrafficSignalArrayMsg(V2I.OutputData data)
         {
             var trafficSignalList = new List<autoware_perception_msgs.msg.TrafficSignal>();
+            var allRelationID = new List<long>();
             foreach (var trafficLight in data.trafficLights)
             {
-                var trafficSignalMsg = new autoware_perception_msgs.msg.TrafficSignal();
                 var trafficLightLaneletID = trafficLight.GetComponentInParent<TrafficLightLaneletID>();
                 if (trafficLightLaneletID != null)
                 {
-                    trafficSignalMsg.Traffic_signal_id = trafficLightLaneletID.LaneletElementID;
-                }
-                //Get bulbData
-                var trafficLightBulbData = trafficLight.GetBulbData();
-                //Fill TrafficSignal with bulbData
-                var trafficLightElementList = new List<autoware_perception_msgs.msg.TrafficLightElement>();
-                foreach (var bulbData in trafficLightBulbData)
-                {
-                    if (isBulbTurnOn(bulbData.Status))
+                    var ids = new List<long>();
+                    if (trafficSignalID == TrafficSignalID.RelationID)
                     {
-                        var trafficLightElementMsg = new autoware_perception_msgs.msg.TrafficLightElement();
-                        trafficLightElementMsg.Color = V2IROS2Utility.UnityToRosBulbColor(bulbData.Color);
-                        trafficLightElementMsg.Shape = V2IROS2Utility.UnityToRosBulbShape(bulbData.Type);
-                        trafficLightElementMsg.Status = V2IROS2Utility.UnityToRosBulbStatus(bulbData.Status);
-                        trafficLightElementMsg.Confidence = 1.0f;
-                        trafficLightElementList.Add(trafficLightElementMsg);
+                        ids = trafficLightLaneletID.relationID;
+                    }
+                    else if (trafficSignalID == TrafficSignalID.WayID)
+                    {
+                        ids.Add(trafficLightLaneletID.wayID);
+                    }
+                    foreach (var relationID in ids)
+                    {
+                        var trafficSignalMsg = new autoware_perception_msgs.msg.TrafficSignal();
+                        if (allRelationID.Contains(relationID))
+                        {
+                            continue;
+                        }
+                        trafficSignalMsg.Traffic_signal_id = relationID;
+                        //Get bulbData
+                        var trafficLightBulbData = trafficLight.GetBulbData();
+                        //Fill TrafficSignal with bulbData
+                        var trafficLightElementList = new List<autoware_perception_msgs.msg.TrafficLightElement>();
+                        foreach (var bulbData in trafficLightBulbData)
+                        {
+                            if (isBulbTurnOn(bulbData.Status))
+                            {
+                                var trafficLightElementMsg = new autoware_perception_msgs.msg.TrafficLightElement();
+                                trafficLightElementMsg.Color = V2IROS2Utility.UnityToRosBulbColor(bulbData.Color);
+                                trafficLightElementMsg.Shape = V2IROS2Utility.UnityToRosBulbShape(bulbData.Type);
+                                trafficLightElementMsg.Status = V2IROS2Utility.UnityToRosBulbStatus(bulbData.Status);
+                                trafficLightElementMsg.Confidence = 1.0f;
+                                trafficLightElementList.Add(trafficLightElementMsg);
+                            }
+                        }
+                        //Add TrafficLight signal to list
+                        trafficSignalMsg.Elements = trafficLightElementList.ToArray();
+                        trafficSignalList.Add(trafficSignalMsg);
+                        allRelationID.Add(relationID);
                     }
                 }
-                //Add TrafficLight signal to list
-                trafficSignalMsg.Elements = trafficLightElementList.ToArray();
-                trafficSignalList.Add(trafficSignalMsg);
             }
             trafficSignalArrayMsg.Stamp = SimulatorROS2Node.GetCurrentRosTime();
             trafficSignalArrayMsg.Signals = trafficSignalList.ToArray();

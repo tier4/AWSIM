@@ -1,4 +1,4 @@
-# AWSIM 
+# AWSIM
 
 ![](/README_img/AWSIM.png)
 
@@ -47,7 +47,7 @@ See also [LICENSE](./LICENSE)
 日本語/English OK
 
 e-mail : takatoki.makino@tier4.jp  
-twitter : [mackierx111](https://twitter.com/mackierx111)  
-discord : mackie#6141
+discord : mackie#6141  
+twitter : https&#58;//twitter.com/mackierx111
 
 (c) 2022 TIER IV, inc

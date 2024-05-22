@@ -11,19 +11,27 @@ The native RGL library needs a once-per-scene preparation to access models on th
 
 1. Create an empty object
 2. Attach script `LidarSensor.cs`.
-3. `PointCloudVisualization.cs` will be added automatically, however, you can disable it.
-4. Now you can add a callback from another script to receive notification when data is ready:
+3. (Optional) Attach script `PointCloudVisualization.cs` for visualization purposes.
+4. To obtain point cloud data from another script you have to create a new `RGLNodeSequence` and connect it to `LidarSensor`:
    ```cs
+   rglOutSubgraph = new RGLNodeSequence().AddNodePointsYield("OUT_XYZ", RGLField.XYZ_F32);
    lidarSensor = GetComponent<LidarSensor>();
-   lidarSensor.OnOutputData += HandleLidarDataMethod;
+   lidarSensor.ConnectToWorldFrame(rglOutSubgraph); // you can also connect to Lidar frame using ConnectToLidarFrame
+   // You can add a callback to receive a notification when new data is ready
+   lidarSensor.onNewData += HandleLidarDataMethod;
+   ```
+5. To get data from `RGLNodeSequence` call `GetResultData`:
+   ```cs
+   Vector3[] xyz = new Vector3[0];
+   rglOutSubgraph.GetResultData<Vector3>(ref xyz);
    ```
 
 ## Adding new lidar models
 
 To add a new lidar model, perform the following steps:
 1. Add its name to the `LidarModels.cs`
-2. If the Lidar has a non-uniform laser array construction (e.g. different linear / angular spacing between lasers), add an entry to the `LaserArrayLibrary`.
-3. Add an entry to `LidarConfigurationLibrary`. Use the provided laser array or generate a uniform one using static method `LaserArray.Uniform()`.
+2. If the Lidar has a non-uniform laser array construction (e.g. different linear/angular spacing between lasers), add an entry to the `LaserArrayLibrary`.
+3. Add an entry to `LidarConfigurationLibrary`. Use the provided laser array or generate a uniform one using the static method `LaserArray`.Uniform()`.
 4. Done. New lidar preset should be available via Unity Inspector.
 
 ## Package structure
@@ -37,8 +45,7 @@ Additionally, the package contains also:
   - Details below
 
 ## Scripts structure
-
-The code consist of the following parts:
+The code consists of the following parts:
   - `LidarSensor.cs`
     - Non-ROS code, most of the high-level logic, frequency control
   - `SceneManager.cs`
@@ -47,6 +54,10 @@ The code consist of the following parts:
     - Displays PointCloud on the Unity Scene
   - `RGLDebugger.cs`
     - Provides configuration for Native RGL debug tools (logging and tape)
+  - `SemanticCategory.cs`
+    - Allows to add category ID to game objects for instance/semantic segmentation tasks
+  - `IntensityTexture.cs`
+    - Provides input component that can be assigned to any GameObject. It contains a slot for intensity texture.
 - A set of classes providing tools to define LiDAR specification (mostly: ray poses)
   - `LidarModels.cs`
     - Enumeration of some real-world LiDARs names

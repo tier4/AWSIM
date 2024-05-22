@@ -19,6 +19,11 @@ namespace AWSIM.TrafficSimulation
         [DrawGizmo(GizmoType.InSelectionHierarchy | GizmoType.Pickable)]
         private static void DrawGizmoNonSelected(TrafficLane trafficLane, GizmoType gizmoType)
         {
+            if (trafficLane.intersectionLane)
+            {
+                Gizmos.color = Color.green;
+            }
+
             for (int i = 1; i < trafficLane.Waypoints.Length; ++i)
             {
                 Gizmos.DrawLine(trafficLane.Waypoints[i - 1], trafficLane.Waypoints[i]);
@@ -148,8 +153,8 @@ namespace AWSIM.TrafficSimulation
 
         private static bool AreSamePrevLanes(TrafficLane lane1, TrafficLane lane2)
         {
-            return lane1.PrevLanes.Count >= 1 && 
-                   lane2.PrevLanes.Count >= 1 && 
+            return lane1.PrevLanes.Count >= 1 &&
+                   lane2.PrevLanes.Count >= 1 &&
                    lane1.PrevLanes[0] == lane2.PrevLanes[0];
         }
 
