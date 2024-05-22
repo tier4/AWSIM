@@ -56,6 +56,7 @@ In subsequent frames of the simulation, `SceneManager` synchronizes the scene be
     - `LaserArrayLibrary` - provides a number of pre-defined `LaserArrays`.
     - `Laser` - describes offsets of a single laser within a `LaserArray`.
     - `LidarNoiseParams` - describes a LiDAR noise that can be simulated
+    - `LidarOutputRestrictions` - Describes LiDAR faults modeled as a set of rectangular masks obstructing part of the rays
 - A set of classes providing tools to define radar specification:
     - `RadarModels` - enumeration with supported radar models.
     - `RadarConfiguration` - top-level configuration class, horizontal ranges, distance range, radar parameters.
