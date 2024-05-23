@@ -54,9 +54,13 @@ namespace RGLUnityPlugin
         /// </summary>
         public bool enableRestrictionRandomizer = false;
 
+        [Tooltip("The lower bound for random value of period of the blinking in seconds.")]
+        [Min(0.0f)]
+        public float minRandomPerdiod = 0.0f;
+
         [Tooltip("The upper bound for random value of period of the blinking in seconds.")]
         [Min(0.0f)]
-        public float maxRandomBlinkingPerdiod = 1.0f;
+        public float maxRandomPerdiod = 1.0f;
 
         private sbyte[] raysMask;
         private sbyte[] fullMask;
@@ -96,8 +100,8 @@ namespace RGLUnityPlugin
                 {
                     if (enableRestrictionRandomizer)
                     {
-                        restrictionTime = UnityEngine.Random.Range(0.0f, maxRandomBlinkingPerdiod);
-                        restrictionDutyTime = UnityEngine.Random.Range(0.0f, restrictionTime);
+                        restrictionTime = UnityEngine.Random.Range(minRandomPerdiod, maxRandomPerdiod);
+                        restrictionDutyTime = UnityEngine.Random.Range(0.0f, 1.0f) * restrictionTime;
                     }
                     rglGraphLidar.ApplyLidarOutputRestriction(identifier, raysMask);
                     yield return new WaitForSeconds(restrictionDutyTime);
@@ -136,6 +140,12 @@ namespace RGLUnityPlugin
 
                     float azimuth = configuration.minHAngle + hStep * configuration.horizontalResolution;
                     float horizontalAngle = azimuth + configuration.laserArray.lasers[laserId].horizontalAngularOffsetDeg;
+
+                    if (horizontalAngle < 0.0f) {
+                        horizontalAngle += 360.0f;
+                    } else if (horizontalAngle > 360.0f) {
+                        horizontalAngle -= 360.0f;
+                    }
 
                     raysMask[idx] = 1;
 
