@@ -111,6 +111,16 @@ The pipeline consists of:
         - `Distance Noise St Dev Base` - distance noise standard deviation base in meters<br>(default: `0.02`)
         - `Distance Noise Rise Per Meter` - distance noise standard deviation rise per meter<br>(default: `0`)
         - `Distance Noise Mean` - distance noise mean in meters<br>(default: `0`)
+    - *Output Restriction Params*: 
+        - `Apply Restriction` - enable/disable fault injection (default: `false`)
+        - `Rectangular Restriction Masks` - list of rectangular masks used for output restriction; each mask is represented via ranges of angles in horizontal and vertical dimensions
+        - `Enable Periodic Restriction` - change mode from static to periodic (default: `false`)
+        - `Restriction Period` - time of whole period in seconds
+        - `Restriction Duty Rate` - rate of time with masked output
+        - `Enable Restriction Randomizer` - enable/disable random periodic mode (default: `false`)
+        - `Min Random Period` - lower bound of time period in seconds used in random mode
+        - `Max Random Period` - upper bound of time period in seconds used in random mode
+
     - *Additional options (available for some Lidar Model Preset)*
         - `Min Range` - minimum range of the sensor (if not avaiable, the range is different for each laser in `Laser Array`)
         - `Max Range` - maximum range of the sensor (if not avaiable, the range is different for each laser in `Laser Array`)
