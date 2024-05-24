@@ -118,8 +118,6 @@ public class SensorsTest
             Assert.IsNotEmpty(pointCloudMessages);
             Assert.AreEqual(pointCloudMessages.Count, (int)(testDuration * radarSensor.automaticCaptureHz));
         }
-
-        // TODO: Test RadarScan publishers (radar_msgs_assembly needed)
     }
 
     [UnityTest]
