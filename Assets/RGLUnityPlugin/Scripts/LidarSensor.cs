@@ -66,7 +66,6 @@ namespace RGLUnityPlugin
         /// <summary>
         /// Encapsulates description of a output restriction to allow fault injection.
         /// </summary>
-        [SerializeReference]
         public LidarOutputRestriction outputRestriction = new LidarOutputRestriction();
 
         private RGLNodeSequence rglGraphLidar;
