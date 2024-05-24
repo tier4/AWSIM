@@ -220,12 +220,18 @@ namespace RGLUnityPlugin
 
             rglGraphLidar.ConfigureNodeRaytraceDistortion(lidarRaytraceNodeId, applyVelocityDistortion);
 
-            if (outputRestriction.enablePeriodicRestriction)
+            if (outputRestriction.enablePeriodicRestriction && outputRestriction.applyRestriction)
             {
-                StartCoroutine(outputRestriction.BlinkingRoutine(rglGraphLidar, lidarRaytraceNodeId));
+                outputRestriction.coroutine = outputRestriction.BlinkingRoutine(rglGraphLidar, lidarRaytraceNodeId);
+                StartCoroutine(outputRestriction.coroutine);
             }
             else
             {
+                if (outputRestriction.coroutine != null)
+                {
+                    StopCoroutine(outputRestriction.coroutine);
+                }
+
                 outputRestriction.ApplyStaticRestriction(rglGraphLidar, lidarRaytraceNodeId);
             }
 

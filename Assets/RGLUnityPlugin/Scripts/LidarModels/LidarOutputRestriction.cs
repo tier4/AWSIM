@@ -66,6 +66,8 @@ namespace RGLUnityPlugin
         private sbyte[] fullMask;
         private int cloudSize;
 
+        public IEnumerator coroutine;
+
         public LidarOutputRestriction() { }
 
         public void ApplyStaticRestriction(RGLNodeSequence rglGraphLidar, string identifier)
