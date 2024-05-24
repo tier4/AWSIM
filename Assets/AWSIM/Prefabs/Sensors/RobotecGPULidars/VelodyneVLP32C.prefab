@@ -106,6 +106,8 @@ MonoBehaviour:
   applyVelocityDistortion: 0
   configuration:
     id: 0
+  outputRestriction:
+    id: 1
   references:
     version: 1
     00000000:
@@ -353,6 +355,17 @@ MonoBehaviour:
           distanceNoiseMean: 0
         minRange: 0
         maxRange: 200
+    00000001:
+      type: {class: LidarOutputRestriction, ns: RGLUnityPlugin, asm: Assembly-CSharp}
+      data:
+        applyRestriction: 0
+        rectangularRestrictionMasks: []
+        enablePeriodicRestriction: 0
+        restrictionPeriod: 1
+        restrictionDutyRate: 0.5
+        enableRestrictionRandomizer: 0
+        minRandomPerdiod: 0
+        maxRandomPerdiod: 1
 --- !u!1 &1522474218647167364
 GameObject:
   m_ObjectHideFlags: 0
