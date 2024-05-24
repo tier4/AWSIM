@@ -97,6 +97,9 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_raytrace_configure_distortion(IntPtr node, bool enable);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_raytrace_configure_mask(IntPtr node, IntPtr rays_mask, int rays_count);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_format(ref IntPtr node, IntPtr fields, int field_count);
 
         [DllImport("RobotecGPULidar")]
@@ -427,6 +430,17 @@ namespace RGLUnityPlugin
         public static void NodeRaytraceConfigureDistortion(IntPtr node, bool enable)
         {
             CheckErr(rgl_node_raytrace_configure_distortion(node, enable));
+        }
+
+        public static void NodeRaytraceConfigureMask(IntPtr node, sbyte[] raysMask, int rayCount)
+        {
+            unsafe
+            {
+                fixed (sbyte* maskPtr = raysMask)
+                {
+                    CheckErr(rgl_node_raytrace_configure_mask(node, (IntPtr) maskPtr, rayCount));
+                }
+            }
         }
 
         public static void NodePointsFormat(ref IntPtr node, RGLField[] fields)

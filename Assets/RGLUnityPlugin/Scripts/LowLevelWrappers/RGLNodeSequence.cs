@@ -137,7 +137,7 @@ namespace RGLUnityPlugin
             AddNode(handle);
             return this;
         }
-        
+
         public RGLNodeSequence AddNodePointsFilterGround(string identifier, float groundAngleThreshold)
         {
             CheckNodeNotExist(identifier);
@@ -197,7 +197,7 @@ namespace RGLUnityPlugin
         {
             CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
-            RGLNativeAPI.NodePointsYield(ref handle.Node, new [] {field});
+            RGLNativeAPI.NodePointsYield(ref handle.Node, new[] { field });
             handle.Type = RGLNodeType.POINTS_YIELD;
             handle.OutputField = field;
             handle.Identifier = identifier;
@@ -417,7 +417,7 @@ namespace RGLUnityPlugin
             RGLNativeAPI.NodePointsFilterGround(ref handle.Node, groundAngleThreshold);
             return this;
         }
-        
+
         public RGLNodeSequence UpdateNodePointsCompactByField(string identifier, RGLField field)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_COMPACT_BY_FIELD);
@@ -459,6 +459,13 @@ namespace RGLUnityPlugin
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
             RGLNativeAPI.NodeRaytraceConfigureDistortion(handle.Node, enable);
+            return this;
+        }
+
+        public RGLNodeSequence ApplyLidarOutputRestriction(string identifier, sbyte[] raysMask)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
+            RGLNativeAPI.NodeRaytraceConfigureMask(handle.Node, raysMask, raysMask.Length);
             return this;
         }
 

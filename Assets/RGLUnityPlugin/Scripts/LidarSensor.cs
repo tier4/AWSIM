@@ -63,6 +63,12 @@ namespace RGLUnityPlugin
         [SerializeReference]
         public BaseLidarConfiguration configuration = LidarConfigurationLibrary.ByModel[LidarModel.RangeMeter]();
 
+        /// <summary>
+        /// Encapsulates description of a output restriction to allow fault injection.
+        /// </summary>
+        [SerializeReference]
+        public LidarOutputRestriction outputRestriction = new LidarOutputRestriction();
+
         private RGLNodeSequence rglGraphLidar;
         private RGLNodeSequence rglSubgraphCompact;
         private RGLNodeSequence rglSubgraphToLidarFrame;
@@ -95,10 +101,10 @@ namespace RGLUnityPlugin
         public void Awake()
         {
             rglGraphLidar = new RGLNodeSequence()
-                .AddNodeRaysFromMat3x4f(lidarRaysNodeId, new Matrix4x4[1] {Matrix4x4.identity})
-                .AddNodeRaysSetRange(lidarRangeNodeId, new Vector2[1] {new Vector2(0.0f, Mathf.Infinity)})
-                .AddNodeRaysSetRingIds(lidarRingsNodeId, new int[1] {0})
-                .AddNodeRaysSetTimeOffsets(lidarTimeOffsetsNodeId, new float[1] {0})
+                .AddNodeRaysFromMat3x4f(lidarRaysNodeId, new Matrix4x4[1] { Matrix4x4.identity })
+                .AddNodeRaysSetRange(lidarRangeNodeId, new Vector2[1] { new Vector2(0.0f, Mathf.Infinity) })
+                .AddNodeRaysSetRingIds(lidarRingsNodeId, new int[1] { 0 })
+                .AddNodeRaysSetTimeOffsets(lidarTimeOffsetsNodeId, new float[1] { 0 })
                 .AddNodeRaysTransform(lidarPoseNodeId, Matrix4x4.identity)
                 .AddNodeGaussianNoiseAngularRay(noiseLidarRayNodeId, 0, 0)
                 .AddNodeRaytrace(lidarRaytraceNodeId)
@@ -159,6 +165,9 @@ namespace RGLUnityPlugin
             {
                 configuration = LidarConfigurationLibrary.ByModel[modelPreset]();
             }
+
+            outputRestriction.Update(configuration);
+
             ApplyConfiguration(configuration);
             validatedPreset = modelPreset;
             onLidarModelChange?.Invoke();
@@ -211,6 +220,22 @@ namespace RGLUnityPlugin
             }
 
             rglGraphLidar.ConfigureNodeRaytraceDistortion(lidarRaytraceNodeId, applyVelocityDistortion);
+
+            if (outputRestriction.enablePeriodicRestriction && outputRestriction.applyRestriction)
+            {
+                outputRestriction.coroutine = outputRestriction.BlinkingRoutine(rglGraphLidar, lidarRaytraceNodeId);
+                StartCoroutine(outputRestriction.coroutine);
+            }
+            else
+            {
+                if (outputRestriction.coroutine != null)
+                {
+                    StopCoroutine(outputRestriction.coroutine);
+                }
+
+                outputRestriction.ApplyStaticRestriction(rglGraphLidar, lidarRaytraceNodeId);
+            }
+
         }
 
         public void OnEnable()
