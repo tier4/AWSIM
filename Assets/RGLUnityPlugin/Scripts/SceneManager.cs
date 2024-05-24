@@ -58,7 +58,6 @@ namespace RGLUnityPlugin
         private IntoRGLObjectsStrategy IntoRGLObjects;
 
         // Keeping track of the scene objects
-        private HashSet<GameObject> lastFrameGameObjects = new HashSet<GameObject>();
         private readonly Dictionary<GameObject, IRGLObject> uploadedRGLObjects = new Dictionary<GameObject, IRGLObject>();
 
         // This dictionary keeps tracks of identifier -> instance id of objects that were removed (e.g. temporary NPCs)
@@ -68,6 +67,9 @@ namespace RGLUnityPlugin
 
         private int lastUpdateFrame = -1;
         private int lastFixedUpdateFrame = -1;
+
+        HashSet<GameObject> toAddGOs;
+        HashSet<GameObject> toRemoveGOs;
 
         private void OnDisable()
         {
@@ -81,6 +83,8 @@ namespace RGLUnityPlugin
 
         private void Awake()
         {
+            FetchObjects();
+
             if (IntoRGLObjects == null)
             {
                 UpdateMeshSource();
@@ -103,6 +107,22 @@ namespace RGLUnityPlugin
                 IntoRGLObjects = UpdatedIntoRGLObjects;
                 Debug.Log($"RGL mesh source: {meshSource.ToString()}");
             }
+        }
+
+        public void RegisterRGLObject(GameObject gameObject)
+        {
+            toAddGOs.Add(gameObject);
+        }
+
+        public void UnregisterRGLObject(GameObject gameObject)
+        {
+            toRemoveGOs.Add(gameObject);
+        }
+
+        public void FetchObjects()
+        {
+            toAddGOs = new HashSet<GameObject>(FindObjectsOfType<GameObject>());
+            toRemoveGOs = new HashSet<GameObject>();
         }
 
         /// <summary>
@@ -137,30 +157,27 @@ namespace RGLUnityPlugin
 
             SynchronizeSceneTime();
 
-            Profiler.BeginSample("Find changes and make TODO list");
-            var thisFrameGOs = new HashSet<GameObject>(FindObjectsOfType<GameObject>());
-            thisFrameGOs.RemoveWhere(IsNotActiveOrParentHasLidar);
+            Profiler.BeginSample("SceneManager: Remove not active or parent lidar");
+            toAddGOs.RemoveWhere(IsNotActiveOrParentHasLidar);
+            Profiler.EndSample();
 
             // Added
-            var toAddGOs = new HashSet<GameObject>(thisFrameGOs);
-            toAddGOs.ExceptWith(lastFrameGameObjects);
+            Profiler.BeginSample("SceneManager: Adding RGL objects");
             var toAdd = IntoRGLObjects(toAddGOs).ToArray();
             var toAddTerrain = IntoRGLTerrainObjects(toAddGOs).ToArray();
             if (toAddTerrain.Length != 0)
             {
                 toAdd = toAdd.Concat(toAddTerrain).ToArray();
             }
-
-            // Removed
-            var toRemoveGOs = new HashSet<GameObject>(lastFrameGameObjects);
-            toRemoveGOs.ExceptWith(thisFrameGOs);
-            toRemoveGOs.IntersectWith(uploadedRGLObjects.Keys);
-            var toRemove = toRemoveGOs.Select((o) => uploadedRGLObjects[o]).ToArray();
-
-            lastFrameGameObjects = thisFrameGOs;
             Profiler.EndSample();
 
-            Profiler.BeginSample("Remove despawned objects");
+            // Removed
+            Profiler.BeginSample("SceneManager: Getting despawned objects");
+            toRemoveGOs.IntersectWith(uploadedRGLObjects.Keys);
+            var toRemove = toRemoveGOs.Select((o) => uploadedRGLObjects[o]).ToArray();
+            Profiler.EndSample();
+
+            Profiler.BeginSample("SceneManager: Remove despawned objects");
             foreach (var rglObject in toRemove)
             {
                 rglObject.DestroyInRGL();
@@ -168,7 +185,7 @@ namespace RGLUnityPlugin
             }
             Profiler.EndSample();
             
-            Profiler.BeginSample("Mark spawned objects as updated");
+            Profiler.BeginSample("SceneManager: Mark spawned objects as updated");
             foreach (var rglObject in toAdd)
             {
                 // Game Objects must not have duplicate representations.
@@ -182,11 +199,16 @@ namespace RGLUnityPlugin
             // TODO(prybicki): This part can take up to 8ms on Shinjuku scene, two ideas to optimize it soon:
             // - Implement batch update in RGL
             // - Use Transform.hasChanged to filter out some objects
-            Profiler.BeginSample("Update transforms and skinned meshes");
+            Profiler.BeginSample("SceneManager: Update transforms and skinned meshes");
             foreach (var gameRGLObject in uploadedRGLObjects)
             {
                 gameRGLObject.Value.Update();
             }
+            Profiler.EndSample();
+
+            Profiler.BeginSample("SceneManager: Cleanup");
+            toAddGOs.Clear();
+            toRemoveGOs.Clear();
             Profiler.EndSample();
         }
 
@@ -201,7 +223,7 @@ namespace RGLUnityPlugin
 
         private void Clear()
         {
-            if (!lastFrameGameObjects.Any() && !uploadedRGLObjects.Any()) return;
+            if (!uploadedRGLObjects.Any()) return;
 
             foreach (var rglObject in uploadedRGLObjects)
             {
@@ -211,7 +233,6 @@ namespace RGLUnityPlugin
             RGLMeshSharingManager.Clear();
             RGLTextureSharingManager.Clear();
             uploadedRGLObjects.Clear();
-            lastFrameGameObjects.Clear();
             Debug.Log("RGLSceneManager: cleared");
         }
 

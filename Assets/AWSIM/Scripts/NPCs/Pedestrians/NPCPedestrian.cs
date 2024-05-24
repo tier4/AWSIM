@@ -31,6 +31,25 @@ namespace AWSIM
         private const string moveSpeedProperty = "moveSpeed";
         private const string rotateSpeedProperty = "rotateSpeed";
 
+        private RGLUnityPlugin.SceneManager sceneManager;
+
+        void Start()
+        {
+            sceneManager = FindObjectOfType<RGLUnityPlugin.SceneManager>();
+            foreach (Transform child in gameObject.GetComponentsInChildren<Transform>())
+            {
+                sceneManager.RegisterRGLObject(child.gameObject);
+            }
+        }
+
+        void OnDestroy()
+        {
+            foreach (Transform child in gameObject.GetComponentsInChildren<Transform>())
+            {
+                sceneManager.UnregisterRGLObject(child.gameObject);
+            }
+        }
+
         private void Update()
         {
             // Switch animation based on movement speed (m/s).
