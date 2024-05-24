@@ -571,8 +571,8 @@ namespace RGLUnityPlugin
 
         public static LaserArray HesaiPandarXT32 => new LaserArray
         {
-            centerOfMeasurementLinearOffsetMm = new Vector3(0.0f, 47.7f, 0.0f),
-            focalDistanceMm = 0.0f,
+            centerOfMeasurementLinearOffsetMm = new Vector3(0.0f, 46.4f, 0.0f),
+            focalDistanceMm = 31.5f,
             lasers = new[]
             {
                 new Laser {horizontalAngularOffsetDeg = 0.0f, verticalAngularOffsetDeg = -15.0f, ringId = 1, timeOffset = 0.00028f},
@@ -616,7 +616,7 @@ namespace RGLUnityPlugin
         public static LaserArray HesaiQT128C2X => new LaserArray
         {
             centerOfMeasurementLinearOffsetMm = new Vector3(0.0f, 58.2f, 0.0f),
-            focalDistanceMm = 0.0f,
+            focalDistanceMm = 35.4f,
             lasers = new[]
             {
                 // Bank B, Firing Sequence 1
@@ -822,7 +822,7 @@ namespace RGLUnityPlugin
 
         public static LaserArray HesaiPandar128E4X => new LaserArray
         {
-            centerOfMeasurementLinearOffsetMm = new Vector3(0.0f, 84.43f, 0.0f),
+            centerOfMeasurementLinearOffsetMm = new Vector3(0.0f, 88.33f, 0.0f),
             focalDistanceMm = 0.0f,
             lasers = new[]
             {
@@ -962,7 +962,7 @@ namespace RGLUnityPlugin
         // Some lasers fire only on the one firing sequence and some of them fire on both. See manual for more details.
         public static LaserArray HesaiPandar128E4XHighRes => new LaserArray
         {
-            centerOfMeasurementLinearOffsetMm = new Vector3(0.0f, 84.43f, 0.0f),
+            centerOfMeasurementLinearOffsetMm = new Vector3(0.0f, 88.33f, 0.0f),
             focalDistanceMm = 0.0f,
             lasers = new[]
             {

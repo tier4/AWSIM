@@ -186,6 +186,7 @@ MonoBehaviour:
   applyDistanceGaussianNoise: 1
   applyAngularGaussianNoise: 1
   applyVelocityDistortion: 0
+  doValidateConfigurationOnStartup: 1
   configuration:
     id: 0
   outputRestriction:
@@ -193,10 +194,10 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: HesaiPandar128E4XLidarConfiguration, ns: RGLUnityPlugin, asm: Assembly-CSharp}
+      type: {class: HesaiPandar128E4XLidarConfiguration, ns: RGLUnityPlugin, asm: AWSIM}
       data:
         _laserArray:
-          centerOfMeasurementLinearOffsetMm: {x: 0, y: 84.43, z: 0}
+          centerOfMeasurementLinearOffsetMm: {x: 0, y: 88.33, z: 0}
           focalDistanceMm: 0
           lasers:
           - horizontalAngularOffsetDeg: 0.186

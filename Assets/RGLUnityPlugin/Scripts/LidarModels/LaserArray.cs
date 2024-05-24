@@ -22,7 +22,7 @@ namespace RGLUnityPlugin
     /// Describes a LiDAR's array of lasers.
     /// </summary>
     [System.Serializable]
-    public struct LaserArray
+    public struct LaserArray : IEquatable<LaserArray>
     {
         //             |
         //  .---------------------.
@@ -126,5 +126,30 @@ namespace RGLUnityPlugin
         {
             return mm / 1000.0f;
         }
+
+        //// IEquatable interface
+        public bool Equals(LaserArray other)
+        {
+            if (lasers.Length != other.lasers.Length)
+            {
+                return false;
+            }
+            for (int i = 0; i < lasers.Length; i++)
+            {
+                if (!lasers[i].Equals(other.lasers[i]))
+                    return false;
+            }
+
+            return this.centerOfMeasurementLinearOffsetMm.Equals(other.centerOfMeasurementLinearOffsetMm) &&
+                   this.focalDistanceMm == other.focalDistanceMm;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is LaserArray equatable && Equals(equatable);
+        }
+
+        public override int GetHashCode() =>
+            (centerOfMeasurementLinearOffsetMm, focalDistanceMm, lasers.GetHashCode()).GetHashCode();
     }
 }

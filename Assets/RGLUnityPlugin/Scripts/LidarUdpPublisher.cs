@@ -65,7 +65,8 @@ namespace RGLUnityPlugin
             { LidarModel.HesaiPandar40P, RGLLidarModel.RGL_HESAI_PANDAR_40P },
             { LidarModel.HesaiPandarQT, RGLLidarModel.RGL_HESAI_PANDAR_QT64 },
             { LidarModel.HesaiQT128C2X, RGLLidarModel.RGL_HESAI_QT128C2X },
-            { LidarModel.HesaiPandar128E4X, RGLLidarModel.RGL_HESAI_PANDAR_128E4X }
+            { LidarModel.HesaiPandar128E4X, RGLLidarModel.RGL_HESAI_PANDAR_128E4X },
+            { LidarModel.HesaiPandarXT32, RGLLidarModel.RGL_HESAI_PANDAR_XT32 }
         };
 
         // Note: When selecting dual return mode, there will be still single return data but packed in the dual return packet format
@@ -88,7 +89,9 @@ namespace RGLUnityPlugin
                   RGLReturnMode.DualReturnStrongestSecondStrongest, RGLReturnMode.DualReturnFirstSecond } },
             { LidarModel.HesaiPandar128E4X, new List<RGLReturnMode>()
                 { RGLReturnMode.SingleReturnFirst, RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast,
-                  RGLReturnMode.DualReturnLastStrongest, RGLReturnMode.DualReturnFirstLast, RGLReturnMode.DualReturnFirstStrongest } }
+                  RGLReturnMode.DualReturnLastStrongest, RGLReturnMode.DualReturnFirstLast, RGLReturnMode.DualReturnFirstStrongest } },
+            { LidarModel.HesaiPandarXT32, new List<RGLReturnMode>()
+                { RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast, RGLReturnMode.DualReturnLastStrongest } },
         };
 
         private bool IsVelodyne(LidarModel model)
@@ -102,6 +105,7 @@ namespace RGLUnityPlugin
         {
             return model == LidarModel.HesaiPandar40P ||
                    model == LidarModel.HesaiPandarQT ||
+                   model == LidarModel.HesaiPandarXT32 ||
                    model == LidarModel.HesaiQT128C2X ||
                    model == LidarModel.HesaiPandar128E4X;
         }
@@ -276,7 +280,11 @@ namespace RGLUnityPlugin
                 enableHesaiUdpSequence = false;
                 Debug.LogWarning($"{name}: enableHesaiUdpSequence option is not available for selected LiDAR model. Disabling option...");
             }
-            if ((currentLidarModel == LidarModel.HesaiQT128C2X || currentLidarModel == LidarModel.HesaiPandar128E4X) && !enableHesaiUdpSequence)
+            // LiDARs that need udp sequence flag to be set
+            if ((currentLidarModel == LidarModel.HesaiQT128C2X
+                 || currentLidarModel == LidarModel.HesaiPandar128E4X
+                 || currentLidarModel == LidarModel.HesaiPandarXT32)
+                && !enableHesaiUdpSequence)
             {
                 enableHesaiUdpSequence = true;
                 Debug.LogWarning($"{name}: enableHesaiUdpSequence option must be enabled for selected LiDAR model. Enabling option...");

@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
+
 namespace RGLUnityPlugin
 {
     /// <summary>
@@ -20,7 +22,7 @@ namespace RGLUnityPlugin
     /// Numbers are expressed in terms of Unity axes convention.
     /// </summary>
     [System.Serializable]
-    public struct Laser
+    public struct Laser : IEquatable<Laser>
     {
         /// <summary>
         /// Rotation around Y-axis.
@@ -61,5 +63,25 @@ namespace RGLUnityPlugin
         /// Note: May be ignored for some `LidarConfiguration`s (e.g. `UniformRangeLidarConfiguration`)
         /// </summary>
         public float maxRange;
+
+        //// IEquatable interface
+        public bool Equals(Laser other)
+        {
+            return this.horizontalAngularOffsetDeg == other.horizontalAngularOffsetDeg &&
+                   this.verticalAngularOffsetDeg == other.verticalAngularOffsetDeg &&
+                   this.verticalLinearOffsetMm == other.verticalLinearOffsetMm &&
+                   this.ringId == other.ringId &&
+                   this.timeOffset == other.timeOffset &&
+                   this.minRange == other.minRange &&
+                   this.maxRange == other.maxRange;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Laser equatable && Equals(equatable);
+        }
+
+        public override int GetHashCode() =>
+            (horizontalAngularOffsetDeg, verticalAngularOffsetDeg, verticalLinearOffsetMm, ringId, timeOffset, minRange, maxRange).GetHashCode();
     }
 }

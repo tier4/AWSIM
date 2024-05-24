@@ -23,13 +23,13 @@ The desired `TimeSource` can be selected in two ways:
 
 #### List of Time Sources
 
-| Type | String Value for JSON Config | Description |
-|:-|:-|:-|
-| UNITY | unity | based on the time of the _Unity Engine_ |
-| SS2 | ss2 | driven by an external source, used by the [scenario simulator v2](../../ScenarioSimulation/PreparingTheConnectionBetweenAWSIMAndScenarioSimulator/) |
-| DOTNET_SYSTEM | system | based on system time, starting with time since UNIX epoch, progressing according to simulation timescale |
-| DOTNET_SIMULATION | simulation | based on system time, starting with zero value, progressing according to simulation timescale |
-| ROS2 | ros2 | based on _ROS2_ time (system time by default) |
+| Type | String Value for JSON Config | Driven by | Start Value | Affected by Time Scale | Remarks |
+|:-|:-|:-|:-|:-|:-|
+| UNITY | unity | UnityEngine.Time | 0 | yes | |
+| SS2 | ss2 | externally | depends on external source | no | used by the [scenario simulator v2](../../ScenarioSimulation/PreparingTheConnectionBetweenAWSIMAndScenarioSimulator/) |
+| DOTNET_SYSTEM | system | System.DateTime | UNIX epoch| yes| starts with UNIX epoch time and progresses with System.DateTime scaled by AWSIM time scale |
+| DOTNET_SIMULATION | simulation | System.DateTime | 0 | yes | starts with zero value and progresses with System.DateTime scaled by AWSIM time scale |
+| ROS2 | ros2 | ROS2.Clock | UNIX epoch (by default)| no | uses ROS 2 time |
 
 
 

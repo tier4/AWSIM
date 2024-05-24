@@ -73,7 +73,7 @@ namespace AWSIM
                 vehicle.SignalInput = input;
         }
 
-        void Start()
+        void OnEnable()
         {
             var qos = qosSettings.GetQoSProfile();
 
@@ -124,7 +124,7 @@ namespace AWSIM
                     });
         }
 
-        void OnDestroy()
+        void OnDisable()
         {
             SimulatorROS2Node.RemoveSubscription<autoware_auto_vehicle_msgs.msg.TurnIndicatorsCommand>(turnIndicatorsCommandSubscriber);
             SimulatorROS2Node.RemoveSubscription<autoware_auto_vehicle_msgs.msg.HazardLightsCommand>(hazardLightsCommandSubscriber);

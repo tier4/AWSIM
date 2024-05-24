@@ -52,6 +52,7 @@ nav:
     - Scenes: ProjectGuide/Scenes/index.md
     - Git Branch: ProjectGuide/GitBranch/index.md
     - External Libraries: ProjectGuide/ExternalLibraries/index.md
+    - Testing: ProjectGuide/Testing/index.md
 
   - Components:
     - Clock:
