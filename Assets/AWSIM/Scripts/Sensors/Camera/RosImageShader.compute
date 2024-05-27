@@ -18,7 +18,7 @@ uint ColorToUInt(float number)
     return uint(uint(number * 255) & 0xff);
 }
 
-[numthreads(32,1,1)]
+[numthreads(128,1,1)]
 void RosImageShaderKernel (uint3 id : SV_DispatchThreadID)
 {
     uint pixelIndex = id.x * SIZE_OF_UINT / BYTES_PER_PIXEL;
