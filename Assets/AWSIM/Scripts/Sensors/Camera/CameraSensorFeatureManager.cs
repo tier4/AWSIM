@@ -6,6 +6,12 @@ namespace AWSIM
 {
     /// <summary>
     /// Camera sensor feature manager class, serves as a user interface for configuring parameters related to camera features.
+    /// This is a class that sets the volume or camera parameters. 
+    /// the CameraSensorFeatureManager is designed for ease of use. It acts as an interface for the user to enable/disable and control the camera effects.
+    /// The problem with controlling camera effects without the CameraSensorFeatureManager is that some effects are accessed in the volume object, 
+    /// while others are accessed in the camera object.
+    /// There are also effects, such as motion blur, that require the camera object to be enabled. 
+    /// The intention of this CameraSensorFeatureManager is to handle all this for the user.
     /// </summary>
     public class CameraSensorFeatureManager : MonoBehaviour
     {
