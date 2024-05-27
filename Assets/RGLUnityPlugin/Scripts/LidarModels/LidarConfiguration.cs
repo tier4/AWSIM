@@ -125,6 +125,29 @@ namespace RGLUnityPlugin
         {
             return Matrix4x4.Translate(laserArray.centerOfMeasurementLinearOffsetMm / 1000.0f);
         }
+
+        /// <summary>
+        /// Validates if the configuration is the same as the default configuration for the given model.
+        /// Parameters that can be modified in the real-world LiDARs are omitted from the comparison.
+        /// </summary>
+        public virtual bool ValidateWithModel(LidarModel model)
+        {
+            return ValidateWithModel(LidarConfigurationLibrary.ByModel[model]());
+        }
+
+        // Need to create separate method with gold config parameter for derived classes.
+        // In some cases (e.g. in `HesaiPandar128E4XLidarConfiguration`) gold must be configured additionally.
+        protected bool ValidateWithModel(BaseLidarConfiguration gold)
+        {
+            return laserArrayCycleTime == gold.laserArrayCycleTime &&
+                   beamDivergence == gold.beamDivergence &&
+                   noiseParams.Equals(gold.noiseParams) &&
+                   laserArray.Equals(gold.laserArray);
+                   // Omitted values
+                   // horizontalResolution == gold.horizontalResolution
+                   // minHAngle == gold.minHAngle
+                   // maxHAngle == gold.maxHAngle
+        }
     }
 
     /// <summary>
@@ -150,6 +173,15 @@ namespace RGLUnityPlugin
         public override Vector2[] GetRayRanges()
         {
             return new Vector2[1] {new Vector2(minRange, maxRange)};
+        }
+
+        public override bool ValidateWithModel(LidarModel model)
+        {
+            var gold = LidarConfigurationLibrary.ByModel[model]();
+            return base.ValidateWithModel(gold) &&
+                   gold is UniformRangeLidarConfiguration goldTyped &&
+                   minRange == goldTyped.minRange &&
+                   maxRange == goldTyped.maxRange;
         }
     }
 
@@ -182,6 +214,13 @@ namespace RGLUnityPlugin
                 }
             }
             return rayRanges;
+        }
+
+        public override bool ValidateWithModel(LidarModel model)
+        {
+            var gold = LidarConfigurationLibrary.ByModel[model]();
+            return base.ValidateWithModel(gold) &&
+                   gold is HesaiAT128LidarConfiguration;
         }
     }
 
@@ -221,6 +260,13 @@ namespace RGLUnityPlugin
                 }
             }
             return rayPoses;
+        }
+
+        public override bool ValidateWithModel(LidarModel model)
+        {
+            var gold = LidarConfigurationLibrary.ByModel[model]();
+            return base.ValidateWithModel(gold) &&
+                   gold is HesaiQT128C2XLidarConfiguration;
         }
     }
 
@@ -280,6 +326,21 @@ namespace RGLUnityPlugin
                 }
             }
             return rayPoses;
+        }
+
+        public override bool ValidateWithModel(LidarModel model)
+        {
+            var gold = LidarConfigurationLibrary.ByModel[model]() as HesaiPandar128E4XLidarConfiguration;
+            if (gold == null)
+            {
+                return false;
+            }
+
+            // Set the same high resolution mode flag to the gold config
+            // Laser array changes for standard and high resolution mode
+            gold.highResolutionModeEnabled = highResolutionModeEnabled;
+
+            return base.ValidateWithModel(gold);
         }
     }
 }
