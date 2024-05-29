@@ -45,6 +45,12 @@ namespace RGLUnityPlugin
         [Tooltip("Allows to select one of built-in LiDAR models")]
         public LidarModel modelPreset = LidarModel.RangeMeter;
 
+        [Tooltip("TODO")]
+        public RGLReturnType returnType = RGLReturnType.RGL_RETURN_TYPE_NOT_DIVERGENT;
+
+        [Tooltip("TODO")] [Range(0, 10)]
+        public float beamDivergenceMilliRad = 3;
+
         [Tooltip("Allows to quickly enable/disable distance gaussian noise")]
         public bool applyDistanceGaussianNoise = true;
 
@@ -80,6 +86,7 @@ namespace RGLUnityPlugin
         private const string lidarPoseNodeId = "LIDAR_POSE";
         private const string noiseLidarRayNodeId = "NOISE_LIDAR_RAY";
         private const string lidarRaytraceNodeId = "LIDAR_RAYTRACE";
+        private const string lidarMRNodeId = "LIDAR_MR";
         private const string noiseHitpointNodeId = "NOISE_HITPOINT";
         private const string noiseDistanceNodeId = "NOISE_DISTANCE";
         private const string pointsCompactNodeId = "POINTS_COMPACT";
@@ -107,6 +114,7 @@ namespace RGLUnityPlugin
                 .AddNodeRaysTransform(lidarPoseNodeId, Matrix4x4.identity)
                 .AddNodeGaussianNoiseAngularRay(noiseLidarRayNodeId, 0, 0)
                 .AddNodeRaytrace(lidarRaytraceNodeId)
+                .AddNodeMultiReturnSwitch(lidarMRNodeId, RGLReturnType.RGL_RETURN_TYPE_NOT_DIVERGENT)
                 .AddNodeGaussianNoiseAngularHitpoint(noiseHitpointNodeId, 0, 0)
                 .AddNodeGaussianNoiseDistance(noiseDistanceNodeId, 0, 0, 0);
 
@@ -157,7 +165,7 @@ namespace RGLUnityPlugin
         public void OnValidate()
         {
             // This tricky code ensures that configuring from a preset dropdown
-            // in Unity Inspector works well in prefab edit mode and regular edit mode. 
+            // in Unity Inspector works well in prefab edit mode and regular edit mode.
             bool presetChanged = validatedPreset != modelPreset;
             bool firstValidation = validatedPreset == null;
             if (!firstValidation && presetChanged)
@@ -180,17 +188,20 @@ namespace RGLUnityPlugin
             }
 
             rglGraphLidar.UpdateNodeRaysFromMat3x4f(lidarRaysNodeId, newConfig.GetRayPoses())
-                         .UpdateNodeRaysSetRange(lidarRangeNodeId, newConfig.GetRayRanges())
-                         .UpdateNodeRaysSetRingIds(lidarRingsNodeId, newConfig.GetRayRingIds())
-                         .UpdateNodeRaysTimeOffsets(lidarTimeOffsetsNodeId, newConfig.GetRayTimeOffsets())
-                         .UpdateNodeGaussianNoiseAngularRay(noiseLidarRayNodeId,
-                             newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,
-                             newConfig.noiseParams.angularNoiseStDev * Mathf.Deg2Rad)
-                         .UpdateNodeGaussianNoiseAngularHitpoint(noiseHitpointNodeId,
-                             newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,
-                             newConfig.noiseParams.angularNoiseStDev * Mathf.Deg2Rad)
-                         .UpdateNodeGaussianNoiseDistance(noiseDistanceNodeId, newConfig.noiseParams.distanceNoiseMean,
-                             newConfig.noiseParams.distanceNoiseStDevBase, newConfig.noiseParams.distanceNoiseStDevRisePerMeter);
+                .UpdateNodeRaysSetRange(lidarRangeNodeId, newConfig.GetRayRanges())
+                .UpdateNodeRaysSetRingIds(lidarRingsNodeId, newConfig.GetRayRingIds())
+                .UpdateNodeRaysTimeOffsets(lidarTimeOffsetsNodeId, newConfig.GetRayTimeOffsets())
+                .UpdateNodeGaussianNoiseAngularRay(noiseLidarRayNodeId,
+                    newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,
+                    newConfig.noiseParams.angularNoiseStDev * Mathf.Deg2Rad)
+                .UpdateNodeGaussianNoiseAngularHitpoint(noiseHitpointNodeId,
+                    newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,
+                    newConfig.noiseParams.angularNoiseStDev * Mathf.Deg2Rad)
+                .UpdateNodeGaussianNoiseDistance(noiseDistanceNodeId, newConfig.noiseParams.distanceNoiseMean,
+                    newConfig.noiseParams.distanceNoiseStDevBase, newConfig.noiseParams.distanceNoiseStDevRisePerMeter)
+                .UpdateMultiReturnSwitch(lidarMRNodeId, returnType);
+
+            rglGraphLidar.ConfigureNodeRaytraceBeamDivergence(lidarRaytraceNodeId, beamDivergenceMilliRad / 1000.0f);
 
             rglGraphLidar.SetActive(noiseDistanceNodeId, applyDistanceGaussianNoise);
             var angularNoiseType = newConfig.noiseParams.angularNoiseType;
