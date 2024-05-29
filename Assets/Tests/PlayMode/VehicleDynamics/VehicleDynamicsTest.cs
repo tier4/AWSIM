@@ -16,12 +16,12 @@ public class VehicleDynamicsTest
     Scene scene;
     PhysicsScene physicsScene;
 
-
     // Ego handlers
     GameObject egoGameObject;
     Vehicle egoVehicle;
     VehicleRosInput egoRosInput;
 
+    // ROS publishers
     ROS2.IPublisher<autoware_auto_vehicle_msgs.msg.GearCommand> gearCommandPublisher;
     ROS2.IPublisher<autoware_auto_control_msgs.msg.AckermannControlCommand> movementPublisher;
 
@@ -49,7 +49,7 @@ public class VehicleDynamicsTest
         }
     };
 
-
+    // Turn commands
     autoware_auto_control_msgs.msg.AckermannControlCommand leftCommand = new autoware_auto_control_msgs.msg.AckermannControlCommand()
     {
         Longitudinal = new autoware_auto_control_msgs.msg.LongitudinalCommand() {
@@ -80,17 +80,16 @@ public class VehicleDynamicsTest
     private float acceptableErrorDistance = 0.01f;
 
 
-
+    // --- TEST LIFE CYCLE ---//
 
     [UnitySetUp]
     public IEnumerator Setup()
     {
         yield return LoadSceneAsync();
+        yield return GetEgoComponents();
+        yield return CreateEgoCommonPublihers();
         yield return new WaitForFixedUpdate();
     }
-
-
-
 
     private IEnumerator LoadSceneAsync()
     {
@@ -107,23 +106,43 @@ public class VehicleDynamicsTest
         Assert.NotNull(physicsScene);
     }
 
-    private IEnumerator UnloadSceneAsync()
+    private IEnumerator GetEgoComponents()
     {
+        egoVehicle = GameObject.FindObjectOfType<AWSIM.Vehicle>();
+        egoGameObject = egoVehicle.gameObject;
+        egoRosInput = egoGameObject.GetComponent<VehicleRosInput>();
+
+        Assert.NotNull(egoRosInput);
+        Assert.NotNull(egoVehicle);
+
+        yield return new WaitForFixedUpdate();
+    }
+
+    private IEnumerator CreateEgoCommonPublihers()
+    {
+        string gearChangeTopic = egoRosInput.GetPrivateFieldValue<string>("gearCommandTopic");
+        gearCommandPublisher = SimulatorROS2Node.CreatePublisher<autoware_auto_vehicle_msgs.msg.GearCommand>(
+            gearChangeTopic,
+            qosSettings.GetQoSProfile()
+        );
+
+        string movementTopic = egoRosInput.GetPrivateFieldValue<string>("ackermannControlCommandTopic");
+        movementPublisher = SimulatorROS2Node.CreatePublisher<autoware_auto_control_msgs.msg.AckermannControlCommand>(
+            movementTopic,
+            qosSettings.GetQoSProfile()
+        );
         yield return new WaitForFixedUpdate();
     }
 
 
-
-    private IEnumerator SpawnEgoVehicle()
+    [UnityTearDown]
+    public IEnumerator TearDown()
     {
-        //TestVehicleSpawner spawner = GameObject.FindObjectOfType<TestVehicleSpawner>();
-        //egoGameObject = GameObject.Instantiate(spawner.EgoVehiclePrefab, Vector3.zero, Quaternion.identity);
-        //egoVehicle = GameObject.FindObjectOfType<AWSIM.Vehicle>();
         yield return new WaitForFixedUpdate();
+        yield return RemoveEgoCommonPublishers();
+        yield return RemoveEgoVehicle();
     }
-
-
-
+    
     private IEnumerator RemoveEgoVehicle()
     {
         Rigidbody rb = egoVehicle.GetComponent<Rigidbody>();
@@ -145,37 +164,6 @@ public class VehicleDynamicsTest
         }
     }
 
-
-    private IEnumerator GetEgoComponents()
-    {
-        egoVehicle = GameObject.FindObjectOfType<AWSIM.Vehicle>();
-        egoGameObject = egoVehicle.gameObject;
-        egoRosInput = egoGameObject.GetComponent<VehicleRosInput>();
-
-        Assert.NotNull(egoRosInput);
-        Assert.NotNull(egoVehicle);
-
-        yield return new WaitForFixedUpdate();
-    }
-
-
-
-    private IEnumerator CreateEgoCommonPublihers()
-    {
-        string gearChangeTopic = egoRosInput.GetPrivateFieldValue<string>("gearCommandTopic");
-        gearCommandPublisher = SimulatorROS2Node.CreatePublisher<autoware_auto_vehicle_msgs.msg.GearCommand>(
-            gearChangeTopic,
-            qosSettings.GetQoSProfile()
-        );
-
-        string movementTopic = egoRosInput.GetPrivateFieldValue<string>("ackermannControlCommandTopic");
-        movementPublisher = SimulatorROS2Node.CreatePublisher<autoware_auto_control_msgs.msg.AckermannControlCommand>(
-            movementTopic,
-            qosSettings.GetQoSProfile()
-        );
-        yield return new WaitForFixedUpdate();
-    }
-
     private IEnumerator RemoveEgoCommonPublishers()
     {
         SimulatorROS2Node.RemovePublisher<autoware_auto_control_msgs.msg.AckermannControlCommand>(movementPublisher);
@@ -186,24 +174,13 @@ public class VehicleDynamicsTest
 
 
 
-
+    // --- TEST ROUTINES --- //
 
     [UnityTest]
     public IEnumerator VehicleDynamics_StraightMove_LowAcceleration()
     {
-        yield return SpawnEgoVehicle();
-        yield return GetEgoComponents();
-        yield return CreateEgoCommonPublihers();
- 
         Vector3 expectedEndPosition = new Vector3(0.0005525741f, -0.07694209f, 3.983599f);
-
-        // The distance travelled by car is calculated using an analytical formula:
-        // 0.5 * accel * t^2
-        float errorThreshold = 0.1f; // The percentage by which the final position of the ego can deviate from the analytical position due to numerical error.
-        float driveTime = 4.0f; // Ego travel time
         float accel = 0.5f;
-        float expectedDistance = 0.5f * accel * driveTime * driveTime;
-        //float acceptableErrorDistance = expectedDistance * errorThreshold;
 
         autoware_auto_control_msgs.msg.AckermannControlCommand moveCmd = new autoware_auto_control_msgs.msg.AckermannControlCommand()
         {
@@ -211,8 +188,6 @@ public class VehicleDynamicsTest
                 Acceleration = accel
             }
         };
-
-        Vector3 initPosition = egoGameObject.transform.position;
 
 
         // Initial physics simulation steps
@@ -248,31 +223,14 @@ public class VehicleDynamicsTest
 
         
         float distanceToExpectedPosition = Vector3.Distance(expectedEndPosition, egoGameObject.transform.position);
-        Debug.Log("LA: " + distanceToExpectedPosition);
         Assert.That(Utils.AreFloatsEqual(0.0f, distanceToExpectedPosition, acceptableErrorDistance), Is.True);
-
-
-        yield return RemoveEgoCommonPublishers();
-        yield return RemoveEgoVehicle();   
     }
 
     [UnityTest]
     public IEnumerator VehicleDynamics_StraightMove_MiddleAcceleration()
     {
-        yield return SpawnEgoVehicle();
-        yield return GetEgoComponents();
-        yield return CreateEgoCommonPublihers();
-
-
         Vector3 expectedEndPosition = new Vector3(0.003112176f, -0.07788333f, 7.9672f);
-
-        // The distance travelled by car is calculated using an analytical formula:
-        // 0.5 * accel * t^2
-        float errorThreshold = 0.1f; // The percentage by which the final position of the ego can deviate from the analytical position due to numerical error.
-        float driveTime = 4.0f; // Ego travel time
         float accel = 1.0f;
-        float expectedDistance = 0.5f * accel * driveTime * driveTime;
-        //float acceptableErrorDistance = expectedDistance * errorThreshold;
 
         autoware_auto_control_msgs.msg.AckermannControlCommand moveCmd = new autoware_auto_control_msgs.msg.AckermannControlCommand()
         {
@@ -280,8 +238,6 @@ public class VehicleDynamicsTest
                 Acceleration = accel
             }
         };
-
-        Vector3 initPosition = egoGameObject.transform.position;
 
 
         // Initial physics simulation steps
@@ -299,7 +255,7 @@ public class VehicleDynamicsTest
             yield return new WaitForFixedUpdate();
         }
 
-        // Set Vehicle gear to DRIVE
+        // Set Vehicle to DRIVE
         gearCommandPublisher.Publish(driveGearCommand);
         for(int i=0; i<6; i++)
         {
@@ -317,32 +273,14 @@ public class VehicleDynamicsTest
 
 
         float distanceToExpectedPosition = Vector3.Distance(expectedEndPosition, egoGameObject.transform.position);
-
-        Debug.Log("MA: " + distanceToExpectedPosition);
-        Assert.That(Utils.AreFloatsEqual(0.0f, distanceToExpectedPosition, acceptableErrorDistance), Is.True);
-
- 
-        yield return RemoveEgoCommonPublishers();
-        yield return RemoveEgoVehicle();       
+        Assert.That(Utils.AreFloatsEqual(0.0f, distanceToExpectedPosition, acceptableErrorDistance), Is.True);  
     }
 
     [UnityTest]
     public IEnumerator VehicleDynamics_StraightMove_HighAcceleration()
     {
-        yield return SpawnEgoVehicle();
-        yield return GetEgoComponents();
-        yield return CreateEgoCommonPublihers();
-
-
-        Vector3 expectedEndPosition = new Vector3(0.01421936f, -0.07976329f, 15.9344f);
-
-        // The distance travelled by car is calculated using an analytical formula:
-        // 0.5 * accel * t^2
-        float errorThreshold = 0.1f; // The percentage by which the final position of the ego can deviate from the analytical position due to numerical error.
-        float driveTime = 4.0f; // Ego travel time
+        Vector3 expectedEndPosition = new Vector3(0.01421936f, -0.07976329f, 15.9344f);  
         float accel = 2.0f;
-        float expectedDistance = 0.5f * accel * driveTime * driveTime;
-        //float acceptableErrorDistance = expectedDistance * errorThreshold;
 
         autoware_auto_control_msgs.msg.AckermannControlCommand moveCmd = new autoware_auto_control_msgs.msg.AckermannControlCommand()
         {
@@ -350,8 +288,6 @@ public class VehicleDynamicsTest
                 Acceleration = accel
             }
         };
-
-        Vector3 initPosition = egoGameObject.transform.position;
 
 
         // Initial physics simulation steps
@@ -369,7 +305,7 @@ public class VehicleDynamicsTest
             yield return new WaitForFixedUpdate();
         }
 
-        // Set Vehicle gear to DRIVE
+        // Set Vehicle to DRIVE
         gearCommandPublisher.Publish(driveGearCommand);
         for(int i=0; i<6; i++)
         {
@@ -387,26 +323,15 @@ public class VehicleDynamicsTest
 
 
         float distanceToExpectedPosition = Vector3.Distance(expectedEndPosition, egoGameObject.transform.position);
-
-        Debug.Log("HA: " + distanceToExpectedPosition);
         Assert.That(Utils.AreFloatsEqual(0.0f, distanceToExpectedPosition, acceptableErrorDistance), Is.True);
-
-
-        yield return RemoveEgoCommonPublishers();
-        yield return RemoveEgoVehicle();
     }
-
 
     [UnityTest]
     public IEnumerator VehicleDynamics_TurnLeft()
     {
-        yield return SpawnEgoVehicle();
-        yield return GetEgoComponents();
-        yield return CreateEgoCommonPublihers();
-
         Vector3 expectedEndPosition = new Vector3(-17.19837f, -0.07222256f, 16.39548f);
 
-        //movementPublisher.Publish(stopCommand);
+
         // Initial physics simulation steps
         for(int i=0; i<10; i++)
         {
@@ -422,7 +347,7 @@ public class VehicleDynamicsTest
             yield return new WaitForFixedUpdate();
         }
 
-        // Set Vehicle gear to DRIVE
+        // Set Vehicle to DRIVE
         gearCommandPublisher.Publish(driveGearCommand);
         for(int i=0; i<6; i++)
         {
@@ -472,23 +397,14 @@ public class VehicleDynamicsTest
 
 
         float distanceToExpectedPosition = Vector3.Distance(expectedEndPosition, egoGameObject.transform.position);
-
-        Debug.Log("L: " + distanceToExpectedPosition);
         Assert.That(Utils.AreFloatsEqual(0.0f, distanceToExpectedPosition, acceptableErrorDistance), Is.True);
-    
-        yield return RemoveEgoCommonPublishers();
-        yield return RemoveEgoVehicle();
     }
 
     [UnityTest]
     public IEnumerator VehicleDynamics_RightLeft()
     {
-        yield return SpawnEgoVehicle();
-        yield return GetEgoComponents();
-        yield return CreateEgoCommonPublihers();
-
-
         Vector3 expectedEndPosition = new Vector3(17.31582f, -0.07222262f, 16.27713f);
+
 
         // Initial physics simulation steps
         for(int i=0; i<10; i++)
@@ -505,7 +421,7 @@ public class VehicleDynamicsTest
             yield return new WaitForFixedUpdate();
         }
 
-        // Set Vehicle gear to DRIVE
+        // Set Vehicle to DRIVE
         gearCommandPublisher.Publish(driveGearCommand);
         for(int i=0; i<6; i++)
         {
@@ -555,21 +471,14 @@ public class VehicleDynamicsTest
 
 
         float distanceToExpectedPosition = Vector3.Distance(expectedEndPosition, egoGameObject.transform.position);
-        Debug.Log("R: " + distanceToExpectedPosition);
         Assert.That(Utils.AreFloatsEqual(0.0f, distanceToExpectedPosition, acceptableErrorDistance), Is.True);
-    
-        yield return RemoveEgoCommonPublishers();
-        yield return RemoveEgoVehicle();
     }
 
     [UnityTest]
     public IEnumerator VehicleDynamics_UTurn()
     {
-        yield return SpawnEgoVehicle();
-        yield return GetEgoComponents();
-        yield return CreateEgoCommonPublihers();
-
         Vector3 expectedEndPosition = new Vector3(9.046477f, -0.07222325f, -3.879607f);
+
 
         // Initial physics simulation steps
         for(int i=0; i<10; i++)
@@ -586,7 +495,7 @@ public class VehicleDynamicsTest
             yield return new WaitForFixedUpdate();
         }
 
-        // Set Vehicle gear to DRIVE
+        // Set Vehicle to DRIVE
         gearCommandPublisher.Publish(driveGearCommand);
         for(int i=0; i<6; i++)
         {
@@ -636,22 +545,12 @@ public class VehicleDynamicsTest
 
 
         float distanceToExpectedPosition = Vector3.Distance(expectedEndPosition, egoGameObject.transform.position);
-
-        Debug.Log("U: " + distanceToExpectedPosition);
         Assert.That(Utils.AreFloatsEqual(0.0f, distanceToExpectedPosition, acceptableErrorDistance), Is.True);
-    
-        yield return RemoveEgoCommonPublishers();
-        yield return RemoveEgoVehicle();
     }
 
     [UnityTest]
     public IEnumerator VehicleDynamics_LineChange()
     {
-        yield return SpawnEgoVehicle();
-        yield return GetEgoComponents();
-        yield return CreateEgoCommonPublihers();
-
-
         Vector3 expectedEndPosition = new Vector3(2.553552f, -0.07222325f, 28.81023f);
 
         autoware_auto_control_msgs.msg.AckermannControlCommand leftCmd = new autoware_auto_control_msgs.msg.AckermannControlCommand()
@@ -674,6 +573,7 @@ public class VehicleDynamicsTest
             }
         };
 
+
         // Initial physics simulation steps
         for(int i=0; i<10; i++)
         {
@@ -689,7 +589,7 @@ public class VehicleDynamicsTest
             yield return new WaitForFixedUpdate();
         }
 
-        // Set Vehicle gear to DRIVE
+        // Set Vehicle to DRIVE
         gearCommandPublisher.Publish(driveGearCommand);
         for(int i=0; i<6; i++)
         {
@@ -729,11 +629,7 @@ public class VehicleDynamicsTest
         }
 
         float distanceToExpectedPosition = Vector3.Distance(expectedEndPosition, egoGameObject.transform.position);
-        Debug.Log("LL: " + distanceToExpectedPosition);
         Assert.That(Utils.AreFloatsEqual(0.0f, distanceToExpectedPosition, acceptableErrorDistance), Is.True);
-    
-        yield return RemoveEgoCommonPublishers();
-        yield return RemoveEgoVehicle();
     }
 
 }
