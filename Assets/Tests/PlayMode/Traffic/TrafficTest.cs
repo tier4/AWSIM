@@ -6,13 +6,13 @@ using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using AWSIM.TrafficSimulation;
 using AWSIM;
+using AWSIM.Tests;
 using System;
 using System.Collections.Generic;
 
 public class TrafficTest
 {
     // Scene handling
-    AsyncOperation sceneLoader;
     string sceneName = "TrafficTest";
     Scene scene;
     AsyncOperation aOp;
@@ -20,11 +20,16 @@ public class TrafficTest
     // Traffic handles
     TrafficManager trafficManager;
     TrafficTestUtils trafficTestUtils;
+    TrafficTestEnvironmentCollection trafficEnvironmentCollection;
+    TrafficTestScenarioCollection trafficTestScenarioCollection;
+
+
+    // --- TEST LIFE CYCLE ---//
 
     [UnitySetUp]
     public IEnumerator Setup()
     {
-        aOp = EditorSceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        aOp = EditorSceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
 
         yield return new WaitUntil(() => aOp.isDone);
         scene = EditorSceneManager.GetSceneByName(sceneName);
@@ -36,14 +41,41 @@ public class TrafficTest
 
         trafficTestUtils = GameObject.FindObjectOfType<TrafficTestUtils>();
         Assert.NotNull(trafficTestUtils);
+
+        trafficEnvironmentCollection = GameObject.FindObjectOfType<TrafficTestEnvironmentCollection>();
+        Assert.NotNull(trafficEnvironmentCollection);
+
+        trafficTestScenarioCollection = GameObject.FindObjectOfType<TrafficTestScenarioCollection>();
+        Assert.NotNull(trafficTestScenarioCollection);
+
         yield return null;
     }
 
+    private IEnumerator SetupEnvironment(string testName)
+    {
+        Camera.main.transform.position = trafficEnvironmentCollection.GetCameraPosition(testName);
+        Camera.main.transform.eulerAngles = trafficEnvironmentCollection.GetCameraRotation(testName);
+
+        trafficEnvironmentCollection.SelectEnvironment(testName);
+        yield return null;
+    }
+
+    [UnityTearDown]
+    public IEnumerator TearDown() 
+    {
+        yield return null;
+    }
+
+
+    // --- TEST ROUTINES --- //
 
     static int[] numberOfNPCs = new int[] { 1, 2, 3, 4 };
     [UnityTest]
     public IEnumerator RandomTrafficSpawn([ValueSource("numberOfNPCs")] int numberOfNPCs)
     {
+        string testScenario = "Straight_Lanes";
+        yield return SetupEnvironment(testScenario);
+
         yield return new WaitForSeconds(1);
 
         var singlePrefab = trafficTestUtils.prefabs;
@@ -81,6 +113,9 @@ public class TrafficTest
     [UnityTest]
     public IEnumerator SeedSpawn([ValueSource("seedNumbers")] int seed)
     {
+        string testScenario = "Straight_Lanes";
+        yield return SetupEnvironment(testScenario);
+
         yield return new WaitForSeconds(1);
 
         UnityEngine.Random.InitState(seed);
@@ -111,6 +146,9 @@ public class TrafficTest
     [UnityTest]
     public IEnumerator Despawn()
     {
+        string testScenario = "Straight_Lanes";
+        yield return SetupEnvironment(testScenario);
+
         yield return new WaitForSeconds(1);
 
         var singlePrefab = trafficTestUtils.prefabs;
@@ -133,9 +171,163 @@ public class TrafficTest
         Assert.AreEqual(GameObject.FindObjectsOfType<NPCVehicle>().Length, 0);
     }
 
-    [TearDown]
-    public void TearDown() 
+    [UnityTest]
+    public IEnumerator TrafficManager_MoveStraight_GreenLight()
     {
-        EditorSceneManager.UnloadScene(scene);
+        string testScenario = "Intersections";
+        yield return SetupEnvironment(testScenario);
+        yield return new WaitForFixedUpdate();
+
+        TestRouteTrafficConfiguration[] routeConfigs = trafficTestScenarioCollection.
+            GetTestRouteTrafficConfigs("MoveStraight_GreenLight");
+        Assert.NotNull(routeConfigs);
+
+        foreach (var route in routeConfigs)
+        {
+            RouteTrafficSimulator routeTs = new RouteTrafficSimulator(
+                trafficManager.gameObject,
+                route.Config.npcPrefabs,
+                route.Config.route,
+                trafficManager.npcVehicleSimulator,
+                route.Config.maximumSpawns
+            );
+
+            routeTs.enabled = true;
+            trafficManager.AddTrafficSimulator(routeTs);
+        }
+
+        yield return new WaitForSecondsRealtime(1.0f);
+
+        NPCVehicle[] npcs = GameObject.FindObjectsOfType<NPCVehicle>();
+        Assert.NotNull(npcs);
+        Assert.AreEqual(npcs.Length, 1);
+
+        for(int i=0; i<15; i++)
+        {
+            float speed = npcs[0].GetPrivateFieldValue<float>("speed");
+            Assert.Greater(speed, 0f);
+            yield return new WaitForSecondsRealtime(1.0f);
+        }
+    }
+
+    [UnityTest]
+    public IEnumerator TrafficManager_MoveStraight_RedLight()
+    {
+        string testScenario = "Intersections";
+        yield return SetupEnvironment(testScenario);
+        yield return new WaitForFixedUpdate();
+
+        TestRouteTrafficConfiguration[] routeConfigs = trafficTestScenarioCollection.
+            GetTestRouteTrafficConfigs("MoveStraight_RedLight");
+        Assert.NotNull(routeConfigs);
+
+        foreach (var route in routeConfigs)
+        {
+            RouteTrafficSimulator routeTs = new RouteTrafficSimulator(
+                trafficManager.gameObject,
+                route.Config.npcPrefabs,
+                route.Config.route,
+                trafficManager.npcVehicleSimulator,
+                route.Config.maximumSpawns
+            );
+
+            routeTs.enabled = true;
+            trafficManager.AddTrafficSimulator(routeTs);
+        }
+
+        yield return new WaitForSecondsRealtime(1.0f);
+
+        NPCVehicle[] npcs = GameObject.FindObjectsOfType<NPCVehicle>();
+        Assert.NotNull(npcs);
+        Assert.AreEqual(npcs.Length, 1);
+
+        float speed = npcs[0].GetPrivateFieldValue<float>("speed");
+        Assert.Greater(speed, 0f);
+
+        // After 20 seconds NPCs should arrive intersection. There should be a red light for the NPC. Therefore the NPC should not be moving.
+        yield return new WaitForSecondsRealtime(20.0f);
+        speed = npcs[0].GetPrivateFieldValue<float>("speed");
+        Assert.LessOrEqual(Mathf.Abs(speed), 0.00001f);
+
+        // After next 20 seconds the traffic light should changed to green. Therefore the NPC should be moving.
+        yield return new WaitForSecondsRealtime(20.0f);
+        speed = npcs[0].GetPrivateFieldValue<float>("speed");
+        Assert.Greater(speed, 0f);
+    }
+
+    [UnityTest]
+    public IEnumerator TrafficManager_Oposite_GreeLight()
+    {
+        string testScenario = "Intersections";
+        yield return SetupEnvironment(testScenario);
+        yield return new WaitForFixedUpdate();
+
+        TestRouteTrafficConfiguration[] routeConfigs = trafficTestScenarioCollection.
+            GetTestRouteTrafficConfigs("Oposite_GreenLight");
+        Assert.NotNull(routeConfigs);
+
+        string firstVehicleExpectedName = routeConfigs[0].Config.npcPrefabs[0].name;
+
+        foreach (var route in routeConfigs)
+        {
+            RouteTrafficSimulator routeTs = new RouteTrafficSimulator(
+                trafficManager.gameObject,
+                route.Config.npcPrefabs,
+                route.Config.route,
+                trafficManager.npcVehicleSimulator,
+                route.Config.maximumSpawns
+            );
+
+            routeTs.enabled = true;
+            trafficManager.AddTrafficSimulator(routeTs);
+        }
+
+        yield return new WaitForSecondsRealtime(1.0f);
+
+        NPCVehicle[] npcs = GameObject.FindObjectsOfType<NPCVehicle>();
+        Assert.NotNull(npcs);
+        Assert.AreEqual(npcs.Length, 2);
+
+        NPCVehicle firstVehicle = default;
+        NPCVehicle secondVehicle = default;
+        if(npcs[0].name.Contains(firstVehicleExpectedName))
+        {
+            firstVehicle = npcs[0];
+            secondVehicle = npcs[1];
+        }
+        else
+        {
+            firstVehicle = npcs[1];
+            secondVehicle = npcs[0];
+        }
+
+        Assert.NotNull(firstVehicle);
+        Assert.NotNull(secondVehicle);
+
+        for(int i=0; i<15; i++)
+        {
+            // The second vehicle should move continuously without stopping during the test.
+            float speed = secondVehicle.GetPrivateFieldValue<float>("speed");
+            Assert.Greater(speed, 0f);
+            
+            // The first vehicle should give way to the second, so there is time when the first vehicle is not moving.
+            if(i == 0)
+            {
+                speed = firstVehicle.GetPrivateFieldValue<float>("speed");
+                Assert.Greater(speed, 0f);
+            }
+            else if(i == 5)
+            {
+                speed = firstVehicle.GetPrivateFieldValue<float>("speed");
+                Assert.LessOrEqual(Mathf.Abs(speed), 0.00001f);
+            }
+            else if(i == 14)
+            {
+                speed = firstVehicle.GetPrivateFieldValue<float>("speed");
+                Assert.Greater(speed, 0f);
+            }
+
+            yield return new WaitForSecondsRealtime(1.0f);
+        }
     }
 }
