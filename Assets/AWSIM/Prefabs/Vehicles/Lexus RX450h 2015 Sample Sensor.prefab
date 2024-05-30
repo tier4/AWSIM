@@ -234,6 +234,7 @@ MonoBehaviour:
     HistoryPolicy: 1
     Depth: 1
   vehicle: {fileID: 4981081891045692866}
+  VehicleOverrideInputManager: {fileID: 2465439770829660654}
 --- !u!1 &1550303714050415478
 GameObject:
   m_ObjectHideFlags: 0
@@ -1760,7 +1761,6 @@ GameObject:
   - component: {fileID: 2465439770829660652}
   - component: {fileID: 2465439770829660653}
   - component: {fileID: 2465439770829660654}
-  - component: {fileID: 8022422588395951425}
   m_Layer: 6
   m_Name: Lexus RX450h 2015 Sample Sensor
   m_TagString: Untagged
@@ -1883,6 +1883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1caf401807b82804d82ea6a18e4be978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vehicle: {fileID: 4981081891045692866}
   MaxAcceleraion: 1.5
   MaxSteerAngle: 35
 --- !u!114 &2465439770829660653
@@ -1920,23 +1921,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AutonomousInput: {fileID: 2465439770829660653}
-  ManuallyInput: {fileID: 8022422588395951425}
+  ManuallyInput: {fileID: 2465439770829660652}
   ControlMode: 1
   vehicle: {fileID: 4981081891045692866}
---- !u!114 &8022422588395951425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4981081891045692864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1caf401807b82804d82ea6a18e4be978, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxAcceleraion: 1.5
-  MaxSteerAngle: 35
 --- !u!1 &5383865282617533158
 GameObject:
   m_ObjectHideFlags: 0

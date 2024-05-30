@@ -7,7 +7,6 @@ namespace AWSIM
     /// <summary>
     /// Controls vehicle override inputs.
     /// </summary>
-    [RequireComponent(typeof(Vehicle))]
     public class VehicleOverrideInputManager : MonoBehaviour
     {
         public VehicleInputBase AutonomousInput;
@@ -26,8 +25,13 @@ namespace AWSIM
 
         void Update()
         {
-            AutonomousInput.OnUpdate();
-            ManuallyInput.OnUpdate();
+            AutonomousInput.OnUpdate(ControlMode);
+            ManuallyInput.OnUpdate(ControlMode);
+
+            if (ManuallyInput.Overriden)
+            {
+                ControlMode = ManuallyInput.NewControlMode;
+            }
 
             ApplyInput();
         }

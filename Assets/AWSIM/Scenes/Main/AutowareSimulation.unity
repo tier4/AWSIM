@@ -4525,7 +4525,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4981081891045692866, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
   m_PrefabInstance: {fileID: 2465439770829660650}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2050359808}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80ebb0e40b62ca443ba1d8ccf61fcbda, type: 3}
@@ -8484,6 +8484,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 30
   speed: 1
+--- !u!1 &2050359808 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4981081891045692864, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
+  m_PrefabInstance: {fileID: 2465439770829660650}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2050359809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050359808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747365a5a3d379d4d94716815ba217c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  engageTopic: /vehicle/engage
+  qosSettings:
+    ReliabilityPolicy: 1
+    DurabilityPolicy: 1
+    HistoryPolicy: 1
+    Depth: 1
+  vehicleOverrideInputManager: {fileID: 2050359810}
+--- !u!114 &2050359810 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2465439770829660654, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
+  m_PrefabInstance: {fileID: 2465439770829660650}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050359808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1ff86042a7910d489a3c7efbc59f984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2085225748 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9027057599743323132, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}

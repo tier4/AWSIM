@@ -107,5 +107,15 @@ namespace AWSIM
             else
                 return autoware_auto_vehicle_msgs.msg.HazardLightsReport.DISABLE;
         }
+
+        public static byte UnityToRosControlMode(VehicleControlMode controlMode)
+        {
+            if (controlMode == VehicleControlMode.AUTONOMOUS)
+                return autoware_auto_vehicle_msgs.msg.ControlModeReport.AUTONOMOUS;
+            else if (controlMode == VehicleControlMode.MANUAL)
+                return autoware_auto_vehicle_msgs.msg.ControlModeReport.MANUAL;
+            else
+                return autoware_auto_vehicle_msgs.msg.ControlModeReport.AUTONOMOUS;
+        }
     }
 }
