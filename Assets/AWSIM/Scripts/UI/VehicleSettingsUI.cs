@@ -13,16 +13,16 @@ namespace AWSIM
     /// </summary>
     public class VehicleSettingsUI : MonoBehaviour
     {
-        // vehicle components
-        [SerializeField] Vehicle vehicle;
-        [SerializeField] VehicleKeyboardInput keyboardInput;
-        [SerializeField] VehicleRosInput rosInput;
+        //// vehicle components
+        //[SerializeField] Vehicle vehicle;
+        //[SerializeField] VehicleKeyboardInput keyboardInput;
+        //[SerializeField] VehicleRosInput rosInput;
 
-        // Enable keyboard input when toggle is on
-        public void OnSwitchVehicleControl(bool isOn)
-        {
-            keyboardInput.enabled = isOn;
-            rosInput.enabled = !isOn;
-        }
+        //// Enable keyboard input when toggle is on
+        //public void OnSwitchVehicleControl(bool isOn)
+        //{
+        //    keyboardInput.enabled = isOn;
+        //    rosInput.enabled = !isOn;
+        //}
     }
 }

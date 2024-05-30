@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1519.6943, g: 1883.7118, b: 2490.025, a: 1}
+  m_IndirectSpecularColor: {r: 1536.168, g: 1903.334, b: 2519.2246, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4531,28 +4531,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80ebb0e40b62ca443ba1d8ccf61fcbda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &868086172 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 515532636256791959, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
-  m_PrefabInstance: {fileID: 2465439770829660650}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf5efb70a440286439770e3549221730, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &868086174 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4981081891045692867, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
-  m_PrefabInstance: {fileID: 2465439770829660650}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a266bb6c1315a6418ca5f241f8e20e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &888119289
 GameObject:
   m_ObjectHideFlags: 0
@@ -6023,10 +6001,10 @@ RectTransform:
   m_Father: {fileID: 51962877}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 246.81}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 165, y: -904.70496}
+  m_SizeDelta: {x: 330, y: 246.81}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1445957254
 MonoBehaviour:
@@ -6820,10 +6798,10 @@ RectTransform:
   m_Father: {fileID: 51962877}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 128}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 165, y: -74}
+  m_SizeDelta: {x: 330, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1622693342
 MonoBehaviour:
@@ -7530,10 +7508,10 @@ RectTransform:
   m_Father: {fileID: 51962877}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 241.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 165, y: -650.55}
+  m_SizeDelta: {x: 330, y: 241.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1812496617
 MonoBehaviour:
@@ -7719,7 +7697,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1925267639}
   m_HandleRect: {fileID: 1925267638}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -8413,10 +8391,10 @@ RectTransform:
   m_Father: {fileID: 51962877}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 371.8}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 165, y: -333.9}
+  m_SizeDelta: {x: 330, y: 371.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2000131150
 MonoBehaviour:
@@ -8430,9 +8408,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a4c4f92be2cd74788c963ea21ba744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vehicle: {fileID: 868086171}
-  keyboardInput: {fileID: 868086174}
-  rosInput: {fileID: 868086172}
 --- !u!1001 &2015196314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8922,57 +8897,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1416174297}
     m_Modifications:
-    - target: {fileID: 914137122625604907, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
-      propertyPath: OutputHz
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1195138626504501105, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
-      propertyPath: Topic
-      value: /awsim/ground_truth/localization/kinematic_state
-      objectReference: {fileID: 0}
-    - target: {fileID: 2019290181275176336, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
-      propertyPath: EnableGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2963106999894261215, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
-      propertyPath: m_Radius
-      value: 0.368
-      objectReference: {fileID: 0}
-    - target: {fileID: 2963106999894261215, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
-      propertyPath: m_SuspensionDistance
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2963107000584003441, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
-      propertyPath: m_Radius
-      value: 0.368
-      objectReference: {fileID: 0}
-    - target: {fileID: 2963107000584003441, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
-      propertyPath: m_SuspensionDistance
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2963107001160131319, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
-      propertyPath: m_Radius
-      value: 0.368
-      objectReference: {fileID: 0}
-    - target: {fileID: 2963107001160131319, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
-      propertyPath: m_SuspensionDistance
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2963107001926338971, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
-      propertyPath: m_Radius
-      value: 0.368
-      objectReference: {fileID: 0}
-    - target: {fileID: 2963107001926338971, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
-      propertyPath: m_SuspensionDistance
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 4981081891045692864, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_Name
       value: Lexus RX450h 2015 Sample Sensor
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981081891045692867, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5650763240072318842, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_RootOrder
@@ -9017,10 +8944,6 @@ PrefabInstance:
     - target: {fileID: 5650763240072318842, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5653496621862650956, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
-      propertyPath: imageOnGui.show
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
