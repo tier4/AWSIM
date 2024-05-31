@@ -47,17 +47,6 @@ public class SensorsTest
 
         // Comparers
         v3Comparer = new Vector3EqualityComparer(10e-6f);
-
-        // GNSS
-        poseMessages = new List<geometry_msgs.msg.PoseStamped>();
-        poseWithCovarianceMessages = new List<geometry_msgs.msg.PoseWithCovarianceStamped>();
-
-        //LiDAR
-        lidarMessages = new List<sensor_msgs.msg.PointCloud2>();
-
-        //IMU
-        imuMessages = new List<sensor_msgs.msg.Imu>();
-
     }
 
     [UnitySetUp]
@@ -73,6 +62,41 @@ public class SensorsTest
         testObjectEnvironmentCollection = GameObject.FindObjectOfType<TestObjectEnvironmentCollection>();
         Assert.NotNull(testObjectEnvironmentCollection);
         testObjectEnvironmentCollection.DisableAll();
+
+        // Init vars
+        yield return InitVars();
+
+        yield return null;
+    }
+
+    private IEnumerator InitVars()
+    {
+        // GNSS
+        if(poseMessages != null)
+        {
+            poseMessages.Clear();
+        }
+        poseMessages = new List<geometry_msgs.msg.PoseStamped>();
+
+        if(poseWithCovarianceMessages != null)
+        {
+            poseWithCovarianceMessages.Clear();
+        }
+        poseWithCovarianceMessages = new List<geometry_msgs.msg.PoseWithCovarianceStamped>();
+
+        // IMU
+        if(imuMessages != null)
+        {
+            imuMessages.Clear();
+        }
+        imuMessages = new List<sensor_msgs.msg.Imu>();
+
+        //LiDAR
+        if(lidarMessages != null)
+        {
+            lidarMessages.Clear();
+        }
+        lidarMessages = new List<sensor_msgs.msg.PointCloud2>();
 
         yield return null;
     }
@@ -90,6 +114,7 @@ public class SensorsTest
         {
             testObject.SetActive(true);
         }
+        
         yield return null;
     }
 
@@ -98,6 +123,7 @@ public class SensorsTest
     {
         EditorSceneManager.UnloadScene(scene);
     }
+
 
 
     // --- TEST ROUTINES --- //
@@ -190,6 +216,72 @@ public class SensorsTest
         SimulatorROS2Node.RemoveSubscription<sensor_msgs.msg.Imu>(imuSubscription);
     }
 
+    static Vector3[] accelDirections = new Vector3[] {new Vector3(1.0f, 0.0f, 0.0f), new Vector3(0.0f, 1.0f, 0.0f), new Vector3(0.0f, 0.0f, 1.0f)};
+    [UnityTest]
+    public IEnumerator IMU_Acceleration([ValueSource("accelDirections")] Vector3 accelDirection)
+    {
+        string testScenario = "Imu";
+        yield return SetupEnvironment(testScenario);
+        yield return new WaitForFixedUpdate();
+
+        float accelMagnitude = 1.0f;
+        Vector3 expectedAccel = AWSIM.ROS2Utility.UnityToRosPosition(accelDirection * accelMagnitude);
+        Vector3EqualityComparer imuAccelComparer = new Vector3EqualityComparer(10e-3f);
+
+        ImuSensor imuSensor = GameObject.FindObjectOfType<ImuSensor>();
+        Assert.NotNull(imuSensor);
+        ImuRos2Publisher imuRos2Publisher = imuSensor.GetComponent<ImuRos2Publisher>();
+
+        // reset position of Imu Sensor
+        float time = 0f;
+        Vector3 prevSpeed = Vector3.zero;
+        imuSensor.transform.position = Vector3.zero;
+
+        // The IMU position must be reset to zero for at least two consecutive frames.
+        for (int i=0; i<5; i++)
+        {
+            yield return new WaitForFixedUpdate();
+        }
+
+        ROS2.ISubscription<sensor_msgs.msg.Imu> imuSubscription = SimulatorROS2Node.
+            CreateSubscription<sensor_msgs.msg.Imu>(imuRos2Publisher.topic, msg =>
+        {
+            imuMessages.Add(msg);
+        });
+
+        // move game object
+        while(time < testDuration)
+        {
+            Vector3 currPosition = imuSensor.transform.position;
+            
+            Vector3 targetSpeed = prevSpeed + accelDirection * accelMagnitude * Time.fixedDeltaTime;
+            Vector3 targetPosition = currPosition + targetSpeed * Time.fixedDeltaTime;
+
+            imuSensor.transform.position = targetPosition;
+
+            time += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+
+            prevSpeed = targetSpeed;
+        }
+
+        SimulatorROS2Node.RemoveSubscription<sensor_msgs.msg.Imu>(imuSubscription);
+
+        Assert.IsNotEmpty(imuMessages);
+        imuMessages.ForEach(imu =>
+        {
+            var dataVec = new Vector3(
+                (float)imu.Linear_acceleration.X,
+                (float)imu.Linear_acceleration.Y,
+                (float)imu.Linear_acceleration.Z
+            );
+
+            Assert.That(dataVec, Is.EqualTo(expectedAccel).Using(imuAccelComparer));
+        });
+
+        imuMessages.Clear();  
+    }
+
     [UnityTest]
     public IEnumerator LidarVLP16_PublishRate()
     {
@@ -218,6 +310,118 @@ public class SensorsTest
             lidarMessages.Add(msg);
         }    
     }
+
+    [UnityTest]
+    public IEnumerator LidarVLP16_PointCloud_Distance5m()
+    {
+        string testScenario = "LidarVLP16_Sphere5m";
+        yield return SetupEnvironment(testScenario);
+        yield return new WaitForFixedUpdate();
+
+        float expectedDistance = 5.0f;
+        float expectedError = 0.001f; // procentage of expected distance
+
+        RGLUnityPlugin.LidarSensor lidarSensor = GameObject.FindObjectOfType<RGLUnityPlugin.LidarSensor>();
+        Assert.NotNull(lidarSensor);
+        RglLidarPublisher rglLidarPublisher = lidarSensor.GetComponent<RglLidarPublisher>();
+
+        // remove noise in lidar
+        lidarSensor.applyDistanceGaussianNoise = false;
+        lidarSensor.applyAngularGaussianNoise = false;
+        lidarSensor.applyVelocityDistortion = false;
+        lidarSensor.OnValidate();
+
+        // create subcriber
+        ROS2.QualityOfServiceProfile qos = ConvertRGLqosToROS2qos(rglLidarPublisher.qos);
+        ROS2.ISubscription<sensor_msgs.msg.PointCloud2> lidarSubscription = SimulatorROS2Node.CreateSubscription<sensor_msgs.msg.PointCloud2>(
+            rglLidarPublisher.pointCloud2Publishers[0].topic, GetMessageCallback, qos);
+
+        yield return new WaitForSeconds(testDuration);
+        Assert.IsNotEmpty(lidarMessages);
+
+        // point cloud data 
+        Vector3[] points = ConvertCloudPointToUnityPosition(lidarMessages[lidarMessages.Count - 1].Data,
+            (int)lidarMessages[lidarMessages.Count - 1].Point_step);
+        
+        float diffMax = 0f;
+        for(int i=0; i<points.Length; i++)
+        {
+            float diff = Mathf.Abs(expectedDistance - points[i].magnitude);
+            
+            // find max value
+            if(diff > diffMax)
+            {
+                diffMax = diff;
+            }
+        }
+
+        Assert.That(diffMax, Is.LessThanOrEqualTo(expectedDistance * expectedError));
+
+        SimulatorROS2Node.RemoveSubscription<sensor_msgs.msg.PointCloud2>(lidarSubscription);
+
+        // callbacks
+        void GetMessageCallback(sensor_msgs.msg.PointCloud2 msg)
+        {
+            lidarMessages.Add(msg);
+        }
+    }
+
+    [UnityTest]
+    public IEnumerator LidarVLP16_PointCloud_Distance10m()
+    {
+        string testScenario = "LidarVLP16_Sphere10m";
+        yield return SetupEnvironment(testScenario);
+        yield return new WaitForFixedUpdate();
+
+        float expectedDistance = 10.0f;
+        float acceptedError = 0.001f; // procentage of expected distance
+
+        RGLUnityPlugin.LidarSensor lidarSensor = GameObject.FindObjectOfType<RGLUnityPlugin.LidarSensor>();
+        Assert.NotNull(lidarSensor);
+        RglLidarPublisher rglLidarPublisher = lidarSensor.GetComponent<RglLidarPublisher>();
+
+        // remove noise in lidar
+        lidarSensor.applyDistanceGaussianNoise = false;
+        lidarSensor.applyAngularGaussianNoise = false;
+        lidarSensor.applyVelocityDistortion = false;
+        lidarSensor.OnValidate();
+
+        // create subcriber
+        ROS2.QualityOfServiceProfile qos = ConvertRGLqosToROS2qos(rglLidarPublisher.qos);
+        ROS2.ISubscription<sensor_msgs.msg.PointCloud2> lidarSubscription = SimulatorROS2Node.CreateSubscription<sensor_msgs.msg.PointCloud2>(
+            rglLidarPublisher.pointCloud2Publishers[0].topic, GetMessageCallback, qos);
+
+        yield return new WaitForSeconds(testDuration);
+        Assert.IsNotEmpty(lidarMessages);
+
+        // point cloud data 
+        Vector3[] points = ConvertCloudPointToUnityPosition(lidarMessages[lidarMessages.Count - 1].Data,
+            (int)lidarMessages[lidarMessages.Count - 1].Point_step);
+        
+        float diffMax = 0f;
+        for(int i=0; i<points.Length; i++)
+        {
+            float diff = Mathf.Abs(expectedDistance - points[i].magnitude);
+            
+            // find max value
+            if(diff > diffMax)
+            {
+                diffMax = diff;
+            }
+        }
+
+        Assert.That(diffMax, Is.LessThanOrEqualTo(expectedDistance * acceptedError));
+
+        SimulatorROS2Node.RemoveSubscription<sensor_msgs.msg.PointCloud2>(lidarSubscription);
+
+        // callbacks
+        void GetMessageCallback(sensor_msgs.msg.PointCloud2 msg)
+        {
+            lidarMessages.Add(msg);
+        }
+    }
+
+
 
     private ROS2.QualityOfServiceProfile ConvertRGLqosToROS2qos(RglQos rglQos)
     {
@@ -269,6 +473,51 @@ public class SensorsTest
         }
 
         return qos;
+    }
+
+    private Vector3[] ConvertCloudPointToUnityPosition(byte[] data, int pointSize)
+    {
+        int pointsCount = data.Length / pointSize;
+        Vector3[] points = new Vector3[pointsCount];
+
+        for(int i=0, k=0; i<pointsCount; i++)
+        {
+            // point X
+            byte[] ptX = new byte[4]
+            {
+                data[k],
+                data[k+1],
+                data[k+2],
+                data[k+3]
+            };
+            float x = System.BitConverter.ToSingle(ptX, 0);
+
+            // point Y
+            byte[] ptY = new byte[4]
+            {
+                data[k+4],
+                data[k+5],
+                data[k+6],
+                data[k+7]
+            };
+            float y = System.BitConverter.ToSingle(ptY, 0);
+
+            // point Z
+            byte[] ptZ = new byte[4]
+            {
+                data[k+8],
+                data[k+9],
+                data[k+10],
+                data[k+11]
+            };
+            float z = System.BitConverter.ToSingle(ptZ, 0);
+
+            k += pointSize;
+  
+            points[i] = AWSIM.ROS2Utility.RosToUnityPosition(new Vector3(x,y,z));
+        }
+
+        return points;
     }
 
 }
