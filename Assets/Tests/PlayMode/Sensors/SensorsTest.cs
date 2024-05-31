@@ -7,11 +7,11 @@ using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools.Utils;
 using AWSIM;
+using AWSIM.Tests;
 
 public class SensorsTest
 {
     // Scene handling
-    AsyncOperation sceneLoader;
     string sceneName = "SensorsTest";
     Scene scene;
     AsyncOperation aOp;
@@ -22,22 +22,22 @@ public class SensorsTest
     // Shared settings
     float testDuration = 2.0f;
 
+    // Shared components
+    private TestObjectEnvironmentCollection testObjectEnvironmentCollection;
+
     // GNSS
-    GnssSensor gnssSensor;
-    ROS2.ISubscription<geometry_msgs.msg.PoseStamped> gnssPoseSubscription;
-    ROS2.ISubscription<geometry_msgs.msg.PoseWithCovarianceStamped> gnssPoseWithCovarianceSubscription;
     List<geometry_msgs.msg.PoseStamped> poseMessages;
     List<geometry_msgs.msg.PoseWithCovarianceStamped> poseWithCovarianceMessages;
 
     // LiDAR
-    RGLUnityPlugin.LidarSensor lidarSensor;
-    ROS2.ISubscription<sensor_msgs.msg.PointCloud2> lidarSubscription;
     List<sensor_msgs.msg.PointCloud2> lidarMessages;
 
     // IMU
-    ImuSensor imuSensor;
-    ROS2.ISubscription<sensor_msgs.msg.Imu> imuSubscription;
     List<sensor_msgs.msg.Imu> imuMessages;
+
+
+
+     // --- TEST LIFE CYCLE ---//
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
@@ -57,6 +57,7 @@ public class SensorsTest
 
         //IMU
         imuMessages = new List<sensor_msgs.msg.Imu>();
+
     }
 
     [UnitySetUp]
@@ -68,25 +69,56 @@ public class SensorsTest
 
         Assert.NotNull(scene);
 
-        gnssSensor = GameObject.FindObjectOfType<GnssSensor>();
-        lidarSensor = GameObject.FindObjectOfType<RGLUnityPlugin.LidarSensor>();
-        imuSensor = GameObject.FindObjectOfType<ImuSensor>();
+        // Get components
+        testObjectEnvironmentCollection = GameObject.FindObjectOfType<TestObjectEnvironmentCollection>();
+        Assert.NotNull(testObjectEnvironmentCollection);
+        testObjectEnvironmentCollection.DisableAll();
 
         yield return null;
     }
 
+    private IEnumerator SetupEnvironment(string testName)
+    {
+        GameObject environment = testObjectEnvironmentCollection.GetTestEnvironment(testName);
+        if(environment != null)
+        {
+            environment.SetActive(true);
+        }
+
+        GameObject testObject = testObjectEnvironmentCollection.GetTestObject(testName);
+        if(testObject != null)
+        {
+            testObject.SetActive(true);
+        }
+        yield return null;
+    }
+
+    [OneTimeTearDown]
+    public void OneTimeTearDown()
+    {
+        EditorSceneManager.UnloadScene(scene);
+    }
+
+
+    // --- TEST ROUTINES --- //
+
     [UnityTest]
     public IEnumerator GNSS()
     {
+        string testScenario = "Gnss";
+        yield return SetupEnvironment(testScenario);
+        yield return new WaitForFixedUpdate();
+
+        GnssSensor gnssSensor = GameObject.FindObjectOfType<GnssSensor>();
         Assert.NotNull(gnssSensor);
         GnssRos2Publisher gnssRos2Publisher = gnssSensor.GetComponent<GnssRos2Publisher>();
 
-        gnssPoseSubscription = SimulatorROS2Node.CreateSubscription<geometry_msgs.msg.PoseStamped>(
+        ROS2.ISubscription<geometry_msgs.msg.PoseStamped> gnssPoseSubscription = SimulatorROS2Node.CreateSubscription<geometry_msgs.msg.PoseStamped>(
             gnssRos2Publisher.poseTopic, msg =>
         {
             poseMessages.Add(msg);
         });
-        gnssPoseWithCovarianceSubscription = SimulatorROS2Node.CreateSubscription<geometry_msgs.msg.PoseWithCovarianceStamped>(
+        ROS2.ISubscription<geometry_msgs.msg.PoseWithCovarianceStamped> gnssPoseWithCovarianceSubscription = SimulatorROS2Node.CreateSubscription<geometry_msgs.msg.PoseWithCovarianceStamped>(
             gnssRos2Publisher.poseWithCovarianceStampedTopic, msg =>
         {
             poseWithCovarianceMessages.Add(msg);
@@ -120,18 +152,22 @@ public class SensorsTest
         Assert.AreEqual(poseMessages.Count, (int)(testDuration * gnssSensor.OutputHz));
         Assert.AreEqual(poseWithCovarianceMessages.Count, (int)(testDuration * gnssSensor.OutputHz));
 
-        // TODO: requires R2FU
-        // SimulatorROS2Node.RemoveSubscription<geometry_msgs.msg.PoseStamped>(gnssPoseSubscription);
-        // SimulatorROS2Node.RemoveSubscription<geometry_msgs.msg.PoseWithCovarianceStamped>(gnssPoseWithCovarianceSubscription);
+        SimulatorROS2Node.RemoveSubscription<geometry_msgs.msg.PoseStamped>(gnssPoseSubscription);
+        SimulatorROS2Node.RemoveSubscription<geometry_msgs.msg.PoseWithCovarianceStamped>(gnssPoseWithCovarianceSubscription);
     }
 
     [UnityTest]
     public IEnumerator IMU()
     {
+        string testScenario = "Imu";
+        yield return SetupEnvironment(testScenario);
+        yield return new WaitForFixedUpdate();
+
+        ImuSensor imuSensor = GameObject.FindObjectOfType<ImuSensor>();
         Assert.NotNull(imuSensor);
         ImuRos2Publisher ImuRos2Publisher = imuSensor.GetComponent<ImuRos2Publisher>();
 
-        imuSubscription = SimulatorROS2Node.CreateSubscription<sensor_msgs.msg.Imu>(
+        ROS2.ISubscription<sensor_msgs.msg.Imu> imuSubscription = SimulatorROS2Node.CreateSubscription<sensor_msgs.msg.Imu>(
             ImuRos2Publisher.topic, msg =>
         {
             imuMessages.Add(msg);
@@ -150,12 +186,89 @@ public class SensorsTest
             );
             Assert.That(dataVec, Is.EqualTo(Vector3.zero).Using(v3Comparer));
         });
+
+        SimulatorROS2Node.RemoveSubscription<sensor_msgs.msg.Imu>(imuSubscription);
     }
 
-
-    [OneTimeTearDown]
-    public void OneTimeTearDown()
+    [UnityTest]
+    public IEnumerator LidarVLP16_PublishRate()
     {
-        EditorSceneManager.UnloadScene(scene);
+        string testScenario = "LidarVLP16_Sphere5m";
+        yield return SetupEnvironment(testScenario);
+        yield return new WaitForFixedUpdate();
+
+        RGLUnityPlugin.LidarSensor lidarSensor = GameObject.FindObjectOfType<RGLUnityPlugin.LidarSensor>();
+        Assert.NotNull(lidarSensor);
+        RglLidarPublisher rglLidarPublisher = lidarSensor.GetComponent<RglLidarPublisher>();
+        
+        ROS2.QualityOfServiceProfile qos = ConvertRGLqosToROS2qos(rglLidarPublisher.qos);
+
+        ROS2.ISubscription<sensor_msgs.msg.PointCloud2> lidarSubscription = SimulatorROS2Node.CreateSubscription<sensor_msgs.msg.PointCloud2>(
+            rglLidarPublisher.pointCloud2Publishers[0].topic, GetMessageCallback, qos);
+
+        yield return new WaitForSeconds(testDuration);
+        Assert.IsNotEmpty(lidarMessages);
+        Assert.AreEqual(lidarMessages.Count, (int)testDuration * lidarSensor.AutomaticCaptureHz);
+
+        SimulatorROS2Node.RemoveSubscription<sensor_msgs.msg.PointCloud2>(lidarSubscription);
+
+        // callbacks
+        void GetMessageCallback(sensor_msgs.msg.PointCloud2 msg)
+        {
+            lidarMessages.Add(msg);
+        }    
     }
+
+    private ROS2.QualityOfServiceProfile ConvertRGLqosToROS2qos(RglQos rglQos)
+    {
+        ROS2.QualityOfServiceProfile qos = new ROS2.QualityOfServiceProfile();
+
+        switch (rglQos.reliabilityPolicy)
+        {
+            case RGLUnityPlugin.RGLQosPolicyReliability.QOS_POLICY_RELIABILITY_BEST_EFFORT:
+                qos.SetReliability(ROS2.ReliabilityPolicy.QOS_POLICY_RELIABILITY_BEST_EFFORT);
+                break;
+            
+            case RGLUnityPlugin.RGLQosPolicyReliability.QOS_POLICY_RELIABILITY_RELIABLE:
+                qos.SetReliability(ROS2.ReliabilityPolicy.QOS_POLICY_RELIABILITY_RELIABLE);
+                break;
+
+            default:
+                qos.SetReliability(ROS2.ReliabilityPolicy.QOS_POLICY_RELIABILITY_SYSTEM_DEFAULT);
+                break;
+        }
+
+        switch (rglQos.durabilityPolicy)
+        {
+            case RGLUnityPlugin.RGLQosPolicyDurability.QOS_POLICY_DURABILITY_VOLATILE:
+                qos.SetDurability(ROS2.DurabilityPolicy.QOS_POLICY_DURABILITY_VOLATILE);
+                break;
+
+            case RGLUnityPlugin.RGLQosPolicyDurability.QOS_POLICY_DURABILITY_TRANSIENT_LOCAL:
+                qos.SetDurability(ROS2.DurabilityPolicy.QOS_POLICY_DURABILITY_TRANSIENT_LOCAL);
+                break;
+
+            default:
+                qos.SetDurability(ROS2.DurabilityPolicy.QOS_POLICY_DURABILITY_SYSTEM_DEFAULT);
+                break;
+        }
+
+        switch (rglQos.historyPolicy)
+        {
+            case RGLUnityPlugin.RGLQosPolicyHistory.QOS_POLICY_HISTORY_KEEP_ALL:
+                qos.SetHistory(ROS2.HistoryPolicy.QOS_POLICY_HISTORY_KEEP_ALL, rglQos.historyDepth);
+                break;
+
+            case RGLUnityPlugin.RGLQosPolicyHistory.QOS_POLICY_HISTORY_KEEP_LAST:
+                qos.SetHistory(ROS2.HistoryPolicy.QOS_POLICY_HISTORY_KEEP_LAST, rglQos.historyDepth);
+                break;
+
+            default:
+                qos.SetHistory(ROS2.HistoryPolicy.QOS_POLICY_HISTORY_SYSTEM_DEFAULT, rglQos.historyDepth);
+                break;
+        }
+
+        return qos;
+    }
+
 }
