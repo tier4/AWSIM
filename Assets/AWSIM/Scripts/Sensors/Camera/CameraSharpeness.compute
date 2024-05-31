@@ -1,0 +1,45 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#include "UnityCG.cginc"
+#pragma kernel SharpenTexture
+
+Texture2D<float4> _InputTexture;
+RWTexture2D<float4> _ResultTexture;
+
+float _sharpeningStrength;
+uint _width;
+uint _height;
+
+[numthreads(8, 4, 1)]
+void SharpenTexture (uint3 id : SV_DispatchThreadID)
+{
+    // Get the center pixel
+    float4 centerPixel = _InputTexture[id.xy];
+
+    float3 inputColor = centerPixel.rgb;
+
+    // Define the sharpening kernel
+    float kernel[9] = { 
+        0, -1,  0, 
+       -1,  5, -1, 
+        0, -1,  0
+    };
+
+    // Apply the kernel to each pixel
+    float3 sharpenedColor = float3(0, 0, 0);
+    for (int i = -1; i <= 1; i++)
+    {
+        for (int j = -1; j <= 1; j++)
+        {
+            float3 color = _InputTexture[id.xy + int2(i, j)].rgb;
+            sharpenedColor += color * kernel[(i + 1) + ((j + 1) * 3)];
+        }
+    }
+
+    // Combine the sharpened color with the original pixel
+    float3 finalColor = (inputColor * (1-_sharpeningStrength)) + (sharpenedColor * _sharpeningStrength);
+
+    finalColor = LinearToGammaSpace(finalColor);
+
+    // Write the result to the output texture
+    _ResultTexture[id.xy] = float4(finalColor, centerPixel.a);
+}
