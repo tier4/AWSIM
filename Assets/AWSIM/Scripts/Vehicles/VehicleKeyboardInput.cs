@@ -6,11 +6,15 @@ namespace AWSIM
 {
     public class VehicleKeyboardInput : VehicleInputBase
     {
+        [SerializeField] Vehicle vehicle;
+
         public float MaxAcceleraion = 1.5f;
         public float MaxSteerAngle = 35f;
 
-        public override void OnUpdate()
+        public override void OnUpdate(VehicleControlMode currentControlMode)
         {
+            Overriden = false;
+
             var horizontal = Input.GetAxis("Horizontal");
             var vertical = Input.GetAxis("Vertical");
 
@@ -26,6 +30,8 @@ namespace AWSIM
                 ShiftInput = Vehicle.Shift.REVERSE;
             else if (Input.GetKey(KeyCode.N))
                 ShiftInput = Vehicle.Shift.NEUTRAL;
+            else
+                ShiftInput = vehicle.AutomaticShift;
 
             // set turn signal
             if (Input.GetKey(KeyCode.Alpha1))
@@ -36,6 +42,19 @@ namespace AWSIM
                 TurnSignalInput = Vehicle.TurnSignal.HAZARD;
             else if (Input.GetKey(KeyCode.Alpha4))
                 TurnSignalInput = Vehicle.TurnSignal.NONE;
+            else
+                TurnSignalInput = vehicle.Signal;
+
+            if (currentControlMode == VehicleControlMode.AUTONOMOUS)
+            {
+                if (Mathf.Abs(horizontal) > 0 || Mathf.Abs(vertical) > 0)
+                {
+                    Overriden = true;
+                    NewControlMode = VehicleControlMode.MANUAL;
+                }
+            }
+
+
         }
     }
 }

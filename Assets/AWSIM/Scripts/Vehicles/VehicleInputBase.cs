@@ -7,21 +7,21 @@ namespace AWSIM
     [RequireComponent(typeof(VehicleOverrideInputManager))]
     public class VehicleInputBase : MonoBehaviour
     {
-        public float AccelerationInput { get; protected set; }
+        public float AccelerationInput { get; protected set; } = 0;
 
-        public float SteeringInput { get; protected set; }
-        
-        public Vehicle.Shift ShiftInput { get; protected set; }
+        public float SteeringInput { get; protected set; } = 0;
 
-        public Vehicle.TurnSignal TurnSignalInput { get; protected set; }
+        public Vehicle.Shift ShiftInput { get; protected set; } = Vehicle.Shift.PARKING;
 
-        public bool Overriden { get; protected set; }
+        public Vehicle.TurnSignal TurnSignalInput { get; protected set; } = Vehicle.TurnSignal.NONE;
 
-        public VehicleControlMode NewControlMode { get; protected set; }
+        public bool Overriden { get; protected set; } = false;
 
-        public virtual void OnUpdate()
+        public VehicleControlMode NewControlMode { get; protected set; } = VehicleControlMode.AUTONOMOUS;
+
+        public virtual void OnUpdate(VehicleControlMode currentControlMode)
         {
-            
+
         }
     }
 }
