@@ -283,12 +283,13 @@ MonoBehaviour:
   applyDistanceGaussianNoise: 1
   applyAngularGaussianNoise: 1
   applyVelocityDistortion: 0
+  doValidateConfigurationOnStartup: 1
   configuration:
     id: 0
   references:
     version: 1
     00000000:
-      type: {class: UniformRangeLidarConfiguration, ns: RGLUnityPlugin, asm: Assembly-CSharp}
+      type: {class: UniformRangeLidarConfiguration, ns: RGLUnityPlugin, asm: AWSIM}
       data:
         _laserArray:
           centerOfMeasurementLinearOffsetMm: {x: 0, y: 46.4, z: 0}
