@@ -5,6 +5,9 @@ using ROS2;
 
 namespace AWSIM
 {
+    /// <summary>
+    /// Subscribe to the "/vehicle/engage" topic and change the vehicle's control mode to AUTONOMOUS.
+    /// </summary>
     public class EngageSubscriber : MonoBehaviour
     {
         [SerializeField] string engageTopic = "/vehicle/engage";
@@ -29,7 +32,7 @@ namespace AWSIM
                 {
                     if (msg.Engage_)
                     {
-                        vehicleOverrideInputManager.ControlMode = VehicleControlMode.AUTONOMOUS;
+                        vehicleOverrideInputManager.ChangeControlModeToAUTONOMOUS();
                     }
                 }, qos);
         }
