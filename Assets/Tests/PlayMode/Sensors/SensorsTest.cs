@@ -31,8 +31,13 @@ public class SensorsTest
 
     // LiDAR
     RGLUnityPlugin.LidarSensor lidarSensor;
-    ROS2.ISubscription<sensor_msgs.msg.PointCloud2> lidarSubscription;
-    List<sensor_msgs.msg.PointCloud2> lidarMessages;
+
+    // Radar
+    RGLUnityPlugin.RadarSensor radarSensor;
+
+    // LiDAR & Radar
+    ROS2.ISubscription<sensor_msgs.msg.PointCloud2> pointCloudSubscription;
+    List<sensor_msgs.msg.PointCloud2> pointCloudMessages;
 
     // IMU
     ImuSensor imuSensor;
@@ -52,9 +57,6 @@ public class SensorsTest
         poseMessages = new List<geometry_msgs.msg.PoseStamped>();
         poseWithCovarianceMessages = new List<geometry_msgs.msg.PoseWithCovarianceStamped>();
 
-        //LiDAR
-        lidarMessages = new List<sensor_msgs.msg.PointCloud2>();
-
         //IMU
         imuMessages = new List<sensor_msgs.msg.Imu>();
     }
@@ -70,9 +72,52 @@ public class SensorsTest
 
         gnssSensor = GameObject.FindObjectOfType<GnssSensor>();
         lidarSensor = GameObject.FindObjectOfType<RGLUnityPlugin.LidarSensor>();
+        radarSensor = GameObject.FindObjectOfType<RGLUnityPlugin.RadarSensor>();
         imuSensor = GameObject.FindObjectOfType<ImuSensor>();
 
         yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator LiDAR()
+    {
+        Assert.NotNull(lidarSensor);
+        RglLidarPublisher lidarRos2Publisher = lidarSensor.GetComponent<RglLidarPublisher>();
+
+        Assert.AreEqual((byte)lidarRos2Publisher.qos.reliabilityPolicy , (byte)ROS2.ReliabilityPolicy.QOS_POLICY_RELIABILITY_BEST_EFFORT);
+
+        Assert.NotZero(lidarRos2Publisher.pointCloud2Publishers.Count);
+
+        // Test all LiDAR PointCloud2 publishers
+        foreach (var publisher in lidarRos2Publisher.pointCloud2Publishers)
+        {
+            CreatePointCloud2Subscription(publisher);
+            yield return new WaitForSeconds(testDuration);
+
+            Assert.IsNotEmpty(pointCloudMessages);
+            Assert.AreEqual(pointCloudMessages.Count, (int)(testDuration * lidarSensor.AutomaticCaptureHz));
+        }
+    }
+
+    [UnityTest]
+    public IEnumerator Radar()
+    {
+        Assert.NotNull(radarSensor);
+        RglLidarPublisher radarRos2Publisher = radarSensor.GetComponent<RglLidarPublisher>();
+
+        Assert.AreEqual((byte)radarRos2Publisher.qos.reliabilityPolicy , (byte)ROS2.ReliabilityPolicy.QOS_POLICY_RELIABILITY_BEST_EFFORT);
+
+        Assert.NotZero(radarRos2Publisher.pointCloud2Publishers.Count);
+
+        // Test all Radar PointCloud2 publishers
+        foreach (var publisher in radarRos2Publisher.pointCloud2Publishers)
+        {
+            CreatePointCloud2Subscription(publisher);
+            yield return new WaitForSeconds(testDuration);
+
+            Assert.IsNotEmpty(pointCloudMessages);
+            Assert.AreEqual(pointCloudMessages.Count, (int)(testDuration * radarSensor.automaticCaptureHz));
+        }
     }
 
     [UnityTest]
@@ -157,5 +202,24 @@ public class SensorsTest
     public void OneTimeTearDown()
     {
         EditorSceneManager.UnloadScene(scene);
+    }
+
+    private void CreatePointCloud2Subscription(PointCloud2Publisher rglRosPublisher)
+    {
+        QoSSettings qosSettingsLidar = new QoSSettings()
+        {
+            ReliabilityPolicy = ROS2.ReliabilityPolicy.QOS_POLICY_RELIABILITY_BEST_EFFORT,
+            DurabilityPolicy = ROS2.DurabilityPolicy.QOS_POLICY_DURABILITY_VOLATILE,
+            HistoryPolicy = ROS2.HistoryPolicy.QOS_POLICY_HISTORY_KEEP_LAST,
+            Depth = 1,
+        };
+
+        pointCloudMessages = new List<sensor_msgs.msg.PointCloud2>(); // Clear messages
+        pointCloudSubscription?.Dispose(); // Dispose previous subscription
+        pointCloudSubscription = SimulatorROS2Node.CreateSubscription<sensor_msgs.msg.PointCloud2>(
+            rglRosPublisher.topic, msg =>
+            {
+                pointCloudMessages.Add(msg);
+            }, qosSettingsLidar.GetQoSProfile());
     }
 }
