@@ -94,7 +94,8 @@ public class SensorsTest
         rglSubgraphYieldOutput.SetActive(yieldOutputNodeId, true);
 
         lidarSensor.ConnectToWorldFrame(rglSubgraphYieldOutput);
-        lidarSensor.onNewData += OnNewLidarData;
+        lidarSensor.onNewData += OnNewLidarData;    
+        
     }
 
     [UnityTest]
@@ -116,8 +117,6 @@ public class SensorsTest
             Assert.IsNotEmpty(pointCloudMessages);
             Assert.AreEqual(pointCloudMessages.Count, (int)(testDuration * lidarSensor.AutomaticCaptureHz));
         }
-
-        // Test LiDAR output restriction
     }
 
     [UnityTest]
@@ -247,9 +246,21 @@ public class SensorsTest
       private void OnNewLidarData()
         {
             int pointCount = rglSubgraphYieldOutput.GetResultData<Vector3>(ref onlyHits);
+
+            float startingAngle = lidarSensor.outputRestriction.rectangularRestrictionMasks[0].startingHorizontalAngle;
+            float endingAngle = lidarSensor.outputRestriction.rectangularRestrictionMasks[0].endingHorizontalAngle;  
+
             foreach (var point in onlyHits)
             {
-                Assert.IsTrue(point.x <= 0.0f);
-            }
+                Vector3 xzProjected = Vector3.ProjectOnPlane(point, Vector3.up);
+
+                float longitude = Mathf.Atan2(xzProjected.x, xzProjected.z) * Mathf.Rad2Deg;
+                if (longitude < 0)
+                {
+                    longitude += 360;
+                }
+
+                Assert.IsFalse(longitude > startingAngle && longitude < endingAngle);
+            }  
         }
 }

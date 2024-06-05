@@ -1259,15 +1259,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 141188791316208376, guid: 9351c3661d105f12f9fe2819a1203053, type: 3}
       propertyPath: outputRestriction.rectangularRestrictionMasks.Array.data[0].endingVerticalAngle
-      value: 63
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 141188791316208376, guid: 9351c3661d105f12f9fe2819a1203053, type: 3}
       propertyPath: outputRestriction.rectangularRestrictionMasks.Array.data[0].endingHorizontalAngle
-      value: 180
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 141188791316208376, guid: 9351c3661d105f12f9fe2819a1203053, type: 3}
       propertyPath: outputRestriction.rectangularRestrictionMasks.Array.data[0].startingVerticalAngle
-      value: -76
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 141188791316208376, guid: 9351c3661d105f12f9fe2819a1203053, type: 3}
+      propertyPath: outputRestriction.rectangularRestrictionMasks.Array.data[0].startingHorizontalAngle
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2440576987535774365, guid: 9351c3661d105f12f9fe2819a1203053, type: 3}
       propertyPath: m_Name
