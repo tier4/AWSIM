@@ -7,6 +7,18 @@ namespace AWSIM
     /// <summary>
     /// Controlling vehicle input via keyboard.
     /// </summary>
+    /// ----- key binds -----
+    /// up arrow : Accelerate
+    /// down arrow : Deceleration
+    /// left/right arrow : Steering
+    /// D : Drive gear
+    /// P : Parking gear
+    /// R : Reverse gear
+    /// N : Neutral gear
+    /// 1 : Left turn signal
+    /// 2 : Right turn signal
+    /// 3 : Hazard
+    /// 4 : Turn signal off
     public class VehicleKeyboardInput : VehicleInputBase
     {
         public float MaxAcceleraion = 1.5f;
