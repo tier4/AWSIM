@@ -7,6 +7,8 @@ using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools.Utils;
 using AWSIM;
+using System;
+
 
 public class SensorsTest
 {
@@ -38,6 +40,9 @@ public class SensorsTest
     // LiDAR & Radar
     ROS2.ISubscription<sensor_msgs.msg.PointCloud2> pointCloudSubscription;
     List<sensor_msgs.msg.PointCloud2> pointCloudMessages;
+    RGLUnityPlugin.RGLNodeSequence rglSubgraphYieldOutput;
+    const string yieldOutputNodeId = "OUT_YIELD";
+    Vector3[] onlyHits = Array.Empty<Vector3>();
 
     // IMU
     ImuSensor imuSensor;
@@ -75,7 +80,21 @@ public class SensorsTest
         radarSensor = GameObject.FindObjectOfType<RGLUnityPlugin.RadarSensor>();
         imuSensor = GameObject.FindObjectOfType<ImuSensor>();
 
+        LidarTestSetup();
+
         yield return null;
+    }
+
+    public void LidarTestSetup()
+    {
+        rglSubgraphYieldOutput = new RGLUnityPlugin.RGLNodeSequence()
+            .AddNodePointsYield(yieldOutputNodeId, RGLUnityPlugin.RGLField.XYZ_VEC3_F32);
+
+        rglSubgraphYieldOutput.SetPriority(yieldOutputNodeId, 1);
+        rglSubgraphYieldOutput.SetActive(yieldOutputNodeId, true);
+
+        lidarSensor.ConnectToWorldFrame(rglSubgraphYieldOutput);
+        lidarSensor.onNewData += OnNewLidarData;
     }
 
     [UnityTest]
@@ -97,6 +116,8 @@ public class SensorsTest
             Assert.IsNotEmpty(pointCloudMessages);
             Assert.AreEqual(pointCloudMessages.Count, (int)(testDuration * lidarSensor.AutomaticCaptureHz));
         }
+
+        // Test LiDAR output restriction
     }
 
     [UnityTest]
@@ -222,4 +243,13 @@ public class SensorsTest
                 pointCloudMessages.Add(msg);
             }, qosSettingsLidar.GetQoSProfile());
     }
+
+      private void OnNewLidarData()
+        {
+            int pointCount = rglSubgraphYieldOutput.GetResultData<Vector3>(ref onlyHits);
+            foreach (var point in onlyHits)
+            {
+                Assert.IsTrue(point.x <= 0.0f);
+            }
+        }
 }
