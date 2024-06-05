@@ -18,7 +18,7 @@
         "geometry_msgs_assembly.dll",
         "sensor_msgs_assembly.dll",
         "autoware_vehicle_msgs_assembly.dll",
-        "autoware_auto_control_msgs_assembly.dll"
+        "autoware_control_msgs_assembly.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [

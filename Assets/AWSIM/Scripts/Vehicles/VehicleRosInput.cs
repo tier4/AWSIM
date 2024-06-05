@@ -24,7 +24,7 @@ namespace AWSIM
         // subscribers.
         ISubscription<autoware_vehicle_msgs.msg.TurnIndicatorsCommand> turnIndicatorsCommandSubscriber;
         ISubscription<autoware_vehicle_msgs.msg.HazardLightsCommand> hazardLightsCommandSubscriber;
-        ISubscription<autoware_auto_control_msgs.msg.AckermannControlCommand> ackermanControlCommandSubscriber;
+        ISubscription<autoware_control_msgs.msg.Control> ackermanControlCommandSubscriber;
         ISubscription<autoware_vehicle_msgs.msg.GearCommand> gearCommandSubscriber;
         ISubscription<tier4_vehicle_msgs.msg.VehicleEmergencyStamped> vehicleEmergencyStampedSubscriber;
 
@@ -94,7 +94,7 @@ namespace AWSIM
                     }, qos);
 
             ackermanControlCommandSubscriber
-                = SimulatorROS2Node.CreateSubscription<autoware_auto_control_msgs.msg.AckermannControlCommand>(
+                = SimulatorROS2Node.CreateSubscription<autoware_control_msgs.msg.Control>(
                     ackermannControlCommandTopic, msg =>
                     {
                         // highest priority is EMERGENCY.
@@ -128,7 +128,7 @@ namespace AWSIM
         {
             SimulatorROS2Node.RemoveSubscription<autoware_vehicle_msgs.msg.TurnIndicatorsCommand>(turnIndicatorsCommandSubscriber);
             SimulatorROS2Node.RemoveSubscription<autoware_vehicle_msgs.msg.HazardLightsCommand>(hazardLightsCommandSubscriber);
-            SimulatorROS2Node.RemoveSubscription<autoware_auto_control_msgs.msg.AckermannControlCommand>(ackermanControlCommandSubscriber);
+            SimulatorROS2Node.RemoveSubscription<autoware_control_msgs.msg.Control>(ackermanControlCommandSubscriber);
             SimulatorROS2Node.RemoveSubscription<autoware_vehicle_msgs.msg.GearCommand>(gearCommandSubscriber);
             SimulatorROS2Node.RemoveSubscription<tier4_vehicle_msgs.msg.VehicleEmergencyStamped>(vehicleEmergencyStampedSubscriber);
         }

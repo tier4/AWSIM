@@ -24,7 +24,7 @@
         "std_msgs_assembly.dll",
         "builtin_interfaces_assembly.dll",
         "action_msgs_assembly.dll",
-        "autoware_auto_control_msgs_assembly.dll",
+        "autoware_control_msgs_assembly.dll",
         "autoware_auto_perception_msgs_assembly.dll",
         "autoware_common_msgs_assembly.dll",
         "autoware_perception_msgs_assembly.dll",
