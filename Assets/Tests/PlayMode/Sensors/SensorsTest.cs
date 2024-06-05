@@ -31,10 +31,6 @@ public class SensorsTest
 
     // LiDAR
     List<sensor_msgs.msg.PointCloud2> lidarMessages;
-    RGLUnityPlugin.LidarSensor lidarSensor;
-
-    // Radar
-    RGLUnityPlugin.RadarSensor radarSensor;
 
     // LiDAR & Radar
     ROS2.ISubscription<sensor_msgs.msg.PointCloud2> pointCloudSubscription;
@@ -55,13 +51,6 @@ public class SensorsTest
 
         // Comparers
         v3Comparer = new Vector3EqualityComparer(10e-6f);
-
-        // GNSS
-        poseMessages = new List<geometry_msgs.msg.PoseStamped>();
-        poseWithCovarianceMessages = new List<geometry_msgs.msg.PoseWithCovarianceStamped>();
-
-        //IMU
-        imuMessages = new List<sensor_msgs.msg.Imu>();
     }
 
     [UnitySetUp]
@@ -80,10 +69,6 @@ public class SensorsTest
 
         // Init vars
         yield return InitVars();
-
-        lidarSensor = GameObject.FindObjectOfType<RGLUnityPlugin.LidarSensor>();
-        radarSensor = GameObject.FindObjectOfType<RGLUnityPlugin.RadarSensor>();
-
         yield return null;
     }
 
@@ -115,6 +100,13 @@ public class SensorsTest
             lidarMessages.Clear();
         }
         lidarMessages = new List<sensor_msgs.msg.PointCloud2>();
+
+        // LiDAR & Radar
+        if(pointCloudMessages != null)
+        {
+            pointCloudMessages.Clear();
+        }
+        pointCloudMessages = new List<sensor_msgs.msg.PointCloud2>();
 
         yield return null;
     }
@@ -149,6 +141,11 @@ public class SensorsTest
     [UnityTest]
     public IEnumerator LiDAR()
     {
+        string testScenario = "LidarVLP16_Sphere5m";
+        yield return SetupEnvironment(testScenario);
+        yield return new WaitForFixedUpdate();
+
+        RGLUnityPlugin.LidarSensor lidarSensor = GameObject.FindObjectOfType<RGLUnityPlugin.LidarSensor>();
         Assert.NotNull(lidarSensor);
         RglLidarPublisher lidarRos2Publisher = lidarSensor.GetComponent<RglLidarPublisher>();
 
@@ -170,6 +167,11 @@ public class SensorsTest
     [UnityTest]
     public IEnumerator Radar()
     {
+        string testScenario = "SmartmicroMediumRange_Sphere5m";
+        yield return SetupEnvironment(testScenario);
+        yield return new WaitForFixedUpdate();
+
+        RGLUnityPlugin.RadarSensor radarSensor = GameObject.FindObjectOfType<RGLUnityPlugin.RadarSensor>();
         Assert.NotNull(radarSensor);
         RglLidarPublisher radarRos2Publisher = radarSensor.GetComponent<RglLidarPublisher>();
 
@@ -251,10 +253,10 @@ public class SensorsTest
 
         ImuSensor imuSensor = GameObject.FindObjectOfType<ImuSensor>();
         Assert.NotNull(imuSensor);
-        ImuRos2Publisher ImuRos2Publisher = imuSensor.GetComponent<ImuRos2Publisher>();
+        ImuRos2Publisher imuRos2Publisher = imuSensor.GetComponent<ImuRos2Publisher>();
 
         ROS2.ISubscription<sensor_msgs.msg.Imu> imuSubscription = SimulatorROS2Node.CreateSubscription<sensor_msgs.msg.Imu>(
-            ImuRos2Publisher.topic, msg =>
+            imuRos2Publisher.topic, msg =>
         {
             imuMessages.Add(msg);
         });
@@ -313,9 +315,8 @@ public class SensorsTest
         while(time < testDuration)
         {
             Vector3 currPosition = imuSensor.transform.position;
-            
             Vector3 targetSpeed = prevSpeed + accelDirection * accelMagnitude * Time.fixedDeltaTime;
-            Vector3 targetPosition = currPosition + targetSpeed * Time.fixedDeltaTime;
+            Vector3 targetPosition = currPosition + 0.5f * (prevSpeed + targetSpeed) * Time.fixedDeltaTime;
 
             imuSensor.transform.position = targetPosition;
 
@@ -328,16 +329,19 @@ public class SensorsTest
         SimulatorROS2Node.RemoveSubscription<sensor_msgs.msg.Imu>(imuSubscription);
 
         Assert.IsNotEmpty(imuMessages);
-        imuMessages.ForEach(imu =>
+        
+        // the first message is skipped as it looks like is not reliable, due to race condition between
+        // FixedUpdate() and yield return new WaitForFixedUpdate();
+        for(int i=1; i<imuMessages.Count; i++)
         {
             var dataVec = new Vector3(
-                (float)imu.Linear_acceleration.X,
-                (float)imu.Linear_acceleration.Y,
-                (float)imu.Linear_acceleration.Z
+                (float)imuMessages[i].Linear_acceleration.X,
+                (float)imuMessages[i].Linear_acceleration.Y,
+                (float)imuMessages[i].Linear_acceleration.Z
             );
 
             Assert.That(dataVec, Is.EqualTo(expectedAccel).Using(imuAccelComparer));
-        });
+        }
 
         imuMessages.Clear();  
     }
