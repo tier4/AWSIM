@@ -15,21 +15,21 @@ namespace AWSIM
         /// </summary>
         /// <param name="shiftMsg"></param>
         /// <returns>Converted shift.</returns>
-        public static Vehicle.Shift RosToUnityShift(autoware_auto_vehicle_msgs.msg.GearCommand gearCommand)
+        public static Vehicle.Shift RosToUnityShift(autoware_vehicle_msgs.msg.GearCommand gearCommand)
         {
             // NONE, PARKING to PARKING.
-            if (gearCommand.Command == autoware_auto_vehicle_msgs.msg.GearReport.NONE ||
-                gearCommand.Command == autoware_auto_vehicle_msgs.msg.GearReport.PARK)
+            if (gearCommand.Command == autoware_vehicle_msgs.msg.GearReport.NONE ||
+                gearCommand.Command == autoware_vehicle_msgs.msg.GearReport.PARK)
                 return Vehicle.Shift.PARKING;
             // REVERSE to REVERSE.
-            else if (gearCommand.Command == autoware_auto_vehicle_msgs.msg.GearReport.REVERSE)
+            else if (gearCommand.Command == autoware_vehicle_msgs.msg.GearReport.REVERSE)
                 return Vehicle.Shift.REVERSE;
             // NEUTEAL to NEUTEAL.
-            else if (gearCommand.Command == autoware_auto_vehicle_msgs.msg.GearReport.NEUTRAL)
+            else if (gearCommand.Command == autoware_vehicle_msgs.msg.GearReport.NEUTRAL)
                 return Vehicle.Shift.NEUTRAL;
             // DRIVE, LOW to DRIVE.
-            else if (gearCommand.Command == autoware_auto_vehicle_msgs.msg.GearReport.DRIVE ||
-                     gearCommand.Command == autoware_auto_vehicle_msgs.msg.GearReport.LOW)
+            else if (gearCommand.Command == autoware_vehicle_msgs.msg.GearReport.DRIVE ||
+                     gearCommand.Command == autoware_vehicle_msgs.msg.GearReport.LOW)
                 return Vehicle.Shift.DRIVE;
             else
                 return Vehicle.Shift.PARKING;
@@ -43,15 +43,15 @@ namespace AWSIM
         public static byte UnityToRosShift(Vehicle.Shift shift)
         {
             if (shift == Vehicle.Shift.PARKING)
-                return autoware_auto_vehicle_msgs.msg.GearReport.PARK;
+                return autoware_vehicle_msgs.msg.GearReport.PARK;
             else if (shift == Vehicle.Shift.REVERSE)
-                return autoware_auto_vehicle_msgs.msg.GearReport.REVERSE;
+                return autoware_vehicle_msgs.msg.GearReport.REVERSE;
             else if (shift == Vehicle.Shift.NEUTRAL)
-                return autoware_auto_vehicle_msgs.msg.GearReport.NEUTRAL;
+                return autoware_vehicle_msgs.msg.GearReport.NEUTRAL;
             else if (shift == Vehicle.Shift.DRIVE)
-                return autoware_auto_vehicle_msgs.msg.GearReport.DRIVE;
+                return autoware_vehicle_msgs.msg.GearReport.DRIVE;
             else
-                return autoware_auto_vehicle_msgs.msg.GearReport.PARK;
+                return autoware_vehicle_msgs.msg.GearReport.PARK;
         }
 
         /// <summary>
@@ -59,13 +59,13 @@ namespace AWSIM
         /// </summary>
         /// <param name="turnSignalMsg"></param>
         /// <returns>Converted turn signal.</returns>
-        public static Vehicle.TurnSignal RosToUnityTurnSignal(autoware_auto_vehicle_msgs.msg.TurnIndicatorsCommand turnIndicatorsCommand)
+        public static Vehicle.TurnSignal RosToUnityTurnSignal(autoware_vehicle_msgs.msg.TurnIndicatorsCommand turnIndicatorsCommand)
         {
-            if (turnIndicatorsCommand.Command == autoware_auto_vehicle_msgs.msg.TurnIndicatorsCommand.DISABLE)
+            if (turnIndicatorsCommand.Command == autoware_vehicle_msgs.msg.TurnIndicatorsCommand.DISABLE)
                 return Vehicle.TurnSignal.NONE;
-            else if (turnIndicatorsCommand.Command == autoware_auto_vehicle_msgs.msg.TurnIndicatorsCommand.ENABLE_LEFT)
+            else if (turnIndicatorsCommand.Command == autoware_vehicle_msgs.msg.TurnIndicatorsCommand.ENABLE_LEFT)
                 return Vehicle.TurnSignal.LEFT;
-            else if (turnIndicatorsCommand.Command == autoware_auto_vehicle_msgs.msg.TurnIndicatorsCommand.ENABLE_RIGHT)
+            else if (turnIndicatorsCommand.Command == autoware_vehicle_msgs.msg.TurnIndicatorsCommand.ENABLE_RIGHT)
                 return Vehicle.TurnSignal.RIGHT;
             else
                 return Vehicle.TurnSignal.NONE;
@@ -79,20 +79,20 @@ namespace AWSIM
         public static byte UnityToRosTurnSignal(Vehicle.TurnSignal turnSignal)
         {
             if (turnSignal == Vehicle.TurnSignal.NONE)
-                return autoware_auto_vehicle_msgs.msg.TurnIndicatorsReport.DISABLE;
+                return autoware_vehicle_msgs.msg.TurnIndicatorsReport.DISABLE;
             else if (turnSignal == Vehicle.TurnSignal.LEFT)
-                return autoware_auto_vehicle_msgs.msg.TurnIndicatorsReport.ENABLE_LEFT;
+                return autoware_vehicle_msgs.msg.TurnIndicatorsReport.ENABLE_LEFT;
             else if (turnSignal == Vehicle.TurnSignal.RIGHT)
-                return autoware_auto_vehicle_msgs.msg.TurnIndicatorsReport.ENABLE_RIGHT;
+                return autoware_vehicle_msgs.msg.TurnIndicatorsReport.ENABLE_RIGHT;
             else
-                return autoware_auto_vehicle_msgs.msg.TurnIndicatorsReport.DISABLE;
+                return autoware_vehicle_msgs.msg.TurnIndicatorsReport.DISABLE;
         }
 
-        public static Vehicle.TurnSignal RosToUnityHazard(autoware_auto_vehicle_msgs.msg.HazardLightsCommand hazardLightsCommand)
+        public static Vehicle.TurnSignal RosToUnityHazard(autoware_vehicle_msgs.msg.HazardLightsCommand hazardLightsCommand)
         {
-            if (hazardLightsCommand.Command == autoware_auto_vehicle_msgs.msg.HazardLightsCommand.ENABLE)
+            if (hazardLightsCommand.Command == autoware_vehicle_msgs.msg.HazardLightsCommand.ENABLE)
                 return Vehicle.TurnSignal.HAZARD;
-            else if (hazardLightsCommand.Command == autoware_auto_vehicle_msgs.msg.HazardLightsCommand.DISABLE)
+            else if (hazardLightsCommand.Command == autoware_vehicle_msgs.msg.HazardLightsCommand.DISABLE)
                 return Vehicle.TurnSignal.NONE;
             else
                 return Vehicle.TurnSignal.NONE;
@@ -101,11 +101,11 @@ namespace AWSIM
         public static byte UnityToRosHazard(Vehicle.TurnSignal turnSignal)
         {
             if (turnSignal == Vehicle.TurnSignal.HAZARD)
-                return autoware_auto_vehicle_msgs.msg.HazardLightsReport.ENABLE;
+                return autoware_vehicle_msgs.msg.HazardLightsReport.ENABLE;
             else if (turnSignal == Vehicle.TurnSignal.NONE)
-                return autoware_auto_vehicle_msgs.msg.HazardLightsReport.DISABLE;
+                return autoware_vehicle_msgs.msg.HazardLightsReport.DISABLE;
             else
-                return autoware_auto_vehicle_msgs.msg.HazardLightsReport.DISABLE;
+                return autoware_vehicle_msgs.msg.HazardLightsReport.DISABLE;
         }
     }
 }

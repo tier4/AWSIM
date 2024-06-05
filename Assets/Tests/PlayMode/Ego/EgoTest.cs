@@ -22,21 +22,21 @@ public class EgoTest
     Vehicle egoVehicle;
     VehicleRosInput egoRosInput;
 
-    ROS2.IPublisher<autoware_auto_vehicle_msgs.msg.GearCommand> gearCommandPublisher;
+    ROS2.IPublisher<autoware_vehicle_msgs.msg.GearCommand> gearCommandPublisher;
     ROS2.IPublisher<autoware_auto_control_msgs.msg.AckermannControlCommand> movementPublisher;
 
     // Gear commands
-    autoware_auto_vehicle_msgs.msg.GearCommand parkGearCommand = new autoware_auto_vehicle_msgs.msg.GearCommand()
+    autoware_vehicle_msgs.msg.GearCommand parkGearCommand = new autoware_vehicle_msgs.msg.GearCommand()
     {
-        Command = autoware_auto_vehicle_msgs.msg.GearCommand.PARK
+        Command = autoware_vehicle_msgs.msg.GearCommand.PARK
     };
-    autoware_auto_vehicle_msgs.msg.GearCommand driveGearCommand = new autoware_auto_vehicle_msgs.msg.GearCommand()
+    autoware_vehicle_msgs.msg.GearCommand driveGearCommand = new autoware_vehicle_msgs.msg.GearCommand()
     {
-        Command = autoware_auto_vehicle_msgs.msg.GearCommand.DRIVE
+        Command = autoware_vehicle_msgs.msg.GearCommand.DRIVE
     };
-    autoware_auto_vehicle_msgs.msg.GearCommand reverseGearCommand = new autoware_auto_vehicle_msgs.msg.GearCommand()
+    autoware_vehicle_msgs.msg.GearCommand reverseGearCommand = new autoware_vehicle_msgs.msg.GearCommand()
     {
-        Command = autoware_auto_vehicle_msgs.msg.GearCommand.REVERSE
+        Command = autoware_vehicle_msgs.msg.GearCommand.REVERSE
     };
     autoware_auto_control_msgs.msg.AckermannControlCommand moveCommand = new autoware_auto_control_msgs.msg.AckermannControlCommand()
     {
@@ -103,7 +103,7 @@ public class EgoTest
 
         // Publishers
         string gearChangeTopic = egoRosInput.GetPrivateFieldValue<string>("gearCommandTopic");
-        gearCommandPublisher = SimulatorROS2Node.CreatePublisher<autoware_auto_vehicle_msgs.msg.GearCommand>(
+        gearCommandPublisher = SimulatorROS2Node.CreatePublisher<autoware_vehicle_msgs.msg.GearCommand>(
             gearChangeTopic,
             qosSettings.GetQoSProfile()
         );
