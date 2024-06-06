@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+import "builtin_interfaces.proto";
+
+package autoware_vehicle_msgs;
+
+enum GearCommand_Constants {
+  NONE = 0;
+  NEUTRAL = 1;
+  DRIVE = 2;
+  DRIVE_2 = 3;
+  DRIVE_3 = 4;
+  DRIVE_4 = 5;
+  DRIVE_5 = 6;
+  DRIVE_6 = 7;
+  DRIVE_7 = 8;
+  DRIVE_8 = 9;
+  DRIVE_9 = 10;
+  DRIVE_10 = 11;
+  DRIVE_11 = 12;
+  DRIVE_12 = 13;
+  DRIVE_13 = 14;
+  DRIVE_14 = 15;
+  DRIVE_15 = 16;
+  DRIVE_16 = 17;
+  DRIVE_17 = 18;
+  DRIVE_18 = 19;
+  REVERSE = 20;
+  REVERSE_2 = 21;
+  PARK = 22;
+  LOW = 23;
+  LOW_2 = 24;
+}
+
+message GearCommand {
+  builtin_interfaces.Time stamp = 1;
+  GearCommand_Constants command = 2;
+}
