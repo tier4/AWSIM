@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools.Utils;
 using AWSIM;
 using System;
+using System.Linq;
 
 
 public class SensorsTest
@@ -245,22 +246,21 @@ public class SensorsTest
 
       private void OnNewLidarData()
         {
-            int pointCount = rglSubgraphYieldOutput.GetResultData<Vector3>(ref onlyHits);
-
-            float startingAngle = lidarSensor.outputRestriction.rectangularRestrictionMasks[0].startingHorizontalAngle;
-            float endingAngle = lidarSensor.outputRestriction.rectangularRestrictionMasks[0].endingHorizontalAngle;  
+            rglSubgraphYieldOutput.GetResultData(ref onlyHits);
+            float startingAzimuth = lidarSensor.outputRestriction.rectangularRestrictionMasks[0].startingHorizontalAngle;
+            float endingAzimuth = lidarSensor.outputRestriction.rectangularRestrictionMasks[0].endingHorizontalAngle;  
+            float startingElevation = lidarSensor.outputRestriction.rectangularRestrictionMasks[0].startingVerticalAngle;
+            float endingElevation = lidarSensor.outputRestriction.rectangularRestrictionMasks[0].endingVerticalAngle;
 
             foreach (var point in onlyHits)
             {
-                Vector3 xzProjected = Vector3.ProjectOnPlane(point, Vector3.up);
+                Vector3 toHitVector = point - lidarSensor.transform.position;
+                Vector3 xzProjected = Vector3.ProjectOnPlane(toHitVector, Vector3.up);
+                float azimuth = Mathf.Atan2(xzProjected.x, xzProjected.z) * Mathf.Rad2Deg;
+                Vector3 xyProjected = Vector3.ProjectOnPlane(toHitVector, Vector3.right);
+                float elevation = Mathf.Atan2(xyProjected.y, xyProjected.z) * Mathf.Rad2Deg;
 
-                float longitude = Mathf.Atan2(xzProjected.x, xzProjected.z) * Mathf.Rad2Deg;
-                if (longitude < 0)
-                {
-                    longitude += 360;
-                }
-
-                Assert.IsFalse(longitude > startingAngle && longitude < endingAngle);
+                Assert.IsFalse(azimuth > startingAzimuth && azimuth < endingAzimuth && elevation > startingElevation && elevation < endingElevation);
             }  
         }
 }
