@@ -8,14 +8,14 @@ The following is a summary of the *ROS2* topics that the *AWSIM* node subscribes
 
 
 ## List of subscribers
-|                     Category                     | Topic                                  |                     Message type                     | `frame_id` | `Hz`  |                       `QoS`                        |
-| :----------------------------------------------: | :------------------------------------- | :--------------------------------------------------: | :--------: | :---: | :------------------------------------------------: |
-| <p style="color:rgb(0,255,255);">**Control**</p> |                                        |                                                      |            |       |                                                    |
-|                Ackermann Control                 | `/control/command/control_cmd`         | `autoware_auto_control_msgs/AckermannControlCommand` |     -      | `60`  | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
-|                       Gear                       | `/control/command/gear_cmd`            |       `autoware_auto_vehicle_msgs/GearCommand`       |     -      | `10`  | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
-|                 Turn Indicators                  | `/control/command/turn_indicators_cmd` |  `autoware_auto_vehicle_msgs/TurnIndicatorsCommand`  |     -      | `10`  | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
-|                  Hazard Lights                   | `/control/command/hazard_lights_cmd`   |   `autoware_auto_vehicle_msgs/HazardLightsCommand`   |     -      | `10`  | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
-|                    Emergency                     | `/control/command/emergency_cmd`       |   `tier4_vehicle_msgs/msg/VehicleEmergencyStamped`   |     -      | `60`  | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
+|                     Category                     | Topic                                  |                 Message type                   | `frame_id` | `Hz`  |                       `QoS`                        |
+| :----------------------------------------------: | :------------------------------------- | :--------------------------------------------: | :--------: | :---: | :------------------------------------------------: |
+| <p style="color:rgb(0,255,255);">**Control**</p> |                                        |                                                |            |       |                                                    |
+|                Ackermann Control                 | `/control/command/control_cmd`         | `autoware_control_msgs/Control`                |     -      | `60`  | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
+|                       Gear                       | `/control/command/gear_cmd`            | `autoware_vehicle_msgs/GearCommand`            |     -      | `10`  | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
+|                 Turn Indicators                  | `/control/command/turn_indicators_cmd` | `autoware_vehicle_msgs/TurnIndicatorsCommand`  |     -      | `10`  | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
+|                  Hazard Lights                   | `/control/command/hazard_lights_cmd`   | `autoware_vehicle_msgs/HazardLightsCommand`    |     -      | `10`  | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
+|                    Emergency                     | `/control/command/emergency_cmd`       | `tier4_vehicle_msgs/VehicleEmergencyStamped`   |     -      | `60`  | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
 
 ## List of publishers
 
@@ -31,12 +31,12 @@ The following is a summary of the *ROS2* topics that the *AWSIM* node subscribes
 |                        Top LiDAR                        | `/sensing/lidar/top/pointcloud_raw`         |             `sensor_msgs/PointCloud2`             |         `sensor_kit_base_link`          | `10`  | `Best effort`,<br>`Volatile`,<br>`Keep last/5` |
 |                        Top LiDAR                        | `/sensing/lidar/top/pointcloud_raw_ex`      |             `sensor_msgs/PointCloud2`             |         `sensor_kit_base_link`          | `10`  | `Best effort`,<br>`Volatile`,<br>`Keep last/5` |
 | <p style="color:rgb(0,255,144);">**Vehicle Status**</p> |                                             |                                                   |                                         |       |                                                |
-|                        Velocity                         | `/vehicle/status/velocity_status`           |    `autoware_auto_vehicle_msgs/VelocityReport`    |               `base_line`               | `30`  |  `Reliable`,<br>`Volatile`,<br>`Keep last/1`   |
-|                        Steering                         | `/vehicle/status/steering_status`           |    `autoware_auto_vehicle_msgs/SteeringReport`    |                    -                    | `30`  |  `Reliable`,<br>`Volatile`,<br>`Keep last/1`   |
-|                      Control Mode                       | `/vehicle/status/control_mode`              |  `autoware_auto_vehicle_msgs/ControlModeReport`   |                    -                    | `30`  |  `Reliable`,<br>`Volatile`,<br>`Keep last/1`   |
-|                          Gear                           | `/vehicle/status/gear_status`               |      `autoware_auto_vehicle_msgs/GearReport`      |                    -                    | `30`  |  `Reliable`,<br>`Volatile`,<br>`Keep last/1`   |
-|                     Turn Indicators                     | `/vehicle/status/turn_indicators_status`    | `autoware_auto_vehicle_msgs/TurnIndicatorsReport` |                    -                    | `30`  |  `Reliable`,<br>`Volatile`,<br>`Keep last/1`   |
-|                      Hazard Lights                      | `/vehicle/status/hazard_lights_status`      |  `autoware_auto_vehicle_msgs/HazardLightsReport`  |                    -                    | `30`  |  `Reliable`,<br>`Volatile`,<br>`Keep last/1`   |
+|                        Velocity                         | `/vehicle/status/velocity_status`           |    `autoware_vehicle_msgs/VelocityReport`         |               `base_line`               | `30`  |  `Reliable`,<br>`Volatile`,<br>`Keep last/1`   |
+|                        Steering                         | `/vehicle/status/steering_status`           |    `autoware_vehicle_msgs/SteeringReport`         |                    -                    | `30`  |  `Reliable`,<br>`Volatile`,<br>`Keep last/1`   |
+|                      Control Mode                       | `/vehicle/status/control_mode`              |  `autoware_vehicle_msgs/ControlModeReport`        |                    -                    | `30`  |  `Reliable`,<br>`Volatile`,<br>`Keep last/1`   |
+|                          Gear                           | `/vehicle/status/gear_status`               |      `autoware_vehicle_msgs/GearReport`           |                    -                    | `30`  |  `Reliable`,<br>`Volatile`,<br>`Keep last/1`   |
+|                     Turn Indicators                     | `/vehicle/status/turn_indicators_status`    | `autoware_vehicle_msgs/TurnIndicatorsReport`      |                    -                    | `30`  |  `Reliable`,<br>`Volatile`,<br>`Keep last/1`   |
+|                      Hazard Lights                      | `/vehicle/status/hazard_lights_status`      |  `autoware_vehicle_msgs/HazardLightsReport`       |                    -                    | `30`  |  `Reliable`,<br>`Volatile`,<br>`Keep last/1`   |
 | <p style="color:rgb(144,255,144);">**Ground Truth**</p> |                                             |                                                   |                                         |       |                                                |
 |                          Pose                           | `/awsim/ground_truth/vehicle/pose`          |            `geometry_msgs/PoseStamped`            |               `base_link`               | `100` |  `Reliable`,<br>`Volatile`,<br>`Keep last/1`   |
 
