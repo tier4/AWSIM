@@ -175,6 +175,10 @@ namespace RGLUnityPlugin
 
             outputRestriction.Update(configuration);
 
+            if (returnType == RGLReturnType.RGL_RETURN_TYPE_NOT_DIVERGENT)
+            {
+                beamDivergenceMilliRad = 0.0f;
+            }
             ApplyConfiguration(configuration);
             validatedPreset = modelPreset;
             onLidarModelChange?.Invoke();
