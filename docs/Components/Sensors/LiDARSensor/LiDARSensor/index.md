@@ -94,6 +94,7 @@ The pipeline consists of:
 #### Elements configurable from the editor level
 - `Automatic Capture Hz` - the rate of sensor processing (default: `10Hz`)
 - `Model Preset` - allows selecting one of the built-in *LiDAR* models (default: `RangeMeter`)
+- `Return Type` - allows selecting multi-return mode (note: this requires more computation). Modes other than "not divergent" require positive beam divergence.
 - `Apply Distance Gaussian Noise` - enable/disable distance *Gaussian* noise (default: `true`)
 - `Apply Angular Gaussian Noise` - enable/disable angular *Gaussian* noise (default: `true`)
 - `Apply Velocity Distortion` - enable/disable velocity distortion (default: `false`)
@@ -103,7 +104,8 @@ The pipeline consists of:
     - `Min H Angle` - minimum horizontal angle, left (default: `0`)
     - `Max H Angle` - maximum horizontal angle, right (default: `0`)
     - `Laser Array Cycle Time` - time between two consecutive firings of the whole laser array in milliseconds (default: `0`); used for velocity distortion feature.
-    - `Beam Divergence` - represents the deviation of photons from a single beam emitted by a LiDAR sensor (in degrees); used for simulating snow only (private feature).
+    - `Horizontal Beam Divergence` - represents horizontal deviation of photons from a single beam emitted by a LiDAR sensor (in degrees);
+    - `Vertical Beam Divergence` - represents vertical deviation of photons from a single beam emitted by a LiDAR sensor (in degrees);
     - *Noise Params*: 
         - `Angular Noise Type` - angular noise type<br>(default: `Ray Based`)
         - `Angular Noise St Dev` - angular noise standard deviation in degree<br>(default: `0.05729578`)
