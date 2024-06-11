@@ -25,7 +25,8 @@ namespace RGLUnityPlugin
     {
         [Tooltip("Sensor processing and callbacks are automatically called in this hz")]
         [FormerlySerializedAs("OutputHz")]
-        [Range(0, 50)] public int AutomaticCaptureHz = 10;
+        [Range(0, 50)]
+        public int AutomaticCaptureHz = 10;
 
         /// <summary>
         /// Delegate used in callbacks.
@@ -45,11 +46,7 @@ namespace RGLUnityPlugin
         [Tooltip("Allows to select one of built-in LiDAR models")]
         public LidarModel modelPreset = LidarModel.RangeMeter;
 
-        [Tooltip("TODO")]
-        public RGLReturnType returnType = RGLReturnType.RGL_RETURN_TYPE_NOT_DIVERGENT;
-
-        [Tooltip("TODO")] [Range(0, 10)]
-        public float beamDivergenceMilliRad = 3;
+        [Tooltip("TODO")] public RGLReturnType returnType = RGLReturnType.RGL_RETURN_TYPE_NOT_DIVERGENT;
 
         [Tooltip("Allows to quickly enable/disable distance gaussian noise")]
         public bool applyDistanceGaussianNoise = true;
@@ -60,7 +57,8 @@ namespace RGLUnityPlugin
         [Tooltip("Allows to quickly enable/disable velocity distortion")]
         public bool applyVelocityDistortion = false;
 
-        [Tooltip("If enabled, validates whether the configuration is the same as the manual for the selected model (only on startup)")]
+        [Tooltip(
+            "If enabled, validates whether the configuration is the same as the manual for the selected model (only on startup)")]
         public bool doValidateConfigurationOnStartup = true;
 
         /// <summary>
@@ -145,7 +143,8 @@ namespace RGLUnityPlugin
             if (LidarSnowManager.Instance != null)
             {
                 // Add deactivated node with some initial values. To be activated and updated when validating.
-                rglGraphLidar.AddNodePointsSimulateSnow(snowNodeId, 0.0f, 1.0f, 0.0001f, 0.0001f, 0.2f, 0.01f, 1, 0.01f, false, 0.0f);
+                rglGraphLidar.AddNodePointsSimulateSnow(snowNodeId, 0.0f, 1.0f, 0.0001f, 0.0001f, 0.2f, 0.01f, 1, 0.01f,
+                    false, 0.0f);
                 rglGraphLidar.SetActive(snowNodeId, false);
                 LidarSnowManager.Instance.OnNewConfig += OnValidate;
             }
@@ -156,8 +155,9 @@ namespace RGLUnityPlugin
             {
                 if (!configuration.ValidateWithModel(modelPreset))
                 {
-                    Debug.LogWarning($"{name}: the configuration of the selected model preset ({modelPreset.ToString()}) is modified. " +
-                                     "Ignore this warning if you have consciously changed them.");
+                    Debug.LogWarning(
+                        $"{name}: the configuration of the selected model preset ({modelPreset.ToString()}) is modified. " +
+                        "Ignore this warning if you have consciously changed them.");
                 }
             }
         }
@@ -175,10 +175,6 @@ namespace RGLUnityPlugin
 
             outputRestriction.Update(configuration);
 
-            if (returnType == RGLReturnType.RGL_RETURN_TYPE_NOT_DIVERGENT)
-            {
-                beamDivergenceMilliRad = 0.0f;
-            }
             ApplyConfiguration(configuration);
             validatedPreset = modelPreset;
             onLidarModelChange?.Invoke();
@@ -205,12 +201,23 @@ namespace RGLUnityPlugin
                     newConfig.noiseParams.distanceNoiseStDevBase, newConfig.noiseParams.distanceNoiseStDevRisePerMeter)
                 .UpdateMultiReturnSwitch(lidarMRNodeId, returnType);
 
-            rglGraphLidar.ConfigureNodeRaytraceBeamDivergence(lidarRaytraceNodeId, beamDivergenceMilliRad / 1000.0f);
+            if (returnType != RGLReturnType.RGL_RETURN_TYPE_NOT_DIVERGENT)
+            {
+                rglGraphLidar.ConfigureNodeRaytraceBeamDivergence(lidarRaytraceNodeId,
+                    Mathf.Deg2Rad * newConfig.horizontalBeamDivergence,
+                    Mathf.Deg2Rad * newConfig.verticalBeamDivergence);
+            }
+            else
+            {
+                rglGraphLidar.ConfigureNodeRaytraceBeamDivergence(lidarRaytraceNodeId, 0.0f, 0.0f);
+            }
 
             rglGraphLidar.SetActive(noiseDistanceNodeId, applyDistanceGaussianNoise);
             var angularNoiseType = newConfig.noiseParams.angularNoiseType;
-            rglGraphLidar.SetActive(noiseLidarRayNodeId, applyAngularGaussianNoise && angularNoiseType == AngularNoiseType.RayBased);
-            rglGraphLidar.SetActive(noiseHitpointNodeId, applyAngularGaussianNoise && angularNoiseType == AngularNoiseType.HitpointBased);
+            rglGraphLidar.SetActive(noiseLidarRayNodeId,
+                applyAngularGaussianNoise && angularNoiseType == AngularNoiseType.RayBased);
+            rglGraphLidar.SetActive(noiseHitpointNodeId,
+                applyAngularGaussianNoise && angularNoiseType == AngularNoiseType.HitpointBased);
 
             // Snow model updates
             if (rglGraphLidar.HasNode(snowNodeId))
@@ -226,10 +233,11 @@ namespace RGLUnityPlugin
                         LidarSnowManager.Instance.TerminalVelocity,
                         LidarSnowManager.Instance.Density,
                         newConfig.laserArray.GetLaserRingIds().Length,
-                        newConfig.beamDivergence * Mathf.Deg2Rad,
+                        newConfig.horizontalBeamDivergence * Mathf.Deg2Rad,
                         LidarSnowManager.Instance.DoSimulateEnergyLoss,
                         LidarSnowManager.Instance.SnowflakeOccupancyThreshold);
                 }
+
                 rglGraphLidar.SetActive(snowNodeId, LidarSnowManager.Instance.IsSnowEnabled);
             }
 
@@ -249,7 +257,6 @@ namespace RGLUnityPlugin
 
                 outputRestriction.ApplyStaticRestriction(rglGraphLidar, lidarRaytraceNodeId);
             }
-
         }
 
         public void OnEnable()
@@ -301,6 +308,7 @@ namespace RGLUnityPlugin
                 fixedUpdatesInCurrentFrame = 0;
                 lastUpdateFrame = Time.frameCount;
             }
+
             fixedUpdatesInCurrentFrame += 1;
 
             if (AutomaticCaptureHz == 0.0f)
@@ -380,13 +388,16 @@ namespace RGLUnityPlugin
             // Calculate delta transform of lidar.
             // Velocities must be in sensor-local coordinate frame.
             // Sensor linear velocity in m/s.
-            Vector3 globalLinearVelocity = (currentTransform.GetColumn(3) - lastTransform.GetColumn(3)) / Time.deltaTime;
+            Vector3 globalLinearVelocity =
+                (currentTransform.GetColumn(3) - lastTransform.GetColumn(3)) / Time.deltaTime;
             Vector3 localLinearVelocity = gameObject.transform.InverseTransformDirection(globalLinearVelocity);
 
-            Vector3 deltaRotation = Quaternion.LookRotation(currentTransform.GetColumn(2), currentTransform.GetColumn(1)).eulerAngles
-                                  - Quaternion.LookRotation(lastTransform.GetColumn(2), lastTransform.GetColumn(1)).eulerAngles;
+            Vector3 deltaRotation =
+                Quaternion.LookRotation(currentTransform.GetColumn(2), currentTransform.GetColumn(1)).eulerAngles
+                - Quaternion.LookRotation(lastTransform.GetColumn(2), lastTransform.GetColumn(1)).eulerAngles;
             // Fix delta rotation when switching between 0 and 360.
-            deltaRotation = new Vector3(Mathf.DeltaAngle(0, deltaRotation.x), Mathf.DeltaAngle(0, deltaRotation.y), Mathf.DeltaAngle(0, deltaRotation.z));
+            deltaRotation = new Vector3(Mathf.DeltaAngle(0, deltaRotation.x), Mathf.DeltaAngle(0, deltaRotation.y),
+                Mathf.DeltaAngle(0, deltaRotation.z));
             // Sensor angular velocity in rad/s.
             Vector3 localAngularVelocity = (deltaRotation * Mathf.Deg2Rad) / Time.deltaTime;
 

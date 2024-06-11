@@ -100,7 +100,7 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_raytrace_configure_mask(IntPtr node, IntPtr rays_mask, int rays_count);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_raytrace_configure_beam_divergence(IntPtr node, float beamDivergence);
+        public static extern int rgl_node_raytrace_configure_beam_divergence(IntPtr node, float horizontal_divergence, float vertical_divergence);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_format(ref IntPtr node, IntPtr fields, int field_count);
@@ -450,9 +450,9 @@ namespace RGLUnityPlugin
             }
         }
 
-        public static void NodeRaytraceConfigureBeamDivergence(IntPtr node, float beamDivergence)
+        public static void NodeRaytraceConfigureBeamDivergence(IntPtr node, float horizontalDivergence, float verticalDivergence)
         {
-            CheckErr(rgl_node_raytrace_configure_beam_divergence(node, beamDivergence));
+            CheckErr(rgl_node_raytrace_configure_beam_divergence(node, horizontalDivergence, verticalDivergence));
         }
 
         public static void NodePointsFormat(ref IntPtr node, RGLField[] fields)

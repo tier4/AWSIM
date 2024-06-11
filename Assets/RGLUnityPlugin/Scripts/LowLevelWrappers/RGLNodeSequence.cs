@@ -480,10 +480,10 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence ConfigureNodeRaytraceBeamDivergence(string identifier, float beamDivergence)
+        public RGLNodeSequence ConfigureNodeRaytraceBeamDivergence(string identifier, float horizontalDivergence, float verticalDivergence)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
-            RGLNativeAPI.NodeRaytraceConfigureBeamDivergence(handle.Node, beamDivergence);
+            RGLNativeAPI.NodeRaytraceConfigureBeamDivergence(handle.Node, horizontalDivergence, verticalDivergence);
             return this;
         }
 
