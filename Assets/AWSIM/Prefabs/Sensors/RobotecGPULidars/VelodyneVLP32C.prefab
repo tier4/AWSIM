@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AutomaticCaptureHz: 10
   modelPreset: 3
+  returnType: 0
   applyDistanceGaussianNoise: 1
   applyAngularGaussianNoise: 1
   applyVelocityDistortion: 0
@@ -353,7 +354,8 @@ MonoBehaviour:
         minHAngle: 0
         maxHAngle: 360
         laserArrayCycleTime: 0.055296
-        beamDivergence: 0.13
+        horizontalBeamDivergence: 0.171887
+        verticalBeamDivergence: 0.0859435
         noiseParams:
           angularNoiseType: 0
           angularNoiseStDev: 0.057295784
