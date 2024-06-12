@@ -153,6 +153,15 @@ namespace RGLUnityPlugin
             float cumulative_device_gain, float received_noise_mean, float received_noise_st_dev);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_radar_track_objects(IntPtr node, float object_distance_threshold,
+                                                         float object_azimuth_threshold, float object_elevation_threshold,
+                                                         float object_radial_speed_threshold, float max_matching_distance,
+                                                         float max_prediction_time_frame, float movement_sensitivity);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_radar_set_classes(IntPtr node, IntPtr entity_ids, IntPtr object_classes, int count);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_simulate_snow(ref IntPtr node, float min_range, float max_range, float rain_rate,
             float mean_snowflake_diameter, float terminal_velocity, float density, Int32 num_channels, float beam_divergence,
             bool simulate_energy_loss, float snowflake_occupancy_threshold);
@@ -569,6 +578,28 @@ namespace RGLUnityPlugin
                     CheckErr(rgl_node_points_radar_postprocess(ref node, (IntPtr) pRadarParametersScopes,
                         radarParametersScopesCopy.Length, rayAzimuthStep, rayElevationStep, frequency,
                         powerTransmitted, cumulativeDeviceGain, receivedNoiseMean, receivedNoiseStDev));
+                }
+            }
+        }
+
+        public static void NodePointsRadarTrackObjects(IntPtr node, float objectDistanceThreshold, float objectAzimuthThreshold,
+            float objectElevationThreshold, float objectRadialSpeedThreshold, float maxMatchingDistance, float maxPredictionTimeFrame,
+            float movementSensitivity)
+        {
+            CheckErr(rgl_node_points_radar_track_objects(node, objectDistanceThreshold, objectAzimuthThreshold, objectElevationThreshold,
+                objectRadialSpeedThreshold, maxMatchingDistance, maxPredictionTimeFrame, movementSensitivity));
+        }
+
+        public static void NodePointsRadarSetClasses(IntPtr node, int[] entityIds, RGLRadarObjectClass[] objectClasses, int count)
+        {
+            unsafe
+            {
+                fixed (int* entityIdsPtr = entityIds)
+                {
+                    fixed (RGLRadarObjectClass* objectClassesPtr = objectClasses)
+                    {
+                        CheckErr(rgl_node_points_radar_set_classes(node, (IntPtr) entityIdsPtr, (IntPtr) objectClassesPtr, count));
+                    }
                 }
             }
         }
