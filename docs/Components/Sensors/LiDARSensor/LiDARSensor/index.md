@@ -262,3 +262,9 @@ To enable saving dictionary mapping set output file path to the `Semantic Catego
 
 The dictionary mapping file will be saved at the end of the simulation.
 
+### LiDAR output restriction
+Describes LiDAR faults modeled as a set of rectangular masks obstructing part of the rays.
+
+Example set of parameters for output restriction resulting in one rectangular mask obstructing rays in the range of 0 to 20 degrees horizontally and -1 to 1 degrees vertically:
+
+<img src="output_restriction_example.png" width="400">
