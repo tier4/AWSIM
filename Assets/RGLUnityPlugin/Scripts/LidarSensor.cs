@@ -46,7 +46,8 @@ namespace RGLUnityPlugin
         [Tooltip("Allows to select one of built-in LiDAR models")]
         public LidarModel modelPreset = LidarModel.RangeMeter;
 
-        [Tooltip("TODO")] public RGLReturnType returnType = RGLReturnType.RGL_RETURN_TYPE_NOT_DIVERGENT;
+        [Tooltip("Allows to select between not divergent beams and different multi-return modes")]
+        public RGLReturnType returnType = RGLReturnType.RGL_RETURN_TYPE_NOT_DIVERGENT;
 
         [Tooltip("Allows to quickly enable/disable distance gaussian noise")]
         public bool applyDistanceGaussianNoise = true;

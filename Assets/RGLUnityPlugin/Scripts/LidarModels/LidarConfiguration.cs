@@ -145,6 +145,7 @@ namespace RGLUnityPlugin
         {
             return laserArrayCycleTime == gold.laserArrayCycleTime &&
                    horizontalBeamDivergence == gold.horizontalBeamDivergence &&
+                   verticalBeamDivergence == gold.verticalBeamDivergence &&
                    noiseParams.Equals(gold.noiseParams) &&
                    laserArray.Equals(gold.laserArray);
                    // Omitted values

@@ -32,6 +32,7 @@ namespace RGLUnityPlugin
                     minRange = 0,
                     maxRange = 40,
                     horizontalBeamDivergence = 0.13f,
+                    verticalBeamDivergence = 0.13f,
                 }},
 
                 {LidarModel.SickMRS6000, () => new UniformRangeLidarConfiguration
@@ -44,6 +45,7 @@ namespace RGLUnityPlugin
                     minRange = 0,
                     maxRange = 40,
                     horizontalBeamDivergence = 0.13f,
+                    verticalBeamDivergence = 0.13f,
                 }},
 
                 {LidarModel.VelodyneVLP16, () => new UniformRangeLidarConfiguration
