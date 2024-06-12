@@ -80,8 +80,6 @@ public class SensorsTest
         radarSensor = GameObject.FindObjectOfType<RGLUnityPlugin.RadarSensor>();
         imuSensor = GameObject.FindObjectOfType<ImuSensor>();
 
-        LidarOutputRestrictionTestSetup();
-
         yield return null;
     }
 
@@ -93,6 +91,11 @@ public class SensorsTest
         rglSubgraphYieldOutput.SetPriority(yieldOutputNodeId, 1);
         rglSubgraphYieldOutput.SetActive(yieldOutputNodeId, true);
 
+        // Disable Gaussian noise to be able to validate output restriction
+        lidarSensor.applyAngularGaussianNoise = false;
+        lidarSensor.applyDistanceGaussianNoise = false;
+        lidarSensor.OnValidate();
+
         lidarSensor.ConnectToWorldFrame(rglSubgraphYieldOutput);
         lidarSensor.onNewData += OnNewLidarData;
     }
@@ -101,6 +104,9 @@ public class SensorsTest
     public IEnumerator LiDAR()
     {
         Assert.NotNull(lidarSensor);
+
+        LidarOutputRestrictionTestSetup();
+
         RglLidarPublisher lidarRos2Publisher = lidarSensor.GetComponent<RglLidarPublisher>();
 
         Assert.AreEqual((byte)lidarRos2Publisher.qos.reliabilityPolicy, (byte)ROS2.ReliabilityPolicy.QOS_POLICY_RELIABILITY_BEST_EFFORT);
@@ -116,6 +122,9 @@ public class SensorsTest
             Assert.IsNotEmpty(pointCloudMessages);
             Assert.AreEqual(pointCloudMessages.Count, (int)(testDuration * lidarSensor.AutomaticCaptureHz));
         }
+
+        // Unsubscribe LiDAR output validation
+        lidarSensor.onNewData -= OnNewLidarData;
     }
 
     [UnityTest]
