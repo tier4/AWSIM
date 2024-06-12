@@ -65,29 +65,34 @@ If those features are curcial for the scenario's execution, the scenario might n
 
 ## AWSIM scene preparation to work with `scenario_simulator_v2`
 
-1. Disable or remove random traffic and any pre-spawned NPCs
-2. Disable or remove V2I traffic lights publishing
-3. Disable or remove the clock publisher
+1. Disable random traffic and any pre-spawned NPCs
+2. Disable V2I traffic lights publishing
+3. Remove `EgoVehicle` object in the scene
+4. Remove `TimeScaleSettingsUI`, `VehicleSettingsUI` and `TrafficSettingsUI` from `Canvas` -> `RightScrollView` -> `Viewport` -> `Content`
 
   ![removed_objects.png](removed_objects.png)
 
-4. Add `ScenarioSimulatorConnector` prefab to the scene - located in `Assets/ScenarioSimulatorConnector`
+5. Disable the Clock Publisher script component in the `ClockPublisher` object
+
+  ![clock_publisher_disable.png](clock_publisher_disable.png)
+
+6. Add `ScenarioSimulatorConnector` prefab to the scene - located in `Assets/ScenarioSimulatorConnector`
 
   ![scene_tree.png](scene_tree.png)
 
-5. Add Ego Follow Camera object - most likely Main Camera
+7. Configure Ego Follow Camera field in `ScenarioSimulatorConnector` - most likely `Main Camera` object from the scene
 
   ![follow_camera.png](follow_camera.png)
 
-6. If necessary update the asset_id to prefab mapping - key in the map can be used in the scenario 
+8. Configure Vehicle Information UI field in `ScenarioSimulatorConnector` - most likely `VehicleInformationUI` object from the scene
+
+  ![vehicle_information_ui.png](vehicle_information_ui.png)
+
+9. If necessary update the asset_id to prefab mapping - key in the map can be used in the scenario 
 
   ![entities.png](entities.png)
 
-7. Add TimeSourceSelector prefab to the scene - located in `Assets/AWSIM/Scripts/Clock/Prefabs`
-
-  ![scene_tree_time_selector.png](scene_tree_time_selector.png)
-
-8. Configure Type in the TimeSourceSelector component to SS2
+10. Configure Type in the TimeSourceSelector component to SS2
 
   ![time_selector_ss2.png](time_selector_ss2.png)
 

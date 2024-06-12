@@ -110,20 +110,18 @@ namespace AWSIM
                                 if (zMessage != null)
                                 {
                                     // get received message to buffer and get the size of request
-                                    byte[] buffer = new byte[1024];
-                                    int requestSize = zMessage.PopBytes(buffer, 0, buffer.Length);
+                                    for (int i = 0; i < zMessage.Count; i++) {
+                                        byte[] buffer = new byte[zMessage[i].Length];
+                                        long requestSize = zMessage.PopBytes(buffer, 0, buffer.Length);
 
-                                    // select bytes related to request message
-                                    byte[] requestBytes = new byte[requestSize];
-                                    Array.ConstrainedCopy(buffer, 0, requestBytes, 0, requestSize);
+                                        SimulationRequest request = SimulationRequest.Parser.ParseFrom(buffer);
+                                        SimulationResponse response = requestProcessor.Process(request);
 
-                                    SimulationRequest request = SimulationRequest.Parser.ParseFrom(requestBytes);
-                                    SimulationResponse response = requestProcessor.Process(request);
-
-                                    byte[] responseBytes = response.ToByteArray();
-                                    if (!responseSocket.SendBytes(responseBytes, 0, responseBytes.Length))
-                                    {
-                                        Debug.LogWarning("[ZMQ ERROR] Failed to send a response.");
+                                        byte[] responseBytes = response.ToByteArray();
+                                        if (!responseSocket.SendBytes(responseBytes, 0, responseBytes.Length))
+                                        {
+                                            Debug.LogWarning("[ZMQ ERROR] Failed to send a response.");
+                                        }
                                     }
                                 }
                             }
