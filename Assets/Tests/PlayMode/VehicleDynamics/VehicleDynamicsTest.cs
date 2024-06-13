@@ -155,7 +155,6 @@ public class VehicleDynamicsTest
         egoVehicle = null;
         egoGameObject = null;
         egoRosInput = null;
-        //yield return new WaitForFixedUpdate();
 
         for(int i=0; i<10; i++)
         {
@@ -401,7 +400,7 @@ public class VehicleDynamicsTest
     }
 
     [UnityTest]
-    public IEnumerator VehicleDynamics_RightLeft()
+    public IEnumerator VehicleDynamics_TurnRight()
     {
         Vector3 expectedEndPosition = new Vector3(17.31582f, -0.07222262f, 16.27713f);
 
