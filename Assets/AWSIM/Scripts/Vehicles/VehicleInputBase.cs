@@ -36,11 +36,11 @@ namespace AWSIM
         /// <summary>
         /// Is there an input override to the vehicle?
         /// </summary>
-        public bool Overriden { get; protected set; } = false;
+        public bool Overridden { get; protected set; } = false;
 
         /// <summary>
         /// New control mode when input override occurs.
-        /// Used by VehicleOverrideInputManagar class when Overriden property is true.
+        /// Used by VehicleOverrideInputManager class when Overridden property is true.
         /// </summary>
         public VehicleControlMode NewControlMode { get; protected set; } = VehicleControlMode.AUTONOMOUS;
 

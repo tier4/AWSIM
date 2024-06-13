@@ -44,7 +44,7 @@ namespace AWSIM
             ManuallyInput.OnUpdate(ControlMode);
 
             // If override input is present, switch new ControlMode.
-            if (ManuallyInput.Overriden)
+            if (ManuallyInput.Overridden)
             {
                 ControlMode = ManuallyInput.NewControlMode;
             }

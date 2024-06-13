@@ -21,7 +21,7 @@ namespace AWSIM
     /// 4 : Turn signal off
     public class VehicleKeyboardInput : VehicleInputBase
     {
-        public float MaxAcceleraion = 1.5f;
+        public float MaxAcceleration = 1.5f;
         float MaxSteerAngle = 0;
         [SerializeField] Vehicle vehicle;
 
@@ -32,12 +32,12 @@ namespace AWSIM
 
         public override void OnUpdate(VehicleControlMode currentControlMode)
         {
-            Overriden = false;
+            Overridden = false;
 
-            // Get steering and acceleraion input.
+            // Get steering and acceleration input.
             var horizontal = Input.GetAxis("Horizontal");
             var vertical = Input.GetAxis("Vertical");
-            AccelerationInput = MaxAcceleraion * vertical;
+            AccelerationInput = MaxAcceleration * vertical;
             SteeringInput = MaxSteerAngle * horizontal;
 
             // Get gear input.
@@ -70,7 +70,7 @@ namespace AWSIM
                 // Override the vehicle's control mode when a steering input or acceleration input is given.
                 if (Mathf.Abs(horizontal) > 0 || Mathf.Abs(vertical) > 0)
                 {
-                    Overriden = true;
+                    Overridden = true;
                     NewControlMode = VehicleControlMode.MANUAL;
                 }
 

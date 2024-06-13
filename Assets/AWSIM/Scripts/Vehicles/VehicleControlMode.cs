@@ -5,7 +5,7 @@ using UnityEngine;
 namespace AWSIM
 {
     /// <summary>
-    /// C# enum for Autoware's ContorlMode. (No dependency on ROS2)
+    /// C# enum for Autoware's ControlMode. (No dependency on ROS2)
     /// VehicleROS2Utility.UnityToRosControlMode() can be used to convert C# enum to ros msg.
     /// <see href="https://github.com/autowarefoundation/autoware_msgs/blob/main/autoware_vehicle_msgs/msg/ControlModeReport.msg"/>
     /// </summary>
