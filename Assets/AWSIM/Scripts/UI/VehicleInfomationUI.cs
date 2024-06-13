@@ -10,12 +10,18 @@ namespace AWSIM
     /// </summary>
     public class VehicleInfomationUI : MonoBehaviour
     {
-        [SerializeField] Vehicle vehicle;
+        [SerializeField] public Vehicle vehicle;
         [SerializeField] Text speedText;
         [SerializeField] Text gearText;
 
         void Update()
         {
+            if (!vehicle) {
+                speedText.text = "";
+                gearText.text = "";
+                return;
+            }
+
             speedText.text = "" + Mathf.Floor(vehicle.Speed * 3.6f);
             gearText.text = "" + GetShiftString(vehicle.AutomaticShift);
 

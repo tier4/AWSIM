@@ -54,6 +54,7 @@ namespace AWSIM
         [SerializeField] QoSSettings qosSettings;
 
         [SerializeField] Vehicle vehicle;
+        [SerializeField] VehicleOverrideInputManager VehicleOverrideInputManager;
 
         // msgs.
         autoware_auto_vehicle_msgs.msg.ControlModeReport controlModeReportMsg;
@@ -118,7 +119,8 @@ namespace AWSIM
             timer = 0;
 
             // ControlModeReport
-            controlModeReportMsg.Mode = autoware_auto_vehicle_msgs.msg.ControlModeReport.AUTONOMOUS;
+            var controlMode = VehicleROS2Utility.UnityToRosControlMode(VehicleOverrideInputManager.ControlMode);
+            controlModeReportMsg.Mode = controlMode;
 
             // GearReport
             gearReportMsg.Report = VehicleROS2Utility.UnityToRosShift(vehicle.AutomaticShiftInput);

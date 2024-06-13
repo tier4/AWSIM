@@ -7,10 +7,9 @@ namespace AWSIM
 {
     /// <summary>
     /// This class subscribes to the vehicleCommand and turnSignal  msg output from Autoware to ROS, 
-    /// and after converting the msg, it inputs it to the Vehicle class of E2ESimualtor.
+    /// and after converting the msg, it inputs it to the Vehicle class of AWSIM.
     /// </summary>
-    [RequireComponent(typeof(Vehicle))]
-    public class VehicleRosInput : MonoBehaviour
+    public class VehicleRos2Input : VehicleInputBase
     {
         [SerializeField] string turnIndicatorsCommandTopic = "/control/command/turn_indicators_cmd";
         [SerializeField] string hazardLightsCommandTopic = "/control/command/hazard_lights_cmd";
@@ -19,7 +18,6 @@ namespace AWSIM
         [SerializeField] string vehicleEmergencyStampedTopic = "/control/command/emergency_cmd";
 
         [SerializeField] QoSSettings qosSettings = new QoSSettings();
-        [SerializeField] Vehicle vehicle;
 
         // subscribers.
         ISubscription<autoware_auto_vehicle_msgs.msg.TurnIndicatorsCommand> turnIndicatorsCommandSubscriber;
@@ -41,12 +39,8 @@ namespace AWSIM
         Vehicle.TurnSignal hazardLightsSignal = Vehicle.TurnSignal.NONE;
         Vehicle.TurnSignal input = Vehicle.TurnSignal.NONE;
 
-
         void Reset()
         {
-            if (vehicle == null)
-                vehicle = GetComponent<Vehicle>();
-
             // initialize default QoS params.
             qosSettings.ReliabilityPolicy = ReliabilityPolicy.QOS_POLICY_RELIABILITY_RELIABLE;
             qosSettings.DurabilityPolicy = DurabilityPolicy.QOS_POLICY_DURABILITY_TRANSIENT_LOCAL;
@@ -69,8 +63,8 @@ namespace AWSIM
                 input = Vehicle.TurnSignal.NONE;
 
             // input
-            if (vehicle.SignalInput != input)
-                vehicle.SignalInput = input;
+            if (TurnSignalInput != input)
+                TurnSignalInput = input;
         }
 
         void OnEnable()
@@ -100,16 +94,16 @@ namespace AWSIM
                         // highest priority is EMERGENCY.
                         // If Emergency is true, ControlCommand is not used for vehicle acceleration input.
                         if (!isEmergency)
-                            vehicle.AccelerationInput = msg.Longitudinal.Acceleration;
+                            AccelerationInput = msg.Longitudinal.Acceleration;
 
-                        vehicle.SteerAngleInput = -(float)msg.Lateral.Steering_tire_angle * Mathf.Rad2Deg;
+                        SteeringInput = -(float)msg.Lateral.Steering_tire_angle * Mathf.Rad2Deg;
                     }, qos);
 
             gearCommandSubscriber
                 = SimulatorROS2Node.CreateSubscription<autoware_auto_vehicle_msgs.msg.GearCommand>(
                     gearCommandTopic, msg =>
                     {
-                        vehicle.AutomaticShiftInput = VehicleROS2Utility.RosToUnityShift(msg);
+                        ShiftInput = VehicleROS2Utility.RosToUnityShift(msg);
                     }, qos);
 
             vehicleEmergencyStampedSubscriber
@@ -120,7 +114,7 @@ namespace AWSIM
                         // If emergency is true, emergencyDeceleration is applied to the vehicle's deceleration.
                         isEmergency = msg.Emergency;
                         if (isEmergency)
-                            vehicle.AccelerationInput = emergencyDeceleration;
+                            AccelerationInput = emergencyDeceleration;
                     });
         }
 

@@ -109,6 +109,7 @@ nav:
       - Preparing the connection between AWSIM and scenario_simulator_v2: Components/ScenarioSimulation/PreparingTheConnectionBetweenAWSIMAndScenarioSimulator/index.md
 
   - Developer guide:
+    - Setup VSCode: DeveloperGuide/SetupVscode/index.md
     - How to Contribute: DeveloperGuide/HowToContribute/index.md
     - Trouble shooting: DeveloperGuide/TroubleShooting/index.md
     - Documentation: DeveloperGuide/Documentation/index.md

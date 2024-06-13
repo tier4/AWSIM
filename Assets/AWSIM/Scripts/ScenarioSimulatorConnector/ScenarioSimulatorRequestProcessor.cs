@@ -34,6 +34,7 @@ namespace AWSIM
         [SerializeField] private EntityPrefab[] entityPrefabs;
         [SerializeField] private Transform entitesRoot;
         [SerializeField] private FollowCamera egoFollowCamera;
+        [SerializeField] private VehicleInfomationUI vehicleInformationUI;
 
         [Space(10)]
         [Header("Execution Type")]
@@ -410,8 +411,10 @@ namespace AWSIM
                     var instance = GameObject.Instantiate(prefab, unityPose.position, unityPose.rotation, entitesRoot);
                     entityInstanceDic.Add(request.Parameters.Name, instance);
 
-                    if (request.IsEgo)
+                    if (request.IsEgo) {
                         egoFollowCamera.target = instance.transform;
+                        vehicleInformationUI.vehicle = instance.GetComponent<Vehicle>();
+                    }
                 }
             }, null);
 

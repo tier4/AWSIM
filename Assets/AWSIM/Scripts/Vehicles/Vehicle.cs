@@ -170,12 +170,12 @@ namespace AWSIM
         // Set value to clamp SteerAngleInput (degree).
         // -MaxSteerAngleInput <= SteerAngleInput <= MaxSteerAngleInput.
         [Range(0.01f, 80)]
-        [SerializeField] float MaxSteerAngleInput = 35f;
+        public float MaxSteerAngleInput = 35f;
 
         // Set value to clamp AccelerationInput (m/s^2).
         // -MaxAccelerationInput <= AccelerationInput <= MaxAccelerationInput.
         [Range(0.01f, 50)]
-        [SerializeField] float MaxAccelerationInput = 10;
+        public float MaxAccelerationInput = 10;
 
         [Header("Inputs")]
 
