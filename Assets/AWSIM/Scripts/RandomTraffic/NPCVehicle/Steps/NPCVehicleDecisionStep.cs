@@ -38,8 +38,24 @@ namespace AWSIM.TrafficSimulation
         {
             if (state.ShouldDespawn || state.CurrentFollowingLane == null)
                 return;
-
-            state.TargetPoint = state.CurrentFollowingLane.Waypoints[state.WaypointIndex];
+            var vehicle = state.Vehicle;
+            if (vehicle.outerControl)
+            {
+                var targetPosition = vehicle.outerTargetPoint + Quaternion.AngleAxis(state.Yaw, Vector3.up) * state.FrontCenterLocalPosition;
+                if (Mathf.Abs((state.FrontCenterPosition - targetPosition).magnitude) > 0.01f)
+                {
+                    state.TargetPoint = targetPosition;
+                    //Debug.Log("Distance to target point: " + (state.FrontCenterPosition - state.TargetPoint).magnitude);
+                }
+                else
+                {
+                    state.TargetPoint = state.CurrentFollowingLane.Waypoints[state.WaypointIndex];
+                }
+            }
+            else
+            {
+                state.TargetPoint = state.CurrentFollowingLane.Waypoints[state.WaypointIndex];
+            }
         }
 
         /// <summary>

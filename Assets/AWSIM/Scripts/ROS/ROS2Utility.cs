@@ -79,6 +79,17 @@ namespace AWSIM
                                (float)(rosPosition.X - offset.x));
         }
 
+        public static geometry_msgs.msg.Point UnityToRosMGRSPosition(Vector3 unityPosition)
+        {
+            var offset = Environment.Instance.MgrsOffsetPosition;
+            return new geometry_msgs.msg.Point
+            {
+                X = unityPosition.z + offset.x,  // UnityのZ座標がROSのX座標に対応
+                Y = -unityPosition.x + offset.y, // UnityのX座標の負の値がROSのY座標に対応
+                Z = unityPosition.y + offset.z   // UnityのY座標がROSのZ座標に対応
+            };
+        }
+
         /// <summary>
         /// Convert position from ROS to Unity.
         /// </summary>

@@ -6,7 +6,7 @@ namespace AWSIM
     /// NPC pedestrian that is controlled in the scenario.
     /// </summary>
     [RequireComponent(typeof(Rigidbody), typeof(Animator))]
-    public class NPCPedestrian : MonoBehaviour
+    public class NPCPedestrian : NPC
     {
         [SerializeField] private new Rigidbody rigidbody;
         [SerializeField] private Transform referencePoint;
@@ -30,6 +30,17 @@ namespace AWSIM
 
         private const string moveSpeedProperty = "moveSpeed";
         private const string rotateSpeedProperty = "rotateSpeed";
+        private Vector3 lastPosition;
+        private Vector3 velocity;
+        public override Vector3 Velocity => velocity;
+        private Vector3 angularVelocity;
+        public override Vector3 AngularVelocity => angularVelocity;
+        private Vector3 lastAngular;
+
+        private void Awake()
+        {
+            SetUUID();
+        }
 
         private void Update()
         {
@@ -39,6 +50,14 @@ namespace AWSIM
 
             // Switch animation based on rotation speed (rad/s).
             animator.SetFloat(rotateSpeedProperty, rigidbody.angularVelocity.magnitude);
+        }
+
+        public void FixedUpdate()
+        {
+            velocity = (rigidbody.position - lastPosition) / Time.deltaTime;
+            lastPosition = rigidbody.position;
+            angularVelocity = (rigidbody.rotation.eulerAngles - lastAngular) / Time.deltaTime;
+            lastAngular = rigidbody.rotation.eulerAngles;
         }
 
         private void Reset()

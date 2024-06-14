@@ -19,7 +19,7 @@ namespace AWSIM.TrafficSimulation
         }
 
         private static void ApplyPose(NPCVehicleInternalState state)
-        {
+        {   
             if (state.ShouldDespawn)
                 return;
 

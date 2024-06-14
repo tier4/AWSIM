@@ -9,7 +9,7 @@ namespace AWSIM
     /// NPC Vehicle class.
     /// Controlled by Position and Rotation.
     /// </summary>
-    public class NPCVehicle : MonoBehaviour
+    public class NPCVehicle : NPC
     {
         public enum TurnSignalState
         {
@@ -188,6 +188,10 @@ namespace AWSIM
         float wheelbase;        // m
         float acceleration;     // m/s^2
         Vector3 velocity;       // m/s
+        public override Vector3 Velocity => velocity;
+        Vector3 angularVelocity; // deg/s
+        Vector3 lastAngular;
+        public override Vector3 AngularVelocity => angularVelocity;
         float speed;            // m/s (forward only)
         float yawAngularSpeed;  // deg/s (yaw only)
 
@@ -198,6 +202,15 @@ namespace AWSIM
 
         public Transform RigidBodyTransform => rigidbody.transform;
         public Transform TrailerTransform => trailer?.transform;
+
+        public bool outerControl = false;
+
+        public Vector3 currentPosition;
+
+        [NonSerialized]
+        public Vector3 outerTargetPoint = new Vector3();
+        [NonSerialized]
+        public Quaternion outerRotation = new Quaternion();
 
         // Start is called before the first frame update
         void Awake()
@@ -211,6 +224,8 @@ namespace AWSIM
             rigidbody.centerOfMass = transform.InverseTransformPoint(centerOfMass.position);
             lastPosition = rigidbody.position;
             wheelbase = axleSettings.GetWheelBase();
+
+            SetUUID();
         }
 
         // Update is called once per frame
@@ -303,10 +318,13 @@ namespace AWSIM
         }
 
         void FixedUpdate()
-        {
+        {   
+
+            currentPosition = rigidbody.position;
             // Calculate physical states for visual update.
             // velocity & speed.
             velocity = (rigidbody.position - lastPosition) / Time.deltaTime;
+            angularVelocity = (rigidbody.rotation.eulerAngles - lastAngular) / Time.deltaTime;
             speed = Vector3.Dot(velocity, transform.forward);
 
             // accleration.
@@ -320,6 +338,7 @@ namespace AWSIM
             // Cache current frame values.
             lastPosition = rigidbody.position;
             lastVelocity = velocity;
+            lastAngular = rigidbody.rotation.eulerAngles;
             lastEulerAnguleY = rigidbody.rotation.eulerAngles.y;
             lastSpeed = speed;
         }
