@@ -153,7 +153,7 @@ namespace RGLUnityPlugin
             float cumulative_device_gain, float received_noise_mean, float received_noise_st_dev);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_points_radar_track_objects(IntPtr node, float object_distance_threshold,
+        public static extern int rgl_node_points_radar_track_objects(ref IntPtr node, float object_distance_threshold,
                                                          float object_azimuth_threshold, float object_elevation_threshold,
                                                          float object_radial_speed_threshold, float max_matching_distance,
                                                          float max_prediction_time_frame, float movement_sensitivity);
@@ -582,16 +582,21 @@ namespace RGLUnityPlugin
             }
         }
 
-        public static void NodePointsRadarTrackObjects(IntPtr node, float objectDistanceThreshold, float objectAzimuthThreshold,
+        public static void NodePointsRadarTrackObjects(ref IntPtr node, float objectDistanceThreshold, float objectAzimuthThreshold,
             float objectElevationThreshold, float objectRadialSpeedThreshold, float maxMatchingDistance, float maxPredictionTimeFrame,
             float movementSensitivity)
         {
-            CheckErr(rgl_node_points_radar_track_objects(node, objectDistanceThreshold, objectAzimuthThreshold, objectElevationThreshold,
+            CheckErr(rgl_node_points_radar_track_objects(ref node, objectDistanceThreshold, objectAzimuthThreshold, objectElevationThreshold,
                 objectRadialSpeedThreshold, maxMatchingDistance, maxPredictionTimeFrame, movementSensitivity));
         }
 
-        public static void NodePointsRadarSetClasses(IntPtr node, int[] entityIds, RGLRadarObjectClass[] objectClasses, int count)
+        public static void NodePointsRadarSetClasses(IntPtr node, int[] entityIds, RGLRadarObjectClass[] objectClasses)
         {
+            if (entityIds.Length != objectClasses.Length)
+            {
+                throw new ArgumentException("NodePointsRadarSetClasses: Length of entityIds and objectClasses must be the same.");
+            }
+            var count = entityIds.Length;
             unsafe
             {
                 fixed (int* entityIdsPtr = entityIds)
