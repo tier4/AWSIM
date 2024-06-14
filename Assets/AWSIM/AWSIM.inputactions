@@ -858,11 +858,33 @@
                 },
                 {
                     "name": "",
+                    "id": "2aa7dd5e-11b7-4aa9-9a46-4eda2161b5a4",
+                    "path": "<Linux::LogitechInc::G29DrivingForceRacingWheelPS3>/Z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throttle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "72c07a0a-edd5-4197-8996-9b9275ca8fb0",
                     "path": "<HID::Logitech G29 Driving Force Racing Wheel>/stick/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
+                    "action": "Brake",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b341a19b-d5a3-43f6-9d93-c7b083eb277b",
+                    "path": "<Linux::LogitechInc::G29DrivingForceRacingWheelPS3>/RotateZ",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Brake",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -880,11 +902,33 @@
                 },
                 {
                     "name": "",
+                    "id": "826f48ef-f226-41a3-a2a4-295732a9273d",
+                    "path": "<Linux::LogitechInc::G29DrivingForceRacingWheelPS3>/Top",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DriveGear",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "2864ec79-a6b6-48cb-9418-a3d7e19f80d3",
                     "path": "<HID::Logitech G29 Driving Force Racing Wheel>/button2",
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
+                    "action": "ReverseGear",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9c7437bd-b07e-4b1e-8e18-84694fddeba6",
+                    "path": "<Linux::LogitechInc::G29DrivingForceRacingWheelPS3>/Trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "ReverseGear",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -902,11 +946,33 @@
                 },
                 {
                     "name": "",
+                    "id": "e8c57ea5-9dd8-440d-b3ca-6f31703a538b",
+                    "path": "<Linux::LogitechInc::G29DrivingForceRacingWheelPS3>/Thumb",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ParkingGear",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "186dc826-c446-400a-b07b-79cd013a3ee7",
                     "path": "<HID::Logitech G29 Driving Force Racing Wheel>/button3",
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
+                    "action": "NeutralGear",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "120201c2-6f47-46ce-92aa-862c1e38d495",
+                    "path": "<Linux::LogitechInc::G29DrivingForceRacingWheelPS3>/Thumb2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "NeutralGear",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -924,11 +990,33 @@
                 },
                 {
                     "name": "",
+                    "id": "6c5716f8-61bb-4e68-87f8-5f6965ddaf15",
+                    "path": "<Linux::LogitechInc::G29DrivingForceRacingWheelPS3>/Hat/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HazardSignal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "6ccc57eb-764e-4ac8-8c83-d98c11aad298",
                     "path": "<HID::Logitech G29 Driving Force Racing Wheel>/hat/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
+                    "action": "LeftTurnSignal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f5983e9f-00b0-48ae-930b-6e76c8e0e28e",
+                    "path": "<Linux::LogitechInc::G29DrivingForceRacingWheelPS3>/Hat/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "LeftTurnSignal",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -946,11 +1034,33 @@
                 },
                 {
                     "name": "",
+                    "id": "00400820-1256-4d7f-82b5-7dbe610bce76",
+                    "path": "<Linux::LogitechInc::G29DrivingForceRacingWheelPS3>/Hat/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightTurnSignal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5094edd3-841c-4585-a701-aeae2c472a6e",
                     "path": "<HID::Logitech G29 Driving Force Racing Wheel>/hat/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
+                    "action": "NoneTurnSignal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "053114d0-8cea-4449-b26d-382b63f39fc1",
+                    "path": "<Linux::LogitechInc::G29DrivingForceRacingWheelPS3>/Hat/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "NoneTurnSignal",
                     "isComposite": false,
                     "isPartOfComposite": false

@@ -20,24 +20,18 @@ namespace AWSIM
         {
             var throttle = context.ReadValue<float>();
             AccelerationInput = MaxAcceleration * throttle;
-
-            Debug.Log("Throttle");
         }
 
         public void OnBrake(InputAction.CallbackContext context)
         {
             var brake = context.ReadValue<float>();
             AccelerationInput = MaxAcceleration * -brake;
-
-            Debug.Log("Brake");
         }
 
         public void OnDriveGear(InputAction.CallbackContext context)
         {
             if (ShiftInput != Vehicle.Shift.DRIVE)
                 ShiftInput = Vehicle.Shift.DRIVE;
-
-            Debug.Log("Drive gear");
         }
 
         public void OnReverseGear(InputAction.CallbackContext context)
