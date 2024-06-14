@@ -53,6 +53,7 @@ nav:
     - Git Branch: ProjectGuide/GitBranch/index.md
     - External Libraries: ProjectGuide/ExternalLibraries/index.md
     - Testing: ProjectGuide/Testing/index.md
+    - Running headless: ProjectGuide/RunningHeadless/index.md
 
   - Components:
     - Clock:
