@@ -21,8 +21,6 @@ namespace RGLUnityPlugin
     [RequireComponent(typeof(RadarSensor))]
     public class RadarObjectTracker : MonoBehaviour
     {
-        [Header("Object Tracking Parameters")]
-
         [Tooltip("The maximum distance between a radar detection and other closest detection classified as the same tracked object (in meters)")]
         [Min(0.0f)] public float objectDistanceThreshold = 2.0f;
 
@@ -67,6 +65,12 @@ namespace RGLUnityPlugin
         {
             radarSensor = GetComponent<RadarSensor>();
             radarSensor.ConnectToWorldFrame(rglSubgraphRadarTrackObjects);
+
+            if (RadarObjectClassProvider.Instance != null)
+            {
+                RadarObjectClassProvider.Instance.OnNewConfig += OnRadarObjectClassesChanged;
+                OnRadarObjectClassesChanged();
+            }
         }
 
         public void OnEnable()
@@ -89,10 +93,23 @@ namespace RGLUnityPlugin
             rglSubgraphRadarTrackObjects.UpdateNodePointsRadarTrackObjects(RadarTrackObjectsNodeId, objectDistanceThreshold,
                 objectAzimuthThreshold * Mathf.Deg2Rad, objectElevationThreshold * Mathf.Deg2Rad,
                 objectRadialSpeedThreshold, maxMatchingDistance, maxPredictionTimeFrame, movementSensitivity);
-            // rglSubgraphRadarTrackObjects.SetNodeRadarClasses(radarTrackObjectsNodeId)
         }
 
-        private bool IsRadarObjectTrackingAvailable()
+        public void OnRadarObjectClassesChanged()
+        {
+            if (RadarObjectClassProvider.Instance != null && RadarObjectClassProvider.Instance.enabled)
+            {
+                var mapping = RadarObjectClassProvider.Instance.GetEntityIdToRadarClassMapping();
+                rglSubgraphRadarTrackObjects.SetNodeRadarClasses(RadarTrackObjectsNodeId, mapping.Item1, mapping.Item2);
+            }
+            else
+            {
+                rglSubgraphRadarTrackObjects.SetNodeRadarClasses(RadarTrackObjectsNodeId, Array.Empty<int>(),
+                    Array.Empty<RGLRadarObjectClass>());
+            }
+        }
+
+        public static bool IsRadarObjectTrackingAvailable()
         {
             return RGLNativeAPI.HasExtension(RGLExtension.RGL_EXTENSION_UDP);
         }
