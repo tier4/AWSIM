@@ -64,7 +64,7 @@ namespace RGLUnityPlugin
         public void Start()
         {
             radarSensor = GetComponent<RadarSensor>();
-            radarSensor.ConnectToWorldFrame(rglSubgraphRadarTrackObjects);
+            radarSensor.ConnectToRadarFrame(rglSubgraphRadarTrackObjects);
 
             if (RadarObjectClassProvider.Instance != null)
             {
