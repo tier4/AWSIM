@@ -5,66 +5,77 @@ using UnityEngine;
 namespace AWSIM
 {
     /// <summary>
-    /// This is a sample class for controlling a vehicle with a keyboard.
+    /// Controlling vehicle input via keyboard.
     /// </summary>
-
-    // ----- key binds -----
-    // up arrow : Accelerate
-    // down arrow : Deceleration
-    // left/right arrow : Steering
-    // D : Drive gear
-    // P : Parking gear
-    // R : Reverse gear
-    // N : Neutral gear
-    // 1 : Left turn signal
-    // 2 : Right turn signal
-    // 3 : Hazard
-    // 4 : Turn signal off
-    [RequireComponent(typeof(Vehicle))]
-    public class VehicleKeyboardInput : MonoBehaviour
+    /// ----- key binds -----
+    /// up arrow : Accelerate
+    /// down arrow : Deceleration
+    /// left/right arrow : Steering
+    /// D : Drive gear
+    /// P : Parking gear
+    /// R : Reverse gear
+    /// N : Neutral gear
+    /// 1 : Left turn signal
+    /// 2 : Right turn signal
+    /// 3 : Hazard
+    /// 4 : Turn signal off
+    public class VehicleKeyboardInput : VehicleInputBase
     {
+        public float MaxAcceleration = 1.5f;
+        float MaxSteerAngle = 0;
         [SerializeField] Vehicle vehicle;
 
-        [SerializeField] float maxAcceleration = 1.5f;
-        [SerializeField] float maxSteerAngle = 35;
-
-        void Reset()
+        void OnEnable()
         {
-            if (vehicle == null)
-                vehicle = GetComponent<Vehicle>();
+            MaxSteerAngle = vehicle.MaxSteerAngleInput;
         }
 
-        void Update()
+        public override void OnUpdate(VehicleControlMode currentControlMode)
         {
-            // get arrow inputs
+            Overridden = false;
+
+            // Get steering and acceleration input.
             var horizontal = Input.GetAxis("Horizontal");
             var vertical = Input.GetAxis("Vertical");
+            AccelerationInput = MaxAcceleration * vertical;
+            SteeringInput = MaxSteerAngle * horizontal;
 
-            // set acceleration
-            vehicle.AccelerationInput = maxAcceleration * vertical;
-
-            // set steer
-            vehicle.SteerAngleInput = maxSteerAngle * horizontal;
-
-            // set gear
+            // Get gear input.
             if (Input.GetKey(KeyCode.D))
-                vehicle.AutomaticShiftInput = Vehicle.Shift.DRIVE;
+                ShiftInput = Vehicle.Shift.DRIVE;
             else if (Input.GetKey(KeyCode.P))
-                vehicle.AutomaticShiftInput = Vehicle.Shift.PARKING;
+                ShiftInput = Vehicle.Shift.PARKING;
             else if (Input.GetKey(KeyCode.R))
-                vehicle.AutomaticShiftInput = Vehicle.Shift.REVERSE;
+                ShiftInput = Vehicle.Shift.REVERSE;
             else if (Input.GetKey(KeyCode.N))
-                vehicle.AutomaticShiftInput = Vehicle.Shift.NEUTRAL;
+                ShiftInput = Vehicle.Shift.NEUTRAL;
+            else
+                ShiftInput = vehicle.AutomaticShift;    // No new input.
 
-            // set turn signal
+            // Get turn signal input.
             if (Input.GetKey(KeyCode.Alpha1))
-                vehicle.SignalInput = Vehicle.TurnSignal.LEFT;
+                TurnSignalInput = Vehicle.TurnSignal.LEFT;
             else if (Input.GetKey(KeyCode.Alpha2))
-                vehicle.SignalInput = Vehicle.TurnSignal.RIGHT;
+                TurnSignalInput = Vehicle.TurnSignal.RIGHT;
             else if (Input.GetKey(KeyCode.Alpha3))
-                vehicle.SignalInput = Vehicle.TurnSignal.HAZARD;
+                TurnSignalInput = Vehicle.TurnSignal.HAZARD;
             else if (Input.GetKey(KeyCode.Alpha4))
-                vehicle.SignalInput = Vehicle.TurnSignal.NONE;
+                TurnSignalInput = Vehicle.TurnSignal.NONE;
+            else
+                TurnSignalInput = vehicle.Signal;       // No new input.
+
+            // Input override considerations.
+            if (currentControlMode == VehicleControlMode.AUTONOMOUS)
+            {
+                // Override the vehicle's control mode when a steering input or acceleration input is given.
+                if (Mathf.Abs(horizontal) > 0 || Mathf.Abs(vertical) > 0)
+                {
+                    Overridden = true;
+                    NewControlMode = VehicleControlMode.MANUAL;
+                }
+
+                // TODO: Implement switches to other overrides.
+            }
         }
     }
 }

@@ -20,7 +20,7 @@ public class EgoTest
     // Ego handlers
     GameObject egoGameObject;
     Vehicle egoVehicle;
-    VehicleRosInput egoRosInput;
+    VehicleRos2Input egoRosInput;
 
     ROS2.IPublisher<autoware_auto_vehicle_msgs.msg.GearCommand> gearCommandPublisher;
     ROS2.IPublisher<autoware_auto_control_msgs.msg.AckermannControlCommand> movementPublisher;
@@ -96,7 +96,7 @@ public class EgoTest
 
         egoVehicle = GameObject.FindObjectOfType<AWSIM.Vehicle>();
         egoGameObject = egoVehicle.gameObject;
-        egoRosInput = egoGameObject.GetComponent<VehicleRosInput>();
+        egoRosInput = egoGameObject.GetComponentInChildren<VehicleRos2Input>();
 
         Assert.NotNull(egoRosInput);
         Assert.NotNull(egoVehicle);

@@ -88,6 +88,11 @@ namespace AWSIM
                 return autoware_auto_vehicle_msgs.msg.TurnIndicatorsReport.DISABLE;
         }
 
+        /// <summary>
+        /// Convert the ROS msg HazardLights to Vehicle.TurnSignal.
+        /// </summary>
+        /// <param name="turnSignalMsg"></param>
+        /// <returns>Converted turn signal.</returns>
         public static Vehicle.TurnSignal RosToUnityHazard(autoware_auto_vehicle_msgs.msg.HazardLightsCommand hazardLightsCommand)
         {
             if (hazardLightsCommand.Command == autoware_auto_vehicle_msgs.msg.HazardLightsCommand.ENABLE)
@@ -98,6 +103,11 @@ namespace AWSIM
                 return Vehicle.TurnSignal.NONE;
         }
 
+        /// <summary>
+        /// Convert the Vehicle.TurnSignal to ROS msg HazardLights.
+        /// </summary>
+        /// <param name="turnSignal"></param>
+        /// <returns>Converted turn signal.</returns>
         public static byte UnityToRosHazard(Vehicle.TurnSignal turnSignal)
         {
             if (turnSignal == Vehicle.TurnSignal.HAZARD)
@@ -106,6 +116,21 @@ namespace AWSIM
                 return autoware_auto_vehicle_msgs.msg.HazardLightsReport.DISABLE;
             else
                 return autoware_auto_vehicle_msgs.msg.HazardLightsReport.DISABLE;
+        }
+
+        /// <summary>
+        /// Convert the ROS msg ControlMode to Unity's VehicleControlMode.
+        /// </summary>
+        /// <param name="controlMode"></param>
+        /// <returns></returns>
+        public static byte UnityToRosControlMode(VehicleControlMode controlMode)
+        {
+            if (controlMode == VehicleControlMode.AUTONOMOUS)
+                return autoware_auto_vehicle_msgs.msg.ControlModeReport.AUTONOMOUS;
+            else if (controlMode == VehicleControlMode.MANUAL)
+                return autoware_auto_vehicle_msgs.msg.ControlModeReport.MANUAL;
+            else
+                return autoware_auto_vehicle_msgs.msg.ControlModeReport.AUTONOMOUS;
         }
     }
 }
