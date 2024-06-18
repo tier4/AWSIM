@@ -109,6 +109,11 @@ namespace RGLUnityPlugin
             }
         }
 
+        public void Connect(RGLNodeSequence nodeSequence)
+        {
+            RGLNodeSequence.Connect(rglSubgraphRadarTrackObjects, nodeSequence);
+        }
+
         public static bool IsRadarObjectTrackingAvailable()
         {
             return RGLNativeAPI.HasExtension(RGLExtension.RGL_EXTENSION_UDP);

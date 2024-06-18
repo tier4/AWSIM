@@ -325,6 +325,17 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence AddNodePublishUdpObjectList(string identifier, string deviceIp, string destIp, int destPort)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePublishUdpObjectList(ref handle.Node, deviceIp, destIp, destPort);
+            handle.Type = RGLNodeType.PUBLISH_UDP_OBJECT_LIST;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
         public RGLNodeSequence AddNodePointsSimulateSnow(string identifier, float minRange, float maxRange, float rainRate,
             float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence,
             bool doSimulateEnergyLoss, float snowflakeOccupancyThreshold)

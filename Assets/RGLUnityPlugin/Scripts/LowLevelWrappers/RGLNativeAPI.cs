@@ -162,6 +162,10 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_points_radar_set_classes(IntPtr node, IntPtr entity_ids, IntPtr object_classes, int count);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_publish_udp_objectlist(ref IntPtr node, [MarshalAs(UnmanagedType.LPStr)] string device_ip,
+            [MarshalAs(UnmanagedType.LPStr)] string dest_ip, int dest_port);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_simulate_snow(ref IntPtr node, float min_range, float max_range, float rain_rate,
             float mean_snowflake_diameter, float terminal_velocity, float density, Int32 num_channels, float beam_divergence,
             bool simulate_energy_loss, float snowflake_occupancy_threshold);
@@ -607,6 +611,11 @@ namespace RGLUnityPlugin
                     }
                 }
             }
+        }
+
+        public static void NodePublishUdpObjectList(ref IntPtr node, string deviceIp, string destIp, int destPort)
+        {
+            CheckErr(rgl_node_publish_udp_objectlist(ref node, deviceIp, destIp, destPort));
         }
 
         public static void NodePointsSimulateSnow(ref IntPtr node, float minRange, float maxRange, float rainRate,
