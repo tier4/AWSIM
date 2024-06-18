@@ -22,22 +22,22 @@ namespace RGLUnityPlugin
     public class RadarObjectTracker : MonoBehaviour
     {
         [Tooltip("The maximum distance between a radar detection and other closest detection classified as the same tracked object (in meters)")]
-        [Min(0.0f)] public float objectDistanceThreshold = 2.0f;
+        [Min(0.0f)] public float objectDistanceThreshold = 1.0f;
 
         [Tooltip("The maximum azimuth difference between a radar detection and other closest detection classified as the same tracked object (in degrees)")]
-        [Min(0.0f)] public float objectAzimuthThreshold = 30.0f;
+        [Min(0.0f)] public float objectAzimuthThreshold = 20.0f;
 
         [Tooltip("The maximum elevation difference between a radar detection and other closest detection classified as the same tracked object (in degrees)")]
-        [Min(0.0f)] public float objectElevationThreshold = 30.0f;
+        [Min(0.0f)] public float objectElevationThreshold = 20.0f;
 
         [Tooltip("The maximum radial speed difference between a radar detection and other closest detection classified as the same tracked object (in meters per second)")]
-        [Min(0.0f)] public float objectRadialSpeedThreshold = 0.5f;
+        [Min(0.0f)] public float objectRadialSpeedThreshold = 2.0f;
 
         [Tooltip("The maximum distance between predicted (based on previous frame) and newly detected object position to match objects between frames (in meters)")]
         [Min(0.0f)] public float maxMatchingDistance = 1.0f;
 
         [Tooltip("The maximum time that object state can be predicted until it will be declared lost unless measured again (in milliseconds)")]
-        [Min(0.0f)] public float maxPredictionTimeFrame = 500.0f;
+        [Min(0.0f)] public float maxPredictionTimeFrame = 300.0f;
 
         [Tooltip("The maximum position change for an object to be qualified as stationary (in meters)")]
         [Min(0.0f)] public float movementSensitivity = 0.01f;

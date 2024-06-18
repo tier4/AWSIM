@@ -160,6 +160,56 @@ namespace RGLUnityPlugin
                         },
                     },
                     noiseParams = RadarNoiseParams.TypicalNoiseParams,
+                }},
+
+                {RadarModel.ContinentalARS548, () => new RadarConfiguration
+                {
+                    minAzimuthAngle = -50.0f,
+                    maxAzimuthAngle = 50.0f,
+                    minElevationAngle = -14.0f,
+                    maxElevationAngle = 14.0f,
+                    frequency = 77.0f,
+                    powerTransmitted = 31.0f,
+                    cumulativeDeviceGain = 60.0f,
+                    receivedNoiseMean = 93.0f,
+                    receivedNoiseStDev = 2.0f,
+                    azimuthResolution = 0.4f,
+                    elevationResolution = 0.4f,
+                    scopeParameters = new[]
+                    {
+                        new RadarScopeParameters
+                        {
+                            beginDistance = 0.2f,
+                            endDistance = 20.0f,
+                            distanceSeparationThreshold = 0.3f,
+                            radialSpeedSeparationThreshold = 0.3f,
+                            azimuthSeparationThreshold = 6.0f
+                        },
+                        new RadarScopeParameters
+                        {
+                            beginDistance = 20.0f,
+                            endDistance = 100.0f,
+                            distanceSeparationThreshold = 0.6f,
+                            radialSpeedSeparationThreshold = 0.3f,
+                            azimuthSeparationThreshold = 6.0f
+                        },
+                        new RadarScopeParameters
+                        {
+                            beginDistance = 100.0f,
+                            endDistance = 300.0f,
+                            distanceSeparationThreshold = 1.0f,
+                            radialSpeedSeparationThreshold = 0.3f,
+                            azimuthSeparationThreshold = 6.0f
+                        }
+                    },
+                    noiseParams = new RadarNoiseParams
+                    {
+                        angularNoiseMean = 0.0f,
+                        angularNoiseStDev = 0.4f,
+                        distanceNoiseStDevBase = 0.1f,
+                        distanceNoiseStDevRisePerMeter = 0.0f,
+                        distanceNoiseMean = 0.0f,
+                    }
                 }}
             };
     }
