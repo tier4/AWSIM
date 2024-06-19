@@ -25,7 +25,8 @@ namespace RGLUnityPlugin
     {
         [Tooltip("Sensor processing and callbacks are automatically called in this hz")]
         [FormerlySerializedAs("OutputHz")]
-        [Range(0, 50)] public int AutomaticCaptureHz = 10;
+        [Range(0, 50)]
+        public int AutomaticCaptureHz = 10;
 
         /// <summary>
         /// Delegate used in callbacks.
@@ -45,6 +46,9 @@ namespace RGLUnityPlugin
         [Tooltip("Allows to select one of built-in LiDAR models")]
         public LidarModel modelPreset = LidarModel.RangeMeter;
 
+        [Tooltip("Allows to select between not divergent beams and different multi-return modes")]
+        public RGLReturnType returnType = RGLReturnType.RGL_RETURN_TYPE_NOT_DIVERGENT;
+
         [Tooltip("Allows to quickly enable/disable distance gaussian noise")]
         public bool applyDistanceGaussianNoise = true;
 
@@ -54,7 +58,8 @@ namespace RGLUnityPlugin
         [Tooltip("Allows to quickly enable/disable velocity distortion")]
         public bool applyVelocityDistortion = false;
 
-        [Tooltip("If enabled, validates whether the configuration is the same as the manual for the selected model (only on startup)")]
+        [Tooltip(
+            "If enabled, validates whether the configuration is the same as the manual for the selected model (only on startup)")]
         public bool doValidateConfigurationOnStartup = true;
 
         /// <summary>
@@ -62,6 +67,11 @@ namespace RGLUnityPlugin
         /// </summary>
         [SerializeReference]
         public BaseLidarConfiguration configuration = LidarConfigurationLibrary.ByModel[LidarModel.RangeMeter]();
+
+        /// <summary>
+        /// Encapsulates description of a output restriction to allow fault injection.
+        /// </summary>
+        public LidarOutputRestriction outputRestriction = new LidarOutputRestriction();
 
         private RGLNodeSequence rglGraphLidar;
         private RGLNodeSequence rglSubgraphCompact;
@@ -75,6 +85,7 @@ namespace RGLUnityPlugin
         private const string lidarPoseNodeId = "LIDAR_POSE";
         private const string noiseLidarRayNodeId = "NOISE_LIDAR_RAY";
         private const string lidarRaytraceNodeId = "LIDAR_RAYTRACE";
+        private const string lidarMRNodeId = "LIDAR_MR";
         private const string noiseHitpointNodeId = "NOISE_HITPOINT";
         private const string noiseDistanceNodeId = "NOISE_DISTANCE";
         private const string pointsCompactNodeId = "POINTS_COMPACT";
@@ -95,13 +106,14 @@ namespace RGLUnityPlugin
         public void Awake()
         {
             rglGraphLidar = new RGLNodeSequence()
-                .AddNodeRaysFromMat3x4f(lidarRaysNodeId, new Matrix4x4[1] {Matrix4x4.identity})
-                .AddNodeRaysSetRange(lidarRangeNodeId, new Vector2[1] {new Vector2(0.0f, Mathf.Infinity)})
-                .AddNodeRaysSetRingIds(lidarRingsNodeId, new int[1] {0})
-                .AddNodeRaysSetTimeOffsets(lidarTimeOffsetsNodeId, new float[1] {0})
+                .AddNodeRaysFromMat3x4f(lidarRaysNodeId, new Matrix4x4[1] { Matrix4x4.identity })
+                .AddNodeRaysSetRange(lidarRangeNodeId, new Vector2[1] { new Vector2(0.0f, Mathf.Infinity) })
+                .AddNodeRaysSetRingIds(lidarRingsNodeId, new int[1] { 0 })
+                .AddNodeRaysSetTimeOffsets(lidarTimeOffsetsNodeId, new float[1] { 0 })
                 .AddNodeRaysTransform(lidarPoseNodeId, Matrix4x4.identity)
                 .AddNodeGaussianNoiseAngularRay(noiseLidarRayNodeId, 0, 0)
                 .AddNodeRaytrace(lidarRaytraceNodeId)
+                .AddNodeMultiReturnSwitch(lidarMRNodeId, RGLReturnType.RGL_RETURN_TYPE_NOT_DIVERGENT)
                 .AddNodeGaussianNoiseAngularHitpoint(noiseHitpointNodeId, 0, 0)
                 .AddNodeGaussianNoiseDistance(noiseDistanceNodeId, 0, 0, 0);
 
@@ -132,7 +144,8 @@ namespace RGLUnityPlugin
             if (LidarSnowManager.Instance != null)
             {
                 // Add deactivated node with some initial values. To be activated and updated when validating.
-                rglGraphLidar.AddNodePointsSimulateSnow(snowNodeId, 0.0f, 1.0f, 0.0001f, 0.0001f, 0.2f, 0.01f, 1, 0.01f, false, 0.0f);
+                rglGraphLidar.AddNodePointsSimulateSnow(snowNodeId, 0.0f, 1.0f, 0.0001f, 0.0001f, 0.2f, 0.01f, 1, 0.01f,
+                    false, 0.0f);
                 rglGraphLidar.SetActive(snowNodeId, false);
                 LidarSnowManager.Instance.OnNewConfig += OnValidate;
             }
@@ -143,8 +156,9 @@ namespace RGLUnityPlugin
             {
                 if (!configuration.ValidateWithModel(modelPreset))
                 {
-                    Debug.LogWarning($"{name}: the configuration of the selected model preset ({modelPreset.ToString()}) is modified. " +
-                                     "Ignore this warning if you have consciously changed them.");
+                    Debug.LogWarning(
+                        $"{name}: the configuration of the selected model preset ({modelPreset.ToString()}) is modified. " +
+                        "Ignore this warning if you have consciously changed them.");
                 }
             }
         }
@@ -152,13 +166,16 @@ namespace RGLUnityPlugin
         public void OnValidate()
         {
             // This tricky code ensures that configuring from a preset dropdown
-            // in Unity Inspector works well in prefab edit mode and regular edit mode. 
+            // in Unity Inspector works well in prefab edit mode and regular edit mode.
             bool presetChanged = validatedPreset != modelPreset;
             bool firstValidation = validatedPreset == null;
             if (!firstValidation && presetChanged)
             {
                 configuration = LidarConfigurationLibrary.ByModel[modelPreset]();
             }
+
+            outputRestriction.Update(configuration);
+
             ApplyConfiguration(configuration);
             validatedPreset = modelPreset;
             onLidarModelChange?.Invoke();
@@ -172,22 +189,36 @@ namespace RGLUnityPlugin
             }
 
             rglGraphLidar.UpdateNodeRaysFromMat3x4f(lidarRaysNodeId, newConfig.GetRayPoses())
-                         .UpdateNodeRaysSetRange(lidarRangeNodeId, newConfig.GetRayRanges())
-                         .UpdateNodeRaysSetRingIds(lidarRingsNodeId, newConfig.GetRayRingIds())
-                         .UpdateNodeRaysTimeOffsets(lidarTimeOffsetsNodeId, newConfig.GetRayTimeOffsets())
-                         .UpdateNodeGaussianNoiseAngularRay(noiseLidarRayNodeId,
-                             newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,
-                             newConfig.noiseParams.angularNoiseStDev * Mathf.Deg2Rad)
-                         .UpdateNodeGaussianNoiseAngularHitpoint(noiseHitpointNodeId,
-                             newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,
-                             newConfig.noiseParams.angularNoiseStDev * Mathf.Deg2Rad)
-                         .UpdateNodeGaussianNoiseDistance(noiseDistanceNodeId, newConfig.noiseParams.distanceNoiseMean,
-                             newConfig.noiseParams.distanceNoiseStDevBase, newConfig.noiseParams.distanceNoiseStDevRisePerMeter);
+                .UpdateNodeRaysSetRange(lidarRangeNodeId, newConfig.GetRayRanges())
+                .UpdateNodeRaysSetRingIds(lidarRingsNodeId, newConfig.GetRayRingIds())
+                .UpdateNodeRaysTimeOffsets(lidarTimeOffsetsNodeId, newConfig.GetRayTimeOffsets())
+                .UpdateNodeGaussianNoiseAngularRay(noiseLidarRayNodeId,
+                    newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,
+                    newConfig.noiseParams.angularNoiseStDev * Mathf.Deg2Rad)
+                .UpdateNodeGaussianNoiseAngularHitpoint(noiseHitpointNodeId,
+                    newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,
+                    newConfig.noiseParams.angularNoiseStDev * Mathf.Deg2Rad)
+                .UpdateNodeGaussianNoiseDistance(noiseDistanceNodeId, newConfig.noiseParams.distanceNoiseMean,
+                    newConfig.noiseParams.distanceNoiseStDevBase, newConfig.noiseParams.distanceNoiseStDevRisePerMeter)
+                .UpdateMultiReturnSwitch(lidarMRNodeId, returnType);
+
+            if (returnType != RGLReturnType.RGL_RETURN_TYPE_NOT_DIVERGENT)
+            {
+                rglGraphLidar.ConfigureNodeRaytraceBeamDivergence(lidarRaytraceNodeId,
+                    Mathf.Deg2Rad * newConfig.horizontalBeamDivergence,
+                    Mathf.Deg2Rad * newConfig.verticalBeamDivergence);
+            }
+            else
+            {
+                rglGraphLidar.ConfigureNodeRaytraceBeamDivergence(lidarRaytraceNodeId, 0.0f, 0.0f);
+            }
 
             rglGraphLidar.SetActive(noiseDistanceNodeId, applyDistanceGaussianNoise);
             var angularNoiseType = newConfig.noiseParams.angularNoiseType;
-            rglGraphLidar.SetActive(noiseLidarRayNodeId, applyAngularGaussianNoise && angularNoiseType == AngularNoiseType.RayBased);
-            rglGraphLidar.SetActive(noiseHitpointNodeId, applyAngularGaussianNoise && angularNoiseType == AngularNoiseType.HitpointBased);
+            rglGraphLidar.SetActive(noiseLidarRayNodeId,
+                applyAngularGaussianNoise && angularNoiseType == AngularNoiseType.RayBased);
+            rglGraphLidar.SetActive(noiseHitpointNodeId,
+                applyAngularGaussianNoise && angularNoiseType == AngularNoiseType.HitpointBased);
 
             // Snow model updates
             if (rglGraphLidar.HasNode(snowNodeId))
@@ -203,14 +234,30 @@ namespace RGLUnityPlugin
                         LidarSnowManager.Instance.TerminalVelocity,
                         LidarSnowManager.Instance.Density,
                         newConfig.laserArray.GetLaserRingIds().Length,
-                        newConfig.beamDivergence * Mathf.Deg2Rad,
+                        newConfig.horizontalBeamDivergence * Mathf.Deg2Rad,
                         LidarSnowManager.Instance.DoSimulateEnergyLoss,
                         LidarSnowManager.Instance.SnowflakeOccupancyThreshold);
                 }
+
                 rglGraphLidar.SetActive(snowNodeId, LidarSnowManager.Instance.IsSnowEnabled);
             }
 
             rglGraphLidar.ConfigureNodeRaytraceDistortion(lidarRaytraceNodeId, applyVelocityDistortion);
+
+            if (outputRestriction.enablePeriodicRestriction && outputRestriction.applyRestriction)
+            {
+                outputRestriction.coroutine = outputRestriction.BlinkingRoutine(rglGraphLidar, lidarRaytraceNodeId);
+                StartCoroutine(outputRestriction.coroutine);
+            }
+            else
+            {
+                if (outputRestriction.coroutine != null)
+                {
+                    StopCoroutine(outputRestriction.coroutine);
+                }
+
+                outputRestriction.ApplyStaticRestriction(rglGraphLidar, lidarRaytraceNodeId);
+            }
         }
 
         public void OnEnable()
@@ -262,6 +309,7 @@ namespace RGLUnityPlugin
                 fixedUpdatesInCurrentFrame = 0;
                 lastUpdateFrame = Time.frameCount;
             }
+
             fixedUpdatesInCurrentFrame += 1;
 
             if (AutomaticCaptureHz == 0.0f)
@@ -341,13 +389,16 @@ namespace RGLUnityPlugin
             // Calculate delta transform of lidar.
             // Velocities must be in sensor-local coordinate frame.
             // Sensor linear velocity in m/s.
-            Vector3 globalLinearVelocity = (currentTransform.GetColumn(3) - lastTransform.GetColumn(3)) / Time.deltaTime;
+            Vector3 globalLinearVelocity =
+                (currentTransform.GetColumn(3) - lastTransform.GetColumn(3)) / Time.deltaTime;
             Vector3 localLinearVelocity = gameObject.transform.InverseTransformDirection(globalLinearVelocity);
 
-            Vector3 deltaRotation = Quaternion.LookRotation(currentTransform.GetColumn(2), currentTransform.GetColumn(1)).eulerAngles
-                                  - Quaternion.LookRotation(lastTransform.GetColumn(2), lastTransform.GetColumn(1)).eulerAngles;
+            Vector3 deltaRotation =
+                Quaternion.LookRotation(currentTransform.GetColumn(2), currentTransform.GetColumn(1)).eulerAngles
+                - Quaternion.LookRotation(lastTransform.GetColumn(2), lastTransform.GetColumn(1)).eulerAngles;
             // Fix delta rotation when switching between 0 and 360.
-            deltaRotation = new Vector3(Mathf.DeltaAngle(0, deltaRotation.x), Mathf.DeltaAngle(0, deltaRotation.y), Mathf.DeltaAngle(0, deltaRotation.z));
+            deltaRotation = new Vector3(Mathf.DeltaAngle(0, deltaRotation.x), Mathf.DeltaAngle(0, deltaRotation.y),
+                Mathf.DeltaAngle(0, deltaRotation.z));
             // Sensor angular velocity in rad/s.
             Vector3 localAngularVelocity = (deltaRotation * Mathf.Deg2Rad) / Time.deltaTime;
 

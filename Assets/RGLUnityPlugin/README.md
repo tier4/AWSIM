@@ -71,6 +71,8 @@ The code consists of the following parts:
     - Provides a number of pre-defined `LaserArrays
   - `Laser.cs`
     - Describes offsets of a single laser within a LaserArray
+  - `LidarOutputRestriction.cs`
+    - Provides faults injection modeled as a set of rectangular masks obstructing part of the rays
 - LowLevelWrappers
   - Provides some convenience code to call Native RGL functions
 - Utilities

@@ -147,4 +147,11 @@ namespace RGLUnityPlugin
 		RGL_EXTENSION_SNOW = 3,
 		RGL_EXTENSION_COUNT
 	};
+
+	public enum RGLReturnType : Int32
+	{
+		RGL_RETURN_TYPE_NOT_DIVERGENT = 0,
+		RGL_RETURN_TYPE_FIRST = 1,
+		RGL_RETURN_TYPE_LAST = 2,
+	}
 }

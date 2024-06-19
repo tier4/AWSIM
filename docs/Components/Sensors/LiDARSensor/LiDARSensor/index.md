@@ -94,6 +94,7 @@ The pipeline consists of:
 #### Elements configurable from the editor level
 - `Automatic Capture Hz` - the rate of sensor processing (default: `10Hz`)
 - `Model Preset` - allows selecting one of the built-in *LiDAR* models (default: `RangeMeter`)
+- `Return Type` - allows selecting multi-return mode (note: this requires more computation). Modes other than "not divergent" require positive beam divergence.
 - `Apply Distance Gaussian Noise` - enable/disable distance *Gaussian* noise (default: `true`)
 - `Apply Angular Gaussian Noise` - enable/disable angular *Gaussian* noise (default: `true`)
 - `Apply Velocity Distortion` - enable/disable velocity distortion (default: `false`)
@@ -103,7 +104,8 @@ The pipeline consists of:
     - `Min H Angle` - minimum horizontal angle, left (default: `0`)
     - `Max H Angle` - maximum horizontal angle, right (default: `0`)
     - `Laser Array Cycle Time` - time between two consecutive firings of the whole laser array in milliseconds (default: `0`); used for velocity distortion feature.
-    - `Beam Divergence` - represents the deviation of photons from a single beam emitted by a LiDAR sensor (in degrees); used for simulating snow only (private feature).
+    - `Horizontal Beam Divergence` - represents horizontal deviation of photons from a single beam emitted by a LiDAR sensor (in degrees);
+    - `Vertical Beam Divergence` - represents vertical deviation of photons from a single beam emitted by a LiDAR sensor (in degrees);
     - *Noise Params*: 
         - `Angular Noise Type` - angular noise type<br>(default: `Ray Based`)
         - `Angular Noise St Dev` - angular noise standard deviation in degree<br>(default: `0.05729578`)
@@ -111,6 +113,16 @@ The pipeline consists of:
         - `Distance Noise St Dev Base` - distance noise standard deviation base in meters<br>(default: `0.02`)
         - `Distance Noise Rise Per Meter` - distance noise standard deviation rise per meter<br>(default: `0`)
         - `Distance Noise Mean` - distance noise mean in meters<br>(default: `0`)
+    - *Output Restriction Params*: 
+        - `Apply Restriction` - enable/disable fault injection (default: `false`)
+        - `Rectangular Restriction Masks` - list of rectangular masks used for output restriction; each mask is represented via ranges of angles in horizontal and vertical dimensions
+        - `Enable Periodic Restriction` - change mode from static to periodic (default: `false`)
+        - `Restriction Period` - time of whole period in seconds
+        - `Restriction Duty Rate` - rate of time with masked output
+        - `Enable Restriction Randomizer` - enable/disable random periodic mode (default: `false`)
+        - `Min Random Period` - lower bound of time period in seconds used in random mode
+        - `Max Random Period` - upper bound of time period in seconds used in random mode
+
     - *Additional options (available for some Lidar Model Preset)*
         - `Min Range` - minimum range of the sensor (if not avaiable, the range is different for each laser in `Laser Array`)
         - `Max Range` - maximum range of the sensor (if not avaiable, the range is different for each laser in `Laser Array`)
@@ -252,3 +264,9 @@ To enable saving dictionary mapping set output file path to the `Semantic Catego
 
 The dictionary mapping file will be saved at the end of the simulation.
 
+### LiDAR output restriction
+Describes LiDAR faults modeled as a set of rectangular masks obstructing part of the rays.
+
+Example set of parameters for output restriction resulting in one rectangular mask obstructing rays:
+
+<img src="output_restriction_example.png" width="400">

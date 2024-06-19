@@ -97,6 +97,12 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_raytrace_configure_distortion(IntPtr node, bool enable);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_raytrace_configure_mask(IntPtr node, IntPtr rays_mask, int rays_count);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_raytrace_configure_beam_divergence(IntPtr node, float horizontal_divergence, float vertical_divergence);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_format(ref IntPtr node, IntPtr fields, int field_count);
 
         [DllImport("RobotecGPULidar")]
@@ -133,6 +139,10 @@ namespace RGLUnityPlugin
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_gaussian_noise_distance(ref IntPtr node, float mean, float st_dev, float st_dev_rise_per_meter);
+
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_multi_return_switch(ref IntPtr node, RGLReturnType return_type);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_filter_ground(ref IntPtr node, IntPtr sensor_up_vector, float ground_angle_threshold);
@@ -429,6 +439,22 @@ namespace RGLUnityPlugin
             CheckErr(rgl_node_raytrace_configure_distortion(node, enable));
         }
 
+        public static void NodeRaytraceConfigureMask(IntPtr node, sbyte[] raysMask, int rayCount)
+        {
+            unsafe
+            {
+                fixed (sbyte* maskPtr = raysMask)
+                {
+                    CheckErr(rgl_node_raytrace_configure_mask(node, (IntPtr) maskPtr, rayCount));
+                }
+            }
+        }
+
+        public static void NodeRaytraceConfigureBeamDivergence(IntPtr node, float horizontalDivergence, float verticalDivergence)
+        {
+            CheckErr(rgl_node_raytrace_configure_beam_divergence(node, horizontalDivergence, verticalDivergence));
+        }
+
         public static void NodePointsFormat(ref IntPtr node, RGLField[] fields)
         {
             unsafe
@@ -504,6 +530,11 @@ namespace RGLUnityPlugin
         public static void NodeGaussianNoiseDistance(ref IntPtr node, float mean, float stDev, float stDevRisePerMeter)
         {
             CheckErr(rgl_node_gaussian_noise_distance(ref node, mean, stDev, stDevRisePerMeter));
+        }
+
+        public static void NodeMultiReturnSwitch(ref IntPtr node, RGLReturnType return_type)
+        {
+            CheckErr(rgl_node_multi_return_switch(ref node, return_type));
         }
 
         public static void NodePointsFilterGround(ref IntPtr node, float groundAngleThreshold)
