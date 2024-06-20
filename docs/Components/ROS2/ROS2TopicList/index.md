@@ -8,20 +8,23 @@ The following is a summary of the *ROS2* topics that the *AWSIM* node subscribes
 
 
 ## List of subscribers
-|                     Category                     | Topic                                  |                 Message type                   | `frame_id` | `Hz`  |                       `QoS`                        |
-| :----------------------------------------------: | :------------------------------------- | :--------------------------------------------: | :--------: | :---: | :------------------------------------------------: |
-| <p style="color:rgb(0,255,255);">**Control**</p> |                                        |                                                |            |       |                                                    |
-|                Ackermann Control                 | `/control/command/control_cmd`         | `autoware_control_msgs/Control`                |     -      | `60`  | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
-|                       Gear                       | `/control/command/gear_cmd`            | `autoware_vehicle_msgs/GearCommand`            |     -      | `10`  | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
-|                 Turn Indicators                  | `/control/command/turn_indicators_cmd` | `autoware_vehicle_msgs/TurnIndicatorsCommand`  |     -      | `10`  | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
-|                  Hazard Lights                   | `/control/command/hazard_lights_cmd`   | `autoware_vehicle_msgs/HazardLightsCommand`    |     -      | `10`  | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
-|                    Emergency                     | `/control/command/emergency_cmd`       | `tier4_vehicle_msgs/VehicleEmergencyStamped`   |     -      | `60`  | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
+|                     Category                          | Topic                                  |                 Message type                   | `frame_id` | `Hz`  |                       `QoS`                        |
+| :---------------------------------------------------: | :------------------------------------- | :--------------------------------------------: | :--------: | :---: | :------------------------------------------------: |
+| <p style="color:rgb(0,255,255);">**Control**</p>      |                                        |                                                |            |       |                                                    |
+|                Ackermann Control                      | `/control/command/control_cmd`         | `autoware_control_msgs/Control`                |     -      | `60`  | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
+|                       Gear                            | `/control/command/gear_cmd`            | `autoware_vehicle_msgs/GearCommand`            |     -      | `10`  | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
+|                 Turn Indicators                       | `/control/command/turn_indicators_cmd` | `autoware_vehicle_msgs/TurnIndicatorsCommand`  |     -      | `10`  | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
+|                  Hazard Lights                        | `/control/command/hazard_lights_cmd`   | `autoware_vehicle_msgs/HazardLightsCommand`    |     -      | `10`  | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
+|                    Emergency                          | `/control/command/emergency_cmd`       | `tier4_vehicle_msgs/VehicleEmergencyStamped`   |     -      | `60`  | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
+| <p style="color:rgb(0,144,255);">**Control mode**</p> |                                        |                                                |            |       |                                                    |
+|                       Engage                          | `/vehicle/engage`                      |   `autoware_vehicle_msgs/Engage`          |     -      |   -   | `Reliable`,<br> `TransientLocal`,<br> `KeepLast/1` |
 
 ## List of publishers
 
 |                        Category                         | Topic                                       |                   Message type                    |               `frame_id`                | `Hz`  |                     `QoS`                      |
 | :-----------------------------------------------------: | :------------------------------------------ | :-----------------------------------------------: | :-------------------------------------: | :---: | :--------------------------------------------: |
-|      <p style="color:rgb(255,233,127);">**Clock**       | `/clock`                                    |               `rosgraph_msgs/Clock`               |                    -                    | `100` | `Best effort`,<br>`Volatile`,<br>`Keep last/1` |
+|    <p style="color:rgb(0,144,255);">**Clock**</p>       |                                             |                                                   |                                         |       |                                                |
+|                          Clock                          | `/clock`                                    |               `rosgraph_msgs/Clock`               |                    -                    | `100` | `Best effort`,<br>`Volatile`,<br>`Keep last/1` |
 |    <p style="color:rgb(0,144,255);">**Sensors**</p>     |                                             |                                                   |                                         |       |                                                |
 |                         Camera                          | `/sensing/camera/traffic_light/camera_info` |             `sensor_msgs/CameraInfo`              | `traffic_light_left_camera/camera_link` | `10`  | `Best effort`,<br>`Volatile`,<br>`Keep last/1` |
 |                         Camera                          | `/sensing/camera/traffic_light/image_raw`   |                `sensor_msgs/Image`                | `traffic_light_left_camera/camera_link` | `10`  | `Best effort`,<br>`Volatile`,<br>`Keep last/1` |

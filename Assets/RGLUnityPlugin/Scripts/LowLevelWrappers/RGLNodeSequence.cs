@@ -137,7 +137,7 @@ namespace RGLUnityPlugin
             AddNode(handle);
             return this;
         }
-        
+
         public RGLNodeSequence AddNodePointsFilterGround(string identifier, float groundAngleThreshold)
         {
             CheckNodeNotExist(identifier);
@@ -197,7 +197,7 @@ namespace RGLUnityPlugin
         {
             CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
-            RGLNativeAPI.NodePointsYield(ref handle.Node, new [] {field});
+            RGLNativeAPI.NodePointsYield(ref handle.Node, new[] { field });
             handle.Type = RGLNodeType.POINTS_YIELD;
             handle.OutputField = field;
             handle.Identifier = identifier;
@@ -326,6 +326,17 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence AddNodeMultiReturnSwitch(string identifier, RGLReturnType returnType)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodeMultiReturnSwitch(ref handle.Node, returnType);
+            handle.Type = RGLNodeType.MULTI_RETURN_SWITCH;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
         //// UPDATE NODES ////
         public RGLNodeSequence UpdateNodeRaysFromMat3x4f(string identifier, Matrix4x4[] rays)
         {
@@ -417,7 +428,7 @@ namespace RGLUnityPlugin
             RGLNativeAPI.NodePointsFilterGround(ref handle.Node, groundAngleThreshold);
             return this;
         }
-        
+
         public RGLNodeSequence UpdateNodePointsCompactByField(string identifier, RGLField field)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_COMPACT_BY_FIELD);
@@ -446,6 +457,13 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence UpdateMultiReturnSwitch(string identifier, RGLReturnType returnType)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.MULTI_RETURN_SWITCH);
+            RGLNativeAPI.NodeMultiReturnSwitch(ref handle.Node, returnType);
+            return this;
+        }
+
         //// CONFIGURE NODES ////
 
         public RGLNodeSequence ConfigureNodeRaytraceVelocity(string identifier, Vector3 linearVelocity, Vector3 angularVelocity)
@@ -459,6 +477,20 @@ namespace RGLUnityPlugin
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
             RGLNativeAPI.NodeRaytraceConfigureDistortion(handle.Node, enable);
+            return this;
+        }
+
+        public RGLNodeSequence ConfigureNodeRaytraceBeamDivergence(string identifier, float horizontalDivergence, float verticalDivergence)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
+            RGLNativeAPI.NodeRaytraceConfigureBeamDivergence(handle.Node, horizontalDivergence, verticalDivergence);
+            return this;
+        }
+
+        public RGLNodeSequence ApplyLidarOutputRestriction(string identifier, sbyte[] raysMask)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
+            RGLNativeAPI.NodeRaytraceConfigureMask(handle.Node, raysMask, raysMask.Length);
             return this;
         }
 
