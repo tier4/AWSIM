@@ -173,32 +173,24 @@ namespace RGLUnityPlugin
                     cumulativeDeviceGain = 60.0f,
                     receivedNoiseMean = 93.0f,
                     receivedNoiseStDev = 2.0f,
-                    azimuthResolution = 0.4f,
-                    elevationResolution = 0.4f,
+                    azimuthResolution = 2.0f,
+                    elevationResolution = 2.0f,
                     scopeParameters = new[]
                     {
                         new RadarScopeParameters
                         {
                             beginDistance = 0.2f,
-                            endDistance = 20.0f,
-                            distanceSeparationThreshold = 0.3f,
-                            radialSpeedSeparationThreshold = 0.3f,
-                            azimuthSeparationThreshold = 6.0f
-                        },
-                        new RadarScopeParameters
-                        {
-                            beginDistance = 20.0f,
                             endDistance = 100.0f,
-                            distanceSeparationThreshold = 0.6f,
-                            radialSpeedSeparationThreshold = 0.3f,
-                            azimuthSeparationThreshold = 6.0f
+                            distanceSeparationThreshold = 0.15f,
+                            radialSpeedSeparationThreshold = 0.15f,
+                            azimuthSeparationThreshold = 3.0f
                         },
                         new RadarScopeParameters
                         {
                             beginDistance = 100.0f,
                             endDistance = 300.0f,
                             distanceSeparationThreshold = 1.0f,
-                            radialSpeedSeparationThreshold = 0.3f,
+                            radialSpeedSeparationThreshold = 0.5f,
                             azimuthSeparationThreshold = 6.0f
                         }
                     },
