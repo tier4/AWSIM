@@ -20,12 +20,18 @@ namespace RGLUnityPlugin
     {
         public static bool IsValidIpAddress(in string ip)
         {
-            if (ip == "0.0.0.0") return true;
+            if (ip == "0.0.0.0")
+            {
+                return true;
+            }
             foreach (var nic in NetworkInterface.GetAllNetworkInterfaces())
             {
                 foreach (var unicast in nic.GetIPProperties().UnicastAddresses)
                 {
-                    if (unicast.Address.ToString() == ip) return true;
+                    if (unicast.Address.ToString() == ip)
+                    {
+                        return true;
+                    }
                 }
             }
             return false;
