@@ -75,12 +75,18 @@ namespace RGLUnityPlugin
 
         public void OnEnable()
         {
-            rglSubgraphRadarTrackObjects.SetActive(RadarTrackObjectsNodeId, true);
+            rglSubgraphRadarTrackObjects?.SetActive(RadarTrackObjectsNodeId, true);
         }
 
         public void OnDisable()
         {
-            rglSubgraphRadarTrackObjects.SetActive(RadarTrackObjectsNodeId, false);
+            rglSubgraphRadarTrackObjects?.SetActive(RadarTrackObjectsNodeId, false);
+        }
+
+        public void OnDestroy()
+        {
+            rglSubgraphRadarTrackObjects?.Clear();
+            rglSubgraphRadarTrackObjects = null;
         }
 
         public void OnValidate()
