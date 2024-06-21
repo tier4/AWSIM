@@ -40,12 +40,13 @@ namespace AWSIM.TrafficSimulation
                 return;
             var vehicle = state.Vehicle;
             if (vehicle.outerControl)
-            {
+            {   
+                // TODO: whether the target position should equal to the vehicle.outerTargetPoint or not?
                 var targetPosition = vehicle.outerTargetPoint + Quaternion.AngleAxis(state.Yaw, Vector3.up) * state.FrontCenterLocalPosition;
+                //var targetPosition = vehicle.outerTargetPoint;
                 if (Mathf.Abs((state.FrontCenterPosition - targetPosition).magnitude) > 0.01f)
                 {
                     state.TargetPoint = targetPosition;
-                    //Debug.Log("Distance to target point: " + (state.FrontCenterPosition - state.TargetPoint).magnitude);
                 }
                 else
                 {

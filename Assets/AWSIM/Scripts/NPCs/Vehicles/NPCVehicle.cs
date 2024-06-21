@@ -202,8 +202,7 @@ namespace AWSIM
 
         public Transform RigidBodyTransform => rigidbody.transform;
         public Transform TrailerTransform => trailer?.transform;
-
-        public bool outerControl = false;
+        public bool outerControl = false; // if true, the vehicle is controlled by map_based_prediction
 
         public Vector3 currentPosition;
 

@@ -1103,13 +1103,6 @@ namespace AWSIM.TrafficSimulation
                 States = states
             }.Execute();
 
-            // if vehicle is far from the ego vehicle, it should be despawned
-            foreach (var state in states)
-            {
-                if ((state.Vehicle.transform.position - egoTransform.position).magnitude > 600f)
-                    state.ShouldDespawn = true;
-            }
-
             Profiler.EndSample();
         }
 

@@ -145,7 +145,7 @@ namespace AWSIM
                         classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.BICYCLE;
                         break;
                     case ObjectClassification.ObjectType.PEDESTRIAN:
-                        classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.BUS;
+                        classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.PEDESTRIAN;
                         break;
                     default:
                         Debug.LogWarning("Unknown classification type");

@@ -84,9 +84,9 @@ namespace AWSIM
             var offset = Environment.Instance.MgrsOffsetPosition;
             return new geometry_msgs.msg.Point
             {
-                X = unityPosition.z + offset.x,  // UnityのZ座標がROSのX座標に対応
-                Y = -unityPosition.x + offset.y, // UnityのX座標の負の値がROSのY座標に対応
-                Z = unityPosition.y + offset.z   // UnityのY座標がROSのZ座標に対応
+                X = unityPosition.z + offset.x,  // the Z axis in Unity is the X axis in ROS
+                Y = -unityPosition.x + offset.y, // the X axis in Unity is the Y axis in ROS
+                Z = unityPosition.y + offset.z   // the Y axis in Unity is the Z axis in ROS
             };
         }
 

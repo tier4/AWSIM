@@ -21,18 +21,16 @@ namespace AWSIM {
 
         void myCallback(autoware_auto_perception_msgs.msg.PredictedObjects receivedMsg){
             var objects = receivedMsg.Objects;
-            //1つ目のインデックスは複数の予測パス，argmax
+            //the first index represents the object path
 
             // Get TimeStep
-                int rosSec = receivedMsg.Header.Stamp.Sec;
-                uint rosNanosec = receivedMsg.Header.Stamp.Nanosec;
+            int rosSec = receivedMsg.Header.Stamp.Sec;
+            uint rosNanosec = receivedMsg.Header.Stamp.Nanosec;
 
-                int currentSec;
-                uint currentNanosec;
+            int currentSec;
+            uint currentNanosec;
 
-                SimulatorROS2Node.TimeSource.GetTime(out currentSec, out currentNanosec);
-
-                Debug.Log("TimeStep: " + (currentSec - rosSec) + "s " + (currentNanosec - rosNanosec) + "ns");
+            SimulatorROS2Node.TimeSource.GetTime(out currentSec, out currentNanosec);
 
             for (var i = 0; i < objects.Length; i++){
 
@@ -65,10 +63,10 @@ namespace AWSIM {
                     var currentpostion = npcvehicle.currentPosition;
                     var startPosition =  ROS2Utility.RosMGRSToUnityPosition(objects[i].Kinematics.Predicted_paths[maxindex].Path[first_step].Position);
                     var endPosition =  ROS2Utility.RosMGRSToUnityPosition(objects[i].Kinematics.Predicted_paths[maxindex].Path[end_step].Position);
-                    npcvehicle.outerTargetPoint = Vector3.Lerp(startPosition, endPosition, delta);
-                    npcvehicle.outerRotation = ROS2Utility.RosToUnityRotation(objects[i].Kinematics.Predicted_paths[maxindex].Path[first_step].Orientation);
-                } else if (perceptionResultRos2Publisher.id2npc[uuid].GetType().Name == "NPCPedestrian"){
-                   // Debug.Log("Pedestrian:  " + (path[path.Count - 1] - path[0]));
+                    npcvehicle.outerTargetPoint = Vector3.Slerp(startPosition, endPosition, delta);
+                    var startRotation = ROS2Utility.RosToUnityRotation(objects[i].Kinematics.Predicted_paths[maxindex].Path[first_step].Orientation);
+                    var endRotation = ROS2Utility.RosToUnityRotation(objects[i].Kinematics.Predicted_paths[maxindex].Path[end_step].Orientation);
+                    npcvehicle.outerRotation = Quaternion.Lerp(startRotation, endRotation, delta);
                 }
      
             }
