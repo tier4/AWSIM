@@ -311,6 +311,31 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence AddNodePointsRadarTrackObjects(string identifier, float objectDistanceThreshold, float objectAzimuthThreshold,
+            float objectElevationThreshold, float objectRadialSpeedThreshold, float maxMatchingDistance, float maxPredictionTimeFrame,
+            float movementSensitivity)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsRadarTrackObjects(ref handle.Node, objectDistanceThreshold, objectAzimuthThreshold, objectElevationThreshold,
+                objectRadialSpeedThreshold, maxMatchingDistance, maxPredictionTimeFrame, movementSensitivity);
+            handle.Type = RGLNodeType.POINTS_RADAR_TRACK_OBJECTS;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLNodeSequence AddNodePublishUdpObjectList(string identifier, string deviceIp, string destIp, int destPort)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePublishUdpObjectList(ref handle.Node, deviceIp, destIp, destPort);
+            handle.Type = RGLNodeType.PUBLISH_UDP_OBJECT_LIST;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
         public RGLNodeSequence AddNodePointsSimulateSnow(string identifier, float minRange, float maxRange, float rainRate,
             float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence,
             bool doSimulateEnergyLoss, float snowflakeOccupancyThreshold)
@@ -446,6 +471,16 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence UpdateNodePointsRadarTrackObjects(string identifier, float objectDistanceThreshold, float objectAzimuthThreshold,
+            float objectElevationThreshold, float objectRadialSpeedThreshold, float maxMatchingDistance, float maxPredictionTimeFrame,
+            float movementSensitivity)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_RADAR_TRACK_OBJECTS);
+            RGLNativeAPI.NodePointsRadarTrackObjects(ref handle.Node, objectDistanceThreshold, objectAzimuthThreshold, objectElevationThreshold,
+                objectRadialSpeedThreshold, maxMatchingDistance, maxPredictionTimeFrame, movementSensitivity);
+            return this;
+        }
+
         public RGLNodeSequence UpdateNodePointsSimulateSnow(string identifier, float minRange, float maxRange, float rainRate,
             float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence,
             bool doSimulateEnergyLoss, float snowflakeOccupancyThreshold)
@@ -484,6 +519,13 @@ namespace RGLUnityPlugin
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
             RGLNativeAPI.NodeRaytraceConfigureBeamDivergence(handle.Node, horizontalDivergence, verticalDivergence);
+            return this;
+        }
+
+        public RGLNodeSequence SetNodeRadarClasses(string identifier, int[] entityIds, RGLRadarObjectClass[] objectClasses)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_RADAR_TRACK_OBJECTS);
+            RGLNativeAPI.NodePointsRadarSetClasses(handle.Node, entityIds, objectClasses);
             return this;
         }
 

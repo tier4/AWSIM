@@ -20,5 +20,6 @@ namespace RGLUnityPlugin
         SmartmicroDRVEGRD169MediumRange,
         SmartmicroDRVEGRD169ShortRange,
         SmartmicroDRVEGRD169UltraShortRange,
+        ContinentalARS548
     }
 }
