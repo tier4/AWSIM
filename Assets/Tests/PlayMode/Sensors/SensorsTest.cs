@@ -7,6 +7,8 @@ using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools.Utils;
 using AWSIM;
+using System;
+using System.Linq;
 
 public class SensorsTest
 {
@@ -38,6 +40,9 @@ public class SensorsTest
     // LiDAR & Radar
     ROS2.ISubscription<sensor_msgs.msg.PointCloud2> pointCloudSubscription;
     List<sensor_msgs.msg.PointCloud2> pointCloudMessages;
+    RGLUnityPlugin.RGLNodeSequence rglSubgraphYieldOutput;
+    const string yieldOutputNodeId = "OUT_YIELD";
+    Vector3[] onlyHits = Array.Empty<Vector3>();
 
     // IMU
     ImuSensor imuSensor;
@@ -78,13 +83,33 @@ public class SensorsTest
         yield return null;
     }
 
+    public void LidarOutputRestrictionTestSetup()
+    {
+        rglSubgraphYieldOutput = new RGLUnityPlugin.RGLNodeSequence()
+            .AddNodePointsYield(yieldOutputNodeId, RGLUnityPlugin.RGLField.XYZ_VEC3_F32);
+
+        rglSubgraphYieldOutput.SetPriority(yieldOutputNodeId, 1);
+        rglSubgraphYieldOutput.SetActive(yieldOutputNodeId, true);
+
+        // Disable Gaussian noise to be able to validate output restriction
+        lidarSensor.applyAngularGaussianNoise = false;
+        lidarSensor.applyDistanceGaussianNoise = false;
+        lidarSensor.OnValidate();
+
+        lidarSensor.ConnectToWorldFrame(rglSubgraphYieldOutput);
+        lidarSensor.onNewData += OnNewLidarData;
+    }
+
     [UnityTest]
     public IEnumerator LiDAR()
     {
         Assert.NotNull(lidarSensor);
+
+        LidarOutputRestrictionTestSetup();
+
         RglLidarPublisher lidarRos2Publisher = lidarSensor.GetComponent<RglLidarPublisher>();
 
-        Assert.AreEqual((byte)lidarRos2Publisher.qos.reliabilityPolicy , (byte)ROS2.ReliabilityPolicy.QOS_POLICY_RELIABILITY_BEST_EFFORT);
+        Assert.AreEqual((byte)lidarRos2Publisher.qos.reliabilityPolicy, (byte)ROS2.ReliabilityPolicy.QOS_POLICY_RELIABILITY_BEST_EFFORT);
 
         Assert.NotZero(lidarRos2Publisher.pointCloud2Publishers.Count);
 
@@ -97,6 +122,9 @@ public class SensorsTest
             Assert.IsNotEmpty(pointCloudMessages);
             Assert.AreEqual(pointCloudMessages.Count, (int)(testDuration * lidarSensor.AutomaticCaptureHz));
         }
+
+        // Unsubscribe LiDAR output validation
+        lidarSensor.onNewData -= OnNewLidarData;
     }
 
     [UnityTest]
@@ -105,7 +133,7 @@ public class SensorsTest
         Assert.NotNull(radarSensor);
         RglLidarPublisher radarRos2Publisher = radarSensor.GetComponent<RglLidarPublisher>();
 
-        Assert.AreEqual((byte)radarRos2Publisher.qos.reliabilityPolicy , (byte)ROS2.ReliabilityPolicy.QOS_POLICY_RELIABILITY_BEST_EFFORT);
+        Assert.AreEqual((byte)radarRos2Publisher.qos.reliabilityPolicy, (byte)ROS2.ReliabilityPolicy.QOS_POLICY_RELIABILITY_BEST_EFFORT);
 
         Assert.NotZero(radarRos2Publisher.pointCloud2Publishers.Count);
 
@@ -221,5 +249,25 @@ public class SensorsTest
             {
                 pointCloudMessages.Add(msg);
             }, qosSettingsLidar.GetQoSProfile());
+    }
+
+    private void OnNewLidarData()
+    {
+        rglSubgraphYieldOutput.GetResultData(ref onlyHits);
+        float startingAzimuth = lidarSensor.outputRestriction.rectangularRestrictionMasks[0].startingHorizontalAngle;
+        float endingAzimuth = lidarSensor.outputRestriction.rectangularRestrictionMasks[0].endingHorizontalAngle;
+        float startingElevation = lidarSensor.outputRestriction.rectangularRestrictionMasks[0].startingVerticalAngle;
+        float endingElevation = lidarSensor.outputRestriction.rectangularRestrictionMasks[0].endingVerticalAngle;
+
+        foreach (var point in onlyHits)
+        {
+            Vector3 toHitVector = point - lidarSensor.transform.position;
+            Vector3 xzProjected = Vector3.ProjectOnPlane(toHitVector, Vector3.up);
+            float azimuth = Mathf.Atan2(xzProjected.x, xzProjected.z) * Mathf.Rad2Deg;
+            Vector3 xyProjected = Vector3.ProjectOnPlane(toHitVector, Vector3.right);
+            float elevation = Mathf.Atan2(xyProjected.y, xyProjected.z) * Mathf.Rad2Deg;
+
+            Assert.IsFalse(azimuth > startingAzimuth && azimuth < endingAzimuth && elevation > startingElevation && elevation < endingElevation);
+        }
     }
 }
