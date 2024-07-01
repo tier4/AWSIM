@@ -10,6 +10,8 @@ RWStructuredBuffer<uint> _RosImageBuffer;
 uint _width;
 uint _height;
 
+bool _flip_image;
+
 #define BYTES_PER_PIXEL 3
 #define SIZE_OF_UINT 4
 
@@ -28,7 +30,16 @@ void RosImageShaderKernel (uint3 id : SV_DispatchThreadID)
     // Convert coordinates for use in ROS (bgr8).
     // write down for distortion texture
     // write to B,G,R
-    uint rosImageY = _height - 1 - textureY;
+    
+    uint rosImageY = 0;
+    if (_flip_image)
+    {
+        rosImageY = textureY;
+    }
+    else
+    {
+        rosImageY = _height - 1 - textureY;
+    }
     float3 color1 = _InputTexture[float2(textureX, rosImageY)].rgb;
 
     // check boundary conditions
