@@ -22,43 +22,43 @@ public class EgoTest
     Vehicle egoVehicle;
     VehicleRos2Input egoRosInput;
 
-    ROS2.IPublisher<autoware_auto_vehicle_msgs.msg.GearCommand> gearCommandPublisher;
-    ROS2.IPublisher<autoware_auto_control_msgs.msg.AckermannControlCommand> movementPublisher;
+    ROS2.IPublisher<autoware_vehicle_msgs.msg.GearCommand> gearCommandPublisher;
+    ROS2.IPublisher<autoware_control_msgs.msg.Control> movementPublisher;
 
     // Gear commands
-    autoware_auto_vehicle_msgs.msg.GearCommand parkGearCommand = new autoware_auto_vehicle_msgs.msg.GearCommand()
+    autoware_vehicle_msgs.msg.GearCommand parkGearCommand = new autoware_vehicle_msgs.msg.GearCommand()
     {
-        Command = autoware_auto_vehicle_msgs.msg.GearCommand.PARK
+        Command = autoware_vehicle_msgs.msg.GearCommand.PARK
     };
-    autoware_auto_vehicle_msgs.msg.GearCommand driveGearCommand = new autoware_auto_vehicle_msgs.msg.GearCommand()
+    autoware_vehicle_msgs.msg.GearCommand driveGearCommand = new autoware_vehicle_msgs.msg.GearCommand()
     {
-        Command = autoware_auto_vehicle_msgs.msg.GearCommand.DRIVE
+        Command = autoware_vehicle_msgs.msg.GearCommand.DRIVE
     };
-    autoware_auto_vehicle_msgs.msg.GearCommand reverseGearCommand = new autoware_auto_vehicle_msgs.msg.GearCommand()
+    autoware_vehicle_msgs.msg.GearCommand reverseGearCommand = new autoware_vehicle_msgs.msg.GearCommand()
     {
-        Command = autoware_auto_vehicle_msgs.msg.GearCommand.REVERSE
+        Command = autoware_vehicle_msgs.msg.GearCommand.REVERSE
     };
-    autoware_auto_control_msgs.msg.AckermannControlCommand moveCommand = new autoware_auto_control_msgs.msg.AckermannControlCommand()
+    autoware_control_msgs.msg.Control moveCommand = new autoware_control_msgs.msg.Control()
     {
-        Longitudinal = new autoware_auto_control_msgs.msg.LongitudinalCommand() {
+        Longitudinal = new autoware_control_msgs.msg.Longitudinal() {
             Acceleration = 1.0f
         }
     };
-    autoware_auto_control_msgs.msg.AckermannControlCommand leftCommand = new autoware_auto_control_msgs.msg.AckermannControlCommand()
+    autoware_control_msgs.msg.Control leftCommand = new autoware_control_msgs.msg.Control()
     {
-        Longitudinal = new autoware_auto_control_msgs.msg.LongitudinalCommand() {
+        Longitudinal = new autoware_control_msgs.msg.Longitudinal() {
             Acceleration = 1.0f
         },
-        Lateral = new autoware_auto_control_msgs.msg.AckermannLateralCommand() {
+        Lateral = new autoware_control_msgs.msg.Lateral() {
             Steering_tire_angle = 0.6f
         }
     };
-    autoware_auto_control_msgs.msg.AckermannControlCommand rightCommand = new autoware_auto_control_msgs.msg.AckermannControlCommand()
+    autoware_control_msgs.msg.Control rightCommand = new autoware_control_msgs.msg.Control()
     {
-        Longitudinal = new autoware_auto_control_msgs.msg.LongitudinalCommand() {
+        Longitudinal = new autoware_control_msgs.msg.Longitudinal() {
             Acceleration = 1.0f
         },
-        Lateral = new autoware_auto_control_msgs.msg.AckermannLateralCommand() {
+        Lateral = new autoware_control_msgs.msg.Lateral() {
             Steering_tire_angle = -0.6f
         }
     };
@@ -103,13 +103,13 @@ public class EgoTest
 
         // Publishers
         string gearChangeTopic = egoRosInput.GetPrivateFieldValue<string>("gearCommandTopic");
-        gearCommandPublisher = SimulatorROS2Node.CreatePublisher<autoware_auto_vehicle_msgs.msg.GearCommand>(
+        gearCommandPublisher = SimulatorROS2Node.CreatePublisher<autoware_vehicle_msgs.msg.GearCommand>(
             gearChangeTopic,
             qosSettings.GetQoSProfile()
         );
 
         string movementTopic = egoRosInput.GetPrivateFieldValue<string>("ackermannControlCommandTopic");
-        movementPublisher = SimulatorROS2Node.CreatePublisher<autoware_auto_control_msgs.msg.AckermannControlCommand>(
+        movementPublisher = SimulatorROS2Node.CreatePublisher<autoware_control_msgs.msg.Control>(
             movementTopic,
             qosSettings.GetQoSProfile()
         );

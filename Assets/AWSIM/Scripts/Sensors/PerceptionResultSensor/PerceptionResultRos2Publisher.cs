@@ -39,8 +39,8 @@ namespace AWSIM
             Depth = 1,
         };
 
-        IPublisher<autoware_auto_perception_msgs.msg.DetectedObjects> objectPublisher;
-        autoware_auto_perception_msgs.msg.DetectedObjects objectsMsg;
+        IPublisher<autoware_perception_msgs.msg.DetectedObjects> objectPublisher;
+        autoware_perception_msgs.msg.DetectedObjects objectsMsg;
         PerceptionResultSensor objectSensor;
 
         void Start()
@@ -52,17 +52,17 @@ namespace AWSIM
             objectSensor.OnOutputData += Publish;
 
             // Create msg.
-            objectsMsg = new autoware_auto_perception_msgs.msg.DetectedObjects();
+            objectsMsg = new autoware_perception_msgs.msg.DetectedObjects();
 
             // Create publisher.
             var qos = qosSettings.GetQoSProfile();
-            objectPublisher = SimulatorROS2Node.CreatePublisher<autoware_auto_perception_msgs.msg.DetectedObjects>(objectTopic, qos);
+            objectPublisher = SimulatorROS2Node.CreatePublisher<autoware_perception_msgs.msg.DetectedObjects>(objectTopic, qos);
         }
 
         void Publish(PerceptionResultSensor.OutputData outputData)
         {
             if (outputData == null || outputData.objects == null || outputData.origin == null) return;
-            var objectsList = new List<autoware_auto_perception_msgs.msg.DetectedObject>();
+            var objectsList = new List<autoware_perception_msgs.msg.DetectedObject>();
             foreach (var detectedObject in outputData.objects)
             {
                 if(detectedObject ==null || detectedObject.rigidBody == null || detectedObject.dimension == null || detectedObject.bounds == null) continue;
@@ -73,35 +73,35 @@ namespace AWSIM
                 float distance = Vector3.Distance(outputData.origin.position, rb.transform.position);
                 if (distance > maxDistance) continue;
 
-                var obj = new autoware_auto_perception_msgs.msg.DetectedObject();
+                var obj = new autoware_perception_msgs.msg.DetectedObject();
                 obj.Existence_probability = 1.0f;
-                var classification = new autoware_auto_perception_msgs.msg.ObjectClassification();
+                var classification = new autoware_perception_msgs.msg.ObjectClassification();
                 {
                 switch (detectedObject.classification)
                 {
                     case ObjectClassification.ObjectType.UNKNOWN:
-                        classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.UNKNOWN;
+                        classification.Label = autoware_perception_msgs.msg.ObjectClassification.UNKNOWN;
                         break;
                     case ObjectClassification.ObjectType.CAR:
-                        classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.CAR;
+                        classification.Label = autoware_perception_msgs.msg.ObjectClassification.CAR;
                         break;
                     case ObjectClassification.ObjectType.TRUCK:
-                        classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.TRUCK;
+                        classification.Label = autoware_perception_msgs.msg.ObjectClassification.TRUCK;
                         break;
                     case ObjectClassification.ObjectType.BUS:
-                        classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.BUS;
+                        classification.Label = autoware_perception_msgs.msg.ObjectClassification.BUS;
                         break;
                     case ObjectClassification.ObjectType.TRAILER:
-                        classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.TRAILER;
+                        classification.Label = autoware_perception_msgs.msg.ObjectClassification.TRAILER;
                         break;
                     case ObjectClassification.ObjectType.MOTORCYCLE:
-                        classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.MOTORCYCLE;
+                        classification.Label = autoware_perception_msgs.msg.ObjectClassification.MOTORCYCLE;
                         break;
                     case ObjectClassification.ObjectType.BICYCLE:
-                        classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.BICYCLE;
+                        classification.Label = autoware_perception_msgs.msg.ObjectClassification.BICYCLE;
                         break;
                     case ObjectClassification.ObjectType.PEDESTRIAN:
-                        classification.Label = autoware_auto_perception_msgs.msg.ObjectClassification.PEDESTRIAN;
+                        classification.Label = autoware_perception_msgs.msg.ObjectClassification.PEDESTRIAN;
                         break;
                     default:
                         Debug.LogWarning("Unknown classification type");
@@ -109,9 +109,9 @@ namespace AWSIM
                 }
                     classification.Probability = 1.0f;
                 }
-                obj.Classification = new List<autoware_auto_perception_msgs.msg.ObjectClassification>{classification}.ToArray();
+                obj.Classification = new List<autoware_perception_msgs.msg.ObjectClassification>{classification}.ToArray();
 
-                var kinematics = new autoware_auto_perception_msgs.msg.DetectedObjectKinematics();
+                var kinematics = new autoware_perception_msgs.msg.DetectedObjectKinematics();
                 // Add pose
                 {
                     Vector3 relativePosition = rb.transform.position - outputData.origin.position;
@@ -140,7 +140,7 @@ namespace AWSIM
                 // Add covariance
                 {
                     kinematics.Has_position_covariance = true;
-                    kinematics.Orientation_availability = autoware_auto_perception_msgs.msg.DetectedObjectKinematics.AVAILABLE;
+                    kinematics.Orientation_availability = autoware_perception_msgs.msg.DetectedObjectKinematics.AVAILABLE;
                     kinematics.Has_twist = true;
                     kinematics.Has_twist_covariance = true;
                     // Add covariance 6x6
@@ -155,8 +155,8 @@ namespace AWSIM
 
                 // add shape and footprint
                 {
-                    var shape = new autoware_auto_perception_msgs.msg.Shape();
-                    shape.Type = autoware_auto_perception_msgs.msg.Shape.BOUNDING_BOX;
+                    var shape = new autoware_perception_msgs.msg.Shape();
+                    shape.Type = autoware_perception_msgs.msg.Shape.BOUNDING_BOX;
                     shape.Dimensions.X = dim.x;
                     shape.Dimensions.Y = dim.y;
                     shape.Dimensions.Z = dim.z;
@@ -187,7 +187,7 @@ namespace AWSIM
 
         void OnDestroy()
         {
-           SimulatorROS2Node.RemovePublisher<autoware_auto_perception_msgs.msg.DetectedObjects>(objectPublisher);
+           SimulatorROS2Node.RemovePublisher<autoware_perception_msgs.msg.DetectedObjects>(objectPublisher);
         }
     }
 }

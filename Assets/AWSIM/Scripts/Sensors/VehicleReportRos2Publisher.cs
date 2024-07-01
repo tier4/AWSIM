@@ -57,20 +57,20 @@ namespace AWSIM
         [SerializeField] VehicleOverrideInputManager VehicleOverrideInputManager;
 
         // msgs.
-        autoware_auto_vehicle_msgs.msg.ControlModeReport controlModeReportMsg;
-        autoware_auto_vehicle_msgs.msg.GearReport gearReportMsg;
-        autoware_auto_vehicle_msgs.msg.SteeringReport steeringReportMsg;
-        autoware_auto_vehicle_msgs.msg.TurnIndicatorsReport turnIndicatorsReportMsg;
-        autoware_auto_vehicle_msgs.msg.HazardLightsReport hazardLightsReportMsg;
-        autoware_auto_vehicle_msgs.msg.VelocityReport velocityReportMsg;
+        autoware_vehicle_msgs.msg.ControlModeReport controlModeReportMsg;
+        autoware_vehicle_msgs.msg.GearReport gearReportMsg;
+        autoware_vehicle_msgs.msg.SteeringReport steeringReportMsg;
+        autoware_vehicle_msgs.msg.TurnIndicatorsReport turnIndicatorsReportMsg;
+        autoware_vehicle_msgs.msg.HazardLightsReport hazardLightsReportMsg;
+        autoware_vehicle_msgs.msg.VelocityReport velocityReportMsg;
 
         // publisher.
-        IPublisher<autoware_auto_vehicle_msgs.msg.ControlModeReport> controlModeReportPublisher;
-        IPublisher<autoware_auto_vehicle_msgs.msg.GearReport> gearReportPublisher;
-        IPublisher<autoware_auto_vehicle_msgs.msg.SteeringReport> steeringReportPublisher;
-        IPublisher<autoware_auto_vehicle_msgs.msg.TurnIndicatorsReport> turnIndicatorsReportPublisher;
-        IPublisher<autoware_auto_vehicle_msgs.msg.HazardLightsReport> hazardLightsReportPublisher;
-        IPublisher<autoware_auto_vehicle_msgs.msg.VelocityReport> velocityReportPublisher;
+        IPublisher<autoware_vehicle_msgs.msg.ControlModeReport> controlModeReportPublisher;
+        IPublisher<autoware_vehicle_msgs.msg.GearReport> gearReportPublisher;
+        IPublisher<autoware_vehicle_msgs.msg.SteeringReport> steeringReportPublisher;
+        IPublisher<autoware_vehicle_msgs.msg.TurnIndicatorsReport> turnIndicatorsReportPublisher;
+        IPublisher<autoware_vehicle_msgs.msg.HazardLightsReport> hazardLightsReportPublisher;
+        IPublisher<autoware_vehicle_msgs.msg.VelocityReport> velocityReportPublisher;
 
         bool initialized = false;
         float timer;
@@ -79,20 +79,20 @@ namespace AWSIM
         {
             // Create publisher.
             var qos = qosSettings.GetQoSProfile();
-            controlModeReportPublisher = SimulatorROS2Node.CreatePublisher<autoware_auto_vehicle_msgs.msg.ControlModeReport>(controlModeReportTopic, qos);
-            gearReportPublisher = SimulatorROS2Node.CreatePublisher<autoware_auto_vehicle_msgs.msg.GearReport>(gearReportTopic, qos);
-            steeringReportPublisher = SimulatorROS2Node.CreatePublisher<autoware_auto_vehicle_msgs.msg.SteeringReport>(steeringReportTopic, qos);
-            turnIndicatorsReportPublisher = SimulatorROS2Node.CreatePublisher<autoware_auto_vehicle_msgs.msg.TurnIndicatorsReport>(turnIndicatorsReportTopic, qos);
-            hazardLightsReportPublisher = SimulatorROS2Node.CreatePublisher<autoware_auto_vehicle_msgs.msg.HazardLightsReport>(hazardLightsReportTopic, qos);
-            velocityReportPublisher = SimulatorROS2Node.CreatePublisher<autoware_auto_vehicle_msgs.msg.VelocityReport>(velocityReportTopic, qos);
+            controlModeReportPublisher = SimulatorROS2Node.CreatePublisher<autoware_vehicle_msgs.msg.ControlModeReport>(controlModeReportTopic, qos);
+            gearReportPublisher = SimulatorROS2Node.CreatePublisher<autoware_vehicle_msgs.msg.GearReport>(gearReportTopic, qos);
+            steeringReportPublisher = SimulatorROS2Node.CreatePublisher<autoware_vehicle_msgs.msg.SteeringReport>(steeringReportTopic, qos);
+            turnIndicatorsReportPublisher = SimulatorROS2Node.CreatePublisher<autoware_vehicle_msgs.msg.TurnIndicatorsReport>(turnIndicatorsReportTopic, qos);
+            hazardLightsReportPublisher = SimulatorROS2Node.CreatePublisher<autoware_vehicle_msgs.msg.HazardLightsReport>(hazardLightsReportTopic, qos);
+            velocityReportPublisher = SimulatorROS2Node.CreatePublisher<autoware_vehicle_msgs.msg.VelocityReport>(velocityReportTopic, qos);
 
             // Create msg.
-            controlModeReportMsg = new autoware_auto_vehicle_msgs.msg.ControlModeReport();
-            gearReportMsg = new autoware_auto_vehicle_msgs.msg.GearReport();
-            steeringReportMsg = new autoware_auto_vehicle_msgs.msg.SteeringReport();
-            turnIndicatorsReportMsg = new autoware_auto_vehicle_msgs.msg.TurnIndicatorsReport();
-            hazardLightsReportMsg = new autoware_auto_vehicle_msgs.msg.HazardLightsReport();
-            velocityReportMsg = new autoware_auto_vehicle_msgs.msg.VelocityReport()
+            controlModeReportMsg = new autoware_vehicle_msgs.msg.ControlModeReport();
+            gearReportMsg = new autoware_vehicle_msgs.msg.GearReport();
+            steeringReportMsg = new autoware_vehicle_msgs.msg.SteeringReport();
+            turnIndicatorsReportMsg = new autoware_vehicle_msgs.msg.TurnIndicatorsReport();
+            hazardLightsReportMsg = new autoware_vehicle_msgs.msg.HazardLightsReport();
+            velocityReportMsg = new autoware_vehicle_msgs.msg.VelocityReport()
             {
                 Header = new std_msgs.msg.Header()
                 {
@@ -162,12 +162,12 @@ namespace AWSIM
 
         void OnDestroy()
         {
-            SimulatorROS2Node.RemovePublisher<autoware_auto_vehicle_msgs.msg.ControlModeReport>(controlModeReportPublisher);
-            SimulatorROS2Node.RemovePublisher<autoware_auto_vehicle_msgs.msg.GearReport>(gearReportPublisher);
-            SimulatorROS2Node.RemovePublisher<autoware_auto_vehicle_msgs.msg.SteeringReport>(steeringReportPublisher);
-            SimulatorROS2Node.RemovePublisher<autoware_auto_vehicle_msgs.msg.TurnIndicatorsReport>(turnIndicatorsReportPublisher);
-            SimulatorROS2Node.RemovePublisher<autoware_auto_vehicle_msgs.msg.HazardLightsReport>(hazardLightsReportPublisher);
-            SimulatorROS2Node.RemovePublisher<autoware_auto_vehicle_msgs.msg.VelocityReport>(velocityReportPublisher);
+            SimulatorROS2Node.RemovePublisher<autoware_vehicle_msgs.msg.ControlModeReport>(controlModeReportPublisher);
+            SimulatorROS2Node.RemovePublisher<autoware_vehicle_msgs.msg.GearReport>(gearReportPublisher);
+            SimulatorROS2Node.RemovePublisher<autoware_vehicle_msgs.msg.SteeringReport>(steeringReportPublisher);
+            SimulatorROS2Node.RemovePublisher<autoware_vehicle_msgs.msg.TurnIndicatorsReport>(turnIndicatorsReportPublisher);
+            SimulatorROS2Node.RemovePublisher<autoware_vehicle_msgs.msg.HazardLightsReport>(hazardLightsReportPublisher);
+            SimulatorROS2Node.RemovePublisher<autoware_vehicle_msgs.msg.VelocityReport>(velocityReportPublisher);
         }
     }
 }

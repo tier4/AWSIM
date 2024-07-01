@@ -20,10 +20,10 @@ namespace AWSIM
         [SerializeField] QoSSettings qosSettings = new QoSSettings();
 
         // subscribers.
-        ISubscription<autoware_auto_vehicle_msgs.msg.TurnIndicatorsCommand> turnIndicatorsCommandSubscriber;
-        ISubscription<autoware_auto_vehicle_msgs.msg.HazardLightsCommand> hazardLightsCommandSubscriber;
-        ISubscription<autoware_auto_control_msgs.msg.AckermannControlCommand> ackermanControlCommandSubscriber;
-        ISubscription<autoware_auto_vehicle_msgs.msg.GearCommand> gearCommandSubscriber;
+        ISubscription<autoware_vehicle_msgs.msg.TurnIndicatorsCommand> turnIndicatorsCommandSubscriber;
+        ISubscription<autoware_vehicle_msgs.msg.HazardLightsCommand> hazardLightsCommandSubscriber;
+        ISubscription<autoware_control_msgs.msg.Control> ackermanControlCommandSubscriber;
+        ISubscription<autoware_vehicle_msgs.msg.GearCommand> gearCommandSubscriber;
         ISubscription<tier4_vehicle_msgs.msg.VehicleEmergencyStamped> vehicleEmergencyStampedSubscriber;
 
         // Latest Emergency value.
@@ -72,7 +72,7 @@ namespace AWSIM
             var qos = qosSettings.GetQoSProfile();
 
             turnIndicatorsCommandSubscriber
-                = SimulatorROS2Node.CreateSubscription<autoware_auto_vehicle_msgs.msg.TurnIndicatorsCommand>(
+                = SimulatorROS2Node.CreateSubscription<autoware_vehicle_msgs.msg.TurnIndicatorsCommand>(
                     turnIndicatorsCommandTopic, msg =>
                     {
                         turnIndicatorsSignal = VehicleROS2Utility.RosToUnityTurnSignal(msg);
@@ -80,7 +80,7 @@ namespace AWSIM
                     }, qos);
 
             hazardLightsCommandSubscriber
-                = SimulatorROS2Node.CreateSubscription<autoware_auto_vehicle_msgs.msg.HazardLightsCommand>(
+                = SimulatorROS2Node.CreateSubscription<autoware_vehicle_msgs.msg.HazardLightsCommand>(
                     hazardLightsCommandTopic, msg =>
                     {
                         hazardLightsSignal = VehicleROS2Utility.RosToUnityHazard(msg);
@@ -88,7 +88,7 @@ namespace AWSIM
                     }, qos);
 
             ackermanControlCommandSubscriber
-                = SimulatorROS2Node.CreateSubscription<autoware_auto_control_msgs.msg.AckermannControlCommand>(
+                = SimulatorROS2Node.CreateSubscription<autoware_control_msgs.msg.Control>(
                     ackermannControlCommandTopic, msg =>
                     {
                         // highest priority is EMERGENCY.
@@ -100,7 +100,7 @@ namespace AWSIM
                     }, qos);
 
             gearCommandSubscriber
-                = SimulatorROS2Node.CreateSubscription<autoware_auto_vehicle_msgs.msg.GearCommand>(
+                = SimulatorROS2Node.CreateSubscription<autoware_vehicle_msgs.msg.GearCommand>(
                     gearCommandTopic, msg =>
                     {
                         ShiftInput = VehicleROS2Utility.RosToUnityShift(msg);
@@ -120,10 +120,10 @@ namespace AWSIM
 
         void OnDisable()
         {
-            SimulatorROS2Node.RemoveSubscription<autoware_auto_vehicle_msgs.msg.TurnIndicatorsCommand>(turnIndicatorsCommandSubscriber);
-            SimulatorROS2Node.RemoveSubscription<autoware_auto_vehicle_msgs.msg.HazardLightsCommand>(hazardLightsCommandSubscriber);
-            SimulatorROS2Node.RemoveSubscription<autoware_auto_control_msgs.msg.AckermannControlCommand>(ackermanControlCommandSubscriber);
-            SimulatorROS2Node.RemoveSubscription<autoware_auto_vehicle_msgs.msg.GearCommand>(gearCommandSubscriber);
+            SimulatorROS2Node.RemoveSubscription<autoware_vehicle_msgs.msg.TurnIndicatorsCommand>(turnIndicatorsCommandSubscriber);
+            SimulatorROS2Node.RemoveSubscription<autoware_vehicle_msgs.msg.HazardLightsCommand>(hazardLightsCommandSubscriber);
+            SimulatorROS2Node.RemoveSubscription<autoware_control_msgs.msg.Control>(ackermanControlCommandSubscriber);
+            SimulatorROS2Node.RemoveSubscription<autoware_vehicle_msgs.msg.GearCommand>(gearCommandSubscriber);
             SimulatorROS2Node.RemoveSubscription<tier4_vehicle_msgs.msg.VehicleEmergencyStamped>(vehicleEmergencyStampedSubscriber);
         }
     }
