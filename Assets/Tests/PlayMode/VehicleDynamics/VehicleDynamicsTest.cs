@@ -8,7 +8,10 @@ using UnityEngine.TestTools.Utils;
 using AWSIM;
 using ROS2;
 
-
+/// <summary>
+/// The VehicleDynamicsTest class manages the testing of the ego vehicle dynamics. 
+/// It handles loading the necessary scenes and executing tests to validate the vehicle's behavior.
+/// </summary>
 public class VehicleDynamicsTest
 {
     // Scene handlers
@@ -82,6 +85,9 @@ public class VehicleDynamicsTest
 
     // --- TEST LIFE CYCLE ---//
 
+    /// <summary>
+    /// A method called by Unity at the start of each test.
+    /// </summary>
     [UnitySetUp]
     public IEnumerator Setup()
     {
@@ -91,6 +97,9 @@ public class VehicleDynamicsTest
         yield return new WaitForFixedUpdate();
     }
 
+    /// <summary>
+    /// A method to load the Unity scene and local physics scene dedicated to the vehicle dynamics test.
+    /// </summary>
     private IEnumerator LoadSceneAsync()
     {
         LoadSceneParameters parameters = new LoadSceneParameters(LoadSceneMode.Single, LocalPhysicsMode.Physics3D);
@@ -106,6 +115,9 @@ public class VehicleDynamicsTest
         Assert.NotNull(physicsScene);
     }
 
+    /// <summary>
+    /// A method collects the required components of the tested vehicle.
+    /// </summary>
     private IEnumerator GetEgoComponents()
     {
         egoVehicle = GameObject.FindObjectOfType<AWSIM.Vehicle>();
@@ -118,6 +130,9 @@ public class VehicleDynamicsTest
         yield return new WaitForFixedUpdate();
     }
 
+    /// <summary>
+    /// A method creates the necessary publishers for the tested vehicle.
+    /// </summary>
     private IEnumerator CreateEgoCommonPublihers()
     {
         string gearChangeTopic = egoRosInput.GetPrivateFieldValue<string>("gearCommandTopic");
@@ -134,7 +149,9 @@ public class VehicleDynamicsTest
         yield return new WaitForFixedUpdate();
     }
 
-
+    /// <summary>
+    /// A method called by Unity at the end of each test.
+    /// </summary>
     [UnityTearDown]
     public IEnumerator TearDown()
     {
@@ -143,6 +160,9 @@ public class VehicleDynamicsTest
         yield return RemoveEgoVehicle();
     }
     
+    /// <summary>
+    /// A method for disposing the tested vehicle.
+    /// </summary>
     private IEnumerator RemoveEgoVehicle()
     {
         Rigidbody rb = egoVehicle.GetComponent<Rigidbody>();
@@ -163,6 +183,9 @@ public class VehicleDynamicsTest
         }
     }
 
+    /// <summary>
+    /// A method removes the used publishers for the tested vehicle.
+    /// </summary>
     private IEnumerator RemoveEgoCommonPublishers()
     {
         SimulatorROS2Node.RemovePublisher<autoware_auto_control_msgs.msg.AckermannControlCommand>(movementPublisher);
@@ -175,6 +198,11 @@ public class VehicleDynamicsTest
 
     // --- TEST ROUTINES --- //
 
+    /// <summary>
+    /// A test to check the correct behaviour of the vehicle. This test checks the position 
+    /// of the vehicle after a given time when a low acceleration value is applied.
+    /// The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// </summary>
     [UnityTest]
     public IEnumerator VehicleDynamics_StraightMove_LowAcceleration()
     {
@@ -225,6 +253,11 @@ public class VehicleDynamicsTest
         Assert.That(Utils.AreFloatsEqual(0.0f, distanceToExpectedPosition, acceptableErrorDistance), Is.True);
     }
 
+    /// <summary>
+    /// A test to check the correct behaviour of the vehicle. This test checks the position 
+    /// of the vehicle after a given time when a moderate acceleration value is applied.
+    /// The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// </summary>
     [UnityTest]
     public IEnumerator VehicleDynamics_StraightMove_MiddleAcceleration()
     {
@@ -275,6 +308,11 @@ public class VehicleDynamicsTest
         Assert.That(Utils.AreFloatsEqual(0.0f, distanceToExpectedPosition, acceptableErrorDistance), Is.True);  
     }
 
+    /// <summary>
+    /// A test to check the correct behaviour of the vehicle. This test checks the position 
+    /// of the vehicle after a given time when a high acceleration value is applied.
+    /// The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// </summary>
     [UnityTest]
     public IEnumerator VehicleDynamics_StraightMove_HighAcceleration()
     {
@@ -325,6 +363,11 @@ public class VehicleDynamicsTest
         Assert.That(Utils.AreFloatsEqual(0.0f, distanceToExpectedPosition, acceptableErrorDistance), Is.True);
     }
 
+    /// <summary>
+    /// A test to check the correct behaviour of the vehicle. This test checks the position 
+    /// of the vehicle after a given commands to perform a left turn manoeuvre.
+    /// The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// </summary>
     [UnityTest]
     public IEnumerator VehicleDynamics_TurnLeft()
     {
@@ -399,6 +442,11 @@ public class VehicleDynamicsTest
         Assert.That(Utils.AreFloatsEqual(0.0f, distanceToExpectedPosition, acceptableErrorDistance), Is.True);
     }
 
+    /// <summary>
+    /// A test to check the correct behaviour of the vehicle. This test checks the position 
+    /// of the vehicle after a given commands to perform a right turn manoeuvre.
+    /// The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// </summary>
     [UnityTest]
     public IEnumerator VehicleDynamics_TurnRight()
     {
@@ -473,6 +521,11 @@ public class VehicleDynamicsTest
         Assert.That(Utils.AreFloatsEqual(0.0f, distanceToExpectedPosition, acceptableErrorDistance), Is.True);
     }
 
+    /// <summary>
+    /// A test to check the correct behaviour of the vehicle. This test checks the position 
+    /// of the vehicle after a given commands to perform a U-turn manoeuvre.
+    /// The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// </summary>
     [UnityTest]
     public IEnumerator VehicleDynamics_UTurn()
     {
@@ -547,6 +600,11 @@ public class VehicleDynamicsTest
         Assert.That(Utils.AreFloatsEqual(0.0f, distanceToExpectedPosition, acceptableErrorDistance), Is.True);
     }
 
+    /// <summary>
+    /// A test to check the correct behaviour of the vehicle. This test checks the position 
+    /// of the vehicle after a given commands to perform a line change manoeuvre.
+    /// The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// </summary>
     [UnityTest]
     public IEnumerator VehicleDynamics_LineChange()
     {
