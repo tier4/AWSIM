@@ -11,6 +11,10 @@ using AWSIM;
 using AWSIM.Lanelet;
 using UnityEditor;
 
+/// <summary>
+/// The LaneletTest class manages the testing of the Lanelet Import feature.
+/// It handles loading the necessary scenes and executing tests to validate the functionality of the Lanelet Importer.
+/// </summary>
 public class LaneletTest
 {
     string sceneName = "Assets/Tests/EditMode/Lanelet/LaneletTest.unity";
@@ -22,6 +26,9 @@ public class LaneletTest
 
     // --- TEST LIFE CYCLE ---//
 
+    /// <summary>
+    /// Method called by Unity at the start of each test.
+    /// </summary>
     [UnitySetUp]
     public IEnumerator Setup()
     {
@@ -31,6 +38,9 @@ public class LaneletTest
         yield return null;
     }
 
+    /// <summary>
+    /// Method to load the scene dedicated to Lanelet Importer tests.
+    /// </summary>
     private IEnumerator LoadScene()
     {
         scene = EditorSceneManager.OpenScene(sceneName, OpenSceneMode.Single);
@@ -40,6 +50,9 @@ public class LaneletTest
         yield return null;
     }
 
+    /// <summary>
+    /// Helper method to import an .osm file via LaneletLoader.
+    /// </summary>
     private void ImportLanelet()
     {
         OsmDataContainer osm = AssetDatabase.LoadAssetAtPath<OsmDataContainer>("Assets/Tests/EditMode/Lanelet/lanelet_map_test.osm");
@@ -51,6 +64,9 @@ public class LaneletTest
             root.gameObject);        
     }
 
+    /// <summary>
+    /// Helper method to remove all imported StopLines and TrafficLanes from the Unity scene.
+    /// </summary>
     private void DestroyLanelet()
     {
         // remove imported stop lines
@@ -61,7 +77,7 @@ public class LaneletTest
         Transform trLanes = root.Find("TrafficLanes");
         GameObject.DestroyImmediate(trLanes.gameObject);
 
-        // remove others left
+        // remove anything else
         List<Transform> toRemove = new List<Transform>();
         for (int i=0; i<root.childCount; i++)
         {
@@ -77,6 +93,9 @@ public class LaneletTest
 
     // --- TEST ROUTINES --- //
 
+    /// <summary>
+    /// Test to validate if the correct number of objects is imported from the .osm file to the Unity scene.
+    /// </summary>
     [UnityTest]
     public IEnumerator LaneletImporter_ObjectCount()
     {
@@ -100,6 +119,9 @@ public class LaneletTest
         DestroyLanelet();
     }
 
+    /// <summary>
+    /// Test to validate if each imported TrafficLane has correctly imported the waypoint array.
+    /// </summary>
     [UnityTest]
     public IEnumerator LaneletImporter_TrafficLane_WaypointLenght()
     {
@@ -123,6 +145,9 @@ public class LaneletTest
         DestroyLanelet();
     }
 
+    /// <summary>
+    /// Test to validate if each imported TrafficLane has been placed in the correct position in the Unity scene.
+    /// </summary>
     [UnityTest]
     public IEnumerator LaneletImporter_TrafficLane_LanePosition()
     {
@@ -148,6 +173,10 @@ public class LaneletTest
         DestroyLanelet();
     }
 
+    /// <summary>
+    /// Test to validate if TrafficLanes have been imported correctly and if there are no gaps between 
+    /// one traffic lane and the next traffic lane.
+    /// </summary>
     [UnityTest]
     public IEnumerator LaneletImporter_NextLanePosition()
     {
@@ -179,6 +208,10 @@ public class LaneletTest
         }
     }
 
+    /// <summary>
+    /// Test to validate if TrafficLanes have been imported correctly and if there are no gaps between 
+    /// one traffic lane and the previous traffic lane.
+    /// </summary>
     [UnityTest]
     public IEnumerator LaneletImporter_PreviousLanePosition()
     {
