@@ -309,13 +309,14 @@ public class SensorsTest
         SimulatorROS2Node.RemoveSubscription<sensor_msgs.msg.Imu>(imuSubscription);
     }
 
+    static Vector3[] accelDirections = new Vector3[] {new Vector3(1.0f, 0.0f, 0.0f), new Vector3(0.0f, 1.0f, 0.0f), new Vector3(0.0f, 0.0f, 1.0f)};
+    
     /// <summary>
     /// A test to validate that the moving IMU is publishing correct messages. The IMU sensor is subjected to a constant linear acceleration during the test,
     /// simulated by manually setting the IMU object position over several consecutive frames. The IMU position for each frame is calculated using the formula:
     /// distance = 0.5 * acceleration * (fixed delta time )^2
     /// The test includes three variants of movement along the X, Y and Z axes.
     /// </summary>
-    static Vector3[] accelDirections = new Vector3[] {new Vector3(1.0f, 0.0f, 0.0f), new Vector3(0.0f, 1.0f, 0.0f), new Vector3(0.0f, 0.0f, 1.0f)};
     [UnityTest]
     public IEnumerator IMU_Acceleration([ValueSource("accelDirections")] Vector3 accelDirection)
     {
