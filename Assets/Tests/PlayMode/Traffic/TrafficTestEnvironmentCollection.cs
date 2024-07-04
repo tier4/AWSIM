@@ -3,6 +3,11 @@ using UnityEngine;
 
 namespace AWSIM.Tests
 {
+    /// <summary>
+    /// A class that holds references to environment objects used during tests.
+    /// This includes any game objects required to be present in the scene, 
+    /// as well as the main camera parameters (position and rotation).
+    /// </summary>
     public class TrafficTestEnvironmentCollection : MonoBehaviour
     {
         [SerializeField]

@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace AWSIM.Tests
 {
+    /// <summary>
+    /// A class that holds references to test scenarios which can be used by the Traffic Manager.
+    /// </summary>
     public class TrafficTestScenarioCollection : MonoBehaviour
     {
         [SerializeField]
