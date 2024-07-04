@@ -9,6 +9,10 @@ using UnityEngine.TestTools.Utils;
 using AWSIM;
 using AWSIM.Tests;
 
+/// <summary>
+/// The SensorTest class manages the testing of sensor features.
+/// It is responsible for loading the required scene and executing tests of the sensors.
+/// </summary>
 public class SensorsTest
 {
     // Scene handling
@@ -43,6 +47,9 @@ public class SensorsTest
 
      // --- TEST LIFE CYCLE ---//
 
+    /// <summary>
+    /// A method called by Unity before all sensor tests, responsible for loading the test scene.
+    /// </summary>
     [OneTimeSetUp]
     public void OneTimeSetUp()
     {
@@ -53,6 +60,9 @@ public class SensorsTest
         v3Comparer = new Vector3EqualityComparer(10e-6f);
     }
 
+    /// <summary>
+    /// Method called by Unity at the beginning of each test.
+    /// </summary>
     [UnitySetUp]
     public IEnumerator Setup()
     {
@@ -72,6 +82,9 @@ public class SensorsTest
         yield return null;
     }
 
+    /// <summary>
+    /// Initialize the variables required for the tests.
+    /// </summary>
     private IEnumerator InitVars()
     {
         // GNSS
@@ -111,6 +124,9 @@ public class SensorsTest
         yield return null;
     }
 
+    /// <summary>
+    /// Activate the tested object and any environment objects required for the test.
+    /// </summary>
     private IEnumerator SetupEnvironment(string testName)
     {
         GameObject environment = testObjectEnvironmentCollection.GetTestEnvironment(testName);
@@ -128,6 +144,9 @@ public class SensorsTest
         yield return null;
     }
 
+    /// <summary>
+    /// Method called by Unity after all sensor tests, responsible for unloading the test scene.
+    /// </summary>
     [OneTimeTearDown]
     public void OneTimeTearDown()
     {
@@ -138,6 +157,9 @@ public class SensorsTest
 
     // --- TEST ROUTINES --- //
 
+    /// <summary>
+    /// Test to validate that the LiDAR is publishing messages and that they are occurring at the expected frequency.
+    /// </summary>
     [UnityTest]
     public IEnumerator LiDAR()
     {
@@ -164,6 +186,9 @@ public class SensorsTest
         }
     }
 
+    /// <summary>
+    /// Test to validate that the Radar is publishing messages and that they are occurring at the expected frequency.
+    /// </summary>
     [UnityTest]
     public IEnumerator Radar()
     {
@@ -190,6 +215,9 @@ public class SensorsTest
         }
     }
 
+    /// <summary>
+    /// Test to validate that the GNSS is publishing valid messages and that they are occurring at the expected frequency.
+    /// </summary>
     [UnityTest]
     public IEnumerator GNSS()
     {
@@ -244,6 +272,9 @@ public class SensorsTest
         SimulatorROS2Node.RemoveSubscription<geometry_msgs.msg.PoseWithCovarianceStamped>(gnssPoseWithCovarianceSubscription);
     }
 
+    /// <summary>
+    /// Test to validate that the NOT moving IMU is publishing valid messages and that they are occurring at the expected frequency.
+    /// </summary>
     [UnityTest]
     public IEnumerator IMU()
     {
@@ -278,6 +309,12 @@ public class SensorsTest
         SimulatorROS2Node.RemoveSubscription<sensor_msgs.msg.Imu>(imuSubscription);
     }
 
+    /// <summary>
+    /// A test to validate that the moving IMU is publishing correct messages. The IMU sensor is subjected to a constant linear acceleration during the test,
+    /// simulated by manually setting the IMU object position over several consecutive frames. The IMU position for each frame is calculated using the formula:
+    /// distance = 0.5 * acceleration * (fixed delta time )^2
+    /// The test includes three variants of movement along the X, Y and Z axes.
+    /// </summary>
     static Vector3[] accelDirections = new Vector3[] {new Vector3(1.0f, 0.0f, 0.0f), new Vector3(0.0f, 1.0f, 0.0f), new Vector3(0.0f, 0.0f, 1.0f)};
     [UnityTest]
     public IEnumerator IMU_Acceleration([ValueSource("accelDirections")] Vector3 accelDirection)
@@ -346,6 +383,9 @@ public class SensorsTest
         imuMessages.Clear();  
     }
 
+    /// <summary>
+    /// Test to validate if the LiDAR publishes messages at the expected rate.
+    /// </summary>
     [UnityTest]
     public IEnumerator LidarVLP16_PublishRate()
     {
@@ -375,6 +415,10 @@ public class SensorsTest
         }    
     }
 
+    /// <summary>
+    /// Test to validate correctness of LiDAR Point Cloud data. During the test, the LiDAR is instantiated inside a 5m radius sphere.
+    /// The test checks if all points in the point cloud data are at the expected distance from the LiDAR.
+    /// </summary>
     [UnityTest]
     public IEnumerator LidarVLP16_PointCloud_Distance5m()
     {
@@ -430,6 +474,10 @@ public class SensorsTest
         }
     }
 
+    /// <summary>
+    /// Test to validate correctness of LiDAR Point Cloud data. During the test, the LiDAR is instantiated inside a 10m radius sphere.
+    /// The test checks if all points in the point cloud data are at the expected distance from the LiDAR.
+    /// </summary>
     [UnityTest]
     public IEnumerator LidarVLP16_PointCloud_Distance10m()
     {
@@ -486,7 +534,9 @@ public class SensorsTest
     }
 
 
-
+    /// <summary>
+    /// Method for converting RGL QoS to ROS2 QoS
+    /// </summary>
     private ROS2.QualityOfServiceProfile ConvertRGLqosToROS2qos(RglQos rglQos)
     {
         ROS2.QualityOfServiceProfile qos = new ROS2.QualityOfServiceProfile();
@@ -539,6 +589,9 @@ public class SensorsTest
         return qos;
     }
 
+    /// <summary>
+    /// Method for converting PointCloud2 data to position in Unity space.
+    /// </summary>
     private Vector3[] ConvertCloudPointToUnityPosition(byte[] data, int pointSize)
     {
         int pointsCount = data.Length / pointSize;
@@ -584,6 +637,9 @@ public class SensorsTest
         return points;
     }
 
+    /// <summary>
+    /// Method for creating PointCloud2 type message subscription.
+    /// </summary>
     private void CreatePointCloud2Subscription(PointCloud2Publisher rglRosPublisher)
     {
         QoSSettings qosSettingsLidar = new QoSSettings()
