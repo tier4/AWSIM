@@ -768,7 +768,7 @@
                     "type": "Button",
                     "id": "4ac7e49c-6b37-4592-9b33-f10f8f450b9c",
                     "expectedControlType": "Button",
-                    "processors": "Normalize(min=-1,max=1,zero=-1)",
+                    "processors": "",
                     "interactions": ""
                 },
                 {
@@ -856,9 +856,9 @@
                 {
                     "name": "",
                     "id": "741665dd-d5b6-4e84-a6bf-926f20eb9a70",
-                    "path": "<HID::Logitech G29 Driving Force Racing Wheel>/stick/up",
+                    "path": "<HID::Logitech G29 Driving Force Racing Wheel>/z",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "Invert,Normalize(min=-1,max=1,zero=-1)",
                     "groups": "Joystick",
                     "action": "Throttle",
                     "isComposite": false,
@@ -869,7 +869,7 @@
                     "id": "2aa7dd5e-11b7-4aa9-9a46-4eda2161b5a4",
                     "path": "<Linux::LogitechInc::G29DrivingForceRacingWheelPS3>/Z",
                     "interactions": "",
-                    "processors": "Invert",
+                    "processors": "Invert,Normalize(min=-1,max=1,zero=-1)",
                     "groups": "",
                     "action": "Throttle",
                     "isComposite": false,
@@ -878,9 +878,9 @@
                 {
                     "name": "",
                     "id": "72c07a0a-edd5-4197-8996-9b9275ca8fb0",
-                    "path": "<HID::Logitech G29 Driving Force Racing Wheel>/stick/down",
+                    "path": "<HID::Logitech G29 Driving Force Racing Wheel>/rz",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "Invert,Normalize(min=-1,max=1,zero=-1)",
                     "groups": "Joystick",
                     "action": "Brake",
                     "isComposite": false,
@@ -1070,6 +1070,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "NoneTurnSignal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f9dc2897-c963-4e6d-a89d-94946e890397",
+                    "path": "<HID::Logitech G29 Driving Force Racing Wheel>/stick/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steering",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

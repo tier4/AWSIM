@@ -9,6 +9,13 @@ namespace AWSIM
     public class VehicleG29Input : VehicleInputBase
     {
         public float MaxAcceleration = 1.5f;
+        float MaxSteerAngle = 0;
+        [SerializeField] Vehicle vehicle;
+
+        void OnEnable()
+        {
+            MaxSteerAngle = vehicle.MaxSteerAngleInput;
+        }
 
         public override void OnUpdate(VehicleControlMode currentControlMode)
         {
@@ -20,6 +27,8 @@ namespace AWSIM
         {
             var throttle = context.ReadValue<float>();
             AccelerationInput = MaxAcceleration * throttle;
+
+            Debug.Log(throttle);
         }
 
         public void OnBrake(InputAction.CallbackContext context)
@@ -79,10 +88,7 @@ namespace AWSIM
         public void OnSteering(InputAction.CallbackContext context)
         {
             var steer = context.ReadValue<float>();
-            SteeringInput = steer * 35;
-
-            Debug.Log(Time.time);
-            //Debug.Log(SteeringInput);
+            SteeringInput = MaxSteerAngle * steer;
         }
     }
 }
