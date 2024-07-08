@@ -27,8 +27,6 @@ namespace AWSIM
         {
             var throttle = context.ReadValue<float>();
             AccelerationInput = MaxAcceleration * throttle;
-
-            Debug.Log(throttle);
         }
 
         public void OnBrake(InputAction.CallbackContext context)

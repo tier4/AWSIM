@@ -35,10 +35,26 @@ namespace AWSIM
             Overridden = false;
 
             // Get steering and acceleration input.
-            var horizontal = Input.GetAxis("Horizontal");
-            var vertical = Input.GetAxis("Vertical");
-            AccelerationInput = MaxAcceleration * vertical;
-            SteeringInput = MaxSteerAngle * horizontal;
+            //var horizontal = Input.GetAxis("Horizontal");
+            //var vertical = Input.GetAxis("Vertical");
+            //AccelerationInput = MaxAcceleration * vertical;
+            //SteeringInput = MaxSteerAngle * horizontal;
+
+            // Get throttle input.
+            if (Input.GetKey(KeyCode.UpArrow))
+                AccelerationInput = MaxAcceleration;
+            else if (Input.GetKey(KeyCode.DownArrow))
+                AccelerationInput = -MaxAcceleration;
+            else
+                AccelerationInput = 0;
+
+            // Get steering input.
+            if (Input.GetKey(KeyCode.LeftArrow))
+                SteeringInput = MaxSteerAngle * -1;
+            else if (Input.GetKey(KeyCode.RightArrow))
+                SteeringInput = MaxSteerAngle;
+            else
+                SteeringInput = 0;
 
             // Get gear input.
             if (Input.GetKey(KeyCode.D))
@@ -68,7 +84,7 @@ namespace AWSIM
             if (currentControlMode == VehicleControlMode.AUTONOMOUS)
             {
                 // Override the vehicle's control mode when a steering input or acceleration input is given.
-                if (Mathf.Abs(horizontal) > 0 || Mathf.Abs(vertical) > 0)
+                if (Mathf.Abs(AccelerationInput) > 0 || Mathf.Abs(SteeringInput) > 0)
                 {
                     Overridden = true;
                     NewControlMode = VehicleControlMode.MANUAL;
