@@ -75,5 +75,14 @@ namespace AWSIM
             if (TurnSignalInput != Vehicle.TurnSignal.HAZARD)
                 TurnSignalInput = Vehicle.TurnSignal.HAZARD;
         }
+
+        public void OnSteering(InputAction.CallbackContext context)
+        {
+            var steer = context.ReadValue<float>();
+            SteeringInput = steer * 35;
+
+            Debug.Log(Time.time);
+            //Debug.Log(SteeringInput);
+        }
     }
 }

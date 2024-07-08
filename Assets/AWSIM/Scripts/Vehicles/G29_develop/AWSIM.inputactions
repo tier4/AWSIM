@@ -842,6 +842,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Steering",
+                    "type": "Value",
+                    "id": "06307756-3793-499c-bcdc-de9d123537ed",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -1062,6 +1070,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "NoneTurnSignal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "205c3630-4e4d-469c-ad58-2c428889c28b",
+                    "path": "<Linux::LogitechInc::G29DrivingForceRacingWheelPS3>/Stick/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steering",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
