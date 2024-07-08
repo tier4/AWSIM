@@ -877,6 +877,17 @@
                 },
                 {
                     "name": "",
+                    "id": "1860f252-6869-401a-a631-6e07c1bac3a6",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throttle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "72c07a0a-edd5-4197-8996-9b9275ca8fb0",
                     "path": "<HID::Logitech G29 Driving Force Racing Wheel>/rz",
                     "interactions": "",

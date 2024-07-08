@@ -6,6 +6,21 @@ using UnityEngine.InputSystem;
 
 namespace AWSIM
 {
+    /// <summary>
+    /// Input Class for Logitech G29 Racing Wheel.
+    /// </summary>
+    /// ----- key binds -----
+    /// Throttle        : Throttle pedal
+    /// Brake           : Brake pedal
+    /// Steering        : Steering wheel
+    /// D gear          : Triangle button
+    /// P gear          : Cross button
+    /// R gear          : Square button
+    /// N gear          : Circle button
+    /// Left signal     : Left D-pad
+    /// Right signal    : Right D-pad
+    /// Hazard signal   : Up D-pad
+    /// None signal     : Down D-pad
     public class VehicleG29Input : VehicleInputBase
     {
         public float MaxAcceleration = 1.5f;
