@@ -88,6 +88,8 @@ namespace AWSIM
                 {
                     Overridden = true;
                     NewControlMode = VehicleControlMode.MANUAL;
+                    ShiftInput = vehicle.AutomaticShift;
+                    TurnSignalInput = vehicle.Signal;
                 }
 
                 // TODO: Implement switches to other overrides.

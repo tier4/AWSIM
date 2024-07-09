@@ -34,8 +34,14 @@ namespace AWSIM
 
         public override void OnUpdate(VehicleControlMode currentControlMode)
         {
-            Overridden = true;
-            NewControlMode = VehicleControlMode.MANUAL;
+            // Override the vehicle's control mode when a steering input or acceleration input is given.
+            if (Mathf.Abs(AccelerationInput) > 0 || Mathf.Abs(SteeringInput) > 0)
+            {
+                Overridden = true;
+                NewControlMode = VehicleControlMode.MANUAL;
+                ShiftInput = vehicle.AutomaticShift;
+                TurnSignalInput = vehicle.Signal;
+            }
         }
 
         public void OnThrottle(InputAction.CallbackContext context)
