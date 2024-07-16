@@ -199,9 +199,15 @@ public class VehicleDynamicsTest
     // --- TEST ROUTINES --- //
 
     /// <summary>
-    /// A test to check the correct behaviour of the vehicle. This test checks the position 
-    /// of the vehicle after a given time when a low acceleration value is applied.
-    /// The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// Test Outline:
+    ///     - A test to check the correct behaviour of the vehicle.
+    ///     - The test checks the position of the vehicle after a given time when a low acceleration value is applied.
+    ///     - The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// Test Target:
+    ///     - Check if the vehicle script responsible for receiving commands works correctly.
+    ///     - Verify the simulation of the vehicle physics.
+    /// Expected Result:
+    ///     - The distance between 'expectedEndPosition' and the vehicle's position at the end of the test is equal to or less than 0.01f. 
     /// </summary>
     [UnityTest]
     public IEnumerator VehicleDynamics_StraightMove_LowAcceleration()
@@ -254,9 +260,15 @@ public class VehicleDynamicsTest
     }
 
     /// <summary>
-    /// A test to check the correct behaviour of the vehicle. This test checks the position 
-    /// of the vehicle after a given time when a moderate acceleration value is applied.
-    /// The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// Test Outline:
+    ///     - A test to check the correct behaviour of the vehicle.
+    ///     - The test checks the position of the vehicle after a given time when a moderate acceleration value is applied.
+    ///     - The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// Test Target:
+    ///     - Check if the vehicle script responsible for receiving commands works correctly.
+    ///     - Verify the simulation of the vehicle physics.
+    /// Expected Result:
+    ///     - The distance between 'expectedEndPosition' and the vehicle's position at the end of the test is equal to or less than 0.01f. 
     /// </summary>
     [UnityTest]
     public IEnumerator VehicleDynamics_StraightMove_MiddleAcceleration()
@@ -309,9 +321,15 @@ public class VehicleDynamicsTest
     }
 
     /// <summary>
-    /// A test to check the correct behaviour of the vehicle. This test checks the position 
-    /// of the vehicle after a given time when a high acceleration value is applied.
-    /// The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// Test Outline:
+    ///     - A test to check the correct behaviour of the vehicle.
+    ///     - The test checks the position of the vehicle after a given time when a high acceleration value is applied.
+    ///     - The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// Test Target:
+    ///     - Check if the vehicle script responsible for receiving commands works correctly.
+    ///     - Verify the simulation of the vehicle physics.
+    /// Expected Result:
+    ///     - The distance between 'expectedEndPosition' and the vehicle's position at the end of the test is equal to or less than 0.01f. 
     /// </summary>
     [UnityTest]
     public IEnumerator VehicleDynamics_StraightMove_HighAcceleration()
@@ -364,9 +382,15 @@ public class VehicleDynamicsTest
     }
 
     /// <summary>
-    /// A test to check the correct behaviour of the vehicle. This test checks the position 
-    /// of the vehicle after a given commands to perform a left turn manoeuvre.
-    /// The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// Test Outline:
+    ///     - A test to check the correct behaviour of the vehicle.
+    ///     - The test checks the position of the vehicle after a given commands to perform a left turn manoeuvre.
+    ///     - The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// Test Target:
+    ///     - Check if the vehicle script responsible for receiving commands works correctly.
+    ///     - Verify the simulation of the vehicle physics.
+    /// Expected Result:
+    ///     - The distance between 'expectedEndPosition' and the vehicle's position at the end of the test is equal to or less than 0.01f. 
     /// </summary>
     [UnityTest]
     public IEnumerator VehicleDynamics_TurnLeft()
@@ -443,9 +467,15 @@ public class VehicleDynamicsTest
     }
 
     /// <summary>
-    /// A test to check the correct behaviour of the vehicle. This test checks the position 
-    /// of the vehicle after a given commands to perform a right turn manoeuvre.
-    /// The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// Test Outline:
+    ///     - A test to check the correct behaviour of the vehicle.
+    ///     - The test checks the position of the vehicle after a given commands to perform a right turn manoeuvre.
+    ///     - The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// Test Target:
+    ///     - Check if the vehicle script responsible for receiving commands works correctly.
+    ///     - Verify the simulation of the vehicle physics.
+    /// Expected Result:
+    ///     - The distance between 'expectedEndPosition' and the vehicle's position at the end of the test is equal to or less than 0.01f. 
     /// </summary>
     [UnityTest]
     public IEnumerator VehicleDynamics_TurnRight()
@@ -522,9 +552,15 @@ public class VehicleDynamicsTest
     }
 
     /// <summary>
-    /// A test to check the correct behaviour of the vehicle. This test checks the position 
-    /// of the vehicle after a given commands to perform a U-turn manoeuvre.
-    /// The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// Test Outline:
+    ///     - A test to check the correct behaviour of the vehicle.
+    ///     - The test checks the position of the vehicle after a given commands to perform a U-turn manoeuvre.
+    ///     - The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// Test Target:
+    ///     - Check if the vehicle script responsible for receiving commands works correctly.
+    ///     - Verify the simulation of the vehicle physics.
+    /// Expected Result:
+    ///     - The distance between 'expectedEndPosition' and the vehicle's position at the end of the test is equal to or less than 0.01f. 
     /// </summary>
     [UnityTest]
     public IEnumerator VehicleDynamics_UTurn()
@@ -601,9 +637,15 @@ public class VehicleDynamicsTest
     }
 
     /// <summary>
-    /// A test to check the correct behaviour of the vehicle. This test checks the position 
-    /// of the vehicle after a given commands to perform a line change manoeuvre.
-    /// The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// Test Outline:
+    ///     - A test to check the correct behaviour of the vehicle.
+    ///     - The test checks the position of the vehicle after a given commands to perform a line change manoeuvre.
+    ///     - The physics is manually simulated by calling the PhysicsScene.Simulate(deltaTime) method.
+    /// Test Target:
+    ///     - Check if the vehicle script responsible for receiving commands works correctly.
+    ///     - Verify the simulation of the vehicle physics.
+    /// Expected Result:
+    ///     - The distance between 'expectedEndPosition' and the vehicle's position at the end of the test is equal to or less than 0.01f. 
     /// </summary>
     [UnityTest]
     public IEnumerator VehicleDynamics_LineChange()
