@@ -158,7 +158,14 @@ public class SensorsTest
     // --- TEST ROUTINES --- //
 
     /// <summary>
-    /// Test to validate that the LiDAR is publishing messages and that they are occurring at the expected frequency.
+    /// Test Outline:
+    ///     - Validate the simulation of the LiDAR.
+    ///     - LiDAR sensor is placed inside a 5m radius sphere.
+    /// Test Target:
+    ///     - Verify that the LiDAR is publishing the correct number of messages for the specified time.
+    /// Expected Result:
+    ///     - The number of published messages from the LiDAR should be equal to the duration of test
+    ///         multiplied by the LiDAR capture frequency.
     /// </summary>
     [UnityTest]
     public IEnumerator LiDAR()
@@ -187,7 +194,14 @@ public class SensorsTest
     }
 
     /// <summary>
-    /// Test to validate that the Radar is publishing messages and that they are occurring at the expected frequency.
+    /// Test Outline:
+    ///     - Validate the simulation of the Radar.
+    ///     - Radar is placed inside a 5m radius sphere.
+    /// Test Target:
+    ///     - Verify that the Radar is publishing the correct number of messages for the specified time.
+    /// Expected Result:
+    ///     - The number of published messages from the Radar should be equal to the duration of test
+    ///         multiplied by the Radar capture frequency.
     /// </summary>
     [UnityTest]
     public IEnumerator Radar()
@@ -216,7 +230,16 @@ public class SensorsTest
     }
 
     /// <summary>
-    /// Test to validate that the GNSS is publishing valid messages and that they are occurring at the expected frequency.
+    /// Test Outline:
+    ///     - Validate the simulation of the GNSS.
+    ///     - GNSS is placed inside an empty scene.
+    /// Test Target:
+    ///     - Verify that the GNSS is publishing valid messages.
+    ///     - Verify that the GNSS is publishing the correct number of messages for the specified time.
+    /// Expected Result:
+    ///     - The pose vector published by GNSS should be equal to the zero vector.
+    ///     - The number of published messages from the GNSS should be equal to the duration of test
+    ///         multiplied by the GNSS output frequency.
     /// </summary>
     [UnityTest]
     public IEnumerator GNSS()
@@ -273,7 +296,16 @@ public class SensorsTest
     }
 
     /// <summary>
-    /// Test to validate that the NOT moving IMU is publishing valid messages and that they are occurring at the expected frequency.
+    /// Test Outline:
+    ///     - Validate the simulation of the IMU.
+    ///     - Stationary IMU is placed inside an empty scene.
+    /// Test Target:
+    ///     - Verify that the IMU is publishing valid messages.
+    ///     - Verify that the IMU is publishing the correct number of messages for the specified time.
+    /// Expected Result:
+    ///     - The linear acceleration vector published by IMU should be equal to the zero vector.
+    ///     - The number of published messages from the IMU should be equal to the duration of test
+    ///         multiplied by the IMU output frequency.
     /// </summary>
     [UnityTest]
     public IEnumerator IMU()
@@ -312,10 +344,15 @@ public class SensorsTest
     static Vector3[] accelDirections = new Vector3[] {new Vector3(1.0f, 0.0f, 0.0f), new Vector3(0.0f, 1.0f, 0.0f), new Vector3(0.0f, 0.0f, 1.0f)};
     
     /// <summary>
-    /// A test to validate that the moving IMU is publishing correct messages. The IMU sensor is subjected to a constant linear acceleration during the test,
-    /// simulated by manually setting the IMU object position over several consecutive frames. The IMU position for each frame is calculated using the formula:
-    /// distance = 0.5 * acceleration * (fixed delta time )^2
-    /// The test includes three variants of movement along the X, Y and Z axes.
+    /// Test Outline:
+    ///     - Validate the simulation of the moving IMU.
+    ///     - The IMU sensor is subjected to a constant linear acceleration during the test,
+    ///         simulated by manually setting the IMU object position over several consecutive frames.
+    ///         The IMU position for each frame is calculated using the formula: distance = 0.5 * acceleration * (fixed delta time )^2
+    /// Test Target:
+    ///     - Verify that the IMU is publishing valid messages.
+    /// Expected Result:
+    ///     - The linear acceleration vector published by IMU should be equal to the 'expectedAccel'.
     /// </summary>
     [UnityTest]
     public IEnumerator IMU_Acceleration([ValueSource("accelDirections")] Vector3 accelDirection)
@@ -385,7 +422,14 @@ public class SensorsTest
     }
 
     /// <summary>
-    /// Test to validate if the LiDAR publishes messages at the expected rate.
+    /// Test Outline:
+    ///     - Validate the simulation of the LiDAR.
+    ///     - LiDAR sensor is placed inside a 5m radius sphere.
+    /// Test Target:
+    ///     - Verify that the LiDAR is publishing the correct number of messages for the specified time.
+    /// Expected Result:
+    ///     - The number of published messages from the LiDAR should be equal to the duration of test
+    ///         multiplied by the LiDAR capture frequency.
     /// </summary>
     [UnityTest]
     public IEnumerator LidarVLP16_PublishRate()
@@ -417,8 +461,14 @@ public class SensorsTest
     }
 
     /// <summary>
-    /// Test to validate correctness of LiDAR Point Cloud data. During the test, the LiDAR is instantiated inside a 5m radius sphere.
-    /// The test checks if all points in the point cloud data are at the expected distance from the LiDAR.
+    /// Test Outline:
+    ///     - Validate the simulation of the LiDAR.
+    ///     - LiDAR sensor is placed inside a 5m radius sphere.
+    /// Test Target:
+    ///     - Check the accuracy of the point cloud generated by the LiDAR.
+    /// Expected Result:
+    ///     - All points in the point cloud are positioned at a distance of 5m 
+    ///         from the LiDAR, with an acceptable error margin of 0.005m.
     /// </summary>
     [UnityTest]
     public IEnumerator LidarVLP16_PointCloud_Distance5m()
@@ -476,8 +526,14 @@ public class SensorsTest
     }
 
     /// <summary>
-    /// Test to validate correctness of LiDAR Point Cloud data. During the test, the LiDAR is instantiated inside a 10m radius sphere.
-    /// The test checks if all points in the point cloud data are at the expected distance from the LiDAR.
+    /// Test Outline:
+    ///     - Validate the simulation of the LiDAR.
+    ///     - LiDAR sensor is placed inside a 10m radius sphere.
+    /// Test Target:
+    ///     - Check the accuracy of the point cloud generated by the LiDAR.
+    /// Expected Result:
+    ///     - All points in the point cloud are positioned at a distance of 10m 
+    ///         from the LiDAR, with an acceptable error margin of 0.01m.
     /// </summary>
     [UnityTest]
     public IEnumerator LidarVLP16_PointCloud_Distance10m()
