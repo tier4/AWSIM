@@ -86,7 +86,14 @@ public class TrafficTest
     static int[] numberOfNPCs = new int[] { 1, 2, 3, 4 };
     
     /// <summary>
-    /// A test to validate if the traffic manager spawns the correct number of NPCs, and if the expected prefab is spawned.
+    /// Test Outline:
+    ///     - A given number of NPCs is going to be spawned into the scene.
+    /// Test Target:
+    ///     - Check if the TrafficManager script spawns the correct number of NPCs.
+    ///     - Verify that the NPCs spawned are of the expected type.
+    /// Expected Result:
+    ///     - The Traffic Manager spawns the exact number of NPCs as specified.
+    ///     - Spawned NPC matches the expected prefab type.
     /// </summary>
     [UnityTest]
     public IEnumerator RandomTrafficSpawn([ValueSource("numberOfNPCs")] int numberOfNPCs)
@@ -130,7 +137,12 @@ public class TrafficTest
     };
     
     /// <summary>
-    /// A test to validate if the traffic manager spawns the correct type of NPCs for a given seed number.
+    /// Test Outline:
+    ///     - The NPCs vehicle are going to be spawned for the given seed number.
+    /// Test Target:
+    ///     - Check if the TrafficManager script spawns NPCs that correspond to the given seed number.
+    /// Expected Result:
+    ///     - Each spawned NPC matches the type expected based on the seed and the 'expectedSpawns' list.
     /// </summary>
     [UnityTest]
     public IEnumerator SeedSpawn([ValueSource("seedNumbers")] int seed)
@@ -166,7 +178,12 @@ public class TrafficTest
     }
 
     /// <summary>
-    /// A test to validate if the NPCs are correctly despawned.
+    /// Test Outline:
+    ///     - A single NPC is added to the scene and despawns after 10 seconds.
+    /// Test Target:
+    ///     - Verify that the TrafficManager script despawns NPCs correctly.
+    /// Expected Result:
+    ///     - There should be no NPCs in the scene after 10 seconds.
     /// </summary>
     [UnityTest]
     public IEnumerator Despawn()
@@ -197,9 +214,16 @@ public class TrafficTest
     }
 
     /// <summary>
-    /// A test to validate the correctness of the traffic simulator behavior. In this test,
-    /// a single NPC vehicle enters the intersection when the GREEN light turns on.
-    /// The expected behavior assumes that the NPC vehicle moves through the intersection without stopping.
+    /// Test Outline:
+    ///     - A single NPC enters the intersection when the GREEN light is on.
+    ///     - The synchronization between the traffic light timing and the NPC approaching the intersection is set 
+    ///         to ensure that the NPC encounter the GREEN light.
+    /// Test Target:
+    ///     - Test if the functionality of the TrafficManager, which decides if NPCs can pass through the intersection 
+    ///         with the traffic light status taken into account, works correctly.
+    /// Expected Result:
+    ///     - The NPC vehicle passes through the intersection smoothly without stopping.
+    ///     - During each second of movement, the NPC maintains a speed greater than 0f.
     /// </summary>
     [UnityTest]
     public IEnumerator TrafficManager_MoveStraight_GreenLight()
@@ -242,9 +266,16 @@ public class TrafficTest
     }
 
     /// <summary>
-    /// A test to validate the correctness of the traffic simulator behavior. In this test,
-    /// a single NPC vehicle enters the intersection when the RED light is on.
-    /// The expected behavior assumes that the NPC vehicle stops at the intersection and waits for the green light.
+    /// Test Outline:
+    ///     - A single NPC enters the intersection when the RED light is on.
+    ///     - The synchronization between the traffic light timing and the NPC approaching the intersection is set 
+    ///         to ensure that the NPC encounter the RED light.
+    /// Test Target:
+    ///     - Test if the functionality of the TrafficManager, which decides if NPCs can pass through the intersection 
+    ///         with the traffic light status taken into account, works correctly.
+    /// Expected Result:
+    ///     - The NPC vehicle comes to a complete stop at the intersection upon encountering the RED light.
+    ///     - The NPC remains stationary until the traffic light turns GREEN, indicating it can proceed.
     /// </summary>
     [UnityTest]
     public IEnumerator TrafficManager_MoveStraight_RedLight()
@@ -293,12 +324,19 @@ public class TrafficTest
     }
 
     /// <summary>
-    /// A test to validate the correctness of traffic simulator behavior. In this test, two NPC vehicles
-    /// enter the intersection when the GREEN light is on. These NPCs enter the intersection from opposite sides,
-    /// with one vehicle about to turn right and the other moving straight through the intersection.
-    /// Expected behavior:
-    ///  - the first vehicle (turning right) must yield to the second vehicle.
-    ///  - the second vehicle (moving straight) should proceed through the intersection without stopping.
+    /// Test Outline:
+    ///     - Two NPC vehicles enter the intersection from opposite sides while both have a GREEN light.
+    ///     - One NPC is preparing to turn right, and the other is moving straight through the intersection.
+    ///     - The traffic light timing and NPCs synchronization ensure that both encounter the GREEN light,
+    ///         with the turning vehicle yielding to the straight-moving vehicle.
+    /// Test Target:
+    ///     - Test if the functionality of the TrafficManager, which decides if NPCs can proceed through
+    ///         the intersection with the traffic light status taken into account, works correctly.
+    ///     - Test if the functionality of the TrafficManager, which decides the yield rules at 
+    ///         the intersection, works correctly.
+    /// Expected Result:
+    ///     - The NPC turning right yields to the NPC moving straight through the intersection.
+    ///     - The NPC moving straight through the intersection proceeds without stopping.
     /// </summary>
     [UnityTest]
     public IEnumerator TrafficManager_Oposite_GreeLight()

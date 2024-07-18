@@ -94,7 +94,13 @@ public class LaneletTest
     // --- TEST ROUTINES --- //
 
     /// <summary>
-    /// Test to validate if the correct number of objects is imported from the .osm file to the Unity scene.
+    /// Test Outline:
+    ///     - Validate the import process of a .osm file to the Unity scene.
+    ///     - Test if correct number of objects are imported from the .osm file.
+    /// Test Target:
+    ///     - Check if the LaneletLoader script correctly imports .osm data into the Unity scene.
+    /// Expected Result:
+    ///     - The number of objects imported into the Unity scene matches the expected number from the .osm file.
     /// </summary>
     [UnityTest]
     public IEnumerator LaneletImporter_ObjectCount()
@@ -120,7 +126,14 @@ public class LaneletTest
     }
 
     /// <summary>
-    /// Test to validate if each imported TrafficLane has correctly imported the waypoint array.
+    /// Test Outline:
+    ///     - Validate the import process of a .osm file to the Unity scene.
+    ///     - Test if each TrafficLane has correctly imported its associated waypoint array.
+    /// Test Target:
+    ///     - Check if the LaneletLoader script correctly imports .osm data into the Unity scene.
+    ///     - Check if each imported TrafficLane contains the valid waypoint array.
+    /// Expected Result:
+    ///     - Each imported TrafficLane has an imported waypoint array that is not empty and has at least to 2 elements.
     /// </summary>
     [UnityTest]
     public IEnumerator LaneletImporter_TrafficLane_WaypointLenght()
@@ -146,7 +159,14 @@ public class LaneletTest
     }
 
     /// <summary>
-    /// Test to validate if each imported TrafficLane has been placed in the correct position in the Unity scene.
+    /// Test Outline:
+    ///     - Validate the import process of a .osm file to the Unity scene.
+    ///     - Test the placement of imported TrafficLane objects in the Unity scene.
+    /// Test Target:
+    ///     - Check if the LaneletLoader script correctly imports .osm data into the Unity scene.
+    ///     - Check if each imported TrafficLane is positioned correctly in the Unity scene.
+    /// Expected Result:
+    ///     - Whether each TrafficLane object is placed at the position equal to the first point in the waypoints array.
     /// </summary>
     [UnityTest]
     public IEnumerator LaneletImporter_TrafficLane_LanePosition()
@@ -174,8 +194,14 @@ public class LaneletTest
     }
 
     /// <summary>
-    /// Test to validate if TrafficLanes have been imported correctly and if there are no gaps between 
-    /// one traffic lane and the next traffic lane.
+    /// Test Outline:
+    ///     - Validate the import process of a .osm file to the Unity scene.
+    ///     - Check for continuity between consecutive TrafficLanes.
+    /// Test Target:
+    ///     - Check if the LaneletLoader script correctly imports .osm data into the Unity scene.
+    ///     - Verify there are no gaps between one TrafficLane and the next.
+    /// Expected Result:
+    ///     - The value of the last waypoint of one TrafficLane matches the value of the first waypoint of the next TrafficLane.
     /// </summary>
     [UnityTest]
     public IEnumerator LaneletImporter_NextLanePosition()
@@ -209,8 +235,14 @@ public class LaneletTest
     }
 
     /// <summary>
-    /// Test to validate if TrafficLanes have been imported correctly and if there are no gaps between 
-    /// one traffic lane and the previous traffic lane.
+    /// Test Outline:
+    ///     - Validate the import process of a .osm file to the Unity scene.
+    ///     - Ensure there are no gaps between consecutive TrafficLanes.
+    /// Test Target:
+    ///     - Check if the LaneletLoader script correctly imports .osm data into the Unity scene.
+    ///     - Verify there are no gaps between one TrafficLane and the previous one.
+    /// Expected Result:
+    ///     - The value of the first waypoint of one TrafficLane matches the value of the last waypoint of the previous TrafficLane.
     /// </summary>
     [UnityTest]
     public IEnumerator LaneletImporter_PreviousLanePosition()
