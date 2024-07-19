@@ -180,7 +180,7 @@ public class SensorsTest
     /// <summary>
     /// Test Outline:
     ///     - Validate the simulation of the LiDAR.
-    ///     - LiDAR sensor is placed inside a 5m radius sphere.
+    ///     - LiDAR sensor placed inside 4 walls.
     /// Test Target:
     ///     - Verify that the LiDAR is publishing the correct number of messages for the specified time.
     /// Expected Result:
@@ -190,7 +190,7 @@ public class SensorsTest
     [UnityTest]
     public IEnumerator LiDAR()
     {
-        string testScenario = "LidarVLP16_Sphere5m";
+        string testScenario = "LidarVLP16_Walls";
         yield return SetupEnvironment(testScenario);
         yield return new WaitForFixedUpdate();
 
@@ -198,6 +198,8 @@ public class SensorsTest
         Assert.NotNull(lidarSensor);
 
         LidarOutputRestrictionTestSetup(lidarSensor);
+        
+        // Subscribe LiDAR output validation
         lidarSensor.onNewData += OnNewLidarData;
 
         RglLidarPublisher lidarRos2Publisher = lidarSensor.GetComponent<RglLidarPublisher>();
