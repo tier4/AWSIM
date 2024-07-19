@@ -3065,6 +3065,8 @@ GameObject:
   - component: {fileID: 491222376262776323}
   - component: {fileID: 8335535232308220185}
   - component: {fileID: 528068037}
+  - component: {fileID: 2465439770829660652}
+  - component: {fileID: 2465439770829660653}
   m_Layer: 6
   m_Name: Input
   m_TagString: Untagged
@@ -3135,7 +3137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1caf401807b82804d82ea6a18e4be978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxAcceleraion: 1.5
+  MaxAcceleration: 1.5
   vehicle: {fileID: 4981081891045692866}
 --- !u!114 &528068037
 MonoBehaviour:
@@ -3156,6 +3158,282 @@ MonoBehaviour:
     HistoryPolicy: 1
     Depth: 1
   vehicleOverrideInputManager: {fileID: 8237482850245883491}
+--- !u!114 &2465439770829660652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7968470896671472528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 1b93c44fb4badd34090a94fcb74e6f39, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 09620ef8-82fe-4e91-ac83-60876280b671
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow,/Logitech
+      G29 Driving Force Racing Wheel/stick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 80c72d6d-9500-4314-b853-305b1ac1ca45
+    m_ActionName: Player/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 505cbd1c-03b1-4170-bd13-82ebd4b348e3
+    m_ActionName: Player/Fire[/Mouse/leftButton,/Logitech G29 Driving Force Racing
+      Wheel/trigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 529958f5-8615-44a6-9ade-f7d74482e0f6
+    m_ActionName: UI/Navigate[/Logitech G29 Driving Force Racing Wheel/stick/up,/Logitech
+      G29 Driving Force Racing Wheel/stick/down,/Logitech G29 Driving Force Racing
+      Wheel/stick/left,/Logitech G29 Driving Force Racing Wheel/stick/right,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 337b664a-09c5-4fb3-8cca-72e50b5ce3d3
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 95900744-2c38-4b60-ac88-acf1360ab364
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0fca563d-a738-4adc-8ae8-e2499dea142e
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 452e9e78-f606-49bf-9799-6bbf102fcd47
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7e40113c-98e6-4df2-addf-6c8b662fd3fc
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 57d316a3-68cf-4f73-8e8f-0b6acc603764
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f4593eb5-cd67-4dc5-aae9-d0bdd8d9bf91
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8d7c8b31-5017-42b0-862d-cf761d15b19b
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ca99d8b9-ae94-45b6-b8d0-8031187d1073
+    m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2465439770829660653}
+        m_TargetAssemblyTypeName: AWSIM.VehicleG29Input, AWSIM
+        m_MethodName: OnThrottle
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4ac7e49c-6b37-4592-9b33-f10f8f450b9c
+    m_ActionName: Vehicle/Throttle[/Logitech G29 Driving Force Racing Wheel/stick/up]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2465439770829660653}
+        m_TargetAssemblyTypeName: AWSIM.VehicleG29Input, AWSIM
+        m_MethodName: OnBrake
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 30c6e82b-05a9-4042-9c9b-a469159fac26
+    m_ActionName: Vehicle/Brake[/Logitech G29 Driving Force Racing Wheel/stick/down]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2465439770829660653}
+        m_TargetAssemblyTypeName: AWSIM.VehicleG29Input, AWSIM
+        m_MethodName: OnDriveGear
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c145d04b-4155-4f8a-bd9e-abf93ba7273a
+    m_ActionName: Vehicle/DriveGear[/Logitech G29 Driving Force Racing Wheel/button4]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2465439770829660653}
+        m_TargetAssemblyTypeName: AWSIM.VehicleG29Input, AWSIM
+        m_MethodName: OnReverseGear
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8b4630de-cae2-4cdb-b3d8-f04174e7e119
+    m_ActionName: Vehicle/ReverseGear[/Logitech G29 Driving Force Racing Wheel/button2]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2465439770829660653}
+        m_TargetAssemblyTypeName: AWSIM.VehicleG29Input, AWSIM
+        m_MethodName: OnParkingGear
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 34123ce8-b7c4-4883-b2e8-431a0a1066ec
+    m_ActionName: Vehicle/ParkingGear[/Logitech G29 Driving Force Racing Wheel/trigger]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2465439770829660653}
+        m_TargetAssemblyTypeName: AWSIM.VehicleG29Input, AWSIM
+        m_MethodName: OnNeutralGear
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d0233732-badf-4b15-85a6-5acbf2fe7e0e
+    m_ActionName: Vehicle/NeutralGear[/Logitech G29 Driving Force Racing Wheel/button3]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2465439770829660653}
+        m_TargetAssemblyTypeName: AWSIM.VehicleG29Input, AWSIM
+        m_MethodName: OnTurnSignalHazard
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 689033d2-50f2-4bf0-8f6c-27c6f1ed0f5c
+    m_ActionName: Vehicle/HazardSignal[/Logitech G29 Driving Force Racing Wheel/hat/up]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2465439770829660653}
+        m_TargetAssemblyTypeName: AWSIM.VehicleG29Input, AWSIM
+        m_MethodName: OnTurnSignalLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7266166e-5a65-4ff6-beb9-e8cd4c0b32bf
+    m_ActionName: Vehicle/LeftTurnSignal[/Logitech G29 Driving Force Racing Wheel/hat/left]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2465439770829660653}
+        m_TargetAssemblyTypeName: AWSIM.VehicleG29Input, AWSIM
+        m_MethodName: OnTurnSignalRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4a33f38f-fe21-440b-ae90-ed2f63c3f4de
+    m_ActionName: Vehicle/RightTurnSignal[/Logitech G29 Driving Force Racing Wheel/hat/right]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2465439770829660653}
+        m_TargetAssemblyTypeName: AWSIM.VehicleG29Input, AWSIM
+        m_MethodName: OnTurnSignalNone
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bc7b8ee8-91fe-4138-b83c-9080d2904847
+    m_ActionName: Vehicle/NoneTurnSignal[/Logitech G29 Driving Force Racing Wheel/hat/down]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2465439770829660653}
+        m_TargetAssemblyTypeName: AWSIM.VehicleG29Input, AWSIM
+        m_MethodName: OnSteering
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 06307756-3793-499c-bcdc-de9d123537ed
+    m_ActionName: Vehicle/Steering[/G29DrivingForceRacingWheelPS3/Stick/x]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Vehicle
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &2465439770829660653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7968470896671472528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd9d85ec43de625428590ccecf59d803, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxAcceleration: 1.5
+  vehicle: {fileID: 4981081891045692866}
 --- !u!1 &8211390332096081473
 GameObject:
   m_ObjectHideFlags: 0
@@ -4023,15 +4301,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7800869322880189814, guid: c7276496f3d93284c9ac668faf9a39c6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -4.6566123e-10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7800869322880189814, guid: c7276496f3d93284c9ac668faf9a39c6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000074505797
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7800869322880189814, guid: c7276496f3d93284c9ac668faf9a39c6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -1.8917487e-10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7800869322880189814, guid: c7276496f3d93284c9ac668faf9a39c6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

@@ -93,6 +93,20 @@ Example of how to get XYZ point cloud data:
    rglOutSubgraph.GetResultData<Vector3>(ref xyz);
    ```
 
+#### ROS 2 topic content
+
+RadarSensor uses `RglLidarPublisher` for publishing two types of ROS 2 messages:
+
+- [sensor_msgs/PointCloud2](https://docs.ros2.org/latest/api/sensor_msgs/msg/PointCloud2.html)
+- [radar_msgs/RadarScan](http://docs.ros.org/en/noetic/api/radar_msgs/html/msg/RadarScan.html)
+
+The content of these messages is presented in the table below.
+
+| Message type | Data which the message has | Comment |
+|:-------------|:--------------------------------|:--------|
+| PointCloud2  | Position<br>Radial speed<br>Power<br>RCS<br>Noise<br>SNR | Calculated in Radar node from RGL |
+| RadarScan    | Range<br>Azimuth<br>Elevation<br>Radial speed<br>Amplitude | Calculated in Radar node from RGL |
+
 ## Example
 
 On the screenshot below (scene `RadarSceneDevelopSample`) radar detections are shown as blue boxes.

@@ -4,20 +4,5 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 1
-    path: Assets/AWSIM/Scenes/Main/AutowareSimulation.unity
-    guid: 9a19a6429a390f1428320cff9d4e1f10
-  - enabled: 1
-    path: Assets/Tests/PlayMode/Ego/EgoTest.unity
-    guid: ec37755e1a4a899678c5645cb8963c2f
-  - enabled: 1
-    path: Assets/Tests/PlayMode/Traffic/TrafficTest.unity
-    guid: 23ce25cc2147abbc1986f3efb4951d5c
-  - enabled: 1
-    path: Assets/Tests/PlayMode/Sensors/SensorsTest.unity
-    guid: fdfe2b57b59c262db8bf3372757df0ea
-  - enabled: 1
-    path: Assets/Tests/PlayMode/VehicleDynamics/VehicleDynamicsTest.unity
-    guid: 3797dd5df5a19c8e6a66342db8c3cf49
+  m_Scenes: []
   m_configObjects: {}

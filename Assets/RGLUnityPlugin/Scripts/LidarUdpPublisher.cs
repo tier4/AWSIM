@@ -127,7 +127,7 @@ namespace RGLUnityPlugin
             destinationIPOnAwake = destinationIP;
             destinationPortOnAwake = destinationPort;
 
-            if (!IsValidIpAddress(sourceIPOnAwake))
+            if (!NetworkUtilities.IsValidIpAddress(sourceIPOnAwake))
             {
                 var detailedName = transform.parent != null ? $"{transform.parent.name}:{name}" : name;
                 Debug.LogError($"{detailedName}: IP address '{sourceIPOnAwake}' is invalid. " +
@@ -334,19 +334,6 @@ namespace RGLUnityPlugin
                 Destroy(this);
             }
             return true;
-        }
-
-        private bool IsValidIpAddress(in string ip)
-        {
-            if (ip == "0.0.0.0") return true;
-            foreach (var nic in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                foreach (var unicast in nic.GetIPProperties().UnicastAddresses)
-                {
-                    if (unicast.Address.ToString() == ip) return true;
-                }
-            }
-            return false;
         }
     }
 }

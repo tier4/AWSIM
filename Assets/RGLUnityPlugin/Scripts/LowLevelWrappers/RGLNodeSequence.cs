@@ -137,7 +137,7 @@ namespace RGLUnityPlugin
             AddNode(handle);
             return this;
         }
-        
+
         public RGLNodeSequence AddNodePointsFilterGround(string identifier, float groundAngleThreshold)
         {
             CheckNodeNotExist(identifier);
@@ -197,7 +197,7 @@ namespace RGLUnityPlugin
         {
             CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
-            RGLNativeAPI.NodePointsYield(ref handle.Node, new [] {field});
+            RGLNativeAPI.NodePointsYield(ref handle.Node, new[] { field });
             handle.Type = RGLNodeType.POINTS_YIELD;
             handle.OutputField = field;
             handle.Identifier = identifier;
@@ -311,6 +311,31 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence AddNodePointsRadarTrackObjects(string identifier, float objectDistanceThreshold, float objectAzimuthThreshold,
+            float objectElevationThreshold, float objectRadialSpeedThreshold, float maxMatchingDistance, float maxPredictionTimeFrame,
+            float movementSensitivity)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsRadarTrackObjects(ref handle.Node, objectDistanceThreshold, objectAzimuthThreshold, objectElevationThreshold,
+                objectRadialSpeedThreshold, maxMatchingDistance, maxPredictionTimeFrame, movementSensitivity);
+            handle.Type = RGLNodeType.POINTS_RADAR_TRACK_OBJECTS;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLNodeSequence AddNodePublishUdpObjectList(string identifier, string deviceIp, string destIp, int destPort)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePublishUdpObjectList(ref handle.Node, deviceIp, destIp, destPort);
+            handle.Type = RGLNodeType.PUBLISH_UDP_OBJECT_LIST;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
         public RGLNodeSequence AddNodePointsSimulateSnow(string identifier, float minRange, float maxRange, float rainRate,
             float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence,
             bool doSimulateEnergyLoss, float snowflakeOccupancyThreshold)
@@ -321,6 +346,17 @@ namespace RGLUnityPlugin
                 meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence, doSimulateEnergyLoss,
                 snowflakeOccupancyThreshold);
             handle.Type = RGLNodeType.POINTS_SIMULATE_SNOW;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLNodeSequence AddNodeMultiReturnSwitch(string identifier, RGLReturnType returnType)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodeMultiReturnSwitch(ref handle.Node, returnType);
+            handle.Type = RGLNodeType.MULTI_RETURN_SWITCH;
             handle.Identifier = identifier;
             AddNode(handle);
             return this;
@@ -417,7 +453,7 @@ namespace RGLUnityPlugin
             RGLNativeAPI.NodePointsFilterGround(ref handle.Node, groundAngleThreshold);
             return this;
         }
-        
+
         public RGLNodeSequence UpdateNodePointsCompactByField(string identifier, RGLField field)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_COMPACT_BY_FIELD);
@@ -435,6 +471,16 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence UpdateNodePointsRadarTrackObjects(string identifier, float objectDistanceThreshold, float objectAzimuthThreshold,
+            float objectElevationThreshold, float objectRadialSpeedThreshold, float maxMatchingDistance, float maxPredictionTimeFrame,
+            float movementSensitivity)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_RADAR_TRACK_OBJECTS);
+            RGLNativeAPI.NodePointsRadarTrackObjects(ref handle.Node, objectDistanceThreshold, objectAzimuthThreshold, objectElevationThreshold,
+                objectRadialSpeedThreshold, maxMatchingDistance, maxPredictionTimeFrame, movementSensitivity);
+            return this;
+        }
+
         public RGLNodeSequence UpdateNodePointsSimulateSnow(string identifier, float minRange, float maxRange, float rainRate,
             float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence,
             bool doSimulateEnergyLoss, float snowflakeOccupancyThreshold)
@@ -443,6 +489,13 @@ namespace RGLUnityPlugin
             RGLNativeAPI.NodePointsSimulateSnow(ref handle.Node, minRange, maxRange, rainRate,
                 meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence, doSimulateEnergyLoss,
                 snowflakeOccupancyThreshold);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateMultiReturnSwitch(string identifier, RGLReturnType returnType)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.MULTI_RETURN_SWITCH);
+            RGLNativeAPI.NodeMultiReturnSwitch(ref handle.Node, returnType);
             return this;
         }
 
@@ -459,6 +512,27 @@ namespace RGLUnityPlugin
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
             RGLNativeAPI.NodeRaytraceConfigureDistortion(handle.Node, enable);
+            return this;
+        }
+
+        public RGLNodeSequence ConfigureNodeRaytraceBeamDivergence(string identifier, float horizontalDivergence, float verticalDivergence)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
+            RGLNativeAPI.NodeRaytraceConfigureBeamDivergence(handle.Node, horizontalDivergence, verticalDivergence);
+            return this;
+        }
+
+        public RGLNodeSequence SetNodeRadarClasses(string identifier, int[] entityIds, RGLRadarObjectClass[] objectClasses)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_RADAR_TRACK_OBJECTS);
+            RGLNativeAPI.NodePointsRadarSetClasses(handle.Node, entityIds, objectClasses);
+            return this;
+        }
+
+        public RGLNodeSequence ApplyLidarOutputRestriction(string identifier, sbyte[] raysMask)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
+            RGLNativeAPI.NodeRaytraceConfigureMask(handle.Node, raysMask, raysMask.Length);
             return this;
         }
 
