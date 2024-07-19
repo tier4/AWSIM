@@ -110,6 +110,19 @@ namespace RGLUnityPlugin
 		/* RGL_RETURN_FIRST_SECOND */ DualReturnFirstSecond,
 	};
 
+	// Items have been renamed to be displayed in Unity nicer.
+	public enum RGLRadarObjectClass : Int32
+	{
+		/* RGL_RADAR_CLASS_CAR */ Car,
+		/* RGL_RADAR_CLASS_TRUCK */ Truck,
+		/* RGL_RADAR_CLASS_MOTORCYCLE */ Motorcycle,
+		/* RGL_RADAR_CLASS_BICYCLE */ Bicycle,
+		/* RGL_RADAR_CLASS_PEDESTRIAN */ Pedestrian,
+		/* RGL_RADAR_CLASS_ANIMAL */ Animal,
+		/* RGL_RADAR_CLASS_HAZARD */ Hazard,
+		/* RGL_RADAR_CLASS_UNKNOWN */ Unknown
+	}
+
 	public enum RGLUdpOptions : UInt32
 	{
 		RGL_UDP_NO_ADDITIONAL_OPTIONS       = 0,
@@ -147,4 +160,11 @@ namespace RGLUnityPlugin
 		RGL_EXTENSION_SNOW = 3,
 		RGL_EXTENSION_COUNT
 	};
+
+	public enum RGLReturnType : Int32
+	{
+		RGL_RETURN_TYPE_NOT_DIVERGENT = 0,
+		RGL_RETURN_TYPE_FIRST = 1,
+		RGL_RETURN_TYPE_LAST = 2,
+	}
 }
