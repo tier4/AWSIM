@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/AWSIM/Scenes/Main/AutowareSimulation.unity
+    guid: 9a19a6429a390f1428320cff9d4e1f10
   m_configObjects: {}
