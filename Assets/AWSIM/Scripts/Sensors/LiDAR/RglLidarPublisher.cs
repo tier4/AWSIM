@@ -151,7 +151,7 @@ namespace AWSIM
             {
                 topic = "lidar/pointcloud_ex",
                 publish = true,
-                fieldsPreset = PointCloudFormat.Pcl48,
+                fieldsPreset = PointCloudFormat.PointXYZIRCEADT,
             },
         };
 
