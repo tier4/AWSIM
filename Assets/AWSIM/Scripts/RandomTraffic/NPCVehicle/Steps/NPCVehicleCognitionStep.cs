@@ -4,6 +4,7 @@ using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.Profiling;
+using GeometryUtility = AWSIM.Lanelet.GeometryUtility;
 
 namespace AWSIM.TrafficSimulation
 {
@@ -281,6 +282,8 @@ namespace AWSIM.TrafficSimulation
             public static float maximumOverrunStopPointForLaneRules = 1f;
 
             public static float differenceOrientationDegreesImplyingPerpendicularRoad = 35f;
+            
+            public static float minimumDistanceBetweenNPCs = 70f;
 
             // In
             public Transform EGOTransform;
@@ -402,6 +405,11 @@ namespace AWSIM.TrafficSimulation
                 }
             }
 
+            static private bool isCloseEachOther(NPCVehicleInternalState refState, NPCVehicleInternalState otherState)
+            {
+                return GeometryUtility.Distance2D(refState.Vehicle.transform.position, otherState.Vehicle.transform.position) < minimumDistanceBetweenNPCs;
+            }
+
             static private bool isYieldingDueToRules(NPCVehicleInternalState refState)
             {
                 return refState.YieldPhase == NPCVehicleYieldPhase.LEFT_HAND_RULE_ENTERING_INTERSECTION ||
@@ -479,6 +487,9 @@ namespace AWSIM.TrafficSimulation
             {
                 foreach (var otherState in states)
                 {
+                    if (!isCloseEachOther(refState, otherState))
+                        continue;
+
                     if (!shouldBeConsideredForYielding(refState, otherState))
                         continue;
 
@@ -505,6 +516,9 @@ namespace AWSIM.TrafficSimulation
             {
                 foreach (var otherState in states)
                 {
+                    if (!isCloseEachOther(refState, otherState))
+                        continue;
+
                     if (!shouldBeConsideredForYielding(refState, otherState))
                         continue;
 
@@ -539,6 +553,9 @@ namespace AWSIM.TrafficSimulation
             {
                 foreach (var otherState in states)
                 {
+                    if (!isCloseEachOther(refState, otherState))
+                        continue;
+
                     if (!shouldBeConsideredForYielding(refState, otherState))
                         continue;
 
@@ -572,6 +589,9 @@ namespace AWSIM.TrafficSimulation
             {
                 foreach (var otherState in states)
                 {
+                    if (!isCloseEachOther(refState, otherState))
+                        continue;
+
                     if (!shouldBeConsideredForYielding(refState, otherState))
                         continue;
 
@@ -630,6 +650,9 @@ namespace AWSIM.TrafficSimulation
                     dominatingVehicle = null;
                     foreach (var otherState in states)
                     {
+                        if (!isCloseEachOther(refState, otherState))
+                            continue;
+
                         if (!shouldBeConsideredForYielding(refState, otherState))
                             continue;
 
