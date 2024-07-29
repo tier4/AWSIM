@@ -3,6 +3,7 @@
     "TimeSource": "simulation",
     "RandomTrafficSeed": 33,
     "MaxVehicleCount": 2,
+    "G29DevicePath": "/dev/input/event8",
     "Ego": {
         "Position": {
             "x": 81381.7265625,

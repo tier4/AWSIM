@@ -159,7 +159,7 @@ namespace AWSIM
         // Coefficient for prevent skidding while stopping.
         // Applies to each wheel.
         // TODO: A more accurate calculation method.
-        [Range(0.05f, 1f)] [SerializeField] float SkiddingCancelRate;
+        [Range(0.05f, 1f)][SerializeField] float SkiddingCancelRate;
 
         [Space()]
         [Header("Axles Settings")]
@@ -170,7 +170,7 @@ namespace AWSIM
         // Set value to clamp SteerAngleInput (degree).
         // -MaxSteerAngleInput <= SteerAngleInput <= MaxSteerAngleInput.
         [Range(0.01f, 80)]
-        public float MaxSteerAngleInput = 35f;
+        public float MaxSteerAngleInput = 25f;
 
         // Set value to clamp AccelerationInput (m/s^2).
         // -MaxAccelerationInput <= AccelerationInput <= MaxAccelerationInput.
@@ -218,6 +218,8 @@ namespace AWSIM
         /// Vehicle steering angle (degree)
         /// </summary>
         public float SteerAngle => SteerAngleInput;
+
+        public float SteerAngleNormalized => SteerAngle / MaxSteerAngleInput;
 
         /// <summary>
         /// Vehicle turn signal
