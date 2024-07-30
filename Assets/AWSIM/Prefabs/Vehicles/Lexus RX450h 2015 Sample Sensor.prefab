@@ -2392,7 +2392,7 @@ GameObject:
   m_Component:
   - component: {fileID: 832099072917659633}
   m_Layer: 6
-  m_Name: velodyne_top_base_link
+  m_Name: velodyne_top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2506,7 +2506,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4351695443148624285}
   m_Layer: 6
-  m_Name: velodyne_right_base_link
+  m_Name: velodyne_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2703,7 +2703,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2086001783945006568}
   m_Layer: 6
-  m_Name: velodyne_left_base_link
+  m_Name: velodyne_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4156,7 +4156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5865029131659967986, guid: 9351c3661d105f12f9fe2819a1203053, type: 3}
       propertyPath: frameId
-      value: velodyne_top_base_link
+      value: velodyne_top
       objectReference: {fileID: 0}
     - target: {fileID: 5865029131659967986, guid: 9351c3661d105f12f9fe2819a1203053, type: 3}
       propertyPath: m_Enabled
@@ -4254,7 +4254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5865029131659967986, guid: 9351c3661d105f12f9fe2819a1203053, type: 3}
       propertyPath: frameId
-      value: velodyne_right_base_link
+      value: velodyne_right
       objectReference: {fileID: 0}
     - target: {fileID: 5865029131659967986, guid: 9351c3661d105f12f9fe2819a1203053, type: 3}
       propertyPath: m_Enabled
@@ -4437,7 +4437,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5865029131659967986, guid: 9351c3661d105f12f9fe2819a1203053, type: 3}
       propertyPath: frameId
-      value: velodyne_left_base_link
+      value: velodyne_left
       objectReference: {fileID: 0}
     - target: {fileID: 5865029131659967986, guid: 9351c3661d105f12f9fe2819a1203053, type: 3}
       propertyPath: m_Enabled
