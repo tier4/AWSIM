@@ -37,6 +37,7 @@ namespace RGLUnityPlugin
 	{
 		XYZ_VEC3_F32 = 1,
 		INTENSITY_F32,
+		INTENSITY_U8,
 		IS_HIT_I32,
 		IS_GROUND_I32,
 		RAY_IDX_U32,
@@ -47,6 +48,7 @@ namespace RGLUnityPlugin
 		RING_ID_U16,
 		RETURN_TYPE_U8,
 		TIME_STAMP_F64,
+		TIME_STAMP_U32,
 		ABSOLUTE_VELOCITY_VEC3_F32,
 		RELATIVE_VELOCITY_VEC3_F32,
 		RADIAL_SPEED_F32,
@@ -57,6 +59,7 @@ namespace RGLUnityPlugin
 		NORMAL_VEC3_F32,
 		INCIDENT_ANGLE_F32,
 		RAY_POSE_MAT3x4_F32,
+		RGL_FIELD_LASER_RETRO_F32,
 		// Dummy fields
 		PADDING_8 = 1024,
 		PADDING_16,
@@ -109,6 +112,19 @@ namespace RGLUnityPlugin
 		/* RGL_RETURN_STRONGEST_SECOND_STRONGEST */ DualReturnStrongestSecondStrongest,
 		/* RGL_RETURN_FIRST_SECOND */ DualReturnFirstSecond,
 	};
+
+	// Items have been renamed to be displayed in Unity nicer.
+	public enum RGLRadarObjectClass : Int32
+	{
+		/* RGL_RADAR_CLASS_CAR */ Car,
+		/* RGL_RADAR_CLASS_TRUCK */ Truck,
+		/* RGL_RADAR_CLASS_MOTORCYCLE */ Motorcycle,
+		/* RGL_RADAR_CLASS_BICYCLE */ Bicycle,
+		/* RGL_RADAR_CLASS_PEDESTRIAN */ Pedestrian,
+		/* RGL_RADAR_CLASS_ANIMAL */ Animal,
+		/* RGL_RADAR_CLASS_HAZARD */ Hazard,
+		/* RGL_RADAR_CLASS_UNKNOWN */ Unknown
+	}
 
 	public enum RGLUdpOptions : UInt32
 	{

@@ -56,8 +56,8 @@ MonoBehaviour:
   pointCloud2Publishers:
   - topic: radar/pointcloud
     publish: 1
-    fieldsPreset: 3
-    fields: 010000000f00000010000000110000001200000013000000
+    fieldsPreset: 4
+    fields: 010000001100000012000000130000001400000015000000
   radarScanPublishers:
   - topic: radar/radarscan
     publish: 1

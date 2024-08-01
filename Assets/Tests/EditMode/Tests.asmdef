@@ -5,7 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "AWSIM",
-        "AccessExtensions"
+        "AccessExtensions",
+        "AWSIM.Editor"
     ],
     "includePlatforms": [
         "Editor"

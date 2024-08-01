@@ -22,6 +22,7 @@ namespace AWSIM
     {
         Pcl24,
         Pcl48,
+        PointXYZIRCEADT,
         MLInstanceSegmentation,
         RadarSmartMicro,
         Custom,
@@ -59,6 +60,18 @@ namespace AWSIM
                     RGLField.PADDING_16,
                     RGLField.PADDING_32,
                     RGLField.TIME_STAMP_F64
+                }},
+                // PointXYZIRCEADT format used by Autoware
+                {PointCloudFormat.PointXYZIRCEADT, new[]
+                {
+                    RGLField.XYZ_VEC3_F32,
+                    RGLField.INTENSITY_U8,
+                    RGLField.RETURN_TYPE_U8,
+                    RGLField.RING_ID_U16,
+                    RGLField.ELEVATION_F32,
+                    RGLField.AZIMUTH_F32,
+                    RGLField.DISTANCE_F32,
+                    RGLField.TIME_STAMP_U32
                 }},
                 // Machine learning format for instance/semantic segmentation tasks
                 {PointCloudFormat.MLInstanceSegmentation, new[]

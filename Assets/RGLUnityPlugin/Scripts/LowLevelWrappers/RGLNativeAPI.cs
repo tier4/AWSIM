@@ -153,6 +153,19 @@ namespace RGLUnityPlugin
             float cumulative_device_gain, float received_noise_mean, float received_noise_st_dev);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_radar_track_objects(ref IntPtr node, float object_distance_threshold,
+                                                         float object_azimuth_threshold, float object_elevation_threshold,
+                                                         float object_radial_speed_threshold, float max_matching_distance,
+                                                         float max_prediction_time_frame, float movement_sensitivity);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_radar_set_classes(IntPtr node, IntPtr entity_ids, IntPtr object_classes, int count);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_publish_udp_objectlist(ref IntPtr node, [MarshalAs(UnmanagedType.LPStr)] string device_ip,
+            [MarshalAs(UnmanagedType.LPStr)] string dest_ip, int dest_port);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_simulate_snow(ref IntPtr node, float min_range, float max_range, float rain_rate,
             float mean_snowflake_diameter, float terminal_velocity, float density, Int32 num_channels, float beam_divergence,
             bool simulate_energy_loss, float snowflake_occupancy_threshold);
@@ -571,6 +584,38 @@ namespace RGLUnityPlugin
                         powerTransmitted, cumulativeDeviceGain, receivedNoiseMean, receivedNoiseStDev));
                 }
             }
+        }
+
+        public static void NodePointsRadarTrackObjects(ref IntPtr node, float objectDistanceThreshold, float objectAzimuthThreshold,
+            float objectElevationThreshold, float objectRadialSpeedThreshold, float maxMatchingDistance, float maxPredictionTimeFrame,
+            float movementSensitivity)
+        {
+            CheckErr(rgl_node_points_radar_track_objects(ref node, objectDistanceThreshold, objectAzimuthThreshold, objectElevationThreshold,
+                objectRadialSpeedThreshold, maxMatchingDistance, maxPredictionTimeFrame, movementSensitivity));
+        }
+
+        public static void NodePointsRadarSetClasses(IntPtr node, int[] entityIds, RGLRadarObjectClass[] objectClasses)
+        {
+            if (entityIds.Length != objectClasses.Length)
+            {
+                throw new ArgumentException("NodePointsRadarSetClasses: Length of entityIds and objectClasses must be the same.");
+            }
+            var count = entityIds.Length;
+            unsafe
+            {
+                fixed (int* entityIdsPtr = entityIds)
+                {
+                    fixed (RGLRadarObjectClass* objectClassesPtr = objectClasses)
+                    {
+                        CheckErr(rgl_node_points_radar_set_classes(node, (IntPtr) entityIdsPtr, (IntPtr) objectClassesPtr, count));
+                    }
+                }
+            }
+        }
+
+        public static void NodePublishUdpObjectList(ref IntPtr node, string deviceIp, string destIp, int destPort)
+        {
+            CheckErr(rgl_node_publish_udp_objectlist(ref node, deviceIp, destIp, destPort));
         }
 
         public static void NodePointsSimulateSnow(ref IntPtr node, float minRange, float maxRange, float rainRate,

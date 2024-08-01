@@ -55,8 +55,8 @@ In order to configure the Autoware software with the AWSIM demo, please:
 
 ## Running the demo
 
-1. Download `AWSIM_v1.2.0_ss2.zip` & Run  
-   [archive](https://github.com/tier4/AWSIM/releases/download/v1.2.0/AWSIM_v1.2.0_ss2.zip){.md-button .md-button--primary} 
+1. Download `AWSIM_v1.2.2_ss2.zip` & Run  
+   [archive](https://github.com/tier4/AWSIM/releases/download/v1.2.2/AWSIM_v1.2.2_ss2.zip){.md-button .md-button--primary} 
 
 2. Launch `scenario_test_runner`.
    ```
