@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 namespace AWSIM
 {
+    using Geographic;
+
     /// <summary>
     /// GNSS sensor.
     /// Publish pose and poseWithCovarianceStamped in MGRS coordinate system.
@@ -24,10 +26,12 @@ namespace AWSIM
             /// not the Unity world coordinate system position.)
             /// </summary>
             public Vector3 MgrsPosition;
+            public GeoCoordinate GeoCoordinate;
 
             public OutputData()
             {
                 MgrsPosition = new Vector3();
+                GeoCoordinate = new GeoCoordinate();
             }
         }
 
@@ -69,8 +73,10 @@ namespace AWSIM
             timer = 0;
 
             // update mgrs position.
-            var rosPosition = ROS2Utility.UnityToRosPosition(m_transform.position);
+            var unityPosition = m_transform.position;
+            var rosPosition = ROS2Utility.UnityToRosPosition(unityPosition);
             outputData.MgrsPosition = rosPosition + Environment.Instance.MgrsOffsetPosition;   // ros gnss sensor's pos + mgrs offset pos.
+            outputData.GeoCoordinate = GeoCoordinateConverter.Cartesian2Geo(unityPosition, Environment.Instance.WorldOriginGeoCoordinate);
 
             // Calls registered callbacks
             OnOutputData.Invoke(outputData);
