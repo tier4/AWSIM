@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace AWSIM.Geographic
 {
+/// <summary>
+/// Provide Vector3 to GeoCoordinate conversion.
+/// reference : https://vldb.gsi.go.jp/sokuchi/surveycalc/main.html
+/// </summary>
 public static class GeoCoordinateConverter
 {
   const double EARTH_SEMI_MAJOR_AXIS = 6378137d;  // [m]
