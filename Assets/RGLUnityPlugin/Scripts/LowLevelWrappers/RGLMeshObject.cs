@@ -139,7 +139,7 @@ namespace RGLUnityPlugin
             UpdateTransform();
             if (rglMesh is RGLSkinnedMesh rglSkinnedMesh)
             {
-                rglSkinnedMesh.UpdateSkinnedMesh();
+                rglSkinnedMesh.UpdateSkinnedMesh(rglEntityPtr);
             }
         }
 
@@ -159,7 +159,7 @@ namespace RGLUnityPlugin
                 fixed (float* pMatrix3x4 = matrix3x4)
                 {
                     RGLNativeAPI.CheckErr(
-                        RGLNativeAPI.rgl_entity_set_pose(rglEntityPtr, (IntPtr) pMatrix3x4));
+                        RGLNativeAPI.rgl_entity_set_transform(rglEntityPtr, (IntPtr) pMatrix3x4));
                 }
             }
         }
@@ -554,7 +554,7 @@ namespace RGLUnityPlugin
             UploadToRGL();
         }
 
-        public void UpdateSkinnedMesh()
+        public void UpdateSkinnedMesh(IntPtr RGLEntityPtr)
         {
             skinnedMeshRenderer.BakeMesh(Mesh, true);
             unsafe
@@ -567,7 +567,7 @@ namespace RGLUnityPlugin
                 fixed (Vector3* pVertices = Mesh.vertices)
                 {
                     RGLNativeAPI.CheckErr(
-                        RGLNativeAPI.rgl_mesh_update_vertices(RGLMeshPtr, (IntPtr) pVertices, Mesh.vertices.Length));
+                        RGLNativeAPI.rgl_entity_apply_external_animation(RGLEntityPtr, (IntPtr) pVertices, Mesh.vertices.Length));
                 }
             }
         }
