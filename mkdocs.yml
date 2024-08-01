@@ -16,7 +16,11 @@ theme:
 markdown_extensions:
   - tables
   - admonition
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.details
   - pymdownx.tabbed:
       alternate_style: true
@@ -68,6 +72,7 @@ nav:
         - Add Visual Elements: Components/Vehicle/AddNewVehicle/AddVisualElements/index.md
       - Customize Slip: Components/Vehicle/CustomizeSlip/index.md
       - FollowCamera: Components/Vehicle/FollowCamera/index.md
+      - Vehicle Input: Components/Vehicle/VehicleInput/index.md
     - Sensors:
       - LiDAR Sensor:
         - LiDAR Sensor: Components/Sensors/LiDARSensor/LiDARSensor/index.md
