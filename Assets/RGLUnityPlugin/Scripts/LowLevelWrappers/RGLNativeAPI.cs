@@ -43,22 +43,22 @@ namespace RGLUnityPlugin
         public static extern int rgl_mesh_destroy(IntPtr mesh);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_mesh_update_vertices(IntPtr mesh, IntPtr vertices, int vertex_count);
-
-        [DllImport("RobotecGPULidar")]
         public static extern int rgl_entity_create(out IntPtr entity, IntPtr scene, IntPtr mesh);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_entity_destroy(IntPtr entity);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_entity_set_pose(IntPtr entity, IntPtr local_to_world_tf);
+        public static extern int rgl_entity_set_transform(IntPtr entity, IntPtr local_to_world_tf);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_entity_set_id(IntPtr entity, int id);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_entity_set_intensity_texture(IntPtr entity, IntPtr texture);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_entity_apply_external_animation(IntPtr entity, IntPtr vertices, int vertex_count);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_texture_create(out IntPtr texture, IntPtr texels, int width, int height);
