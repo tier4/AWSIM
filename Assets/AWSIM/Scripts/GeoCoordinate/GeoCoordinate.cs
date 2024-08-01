@@ -3,9 +3,9 @@ namespace AWSIM.Geographic
 [System.Serializable]
 public class GeoCoordinate
 {
-  public double Latitude;
-  public double Longitude;
-  public double Altitude;
+  public double Latitude { get; }
+  public double Longitude { get; }
+  public double Altitude { get; }
 
   public GeoCoordinate()
   {

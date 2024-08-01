@@ -84,12 +84,11 @@ public static class GeoCoordinateConverter
       latitude += delta[i] * Math.Sin(2 * i * chi);
     }
 
-    return new GeoCoordinate()
-    {
-      Latitude = Rad2Deg(latitude),
-      Longitude = Rad2Deg(longitude0 + Math.Atan(Math.Sinh(eta_d) / Math.Cos(xi_d))),
-      Altitude = cartesian.y - origin.Altitude
-    };
+    return new GeoCoordinate(
+      Rad2Deg(latitude),
+      Rad2Deg(longitude0 + Math.Atan(Math.Sinh(eta_d) / Math.Cos(xi_d))),
+      cartesian.y - origin.Altitude
+    );
   }
 
   private static double Deg2Rad(double deg) => deg * Math.PI / 180d;
