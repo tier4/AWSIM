@@ -8540,8 +8540,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1925267639}
   m_HandleRect: {fileID: 1925267638}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.77551633
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10145,7 +10145,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2465439770829660653, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: steeringThreshold
-      value: 0.15
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4981081891045692864, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
       propertyPath: m_Name
