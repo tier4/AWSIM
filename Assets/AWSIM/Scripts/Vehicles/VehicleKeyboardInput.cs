@@ -30,15 +30,10 @@ namespace AWSIM
             MaxSteerAngle = vehicle.MaxSteerAngleInput;
         }
 
-        public override void OnUpdate(VehicleControlMode currentControlMode)
+        public override void OnUpdate(VehicleInputBase.InputArg inputArg)
         {
+            var currentControlMode = inputArg.VehicleControlMode;
             Overridden = false;
-
-            // Get steering and acceleration input.
-            //var horizontal = Input.GetAxis("Horizontal");
-            //var vertical = Input.GetAxis("Vertical");
-            //AccelerationInput = MaxAcceleration * vertical;
-            //SteeringInput = MaxSteerAngle * horizontal;
 
             // Get throttle input.
             if (Input.GetKey(KeyCode.UpArrow))
