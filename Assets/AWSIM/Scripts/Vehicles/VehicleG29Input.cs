@@ -84,8 +84,20 @@ namespace AWSIM
             Initialize();
         }
 
+        bool isLinux()
+        {
+            if (Application.platform == RuntimePlatform.LinuxEditor ||
+                Application.platform == RuntimePlatform.LinuxPlayer)
+                return true;
+            else
+                return false;
+        }
+
         void Initialize()
         {
+            if (!isLinux())
+                return;
+
             if (isInitialized)
                 return;
 
@@ -98,6 +110,9 @@ namespace AWSIM
 
         public override void OnUpdate(InputArg inputArg)
         {
+            if (!isLinux())
+                return;
+
             var currentControlMode = inputArg.VehicleControlMode;
 
             // Calculate ffb torque that can follow targetPos by PID.
