@@ -87,6 +87,19 @@ namespace AWSIM
         }
 
         /// <summary>
+        /// Create a service
+        /// </summary>
+        /// <returns>The service</returns>
+        /// <param name="topicName">topic under which the service will be requestable</param>
+        /// <param name="qos">QoS for requests. If no QoS is selected, it will default to reliable, keep 10 last</param>
+        static public IService<T, S> CreateService<T, S>(string topicName, Func<T, S> callback,  QualityOfServiceProfile qos = null)
+            where T: Message, new()
+            where S: Message, new()
+        {
+            return node.CreateService<T, S>(topicName, callback, qos);
+        }
+
+        /// <summary>
         /// Update header timestamp
         /// </summary>
         /// <param name="message">Message with header to be updated</param>
@@ -127,6 +140,19 @@ namespace AWSIM
             if (ros2UnityCore.Ok())
             {
                 node.RemoveSubscription<T>(subscription);
+            }
+        }
+
+        /// <summary>
+        /// Remove ros2 service
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="service"></param>
+        static public void RemoveService(IServiceBase service)
+        {
+            if (ros2UnityCore.Ok())
+            {
+                node.RemoveService(service);
             }
         }
 
