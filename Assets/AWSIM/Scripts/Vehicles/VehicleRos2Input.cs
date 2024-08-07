@@ -99,7 +99,7 @@ namespace AWSIM
                             return;
                         }
 
-                        validateAndSetVehicleCommand(msg);
+                        ValidateAndSetVehicleCommand(msg);
                     }, qos);
 
             gearCommandSubscriber
@@ -121,7 +121,7 @@ namespace AWSIM
                     });
         }
 
-        void validateAndSetVehicleCommand(autoware_auto_control_msgs.msg.AckermannControlCommand command)
+        void ValidateAndSetVehicleCommand(autoware_auto_control_msgs.msg.AckermannControlCommand command)
         {
             if (Single.IsNaN(command.Longitudinal.Acceleration))
             {
