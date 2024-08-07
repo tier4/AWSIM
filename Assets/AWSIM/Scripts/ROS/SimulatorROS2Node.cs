@@ -100,6 +100,19 @@ namespace AWSIM
         }
 
         /// <summary>
+        /// Create a client service
+        /// </summary>
+        /// <returns>The client</returns>
+        /// <param name="topicName">topic under which the client will call the service</param>
+        /// <param name="qos">QoS for requests. If no QoS is selected, it will default to reliable, keep 10 last</param>
+        static public Client<T, S> CreateClient<T, S>(string topicName,  QualityOfServiceProfile qos = null)
+            where T: Message, new()
+            where S: Message, new()
+        {
+            return node.CreateClient<T, S>(topicName, qos);
+        }
+
+        /// <summary>
         /// Update header timestamp
         /// </summary>
         /// <param name="message">Message with header to be updated</param>
@@ -153,6 +166,18 @@ namespace AWSIM
             if (ros2UnityCore.Ok())
             {
                 node.RemoveService(service);
+            }
+        }
+
+        /// <summary>
+        /// Remove ros2 client
+        /// </summary>
+        /// <param name="client"></param>
+        static public void RemoveClient(IClientBase client)
+        {
+            if (ros2UnityCore.Ok())
+            {
+                node.RemoveClient(client);
             }
         }
 
