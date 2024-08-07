@@ -64,6 +64,7 @@ nav:
       - Clock Publisher: Components/Clock/ClockPublisher/index.md
     - Vehicle:
       - Ego Vehicle: Components/Vehicle/EgoVehicle/index.md
+      - Vehicle Input: Components/Vehicle/VehicleInput/index.md
       - URDF And Sensors: Components/Vehicle/URDFAndSensors/index.md
       - Add New Vehicle:
         - Add Vehicle: Components/Vehicle/AddNewVehicle/AddAVehicle/index.md
@@ -72,7 +73,6 @@ nav:
         - Add Visual Elements: Components/Vehicle/AddNewVehicle/AddVisualElements/index.md
       - Customize Slip: Components/Vehicle/CustomizeSlip/index.md
       - FollowCamera: Components/Vehicle/FollowCamera/index.md
-      - Vehicle Input: Components/Vehicle/VehicleInput/index.md
     - Sensors:
       - LiDAR Sensor:
         - LiDAR Sensor: Components/Sensors/LiDARSensor/LiDARSensor/index.md
