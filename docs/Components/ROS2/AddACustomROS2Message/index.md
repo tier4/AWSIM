@@ -101,7 +101,7 @@ Please, choose the appropriate option and follow the instructions.
 
 
     !!! example
-        Below is an example of a file configured to pull 2 packages (`custom_msgs`,`autoware_auto_msgs`) of messages hosted on a *git* repository.
+        Below is an example of a file configured to pull 2 packages (`custom_msgs`,`autoware_msgs`) of messages hosted on a *git* repository.
         ```
         # NOTE: Use this file if you want to build with custom messages that reside in a separate remote repo.
         # NOTE: use the following format
@@ -111,10 +111,10 @@ Please, choose the appropriate option and follow the instructions.
                 type: git
                 url: https://github.com/tier4/custom_msgs.git
                 version: main
-            src/ros2cs/custom_messages/autoware_auto_msgs:
+            src/ros2cs/custom_messages/autoware_msgs:
                 type: git
-                url: https://github.com/tier4/autoware_auto_msgs.git
-                version: tier4/main
+                url: https://github.com/autowarefoundation/autoware/
+                version: main
         ```
 
 3. Now pull the repositories again (also the `custom_msgs` package repository)

@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-import "autoware_auto_control_msgs.proto";
-import "autoware_auto_vehicle_msgs.proto";
+import "autoware_control_msgs.proto";
+import "autoware_vehicle_msgs.proto";
 import "geometry_msgs.proto";
 
 package traffic_simulator_msgs;
@@ -147,8 +147,8 @@ message Waypoints {
 }
 
 message VehicleCommand {
-  autoware_auto_control_msgs.AckermannControlCommand ackermann_control_command = 1;
-  autoware_auto_vehicle_msgs.GearCommand gear_command = 2;
+  autoware_control_msgs.Control control = 1;
+  autoware_vehicle_msgs.GearCommand gear_command = 2;
 }
 
 /**
