@@ -22,7 +22,6 @@ namespace ROS2
 /// DateTime based clock that has resolution increased using Stopwatch.
 /// DateTime is used to synchronize since Stopwatch tends to drift.
 /// </summary>
-[System.Obsolete("This TimeSource is deprecated and will be removed in the future versions. Please use DotNetSystemTimeSource instead.")]
 public class DotnetTimeSource : ITimeSource
 {
     private readonly double maxUnsyncedSeconds = 10;

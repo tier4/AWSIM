@@ -77,12 +77,12 @@ namespace AWSIM
                         //Get bulbData
                         var trafficLightBulbData = trafficLight.GetBulbData();
                         //Fill TrafficSignal with bulbData
-                        var trafficLightElementList = new List<autoware_perception_msgs.msg.TrafficLightElement>();
+                        var trafficLightElementList = new List<autoware_perception_msgs.msg.TrafficSignalElement>();
                         foreach (var bulbData in trafficLightBulbData)
                         {
                             if (isBulbTurnOn(bulbData.Status))
                             {
-                                var trafficLightElementMsg = new autoware_perception_msgs.msg.TrafficLightElement();
+                                var trafficLightElementMsg = new autoware_perception_msgs.msg.TrafficSignalElement();
                                 trafficLightElementMsg.Color = V2IROS2Utility.UnityToRosBulbColor(bulbData.Color);
                                 trafficLightElementMsg.Shape = V2IROS2Utility.UnityToRosBulbShape(bulbData.Type);
                                 trafficLightElementMsg.Status = V2IROS2Utility.UnityToRosBulbStatus(bulbData.Status);

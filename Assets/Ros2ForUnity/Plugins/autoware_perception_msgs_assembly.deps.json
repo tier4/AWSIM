@@ -11,7 +11,10 @@
         "dependencies": {
           "NETStandard.Library": "2.0.3",
           "builtin_interfaces_assembly": "0.0.0.0",
-          "ros2cs_common": "0.0.0.0"
+          "geometry_msgs_assembly": "0.0.0.0",
+          "ros2cs_common": "0.0.0.0",
+          "std_msgs_assembly": "0.0.0.0",
+          "unique_identifier_msgs_assembly": "0.0.0.0"
         },
         "runtime": {
           "autoware_perception_msgs_assembly.dll": {}
@@ -31,9 +34,33 @@
           }
         }
       },
+      "geometry_msgs_assembly/0.0.0.0": {
+        "runtime": {
+          "geometry_msgs_assembly.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
       "ros2cs_common/0.0.0.0": {
         "runtime": {
           "ros2cs_common.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "std_msgs_assembly/0.0.0.0": {
+        "runtime": {
+          "std_msgs_assembly.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "unique_identifier_msgs_assembly/0.0.0.0": {
+        "runtime": {
+          "unique_identifier_msgs_assembly.dll": {
             "assemblyVersion": "0.0.0.0",
             "fileVersion": "0.0.0.0"
           }
@@ -66,7 +93,22 @@
       "serviceable": false,
       "sha512": ""
     },
+    "geometry_msgs_assembly/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
     "ros2cs_common/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "std_msgs_assembly/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "unique_identifier_msgs_assembly/0.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
