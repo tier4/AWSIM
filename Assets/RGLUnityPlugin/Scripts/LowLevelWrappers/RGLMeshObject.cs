@@ -18,6 +18,7 @@ using UnityEngine.Assertions;
 // Experimental is necessary for gathering GraphicsFormat of the texture.
 using UnityEngine.Experimental.Rendering;
 using System.Collections.Generic;
+using UnityEngine.Profiling;
 
 namespace RGLUnityPlugin
 {
@@ -136,10 +137,13 @@ namespace RGLUnityPlugin
 
         public void Update()
         {
-            UpdateTransform();
             if (rglMesh is RGLSkinnedMesh rglSkinnedMesh)
             {
                 rglSkinnedMesh.UpdateSkinnedMesh(rglEntityPtr);
+            }
+            else
+            {
+                UpdateTransform();
             }
         }
 
@@ -154,6 +158,7 @@ namespace RGLUnityPlugin
                 m.m10, m.m11, m.m12, m.m13,
                 m.m20, m.m21, m.m22, m.m23,
             };
+
             unsafe
             {
                 fixed (float* pMatrix3x4 = matrix3x4)
@@ -301,7 +306,16 @@ namespace RGLUnityPlugin
 
         protected override Matrix4x4 GetLocalToWorld()
         {
-            return skinnedMeshRendererTransform.localToWorldMatrix;
+            // var m = skinnedMeshRendererTransform.localToWorldMatrix;
+            // Vector3 position = m.GetColumn(3);
+            // Vector3 scale = new Vector3(
+            //     m.GetColumn(0).magnitude,
+            //     m.GetColumn(1).magnitude,
+            //     m.GetColumn(2).magnitude
+            // );
+            // Debug.LogWarning($"tf {skinnedMeshRendererTransform.name}, {position.ToString("F4")}, {m.rotation.eulerAngles.ToString("F4")}, {scale.ToString("F4")}");
+            return Matrix4x4.identity;
+            // return skinnedMeshRendererTransform.localToWorldMatrix;
         }
         
         protected override void DestroyRGLMesh()
@@ -545,31 +559,67 @@ namespace RGLUnityPlugin
     {
         private readonly SkinnedMeshRenderer skinnedMeshRenderer;
 
+        public IntPtr RGLSkeletonPtr = IntPtr.Zero;
+        private Matrix4x4[] pose;
+        private float[] poseFloats;
+
         public RGLSkinnedMesh(int identifier, SkinnedMeshRenderer smr)
         {
             Identifier = identifier;
-            Mesh = new Mesh();
+
             skinnedMeshRenderer = smr;
-            skinnedMeshRenderer.BakeMesh(Mesh, true);
+            Mesh = skinnedMeshRenderer.sharedMesh;
             UploadToRGL();
+
+            // Upload bone weights
+            unsafe
+            {
+                fixed (BoneWeight* pBoneWeights = Mesh.boneWeights)
+                {
+                    RGLNativeAPI.CheckErr(
+                        RGLNativeAPI.rgl_mesh_set_bone_weights(RGLMeshPtr, (IntPtr) pBoneWeights, Mesh.boneWeights.Length));
+                }
+            }
+
+            // Upload restpose
+            var bindposesFloats = RGLNativeAPI.IntoMat3x4f(Mesh.bindposes);
+            unsafe
+            {
+                fixed (float* pBindposesFloats = bindposesFloats)
+                {
+                    RGLNativeAPI.CheckErr(
+                        RGLNativeAPI.rgl_mesh_set_restposes(RGLMeshPtr, (IntPtr) pBindposesFloats, Mesh.bindposes.Length));
+                }
+            }
+
+            pose = new Matrix4x4[skinnedMeshRenderer.bones.Length];
         }
 
         public void UpdateSkinnedMesh(IntPtr RGLEntityPtr)
         {
-            skinnedMeshRenderer.BakeMesh(Mesh, true);
+            Profiler.BeginSample("Collecting pose");
+            var bones = skinnedMeshRenderer.bones;
+            for (int i = 0; i < bones.Length; i++)
+            {
+                pose[i] = bones[i].localToWorldMatrix;
+            }
+            Profiler.EndSample();
+
+            Profiler.BeginSample("IntoMat3x4f");
+            poseFloats = RGLNativeAPI.IntoMat3x4f(pose);
+            Profiler.EndSample();
+
+            Profiler.BeginSample("rgl_entity_set_pose");
             unsafe
             {
-                // Accessing .vertices perform a CPU copy!
-                // TODO: This could be optimized using Vulkan-CUDA interop and Unity NativePluginInterface. Expect difficulties.
-                // https://docs.unity3d.com/ScriptReference/Mesh.GetNativeVertexBufferPtr.html
-                // https://docs.unity3d.com/Manual/NativePluginInterface.html
-                // https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/simpleVulkan
-                fixed (Vector3* pVertices = Mesh.vertices)
+                fixed (float* pPoseFloats = poseFloats)
                 {
                     RGLNativeAPI.CheckErr(
-                        RGLNativeAPI.rgl_entity_apply_external_animation(RGLEntityPtr, (IntPtr) pVertices, Mesh.vertices.Length));
+                        RGLNativeAPI.rgl_entity_set_pose_world(RGLEntityPtr, (IntPtr)pPoseFloats,
+                            skinnedMeshRenderer.bones.Length));
                 }
             }
+            Profiler.EndSample();
         }
     }
 

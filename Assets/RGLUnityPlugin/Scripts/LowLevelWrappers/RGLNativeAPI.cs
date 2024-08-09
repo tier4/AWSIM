@@ -40,6 +40,12 @@ namespace RGLUnityPlugin
         public static extern int rgl_mesh_set_texture_coords(IntPtr mesh, IntPtr uvs, int uvCount);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_mesh_set_bone_weights(IntPtr mesh, IntPtr bone_weights, int bone_weights_count);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_mesh_set_restposes(IntPtr mesh, IntPtr restposes, int bones_count);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_mesh_destroy(IntPtr mesh);
 
         [DllImport("RobotecGPULidar")]
@@ -50,6 +56,9 @@ namespace RGLUnityPlugin
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_entity_set_transform(IntPtr entity, IntPtr local_to_world_tf);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_entity_set_pose_world(IntPtr entity, IntPtr pose, int bones_count);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_entity_set_id(IntPtr entity, int id);
