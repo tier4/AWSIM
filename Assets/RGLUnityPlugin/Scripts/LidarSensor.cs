@@ -14,6 +14,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 namespace RGLUnityPlugin
@@ -129,7 +130,7 @@ namespace RGLUnityPlugin
 
         public void Start()
         {
-            sceneManager = FindObjectOfType<SceneManager>();
+            sceneManager = SceneManager.Instance;
             if (sceneManager == null)
             {
                 // TODO(prybicki): this is too tedious, implement automatic instantiation of RGL Scene Manager

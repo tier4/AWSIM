@@ -331,6 +331,16 @@ namespace RGLUnityPlugin
         public static float[] IntoMat3x4f(Matrix4x4[] mats)
         {
             var matFloats = new float[mats.Length * 12];
+            IntoMat3x4f(mats, ref matFloats);
+            return matFloats;
+        }
+
+        public static void IntoMat3x4f(Matrix4x4[] mats, ref float[] outFloats)
+        {
+            if (outFloats == null || outFloats.Length != mats.Length * 12)
+            {
+                outFloats = new float[mats.Length * 12];
+            }
 
             for (int i = 0; i < mats.Length; ++i)
             {
@@ -339,12 +349,10 @@ namespace RGLUnityPlugin
                     for (int col = 0; col < 4; col++)
                     {
                         int idx = 12 * i + 4 * row + col;
-                        matFloats[idx] = mats[i][row, col];
+                        outFloats[idx] = mats[i][row, col];
                     }
                 }
             }
-
-            return matFloats;
         }
 
         public static float[] IntoMat3x4f(Matrix4x4 mat)

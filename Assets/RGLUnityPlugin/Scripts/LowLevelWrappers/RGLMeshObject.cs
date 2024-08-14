@@ -273,8 +273,9 @@ namespace RGLUnityPlugin
 
     public class RGLSkinnedMeshRendererObject : RGLObject<SkinnedMeshRenderer>
     {
-        private readonly SkinnedMeshRenderer smr;
-        private readonly Matrix4x4[] pose;
+        private readonly Transform skinnedMeshRendererTransform;
+        private readonly Transform rootBone;
+        private readonly int bonesCount;
 
         public RGLSkinnedMeshRendererObject(SkinnedMeshRenderer skinnedMeshRenderer) :
             base(
@@ -283,8 +284,10 @@ namespace RGLUnityPlugin
                 skinnedMeshRenderer
                 )
         {
-            smr = skinnedMeshRenderer;
-            pose = new Matrix4x4[smr.bones.Length];
+            skinnedMeshRendererTransform = skinnedMeshRenderer.transform;
+            rootBone = skinnedMeshRenderer.rootBone;
+            bonesCount = skinnedMeshRenderer.bones.Length;
+            BonesPoseCacheManager.RegisterBonesPoseInstance(skinnedMeshRenderer);
         }
 
         protected override RGLMesh GetRGLMeshFrom(SkinnedMeshRenderer skinnedMeshRenderer)
@@ -304,31 +307,25 @@ namespace RGLUnityPlugin
         // Instead, set the pose of the skeleton in the world coordinates. RGL will perform skeleton animation on GPU.
         public override void Update()
         {
-            var bones = smr.bones;
-            for (int i = 0; i < bones.Length; i++)
-            {
-                pose[i] = bones[i].localToWorldMatrix;
-            }
-
-            var poseFloats = RGLNativeAPI.IntoMat3x4f(pose);
             unsafe
             {
-                fixed (float* pPoseFloats = poseFloats)
+                fixed (float* pPoseFloats = BonesPoseCacheManager.GetRglPose(rootBone))
                 {
                     RGLNativeAPI.CheckErr(
-                        RGLNativeAPI.rgl_entity_set_pose_world(rglEntityPtr, (IntPtr)pPoseFloats, bones.Length));
+                        RGLNativeAPI.rgl_entity_set_pose_world(rglEntityPtr, (IntPtr)pPoseFloats, bonesCount));
                 }
             }
         }
 
         protected override Matrix4x4 GetLocalToWorld()
         {
-            return smr.localToWorldMatrix;
+            return skinnedMeshRendererTransform.localToWorldMatrix;
         }
 
         protected override void DestroyRGLMesh()
         {
-            rglMesh.DestroyInRGL();
+            BonesPoseCacheManager.UnregisterBonesPoseInstance(rootBone);
+            RGLMeshSharingManager.UnregisterRGLMeshInstance(rglMesh);
         }
     }
 
