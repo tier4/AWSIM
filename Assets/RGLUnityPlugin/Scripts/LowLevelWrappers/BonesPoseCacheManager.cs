@@ -18,6 +18,10 @@ using UnityEngine;
 
 namespace RGLUnityPlugin
 {
+    /// <summary>
+    /// Since multiple skinned meshes can share the same skeleton, BonesPoseCacheManager improves the performance of the simulation
+    /// by caching the calculated pose of the skeletons for the given simulation step.
+    /// </summary>
     public static class BonesPoseCacheManager
     {
         class BonesPose
@@ -31,14 +35,15 @@ namespace RGLUnityPlugin
                 usageCount = 1;
             }
 
-            public SkinnedMeshRenderer smr;
-            public Matrix4x4[] pose;
-            public float[] rglPose;
-            public int usageCount;
-            public int lastUpdateFrame = -1;
-            public int lastFixedUpdateFrame = -1;
+            public SkinnedMeshRenderer smr; // needed to retrieve the current skeleton's pose
+            public Matrix4x4[] pose; // buffer for the skeleton's pose in the Unity representation
+            public float[] rglPose; // buffer for the skeleton's pose in the RGL representation
+            public int usageCount; // the counter on how many meshes use this skeleton
+            public int lastUpdateFrame = -1; // simulation frame
+            public int lastFixedUpdateFrame = -1; // physics cycle in the simulation frame
         }
 
+        // The bone root acts as the identifier of the skeleton.
         private static Dictionary<Transform, BonesPose> boneRootToBonesPose = new Dictionary<Transform, BonesPose>();
 
         public static void RegisterBonesPoseInstance(SkinnedMeshRenderer smr)

@@ -87,7 +87,7 @@ namespace RGLUnityPlugin
         public int? CategoryId { get; private set; }
         public string CategoryName { get; private set; }
 
-        // There are different stratiegies for obtaining a RGLMesh so we have to also destroy it differently.
+        // There are different strategies for obtaining a RGLMesh so we have to also destroy it differently.
         protected abstract RGLMesh GetRGLMeshFrom(T meshSource);
         protected abstract void DestroyRGLMesh();
 
@@ -285,8 +285,10 @@ namespace RGLUnityPlugin
                 )
         {
             skinnedMeshRendererTransform = skinnedMeshRenderer.transform;
-            rootBone = skinnedMeshRenderer.rootBone;
+            rootBone = skinnedMeshRenderer.rootBone; // Identifier of the skeleton.
             bonesCount = skinnedMeshRenderer.bones.Length;
+            // Multiple skinned meshes can share the same skeleton.
+            // To improve performance BonesPoseCacheManager will cache the last calculated pose of the skeletons.
             BonesPoseCacheManager.RegisterBonesPoseInstance(skinnedMeshRenderer);
         }
 
@@ -322,9 +324,14 @@ namespace RGLUnityPlugin
             return skinnedMeshRendererTransform.localToWorldMatrix;
         }
 
+        public override void DestroyInRGL()
+        {
+            base.DestroyInRGL();
+            BonesPoseCacheManager.UnregisterBonesPoseInstance(rootBone);
+        }
+
         protected override void DestroyRGLMesh()
         {
-            BonesPoseCacheManager.UnregisterBonesPoseInstance(rootBone);
             RGLMeshSharingManager.UnregisterRGLMeshInstance(rglMesh);
         }
     }
