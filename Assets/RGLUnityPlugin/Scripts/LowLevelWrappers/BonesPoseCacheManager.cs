@@ -24,7 +24,7 @@ namespace RGLUnityPlugin
     /// </summary>
     public static class BonesPoseCacheManager
     {
-        class BonesPose
+        private class BonesPose
         {
             public BonesPose(SkinnedMeshRenderer smr)
             {
@@ -60,14 +60,14 @@ namespace RGLUnityPlugin
 
         public static void UnregisterBonesPoseInstance(Transform rootBone)
         {
-            var bonesPose = boneRootToBonesPose[rootBone];
-            if (bonesPose is null)
+            if (!boneRootToBonesPose.ContainsKey(rootBone))
             {
                 Debug.LogWarning(
                     $"Trying to unregister absent in BonesPoseCacheManager rootBone: '{rootBone.name}', ignoring request");
                 return;
             }
 
+            var bonesPose = boneRootToBonesPose[rootBone];
             bonesPose.usageCount--;
             if (bonesPose.usageCount == 0)
             {
