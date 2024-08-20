@@ -19,7 +19,7 @@ namespace AWSIM
         /// Data output hz.
         /// Sensor processing and callbacks are called in this hz.
         /// </summary>
-        [Range(0, 30)][SerializeField] private uint publishHz = 10;
+        [Range(0, 60)][SerializeField] private uint publishHz = 10;
 
         /// <summary>
         /// Rendering sequence type.

@@ -189,6 +189,9 @@ namespace AWSIM
 
         private int bytesPerPixel = 3;
 
+        [HideInInspector]
+        public bool flip_image = false;
+
         void Start()
         {
             if (cameraObject == null)
@@ -262,6 +265,7 @@ namespace AWSIM
             }
             rosImageShader.SetBuffer(rosShaderKernelIdx, "_RosImageBuffer", computeBuffer);
             rosImageShader.Dispatch(rosShaderKernelIdx, rosImageShaderGroupSizeX, 1, 1);
+            rosImageShader.SetBool("_flip_image", flip_image);
 
             // Get data from shader
             AsyncGPUReadback.Request(computeBuffer, OnGPUReadbackRequest);
