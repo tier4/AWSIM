@@ -40,10 +40,13 @@ namespace RGLUnityPlugin
         public static extern int rgl_mesh_set_texture_coords(IntPtr mesh, IntPtr uvs, int uvCount);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_mesh_destroy(IntPtr mesh);
+        public static extern int rgl_mesh_set_bone_weights(IntPtr mesh, IntPtr bone_weights, int bone_weights_count);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_mesh_update_vertices(IntPtr mesh, IntPtr vertices, int vertex_count);
+        public static extern int rgl_mesh_set_restposes(IntPtr mesh, IntPtr restposes, int bones_count);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_mesh_destroy(IntPtr mesh);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_entity_create(out IntPtr entity, IntPtr scene, IntPtr mesh);
@@ -52,13 +55,19 @@ namespace RGLUnityPlugin
         public static extern int rgl_entity_destroy(IntPtr entity);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_entity_set_pose(IntPtr entity, IntPtr local_to_world_tf);
+        public static extern int rgl_entity_set_transform(IntPtr entity, IntPtr local_to_world_tf);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_entity_set_pose_world(IntPtr entity, IntPtr pose, int bones_count);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_entity_set_id(IntPtr entity, int id);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_entity_set_intensity_texture(IntPtr entity, IntPtr texture);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_entity_apply_external_animation(IntPtr entity, IntPtr vertices, int vertex_count);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_texture_create(out IntPtr texture, IntPtr texels, int width, int height);
@@ -329,6 +338,16 @@ namespace RGLUnityPlugin
         public static float[] IntoMat3x4f(Matrix4x4[] mats)
         {
             var matFloats = new float[mats.Length * 12];
+            IntoMat3x4f(mats, ref matFloats);
+            return matFloats;
+        }
+
+        public static void IntoMat3x4f(Matrix4x4[] mats, ref float[] outFloats)
+        {
+            if (outFloats == null || outFloats.Length != mats.Length * 12)
+            {
+                outFloats = new float[mats.Length * 12];
+            }
 
             for (int i = 0; i < mats.Length; ++i)
             {
@@ -337,12 +356,10 @@ namespace RGLUnityPlugin
                     for (int col = 0; col < 4; col++)
                     {
                         int idx = 12 * i + 4 * row + col;
-                        matFloats[idx] = mats[i][row, col];
+                        outFloats[idx] = mats[i][row, col];
                     }
                 }
             }
-
-            return matFloats;
         }
 
         public static float[] IntoMat3x4f(Matrix4x4 mat)

@@ -98,7 +98,7 @@ namespace RGLUnityPlugin
 
         public void Start()
         {
-            sceneManager = FindObjectOfType<SceneManager>();
+            sceneManager = SceneManager.Instance;
             if (sceneManager == null)
             {
                 // TODO(prybicki): this is too tedious, implement automatic instantiation of RGL Scene Manager
