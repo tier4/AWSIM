@@ -29,10 +29,9 @@ namespace RGLUnityPlugin
         public delegate void OnNewConfigDelegate();
         public OnNewConfigDelegate OnNewConfig;
 
-        [field: Header("Base Settings")]
-
         [field: SerializeField]
-        public bool IsSnowEnabled { get; private set; } = false;
+        [field: Tooltip("Enable/disable snow effect on devices.r")]
+        public bool IsSnowEnabled { get;  set; } = false;
 
         // Snow model properties
         [field: SerializeField]
@@ -65,7 +64,7 @@ namespace RGLUnityPlugin
         [field: SerializeField]
         [field: Tooltip("Entity ID that is assigned to cloud points resulting from snowflake hits")]
         public int SnowflakesId { get; private set; } = 268435455; // Default RGL entity ID.
-        
+
         [field: SerializeField]
         [field: Tooltip("Initial intensity of each LiDAR laser beam, used to evaluate energy loss based on beam aperture occupancy")]
         [field: Min(0.0f)]
@@ -108,7 +107,7 @@ namespace RGLUnityPlugin
 
         public bool IsSnowFeatureAvailable()
         {
-            return RGLNativeAPI.HasExtension(RGLExtension.RGL_EXTENSION_SNOW);
+            return RGLNativeAPI.HasExtension(RGLExtension.RGL_EXTENSION_WEATHER);
         }
     }
 }

@@ -93,6 +93,7 @@ namespace RGLUnityPlugin
         private const string pointsCompactNodeId = "POINTS_COMPACT";
         private const string toLidarFrameNodeId = "TO_LIDAR_FRAME";
         private const string snowNodeId = "SNOW";
+        private const string rainNodeId = "RAIN";
 
         private LidarModel? validatedPreset;
         private float timer;
@@ -148,6 +149,14 @@ namespace RGLUnityPlugin
                 rglGraphLidar.AddNodePointsSimulateSnow(snowNodeId, 0.0f, 1.0f, 0.0001f, 0.0001f, 0.2f, 0.01f, 1, 0.01f, 0.0f);
                 rglGraphLidar.SetActive(snowNodeId, false);
                 LidarSnowManager.Instance.OnNewConfig += OnValidate;
+            }
+
+            if (LidarRainManager.Instance != null)
+            {
+                // Add deactivated node with some initial values. To be activated and updated when validating.
+                rglGraphLidar.AddNodePointsSimulateRain(rainNodeId, 0.0f, 1.0f, 0.0001f, 1, 0.01f, false, 1);
+                rglGraphLidar.SetActive(rainNodeId, false);
+                LidarRainManager.Instance.OnNewConfig += OnValidate;
             }
 
             OnValidate();
@@ -244,6 +253,25 @@ namespace RGLUnityPlugin
                 }
 
                 rglGraphLidar.SetActive(snowNodeId, LidarSnowManager.Instance.IsSnowEnabled);
+            }
+
+            // Rain model updates
+            if (rglGraphLidar.HasNode(rainNodeId))
+            {
+                // Update rain parameters only if feature is enabled (expensive operation)
+                if (LidarRainManager.Instance.IsRainEnabled)
+                {
+                    rglGraphLidar.UpdateNodePointsSimulateRain(rainNodeId,
+                    newConfig.GetRayRanges()[0].x,
+                    newConfig.GetRayRanges()[0].y,
+                    LidarRainManager.Instance.RainRate,
+                    newConfig.laserArray.GetLaserRingIds().Length,
+                    newConfig.horizontalBeamDivergence * Mathf.Deg2Rad,
+                    LidarRainManager.Instance.DoSimulateEnergyLoss,
+                    LidarRainManager.Instance.RainNumericalThreshold);
+                }
+
+                rglGraphLidar.SetActive(rainNodeId, LidarRainManager.Instance.IsRainEnabled);
             }
 
             rglGraphLidar.ConfigureNodeRaytraceDistortion(lidarRaytraceNodeId, applyVelocityDistortion);
