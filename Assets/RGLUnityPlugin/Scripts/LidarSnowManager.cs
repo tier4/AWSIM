@@ -29,10 +29,6 @@ namespace RGLUnityPlugin
         public delegate void OnNewConfigDelegate();
         public OnNewConfigDelegate OnNewConfig;
 
-        [field: SerializeField]
-        [field: Tooltip("Enable/disable snow effect on devices.r")]
-        public bool IsSnowEnabled { get;  set; } = false;
-
         // Snow model properties
         [field: SerializeField]
         [field: Tooltip("The precipitation rate for snow is expressed in rate of equivalent water depth in mm per hour")]
@@ -63,7 +59,7 @@ namespace RGLUnityPlugin
         [field: Range(0.0f, 1.0f)]
         public float SnowflakeOccupancyThreshold { get; private set; } = 0.0f;
 
-
+        public bool IsSnowEnabled { get; private set; } = false;
 
         private void Awake()
         {
@@ -102,7 +98,7 @@ namespace RGLUnityPlugin
 
         public bool IsSnowFeatureAvailable()
         {
-            return RGLNativeAPI.HasExtension(RGLExtension.RGL_EXTENSION_WEATHER);
+            return RGLNativeAPI.HasExtension(RGLExtension.RGL_EXTENSION_SNOW);
         }
     }
 }
