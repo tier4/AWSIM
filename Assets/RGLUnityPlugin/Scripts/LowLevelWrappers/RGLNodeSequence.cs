@@ -479,6 +479,15 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence UpdateNodePointsSimulateRain(string identifier, float minRange, float maxRange,
+            float rainRate, Int32 numChannels, float beamDivergence, bool doSimulateEnergyLoss, Int32 numericalThreshold)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_SIMULATE_RAIN);
+            RGLNativeAPI.NodePointsSimulateRain(ref handle.Node, minRange, maxRange, rainRate, numChannels,
+                beamDivergence, doSimulateEnergyLoss, numericalThreshold);
+            return this;
+        }
+
         public RGLNodeSequence UpdateNodePointsSnowDefaults(string identifier, int snowflakesId, float fullBeamIntensity, float snowflakesLaserRetro)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_SIMULATE_SNOW);
