@@ -14,7 +14,6 @@
 
 using System;
 using System.Threading;
-using AWSIM;
 using UnityEngine;
 
 namespace ROS2
@@ -38,7 +37,7 @@ public class UnityTimeSource : ITimeSource
 
   public void GetTime(out int seconds, out uint nanoseconds)
   {
-    lastReadingSecs = mainThread.Equals(Thread.CurrentThread) ? Time.timeAsDouble : TimeAsDoubleProvider.TimeAsDouble;
+    lastReadingSecs = mainThread.Equals(Thread.CurrentThread) ? Time.timeAsDouble : lastReadingSecs;
     TimeUtils.TimeFromTotalSeconds(lastReadingSecs, out seconds, out nanoseconds);
   }
 }

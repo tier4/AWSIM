@@ -16,7 +16,11 @@ theme:
 markdown_extensions:
   - tables
   - admonition
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.details
   - pymdownx.tabbed:
       alternate_style: true
@@ -60,6 +64,7 @@ nav:
       - Clock Publisher: Components/Clock/ClockPublisher/index.md
     - Vehicle:
       - Ego Vehicle: Components/Vehicle/EgoVehicle/index.md
+      - Vehicle Input: Components/Vehicle/VehicleInput/index.md
       - URDF And Sensors: Components/Vehicle/URDFAndSensors/index.md
       - Add New Vehicle:
         - Add Vehicle: Components/Vehicle/AddNewVehicle/AddAVehicle/index.md

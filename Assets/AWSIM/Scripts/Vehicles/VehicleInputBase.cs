@@ -13,6 +13,16 @@ namespace AWSIM
     [RequireComponent(typeof(VehicleOverrideInputManager))]
     public class VehicleInputBase : MonoBehaviour
     {
+        public struct InputArg
+        {
+            public VehicleControlMode VehicleControlMode { get; private set; }
+
+            public InputArg(VehicleControlMode vehicleControlMode, float autonomousSteerInput)
+            {
+                VehicleControlMode = vehicleControlMode;
+            }
+        }
+
         /// <summary>
         /// Acceleration(m/s^2) to be applied to Vehicle acquired from Input.
         /// </summary>
@@ -49,7 +59,7 @@ namespace AWSIM
         /// This method is called by the VehicleOverrideInputManager class.
         /// </summary>
         /// <param name="currentControlMode"></param>
-        public virtual void OnUpdate(VehicleControlMode currentControlMode)
+        public virtual void OnUpdate(InputArg currentControlMode)
         {
             // Override this method to get inputs!
         }
