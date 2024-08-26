@@ -280,10 +280,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AutomaticCaptureHz: 10
   modelPreset: 8
-  returnType: 0
+  returnMode: 16777220
   applyDistanceGaussianNoise: 1
   applyAngularGaussianNoise: 1
   applyVelocityDistortion: 0
+  simulateBeamDivergence: 1
   doValidateConfigurationOnStartup: 1
   configuration:
     id: 0
