@@ -263,6 +263,11 @@ namespace RGLUnityPlugin
         public void OnEnable()
         {
             activeSensors.Add(this);
+            // Sync timer with the active sensors to achieve the best performance. It minimizes number of scene updates.
+            if (activeSensors.Count > 0)
+            {
+                timer = activeSensors[0].timer;
+            }
         }
 
         public void OnDisable()
