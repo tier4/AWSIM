@@ -416,7 +416,7 @@ MonoBehaviour:
   applyDistanceGaussianNoise: 1
   applyAngularGaussianNoise: 1
   applyVelocityDistortion: 0
-  simulateBeamDivergence: 1
+  simulateBeamDivergence: 0
   doValidateConfigurationOnStartup: 1
   configuration:
     id: 0
