@@ -94,10 +94,21 @@ The pipeline consists of:
 #### Elements configurable from the editor level
 - `Automatic Capture Hz` - the rate of sensor processing (default: `10Hz`)
 - `Model Preset` - allows selecting one of the built-in *LiDAR* models (default: `RangeMeter`)
-- `Return Type` - allows selecting multi-return mode (note: this requires more computation). Modes other than "not divergent" require positive beam divergence.
+- `Return Mode` - allows selecting LiDAR return mode (default: `Single Return First`). Both single and multi return modes may be selected, including various return types. Return types may be base on distance from LiDAR (e.g. first or last) or on instance [intensity](#intensity-texture) (strongest and second strongest). Note that dual return modes are reasonable only when beam divergence simulation is enabled (see parameter below). If beam divergence simulation is disabled and one of dual return modes is selected, then the same hit point will be returned for each return type (two exactly same hit points for each LiDAR ray). Available return modes are:
+    - `Single Return First`
+    - `Single Return Second`
+    - `Single Return Last`
+    - `Single Return Strongest`
+    - `Dual Return Last Strongest`
+    - `Dual Return First Last`
+    - `Dual Return First Strongest`
+    - `Dual Return Strongest Second Strongest`
+    - `Dual Return First Second`
 - `Apply Distance Gaussian Noise` - enable/disable distance *Gaussian* noise (default: `true`)
 - `Apply Angular Gaussian Noise` - enable/disable angular *Gaussian* noise (default: `true`)
 - `Apply Velocity Distortion` - enable/disable velocity distortion (default: `false`)
+- `Simulate Beam Divergence` - enable/disable beam divergence simulation (default: `false`). Setting this to `false` effectively cause RGL to ignore
+horizontal and vertical beam divergence values (as they would be set to 0). Note that simulating beam divergence requires significantly more processing power - if you observe any issues with the framerate, it is suggested to disable beam divergence simulation.
 - *Configuration*:
     - `Laser Array` - geometry description of lidar's array of lasers, should be prepared on the basis of the manual for a given model of *LiDAR* (default: loaded from `LaserArrayLibrary`)
     - `Horizontal Resolution` - the horiontal resolution of laser array firings
