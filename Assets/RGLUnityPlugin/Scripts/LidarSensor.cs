@@ -59,7 +59,7 @@ namespace RGLUnityPlugin
         public bool applyVelocityDistortion = false;
 
         [Tooltip("If disable, both beam divergence values are set to 0. Otherwise, they are set based on LiDAR configuration.")]
-        public bool simulateBeamDivergence = true;
+        public bool simulateBeamDivergence = false;
 
         [Tooltip(
             "If enabled, validates whether the configuration is the same as the manual for the selected model (only on startup)")]
