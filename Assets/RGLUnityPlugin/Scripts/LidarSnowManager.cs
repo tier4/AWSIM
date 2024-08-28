@@ -29,9 +29,10 @@ namespace RGLUnityPlugin
         public delegate void OnNewConfigDelegate();
         public OnNewConfigDelegate OnNewConfig;
 
+        [field: Header("Base Settings")]
+
         [field: SerializeField]
-        [field: Tooltip("Enable/disable snow effect on devices.r")]
-        public bool IsSnowEnabled { get;  set; } = false;
+        public bool IsSnowEnabled { get; private set; } = false;
 
         // Snow model properties
         [field: SerializeField]
