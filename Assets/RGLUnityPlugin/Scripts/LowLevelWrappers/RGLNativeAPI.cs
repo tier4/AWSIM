@@ -112,6 +112,9 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_raytrace_configure_beam_divergence(IntPtr node, float horizontal_divergence, float vertical_divergence);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_raytrace_configure_return_mode(IntPtr node, RGLReturnMode return_mode);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_format(ref IntPtr node, IntPtr fields, int field_count);
 
         [DllImport("RobotecGPULidar")]
@@ -149,10 +152,6 @@ namespace RGLUnityPlugin
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_gaussian_noise_distance(ref IntPtr node, float mean, float st_dev, float st_dev_rise_per_meter);
 
-
-        [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_multi_return_switch(ref IntPtr node, RGLReturnType return_type);
-
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_filter_ground(ref IntPtr node, IntPtr sensor_up_vector, float ground_angle_threshold);
 
@@ -177,7 +176,11 @@ namespace RGLUnityPlugin
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_simulate_snow(ref IntPtr node, float min_range, float max_range, float rain_rate,
             float mean_snowflake_diameter, float terminal_velocity, float density, Int32 num_channels, float beam_divergence,
-            bool simulate_energy_loss, float snowflake_occupancy_threshold);
+            float occupancy_threshold);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_simulate_snow_configure_defaults(IntPtr node, int snowflakes_id, float full_beam_intensity,
+            float snowflakes_laser_retro);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_simulate_rain(ref IntPtr node, float min_range, float max_range, float rain_rate,
@@ -492,6 +495,11 @@ namespace RGLUnityPlugin
             CheckErr(rgl_node_raytrace_configure_beam_divergence(node, horizontalDivergence, verticalDivergence));
         }
 
+        public static void NodeRaytraceConfigureReturnMode(IntPtr node, RGLReturnMode returnMode)
+        {
+            CheckErr(rgl_node_raytrace_configure_return_mode(node, returnMode));
+        }
+
         public static void NodePointsFormat(ref IntPtr node, RGLField[] fields)
         {
             unsafe
@@ -569,11 +577,6 @@ namespace RGLUnityPlugin
             CheckErr(rgl_node_gaussian_noise_distance(ref node, mean, stDev, stDevRisePerMeter));
         }
 
-        public static void NodeMultiReturnSwitch(ref IntPtr node, RGLReturnType return_type)
-        {
-            CheckErr(rgl_node_multi_return_switch(ref node, return_type));
-        }
-
         public static void NodePointsFilterGround(ref IntPtr node, float groundAngleThreshold)
         {
             var upVector = IntoVec3f(new Vector3(0, 1, 0));
@@ -644,10 +647,16 @@ namespace RGLUnityPlugin
 
         public static void NodePointsSimulateSnow(ref IntPtr node, float minRange, float maxRange, float rainRate,
             float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence,
-            bool doSimulateEnergyLoss, float snowflakeOccupancyThreshold)
+            float occupancyThreshold)
         {
             CheckErr(rgl_node_points_simulate_snow(ref node, minRange, maxRange, rainRate,
-                meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence, doSimulateEnergyLoss, snowflakeOccupancyThreshold));
+                meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence, occupancyThreshold));
+        }
+
+        public static void NodePointsSimulateSnowConfigureDefaults(IntPtr node, int snowflakesId, float fullBeamIntensity,
+            float snowflakesLaserRetro)
+        {
+            CheckErr(rgl_node_points_simulate_snow_configure_defaults(node, snowflakesId, fullBeamIntensity, snowflakesLaserRetro));
         }
 
         public static void NodePointsSimulateRain(ref IntPtr node, float minRange, float maxRange, float rainRate,
