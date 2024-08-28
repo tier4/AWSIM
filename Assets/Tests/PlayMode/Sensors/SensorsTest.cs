@@ -641,6 +641,60 @@ public class SensorsTest
         }
     }
 
+    /// <summary>
+    /// Test Outline:
+    ///     - Validate multi-return modes for LiDAR.
+    ///     - LiDAR sensor is placed inside a 10m radius sphere.
+    /// Test Target:
+    ///     - Check the number of points in the cloud for LiDAR return modes.
+    /// Expected Result:
+    ///     - The number of points matches the number of LiDAR rays multipled by the number of returns.
+    /// </summary>
+    [UnityTest]
+    public IEnumerator LidarVLP16_MultiReturn()
+    {
+        string testScenario = "LidarVLP16_Sphere10m";
+        yield return SetupEnvironment(testScenario);
+        yield return new WaitForFixedUpdate();
+
+        RGLUnityPlugin.LidarSensor lidarSensor = GameObject.FindObjectOfType<RGLUnityPlugin.LidarSensor>();
+        Assert.NotNull(lidarSensor);
+        lidarSensor.simulateBeamDivergence = false;
+
+        // remove noise in lidar
+        lidarSensor.applyDistanceGaussianNoise = false;
+        lidarSensor.applyAngularGaussianNoise = false;
+        lidarSensor.applyVelocityDistortion = false;
+
+        // remove output restrictions
+        lidarSensor.outputRestriction.applyRestriction = false;
+
+        // configure graph yield
+        rglSubgraphYieldOutput = new RGLUnityPlugin.RGLNodeSequence()
+            .AddNodePointsYield(yieldOutputNodeId, RGLUnityPlugin.RGLField.XYZ_VEC3_F32);
+        rglSubgraphYieldOutput.SetPriority(yieldOutputNodeId, 1);
+        rglSubgraphYieldOutput.SetActive(yieldOutputNodeId, true);
+        lidarSensor.ConnectToWorldFrame(rglSubgraphYieldOutput);
+
+        lidarSensor.returnMode = RGLUnityPlugin.RGLReturnMode.SingleReturnFirst;
+        int numberOfReturns = 1;
+        lidarSensor.OnValidate();
+
+        lidarSensor.onNewData += OnNewLidarData;
+        yield return new WaitForSeconds(testDuration / 2);
+        lidarSensor.returnMode = RGLUnityPlugin.RGLReturnMode.DualReturnFirstLast;
+        numberOfReturns = 2;
+        lidarSensor.OnValidate();
+        yield return new WaitForSeconds(testDuration / 2);
+        lidarSensor.onNewData -= OnNewLidarData;
+
+        void OnNewLidarData()
+        {
+            rglSubgraphYieldOutput.GetResultData(ref onlyHits);
+            Assert.IsTrue(onlyHits.Count() == numberOfReturns * lidarSensor.configuration.GetRayPoses().Count());
+        }
+    }
+
 
     /// <summary>
     /// Method for converting RGL QoS to ROS2 QoS
