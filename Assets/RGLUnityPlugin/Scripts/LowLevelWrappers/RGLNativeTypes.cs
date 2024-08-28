@@ -99,18 +99,33 @@ namespace RGLUnityPlugin
 		RGL_HESAI_PANDAR_XT32 = 8,
 	};
 
-	// Items have been renamed to be displayed in Unity nicer.
-	public enum RGLReturnMode : UInt32
+	public enum RGLReturnType : Int32
 	{
-		/* RGL_RETURN_FIRST */ SingleReturnFirst = 1 << 29, // Three of the most significant bits encode the number of returns
-		/* RGL_RETURN_SECOND */ SingleReturnSecond,
-		/* RGL_RETURN_LAST */ SingleReturnLast,
-		/* RGL_RETURN_STRONGEST */ SingleReturnStrongest,
-		/* RGL_RETURN_LAST_STRONGEST */ DualReturnLastStrongest = 2 << 29,
-		/* RGL_RETURN_FIRST_LAST */ DualReturnFirstLast,
-		/* RGL_RETURN_FIRST_STRONGEST */ DualReturnFirstStrongest,
-		/* RGL_RETURN_STRONGEST_SECOND_STRONGEST */ DualReturnStrongestSecondStrongest,
-		/* RGL_RETURN_FIRST_SECOND */ DualReturnFirstSecond,
+		ReturnStrongest = 1,
+		ReturnLast = 2,
+		ReturnSecond = 3,
+		ReturnFirst = 4,
+		ReturnSecondStrongest = 5,
+	}
+
+	public enum RGLReturnCount : Int32
+	{
+		SingleReturn = 1 << 24,
+		DualReturn = 2 << 24,
+	}
+
+	// Items have been renamed to be displayed in Unity nicer.
+	public enum RGLReturnMode : Int32
+	{
+		/* RGL_RETURN_FIRST */ SingleReturnFirst = RGLReturnCount.SingleReturn | RGLReturnType.ReturnFirst,
+		/* RGL_RETURN_SECOND */ SingleReturnSecond = RGLReturnCount.SingleReturn | RGLReturnType.ReturnSecond,
+		/* RGL_RETURN_LAST */ SingleReturnLast = RGLReturnCount.SingleReturn | RGLReturnType.ReturnLast,
+		/* RGL_RETURN_STRONGEST */ SingleReturnStrongest = RGLReturnCount.SingleReturn | RGLReturnType.ReturnStrongest,
+		/* RGL_RETURN_LAST_STRONGEST */ DualReturnLastStrongest = RGLReturnCount.DualReturn | RGLReturnType.ReturnLast | (RGLReturnType.ReturnStrongest << 8),
+		/* RGL_RETURN_FIRST_LAST */ DualReturnFirstLast = RGLReturnCount.DualReturn | RGLReturnType.ReturnFirst | (RGLReturnType.ReturnLast << 8),
+		/* RGL_RETURN_FIRST_STRONGEST */ DualReturnFirstStrongest = RGLReturnCount.DualReturn | RGLReturnType.ReturnFirst | (RGLReturnType.ReturnStrongest << 8),
+		/* RGL_RETURN_STRONGEST_SECOND_STRONGEST */ DualReturnStrongestSecondStrongest = RGLReturnCount.DualReturn | RGLReturnType.ReturnStrongest | (RGLReturnType.ReturnSecondStrongest << 8),
+		/* RGL_RETURN_FIRST_SECOND */ DualReturnFirstSecond = RGLReturnCount.DualReturn | RGLReturnType.ReturnFirst | (RGLReturnType.ReturnSecond << 8),
 	};
 
 	// Items have been renamed to be displayed in Unity nicer.
@@ -163,11 +178,4 @@ namespace RGLUnityPlugin
 		RGL_EXTENSION_SNOW = 3,
 		RGL_EXTENSION_COUNT
 	};
-
-	public enum RGLReturnType : Int32
-	{
-		RGL_RETURN_TYPE_NOT_DIVERGENT = 0,
-		RGL_RETURN_TYPE_FIRST = 1,
-		RGL_RETURN_TYPE_LAST = 2,
-	}
 }

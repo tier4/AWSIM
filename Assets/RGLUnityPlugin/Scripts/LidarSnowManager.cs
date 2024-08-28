@@ -29,6 +29,11 @@ namespace RGLUnityPlugin
         public delegate void OnNewConfigDelegate();
         public OnNewConfigDelegate OnNewConfig;
 
+        [field: Header("Base Settings")]
+
+        [field: SerializeField]
+        public bool IsSnowEnabled { get; private set; } = false;
+
         // Snow model properties
         [field: SerializeField]
         [field: Tooltip("The precipitation rate for snow is expressed in rate of equivalent water depth in mm per hour")]
@@ -51,15 +56,20 @@ namespace RGLUnityPlugin
         public float Density { get; private set; } = 0.07f;
 
         [field: SerializeField]
-        [field: Tooltip("If true, a more sophisticated method is used, which takes into account the energy loss of the lidar beam when hitting snowflakes")]
-        public bool DoSimulateEnergyLoss { get; private set; } = true;
+        [field: Tooltip("Minimal beam aperture occupancy (ratio) that means a hit, both for snowflakes and for original hit")]
+        [field: Range(0.0f, 1.0f)]
+        public float OccupancyThreshold { get; private set; } = 0.0f;
+
+        [field: Header("Defaults")]
 
         [field: SerializeField]
-        [field: Tooltip("Minimal snowflake occupancy (in fraction of ray beam angle) included in energy loss calculation")]
-        [field: Range(0.0f, 1.0f)]
-        public float SnowflakeOccupancyThreshold { get; private set; } = 0.0f;
-
-        public bool IsSnowEnabled { get; private set; } = false;
+        [field: Tooltip("Entity ID that is assigned to cloud points resulting from snowflake hits")]
+        public int SnowflakesId { get; private set; } = 268435455; // Default RGL entity ID.
+        
+        [field: SerializeField]
+        [field: Tooltip("Initial intensity of each LiDAR laser beam, used to evaluate energy loss based on beam aperture occupancy")]
+        [field: Min(0.0f)]
+        public float FullBeamIntensity { get; private set; } = 1.0f;
 
         private void Awake()
         {
