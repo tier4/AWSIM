@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using GeometryUtility = AWSIM.Lanelet.GeometryUtility;
 
 namespace AWSIM.TrafficSimulation
 {
@@ -23,6 +24,9 @@ namespace AWSIM.TrafficSimulation
 
         [SerializeField, Tooltip("A maximum number of vehicles that can simultaneously live in the scene. Lowering this value results in less dense traffic but improves the simulator's performance.")]
         public int maxVehicleCount = 40;
+
+        [SerializeField, Tooltip("A minimal distance between the EGO and the NPC to spawn")]
+        private float spawnDistanceToEgo = 50.0f;
 
         [SerializeField, Tooltip("Ego vehicle handler. If not set, the manager creates a dummy ego. This reference is also set automatically when the Ego spawns via the traffic simulator.")]
         private GameObject _egoVehicle;
@@ -225,6 +229,12 @@ namespace AWSIM.TrafficSimulation
             foreach (var spawnLoc in spawnLanes)
             {
                 NPCVehicle spawnedVehicle;
+
+                var distance2D = GeometryUtility.Distance2D(_egoVehicle.transform.position, spawnLoc.Key.Position);
+                if (distance2D < spawnDistanceToEgo)
+                {
+                    continue;
+                }
 
                 if (spawnLoc.Value.Count == 1)
                 {
