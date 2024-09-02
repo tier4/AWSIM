@@ -1,24 +1,33 @@
+using UnityEngine;
+
 namespace AWSIM.Geographic
 {
     [System.Serializable]
     public class GeoCoordinate
     {
-        public double Latitude { get; }
-        public double Longitude { get; }
-        public double Altitude { get; }
+        [SerializeField]
+        private double latitude;
+        [SerializeField]
+        private double longitude;
+        [SerializeField]
+        private double altitude;
+
+        public double Latitude => latitude;
+        public double Longitude => longitude;
+        public double Altitude => altitude;
 
         public GeoCoordinate()
         {
-            Latitude = 0;
-            Longitude = 0;
-            Altitude = 0;
+            latitude = 0;
+            longitude = 0;
+            altitude = 0;
         }
 
         public GeoCoordinate(double latitude, double longitude, double altitude)
         {
-            Latitude = latitude;
-            Longitude = longitude;
-            Altitude = altitude;
+            this.latitude = latitude;
+            this.longitude = longitude;
+            this.altitude = altitude;
         }
     }
 }
