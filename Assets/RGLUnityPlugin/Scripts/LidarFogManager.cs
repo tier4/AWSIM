@@ -33,9 +33,24 @@ namespace RGLUnityPlugin
         [field: Tooltip("Enable/disable fog effect on devices.r")]
         public bool IsFogEnabled { get;  set; } = false;
 
+        [field: SerializeField]
+        [field: Tooltip("The attenuation coefficient for fog corresponding to amount of fog in the air")]
+        [field: Range(0.003f, 0.5f)]
+        public float AttenuationCoefficient { get; private set; } = 0.03f;
+
+        [field: SerializeField]
+        [field: Tooltip("TODO:")]
+        [field: Range(0.0f, 1.0f)]
+        public float r1 { get; private set; } = 0.001f;
+
+        [field: SerializeField]
+        [field: Tooltip("TODO:")]
+        [field: Range(1.0f, 10.0f)]
+        public float r2 { get; private set; } = 1.0f;
+
         private void Awake()
         {
-            if (!IsSnowFeatureAvailable())
+            if (!IsFogFeatureAvailable())
             {
                 Debug.LogError("Loaded RGL plugin does not include support for Lidar Fog Model, removing component");
                 Destroy(this);
@@ -68,7 +83,7 @@ namespace RGLUnityPlugin
             OnNewConfig?.Invoke();
         }
 
-        public bool IsSnowFeatureAvailable()
+        public bool IsFogFeatureAvailable()
         {
             return RGLNativeAPI.HasExtension(RGLExtension.RGL_EXTENSION_WEATHER);
         }

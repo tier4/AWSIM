@@ -187,6 +187,9 @@ namespace RGLUnityPlugin
             Int32 num_channels, float beam_divergence, bool simulate_energy_loss, Int32 numerical_threshold);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_simulate_fog(ref IntPtr node, float attenuationCoefficient, float r1, float r2);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_run(IntPtr node);
 
         [DllImport("RobotecGPULidar")]
@@ -660,6 +663,11 @@ namespace RGLUnityPlugin
             Int32 numChannels, float beamDivergence, bool doSimulateEnergyLoss, Int32 numericalThreshold)
         {
             CheckErr(rgl_node_points_simulate_rain(ref node, minRange, maxRange, rainRate,numChannels, beamDivergence, doSimulateEnergyLoss, numericalThreshold));
+        }
+
+        public static   void NodePointsSimulateFog(ref IntPtr node, float attenuationCoefficient, float r1, float r2)
+        {
+            CheckErr(rgl_node_points_simulate_fog(ref node, attenuationCoefficient, r1, r2));
         }
 
         public static void GraphRun(IntPtr node)
