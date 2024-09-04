@@ -364,6 +364,17 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence AddNodePointsSimulateFog(string identifier, float attenuationCoefficient, float r1, float r2)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsSimulateFog(ref handle.Node, attenuationCoefficient, r1, r2);
+            handle.Type = RGLNodeType.POINTS_SIMULATE_FOG;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
         public RGLNodeSequence AddNodeMultiReturnSwitch(string identifier, RGLReturnType returnType)
         {
             CheckNodeNotExist(identifier);
@@ -511,6 +522,13 @@ namespace RGLUnityPlugin
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_SIMULATE_RAIN);
             RGLNativeAPI.NodePointsSimulateRain(ref handle.Node, minRange, maxRange, rainRate, numChannels,
                 beamDivergence, doSimulateEnergyLoss, numericalThreshold);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodePointsSimulateFog(string identifier, float attenuationCoefficient, float r1, float r2)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_SIMULATE_FOG);
+            RGLNativeAPI.NodePointsSimulateFog(ref handle.Node, attenuationCoefficient, r1, r2);
             return this;
         }
 

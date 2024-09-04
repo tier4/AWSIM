@@ -92,6 +92,7 @@ namespace RGLUnityPlugin
         private const string toLidarFrameNodeId = "TO_LIDAR_FRAME";
         private const string snowNodeId = "SNOW";
         private const string rainNodeId = "RAIN";
+        private const string fogNodeId = "FOG";
 
         private LidarModel? validatedPreset;
         private float timer;
@@ -157,6 +158,14 @@ namespace RGLUnityPlugin
                 rglGraphLidar.AddNodePointsSimulateRain(rainNodeId, 0.0f, 1.0f, 0.0001f, 1, 0.01f, false, 1);
                 rglGraphLidar.SetActive(rainNodeId, false);
                 LidarRainManager.Instance.OnNewConfig += OnValidate;
+            }
+
+            if(LidarFogManager.Instance != null)
+            {
+                // Add deactivated node with some initial values. To be activated and updated when validating.
+                rglGraphLidar.AddNodePointsSimulateFog(fogNodeId, 0.03f, 0.1f, 1.0f);
+                rglGraphLidar.SetActive(fogNodeId, false);
+                LidarFogManager.Instance.OnNewConfig += OnValidate;
             }
 
             OnValidate();
