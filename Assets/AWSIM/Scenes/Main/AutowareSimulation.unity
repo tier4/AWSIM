@@ -276,6 +276,11 @@ MonoBehaviour:
     HistoryPolicy: 1
     Depth: 1
   publishHz: 100
+--- !u!1 &30319277 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4981081891045692864, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
+  m_PrefabInstance: {fileID: 2465439770829660650}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &51962876
 GameObject:
   m_ObjectHideFlags: 0
@@ -2364,6 +2369,10 @@ PrefabInstance:
       propertyPath: duration
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
+      propertyPath: _egoVehicle
+      value: 
+      objectReference: {fileID: 30319277}
     - target: {fileID: 445656315769820269, guid: 58d73df60b244d146bdf5f5896f78355, type: 3}
       propertyPath: maxVehicleCount
       value: 10
@@ -4454,7 +4463,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4981081891045692866, guid: 164645b2d105b6b4ab4e3d2e7c65dab2, type: 3}
   m_PrefabInstance: {fileID: 2465439770829660650}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 30319277}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80ebb0e40b62ca443ba1d8ccf61fcbda, type: 3}
@@ -8215,8 +8224,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1925267639}
   m_HandleRect: {fileID: 1925267638}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.8368603
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
