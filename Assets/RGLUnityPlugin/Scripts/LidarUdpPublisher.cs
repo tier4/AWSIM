@@ -24,8 +24,6 @@ namespace RGLUnityPlugin
     [RequireComponent(typeof(LidarSensor))]
     public class LidarUdpPublisher : MonoBehaviour
     {
-        public RGLReturnMode returnMode = RGLReturnMode.SingleReturnStrongest;
-
         public string sourceIP = "0.0.0.0";
         public string destinationIP = "255.255.255.255";
         public int destinationPort = 2368;
@@ -74,11 +72,11 @@ namespace RGLUnityPlugin
         private static readonly Dictionary<LidarModel, List<RGLReturnMode>> SupportedLidarsAndReturnModes = new Dictionary<LidarModel, List<RGLReturnMode>>
         {
             { LidarModel.VelodyneVLP16, new List<RGLReturnMode>()
-                { RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast } },
+                { RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast, RGLReturnMode.DualReturnLastStrongest } },
             { LidarModel.VelodyneVLP32C, new List<RGLReturnMode>()
-                { RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast } },
+                { RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast, RGLReturnMode.DualReturnLastStrongest } },
             { LidarModel.VelodyneVLS128, new List<RGLReturnMode>()
-                { RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast } },
+                { RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast, RGLReturnMode.DualReturnLastStrongest } },
             { LidarModel.HesaiPandar40P, new List<RGLReturnMode>()
                 { RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast, RGLReturnMode.DualReturnLastStrongest } },
             { LidarModel.HesaiPandarQT, new List<RGLReturnMode>()
@@ -138,7 +136,7 @@ namespace RGLUnityPlugin
 
             // Node parameters will be updated when validating lidar model
             rglSubgraphUdpPublishing = new RGLNodeSequence()
-                .AddNodePointsUdpPublish(udpPublishingNodeId, RGLLidarModel.RGL_VELODYNE_VLP16, RGLReturnMode.SingleReturnStrongest, RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS,
+                .AddNodePointsUdpPublish(udpPublishingNodeId, RGLLidarModel.RGL_VELODYNE_VLP16, RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS,
                     sourceIPOnAwake, destinationIPOnAwake, destinationPortOnAwake);
         }
 
@@ -258,17 +256,16 @@ namespace RGLUnityPlugin
             }
 
             // Check if supported return mode is selected
-            if (!SupportedLidarsAndReturnModes[currentLidarModel].Contains(returnMode))
+            if (!SupportedLidarsAndReturnModes[currentLidarModel].Contains(lidarSensor.returnMode))
             {
                 Debug.LogError($"{name}: Return mode for selected lidar model preset is not supported. " +
-                               $"Please select one of: [{string.Join(", ", SupportedLidarsAndReturnModes[currentLidarModel])}]. " +
-                               "Setting the first supported return mode...");
-                returnMode = SupportedLidarsAndReturnModes[currentLidarModel][0];
+                               $"Please select one of: [{string.Join(", ", SupportedLidarsAndReturnModes[currentLidarModel])}]. Disabling component...");
+                OnDisable();
             }
 
             // Update RGL subgraph
             rglSubgraphUdpPublishing.UpdateNodePointsUdpPublish(
-                udpPublishingNodeId, UnityToRGLLidarModelsMapping[currentLidarModel], returnMode, GetUdpOptions(currentLidarModel),
+                udpPublishingNodeId, UnityToRGLLidarModelsMapping[currentLidarModel], GetUdpOptions(currentLidarModel),
                 sourceIPOnAwake, destinationIPOnAwake, destinationPortOnAwake);
         }
 

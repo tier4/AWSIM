@@ -253,11 +253,11 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence AddNodePointsUdpPublish(string identifier, RGLLidarModel lidarModel, RGLReturnMode returnMode, RGLUdpOptions udpOptions, string deviceIp, string destIp, int destPort)
+        public RGLNodeSequence AddNodePointsUdpPublish(string identifier, RGLLidarModel lidarModel, RGLUdpOptions udpOptions, string deviceIp, string destIp, int destPort)
         {
             CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
-            RGLNativeAPI.NodePointsUdpPublish(ref handle.Node, lidarModel, returnMode, udpOptions, deviceIp, destIp, destPort);
+            RGLNativeAPI.NodePointsUdpPublish(ref handle.Node, lidarModel, udpOptions, deviceIp, destIp, destPort);
             handle.Type = RGLNodeType.POINTS_UDP_PUBLISH;
             handle.Identifier = identifier;
             AddNode(handle);
@@ -407,10 +407,10 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence UpdateNodePointsUdpPublish(string identifier, RGLLidarModel lidarModel, RGLReturnMode returnMode, RGLUdpOptions udpOptions, string deviceIp, string destIp, int destPort)
+        public RGLNodeSequence UpdateNodePointsUdpPublish(string identifier, RGLLidarModel lidarModel, RGLUdpOptions udpOptions, string deviceIp, string destIp, int destPort)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_UDP_PUBLISH);
-            RGLNativeAPI.NodePointsUdpPublish(ref handle.Node, lidarModel, returnMode, udpOptions, deviceIp, destIp, destPort);
+            RGLNativeAPI.NodePointsUdpPublish(ref handle.Node, lidarModel, udpOptions, deviceIp, destIp, destPort);
             return this;
         }
 
