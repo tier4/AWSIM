@@ -283,6 +283,21 @@ namespace RGLUnityPlugin
                 rglGraphLidar.SetActive(rainNodeId, LidarRainManager.Instance.IsRainEnabled);
             }
 
+            // Fog model updates
+            if (rglGraphLidar.HasNode(fogNodeId))
+            {
+                // Update fog parameters only if feature is enabled (expensive operation)
+                if (LidarFogManager.Instance.IsFogEnabled)
+                {
+                    rglGraphLidar.UpdateNodePointsSimulateFog(fogNodeId,
+                        LidarFogManager.Instance.AttenuationCoefficient,
+                        LidarFogManager.Instance.r1,
+                        LidarFogManager.Instance.r2);
+                }
+
+                rglGraphLidar.SetActive(fogNodeId, LidarFogManager.Instance.IsFogEnabled);
+            }
+
             rglGraphLidar.ConfigureNodeRaytraceDistortion(lidarRaytraceNodeId, applyVelocityDistortion);
 
             if (outputRestriction.enablePeriodicRestriction && outputRestriction.applyRestriction)

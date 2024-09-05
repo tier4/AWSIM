@@ -374,17 +374,6 @@ namespace RGLUnityPlugin
             return this;
         }
 
-        public RGLNodeSequence AddNodeMultiReturnSwitch(string identifier, RGLReturnType returnType)
-        {
-            CheckNodeNotExist(identifier);
-            RGLNodeHandle handle = new RGLNodeHandle();
-            RGLNativeAPI.NodeMultiReturnSwitch(ref handle.Node, returnType);
-            handle.Type = RGLNodeType.MULTI_RETURN_SWITCH;
-            handle.Identifier = identifier;
-            AddNode(handle);
-            return this;
-        }
-
         //// UPDATE NODES ////
         public RGLNodeSequence UpdateNodeRaysFromMat3x4f(string identifier, Matrix4x4[] rays)
         {
