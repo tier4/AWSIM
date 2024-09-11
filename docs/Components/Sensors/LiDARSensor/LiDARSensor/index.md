@@ -165,14 +165,14 @@ Currently, `RglLidarPublisher` implements ROS2 publishers for two message types:
 | Preset     | Description            | Fields                             |
 | :--------: | :--------------------- | :---------------------------------- |
 | Pcl 24 | 24-byte point cloud format used by *Autoware* | XYZ_VEC3_F32, PADDING_32, INTENSITY_F32, RING_ID_U16, PADDING_16 |
-| PointXYZIRCEADT | PointXYZIRCEADT format used by *Autoware* | XYZ_VEC3_F32, INTENSITY_U8, RETURN_TYPE_U8, RING_ID_U16, ELEVATION_F32, AZIMUTH_F32, DISTANCE_F32, TIME_STAMP_U32 |
+| PointXYZIRCAEDT | PointXYZIRCAEDT format used by *Autoware* | XYZ_VEC3_F32, INTENSITY_U8, RETURN_TYPE_U8, RING_ID_U16, AZIMUTH_F32, ELEVATION_F32, DISTANCE_F32, TIME_STAMP_U32 |
 | Pcl 48 | 48-byte extended version point cloud format used by *Autoware* (legacy) | XYZ_VEC3_F32, PADDING_32, INTENSITY_F32, RING_ID_U16, PADDING_16, AZIMUTH_F32, DISTANCE_F32, RETURN_TYPE_U8, PADDING_8, PADDING_16, PADDING_32, TIME_STAMP_F64 |
 | ML Instance Segmentation | Machine learning format for instance/semantic segmentation tasks | XYZ_VEC3_F32, ENTITY_ID_I32, INTENSITY_F32 |
 | Radar Smart Micro | Format used in Radar Smart Micro | XYZ_VEC3_F32, RADIAL_SPEED_F32, POWER_F32, RCS_F32, NOISE_F32, SNR_F32 |
 | Custom | Empty format that allows the user to define its fieldsets |  |
 
-!!! note "*PointXYZIRCEADT* format"
-    For a better understanding of the *PointXYZIRCEADT* format, we encourage you to familiarize yourself with the point cloud pre-processing process in *Autoware*, which is described [here](https://autowarefoundation.github.io/autoware-documentation/latest/design/autoware-architecture/sensing/data-types/point-cloud/#point-cloud-fields).
+!!! note "*PointXYZIRCAEDT* format"
+    For a better understanding of the *PointXYZIRCAEDT* format, we encourage you to familiarize yourself with the point cloud pre-processing process in *Autoware*, which is described [here](https://autowarefoundation.github.io/autoware-documentation/latest/design/autoware-architecture/sensing/data-types/point-cloud/#point-cloud-fields).
 
 #### Elements configurable from the editor level
 - `Frame ID` - frame in which data are published, used in [`Header`](https://docs.ros2.org/latest/api/std_msgs/msg/Header.html) (default: `"world"`)
@@ -200,7 +200,7 @@ Currently, `RglLidarPublisher` implements ROS2 publishers for two message types:
 |         Category          | Topic                  | Message type                             | `frame_id` |
 | :-----------------------: | :--------------------- | :--------------------------------------- | :--------: |
 | PointCloud 24-byte format | `/lidar/pointcloud`    | [`sensor_msgs/PointCloud2`][pointcloud2] |  `world`   |
-| PointXYZIRCEADT format    | `/lidar/pointcloud_ex` | [`sensor_msgs/PointCloud2`][pointcloud2] |  `world`   |
+| PointXYZIRCAEDT format    | `/lidar/pointcloud_ex` | [`sensor_msgs/PointCloud2`][pointcloud2] |  `world`   |
 
 ## Point Cloud Visualization (script)
 ![script_visualization](script_visualization.png)
