@@ -199,6 +199,8 @@ namespace AWSIM
         public Transform RigidBodyTransform => rigidbody.transform;
         public Transform TrailerTransform => trailer?.transform;
 
+        RGLUnityPlugin.SceneManager sceneManager;
+
         // Start is called before the first frame update
         void Awake()
         {
@@ -211,6 +213,15 @@ namespace AWSIM
             rigidbody.centerOfMass = transform.InverseTransformPoint(centerOfMass.position);
             lastPosition = rigidbody.position;
             wheelbase = axleSettings.GetWheelBase();
+        }
+
+        void Start()
+        {
+            sceneManager = FindObjectOfType<RGLUnityPlugin.SceneManager>();
+            foreach (Transform child in gameObject.GetComponentsInChildren<Transform>())
+            {
+                sceneManager.RegisterRGLObject(child.gameObject);
+            }
         }
 
         // Update is called once per frame
@@ -342,6 +353,10 @@ namespace AWSIM
             leftTurnSignalLight.Destroy();
             rightTurnSignalLight.Destroy();
             brakeLight.Destroy();
+            foreach (Transform child in gameObject.GetComponentsInChildren<Transform>())
+            {
+                sceneManager.UnregisterRGLObject(child.gameObject);
+            }
         }
 
         /// <summary>
