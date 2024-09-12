@@ -121,7 +121,7 @@ namespace AWSIM
                     });
         }
 
-        void ValidateAndSetVehicleCommand(autoware_auto_control_msgs.msg.AckermannControlCommand command)
+        void ValidateAndSetVehicleCommand(autoware_control_msgs.msg.Control command)
         {
             if (Single.IsNaN(command.Longitudinal.Acceleration))
             {
