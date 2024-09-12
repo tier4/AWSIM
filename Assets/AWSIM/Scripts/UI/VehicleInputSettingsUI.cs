@@ -28,8 +28,9 @@ namespace AWSIM
         [SerializeField] Dropdown dropdown;
         [SerializeField] GameObject explainKeyboard;
         [SerializeField] GameObject explainG29;
+        [SerializeField] Text G29ConnectedText;
 
-        private void OnEnable()
+        private void Start()
         {
             // Initialize setup dropdown
             var initialInput = overrideInputManager.ManuallyInput;
@@ -42,6 +43,9 @@ namespace AWSIM
             {
                 dropdown.value = (int)VehicleDeviceInput.Logitech_g29;
             }
+
+            var deviceInput = IntToVehicleDeviceIpnut(dropdown.value);
+            ChangeUI(deviceInput);
         }
 
         static private VehicleDeviceInput IntToVehicleDeviceIpnut(int value)
@@ -49,10 +53,15 @@ namespace AWSIM
             return (VehicleDeviceInput)value;
         }
 
+
         public void OnDropdownValueChanged(int dropdownIndex)
         {
             var deviceInput = IntToVehicleDeviceIpnut(dropdownIndex);
+            ChangeUI(deviceInput);
+        }
 
+        void ChangeUI(VehicleDeviceInput deviceInput)
+        {
             if (deviceInput == VehicleDeviceInput.Keyboard)
             {
                 // change input
@@ -75,6 +84,17 @@ namespace AWSIM
                 // change UI
                 explainKeyboard.SetActive(false);
                 explainG29.SetActive(true);
+
+                if (g29Input.IsConnected)
+                {
+                    G29ConnectedText.text = "connected";
+                    G29ConnectedText.color = Color.green;
+                }
+                else
+                {
+                    G29ConnectedText.text = "disconnected";
+                    G29ConnectedText.color = Color.red;
+                }
             }
         }
     }

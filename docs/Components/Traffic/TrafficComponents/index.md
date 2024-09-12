@@ -121,6 +121,8 @@ The `Vehicle Layer Mask` and `Ground Layer Mask` are used to make sure all vehic
 `Max Vehicle Count` specifies how many `NPCVehicles` can be present on the scene at once.
 When the number of `NPCVehicles` on the scene is equal to this value the [`RandomTrafficSimulator`](#randomtrafficsimulator) stops spawning new vehicles until some existing vehicles drive away and disappear.
 
+`Spawn Distance to EGO` defines the minimal distance between the EGO and the NPC to spawn
+
 The `EgoVehicle` field provides the information about Ego vehicle used for correct behavior of`NPCVehicles`when interacting with Ego.
 
 `Show Gizmos` checkbox specifies whether the [Gizmos](#gizmos) visualization should be displayed when running the simulation.
@@ -173,6 +175,7 @@ Set to `0` to disable this restriction.
 | ----------------------- | ----------------------------------------------------------------------------------------------------------- |
 | **General Settings**    |                                                                                                             |
 | Seed                    | Seed value for random generator                                                                             |
+| Spawn Distance to EGO   | Minimal distance between the EGO and the NPC to spawn                                                       |
 | Ego Vehicle             | Transform of ego vehicle                                                                                    |
 | Vehicle Layer Mask      | LayerMask that masks only vehicle(NPC and ego) colliders                                                    |
 | Ground Layer Mask       | LayerMask that masks only ground colliders of the map                                                       |

@@ -11,6 +11,7 @@ namespace AWSIM
     /// </summary>
     public class VehicleOverrideInputManager : MonoBehaviour
     {
+
         /// <summary>
         /// Inputs used during Autonomous driving.
         /// </summary>
@@ -39,9 +40,11 @@ namespace AWSIM
 
         void Update()
         {
+            VehicleInputBase.InputArg inputArg = new VehicleInputBase.InputArg(ControlMode, AutonomousInput.SteeringInput);
+
             // Update new input for Autonomous and Manually Inputs.
-            AutonomousInput.OnUpdate(ControlMode);
-            ManuallyInput.OnUpdate(ControlMode);
+            AutonomousInput.OnUpdate(inputArg);
+            ManuallyInput.OnUpdate(inputArg);
 
             // If override input is present, switch new ControlMode.
             if (ManuallyInput.Overridden)

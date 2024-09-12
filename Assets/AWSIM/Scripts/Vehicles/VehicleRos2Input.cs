@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -93,10 +94,12 @@ namespace AWSIM
                     {
                         // highest priority is EMERGENCY.
                         // If Emergency is true, ControlCommand is not used for vehicle acceleration input.
-                        if (!isEmergency)
-                            AccelerationInput = msg.Longitudinal.Acceleration;
+                        if (isEmergency)
+                        {
+                            return;
+                        }
 
-                        SteeringInput = -(float)msg.Lateral.Steering_tire_angle * Mathf.Rad2Deg;
+                        ValidateAndSetVehicleCommand(msg);
                     }, qos);
 
             gearCommandSubscriber
@@ -116,6 +119,29 @@ namespace AWSIM
                         if (isEmergency)
                             AccelerationInput = emergencyDeceleration;
                     });
+        }
+
+        void ValidateAndSetVehicleCommand(autoware_auto_control_msgs.msg.AckermannControlCommand command)
+        {
+            if (Single.IsNaN(command.Longitudinal.Acceleration))
+            {
+                Debug.LogError($"AccelerationInput NaN. Setting EmergencyDeceleration");
+                AccelerationInput = emergencyDeceleration;
+            }
+            else
+            {
+                AccelerationInput = command.Longitudinal.Acceleration;
+            }
+
+            if (Single.IsNaN(command.Lateral.Steering_tire_angle))
+            {
+                Debug.LogError($"SteeringInput NaN. Setting 0");
+                SteeringInput = 0.0f;
+            }
+            else
+            {
+                SteeringInput = -(float)command.Lateral.Steering_tire_angle * Mathf.Rad2Deg;
+            }
         }
 
         void OnDisable()
