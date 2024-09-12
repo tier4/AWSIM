@@ -21,7 +21,7 @@ A. subscribe to ``vehicle/engage`` topic with true.
 !!! info
     
     sample engage command  
-    ```ros2 topic pub /vehicle/engage autoware_auto_vehicle_msgs/msg/Engage '{engage: True}' -1```
+    ```ros2 topic pub /vehicle/engage autoware_vehicle_msgs/msg/Engage '{engage: True}' -1```
 
 !!! warning
 
