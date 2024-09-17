@@ -25,28 +25,42 @@ namespace RGLUnityPlugin
         // Singleton pattern
         public static LidarRainManager Instance { get; private set; }
 
-        // Delegate to notify that the snow model has been changed
+        // Delegate to notify that the rain model has been changed
         public delegate void OnNewConfigDelegate();
         public OnNewConfigDelegate OnNewConfig;
+
+        [field: Header("Base Settings")]
 
         [field: SerializeField]
         [field: Tooltip("Enable/disable rain effect on devices.r")]
         public bool IsRainEnabled { get;  set; } = false;
 
-        // Snow model properties
+        // Rain model properties
         [field: SerializeField]
         [field: Tooltip("The precipitation rate for rain is expressed in mm per hour")]
-        [field: Range(0.0f, 50.0f)]
-        public float RainRate { get; private set; } = 9.0f;
-
-        [field: SerializeField]
-        [field: Tooltip("If true, a more sophisticated method is used, which takes into account the energy loss of the lidar beam when hitting snowflakes")]
-        public bool DoSimulateEnergyLoss { get; private set; } = true;
+        [field: Range(0.0f, 10.0f)]
+        public float RainRate { get; private set; } = 5.0f;
 
         [field: SerializeField]
         [field: Tooltip("Maximal number of droplets which not obstruct the lidar beam")]
-        [field: Range(1, 10)]
-        public int RainNumericalThreshold { get; private set; } = 1;
+        [field: Range(1, 5)]
+        public int RainNumericalThreshold { get; private set; } = 3;
+
+        [field: SerializeField]
+        [field: Tooltip("Minimal beam aperture occupancy (ratio) that means a hit, both for droplets and for original hit")]
+        [field: Range(0.0f, 1.0f)]
+        public float OccupancyThreshold { get; private set; } = 0.2f;
+
+        [field: Header("Defaults")]
+
+        [field: SerializeField]
+        [field: Tooltip("Entity ID that is assigned to cloud points resulting from droplet hits")]
+        public int DropletsId { get; private set; } = 268435455; // Default RGL entity ID.
+
+        [field: SerializeField]
+        [field: Tooltip("Initial intensity of each LiDAR laser beam, used to evaluate energy loss based on beam aperture occupancy")]
+        [field: Min(0.0f)]
+        public float FullBeamIntensity { get; private set; } = 1.0f;
 
         private void Awake()
         {
