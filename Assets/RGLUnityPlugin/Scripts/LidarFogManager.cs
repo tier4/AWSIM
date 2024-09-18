@@ -41,12 +41,12 @@ namespace RGLUnityPlugin
         [field: SerializeField]
         [field: Tooltip("Near cross-point of transmitter and receiver beams of Lidar device in meters. Model assumes that lidar is working in bistatic beam configuration.")]
         [field: Range(0.0f, 1.0f)]
-        public float nearCrossPoint { get; private set; } = 0.001f;
+        public float nearCrossPoint { get; private set; } = 0.01f;
 
         [field: SerializeField]
         [field: Tooltip("far cross-point of transmitter and receiver beams of Lidar device. Model assumes that lidar is working in bistatic beam configuration.")]
         [field: Range(1.0f, 10.0f)]
-        public float farCrossPoint { get; private set; } = 1.0f;
+        public float farCrossPoint { get; private set; } = 2.0f;
 
         private void Awake()
         {

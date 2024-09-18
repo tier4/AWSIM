@@ -163,7 +163,7 @@ namespace RGLUnityPlugin
             if(LidarFogManager.Instance != null)
             {
                 // Add deactivated node with some initial values. To be activated and updated when validating.
-                rglGraphLidar.AddNodePointsSimulateFog(fogNodeId, 0.03f, 0.1f, 1.0f);
+                rglGraphLidar.AddNodePointsSimulateFog(fogNodeId, 0.03f, 0.1f, 2.0f);
                 rglGraphLidar.SetActive(fogNodeId, false);
                 LidarFogManager.Instance.OnNewConfig += OnValidate;
             }
