@@ -351,12 +351,12 @@ namespace RGLUnityPlugin
         }
 
         public RGLNodeSequence AddNodePointsSimulateRain(string identifier, float minRange, float maxRange, float rainRate,
-            Int32 numChannels, float beamDivergence, bool doSimulateEnergyLoss, Int32 numericalThreshold)
+            Int32 numChannels, float beamDivergence, Int32 numericalThreshold, float occupancyThreshold)
         {
             CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
             RGLNativeAPI.NodePointsSimulateRain(ref handle.Node, minRange, maxRange, rainRate,
-                numChannels, beamDivergence, doSimulateEnergyLoss, numericalThreshold);
+                numChannels, beamDivergence, numericalThreshold, occupancyThreshold);
             handle.Type = RGLNodeType.POINTS_SIMULATE_RAIN;
             handle.Identifier = identifier;
             AddNode(handle);
@@ -504,11 +504,11 @@ namespace RGLUnityPlugin
         }
 
         public RGLNodeSequence UpdateNodePointsSimulateRain(string identifier, float minRange, float maxRange,
-            float rainRate, Int32 numChannels, float beamDivergence, bool doSimulateEnergyLoss, Int32 numericalThreshold)
+            float rainRate, Int32 numChannels, float beamDivergence, Int32 numericalThreshold, float occupancyThreshold)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_SIMULATE_RAIN);
             RGLNativeAPI.NodePointsSimulateRain(ref handle.Node, minRange, maxRange, rainRate, numChannels,
-                beamDivergence, doSimulateEnergyLoss, numericalThreshold);
+                beamDivergence, numericalThreshold, occupancyThreshold);
             return this;
         }
 
@@ -523,6 +523,13 @@ namespace RGLUnityPlugin
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_SIMULATE_SNOW);
             RGLNativeAPI.NodePointsSimulateSnowConfigureDefaults(handle.Node, snowflakesId, fullBeamIntensity, snowflakesLaserRetro);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodePointsRainDefaults(string identifier, int dropletsId, float fullBeamIntensity, float dropletsLaserRetro)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_SIMULATE_RAIN);
+            RGLNativeAPI.NodePointsSimulateRainConfigureDefaults(handle.Node, dropletsId, fullBeamIntensity, dropletsLaserRetro);
             return this;
         }
 

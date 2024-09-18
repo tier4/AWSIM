@@ -184,7 +184,11 @@ namespace RGLUnityPlugin
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_simulate_rain(ref IntPtr node, float min_range, float max_range, float rain_rate,
-            Int32 num_channels, float beam_divergence, bool simulate_energy_loss, Int32 numerical_threshold);
+            Int32 num_channels, float beam_divergence, Int32 numerical_threshold, float occupancy_threshold);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_simulate_rain_configure_defaults(IntPtr node, int droplets_id, float full_beam_intensity,
+            float droplets_laser_retro);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_simulate_fog(ref IntPtr node, float attenuationCoefficient, float r1, float r2);
@@ -660,9 +664,16 @@ namespace RGLUnityPlugin
         }
 
         public static void NodePointsSimulateRain(ref IntPtr node, float minRange, float maxRange, float rainRate,
-            Int32 numChannels, float beamDivergence, bool doSimulateEnergyLoss, Int32 numericalThreshold)
+            Int32 numChannels, float beamDivergence, Int32 numericalThreshold, float occupancyThreshold)
         {
-            CheckErr(rgl_node_points_simulate_rain(ref node, minRange, maxRange, rainRate,numChannels, beamDivergence, doSimulateEnergyLoss, numericalThreshold));
+            CheckErr(rgl_node_points_simulate_rain(ref node, minRange, maxRange, rainRate,numChannels, beamDivergence, numericalThreshold, 
+                occupancyThreshold));
+        }
+
+        public static void NodePointsSimulateRainConfigureDefaults(IntPtr node, int dropletsId, float fullBeamIntensity,
+            float dropletsLaserRetro)
+        {
+            CheckErr(rgl_node_points_simulate_rain_configure_defaults(node, dropletsId, fullBeamIntensity, dropletsLaserRetro));
         }
 
         public static   void NodePointsSimulateFog(ref IntPtr node, float attenuationCoefficient, float r1, float r2)

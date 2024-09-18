@@ -155,7 +155,7 @@ namespace RGLUnityPlugin
             if (LidarRainManager.Instance != null)
             {
                 // Add deactivated node with some initial values. To be activated and updated when validating.
-                rglGraphLidar.AddNodePointsSimulateRain(rainNodeId, 0.0f, 1.0f, 0.0001f, 1, 0.01f, false, 1);
+                rglGraphLidar.AddNodePointsSimulateRain(rainNodeId, 0.0f, 1.0f, 0.0001f, 1, 0.01f, 1, 0.1f);
                 rglGraphLidar.SetActive(rainNodeId, false);
                 LidarRainManager.Instance.OnNewConfig += OnValidate;
             }
@@ -271,14 +271,18 @@ namespace RGLUnityPlugin
                 if (LidarRainManager.Instance.IsRainEnabled)
                 {
                     rglGraphLidar.UpdateNodePointsSimulateRain(rainNodeId,
-                    newConfig.GetRayRanges()[0].x,
-                    newConfig.GetRayRanges()[0].y,
-                    LidarRainManager.Instance.RainRate,
-                    newConfig.laserArray.GetLaserRingIds().Length,
-                    newConfig.horizontalBeamDivergence * Mathf.Deg2Rad,
-                    LidarRainManager.Instance.DoSimulateEnergyLoss,
-                    LidarRainManager.Instance.RainNumericalThreshold);
-                    }
+                        newConfig.GetRayRanges()[0].x,
+                        newConfig.GetRayRanges()[0].y,
+                        LidarRainManager.Instance.RainRate,
+                        newConfig.laserArray.GetLaserRingIds().Length,
+                        newConfig.horizontalBeamDivergence * Mathf.Deg2Rad,
+                        LidarRainManager.Instance.RainNumericalThreshold,
+                        LidarRainManager.Instance.OccupancyThreshold);
+                    rglGraphLidar.UpdateNodePointsRainDefaults(rainNodeId,
+                        LidarRainManager.Instance.DropletsId,
+                        LidarRainManager.Instance.FullBeamIntensity,
+                        0.0f); // Default, because it is not supported in AWSIM.
+                }
 
                 rglGraphLidar.SetActive(rainNodeId, LidarRainManager.Instance.IsRainEnabled);
             }
