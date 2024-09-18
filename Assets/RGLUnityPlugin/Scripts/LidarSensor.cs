@@ -291,8 +291,8 @@ namespace RGLUnityPlugin
                 {
                     rglGraphLidar.UpdateNodePointsSimulateFog(fogNodeId,
                         LidarFogManager.Instance.AttenuationCoefficient,
-                        LidarFogManager.Instance.r1,
-                        LidarFogManager.Instance.r2);
+                        LidarFogManager.Instance.nearCrossPoint,
+                        LidarFogManager.Instance.farCrossPoint);
                 }
 
                 rglGraphLidar.SetActive(fogNodeId, LidarFogManager.Instance.IsFogEnabled);

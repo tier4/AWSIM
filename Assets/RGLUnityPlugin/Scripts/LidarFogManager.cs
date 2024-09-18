@@ -39,14 +39,14 @@ namespace RGLUnityPlugin
         public float AttenuationCoefficient { get; private set; } = 0.03f;
 
         [field: SerializeField]
-        [field: Tooltip("TODO:")]
+        [field: Tooltip("Near cross-point of transmitter and receiver beams of Lidar device in meters. Model assumes that lidar is working in bistatic beam configuration.")]
         [field: Range(0.0f, 1.0f)]
-        public float r1 { get; private set; } = 0.001f;
+        public float nearCrossPoint { get; private set; } = 0.001f;
 
         [field: SerializeField]
-        [field: Tooltip("TODO:")]
+        [field: Tooltip("far cross-point of transmitter and receiver beams of Lidar device. Model assumes that lidar is working in bistatic beam configuration.")]
         [field: Range(1.0f, 10.0f)]
-        public float r2 { get; private set; } = 1.0f;
+        public float farCrossPoint { get; private set; } = 1.0f;
 
         private void Awake()
         {
