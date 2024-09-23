@@ -40,7 +40,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6956985947121104793}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac280d5abd54451082c0627a0d08b1b9, type: 3}
   m_Name: 
@@ -60,7 +60,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6956985947121104793}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa72d4643994ea2d4b9e731c9454694c, type: 3}
   m_Name: 
@@ -76,12 +76,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6956985947121104793}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e537672f1e918b452802a824b8840e70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <IsFogEnabled>k__BackingField: 0
   <AttenuationCoefficient>k__BackingField: 0.03
-  <r1>k__BackingField: 0.001
-  <r2>k__BackingField: 1
+  <nearCrossPoint>k__BackingField: 0.001
+  <farCrossPoint>k__BackingField: 1
