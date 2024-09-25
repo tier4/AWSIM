@@ -143,10 +143,11 @@ namespace RGLUnityPlugin
 
 	public enum RGLUdpOptions : UInt32
 	{
-		RGL_UDP_NO_ADDITIONAL_OPTIONS       = 0,
-		RGL_UDP_ENABLE_HESAI_UDP_SEQUENCE   = 1 << 0,
-		RGL_UDP_HIGH_RESOLUTION_MODE        = 1 << 1,
-		RGL_UDP_UP_CLOSE_BLOCKAGE_DETECTION = 1 << 2,
+		RGL_UDP_NO_ADDITIONAL_OPTIONS           = 0,
+		RGL_UDP_ENABLE_HESAI_UDP_SEQUENCE       = 1 << 0,
+		RGL_UDP_HIGH_RESOLUTION_MODE            = 1 << 1,
+		RGL_UDP_UP_CLOSE_BLOCKAGE_DETECTION     = 1 << 2,
+		RGL_UDP_FIT_QT64_TO_HESAI_PANDAR_DRIVER = 1 << 3,
 	};
 
 	public enum RGLQosPolicyReliability

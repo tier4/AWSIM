@@ -16,7 +16,6 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
 using UnityEngine.Assertions;
 
 namespace RGLUnityPlugin
@@ -46,6 +45,9 @@ namespace RGLUnityPlugin
                                                               // it was decided to prepare a workaround in AWSIM.
         [Tooltip("Enable a feature that allows to distinguish point data between no laser emission and return signal rejection.")]
         public bool enableHesaiUpCloseBlockageDetection = false; // Only supported for Hesai QT128C2X
+
+        [Tooltip("Hesai Pandar ROS2 driver has some differences from the LiDAR manuals. This flag applies these changes to raw packets.")]
+        public bool ensureCompatibilityWithHesaiPandarDriver = false;
 
         private RGLNodeSequence rglSubgraphUdpPublishing;
 
@@ -292,12 +294,16 @@ namespace RGLUnityPlugin
                 Debug.LogWarning($"{name}: enableHesaiUpCloseBlockageDetection option is only available for Hesai QT128C2X LiDAR model. Disabling option...");
             }
 
+            // Other LiDAR models are compatible with Hesai Pandar Driver by default
+            bool enableHesaiPandarDriverCompatibilityForQt = currentLidarModel == LidarModel.HesaiPandarQT && ensureCompatibilityWithHesaiPandarDriver;
+
             // Construct RGLUdpOptions
             // We need to cast to the underlying type of the enum to be able to add multiple udp options
             Assert.IsTrue(Enum.GetUnderlyingType(typeof(RGLUdpOptions)) == typeof(UInt32)); // Check if we are casting properly
             UInt32 udpOptions = (UInt32)RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS;
             udpOptions += enableHesaiUdpSequence ? (UInt32)RGLUdpOptions.RGL_UDP_ENABLE_HESAI_UDP_SEQUENCE : 0;
             udpOptions += enableHesaiUpCloseBlockageDetection ? (UInt32)RGLUdpOptions.RGL_UDP_UP_CLOSE_BLOCKAGE_DETECTION : 0;
+            udpOptions += enableHesaiPandarDriverCompatibilityForQt ? (UInt32)RGLUdpOptions.RGL_UDP_FIT_QT64_TO_HESAI_PANDAR_DRIVER : 0;
 
             // Check if high resolution mode is enabled (available only on Hesai Pandar128E4X)
             if (currentLidarModel == LidarModel.HesaiPandar128E4X)
