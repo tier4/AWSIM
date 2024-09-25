@@ -533,6 +533,13 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence UpdateNodePointsFogDefaults(string identifier, int fogId, float fogLaserRetro)
+                {
+                    RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_SIMULATE_FOG);
+                    RGLNativeAPI.NodePointsSimulateFogConfigureDefaults(handle.Node, fogId, fogLaserRetro);
+                    return this;
+                }
+
         //// CONFIGURE NODES ////
 
         public RGLNodeSequence ConfigureNodeRaytraceVelocity(string identifier, Vector3 linearVelocity, Vector3 angularVelocity)

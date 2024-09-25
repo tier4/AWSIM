@@ -295,8 +295,11 @@ namespace RGLUnityPlugin
                 {
                     rglGraphLidar.UpdateNodePointsSimulateFog(fogNodeId,
                         LidarFogManager.Instance.AttenuationCoefficient,
-                        LidarFogManager.Instance.nearCrossPoint,
-                        LidarFogManager.Instance.farCrossPoint);
+                        LidarFogManager.Instance.NearCrossPoint,
+                        LidarFogManager.Instance.FarCrossPoint);
+                     rglGraphLidar.UpdateNodePointsFogDefaults(fogNodeId,
+                                            LidarFogManager.Instance.FogId,
+                                            0.0f); // Default, because it is not supported in AWSIM.
                 }
 
                 rglGraphLidar.SetActive(fogNodeId, LidarFogManager.Instance.IsFogEnabled);

@@ -194,6 +194,9 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_points_simulate_fog(ref IntPtr node, float attenuationCoefficient, float r1, float r2);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_simulate_fog_configure_defaults(IntPtr node, int fog_id, float fog_laser_retro);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_run(IntPtr node);
 
         [DllImport("RobotecGPULidar")]
@@ -676,9 +679,14 @@ namespace RGLUnityPlugin
             CheckErr(rgl_node_points_simulate_rain_configure_defaults(node, dropletsId, fullBeamIntensity, dropletsLaserRetro));
         }
 
-        public static   void NodePointsSimulateFog(ref IntPtr node, float attenuationCoefficient, float r1, float r2)
+        public static void NodePointsSimulateFog(ref IntPtr node, float attenuationCoefficient, float r1, float r2)
         {
             CheckErr(rgl_node_points_simulate_fog(ref node, attenuationCoefficient, r1, r2));
+        }
+
+        public static void NodePointsSimulateFogConfigureDefaults(IntPtr node, int fogId, float fogLaserRetro)
+        {
+            CheckErr(rgl_node_points_simulate_fog_configure_defaults(node, fogId, fogLaserRetro));
         }
 
         public static void GraphRun(IntPtr node)

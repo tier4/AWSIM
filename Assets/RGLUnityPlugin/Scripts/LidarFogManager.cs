@@ -29,6 +29,8 @@ namespace RGLUnityPlugin
         public delegate void OnNewConfigDelegate();
         public OnNewConfigDelegate OnNewConfig;
 
+        [field: Header("Base Settings")]
+
         [field: SerializeField]
         [field: Tooltip("Enable/disable fog effect on devices.r")]
         public bool IsFogEnabled { get;  set; } = false;
@@ -41,12 +43,17 @@ namespace RGLUnityPlugin
         [field: SerializeField]
         [field: Tooltip("Near cross-point of transmitter and receiver beams of Lidar device in meters. Model assumes that lidar is working in bistatic beam configuration.")]
         [field: Range(0.0f, 1.0f)]
-        public float nearCrossPoint { get; private set; } = 0.01f;
+        public float NearCrossPoint { get; private set; } = 0.01f;
 
         [field: SerializeField]
-        [field: Tooltip("far cross-point of transmitter and receiver beams of Lidar device. Model assumes that lidar is working in bistatic beam configuration.")]
+        [field: Tooltip("Far cross-point of transmitter and receiver beams of Lidar device. Model assumes that lidar is working in bistatic beam configuration.")]
         [field: Range(1.0f, 10.0f)]
-        public float farCrossPoint { get; private set; } = 2.0f;
+        public float FarCrossPoint { get; private set; } = 2.0f;
+
+        [field: Header("Defaults")]
+        [field: SerializeField]
+        [field: Tooltip("Entity ID that is assigned to cloud points resulting from fog hits")]
+        public int FogId { get; private set; } = 268435455; // Default RGL entity ID.
 
         private void Awake()
         {

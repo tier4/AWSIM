@@ -66,9 +66,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <IsRainEnabled>k__BackingField: 0
-  <RainRate>k__BackingField: 9
-  <DoSimulateEnergyLoss>k__BackingField: 1
-  <RainNumericalThreshold>k__BackingField: 1
+  <RainRate>k__BackingField: 5
+  <RainNumericalThreshold>k__BackingField: 3
+  <OccupancyThreshold>k__BackingField: 0.2
+  <DropletsId>k__BackingField: 268435455
+  <FullBeamIntensity>k__BackingField: 1
 --- !u!114 &2635114183252318215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,5 +85,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <IsFogEnabled>k__BackingField: 0
   <AttenuationCoefficient>k__BackingField: 0.03
-  <nearCrossPoint>k__BackingField: 0.001
-  <farCrossPoint>k__BackingField: 1
+  <NearCrossPoint>k__BackingField: 0.01
+  <FarCrossPoint>k__BackingField: 2
+  <FogId>k__BackingField: 268435455
