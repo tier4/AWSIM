@@ -298,8 +298,8 @@ namespace RGLUnityPlugin
                         LidarFogManager.Instance.NearCrossPoint,
                         LidarFogManager.Instance.FarCrossPoint);
                      rglGraphLidar.UpdateNodePointsFogDefaults(fogNodeId,
-                                            LidarFogManager.Instance.FogId,
-                                            0.0f); // Default, because it is not supported in AWSIM.
+                        LidarFogManager.Instance.FogId,
+                        0.0f); // Default, because it is not supported in AWSIM.
                 }
 
                 rglGraphLidar.SetActive(fogNodeId, LidarFogManager.Instance.IsFogEnabled);
