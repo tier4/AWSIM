@@ -16,7 +16,6 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
 using UnityEngine.Assertions;
 
 namespace RGLUnityPlugin
@@ -24,8 +23,6 @@ namespace RGLUnityPlugin
     [RequireComponent(typeof(LidarSensor))]
     public class LidarUdpPublisher : MonoBehaviour
     {
-        public RGLReturnMode returnMode = RGLReturnMode.SingleReturnStrongest;
-
         public string sourceIP = "0.0.0.0";
         public string destinationIP = "255.255.255.255";
         public int destinationPort = 2368;
@@ -48,6 +45,9 @@ namespace RGLUnityPlugin
                                                               // it was decided to prepare a workaround in AWSIM.
         [Tooltip("Enable a feature that allows to distinguish point data between no laser emission and return signal rejection.")]
         public bool enableHesaiUpCloseBlockageDetection = false; // Only supported for Hesai QT128C2X
+
+        [Tooltip("Hesai Pandar ROS2 driver has some differences from the LiDAR manuals. This flag applies these changes to raw packets.")]
+        public bool ensureCompatibilityWithHesaiPandarDriver = false;
 
         private RGLNodeSequence rglSubgraphUdpPublishing;
 
@@ -74,11 +74,11 @@ namespace RGLUnityPlugin
         private static readonly Dictionary<LidarModel, List<RGLReturnMode>> SupportedLidarsAndReturnModes = new Dictionary<LidarModel, List<RGLReturnMode>>
         {
             { LidarModel.VelodyneVLP16, new List<RGLReturnMode>()
-                { RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast } },
+                { RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast, RGLReturnMode.DualReturnLastStrongest } },
             { LidarModel.VelodyneVLP32C, new List<RGLReturnMode>()
-                { RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast } },
+                { RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast, RGLReturnMode.DualReturnLastStrongest } },
             { LidarModel.VelodyneVLS128, new List<RGLReturnMode>()
-                { RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast } },
+                { RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast, RGLReturnMode.DualReturnLastStrongest } },
             { LidarModel.HesaiPandar40P, new List<RGLReturnMode>()
                 { RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast, RGLReturnMode.DualReturnLastStrongest } },
             { LidarModel.HesaiPandarQT, new List<RGLReturnMode>()
@@ -138,7 +138,7 @@ namespace RGLUnityPlugin
 
             // Node parameters will be updated when validating lidar model
             rglSubgraphUdpPublishing = new RGLNodeSequence()
-                .AddNodePointsUdpPublish(udpPublishingNodeId, RGLLidarModel.RGL_VELODYNE_VLP16, RGLReturnMode.SingleReturnStrongest, RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS,
+                .AddNodePointsUdpPublish(udpPublishingNodeId, RGLLidarModel.RGL_VELODYNE_VLP16, RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS,
                     sourceIPOnAwake, destinationIPOnAwake, destinationPortOnAwake);
         }
 
@@ -258,17 +258,16 @@ namespace RGLUnityPlugin
             }
 
             // Check if supported return mode is selected
-            if (!SupportedLidarsAndReturnModes[currentLidarModel].Contains(returnMode))
+            if (!SupportedLidarsAndReturnModes[currentLidarModel].Contains(lidarSensor.returnMode))
             {
                 Debug.LogError($"{name}: Return mode for selected lidar model preset is not supported. " +
-                               $"Please select one of: [{string.Join(", ", SupportedLidarsAndReturnModes[currentLidarModel])}]. " +
-                               "Setting the first supported return mode...");
-                returnMode = SupportedLidarsAndReturnModes[currentLidarModel][0];
+                               $"Please select one of: [{string.Join(", ", SupportedLidarsAndReturnModes[currentLidarModel])}]. Disabling component...");
+                OnDisable();
             }
 
             // Update RGL subgraph
             rglSubgraphUdpPublishing.UpdateNodePointsUdpPublish(
-                udpPublishingNodeId, UnityToRGLLidarModelsMapping[currentLidarModel], returnMode, GetUdpOptions(currentLidarModel),
+                udpPublishingNodeId, UnityToRGLLidarModelsMapping[currentLidarModel], GetUdpOptions(currentLidarModel),
                 sourceIPOnAwake, destinationIPOnAwake, destinationPortOnAwake);
         }
 
@@ -295,12 +294,16 @@ namespace RGLUnityPlugin
                 Debug.LogWarning($"{name}: enableHesaiUpCloseBlockageDetection option is only available for Hesai QT128C2X LiDAR model. Disabling option...");
             }
 
+            // Other LiDAR models are compatible with Hesai Pandar Driver by default
+            bool enableHesaiPandarDriverCompatibilityForQt = currentLidarModel == LidarModel.HesaiPandarQT && ensureCompatibilityWithHesaiPandarDriver;
+
             // Construct RGLUdpOptions
             // We need to cast to the underlying type of the enum to be able to add multiple udp options
             Assert.IsTrue(Enum.GetUnderlyingType(typeof(RGLUdpOptions)) == typeof(UInt32)); // Check if we are casting properly
             UInt32 udpOptions = (UInt32)RGLUdpOptions.RGL_UDP_NO_ADDITIONAL_OPTIONS;
             udpOptions += enableHesaiUdpSequence ? (UInt32)RGLUdpOptions.RGL_UDP_ENABLE_HESAI_UDP_SEQUENCE : 0;
             udpOptions += enableHesaiUpCloseBlockageDetection ? (UInt32)RGLUdpOptions.RGL_UDP_UP_CLOSE_BLOCKAGE_DETECTION : 0;
+            udpOptions += enableHesaiPandarDriverCompatibilityForQt ? (UInt32)RGLUdpOptions.RGL_UDP_FIT_QT64_TO_HESAI_PANDAR_DRIVER : 0;
 
             // Check if high resolution mode is enabled (available only on Hesai Pandar128E4X)
             if (currentLidarModel == LidarModel.HesaiPandar128E4X)

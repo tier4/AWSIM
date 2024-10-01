@@ -140,7 +140,7 @@ namespace RGLUnityPlugin
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_udp_publish(
-            ref IntPtr node, RGLLidarModel lidar_model, RGLReturnMode return_mode, RGLUdpOptions udp_options, [MarshalAs(UnmanagedType.LPStr)] string device_ip,
+            ref IntPtr node, RGLLidarModel lidar_model, RGLUdpOptions udp_options, [MarshalAs(UnmanagedType.LPStr)] string device_ip,
             [MarshalAs(UnmanagedType.LPStr)] string dest_ip, int dest_port);
 
         [DllImport("RobotecGPULidar")]
@@ -550,9 +550,9 @@ namespace RGLUnityPlugin
             CheckErr(rgl_node_publish_ros2_radarscan(ref node, topicName, frameId, qos_reliability, qos_durability, qos_history, qos_depth));
         }
 
-        public static void NodePointsUdpPublish(ref IntPtr node, RGLLidarModel lidarModel, RGLReturnMode returnMode, RGLUdpOptions udpOptions, string deviceIp, string destIp, int destPort)
+        public static void NodePointsUdpPublish(ref IntPtr node, RGLLidarModel lidarModel, RGLUdpOptions udpOptions, string deviceIp, string destIp, int destPort)
         {
-            CheckErr(rgl_node_points_udp_publish(ref node, lidarModel, returnMode, udpOptions, deviceIp, destIp, destPort));
+            CheckErr(rgl_node_points_udp_publish(ref node, lidarModel, udpOptions, deviceIp, destIp, destPort));
         }
 
         public static void NodeGaussianNoiseAngularRay(ref IntPtr node, float mean, float stDev)
