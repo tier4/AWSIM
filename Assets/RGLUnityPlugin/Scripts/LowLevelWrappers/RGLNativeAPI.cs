@@ -40,10 +40,13 @@ namespace RGLUnityPlugin
         public static extern int rgl_mesh_set_texture_coords(IntPtr mesh, IntPtr uvs, int uvCount);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_mesh_destroy(IntPtr mesh);
+        public static extern int rgl_mesh_set_bone_weights(IntPtr mesh, IntPtr bone_weights, int bone_weights_count);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_mesh_update_vertices(IntPtr mesh, IntPtr vertices, int vertex_count);
+        public static extern int rgl_mesh_set_restposes(IntPtr mesh, IntPtr restposes, int bones_count);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_mesh_destroy(IntPtr mesh);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_entity_create(out IntPtr entity, IntPtr scene, IntPtr mesh);
@@ -52,13 +55,19 @@ namespace RGLUnityPlugin
         public static extern int rgl_entity_destroy(IntPtr entity);
 
         [DllImport("RobotecGPULidar")]
-        public static extern int rgl_entity_set_pose(IntPtr entity, IntPtr local_to_world_tf);
+        public static extern int rgl_entity_set_transform(IntPtr entity, IntPtr local_to_world_tf);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_entity_set_pose_world(IntPtr entity, IntPtr pose, int bones_count);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_entity_set_id(IntPtr entity, int id);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_entity_set_intensity_texture(IntPtr entity, IntPtr texture);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_entity_apply_external_animation(IntPtr entity, IntPtr vertices, int vertex_count);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_texture_create(out IntPtr texture, IntPtr texels, int width, int height);
@@ -103,6 +112,9 @@ namespace RGLUnityPlugin
         public static extern int rgl_node_raytrace_configure_beam_divergence(IntPtr node, float horizontal_divergence, float vertical_divergence);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_raytrace_configure_return_mode(IntPtr node, RGLReturnMode return_mode);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_format(ref IntPtr node, IntPtr fields, int field_count);
 
         [DllImport("RobotecGPULidar")]
@@ -140,10 +152,6 @@ namespace RGLUnityPlugin
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_gaussian_noise_distance(ref IntPtr node, float mean, float st_dev, float st_dev_rise_per_meter);
 
-
-        [DllImport("RobotecGPULidar")]
-        public static extern int rgl_node_multi_return_switch(ref IntPtr node, RGLReturnType return_type);
-
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_filter_ground(ref IntPtr node, IntPtr sensor_up_vector, float ground_angle_threshold);
 
@@ -168,7 +176,11 @@ namespace RGLUnityPlugin
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_node_points_simulate_snow(ref IntPtr node, float min_range, float max_range, float rain_rate,
             float mean_snowflake_diameter, float terminal_velocity, float density, Int32 num_channels, float beam_divergence,
-            bool simulate_energy_loss, float snowflake_occupancy_threshold);
+            float occupancy_threshold);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_simulate_snow_configure_defaults(IntPtr node, int snowflakes_id, float full_beam_intensity,
+            float snowflakes_laser_retro);
 
         [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_run(IntPtr node);
@@ -322,6 +334,16 @@ namespace RGLUnityPlugin
         public static float[] IntoMat3x4f(Matrix4x4[] mats)
         {
             var matFloats = new float[mats.Length * 12];
+            IntoMat3x4f(mats, ref matFloats);
+            return matFloats;
+        }
+
+        public static void IntoMat3x4f(Matrix4x4[] mats, ref float[] outFloats)
+        {
+            if (outFloats == null || outFloats.Length != mats.Length * 12)
+            {
+                outFloats = new float[mats.Length * 12];
+            }
 
             for (int i = 0; i < mats.Length; ++i)
             {
@@ -330,12 +352,10 @@ namespace RGLUnityPlugin
                     for (int col = 0; col < 4; col++)
                     {
                         int idx = 12 * i + 4 * row + col;
-                        matFloats[idx] = mats[i][row, col];
+                        outFloats[idx] = mats[i][row, col];
                     }
                 }
             }
-
-            return matFloats;
         }
 
         public static float[] IntoMat3x4f(Matrix4x4 mat)
@@ -468,6 +488,11 @@ namespace RGLUnityPlugin
             CheckErr(rgl_node_raytrace_configure_beam_divergence(node, horizontalDivergence, verticalDivergence));
         }
 
+        public static void NodeRaytraceConfigureReturnMode(IntPtr node, RGLReturnMode returnMode)
+        {
+            CheckErr(rgl_node_raytrace_configure_return_mode(node, returnMode));
+        }
+
         public static void NodePointsFormat(ref IntPtr node, RGLField[] fields)
         {
             unsafe
@@ -545,11 +570,6 @@ namespace RGLUnityPlugin
             CheckErr(rgl_node_gaussian_noise_distance(ref node, mean, stDev, stDevRisePerMeter));
         }
 
-        public static void NodeMultiReturnSwitch(ref IntPtr node, RGLReturnType return_type)
-        {
-            CheckErr(rgl_node_multi_return_switch(ref node, return_type));
-        }
-
         public static void NodePointsFilterGround(ref IntPtr node, float groundAngleThreshold)
         {
             var upVector = IntoVec3f(new Vector3(0, 1, 0));
@@ -620,10 +640,16 @@ namespace RGLUnityPlugin
 
         public static void NodePointsSimulateSnow(ref IntPtr node, float minRange, float maxRange, float rainRate,
             float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence,
-            bool doSimulateEnergyLoss, float snowflakeOccupancyThreshold)
+            float occupancyThreshold)
         {
             CheckErr(rgl_node_points_simulate_snow(ref node, minRange, maxRange, rainRate,
-                meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence, doSimulateEnergyLoss, snowflakeOccupancyThreshold));
+                meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence, occupancyThreshold));
+        }
+
+        public static void NodePointsSimulateSnowConfigureDefaults(IntPtr node, int snowflakesId, float fullBeamIntensity,
+            float snowflakesLaserRetro)
+        {
+            CheckErr(rgl_node_points_simulate_snow_configure_defaults(node, snowflakesId, fullBeamIntensity, snowflakesLaserRetro));
         }
 
         public static void GraphRun(IntPtr node)
