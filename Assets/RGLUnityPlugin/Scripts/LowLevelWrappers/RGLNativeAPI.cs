@@ -183,6 +183,20 @@ namespace RGLUnityPlugin
             float snowflakes_laser_retro);
 
         [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_simulate_rain(ref IntPtr node, float min_range, float max_range, float rain_rate,
+            Int32 num_channels, float beam_divergence , Int32 numerical_threshold, float occupancy_threshold);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_simulate_rain_configure_defaults(IntPtr node, int droplets_id, float full_beam_intensity,
+            float droplets_laser_retro);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_simulate_fog(ref IntPtr node, float attenuationCoefficient, float r1, float r2);
+
+        [DllImport("RobotecGPULidar")]
+        public static extern int rgl_node_points_simulate_fog_configure_defaults(IntPtr node, int fog_id, float fog_laser_retro);
+
+        [DllImport("RobotecGPULidar")]
         public static extern int rgl_graph_run(IntPtr node);
 
         [DllImport("RobotecGPULidar")]
@@ -650,6 +664,29 @@ namespace RGLUnityPlugin
             float snowflakesLaserRetro)
         {
             CheckErr(rgl_node_points_simulate_snow_configure_defaults(node, snowflakesId, fullBeamIntensity, snowflakesLaserRetro));
+        }
+
+        public static void NodePointsSimulateRain(ref IntPtr node, float minRange, float maxRange, float rainRate,
+            Int32 numChannels, float beamDivergence, Int32 numericalThreshold, float occupancyThreshold)
+        {
+            CheckErr(rgl_node_points_simulate_rain(ref node, minRange, maxRange, rainRate,numChannels, beamDivergence, numericalThreshold,
+                occupancyThreshold));
+        }
+
+        public static void NodePointsSimulateRainConfigureDefaults(IntPtr node, int dropletsId, float fullBeamIntensity,
+            float dropletsLaserRetro)
+        {
+            CheckErr(rgl_node_points_simulate_rain_configure_defaults(node, dropletsId, fullBeamIntensity, dropletsLaserRetro));
+        }
+
+        public static void NodePointsSimulateFog(ref IntPtr node, float attenuationCoefficient, float r1, float r2)
+        {
+            CheckErr(rgl_node_points_simulate_fog(ref node, attenuationCoefficient, r1, r2));
+        }
+
+        public static void NodePointsSimulateFogConfigureDefaults(IntPtr node, int fogId, float fogLaserRetro)
+        {
+            CheckErr(rgl_node_points_simulate_fog_configure_defaults(node, fogId, fogLaserRetro));
         }
 
         public static void GraphRun(IntPtr node)

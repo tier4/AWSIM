@@ -350,6 +350,30 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence AddNodePointsSimulateRain(string identifier, float minRange, float maxRange, float rainRate,
+            Int32 numChannels, float beamDivergence, Int32 numericalThreshold, float occupancyThreshold)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsSimulateRain(ref handle.Node, minRange, maxRange, rainRate,
+                numChannels, beamDivergence, numericalThreshold, occupancyThreshold);
+            handle.Type = RGLNodeType.POINTS_SIMULATE_RAIN;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLNodeSequence AddNodePointsSimulateFog(string identifier, float attenuationCoefficient, float r1, float r2)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodePointsSimulateFog(ref handle.Node, attenuationCoefficient, r1, r2);
+            handle.Type = RGLNodeType.POINTS_SIMULATE_FOG;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
         //// UPDATE NODES ////
         public RGLNodeSequence UpdateNodeRaysFromMat3x4f(string identifier, Matrix4x4[] rays)
         {
@@ -479,10 +503,40 @@ namespace RGLUnityPlugin
             return this;
         }
 
+        public RGLNodeSequence UpdateNodePointsSimulateRain(string identifier, float minRange, float maxRange,
+            float rainRate, Int32 numChannels, float beamDivergence, Int32 numericalThreshold, float occupancyThreshold)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_SIMULATE_RAIN);
+            RGLNativeAPI.NodePointsSimulateRain(ref handle.Node, minRange, maxRange, rainRate, numChannels,
+                beamDivergence, numericalThreshold, occupancyThreshold);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodePointsSimulateFog(string identifier, float attenuationCoefficient, float r1, float r2)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_SIMULATE_FOG);
+            RGLNativeAPI.NodePointsSimulateFog(ref handle.Node, attenuationCoefficient, r1, r2);
+            return this;
+        }
+
         public RGLNodeSequence UpdateNodePointsSnowDefaults(string identifier, int snowflakesId, float fullBeamIntensity, float snowflakesLaserRetro)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_SIMULATE_SNOW);
             RGLNativeAPI.NodePointsSimulateSnowConfigureDefaults(handle.Node, snowflakesId, fullBeamIntensity, snowflakesLaserRetro);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodePointsRainDefaults(string identifier, int dropletsId, float fullBeamIntensity, float dropletsLaserRetro)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_SIMULATE_RAIN);
+            RGLNativeAPI.NodePointsSimulateRainConfigureDefaults(handle.Node, dropletsId, fullBeamIntensity, dropletsLaserRetro);
+            return this;
+        }
+
+        public RGLNodeSequence UpdateNodePointsFogDefaults(string identifier, int fogId, float fogLaserRetro)
+        {
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_SIMULATE_FOG);
+            RGLNativeAPI.NodePointsSimulateFogConfigureDefaults(handle.Node, fogId, fogLaserRetro);
             return this;
         }
 
