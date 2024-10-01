@@ -338,13 +338,25 @@ namespace RGLUnityPlugin
 
         public RGLNodeSequence AddNodePointsSimulateSnow(string identifier, float minRange, float maxRange, float rainRate,
             float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence,
-            float occupancyThreshold)
+            bool doSimulateEnergyLoss, float snowflakeOccupancyThreshold)
         {
             CheckNodeNotExist(identifier);
             RGLNodeHandle handle = new RGLNodeHandle();
-            RGLNativeAPI.NodePointsSimulateSnow(ref handle.Node, minRange, maxRange, rainRate, meanSnowflakeDiameter,
-                terminalVelocity, density, numChannels, beamDivergence, occupancyThreshold);
+            RGLNativeAPI.NodePointsSimulateSnow(ref handle.Node, minRange, maxRange, rainRate,
+                meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence, doSimulateEnergyLoss,
+                snowflakeOccupancyThreshold);
             handle.Type = RGLNodeType.POINTS_SIMULATE_SNOW;
+            handle.Identifier = identifier;
+            AddNode(handle);
+            return this;
+        }
+
+        public RGLNodeSequence AddNodeMultiReturnSwitch(string identifier, RGLReturnType returnType)
+        {
+            CheckNodeNotExist(identifier);
+            RGLNodeHandle handle = new RGLNodeHandle();
+            RGLNativeAPI.NodeMultiReturnSwitch(ref handle.Node, returnType);
+            handle.Type = RGLNodeType.MULTI_RETURN_SWITCH;
             handle.Identifier = identifier;
             AddNode(handle);
             return this;
@@ -471,18 +483,19 @@ namespace RGLUnityPlugin
 
         public RGLNodeSequence UpdateNodePointsSimulateSnow(string identifier, float minRange, float maxRange, float rainRate,
             float meanSnowflakeDiameter, float terminalVelocity, float density, Int32 numChannels, float beamDivergence,
-            float occupancyThreshold)
+            bool doSimulateEnergyLoss, float snowflakeOccupancyThreshold)
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_SIMULATE_SNOW);
-            RGLNativeAPI.NodePointsSimulateSnow(ref handle.Node, minRange, maxRange, rainRate, meanSnowflakeDiameter,
-                terminalVelocity, density, numChannels, beamDivergence, occupancyThreshold);
+            RGLNativeAPI.NodePointsSimulateSnow(ref handle.Node, minRange, maxRange, rainRate,
+                meanSnowflakeDiameter, terminalVelocity, density, numChannels, beamDivergence, doSimulateEnergyLoss,
+                snowflakeOccupancyThreshold);
             return this;
         }
 
-        public RGLNodeSequence UpdateNodePointsSnowDefaults(string identifier, int snowflakesId, float fullBeamIntensity, float snowflakesLaserRetro)
+        public RGLNodeSequence UpdateMultiReturnSwitch(string identifier, RGLReturnType returnType)
         {
-            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.POINTS_SIMULATE_SNOW);
-            RGLNativeAPI.NodePointsSimulateSnowConfigureDefaults(handle.Node, snowflakesId, fullBeamIntensity, snowflakesLaserRetro);
+            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.MULTI_RETURN_SWITCH);
+            RGLNativeAPI.NodeMultiReturnSwitch(ref handle.Node, returnType);
             return this;
         }
 
@@ -506,13 +519,6 @@ namespace RGLUnityPlugin
         {
             RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
             RGLNativeAPI.NodeRaytraceConfigureBeamDivergence(handle.Node, horizontalDivergence, verticalDivergence);
-            return this;
-        }
-
-        public RGLNodeSequence ConfigureNodeRaytraceReturnMode(string identifier, RGLReturnMode returnMode)
-        {
-            RGLNodeHandle handle = ValidateNode(identifier, RGLNodeType.RAYTRACE);
-            RGLNativeAPI.NodeRaytraceConfigureReturnMode(handle.Node, returnMode);
             return this;
         }
 

@@ -79,15 +79,15 @@ namespace RGLUnityPlugin
     {
         private readonly string identifier;
         private RGLTexture rglTexture;
+        private IntPtr rglEntityPtr;
 
-        protected IntPtr rglEntityPtr;
         protected RGLMesh rglMesh;
 
         public GameObject RepresentedGO { get; }
         public int? CategoryId { get; private set; }
         public string CategoryName { get; private set; }
 
-        // There are different strategies for obtaining a RGLMesh so we have to also destroy it differently.
+        // There are different stratiegies for obtaining a RGLMesh so we have to also destroy it differently.
         protected abstract RGLMesh GetRGLMeshFrom(T meshSource);
         protected abstract void DestroyRGLMesh();
 
@@ -134,9 +134,13 @@ namespace RGLUnityPlugin
             }
         }
 
-        public virtual void Update()
+        public void Update()
         {
             UpdateTransform();
+            if (rglMesh is RGLSkinnedMesh rglSkinnedMesh)
+            {
+                rglSkinnedMesh.UpdateSkinnedMesh();
+            }
         }
 
         protected virtual void UpdateTransform()
@@ -155,7 +159,7 @@ namespace RGLUnityPlugin
                 fixed (float* pMatrix3x4 = matrix3x4)
                 {
                     RGLNativeAPI.CheckErr(
-                        RGLNativeAPI.rgl_entity_set_transform(rglEntityPtr, (IntPtr) pMatrix3x4));
+                        RGLNativeAPI.rgl_entity_set_pose(rglEntityPtr, (IntPtr) pMatrix3x4));
                 }
             }
         }
@@ -274,8 +278,6 @@ namespace RGLUnityPlugin
     public class RGLSkinnedMeshRendererObject : RGLObject<SkinnedMeshRenderer>
     {
         private readonly Transform skinnedMeshRendererTransform;
-        private readonly Transform rootBone;
-        private readonly int bonesCount;
 
         public RGLSkinnedMeshRendererObject(SkinnedMeshRenderer skinnedMeshRenderer) :
             base(
@@ -285,11 +287,6 @@ namespace RGLUnityPlugin
                 )
         {
             skinnedMeshRendererTransform = skinnedMeshRenderer.transform;
-            rootBone = skinnedMeshRenderer.rootBone; // Identifier of the skeleton.
-            bonesCount = skinnedMeshRenderer.bones.Length;
-            // Multiple skinned meshes can share the same skeleton.
-            // To improve performance BonesPoseCacheManager will cache the last calculated pose of the skeletons.
-            BonesPoseCacheManager.RegisterBonesPoseInstance(skinnedMeshRenderer);
         }
 
         protected override RGLMesh GetRGLMeshFrom(SkinnedMeshRenderer skinnedMeshRenderer)
@@ -298,41 +295,18 @@ namespace RGLUnityPlugin
             {
                 throw new NotSupportedException($"Shared skinned mesh of '{skinnedMeshRenderer.gameObject}' is null");
             }
-            var outRglMesh = RGLMeshSharingManager.RegisterRGLMeshInstance(skinnedMeshRenderer.sharedMesh);
-            // Bone weights and bindposes need to be uploaded to perform skeleton animation.
-            outRglMesh.UploadBoneWeights();
-            outRglMesh.UploadBindposes();
-            return outRglMesh;
-        }
-
-        // Override base class Update() method that sets world's transform.
-        // Instead, set the pose of the skeleton in the world coordinates. RGL will perform skeleton animation on GPU.
-        public override void Update()
-        {
-            unsafe
-            {
-                fixed (float* pPoseFloats = BonesPoseCacheManager.GetRglPose(rootBone))
-                {
-                    RGLNativeAPI.CheckErr(
-                        RGLNativeAPI.rgl_entity_set_pose_world(rglEntityPtr, (IntPtr)pPoseFloats, bonesCount));
-                }
-            }
+            // Skinned meshes cannot be shared by using RGLMeshSharingManager
+            return new RGLSkinnedMesh(skinnedMeshRenderer.gameObject.GetInstanceID(), skinnedMeshRenderer);
         }
 
         protected override Matrix4x4 GetLocalToWorld()
         {
             return skinnedMeshRendererTransform.localToWorldMatrix;
         }
-
-        public override void DestroyInRGL()
-        {
-            base.DestroyInRGL();
-            BonesPoseCacheManager.UnregisterBonesPoseInstance(rootBone);
-        }
-
+        
         protected override void DestroyRGLMesh()
         {
-            RGLMeshSharingManager.UnregisterRGLMeshInstance(rglMesh);
+            rglMesh.DestroyInRGL();
         }
     }
 
@@ -562,44 +536,38 @@ namespace RGLUnityPlugin
                }
             }
         }
+    }
 
-        public void UploadBoneWeights()
+    /// <summary>
+    /// Some objects (such as NPC) use skinned meshes, which needs to be constantly updated by the Unity side.
+    /// </summary>
+    public class RGLSkinnedMesh : RGLMesh
+    {
+        private readonly SkinnedMeshRenderer skinnedMeshRenderer;
+
+        public RGLSkinnedMesh(int identifier, SkinnedMeshRenderer smr)
         {
-            var boneWeights = Mesh.boneWeights;
-            bool boneWeightsOK = boneWeights != null && boneWeights.Length > 0;
-            if (!boneWeightsOK)
-            {
-                throw new NotSupportedException(
-                    $"Could not get bone weights from Mesh '{Mesh.name}'. The mesh may be not adapted for animation.");
-            }
-
-            unsafe
-            {
-                fixed (BoneWeight* pBoneWeights = boneWeights)
-                {
-                    RGLNativeAPI.CheckErr(
-                        RGLNativeAPI.rgl_mesh_set_bone_weights(RGLMeshPtr, (IntPtr) pBoneWeights, Mesh.boneWeights.Length));
-                }
-            }
+            Identifier = identifier;
+            Mesh = new Mesh();
+            skinnedMeshRenderer = smr;
+            skinnedMeshRenderer.BakeMesh(Mesh, true);
+            UploadToRGL();
         }
 
-        public void UploadBindposes()
+        public void UpdateSkinnedMesh()
         {
-            var bindposes = Mesh.bindposes;
-            bool bindposesOK = bindposes != null && bindposes.Length > 0;
-            if (!bindposesOK)
-            {
-                throw new NotSupportedException(
-                    $"Could not get bindposes from Mesh '{Mesh.name}'. The mesh may be not adapted for animation.");
-            }
-
-            var bindposesFloats = RGLNativeAPI.IntoMat3x4f(bindposes);
+            skinnedMeshRenderer.BakeMesh(Mesh, true);
             unsafe
             {
-                fixed (float* pBindposesFloats = bindposesFloats)
+                // Accessing .vertices perform a CPU copy!
+                // TODO: This could be optimized using Vulkan-CUDA interop and Unity NativePluginInterface. Expect difficulties.
+                // https://docs.unity3d.com/ScriptReference/Mesh.GetNativeVertexBufferPtr.html
+                // https://docs.unity3d.com/Manual/NativePluginInterface.html
+                // https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/simpleVulkan
+                fixed (Vector3* pVertices = Mesh.vertices)
                 {
                     RGLNativeAPI.CheckErr(
-                        RGLNativeAPI.rgl_mesh_set_restposes(RGLMeshPtr, (IntPtr) pBindposesFloats, Mesh.bindposes.Length));
+                        RGLNativeAPI.rgl_mesh_update_vertices(RGLMeshPtr, (IntPtr) pVertices, Mesh.vertices.Length));
                 }
             }
         }

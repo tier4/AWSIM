@@ -46,8 +46,8 @@ namespace RGLUnityPlugin
         [Tooltip("Allows to select one of built-in LiDAR models")]
         public LidarModel modelPreset = LidarModel.RangeMeter;
 
-        [Tooltip("Allows to select between LiDAR return modes")]
-        public RGLReturnMode returnMode = RGLReturnMode.SingleReturnFirst;
+        [Tooltip("Allows to select between not divergent beams and different multi-return modes")]
+        public RGLReturnType returnType = RGLReturnType.RGL_RETURN_TYPE_NOT_DIVERGENT;
 
         [Tooltip("Allows to quickly enable/disable distance gaussian noise")]
         public bool applyDistanceGaussianNoise = true;
@@ -57,9 +57,6 @@ namespace RGLUnityPlugin
 
         [Tooltip("Allows to quickly enable/disable velocity distortion")]
         public bool applyVelocityDistortion = false;
-
-        [Tooltip("If disable, both beam divergence values are set to 0. Otherwise, they are set based on LiDAR configuration.")]
-        public bool simulateBeamDivergence = false;
 
         [Tooltip(
             "If enabled, validates whether the configuration is the same as the manual for the selected model (only on startup)")]
@@ -88,6 +85,7 @@ namespace RGLUnityPlugin
         private const string lidarPoseNodeId = "LIDAR_POSE";
         private const string noiseLidarRayNodeId = "NOISE_LIDAR_RAY";
         private const string lidarRaytraceNodeId = "LIDAR_RAYTRACE";
+        private const string lidarMRNodeId = "LIDAR_MR";
         private const string noiseHitpointNodeId = "NOISE_HITPOINT";
         private const string noiseDistanceNodeId = "NOISE_DISTANCE";
         private const string pointsCompactNodeId = "POINTS_COMPACT";
@@ -115,6 +113,7 @@ namespace RGLUnityPlugin
                 .AddNodeRaysTransform(lidarPoseNodeId, Matrix4x4.identity)
                 .AddNodeGaussianNoiseAngularRay(noiseLidarRayNodeId, 0, 0)
                 .AddNodeRaytrace(lidarRaytraceNodeId)
+                .AddNodeMultiReturnSwitch(lidarMRNodeId, RGLReturnType.RGL_RETURN_TYPE_NOT_DIVERGENT)
                 .AddNodeGaussianNoiseAngularHitpoint(noiseHitpointNodeId, 0, 0)
                 .AddNodeGaussianNoiseDistance(noiseDistanceNodeId, 0, 0, 0);
 
@@ -130,7 +129,7 @@ namespace RGLUnityPlugin
 
         public void Start()
         {
-            sceneManager = SceneManager.Instance;
+            sceneManager = FindObjectOfType<SceneManager>();
             if (sceneManager == null)
             {
                 // TODO(prybicki): this is too tedious, implement automatic instantiation of RGL Scene Manager
@@ -145,7 +144,8 @@ namespace RGLUnityPlugin
             if (LidarSnowManager.Instance != null)
             {
                 // Add deactivated node with some initial values. To be activated and updated when validating.
-                rglGraphLidar.AddNodePointsSimulateSnow(snowNodeId, 0.0f, 1.0f, 0.0001f, 0.0001f, 0.2f, 0.01f, 1, 0.01f, 0.0f);
+                rglGraphLidar.AddNodePointsSimulateSnow(snowNodeId, 0.0f, 1.0f, 0.0001f, 0.0001f, 0.2f, 0.01f, 1, 0.01f,
+                    false, 0.0f);
                 rglGraphLidar.SetActive(snowNodeId, false);
                 LidarSnowManager.Instance.OnNewConfig += OnValidate;
             }
@@ -199,9 +199,10 @@ namespace RGLUnityPlugin
                     newConfig.noiseParams.angularNoiseMean * Mathf.Deg2Rad,
                     newConfig.noiseParams.angularNoiseStDev * Mathf.Deg2Rad)
                 .UpdateNodeGaussianNoiseDistance(noiseDistanceNodeId, newConfig.noiseParams.distanceNoiseMean,
-                    newConfig.noiseParams.distanceNoiseStDevBase, newConfig.noiseParams.distanceNoiseStDevRisePerMeter);
+                    newConfig.noiseParams.distanceNoiseStDevBase, newConfig.noiseParams.distanceNoiseStDevRisePerMeter)
+                .UpdateMultiReturnSwitch(lidarMRNodeId, returnType);
 
-            if (simulateBeamDivergence)
+            if (returnType != RGLReturnType.RGL_RETURN_TYPE_NOT_DIVERGENT)
             {
                 rglGraphLidar.ConfigureNodeRaytraceBeamDivergence(lidarRaytraceNodeId,
                     Mathf.Deg2Rad * newConfig.horizontalBeamDivergence,
@@ -211,8 +212,6 @@ namespace RGLUnityPlugin
             {
                 rglGraphLidar.ConfigureNodeRaytraceBeamDivergence(lidarRaytraceNodeId, 0.0f, 0.0f);
             }
-            
-            rglGraphLidar.ConfigureNodeRaytraceReturnMode(lidarRaytraceNodeId, returnMode);
 
             rglGraphLidar.SetActive(noiseDistanceNodeId, applyDistanceGaussianNoise);
             var angularNoiseType = newConfig.noiseParams.angularNoiseType;
@@ -236,11 +235,8 @@ namespace RGLUnityPlugin
                         LidarSnowManager.Instance.Density,
                         newConfig.laserArray.GetLaserRingIds().Length,
                         newConfig.horizontalBeamDivergence * Mathf.Deg2Rad,
-                        LidarSnowManager.Instance.OccupancyThreshold);
-                    rglGraphLidar.UpdateNodePointsSnowDefaults(snowNodeId,
-                        LidarSnowManager.Instance.SnowflakesId,
-                        LidarSnowManager.Instance.FullBeamIntensity,
-                        0.0f); // Default, because it is not supported in AWSIM.
+                        LidarSnowManager.Instance.DoSimulateEnergyLoss,
+                        LidarSnowManager.Instance.SnowflakeOccupancyThreshold);
                 }
 
                 rglGraphLidar.SetActive(snowNodeId, LidarSnowManager.Instance.IsSnowEnabled);
@@ -267,11 +263,6 @@ namespace RGLUnityPlugin
         public void OnEnable()
         {
             activeSensors.Add(this);
-            // Sync timer with the active sensors to achieve the best performance. It minimizes number of scene updates.
-            if (activeSensors.Count > 0)
-            {
-                timer = activeSensors[0].timer;
-            }
         }
 
         public void OnDisable()

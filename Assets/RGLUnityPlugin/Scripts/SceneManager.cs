@@ -46,9 +46,6 @@ namespace RGLUnityPlugin
             RegularMeshesAndSkinnedMeshes
         }
 
-        // Singleton pattern
-        public static SceneManager Instance { get; private set; }
-
         [SerializeField]
         private MeshSource meshSource = MeshSource.RegularMeshesAndSkinnedMeshes;
 
@@ -69,11 +66,8 @@ namespace RGLUnityPlugin
         // Since categoryId can be changed in the runtime, this is filled only on object removal / simulation end.
         private readonly Dictionary<string, int> semanticDict = new Dictionary<string, int>();
 
-        // Last frame of the simulation in which there was an update.
-        public int LastUpdateFrame { get; private set; } = -1;
-
-        // Last FixedUpdate (physics cycle) in the `LastUpdateFrame` in which there was an update.
-        public int LastFixedUpdateFrame { get; private set; } = -1;
+        private int lastUpdateFrame = -1;
+        private int lastFixedUpdateFrame = -1;
 
         private void OnDisable()
         {
@@ -87,14 +81,6 @@ namespace RGLUnityPlugin
 
         private void Awake()
         {
-            if (Instance != null && Instance != this)
-            {
-                Debug.LogError("SceneManager is already on the scene. Removing this component");
-                Destroy(this);
-                return;
-            }
-            Instance = this;
-
             if (IntoRGLObjects == null)
             {
                 UpdateMeshSource();
@@ -122,9 +108,8 @@ namespace RGLUnityPlugin
         /// <summary>
         /// Find out what changes happened on the scene since the last update and update RGL data.
         /// </summary>
-        /// <param name="fixedUpdateInCurrentFrame">Indicates which in turn the FixedUpdate call in the current frame it is.
-        ///                                         It enables updating when FixedUpdate is called more frequently than Update.</param>
-        public void DoUpdate(int fixedUpdateInCurrentFrame = 0)
+        /// <param name="fixedUpdateFrame">Indicates fixed update frame number to enable updating when FixedUpdate is called more frequently than Update.</param>
+        public void DoUpdate(int fixedUpdateFrame = 0)
         {
             /* TODO(prybicki):
              * Placing this code in Update() might cause an artifact - only undefined subset of
@@ -142,13 +127,13 @@ namespace RGLUnityPlugin
             // The problem was that lidars updated their position every raytrace execution (fixedUpdate) while RGL scene did not update because it was the same frame of the simulation.
             // In this case, we are raytracing on the same scene changing only lidars position which may overlap with the body of not-updated objects.
             // Now, lidars track its FixedUpdate cycles in the currect frame and pass it as fixedUpdateFrame.
-            if (LastUpdateFrame == Time.frameCount && LastFixedUpdateFrame == fixedUpdateInCurrentFrame)
+            if (lastUpdateFrame == Time.frameCount && lastFixedUpdateFrame == fixedUpdateFrame)
             {
                 return; // Already done in this frame and fixed update (physics cycle)
             }
 
-            LastFixedUpdateFrame = fixedUpdateInCurrentFrame;
-            LastUpdateFrame = Time.frameCount;
+            lastFixedUpdateFrame = fixedUpdateFrame;
+            lastUpdateFrame = Time.frameCount;
 
             SynchronizeSceneTime();
 
@@ -225,7 +210,6 @@ namespace RGLUnityPlugin
             
             RGLMeshSharingManager.Clear();
             RGLTextureSharingManager.Clear();
-            BonesPoseCacheManager.Clear();
             uploadedRGLObjects.Clear();
             lastFrameGameObjects.Clear();
             Debug.Log("RGLSceneManager: cleared");
