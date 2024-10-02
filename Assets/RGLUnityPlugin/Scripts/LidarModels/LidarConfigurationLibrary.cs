@@ -85,7 +85,7 @@ namespace RGLUnityPlugin
                     maxHAngle = 360.0f,
                     noiseParams = LidarNoiseParams.TypicalNoiseParams,
                     minRange = 0,
-                    maxRange = 300.0f,
+                    maxRange = 220.0f,
                     horizontalBeamDivergence = 0.171887f, // Manual-based value
                     verticalBeamDivergence = 0.0859435f, // Manual-based value
                 }},
@@ -131,8 +131,8 @@ namespace RGLUnityPlugin
                     minHAngle = 0.0f,
                     maxHAngle = 360.0f,
                     noiseParams = LidarNoiseParams.TypicalNoiseParams,
-                    minRange = 0.8f,
-                    maxRange = 120.0f,
+                    minRange = 0.5f,
+                    maxRange = 90.0f,
                     horizontalBeamDivergence = 0.13f, // Manual-based value
                     verticalBeamDivergence = 0.13f, // Not specified in manual
                 }},
@@ -158,7 +158,7 @@ namespace RGLUnityPlugin
                     maxHAngle = 360.0f,
                     noiseParams = LidarNoiseParams.TypicalNoiseParams,
                     minRange = 0.05f,
-                    maxRange = 120.0f,
+                    maxRange = 80.0f,
                     horizontalBeamDivergence = 0.13f, // Not specified in manual
                     verticalBeamDivergence = 0.13f, // Not specified in manual
                 }},
