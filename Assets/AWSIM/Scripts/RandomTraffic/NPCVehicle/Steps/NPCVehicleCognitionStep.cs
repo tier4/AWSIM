@@ -928,7 +928,6 @@ namespace AWSIM.TrafficSimulation
                 {
                     if (GroundHitInfoArray[i].collider == null)
                         States[i].ShouldDespawn = true;
-
                     States[i].DistanceToFrontVehicle = ObstacleDistances[i];
                     States[i].IsTurning = IsTurnings[i];
                 }
