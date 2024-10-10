@@ -112,12 +112,16 @@ The basic *ROS2* msgs types that are supported in *AWSIM* by default include:
     - [`action_msgs`](https://index.ros.org/p/action_msgs/github-ros2-rcl_interfaces/#humble),
     - [`rosgraph_msgs`](https://index.ros.org/p/rosgraph_msgs/github-ros2-rcl_interfaces/#humble),
     - [`test_msgs`](https://index.ros.org/p/test_msgs/github-ros2-rcl_interfaces/#humble).
-- [autoware_auto_msgs](https://github.com/tier4/autoware_auto_msgs):
-    - [`autoware_auto_control_msgs`](https://index.ros.org/p/autoware_auto_control_msgs/gitlab-autowarefoundation-autoware-auto-autoware_auto_msgs/#humble),
-    - [`autoware_auto_geometry_msgs`](https://index.ros.org/p/autoware_auto_geometry_msgs/gitlab-autowarefoundation-autoware-auto-autoware_auto_msgs/#humble),
-    - [`autoware_auto_planning_msgs`](https://index.ros.org/p/autoware_auto_planning_msgs/gitlab-autowarefoundation-autoware-auto-autoware_auto_msgs/#humble),
-    - [`autoware_auto_mapping_msgs`](https://index.ros.org/p/autoware_auto_mapping_msgs/gitlab-autowarefoundation-autoware-auto-autoware_auto_msgs/#humble),
-    - [`autoware_auto_vehicle_msgs`](https://index.ros.org/p/autoware_auto_vehicle_msgs/gitlab-autowarefoundation-autoware-auto-autoware_auto_msgs/#humble).
+- [autoware_msgs](https://github.com/autowarefoundation/autoware):
+    - [`autoware_common_msgs`](https://github.com/autowarefoundation/autoware_msgs/tree/main/autoware_common_msgs),
+    - [`autoware_control_msgs`](https://github.com/autowarefoundation/autoware_msgs/tree/main/autoware_control_msgs),
+    - [`autoware_localization_msgs`](https://github.com/autowarefoundation/autoware_msgs/tree/main/autoware_localization_msgs),
+    - [`autoware_map_msgs`](https://github.com/autowarefoundation/autoware_msgs/tree/main/autoware_map_msgs),
+    - [`autoware_perception_msgs`](https://github.com/autowarefoundation/autoware_msgs/tree/main/autoware_perception_msgs),
+    - [`autoware_planning_msgs`](https://github.com/autowarefoundation/autoware_msgs/tree/main/autoware_planning_msgs),
+    - [`autoware_sensing_msgs`](https://github.com/autowarefoundation/autoware_msgs/tree/main/autoware_sensing_msgs),
+    - [`autoware_system_msgs`](https://github.com/autowarefoundation/autoware_msgs/tree/main/autoware_system_msgs),
+    - [`autoware_vehicle_msgs`](https://github.com/autowarefoundation/autoware_msgs/tree/main/autoware_vehicle_msgs).
 - [tier4_autoware_msgs](https://github.com/tier4/tier4_autoware_msgs):
     - [`tier4_control_msgs`](https://github.com/tier4/tier4_autoware_msgs/tree/tier4/universe/tier4_control_msgs),
     - [`tier4_vehicle_msgs`](https://github.com/tier4/tier4_autoware_msgs/tree/tier4/universe/tier4_vehicle_msgs).
@@ -186,10 +190,10 @@ In order to complete the time field of the [`Header`][header] message, we recomm
     header2.Stamp = SimulatorROS2Node.GetCurrentRosTime();
     ```
 
-2. When the message has a [`Header`][header] - like for example  [autoware_auto_vehicle_msgs/VelocityReport](https://github.com/tier4/autoware_auto_msgs/blob/tier4/main/autoware_auto_vehicle_msgs/msg/VelocityReport.idl):
+2. When the message has a [`Header`][header] - like for example  [autoware_vehicle_msgs/VelocityReport](https://github.com/autowarefoundation/autoware_msgs/blob/main/autoware_vehicle_msgs/msg/VelocityReport.msg):
 
     ```csharp
-    velocityReportMsg = new autoware_auto_vehicle_msgs.msg.VelocityReport()
+    velocityReportMsg = new autoware_vehicle_msgs.msg.VelocityReport()
     {
         Header = new std_msgs.msg.Header()
         {
@@ -228,7 +232,7 @@ SimulatorROS2Node.UpdateROSTimestamp(ref pathMsgHeader);
 In order to publish messages, a publisher object must be created.
 The static method `CreatePublisher` of the `SimulatorROS2Node` makes it easy.
 You must specify the *type* of message, the *topic* on which it will be published and the *QoS* profile.<br>
-Below is an example of `autoware_auto_vehicle_msgs.msg.VelocityReport` type message publication with a frequency of `30Hz` on `/vehicle/status/velocity_status` topic, the [*QoS*][qos] profile is `(Reliability=Reliable, Durability=Volatile, History=Keep last, Depth=1`):
+Below is an example of `autoware_vehicle_msgs.msg.VelocityReport` type message publication with a frequency of `30Hz` on `/vehicle/status/velocity_status` topic, the [*QoS*][qos] profile is `(Reliability=Reliable, Durability=Volatile, History=Keep last, Depth=1`):
 
 ```csharp
 using UnityEngine;
@@ -248,13 +252,13 @@ namespace AWSIM
             Depth = 1,
         };
         string velocityReportTopic = "/vehicle/status/velocity_status";
-        autoware_auto_vehicle_msgs.msg.VelocityReport velocityReportMsg;
-        IPublisher<autoware_auto_vehicle_msgs.msg.VelocityReport> velocityReportPublisher;
+        autoware_vehicle_msgs.msg.VelocityReport velocityReportMsg;
+        IPublisher<autoware_vehicle_msgs.msg.VelocityReport> velocityReportPublisher;
 
         void Start()
         {
             // Create a message object and fill in the constant fields
-            velocityReportMsg = new autoware_auto_vehicle_msgs.msg.VelocityReport()
+            velocityReportMsg = new autoware_vehicle_msgs.msg.VelocityReport()
             {
                 Header = new std_msgs.msg.Header()
                 {
@@ -263,7 +267,7 @@ namespace AWSIM
             };
 
             // Create publisher with specific topic and QoS profile
-            velocityReportPublisher = SimulatorROS2Node.CreatePublisher<autoware_auto_vehicle_msgs.msg.VelocityReport>(velocityReportTopic, qosSettings.GetQoSProfile());
+            velocityReportPublisher = SimulatorROS2Node.CreatePublisher<autoware_vehicle_msgs.msg.VelocityReport>(velocityReportTopic, qosSettings.GetQoSProfile());
         }
 
          bool NeedToPublish()
