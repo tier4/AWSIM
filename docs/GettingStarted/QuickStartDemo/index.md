@@ -153,36 +153,34 @@ In order to configure and run the Autoware software with the AWSIM demo, please:
 
     [Download Map files (pcd, osm)](https://github.com/tier4/AWSIM/releases/download/v1.1.0/nishishinjuku_autoware_map.zip){.md-button .md-button--primary}
 
-2. Clone [Autoware](https://github.com/autowarefoundation/autoware) and move to the directory.
+1. Clone [Autoware](https://github.com/autowarefoundation/autoware) and move to the directory.
 ```
 git clone https://github.com/autowarefoundation/autoware.git
 cd autoware
 ```
-3. Switch branche to `awsim-stable`. *NOTE: The latest `main` branch is for [ROS 2 humble](https://docs.ros.org/en/rolling/Releases/Release-Humble-Hawksbill.html).*
-```
-git checkout awsim-stable
-```
-4. Configure the environment. (Skip if Autoware environment has been configured before)
+1. Use the **main** branch
+
+1. Configure the environment. (Skip if Autoware environment has been configured before)
 ```
 ./setup-dev-env.sh
 ```
-5. Create the `src` directory and clone external dependent repositories into it.
+1. Create the `src` directory and clone external dependent repositories into it.
 ```
 mkdir src
 vcs import src < autoware.repos
 ```
-6. Install dependent ROS packages.
+1. Install dependent ROS packages.
 ```
 
 source /opt/ros/humble/setup.bash
 rosdep update
 rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
 ```
-7. Build the workspace.
+1. Build the workspace.
 ```
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-w"
 ```
-8. Launch Autoware.
+1. Launch Autoware.
 
     !!! warning
 
