@@ -25,64 +25,63 @@ namespace TrafficSimulatorMsgs {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "Chx0cmFmZmljX3NpbXVsYXRvcl9tc2dzLnByb3RvEhZ0cmFmZmljX3NpbXVs",
-            "YXRvcl9tc2dzGiBhdXRvd2FyZV9hdXRvX2NvbnRyb2xfbXNncy5wcm90bxog",
-            "YXV0b3dhcmVfYXV0b192ZWhpY2xlX21zZ3MucHJvdG8aE2dlb21ldHJ5X21z",
-            "Z3MucHJvdG8ihQEKDEFjdGlvblN0YXR1cxIWCg5jdXJyZW50X2FjdGlvbhgB",
-            "IAEoCRIjCgV0d2lzdBgCIAEoCzIULmdlb21ldHJ5X21zZ3MuVHdpc3QSIwoF",
-            "YWNjZWwYAyABKAsyFC5nZW9tZXRyeV9tc2dzLkFjY2VsEhMKC2xpbmVhcl9q",
-            "ZXJrGAQgASgBIl8KC0JvdW5kaW5nQm94EiQKBmNlbnRlchgBIAEoCzIULmdl",
-            "b21ldHJ5X21zZ3MuUG9pbnQSKgoKZGltZW5zaW9ucxgCIAEoCzIWLmdlb21l",
-            "dHJ5X21zZ3MuVmVjdG9yMyJhCgtMYW5lbGV0UG9zZRISCgpsYW5lbGV0X2lk",
-            "GAEgASgDEgkKAXMYAiABKAESDgoGb2Zmc2V0GAMgASgBEiMKA3JweRgEIAEo",
-            "CzIWLmdlb21ldHJ5X21zZ3MuVmVjdG9yMyKCAQoKRW50aXR5VHlwZRI1CgR0",
-            "eXBlGAEgASgOMicudHJhZmZpY19zaW11bGF0b3JfbXNncy5FbnRpdHlUeXBl",
-            "LkVudW0iPQoERW51bRIHCgNFR08QABILCgdWRUhJQ0xFEAESDgoKUEVERVNU",
-            "UklBThACEg8KC01JU0NfT0JKRUNUEAMitgEKDUVudGl0eVN1YnR5cGUSOQoF",
-            "dmFsdWUYASABKA4yKi50cmFmZmljX3NpbXVsYXRvcl9tc2dzLkVudGl0eVN1",
-            "YnR5cGUuRW51bSJqCgRFbnVtEgsKB1VOS05PV04QABIHCgNDQVIQARIJCgVU",
-            "UlVDSxACEgcKA0JVUxADEgsKB1RSQUlMRVIQBBIOCgpNT1RPUkNZQ0xFEAUS",
-            "CwoHQklDWUNMRRAGEg4KClBFREVTVFJJQU4QByKGAwoMRW50aXR5U3RhdHVz",
-            "EjAKBHR5cGUYASABKAsyIi50cmFmZmljX3NpbXVsYXRvcl9tc2dzLkVudGl0",
-            "eVR5cGUSNgoHc3VidHlwZRgCIAEoCzIlLnRyYWZmaWNfc2ltdWxhdG9yX21z",
-            "Z3MuRW50aXR5U3VidHlwZRIMCgR0aW1lGAMgASgBEgwKBG5hbWUYBCABKAkS",
-            "OQoMYm91bmRpbmdfYm94GAUgASgLMiMudHJhZmZpY19zaW11bGF0b3JfbXNn",
-            "cy5Cb3VuZGluZ0JveBI7Cg1hY3Rpb25fc3RhdHVzGAYgASgLMiQudHJhZmZp",
-            "Y19zaW11bGF0b3JfbXNncy5BY3Rpb25TdGF0dXMSIQoEcG9zZRgHIAEoCzIT",
-            "Lmdlb21ldHJ5X21zZ3MuUG9zZRI5CgxsYW5lbGV0X3Bvc2UYCCABKAsyIy50",
-            "cmFmZmljX3NpbXVsYXRvcl9tc2dzLkxhbmVsZXRQb3NlEhoKEmxhbmVsZXRf",
-            "cG9zZV92YWxpZBgJIAEoCCKSAQoLUGVyZm9ybWFuY2USEQoJbWF4X3NwZWVk",
-            "GAEgASgBEhgKEG1heF9hY2NlbGVyYXRpb24YAiABKAESHQoVbWF4X2FjY2Vs",
-            "ZXJhdGlvbl9yYXRlGAMgASgBEhgKEG1heF9kZWNlbGVyYXRpb24YBCABKAES",
-            "HQoVbWF4X2RlY2VsZXJhdGlvbl9yYXRlGAUgASgBInEKBEF4bGUSFAoMbWF4",
-            "X3N0ZWVyaW5nGAEgASgBEhYKDndoZWVsX2RpYW1ldGVyGAIgASgBEhMKC3Ry",
-            "YWNrX3dpZHRoGAMgASgBEhIKCnBvc2l0aW9uX3gYBCABKAESEgoKcG9zaXRp",
-            "b25fehgFIAEoASJqCgVBeGxlcxIwCgpmcm9udF9heGxlGAEgASgLMhwudHJh",
-            "ZmZpY19zaW11bGF0b3JfbXNncy5BeGxlEi8KCXJlYXJfYXhsZRgCIAEoCzIc",
-            "LnRyYWZmaWNfc2ltdWxhdG9yX21zZ3MuQXhsZSIKCghQcm9wZXJ0eSL4AQoR",
-            "VmVoaWNsZVBhcmFtZXRlcnMSDAoEbmFtZRgBIAEoCRI4CgtwZXJmb3JtYW5j",
-            "ZRgCIAEoCzIjLnRyYWZmaWNfc2ltdWxhdG9yX21zZ3MuUGVyZm9ybWFuY2US",
-            "OQoMYm91bmRpbmdfYm94GAMgASgLMiMudHJhZmZpY19zaW11bGF0b3JfbXNn",
-            "cy5Cb3VuZGluZ0JveBIsCgVheGxlcxgEIAEoCzIdLnRyYWZmaWNfc2ltdWxh",
-            "dG9yX21zZ3MuQXhsZXMSMgoIcHJvcGVydHkYBSABKAsyIC50cmFmZmljX3Np",
-            "bXVsYXRvcl9tc2dzLlByb3BlcnR5Il8KFFBlZGVzdHJpYW5QYXJhbWV0ZXJz",
-            "EgwKBG5hbWUYASABKAkSOQoMYm91bmRpbmdfYm94GAIgASgLMiMudHJhZmZp",
-            "Y19zaW11bGF0b3JfbXNncy5Cb3VuZGluZ0JveCJfChRNaXNjT2JqZWN0UGFy",
-            "YW1ldGVycxIMCgRuYW1lGAEgASgJEjkKDGJvdW5kaW5nX2JveBgCIAEoCzIj",
-            "LnRyYWZmaWNfc2ltdWxhdG9yX21zZ3MuQm91bmRpbmdCb3giNAoJV2F5cG9p",
-            "bnRzEicKCXdheXBvaW50cxgBIAMoCzIULmdlb21ldHJ5X21zZ3MuUG9pbnQi",
-            "pwEKDlZlaGljbGVDb21tYW5kElYKGWFja2VybWFubl9jb250cm9sX2NvbW1h",
-            "bmQYASABKAsyMy5hdXRvd2FyZV9hdXRvX2NvbnRyb2xfbXNncy5BY2tlcm1h",
-            "bm5Db250cm9sQ29tbWFuZBI9CgxnZWFyX2NvbW1hbmQYAiABKAsyJy5hdXRv",
-            "d2FyZV9hdXRvX3ZlaGljbGVfbXNncy5HZWFyQ29tbWFuZCI9CgZWZXJ0ZXgS",
-            "DAoEdGltZRgBIAEoARIlCghwb3NpdGlvbhgCIAEoCzITLmdlb21ldHJ5X21z",
-            "Z3MuUG9zZSI8CghQb2x5bGluZRIwCgh2ZXJ0aWNlcxgBIAMoCzIeLnRyYWZm",
-            "aWNfc2ltdWxhdG9yX21zZ3MuVmVydGV4IrABChJQb2x5bGluZVRyYWplY3Rv",
-            "cnkSHwoXaW5pdGlhbF9kaXN0YW5jZV9vZmZzZXQYASABKAESJQodZHluYW1p",
-            "Y19jb25zdHJhaW50c19pZ25vcmFibGUYAiABKAgSEQoJYmFzZV90aW1lGAMg",
-            "ASgBEg4KBmNsb3NlZBgEIAEoCBIvCgVzaGFwZRgFIAEoCzIgLnRyYWZmaWNf",
-            "c2ltdWxhdG9yX21zZ3MuUG9seWxpbmViBnByb3RvMw=="));
+            "YXRvcl9tc2dzGhthdXRvd2FyZV9jb250cm9sX21zZ3MucHJvdG8aG2F1dG93",
+            "YXJlX3ZlaGljbGVfbXNncy5wcm90bxoTZ2VvbWV0cnlfbXNncy5wcm90byKF",
+            "AQoMQWN0aW9uU3RhdHVzEhYKDmN1cnJlbnRfYWN0aW9uGAEgASgJEiMKBXR3",
+            "aXN0GAIgASgLMhQuZ2VvbWV0cnlfbXNncy5Ud2lzdBIjCgVhY2NlbBgDIAEo",
+            "CzIULmdlb21ldHJ5X21zZ3MuQWNjZWwSEwoLbGluZWFyX2plcmsYBCABKAEi",
+            "XwoLQm91bmRpbmdCb3gSJAoGY2VudGVyGAEgASgLMhQuZ2VvbWV0cnlfbXNn",
+            "cy5Qb2ludBIqCgpkaW1lbnNpb25zGAIgASgLMhYuZ2VvbWV0cnlfbXNncy5W",
+            "ZWN0b3IzImEKC0xhbmVsZXRQb3NlEhIKCmxhbmVsZXRfaWQYASABKAMSCQoB",
+            "cxgCIAEoARIOCgZvZmZzZXQYAyABKAESIwoDcnB5GAQgASgLMhYuZ2VvbWV0",
+            "cnlfbXNncy5WZWN0b3IzIoIBCgpFbnRpdHlUeXBlEjUKBHR5cGUYASABKA4y",
+            "Jy50cmFmZmljX3NpbXVsYXRvcl9tc2dzLkVudGl0eVR5cGUuRW51bSI9CgRF",
+            "bnVtEgcKA0VHTxAAEgsKB1ZFSElDTEUQARIOCgpQRURFU1RSSUFOEAISDwoL",
+            "TUlTQ19PQkpFQ1QQAyK2AQoNRW50aXR5U3VidHlwZRI5CgV2YWx1ZRgBIAEo",
+            "DjIqLnRyYWZmaWNfc2ltdWxhdG9yX21zZ3MuRW50aXR5U3VidHlwZS5FbnVt",
+            "ImoKBEVudW0SCwoHVU5LTk9XThAAEgcKA0NBUhABEgkKBVRSVUNLEAISBwoD",
+            "QlVTEAMSCwoHVFJBSUxFUhAEEg4KCk1PVE9SQ1lDTEUQBRILCgdCSUNZQ0xF",
+            "EAYSDgoKUEVERVNUUklBThAHIoYDCgxFbnRpdHlTdGF0dXMSMAoEdHlwZRgB",
+            "IAEoCzIiLnRyYWZmaWNfc2ltdWxhdG9yX21zZ3MuRW50aXR5VHlwZRI2Cgdz",
+            "dWJ0eXBlGAIgASgLMiUudHJhZmZpY19zaW11bGF0b3JfbXNncy5FbnRpdHlT",
+            "dWJ0eXBlEgwKBHRpbWUYAyABKAESDAoEbmFtZRgEIAEoCRI5Cgxib3VuZGlu",
+            "Z19ib3gYBSABKAsyIy50cmFmZmljX3NpbXVsYXRvcl9tc2dzLkJvdW5kaW5n",
+            "Qm94EjsKDWFjdGlvbl9zdGF0dXMYBiABKAsyJC50cmFmZmljX3NpbXVsYXRv",
+            "cl9tc2dzLkFjdGlvblN0YXR1cxIhCgRwb3NlGAcgASgLMhMuZ2VvbWV0cnlf",
+            "bXNncy5Qb3NlEjkKDGxhbmVsZXRfcG9zZRgIIAEoCzIjLnRyYWZmaWNfc2lt",
+            "dWxhdG9yX21zZ3MuTGFuZWxldFBvc2USGgoSbGFuZWxldF9wb3NlX3ZhbGlk",
+            "GAkgASgIIpIBCgtQZXJmb3JtYW5jZRIRCgltYXhfc3BlZWQYASABKAESGAoQ",
+            "bWF4X2FjY2VsZXJhdGlvbhgCIAEoARIdChVtYXhfYWNjZWxlcmF0aW9uX3Jh",
+            "dGUYAyABKAESGAoQbWF4X2RlY2VsZXJhdGlvbhgEIAEoARIdChVtYXhfZGVj",
+            "ZWxlcmF0aW9uX3JhdGUYBSABKAEicQoEQXhsZRIUCgxtYXhfc3RlZXJpbmcY",
+            "ASABKAESFgoOd2hlZWxfZGlhbWV0ZXIYAiABKAESEwoLdHJhY2tfd2lkdGgY",
+            "AyABKAESEgoKcG9zaXRpb25feBgEIAEoARISCgpwb3NpdGlvbl96GAUgASgB",
+            "ImoKBUF4bGVzEjAKCmZyb250X2F4bGUYASABKAsyHC50cmFmZmljX3NpbXVs",
+            "YXRvcl9tc2dzLkF4bGUSLwoJcmVhcl9heGxlGAIgASgLMhwudHJhZmZpY19z",
+            "aW11bGF0b3JfbXNncy5BeGxlIgoKCFByb3BlcnR5IvgBChFWZWhpY2xlUGFy",
+            "YW1ldGVycxIMCgRuYW1lGAEgASgJEjgKC3BlcmZvcm1hbmNlGAIgASgLMiMu",
+            "dHJhZmZpY19zaW11bGF0b3JfbXNncy5QZXJmb3JtYW5jZRI5Cgxib3VuZGlu",
+            "Z19ib3gYAyABKAsyIy50cmFmZmljX3NpbXVsYXRvcl9tc2dzLkJvdW5kaW5n",
+            "Qm94EiwKBWF4bGVzGAQgASgLMh0udHJhZmZpY19zaW11bGF0b3JfbXNncy5B",
+            "eGxlcxIyCghwcm9wZXJ0eRgFIAEoCzIgLnRyYWZmaWNfc2ltdWxhdG9yX21z",
+            "Z3MuUHJvcGVydHkiXwoUUGVkZXN0cmlhblBhcmFtZXRlcnMSDAoEbmFtZRgB",
+            "IAEoCRI5Cgxib3VuZGluZ19ib3gYAiABKAsyIy50cmFmZmljX3NpbXVsYXRv",
+            "cl9tc2dzLkJvdW5kaW5nQm94Il8KFE1pc2NPYmplY3RQYXJhbWV0ZXJzEgwK",
+            "BG5hbWUYASABKAkSOQoMYm91bmRpbmdfYm94GAIgASgLMiMudHJhZmZpY19z",
+            "aW11bGF0b3JfbXNncy5Cb3VuZGluZ0JveCI0CglXYXlwb2ludHMSJwoJd2F5",
+            "cG9pbnRzGAEgAygLMhQuZ2VvbWV0cnlfbXNncy5Qb2ludCJ7Cg5WZWhpY2xl",
+            "Q29tbWFuZBIvCgdjb250cm9sGAEgASgLMh4uYXV0b3dhcmVfY29udHJvbF9t",
+            "c2dzLkNvbnRyb2wSOAoMZ2Vhcl9jb21tYW5kGAIgASgLMiIuYXV0b3dhcmVf",
+            "dmVoaWNsZV9tc2dzLkdlYXJDb21tYW5kIj0KBlZlcnRleBIMCgR0aW1lGAEg",
+            "ASgBEiUKCHBvc2l0aW9uGAIgASgLMhMuZ2VvbWV0cnlfbXNncy5Qb3NlIjwK",
+            "CFBvbHlsaW5lEjAKCHZlcnRpY2VzGAEgAygLMh4udHJhZmZpY19zaW11bGF0",
+            "b3JfbXNncy5WZXJ0ZXgisAEKElBvbHlsaW5lVHJhamVjdG9yeRIfChdpbml0",
+            "aWFsX2Rpc3RhbmNlX29mZnNldBgBIAEoARIlCh1keW5hbWljX2NvbnN0cmFp",
+            "bnRzX2lnbm9yYWJsZRgCIAEoCBIRCgliYXNlX3RpbWUYAyABKAESDgoGY2xv",
+            "c2VkGAQgASgIEi8KBXNoYXBlGAUgASgLMiAudHJhZmZpY19zaW11bGF0b3Jf",
+            "bXNncy5Qb2x5bGluZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::AutowareAutoControlMsgs.AutowareAutoControlMsgsReflection.Descriptor, global::AutowareAutoVehicleMsgs.AutowareAutoVehicleMsgsReflection.Descriptor, global::GeometryMsgs.GeometryMsgsReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::AutowareControlMsgs.AutowareControlMsgsReflection.Descriptor, global::AutowareVehicleMsgs.AutowareVehicleMsgsReflection.Descriptor, global::GeometryMsgs.GeometryMsgsReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::TrafficSimulatorMsgs.ActionStatus), global::TrafficSimulatorMsgs.ActionStatus.Parser, new[]{ "CurrentAction", "Twist", "Accel", "LinearJerk" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::TrafficSimulatorMsgs.BoundingBox), global::TrafficSimulatorMsgs.BoundingBox.Parser, new[]{ "Center", "Dimensions" }, null, null, null, null),
@@ -98,7 +97,7 @@ namespace TrafficSimulatorMsgs {
             new pbr::GeneratedClrTypeInfo(typeof(global::TrafficSimulatorMsgs.PedestrianParameters), global::TrafficSimulatorMsgs.PedestrianParameters.Parser, new[]{ "Name", "BoundingBox" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::TrafficSimulatorMsgs.MiscObjectParameters), global::TrafficSimulatorMsgs.MiscObjectParameters.Parser, new[]{ "Name", "BoundingBox" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::TrafficSimulatorMsgs.Waypoints), global::TrafficSimulatorMsgs.Waypoints.Parser, new[]{ "Waypoints_" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::TrafficSimulatorMsgs.VehicleCommand), global::TrafficSimulatorMsgs.VehicleCommand.Parser, new[]{ "AckermannControlCommand", "GearCommand" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::TrafficSimulatorMsgs.VehicleCommand), global::TrafficSimulatorMsgs.VehicleCommand.Parser, new[]{ "Control", "GearCommand" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::TrafficSimulatorMsgs.Vertex), global::TrafficSimulatorMsgs.Vertex.Parser, new[]{ "Time", "Position" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::TrafficSimulatorMsgs.Polyline), global::TrafficSimulatorMsgs.Polyline.Parser, new[]{ "Vertices" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::TrafficSimulatorMsgs.PolylineTrajectory), global::TrafficSimulatorMsgs.PolylineTrajectory.Parser, new[]{ "InitialDistanceOffset", "DynamicConstraintsIgnorable", "BaseTime", "Closed", "Shape" }, null, null, null, null)
@@ -3096,7 +3095,7 @@ namespace TrafficSimulatorMsgs {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public VehicleCommand(VehicleCommand other) : this() {
-      ackermannControlCommand_ = other.ackermannControlCommand_ != null ? other.ackermannControlCommand_.Clone() : null;
+      control_ = other.control_ != null ? other.control_.Clone() : null;
       gearCommand_ = other.gearCommand_ != null ? other.gearCommand_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -3106,22 +3105,22 @@ namespace TrafficSimulatorMsgs {
       return new VehicleCommand(this);
     }
 
-    /// <summary>Field number for the "ackermann_control_command" field.</summary>
-    public const int AckermannControlCommandFieldNumber = 1;
-    private global::AutowareAutoControlMsgs.AckermannControlCommand ackermannControlCommand_;
+    /// <summary>Field number for the "control" field.</summary>
+    public const int ControlFieldNumber = 1;
+    private global::AutowareControlMsgs.Control control_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::AutowareAutoControlMsgs.AckermannControlCommand AckermannControlCommand {
-      get { return ackermannControlCommand_; }
+    public global::AutowareControlMsgs.Control Control {
+      get { return control_; }
       set {
-        ackermannControlCommand_ = value;
+        control_ = value;
       }
     }
 
     /// <summary>Field number for the "gear_command" field.</summary>
     public const int GearCommandFieldNumber = 2;
-    private global::AutowareAutoVehicleMsgs.GearCommand gearCommand_;
+    private global::AutowareVehicleMsgs.GearCommand gearCommand_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::AutowareAutoVehicleMsgs.GearCommand GearCommand {
+    public global::AutowareVehicleMsgs.GearCommand GearCommand {
       get { return gearCommand_; }
       set {
         gearCommand_ = value;
@@ -3141,7 +3140,7 @@ namespace TrafficSimulatorMsgs {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (!object.Equals(AckermannControlCommand, other.AckermannControlCommand)) return false;
+      if (!object.Equals(Control, other.Control)) return false;
       if (!object.Equals(GearCommand, other.GearCommand)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -3149,7 +3148,7 @@ namespace TrafficSimulatorMsgs {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (ackermannControlCommand_ != null) hash ^= AckermannControlCommand.GetHashCode();
+      if (control_ != null) hash ^= Control.GetHashCode();
       if (gearCommand_ != null) hash ^= GearCommand.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -3164,9 +3163,9 @@ namespace TrafficSimulatorMsgs {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (ackermannControlCommand_ != null) {
+      if (control_ != null) {
         output.WriteRawTag(10);
-        output.WriteMessage(AckermannControlCommand);
+        output.WriteMessage(Control);
       }
       if (gearCommand_ != null) {
         output.WriteRawTag(18);
@@ -3180,8 +3179,8 @@ namespace TrafficSimulatorMsgs {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (ackermannControlCommand_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(AckermannControlCommand);
+      if (control_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Control);
       }
       if (gearCommand_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(GearCommand);
@@ -3197,15 +3196,15 @@ namespace TrafficSimulatorMsgs {
       if (other == null) {
         return;
       }
-      if (other.ackermannControlCommand_ != null) {
-        if (ackermannControlCommand_ == null) {
-          AckermannControlCommand = new global::AutowareAutoControlMsgs.AckermannControlCommand();
+      if (other.control_ != null) {
+        if (control_ == null) {
+          Control = new global::AutowareControlMsgs.Control();
         }
-        AckermannControlCommand.MergeFrom(other.AckermannControlCommand);
+        Control.MergeFrom(other.Control);
       }
       if (other.gearCommand_ != null) {
         if (gearCommand_ == null) {
-          GearCommand = new global::AutowareAutoVehicleMsgs.GearCommand();
+          GearCommand = new global::AutowareVehicleMsgs.GearCommand();
         }
         GearCommand.MergeFrom(other.GearCommand);
       }
@@ -3221,15 +3220,15 @@ namespace TrafficSimulatorMsgs {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            if (ackermannControlCommand_ == null) {
-              AckermannControlCommand = new global::AutowareAutoControlMsgs.AckermannControlCommand();
+            if (control_ == null) {
+              Control = new global::AutowareControlMsgs.Control();
             }
-            input.ReadMessage(AckermannControlCommand);
+            input.ReadMessage(Control);
             break;
           }
           case 18: {
             if (gearCommand_ == null) {
-              GearCommand = new global::AutowareAutoVehicleMsgs.GearCommand();
+              GearCommand = new global::AutowareVehicleMsgs.GearCommand();
             }
             input.ReadMessage(GearCommand);
             break;

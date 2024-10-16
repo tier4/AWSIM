@@ -26,8 +26,8 @@ namespace AWSIM
             Depth = 1,
         };
         
-        IPublisher<autoware_perception_msgs.msg.TrafficSignalArray> trafficSignalsPublisher;
-        autoware_perception_msgs.msg.TrafficSignalArray trafficSignalArrayMsg;
+        IPublisher<autoware_perception_msgs.msg.TrafficLightGroupArray> trafficLightGroupPublisher;
+        autoware_perception_msgs.msg.TrafficLightGroupArray trafficLightGroupMsg;
 
         V2I v2iComponent;
 
@@ -36,21 +36,21 @@ namespace AWSIM
             v2iComponent = GetComponent<V2I>();
             v2iComponent.OnOutputData += UpdateMessageAndPublish;
 
-            trafficSignalArrayMsg = new autoware_perception_msgs.msg.TrafficSignalArray();
+            trafficLightGroupMsg = new autoware_perception_msgs.msg.TrafficLightGroupArray();
 
             var qos = qosSettings.GetQoSProfile();
-            trafficSignalsPublisher = SimulatorROS2Node.CreatePublisher<autoware_perception_msgs.msg.TrafficSignalArray>(trafficSignalsTopic, qos);
+            trafficLightGroupPublisher = SimulatorROS2Node.CreatePublisher<autoware_perception_msgs.msg.TrafficLightGroupArray>(trafficSignalsTopic, qos);
         }
 
         void UpdateMessageAndPublish(V2I.OutputData outputData)
         {
-            UpdateTrafficSignalArrayMsg(outputData);
-            trafficSignalsPublisher.Publish(trafficSignalArrayMsg);
+            UpdateTrafficLightGroupMsg(outputData);
+            trafficLightGroupPublisher.Publish(trafficLightGroupMsg);
         }
 
-        private void UpdateTrafficSignalArrayMsg(V2I.OutputData data)
+        private void UpdateTrafficLightGroupMsg(V2I.OutputData data)
         {
-            var trafficSignalList = new List<autoware_perception_msgs.msg.TrafficSignal>();
+            var trafficLightGroup = new List<autoware_perception_msgs.msg.TrafficLightGroup>();
             var allRelationID = new List<long>();
             foreach (var trafficLight in data.trafficLights)
             {
@@ -68,21 +68,21 @@ namespace AWSIM
                     }
                     foreach (var relationID in ids)
                     {
-                        var trafficSignalMsg = new autoware_perception_msgs.msg.TrafficSignal();
+                        var trafficLightGroupMsg = new autoware_perception_msgs.msg.TrafficLightGroup();
                         if (allRelationID.Contains(relationID))
                         {
                             continue;
                         }
-                        trafficSignalMsg.Traffic_signal_id = relationID;
+                        trafficLightGroupMsg.Traffic_light_group_id  = relationID;
                         //Get bulbData
                         var trafficLightBulbData = trafficLight.GetBulbData();
                         //Fill TrafficSignal with bulbData
-                        var trafficLightElementList = new List<autoware_perception_msgs.msg.TrafficSignalElement>();
+                        var trafficLightElementList = new List<autoware_perception_msgs.msg.TrafficLightElement>();
                         foreach (var bulbData in trafficLightBulbData)
                         {
                             if (isBulbTurnOn(bulbData.Status))
                             {
-                                var trafficLightElementMsg = new autoware_perception_msgs.msg.TrafficSignalElement();
+                                var trafficLightElementMsg = new autoware_perception_msgs.msg.TrafficLightElement();
                                 trafficLightElementMsg.Color = V2IROS2Utility.UnityToRosBulbColor(bulbData.Color);
                                 trafficLightElementMsg.Shape = V2IROS2Utility.UnityToRosBulbShape(bulbData.Type);
                                 trafficLightElementMsg.Status = V2IROS2Utility.UnityToRosBulbStatus(bulbData.Status);
@@ -91,14 +91,14 @@ namespace AWSIM
                             }
                         }
                         //Add TrafficLight signal to list
-                        trafficSignalMsg.Elements = trafficLightElementList.ToArray();
-                        trafficSignalList.Add(trafficSignalMsg);
+                        trafficLightGroupMsg.Elements = trafficLightElementList.ToArray();
+                        trafficLightGroup.Add(trafficLightGroupMsg);
                         allRelationID.Add(relationID);
                     }
                 }
             }
-            trafficSignalArrayMsg.Stamp = SimulatorROS2Node.GetCurrentRosTime();
-            trafficSignalArrayMsg.Signals = trafficSignalList.ToArray();
+            trafficLightGroupMsg.Stamp = SimulatorROS2Node.GetCurrentRosTime();
+            trafficLightGroupMsg.Traffic_light_groups = trafficLightGroup.ToArray();
         }
 
         private bool isBulbTurnOn(TrafficLight.BulbStatus bulbStatus)
@@ -108,7 +108,7 @@ namespace AWSIM
 
         void OnDestroy()
         {
-            SimulatorROS2Node.RemovePublisher<autoware_perception_msgs.msg.TrafficSignalArray>(trafficSignalsPublisher);
+            SimulatorROS2Node.RemovePublisher<autoware_perception_msgs.msg.TrafficLightGroupArray>(trafficLightGroupPublisher);
         }
     }
 

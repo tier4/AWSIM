@@ -12,7 +12,7 @@ namespace AWSIM
     {
         [SerializeField] string engageTopic = "/vehicle/engage";
         [SerializeField] QoSSettings qosSettings = new QoSSettings();
-        ISubscription<autoware_auto_vehicle_msgs.msg.Engage> engageSubscriber;
+        ISubscription<autoware_vehicle_msgs.msg.Engage> engageSubscriber;
 
         [SerializeField] VehicleOverrideInputManager vehicleOverrideInputManager;
         void Reset()
@@ -27,7 +27,7 @@ namespace AWSIM
         {
             var qos = qosSettings.GetQoSProfile();
 
-            engageSubscriber = SimulatorROS2Node.CreateSubscription<autoware_auto_vehicle_msgs.msg.Engage>(
+            engageSubscriber = SimulatorROS2Node.CreateSubscription<autoware_vehicle_msgs.msg.Engage>(
                 engageTopic, msg =>
                 {
                     if (msg.Engage_)

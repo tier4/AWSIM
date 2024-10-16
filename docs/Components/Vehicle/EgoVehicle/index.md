@@ -319,7 +319,7 @@ The vehicle will not move in the opposite direction of the (`DRIVE` or `REVERSE`
 *Vehicle Ros* (script) is responsible for subscribing to messages that are vehicle control commands.
 The values read from the message are set on the inputs of the [*Vehicle* (script)](#vehicle-script) script.
 
-The concept for vehicle dynamics is suitable for *Autoware's* [`autoware_auto_control_msgs/AckermannControlCommand`](https://gitlab.com/autowarefoundation/autoware.auto/autoware_auto_msgs/-/blob/master/autoware_auto_control_msgs/msg/AckermannControlCommand.idl) and [`autoware_auto_vehicle_msgs/GearCommand`](https://gitlab.com/autowarefoundation/autoware.auto/autoware_auto_msgs/-/blob/master/autoware_auto_vehicle_msgs/msg/GearCommand.idl) messages interface usage.
+The concept for vehicle dynamics is suitable for *Autoware's* [`autoware_control_msgs/Control`](https://github.com/autowarefoundation/autoware_msgs/blob/main/autoware_control_msgs/msg/Control.msg) and [`autoware_vehicle_msgs/GearCommand`](https://github.com/autowarefoundation/autoware_msgs/blob/main/autoware_vehicle_msgs/msg/GearCommand.msg) messages interface usage.
 The script sets gear, steering angle of wheels and acceleration of the vehicle (read from the aforementioned messages) to the *Vehicle* (script) input.
 In the case of *VehicleEmergencyStamped* message it sets the absolute acceleration equal to 0.
 In addition, also through *Vehicle* (script), the appropriate lights are turned on and off depending on *TurnIndicatorsCommand* and *HazardLightsCommand*  messages.
@@ -332,13 +332,13 @@ In addition, also through *Vehicle* (script), the appropriate lights are turned 
 #### Subscribed Topics
 - QoS: `Reliable`, `TransientLocal`, `KeepLast/1`
 
-| Category                  | Topic                                  | Message type                                         | Frequency (*Autoware* dependent) |
-| :------------------------ | :------------------------------------- | :--------------------------------------------------- | :------------------------------: |
-| *TurnIndicatorsCommand*   | `/control/command/turn_indicators_cmd` | `autoware_auto_vehicle_msgs/TurnIndicatorsCommand`   |               `10`               |
-| *HazardLightsCommand*     | `/control/command/hazard_lights_cmd`   | `autoware_auto_vehicle_msgs/HazardLightsCommand`     |               `10`               |
-| *AckermannControlCommand* | `/control/command/control_cmd`         | `autoware_auto_control_msgs/AckermannControlCommand` |               `60`               |
-| *GearCommand*             | `/control/command/gear_cmd`            | `autoware_auto_vehicle_msgs/GearCommand`             |               `10`               |
-| *VehicleEmergencyStamped* | `/control/command/emergency_cmd`       | `tier4_vehicle_msgs/msg/VehicleEmergencyStamped`     |               `60`               |
+| Category                  | Topic                                  | Message type                                     | Frequency (*Autoware* dependent) |
+| :------------------------ | :------------------------------------- | :----------------------------------------------- | :------------------------------: |
+| *TurnIndicatorsCommand*   | `/control/command/turn_indicators_cmd` | `autoware_vehicle_msgs/TurnIndicatorsCommand`    |               `10`               |
+| *HazardLightsCommand*     | `/control/command/hazard_lights_cmd`   | `autoware_vehicle_msgs/HazardLightsCommand`      |               `10`               |
+| *AckermannControlCommand* | `/control/command/control_cmd`         | `autoware_control_msgs/Control`                  |               `60`               |
+| *GearCommand*             | `/control/command/gear_cmd`            | `autoware_vehicle_msgs/GearCommand`              |               `10`               |
+| *VehicleEmergencyStamped* | `/control/command/emergency_cmd`       | `tier4_vehicle_msgs/msg/VehicleEmergencyStamped` |               `60`               |
 
 !!! note "ROS2 Topics"
     If you would like to know all the topics used in communication *Autoware* with *AWSIM*, we encourage you to familiarize yourself with this [section](../../../Components/ROS2/ROS2TopicList/)
