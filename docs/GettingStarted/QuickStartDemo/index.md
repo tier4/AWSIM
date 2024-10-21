@@ -72,7 +72,7 @@ To run the simulator, please follow the steps below.
 
         !!! warning
         
-            Currently, there are cases where the Nvidia driver version is too high, resulting in Segmentation fault. In that case, please lower the Nvidia driver version (525 is recommended.)
+            Currently, there are cases where the Nvidia driver version is too high, resulting in Segmentation fault. In that case, please lower the Nvidia driver version (550 is recommended.)
 
     3. Reboot your machine to make the installed driver detected by the system.
     ```
