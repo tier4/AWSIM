@@ -25,18 +25,9 @@ namespace AWSIM
         /// <summary>
         /// ControlMode applied to the vehicle.
         /// </summary>
-        public VehicleControlMode ControlMode { get; private set; } = VehicleControlMode.AUTONOMOUS;
+        public VehicleControlMode ControlMode { get; set; } = VehicleControlMode.AUTONOMOUS;
 
         [SerializeField] Vehicle vehicle;
-
-        /// <summary>
-        /// Change ControlMode to AUTONOMOUS.
-        /// For example, it is used when doing Autonomous driving again after overriding.
-        /// </summary>
-        public void ChangeControlModeToAUTONOMOUS()
-        {
-            ControlMode = VehicleControlMode.AUTONOMOUS;
-        }
 
         void Update()
         {

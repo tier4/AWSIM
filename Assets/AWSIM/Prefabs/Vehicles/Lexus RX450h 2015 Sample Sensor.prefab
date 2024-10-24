@@ -3095,9 +3095,9 @@ GameObject:
   - component: {fileID: 8237482850245883491}
   - component: {fileID: 491222376262776323}
   - component: {fileID: 8335535232308220185}
-  - component: {fileID: 528068037}
   - component: {fileID: 2465439770829660652}
   - component: {fileID: 2465439770829660653}
+  - component: {fileID: 8238564994172152647}
   m_Layer: 6
   m_Name: Input
   m_TagString: Untagged
@@ -3170,25 +3170,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxAcceleration: 1.5
   vehicle: {fileID: 4981081891045692866}
---- !u!114 &528068037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7968470896671472528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 747365a5a3d379d4d94716815ba217c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  engageTopic: /vehicle/engage
-  qosSettings:
-    ReliabilityPolicy: 1
-    DurabilityPolicy: 1
-    HistoryPolicy: 1
-    Depth: 1
-  vehicleOverrideInputManager: {fileID: 8237482850245883491}
 --- !u!114 &2465439770829660652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3465,6 +3446,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxAcceleration: 1.5
   vehicle: {fileID: 4981081891045692866}
+  DevicePath: /dev/input/event8
+  AllowableDiff: 0.04
+  kp: 4
+  ki: 0.2
+  kd: 0.02
+  accelerationThreshold: 0.05
+  steeringThreshold: 0.3
+--- !u!114 &8238564994172152647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7968470896671472528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2160161b867d1bed0862e3621481b639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serviceName: input/control_mode_request
+  vehicleOverrideInputManager: {fileID: 8237482850245883491}
 --- !u!1 &8211390332096081473
 GameObject:
   m_ObjectHideFlags: 0
