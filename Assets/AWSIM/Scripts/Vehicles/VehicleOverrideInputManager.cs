@@ -27,6 +27,16 @@ namespace AWSIM
         /// </summary>
         public VehicleControlMode ControlMode { get; set; } = VehicleControlMode.AUTONOMOUS;
 
+        /// <summary>
+        /// Control flag to allow or disallow the use of manually input.
+        /// </summary>
+        private bool manuallyInputEnable = true;
+        public bool ManuallyInputEnable
+        {
+            get => manuallyInputEnable;
+            set => manuallyInputEnable = value;
+        }
+
         [SerializeField] Vehicle vehicle;
 
         void Update()
@@ -38,7 +48,7 @@ namespace AWSIM
             ManuallyInput.OnUpdate(inputArg);
 
             // If override input is present, switch new ControlMode.
-            if (ManuallyInput.Overridden)
+            if (manuallyInputEnable && ManuallyInput.Overridden)
             {
                 ControlMode = ManuallyInput.NewControlMode;
             }
