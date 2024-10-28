@@ -1,4 +1,4 @@
-# ROS2 topic and service list
+# ROS2 topic & service list
 
 !!! Note "Ros2ForUnity"
     *AWSIM* works with *ROS2* thanks to the use of `Ros2ForUnity` - read the details [here](../ROS2ForUnity/).<br>

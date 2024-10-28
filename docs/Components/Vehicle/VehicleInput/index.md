@@ -16,16 +16,17 @@ Q. How to override input ?
 A. Control steering and pedals with any device.
 
 Q. How to restart autonomous driving ?  
-A. subscribe to ``vehicle/engage`` topic with true.  
+A. The control mode can be changed by `input/control_mode_request` ros2 service communication.  
 
 !!! info
     
-    sample engage command  
-    ```ros2 topic pub /vehicle/engage autoware_vehicle_msgs/msg/Engage '{engage: True}' -1```
+    sample engage command.  
+    ```ros2 service call input/control_mode_request autoware_vehicle_msgs/srv/ControlModeCommand "mode: 1"```
 
-!!! warning
+    The following modes are supported.  
+    AUTONOMOUS = 1  
+    MANUAL = 4
 
-    It will be changed from the `vehicle/engage` topic in the near future.
 
 In the real world, Autoware switches modes by publishing **ControlMode(AUTONOMOUS or MANUAL)** from the vehicle, and AWSIM simulates this as well. Current ControlMode can be checked from the AWSIM UI.
 
@@ -88,6 +89,10 @@ Set the path to G29DevicePath in [config.json](https://github.com/tier4/AWSIM/bl
 
 1. Start AWSIM and select Logitech G29 from the UI. If "connected" is displayed, the vehicle can be controlled by Logitech g29.  
     ![](g29_connected.png)
+
+!!! warning
+    
+    Steering wheel must be set to center before driving.
 
 #### Advanced configuration
 
