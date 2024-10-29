@@ -35,6 +35,7 @@ namespace AWSIM
 
         private Vehicle controlledNPC = default;
         private ControllableNPCVehicleOverrideInputManager controlledNPCInputManager = default;
+        private ControllableNPCVehicleCollisionDetector controlledNPCCollisionDetector = default;
 
         private bool isInitialized = false;
 
@@ -69,6 +70,7 @@ namespace AWSIM
         {
             SpawnNPC(npcPrefab, npcPosition, npcRotation);
             InitCamera();
+            InitCollisionDetector();
             InitUI();
             DisableEGOManualInput();
             isInitialized = true;
@@ -121,6 +123,7 @@ namespace AWSIM
                 GameObject go = GameObject.Instantiate(npcPrefab, npcPosition, npcRotation, this.transform);
                 controlledNPC = go?.GetComponent<Vehicle>();
                 controlledNPCInputManager = go?.GetComponentInChildren<ControllableNPCVehicleOverrideInputManager>();
+                controlledNPCCollisionDetector = go?.GetComponent<ControllableNPCVehicleCollisionDetector>();
             }
         }
 
@@ -136,6 +139,33 @@ namespace AWSIM
 
             npcVehicleCamera.Init();
             npcVehicleCamera.SetFollowVehicle(controlledNPC);
+        }
+
+        /// <summary>
+        /// Initialize collision detector in controlled NPC vehicle.
+        /// </summary>
+        private void InitCollisionDetector()
+        {
+            if(controlledNPCCollisionDetector != null)
+            {
+                controlledNPCCollisionDetector.Init(CollisionDetectorCallback);
+            }
+
+            void CollisionDetectorCallback(ControllableNPCVehicleCollisionDetector.CollisionType collisionType)
+            {
+                if(collisionType == ControllableNPCVehicleCollisionDetector.CollisionType.VEHICLE)
+                {
+                    uiView.SetCollisionInfo("Collision Detected: Vehicle");
+                }
+                else if(collisionType == ControllableNPCVehicleCollisionDetector.CollisionType.ENVIRONMENT)
+                {
+                    uiView.SetCollisionInfo("Collision Detected: Environment");
+                }
+                else
+                {
+                    uiView.SetCollisionInfo("Collision Detected");
+                }
+            }
         }
 
         /// <summary>

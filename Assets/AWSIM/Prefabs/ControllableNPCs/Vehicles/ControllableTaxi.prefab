@@ -372,6 +372,7 @@ GameObject:
   - component: {fileID: 562815439553322338}
   - component: {fileID: 2341095701154388223}
   - component: {fileID: 8437439471554835314}
+  - component: {fileID: 1661035746822137295}
   m_Layer: 6
   m_Name: ControllableTaxi
   m_TagString: Vehicle
@@ -481,6 +482,24 @@ MonoBehaviour:
     lightingIntensity: 20
     lightingColor: {r: 1, g: 1, b: 1, a: 1}
     lightingExposureWeight: 0.6
+--- !u!114 &1661035746822137295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714549001370495616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83388aad1dfe99cc1ac569197e4d5656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vehicleMask:
+    serializedVersion: 2
+    m_Bits: 64
+  environmentMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &1014440678436519721
 GameObject:
   m_ObjectHideFlags: 0

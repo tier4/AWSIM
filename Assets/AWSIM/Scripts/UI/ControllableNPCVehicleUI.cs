@@ -56,6 +56,11 @@ namespace AWSIM
             this.vehicle = vehicle;
         }
 
+        public void SetCollisionInfo(string collisionInfo)
+        {
+            collisionText.text = collisionInfo;
+        }
+
         public void SetVehicleInputType(ControllableNPCVehicleOverrideInputManager.VehicleDeviceInput inputType)
         {
             inputSelectDropdown.value = (int)inputType;

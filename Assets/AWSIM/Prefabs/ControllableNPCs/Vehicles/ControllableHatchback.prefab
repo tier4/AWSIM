@@ -1160,6 +1160,7 @@ GameObject:
   - component: {fileID: 9151266798698225968}
   - component: {fileID: 1918566542244844708}
   - component: {fileID: 1853167200640103925}
+  - component: {fileID: 9169155327439453874}
   m_Layer: 6
   m_Name: ControllableHatchback
   m_TagString: Untagged
@@ -1269,6 +1270,24 @@ MonoBehaviour:
     lightingIntensity: 20
     lightingColor: {r: 1, g: 1, b: 1, a: 1}
     lightingExposureWeight: 0.6
+--- !u!114 &9169155327439453874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8132031447337391826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83388aad1dfe99cc1ac569197e4d5656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vehicleMask:
+    serializedVersion: 2
+    m_Bits: 64
+  environmentMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &8732568753919384529
 GameObject:
   m_ObjectHideFlags: 0

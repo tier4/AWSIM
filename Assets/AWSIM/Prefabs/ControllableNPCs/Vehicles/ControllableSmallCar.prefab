@@ -663,6 +663,7 @@ GameObject:
   - component: {fileID: 2334587463588399536}
   - component: {fileID: 1929167770023298777}
   - component: {fileID: 5198752101273150759}
+  - component: {fileID: 4963996655233763561}
   m_Layer: 6
   m_Name: ControllableSmallCar
   m_TagString: Vehicle
@@ -772,6 +773,24 @@ MonoBehaviour:
     lightingIntensity: 20
     lightingColor: {r: 1, g: 1, b: 1, a: 1}
     lightingExposureWeight: 0.6
+--- !u!114 &4963996655233763561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3333523281254186578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83388aad1dfe99cc1ac569197e4d5656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vehicleMask:
+    serializedVersion: 2
+    m_Bits: 64
+  environmentMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &3500331759736183653
 GameObject:
   m_ObjectHideFlags: 0
