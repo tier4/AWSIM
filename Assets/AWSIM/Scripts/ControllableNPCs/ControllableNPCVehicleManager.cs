@@ -134,6 +134,7 @@ namespace AWSIM
                 return;
             }
 
+            npcVehicleCamera.Init();
             npcVehicleCamera.SetFollowVehicle(controlledNPC);
         }
 

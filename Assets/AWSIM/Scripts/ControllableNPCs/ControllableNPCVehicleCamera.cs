@@ -27,13 +27,16 @@ namespace AWSIM
         private Vehicle followedVehicle = default;
 
 
-        private void Awake() 
+        #region [Public Methods]
+
+        /// <summary>
+        /// Create and assign render texture to camera.
+        /// </summary>
+        public void Init()
         {
             CreateRenderTexture();
-            camera.targetTexture = renderTexture;    
+            camera.targetTexture = renderTexture;
         }
-
-        #region [Public Methods]
 
         /// <summary>
         /// Set vehicle to be followed by the camera.

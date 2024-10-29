@@ -32,6 +32,14 @@ namespace AWSIM
         }
 
         [Serializable]
+        public class ControllableNpcConfiguration
+        {
+            public string Name;
+            public Vector3 Position;
+            public Vector3 EulerAngles;
+        }
+
+        [Serializable]
         public class Configuration
         {
             public float TimeScale;                 // Reflected in Time.timeScale
@@ -40,6 +48,7 @@ namespace AWSIM
             public int MaxVehicleCount;             // Reflected in TrafficManager.maxVehicleCount
             public string G29DevicePath;            // Reflected in VehicleG29Input.DevicePath
             public EgoConfiguration Ego = new EgoConfiguration();
+            public ControllableNpcConfiguration ControllableNpc = new ControllableNpcConfiguration();
         }
 
         void Awake()
@@ -76,9 +85,23 @@ namespace AWSIM
                 if (g29DevicePath != null)
                     vehicleG29Input.DevicePath = g29DevicePath;
 
-
                 // set time source
                 timeSourceSelector?.SetType(config.TimeSource);
+
+                // if controllable NPC manager is on the scene initialize it with json data
+                ControllableNPCVehicleManager controllableNpcManager = FindObjectOfType<ControllableNPCVehicleManager>();
+                if(controllableNpcManager != null)
+                {
+                    var npcPosition = config.ControllableNpc.Position - Environment.Instance.MgrsOffsetPosition;
+                    var npcRotation = Quaternion.Euler(config.ControllableNpc.EulerAngles);
+
+                    controllableNpcManager.DoStart(
+                        config.ControllableNpc.Name,
+                        ROS2Utility.RosToUnityPosition(npcPosition),
+                        ROS2Utility.RosToUnityRotation(npcRotation)
+                    );
+                }
+
             }
         }
     }
