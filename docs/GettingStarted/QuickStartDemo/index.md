@@ -151,7 +151,7 @@ In order to configure and run the Autoware software with the AWSIM demo, please:
 
 1. Download `map files (pcd, osm)` and unzip them.
 
-    [Download Map files (pcd, osm)](https://github.com/tier4/AWSIM/releases/download/v1.1.0/nishishinjuku_autoware_map.zip){.md-button .md-button--primary}
+    [Download Map files (pcd, osm)](https://github.com/tier4/AWSIM/releases/download/v1.3.0/shinjuku_map.zip){.md-button .md-button--primary}
 
 1. Clone [Autoware](https://github.com/autowarefoundation/autoware) and move to the directory.
 ```
