@@ -73,7 +73,7 @@ namespace AWSIM
 
         void Update()
         {
-            var vehicleVelocity = vehicleRigidbody.velocity;
+            var vehicleVelocity = vehicleRigidbody.linearVelocity;
             var localSpeed = vehicleRigidbody.transform.InverseTransformDirection(vehicleVelocity);
 
             UpdateVisual(localSpeed.z, SteerAngle);

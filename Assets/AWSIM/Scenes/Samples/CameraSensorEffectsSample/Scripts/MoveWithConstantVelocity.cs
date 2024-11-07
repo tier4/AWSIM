@@ -13,7 +13,7 @@ public class MoveWithConstantVelocity : MonoBehaviour
     {
         if(rigidbody != null)
         {
-            rigidbody.velocity = direction.normalized * speed;
+            rigidbody.linearVelocity = direction.normalized * speed;
         }
     }
 }

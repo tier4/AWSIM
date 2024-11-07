@@ -1,0 +1,812 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 781cc897cf8675041a751163b51f97dd, type: 3}
+  m_Name: HDRenderPipelineGlobalSettings
+  m_EditorClassIdentifier: 
+  m_CustomPostProcessOrdersSettings:
+    m_Version: 0
+    m_BeforeTransparentCustomPostProcesses:
+      m_InjectionPoint: 0
+      m_CustomPostProcessTypesAsString: []
+    m_BeforeTAACustomPostProcesses:
+      m_InjectionPoint: 3
+      m_CustomPostProcessTypesAsString: []
+    m_BeforePostProcessCustomPostProcesses:
+      m_InjectionPoint: 1
+      m_CustomPostProcessTypesAsString: []
+    m_AfterPostProcessBlursCustomPostProcesses:
+      m_InjectionPoint: 4
+      m_CustomPostProcessTypesAsString: []
+    m_AfterPostProcessCustomPostProcesses:
+      m_InjectionPoint: 2
+      m_CustomPostProcessTypesAsString: []
+  beforeTransparentCustomPostProcesses: []
+  beforePostProcessCustomPostProcesses: []
+  afterPostProcessBlursCustomPostProcesses: []
+  afterPostProcessCustomPostProcesses: []
+  beforeTAACustomPostProcesses: []
+  m_ShaderStrippingSetting:
+    m_Version: 0
+    m_ExportShaderVariants: 1
+    m_ShaderVariantLogLevel: 0
+    m_StripRuntimeDebugShaders: 1
+  m_ShaderVariantLogLevel: 0
+  m_SupportRuntimeDebugDisplay: 0
+  m_ExportShaderVariants: 1
+  m_StripDebugVariants: 0
+  DLSSProjectId: 000000
+  useDLSSCustomProjectId: 0
+  supportProbeVolumes: 0
+  autoRegisterDiffusionProfiles: 1
+  analyticDerivativeEmulation: 0
+  analyticDerivativeDebugOutput: 0
+  lensAttenuationMode: 0
+  colorGradingSpace: 0
+  m_ObsoleteDiffusionProfileSettingsList: []
+  specularFade: 0
+  rendererListCulling: 0
+  m_ObsoleteDefaultVolumeProfile: {fileID: 0}
+  m_ObsoleteLookDevVolumeProfile: {fileID: 0}
+  m_ObsoleteRenderingPathDefaultCameraFrameSettings:
+    bitDatas:
+      data1: 5770166122053453
+      data2: 12934340311651418136
+    lodBias: 1
+    lodBiasMode: 0
+    lodBiasQualityLevel: 0
+    maximumLODLevel: 0
+    maximumLODLevelMode: 0
+    maximumLODLevelQualityLevel: 0
+    sssQualityMode: 0
+    sssQualityLevel: 0
+    sssCustomSampleBudget: 20
+    sssCustomDownsampleSteps: 0
+    msaaMode: 1
+    materialQuality: 0
+  m_ObsoleteRenderingPathDefaultBakedOrCustomReflectionFrameSettings:
+    bitDatas:
+      data1: 4643523019153229
+      data2: 12898309406071980048
+    lodBias: 1
+    lodBiasMode: 0
+    lodBiasQualityLevel: 0
+    maximumLODLevel: 0
+    maximumLODLevelMode: 0
+    maximumLODLevelQualityLevel: 0
+    sssQualityMode: 0
+    sssQualityLevel: 0
+    sssCustomSampleBudget: 20
+    sssCustomDownsampleSteps: 0
+    msaaMode: 1
+    materialQuality: 0
+  m_ObsoleteRenderingPathDefaultRealtimeReflectionFrameSettings:
+    bitDatas:
+      data1: 4638910381585229
+      data2: 12898310333516513304
+    lodBias: 1
+    lodBiasMode: 0
+    lodBiasQualityLevel: 0
+    maximumLODLevel: 0
+    maximumLODLevelMode: 0
+    maximumLODLevelQualityLevel: 0
+    sssQualityMode: 0
+    sssQualityLevel: 0
+    sssCustomSampleBudget: 20
+    sssCustomDownsampleSteps: 0
+    msaaMode: 1
+    materialQuality: 0
+  m_ObsoleteRenderingPath:
+    m_Version: 0
+    m_Camera:
+      bitDatas:
+        data1: 5770166122053453
+        data2: 12934340311651418136
+      lodBias: 1
+      lodBiasMode: 0
+      lodBiasQualityLevel: 0
+      maximumLODLevel: 0
+      maximumLODLevelMode: 0
+      maximumLODLevelQualityLevel: 0
+      sssQualityMode: 0
+      sssQualityLevel: 0
+      sssCustomSampleBudget: 20
+      sssCustomDownsampleSteps: 0
+      msaaMode: 1
+      materialQuality: 0
+    m_CustomOrBakedReflection:
+      bitDatas:
+        data1: 4643523019153229
+        data2: 12898309406071980048
+      lodBias: 1
+      lodBiasMode: 0
+      lodBiasQualityLevel: 0
+      maximumLODLevel: 0
+      maximumLODLevelMode: 0
+      maximumLODLevelQualityLevel: 0
+      sssQualityMode: 0
+      sssQualityLevel: 0
+      sssCustomSampleBudget: 20
+      sssCustomDownsampleSteps: 0
+      msaaMode: 1
+      materialQuality: 0
+    m_RealtimeReflection:
+      bitDatas:
+        data1: 4638910381585229
+        data2: 12898310333516513304
+      lodBias: 1
+      lodBiasMode: 0
+      lodBiasQualityLevel: 0
+      maximumLODLevel: 0
+      maximumLODLevelMode: 0
+      maximumLODLevelQualityLevel: 0
+      sssQualityMode: 0
+      sssQualityLevel: 0
+      sssCustomSampleBudget: 20
+      sssCustomDownsampleSteps: 0
+      msaaMode: 1
+      materialQuality: 0
+  m_Version: 14
+  m_Settings:
+    m_SettingsList:
+      m_List:
+      - rid: 7917056730846199808
+      - rid: 7917056730846199809
+      - rid: 7917056730846199810
+      - rid: 7917056730846199811
+      - rid: 7917056730846199812
+      - rid: 7917056730846199813
+      - rid: 7917056730846199814
+      - rid: 7917056730846199815
+      - rid: 7917056730846199816
+      - rid: 7917056730846199817
+      - rid: 7917056730846199818
+      - rid: 7917056730846199819
+      - rid: 7917056730846199820
+      - rid: 7917056730846199821
+      - rid: 7917056730846199822
+      - rid: 7917056730846199823
+      - rid: 7917056730846199824
+      - rid: 7917056730846199825
+      - rid: 7917056730846199826
+      - rid: 7917056730846199827
+      - rid: 7917056730846199828
+      - rid: 7917056730846199829
+      - rid: 7917056730846199830
+      - rid: 7917056730846199831
+      - rid: 7917056730846199832
+      - rid: 7917056730846199833
+      - rid: 7917056730846199834
+      - rid: 7917056730846199835
+      - rid: 7917056730846199836
+      - rid: 7917056730846199837
+      - rid: 7917056730846199838
+      - rid: 7917056730846199839
+      - rid: 7917056730846199840
+    m_RuntimeSettings:
+      m_List: []
+  renderingLayerNames:
+  - Default
+  lightLayerName0: 
+  lightLayerName1: 
+  lightLayerName2: 
+  lightLayerName3: 
+  lightLayerName4: 
+  lightLayerName5: 
+  lightLayerName6: 
+  lightLayerName7: 
+  decalLayerName0: 
+  decalLayerName1: 
+  decalLayerName2: 
+  decalLayerName3: 
+  decalLayerName4: 
+  decalLayerName5: 
+  decalLayerName6: 
+  decalLayerName7: 
+  apvScenesData:
+    obsoleteSceneBounds:
+      m_Keys: []
+      m_Values: []
+    obsoleteHasProbeVolumes:
+      m_Keys: []
+      m_Values: 
+  references:
+    version: 2
+    RefIds:
+    - rid: 7917056730846199808
+      type: {class: WaterSystemRuntimeResources, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_WaterMaterial: {fileID: 0}
+        m_WaterExclusionMaterial: {fileID: 0}
+        m_WaterDecalMaterial: {fileID: 0}
+        m_WaterSimulationCS: {fileID: 0}
+        m_FourierTransformCS: {fileID: 0}
+        m_WaterEvaluationCS: {fileID: 0}
+        m_WaterPS: {fileID: 0}
+        m_WaterLightingCS: {fileID: 0}
+        m_WaterLineCS: {fileID: 0}
+        m_WaterCausticsPS: {fileID: 0}
+        m_WaterDecalPS: {fileID: 0}
+        m_WaterDeformationCS: {fileID: 0}
+        m_WaterFoamCS: {fileID: 0}
+        m_WaterDecalMigrationShader: {fileID: 0}
+        m_FoamMask: {fileID: 0}
+    - rid: 7917056730846199809
+      type: {class: LensSettings, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_Version: 0
+        m_LensAttenuationMode: 0
+    - rid: 7917056730846199810
+      type: {class: HDRenderPipelineEditorAssets, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_DefaultSettingsVolumeProfile: {fileID: 0}
+        m_LookDevDefaultLookDevVolumeProfile: {fileID: 0}
+        m_DefaultDiffusionProfileSettingsList: []
+    - rid: 7917056730846199811
+      type: {class: LookDevVolumeProfileSettings, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_Version: 0
+        m_VolumeProfile: {fileID: 0}
+    - rid: 7917056730846199812
+      type: {class: HDRPRayTracingResources, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_ReflectionRayTracingRT: {fileID: 0}
+        m_ReflectionRayTracingCS: {fileID: 0}
+        m_ReflectionBilateralFilterCS: {fileID: 0}
+        m_ShadowRayTracingRT: {fileID: 0}
+        m_ContactShadowRayTracingRT: {fileID: 0}
+        m_ShadowRayTracingCS: {fileID: 0}
+        m_ShadowFilterCS: {fileID: 0}
+        m_ForwardRayTracing: {fileID: 0}
+        m_LightClusterBuildCS: {fileID: 0}
+        m_LightClusterDebugS: {fileID: 0}
+        m_LightClusterDebugCS: {fileID: 0}
+        m_IndirectDiffuseRayTracingOffRT: {fileID: 0}
+        m_IndirectDiffuseRayTracingL1RT: {fileID: 0}
+        m_IndirectDiffuseRaytracingL2RT: {fileID: 0}
+        m_IndirectDiffuseRayTracingCS: {fileID: 0}
+        m_AoRayTracingRT: {fileID: 0}
+        m_AoRayTracingCS: {fileID: 0}
+        m_SubSurfaceRayTracingRT: {fileID: 0}
+        m_SubSurfaceRayTracingCS: {fileID: 0}
+        m_SimpleDenoiserCS: {fileID: 0}
+        m_ReflectionDenoiserCS: {fileID: 0}
+        m_DiffuseShadowDenoiserCS: {fileID: 0}
+        m_ReblurPreBlurCS: {fileID: 0}
+        m_ReblurTemporalAccumulationCS: {fileID: 0}
+        m_ReblurMipGenerationCS: {fileID: 0}
+        m_ReblurHistoryFixCS: {fileID: 0}
+        m_ReblurBlurCS: {fileID: 0}
+        m_ReblurPostBlurCS: {fileID: 0}
+        m_ReblurCopyHistoryCS: {fileID: 0}
+        m_ReblurTemporalStabilizationCS: {fileID: 0}
+        m_GBufferRayTracingRT: {fileID: 0}
+        m_DeferredRayTracingCS: {fileID: 0}
+        m_PathTracingRT: {fileID: 0}
+        m_PathTracingSkySamplingDataCS: {fileID: 0}
+        m_RayMarchingCS: {fileID: 0}
+        m_RayBinningCS: {fileID: 0}
+        m_CountTracedRaysCS: {fileID: 0}
+        m_ReflectionFilterMappingTexture: {fileID: 0}
+        m_RtasDebugRT: {fileID: 0}
+    - rid: 7917056730846199813
+      type: {class: AnalyticDerivativeSettings, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_Version: 0
+        m_AnalyticDerivativeEmulation: 0
+        m_AnalyticDerivativeDebugOutput: 0
+    - rid: 7917056730846199814
+      type: {class: CustomPostProcessOrdersSettings, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_Version: 0
+        m_BeforeTransparentCustomPostProcesses:
+          m_InjectionPoint: 0
+          m_CustomPostProcessTypesAsString: []
+        m_BeforeTAACustomPostProcesses:
+          m_InjectionPoint: 3
+          m_CustomPostProcessTypesAsString: []
+        m_BeforePostProcessCustomPostProcesses:
+          m_InjectionPoint: 1
+          m_CustomPostProcessTypesAsString: []
+        m_AfterPostProcessBlursCustomPostProcesses:
+          m_InjectionPoint: 4
+          m_CustomPostProcessTypesAsString: []
+        m_AfterPostProcessCustomPostProcesses:
+          m_InjectionPoint: 2
+          m_CustomPostProcessTypesAsString: []
+    - rid: 7917056730846199815
+      type: {class: RenderGraphSettings, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_Version: 0
+        m_DynamicRenderPassCulling: 0
+    - rid: 7917056730846199816
+      type: {class: DiffusionProfileDefaultSettings, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_Version: 0
+        m_AutoRegisterDiffusionProfiles: 0
+    - rid: 7917056730846199817
+      type: {class: HDRenderPipelineEditorShaders, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_GpuInlineDebugDrawerLine: {fileID: 0}
+        m_AutodeskInteractive: {fileID: 0}
+        m_AutodeskInteractiveTransparent: {fileID: 0}
+        m_AutodeskInteractiveMasked: {fileID: 0}
+        m_DefaultSpeedTree8Shader: {fileID: 0}
+        m_DefaultSpeedTree9Shader: {fileID: 0}
+    - rid: 7917056730846199818
+      type: {class: HDRPDefaultVolumeProfileSettings, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_Version: 0
+        m_VolumeProfile: {fileID: 0}
+    - rid: 7917056730846199819
+      type: {class: VolumetricCloudsRuntimeResources, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_VolumetricCloudsCS: {fileID: 0}
+        m_VolumetricCloudsTraceCS: {fileID: 0}
+        m_VolumetricCloudsTraceShadowsCS: {fileID: 0}
+        m_VolumetricCloudsShadowFilterCS: {fileID: 0}
+        m_VolumetricCloudMapGeneratorCS: {fileID: 0}
+        m_VolumetricCloudsCombinePS: {fileID: 0}
+        m_CloudLutRainAO: {fileID: 0}
+        m_WorleyNoise128RGBA: {fileID: 0}
+        m_WorleyNoise32RGB: {fileID: 0}
+        m_PerlinNoise32RGB: {fileID: 0}
+    - rid: 7917056730846199820
+      type: {class: ColorGradingSettings, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_Version: 0
+        m_ColorGradingSpace: 0
+    - rid: 7917056730846199821
+      type: {class: HDRenderPipelineEditorMaterials, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_DefaultMaterial: {fileID: 0}
+        m_DefaultParticleMaterial: {fileID: 0}
+        m_DefaultTerrainMaterial: {fileID: 0}
+        m_DefaultMirrorMat: {fileID: 0}
+        m_DefaultDecalMat: {fileID: 0}
+        m_GUITextureBlit2SRGB: {fileID: 0}
+    - rid: 7917056730846199822
+      type: {class: HDRenderPipelineRuntimeAssets, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_DefaultDiffusionProfile: {fileID: 0}
+        m_ComputeMaterialLibrary: {fileID: 0}
+        m_EmissiveCylinderMesh: {fileID: 0}
+        m_EmissiveQuadMesh: {fileID: 0}
+        m_SphereMesh: {fileID: 0}
+    - rid: 7917056730846199823
+      type: {class: WaterSystemGlobalSettings, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_Version: 1
+        m_EnableMaskAndCurrentWaterDecals: 0
+    - rid: 7917056730846199824
+      type: {class: RenderingPathFrameSettings, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_Version: 0
+        m_Camera:
+          bitDatas:
+            data1: 5770166122053453
+            data2: 12934340311651418136
+          lodBias: 1
+          lodBiasMode: 0
+          lodBiasQualityLevel: 0
+          maximumLODLevel: 0
+          maximumLODLevelMode: 0
+          maximumLODLevelQualityLevel: 0
+          sssQualityMode: 0
+          sssQualityLevel: 0
+          sssCustomSampleBudget: 20
+          sssCustomDownsampleSteps: 0
+          msaaMode: 1
+          materialQuality: 0
+        m_CustomOrBakedReflection:
+          bitDatas:
+            data1: 4643523019153229
+            data2: 12898309406071980048
+          lodBias: 1
+          lodBiasMode: 0
+          lodBiasQualityLevel: 0
+          maximumLODLevel: 0
+          maximumLODLevelMode: 0
+          maximumLODLevelQualityLevel: 0
+          sssQualityMode: 0
+          sssQualityLevel: 0
+          sssCustomSampleBudget: 20
+          sssCustomDownsampleSteps: 0
+          msaaMode: 1
+          materialQuality: 0
+        m_RealtimeReflection:
+          bitDatas:
+            data1: 4638910381585229
+            data2: 12898310333516513304
+          lodBias: 1
+          lodBiasMode: 0
+          lodBiasQualityLevel: 0
+          maximumLODLevel: 0
+          maximumLODLevelMode: 0
+          maximumLODLevelQualityLevel: 0
+          sssQualityMode: 0
+          sssQualityLevel: 0
+          sssCustomSampleBudget: 20
+          sssCustomDownsampleSteps: 0
+          msaaMode: 1
+          materialQuality: 0
+    - rid: 7917056730846199825
+      type: {class: HDRenderPipelineRuntimeMaterials, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_PBRSkyMaterial: {fileID: 0}
+        m_AreaLightMaterial: {fileID: 0}
+        m_AreaLightCookieMaterial: {fileID: 0}
+    - rid: 7917056730846199826
+      type: {class: HDRenderPipelineRuntimeTextures, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_DebugFontTex: {fileID: 0}
+        m_ColorGradient: {fileID: 0}
+        m_MatcapTex: {fileID: 0}
+        m_BlueNoise16LTex:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        m_BlueNoise16RGBTex:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        m_OwenScrambledRGBATex: {fileID: 0}
+        m_OwenScrambled256Tex: {fileID: 0}
+        m_ScramblingTex: {fileID: 0}
+        m_RankingTile1SPP: {fileID: 0}
+        m_ScramblingTile1SPP: {fileID: 0}
+        m_RankingTile8SPP: {fileID: 0}
+        m_ScramblingTile8SPP: {fileID: 0}
+        m_RankingTile256SPP: {fileID: 0}
+        m_ScramblingTile256SPP: {fileID: 0}
+        m_EyeCausticLUT: {fileID: 0}
+        m_HairAttenuationLUT: {fileID: 0}
+        m_HairAzimuthalScatteringLUT: {fileID: 0}
+        m_HairLongitudinalScatteringLUT: {fileID: 0}
+        m_FilmGrainTex: []
+        m_SMAASearchTex: {fileID: 0}
+        m_SMAAAreaTex: {fileID: 0}
+        m_DefaultHDRISky: {fileID: 0}
+        m_DefaultCloudMap: {fileID: 0}
+    - rid: 7917056730846199827
+      type: {class: SpecularFadeSettings, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_Version: 0
+        m_SpecularFade: 0
+    - rid: 7917056730846199828
+      type: {class: HDRenderPipelineEditorTextures, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_MoonAlbedo: {fileID: 0}
+    - rid: 7917056730846199829
+      type: {class: HDRenderPipelineRuntimeShaders, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_DefaultShader: {fileID: 0}
+        m_CameraMotionVectorsPS: {fileID: 0}
+        m_ColorPyramidPS: {fileID: 0}
+        m_ColorPyramidCS: {fileID: 0}
+        m_DepthPyramidCS: {fileID: 0}
+        m_MaxZCS: {fileID: 0}
+        m_ApplyDistortionPS: {fileID: 0}
+        m_CustomPassUtils: {fileID: 0}
+        m_CustomPassRenderersUtils: {fileID: 0}
+        m_ClearStencilBufferPS: {fileID: 0}
+        m_CopyStencilBufferPS: {fileID: 0}
+        m_CopyDepthBufferPS: {fileID: 0}
+        m_BlitPS: {fileID: 0}
+        m_BlitColorAndDepthPS: {fileID: 0}
+        m_DownsampleDepthPS: {fileID: 0}
+        m_UpsampleTransparentPS: {fileID: 0}
+        m_ResolveStencilCS: {fileID: 0}
+        m_DebugDisplayLatlongPS: {fileID: 0}
+        m_DebugViewMaterialGBufferPS: {fileID: 0}
+        m_DebugViewTilesPS: {fileID: 0}
+        m_DebugFullScreenPS: {fileID: 0}
+        m_DebugColorPickerPS: {fileID: 0}
+        m_DebugExposurePS: {fileID: 0}
+        m_DebugHDRPS: {fileID: 0}
+        m_DebugLightVolumePS: {fileID: 0}
+        m_DebugLightVolumeCS: {fileID: 0}
+        m_DebugBlitQuad: {fileID: 0}
+        m_DebugViewVirtualTexturingBlit: {fileID: 0}
+        m_MaterialError: {fileID: 0}
+        m_MaterialLoading: {fileID: 0}
+        m_ClearDebugBufferCS: {fileID: 0}
+        m_DebugWaveformPS: {fileID: 0}
+        m_DebugWaveformCS: {fileID: 0}
+        m_DebugVectorscopePS: {fileID: 0}
+        m_DebugVectorscopeCS: {fileID: 0}
+        m_DebugImageHistogramCS: {fileID: 0}
+        m_DebugHDRxyMappingCS: {fileID: 0}
+        m_ProbeVolumeSamplingDebugComputeShader: {fileID: 0}
+        m_PlanarReflectionFilteringCS: {fileID: 0}
+        m_ScreenSpaceGlobalIlluminationCS: {fileID: 0}
+        m_ScreenSpaceReflectionsCS: {fileID: 0}
+        m_ClearDispatchIndirectCS: {fileID: 0}
+        m_ClearLightListsCS: {fileID: 0}
+        m_BuildDispatchIndirectCS: {fileID: 0}
+        m_BuildScreenAABBCS: {fileID: 0}
+        m_BuildPerTileLightListCS: {fileID: 0}
+        m_BuildPerBigTileLightListCS: {fileID: 0}
+        m_BuildPerVoxelLightListCS: {fileID: 0}
+        m_LightListClusterClearAtomicIndexCS: {fileID: 0}
+        m_BuildMaterialFlagsCS: {fileID: 0}
+        m_DeferredCS: {fileID: 0}
+        m_VolumeVoxelizationCS: {fileID: 0}
+        m_VolumetricLightingCS: {fileID: 0}
+        m_VolumetricLightingFilteringCS: {fileID: 0}
+        m_DefaultFogVolumeShader: {fileID: 0}
+        m_ScreenSpaceMultipleScatteringCS: {fileID: 0}
+        m_SubsurfaceScatteringCS: {fileID: 0}
+        m_SubsurfaceScatteringDownsampleCS: {fileID: 0}
+        m_CombineLightingPS: {fileID: 0}
+        m_BlitCubemapPS: {fileID: 0}
+        m_OpaqueAtmosphericScatteringPS: {fileID: 0}
+        m_HdriSkyPS: {fileID: 0}
+        m_IntegrateHdriSkyPS: {fileID: 0}
+        m_SkyboxCubemapPS: {fileID: 0}
+        m_GradientSkyPS: {fileID: 0}
+        m_AmbientProbeConvolutionCS: {fileID: 0}
+        m_GroundIrradiancePrecomputationCS: {fileID: 0}
+        m_InScatteredRadiancePrecomputationCS: {fileID: 0}
+        m_PhysicallyBasedSkyPS: {fileID: 0}
+        m_CloudLayerPS: {fileID: 0}
+        m_BakeCloudTextureCS: {fileID: 0}
+        m_BakeCloudShadowsCS: {fileID: 0}
+        m_SkyLUTGenerator: {fileID: 0}
+        m_LineStagePrepareCS: {fileID: 0}
+        m_LineStageSetupSegmentCS: {fileID: 0}
+        m_LineStageShadingSetupCS: {fileID: 0}
+        m_LineStageRasterBinCS: {fileID: 0}
+        m_LineStageWorkQueueCS: {fileID: 0}
+        m_LineStageRasterFineCS: {fileID: 0}
+        m_LineCompositePS: {fileID: 0}
+        m_PreIntegratedFGD_GGXDisneyDiffusePS: {fileID: 0}
+        m_PreIntegratedFGD_CharlieFabricLambertPS: {fileID: 0}
+        m_PreIntegratedFGD_WardPS: {fileID: 0}
+        m_PreIntegratedFGD_CookTorrancePS: {fileID: 0}
+        m_PreIntegratedFGD_MarschnerPS: {fileID: 0}
+        m_PreIntegratedFiberScatteringCS: {fileID: 0}
+        m_VolumetricMaterialCS: {fileID: 0}
+        m_EyeMaterialCS: {fileID: 0}
+        m_FilterAreaLightCookiesPS: {fileID: 0}
+        m_BuildProbabilityTablesCS: {fileID: 0}
+        m_ComputeGgxIblSampleDataCS: {fileID: 0}
+        m_GGXConvolvePS: {fileID: 0}
+        m_CharlieConvolvePS: {fileID: 0}
+        m_GpuPrefixSumCS: {fileID: 0}
+        m_GpuSortCS: {fileID: 0}
+        m_BilateralUpsampleCS: {fileID: 0}
+        m_TemporalFilterCS: {fileID: 0}
+        m_DiffuseDenoiserCS: {fileID: 0}
+        m_FurnaceTestCS: {fileID: 0}
+        m_ObjectIDPS: {fileID: 0}
+        m_ComputeThicknessPS: {fileID: 0}
+        m_CopyChannelCS: {fileID: 0}
+        m_ClearBuffer2D: {fileID: 0}
+        m_EncodeBC6HCS: {fileID: 0}
+        m_CubeToPanoPS: {fileID: 0}
+        m_BlitCubeTextureFacePS: {fileID: 0}
+        m_ClearUIntTextureCS: {fileID: 0}
+        m_Texture3DAtlasCS: {fileID: 0}
+        m_XrMirrorViewPS: {fileID: 0}
+        m_XrOcclusionMeshPS: {fileID: 0}
+        m_ContactShadowCS: {fileID: 0}
+        m_ScreenSpaceShadowPS: {fileID: 0}
+        m_ShadowClearPS: {fileID: 0}
+        m_EvsmBlurCS: {fileID: 0}
+        m_DebugHDShadowMapPS: {fileID: 0}
+        m_DebugLocalVolumetricFogAtlasPS: {fileID: 0}
+        m_MomentShadowsCS: {fileID: 0}
+        m_ShadowBlitPS: {fileID: 0}
+        m_DecalNormalBufferPS: {fileID: 0}
+        m_GTAOCS: {fileID: 0}
+        m_GTAOSpatialDenoiseCS: {fileID: 0}
+        m_GTAOTemporalDenoiseCS: {fileID: 0}
+        m_GTAOCopyHistoryCS: {fileID: 0}
+        m_GTAOBlurAndUpsample: {fileID: 0}
+        m_CopyAlphaCS: {fileID: 0}
+        m_NanKillerCS: {fileID: 0}
+        m_ExposureCS: {fileID: 0}
+        m_HistogramExposureCS: {fileID: 0}
+        m_ApplyExposureCS: {fileID: 0}
+        m_UberPostCS: {fileID: 0}
+        m_LutBuilder3DCS: {fileID: 0}
+        m_DepthOfFieldKernelCS: {fileID: 0}
+        m_DepthOfFieldCoCCS: {fileID: 0}
+        m_DepthOfFieldCoCReprojectCS: {fileID: 0}
+        m_DepthOfFieldDilateCS: {fileID: 0}
+        m_DepthOfFieldMipCS: {fileID: 0}
+        m_DepthOfFieldMipSafeCS: {fileID: 0}
+        m_DepthOfFieldPrefilterCS: {fileID: 0}
+        m_DepthOfFieldTileMaxCS: {fileID: 0}
+        m_DepthOfFieldGatherCS: {fileID: 0}
+        m_DepthOfFieldCombineCS: {fileID: 0}
+        m_DepthOfFieldPreCombineFarCS: {fileID: 0}
+        m_DepthOfFieldClearIndirectArgsCS: {fileID: 0}
+        m_PaniniProjectionCS: {fileID: 0}
+        m_DofCircleOfConfusion: {fileID: 0}
+        m_DofGatherCS: {fileID: 0}
+        m_DofCoCMinMaxCS: {fileID: 0}
+        m_DofMinMaxDilateCS: {fileID: 0}
+        m_DofCombineCS: {fileID: 0}
+        m_DofComputeSlowTilesCS: {fileID: 0}
+        m_DofComputeApertureShapeCS: {fileID: 0}
+        m_MotionBlurMotionVecPrepCS: {fileID: 0}
+        m_MotionBlurGenTileCS: {fileID: 0}
+        m_MotionBlurMergeTileCS: {fileID: 0}
+        m_MotionBlurNeighborhoodTileCS: {fileID: 0}
+        m_MotionBlurCS: {fileID: 0}
+        m_BloomPrefilterCS: {fileID: 0}
+        m_BloomBlurCS: {fileID: 0}
+        m_BloomUpsampleCS: {fileID: 0}
+        m_DepthValuesPS: {fileID: 0}
+        m_ColorResolvePS: {fileID: 0}
+        m_ResolveMotionVecPS: {fileID: 0}
+        m_FXAACS: {fileID: 0}
+        m_FinalPassPS: {fileID: 0}
+        m_ClearBlackPS: {fileID: 0}
+        m_SMAAPS: {fileID: 0}
+        m_TemporalAntialiasingPS: {fileID: 0}
+        m_SharpeningCS: {fileID: 0}
+        m_LensFlareDataDrivenPS: {fileID: 0}
+        m_LensFlareScreenSpacePS: {fileID: 0}
+        m_LensFlareMergeOcclusionCS: {fileID: 0}
+        m_DLSSBiasColorMaskPS: {fileID: 0}
+        m_CompositeUIAndOETFApplyPS: {fileID: 0}
+        m_ContrastAdaptiveSharpenCS: {fileID: 0}
+        m_EdgeAdaptiveSpatialUpsamplingCS: {fileID: 0}
+        m_VTFeedbackDownsample: {fileID: 0}
+        m_AccumulationCS: {fileID: 0}
+        m_BlitAndExposeCS: {fileID: 0}
+        m_AlphaInjectionPS: {fileID: 0}
+        m_ChromaKeyingPS: {fileID: 0}
+        m_CustomClearPS: {fileID: 0}
+    - rid: 7917056730846199830
+      type: {class: HDRenderingLayersLimitSettings, ns: UnityEditor.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Editor}
+      data:
+        m_Version: 0
+    - rid: 7917056730846199831
+      type: {class: GPUResidentDrawerResources, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.GPUDriven.Runtime}
+      data:
+        m_Version: 0
+        m_InstanceDataBufferCopyKernels: {fileID: 0}
+        m_InstanceDataBufferUploadKernels: {fileID: 0}
+        m_TransformUpdaterKernels: {fileID: 0}
+        m_WindDataUpdaterKernels: {fileID: 0}
+        m_OccluderDepthPyramidKernels: {fileID: 0}
+        m_InstanceOcclusionCullingKernels: {fileID: 0}
+        m_OcclusionCullingDebugKernels: {fileID: 0}
+        m_DebugOcclusionTestPS: {fileID: 0}
+        m_DebugOccluderPS: {fileID: 0}
+    - rid: 7917056730846199832
+      type: {class: RenderGraphGlobalSettings, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.Core.Runtime}
+      data:
+        m_version: 0
+        m_EnableCompilationCaching: 1
+        m_EnableValidityChecks: 1
+    - rid: 7917056730846199833
+      type: {class: STP/RuntimeResources, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.Core.Runtime}
+      data:
+        m_setupCS: {fileID: 0}
+        m_preTaaCS: {fileID: 0}
+        m_taaCS: {fileID: 0}
+    - rid: 7917056730846199834
+      type: {class: ProbeVolumeRuntimeResources, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.Core.Runtime}
+      data:
+        m_Version: 1
+        probeVolumeBlendStatesCS: {fileID: 0}
+        probeVolumeUploadDataCS: {fileID: 0}
+        probeVolumeUploadDataL2CS: {fileID: 0}
+    - rid: 7917056730846199835
+      type: {class: ProbeVolumeBakingResources, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.Core.Runtime}
+      data:
+        m_Version: 1
+        dilationShader: {fileID: 0}
+        subdivideSceneCS: {fileID: 0}
+        voxelizeSceneShader: {fileID: 0}
+        traceVirtualOffsetCS: {fileID: 0}
+        traceVirtualOffsetRT: {fileID: 0}
+        skyOcclusionCS: {fileID: 0}
+        skyOcclusionRT: {fileID: 0}
+        renderingLayerCS: {fileID: 0}
+        renderingLayerRT: {fileID: 0}
+    - rid: 7917056730846199836
+      type: {class: RenderGraphUtilsResources, ns: UnityEngine.Rendering.RenderGraphModule.Util, asm: Unity.RenderPipelines.Core.Runtime}
+      data:
+        m_Version: 0
+        m_CoreCopyPS: {fileID: 0}
+    - rid: 7917056730846199837
+      type: {class: ProbeVolumeDebugResources, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.Core.Runtime}
+      data:
+        m_Version: 1
+        probeVolumeDebugShader: {fileID: 0}
+        probeVolumeFragmentationDebugShader: {fileID: 0}
+        probeVolumeSamplingDebugShader: {fileID: 0}
+        probeVolumeOffsetDebugShader: {fileID: 0}
+        probeSamplingDebugMesh: {fileID: 0}
+        numbersDisplayTex: {fileID: 0}
+    - rid: 7917056730846199838
+      type: {class: ProbeVolumeGlobalSettings, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.Core.Runtime}
+      data:
+        m_Version: 1
+        m_ProbeVolumeDisableStreamingAssets: 0
+    - rid: 7917056730846199839
+      type: {class: IncludeAdditionalRPAssets, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.Core.Runtime}
+      data:
+        m_version: 0
+        m_IncludeReferencedInScenes: 1
+        m_IncludeAssetsByLabel: 1
+        m_LabelToInclude: HDRP:IncludeInBuild
+    - rid: 7917056730846199840
+      type: {class: ShaderStrippingSetting, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.Core.Runtime}
+      data:
+        m_Version: 0
+        m_ExportShaderVariants: 1
+        m_ShaderVariantLogLevel: 0
+        m_StripRuntimeDebugShaders: 1

@@ -353,8 +353,8 @@ namespace AWSIM
         public void SetPosition(Vector3 position)
         {
             rigidbody.MovePosition(new Vector3(position.x, rigidbody.position.y, position.z));
-            var velocityY = Mathf.Min(rigidbody.velocity.y, maxVerticalSpeed);
-            rigidbody.velocity = new Vector3(0, velocityY, 0);
+            var velocityY = Mathf.Min(rigidbody.linearVelocity.y, maxVerticalSpeed);
+            rigidbody.linearVelocity = new Vector3(0, velocityY, 0);
         }
 
         /// <summary>

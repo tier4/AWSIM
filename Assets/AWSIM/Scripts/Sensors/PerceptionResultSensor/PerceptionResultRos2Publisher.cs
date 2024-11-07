@@ -129,7 +129,7 @@ namespace AWSIM
                 }
                 // Add twist
                 {
-                    kinematics.Twist_with_covariance.Twist.Linear.X = rb.velocity.magnitude;
+                    kinematics.Twist_with_covariance.Twist.Linear.X = rb.linearVelocity.magnitude;
                     kinematics.Twist_with_covariance.Twist.Linear.Y = 0.0;
                     kinematics.Twist_with_covariance.Twist.Linear.Z = 0.0;
                     var a = ROS2Utility.UnityToRosPosition(rb.angularVelocity);
