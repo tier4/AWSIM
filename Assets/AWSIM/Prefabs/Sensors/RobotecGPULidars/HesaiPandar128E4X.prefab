@@ -143,7 +143,7 @@ MonoBehaviour:
   - topic: lidar/pointcloud_ex
     publish: 1
     fieldsPreset: 2
-    fields: 01000000030000000c0000000b0000000a00000009000000080000000e000000
+    fields: 01000000030000000c0000000b000000090000000a000000080000000e000000
   radarScanPublishers: []
 --- !u!114 &2398431948632788025
 MonoBehaviour:
@@ -212,896 +212,896 @@ MonoBehaviour:
           - horizontalAngularOffsetDeg: 0.186
             verticalAngularOffsetDeg: -14.985
             verticalLinearOffsetMm: 0
-            ringId: 1
+            ringId: 0
             timeOffset: 0.048963
             minRange: 0.3
             maxRange: 60
           - horizontalAngularOffsetDeg: 0.185
             verticalAngularOffsetDeg: -13.283
             verticalLinearOffsetMm: 0
-            ringId: 2
+            ringId: 1
             timeOffset: 0.042674
             minRange: 0.3
             maxRange: 80
           - horizontalAngularOffsetDeg: 1.335
             verticalAngularOffsetDeg: -11.758
             verticalLinearOffsetMm: 0
-            ringId: 3
+            ringId: 2
             timeOffset: 0.036385
             minRange: 0.3
             maxRange: 80
           - horizontalAngularOffsetDeg: 1.343
             verticalAngularOffsetDeg: -10.483
             verticalLinearOffsetMm: 0
-            ringId: 4
+            ringId: 3
             timeOffset: 0.030096
             minRange: 0.3
             maxRange: 80
           - horizontalAngularOffsetDeg: 0.148
             verticalAngularOffsetDeg: -9.836
             verticalLinearOffsetMm: 0
-            ringId: 5
+            ringId: 4
             timeOffset: 0.021185
             minRange: 0.3
             maxRange: 80
           - horizontalAngularOffsetDeg: 0.147
             verticalAngularOffsetDeg: -9.171
             verticalLinearOffsetMm: 0
-            ringId: 6
+            ringId: 5
             timeOffset: 0.014896
             minRange: 0.3
             maxRange: 80
           - horizontalAngularOffsetDeg: 0.146
             verticalAngularOffsetDeg: -8.496
             verticalLinearOffsetMm: 0
-            ringId: 7
+            ringId: 6
             timeOffset: 0.008607
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.146
             verticalAngularOffsetDeg: -7.812
             verticalLinearOffsetMm: 0
-            ringId: 8
+            ringId: 7
             timeOffset: 0.002318
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 1.335
             verticalAngularOffsetDeg: -7.462
             verticalLinearOffsetMm: 0
-            ringId: 9
+            ringId: 8
             timeOffset: 0.048963
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 1.336
             verticalAngularOffsetDeg: -7.115
             verticalLinearOffsetMm: 0
-            ringId: 10
+            ringId: 9
             timeOffset: 0.042674
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 1.337
             verticalAngularOffsetDeg: -6.767
             verticalLinearOffsetMm: 0
-            ringId: 11
+            ringId: 10
             timeOffset: 0.036385
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 1.338
             verticalAngularOffsetDeg: -6.416
             verticalLinearOffsetMm: 0
-            ringId: 12
+            ringId: 11
             timeOffset: 0.030096
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 1.339
             verticalAngularOffsetDeg: -6.064
             verticalLinearOffsetMm: 0
-            ringId: 13
+            ringId: 12
             timeOffset: 0.021185
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 1.34
             verticalAngularOffsetDeg: -5.71
             verticalLinearOffsetMm: 0
-            ringId: 14
+            ringId: 13
             timeOffset: 0.014896
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 1.341
             verticalAngularOffsetDeg: -5.355
             verticalLinearOffsetMm: 0
-            ringId: 15
+            ringId: 14
             timeOffset: 0.008607
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 1.342
             verticalAngularOffsetDeg: -4.998
             verticalLinearOffsetMm: 0
-            ringId: 16
+            ringId: 15
             timeOffset: 0.002318
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.128
             verticalAngularOffsetDeg: -4.643
             verticalLinearOffsetMm: 0
-            ringId: 17
+            ringId: 16
             timeOffset: 0.048963
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.128
             verticalAngularOffsetDeg: -4.282
             verticalLinearOffsetMm: 0
-            ringId: 18
+            ringId: 17
             timeOffset: 0.042674
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.127
             verticalAngularOffsetDeg: -3.921
             verticalLinearOffsetMm: 0
-            ringId: 19
+            ringId: 18
             timeOffset: 0.036385
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.127
             verticalAngularOffsetDeg: -3.558
             verticalLinearOffsetMm: 0
-            ringId: 20
+            ringId: 19
             timeOffset: 0.030096
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.107
             verticalAngularOffsetDeg: -3.194
             verticalLinearOffsetMm: 0
-            ringId: 21
+            ringId: 20
             timeOffset: 0.021185
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.106
             verticalAngularOffsetDeg: -2.829
             verticalLinearOffsetMm: 0
-            ringId: 22
+            ringId: 21
             timeOffset: 0.014896
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.105
             verticalAngularOffsetDeg: -2.463
             verticalLinearOffsetMm: 0
-            ringId: 23
+            ringId: 22
             timeOffset: 0.008607
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.105
             verticalAngularOffsetDeg: -2.095
             verticalLinearOffsetMm: 0
-            ringId: 24
+            ringId: 23
             timeOffset: 0.002318
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: -3.118
             verticalAngularOffsetDeg: -1.974
             verticalLinearOffsetMm: 0
-            ringId: 25
+            ringId: 24
             timeOffset: 0.027778
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 1.315
             verticalAngularOffsetDeg: -1.854
             verticalLinearOffsetMm: 0
-            ringId: 26
+            ringId: 25
             timeOffset: 0.046645
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 4.529
             verticalAngularOffsetDeg: -1.729
             verticalLinearOffsetMm: 0
-            ringId: 27
+            ringId: 26
             timeOffset: 0.040356
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: -3.121
             verticalAngularOffsetDeg: -1.609
             verticalLinearOffsetMm: 0
-            ringId: 28
+            ringId: 27
             timeOffset: 0.046645
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 1.316
             verticalAngularOffsetDeg: -1.487
             verticalLinearOffsetMm: 0
-            ringId: 29
+            ringId: 28
             timeOffset: 0.027778
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 4.532
             verticalAngularOffsetDeg: -1.362
             verticalLinearOffsetMm: 0
-            ringId: 30
+            ringId: 29
             timeOffset: 0.034067
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: -3.124
             verticalAngularOffsetDeg: -1.242
             verticalLinearOffsetMm: 0
-            ringId: 31
+            ringId: 30
             timeOffset: 0.044327
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 1.317
             verticalAngularOffsetDeg: -1.12
             verticalLinearOffsetMm: 0
-            ringId: 32
+            ringId: 31
             timeOffset: 0.038038
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 4.536
             verticalAngularOffsetDeg: -0.995
             verticalLinearOffsetMm: 0
-            ringId: 33
+            ringId: 32
             timeOffset: 0.044327
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: -3.127
             verticalAngularOffsetDeg: -0.875
             verticalLinearOffsetMm: 0
-            ringId: 34
+            ringId: 33
             timeOffset: 0.038038
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 1.317
             verticalAngularOffsetDeg: -0.75
             verticalLinearOffsetMm: 0
-            ringId: 35
+            ringId: 34
             timeOffset: 0.040356
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 4.539
             verticalAngularOffsetDeg: -0.625
             verticalLinearOffsetMm: 0
-            ringId: 36
+            ringId: 35
             timeOffset: 0.031749
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: -3.13
             verticalAngularOffsetDeg: -0.5
             verticalLinearOffsetMm: 0
-            ringId: 37
+            ringId: 36
             timeOffset: 0.031749
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 1.318
             verticalAngularOffsetDeg: -0.375
             verticalLinearOffsetMm: 0
-            ringId: 38
+            ringId: 37
             timeOffset: 0.034067
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 4.542
             verticalAngularOffsetDeg: -0.25
             verticalLinearOffsetMm: 0
-            ringId: 39
+            ringId: 38
             timeOffset: 0.050616
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: -3.133
             verticalAngularOffsetDeg: -0.125
             verticalLinearOffsetMm: 0
-            ringId: 40
+            ringId: 39
             timeOffset: 0.050616
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 0.103
             verticalAngularOffsetDeg: 0
             verticalLinearOffsetMm: 0
-            ringId: 41
+            ringId: 40
             timeOffset: 0.044327
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 2.935
             verticalAngularOffsetDeg: 0.125
             verticalLinearOffsetMm: 0
-            ringId: 42
+            ringId: 41
             timeOffset: 0.046645
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: -1.517
             verticalAngularOffsetDeg: 0.25
             verticalLinearOffsetMm: 0
-            ringId: 43
+            ringId: 42
             timeOffset: 0.027778
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 0.103
             verticalAngularOffsetDeg: 0.375
             verticalLinearOffsetMm: 0
-            ringId: 44
+            ringId: 43
             timeOffset: 0.038038
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 2.937
             verticalAngularOffsetDeg: 0.5
             verticalLinearOffsetMm: 0
-            ringId: 45
+            ringId: 44
             timeOffset: 0.040356
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: -1.519
             verticalAngularOffsetDeg: 0.626
             verticalLinearOffsetMm: 0
-            ringId: 46
+            ringId: 45
             timeOffset: 0.046645
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 0.103
             verticalAngularOffsetDeg: 0.751
             verticalLinearOffsetMm: 0
-            ringId: 47
+            ringId: 46
             timeOffset: 0.031749
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 2.939
             verticalAngularOffsetDeg: 0.876
             verticalLinearOffsetMm: 0
-            ringId: 48
+            ringId: 47
             timeOffset: 0.034067
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: -1.52
             verticalAngularOffsetDeg: 1.001
             verticalLinearOffsetMm: 0
-            ringId: 49
+            ringId: 48
             timeOffset: 0.040356
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 0.103
             verticalAngularOffsetDeg: 1.126
             verticalLinearOffsetMm: 0
-            ringId: 50
+            ringId: 49
             timeOffset: 0.050616
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 2.941
             verticalAngularOffsetDeg: 1.251
             verticalLinearOffsetMm: 0
-            ringId: 51
+            ringId: 50
             timeOffset: 0.044327
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: -1.521
             verticalAngularOffsetDeg: 1.377
             verticalLinearOffsetMm: 0
-            ringId: 52
+            ringId: 51
             timeOffset: 0.034067
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 0.102
             verticalAngularOffsetDeg: 1.502
             verticalLinearOffsetMm: 0
-            ringId: 53
+            ringId: 52
             timeOffset: 0.027778
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 2.943
             verticalAngularOffsetDeg: 1.627
             verticalLinearOffsetMm: 0
-            ringId: 54
+            ringId: 53
             timeOffset: 0.038038
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: -1.523
             verticalAngularOffsetDeg: 1.751
             verticalLinearOffsetMm: 0
-            ringId: 55
+            ringId: 54
             timeOffset: 0.044327
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 0.102
             verticalAngularOffsetDeg: 1.876
             verticalLinearOffsetMm: 0
-            ringId: 56
+            ringId: 55
             timeOffset: 0.046645
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 2.945
             verticalAngularOffsetDeg: 2.001
             verticalLinearOffsetMm: 0
-            ringId: 57
+            ringId: 56
             timeOffset: 0.031749
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: -1.524
             verticalAngularOffsetDeg: 2.126
             verticalLinearOffsetMm: 0
-            ringId: 58
+            ringId: 57
             timeOffset: 0.038038
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 0.102
             verticalAngularOffsetDeg: 2.251
             verticalLinearOffsetMm: 0
-            ringId: 59
+            ringId: 58
             timeOffset: 0.040356
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 2.946
             verticalAngularOffsetDeg: 2.376
             verticalLinearOffsetMm: 0
-            ringId: 60
+            ringId: 59
             timeOffset: 0.050616
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: -1.526
             verticalAngularOffsetDeg: 2.501
             verticalLinearOffsetMm: 0
-            ringId: 61
+            ringId: 60
             timeOffset: 0.031749
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 0.102
             verticalAngularOffsetDeg: 2.626
             verticalLinearOffsetMm: 0
-            ringId: 62
+            ringId: 61
             timeOffset: 0.034067
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 2.948
             verticalAngularOffsetDeg: 2.751
             verticalLinearOffsetMm: 0
-            ringId: 63
+            ringId: 62
             timeOffset: 0.027778
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: -1.526
             verticalAngularOffsetDeg: 2.876
             verticalLinearOffsetMm: 0
-            ringId: 64
+            ringId: 63
             timeOffset: 0.050616
             minRange: 0.3
             maxRange: 200
           - horizontalAngularOffsetDeg: 1.324
             verticalAngularOffsetDeg: 3.001
             verticalLinearOffsetMm: 0
-            ringId: 65
+            ringId: 64
             timeOffset: 0.044327
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 4.57
             verticalAngularOffsetDeg: 3.126
             verticalLinearOffsetMm: 0
-            ringId: 66
+            ringId: 65
             timeOffset: 0.046645
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: -3.155
             verticalAngularOffsetDeg: 3.251
             verticalLinearOffsetMm: 0
-            ringId: 67
+            ringId: 66
             timeOffset: 0.027778
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 1.325
             verticalAngularOffsetDeg: 3.376
             verticalLinearOffsetMm: 0
-            ringId: 68
+            ringId: 67
             timeOffset: 0.038038
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 4.573
             verticalAngularOffsetDeg: 3.501
             verticalLinearOffsetMm: 0
-            ringId: 69
+            ringId: 68
             timeOffset: 0.040356
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: -3.157
             verticalAngularOffsetDeg: 3.626
             verticalLinearOffsetMm: 0
-            ringId: 70
+            ringId: 69
             timeOffset: 0.046645
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 1.326
             verticalAngularOffsetDeg: 3.751
             verticalLinearOffsetMm: 0
-            ringId: 71
+            ringId: 70
             timeOffset: 0.031749
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 4.575
             verticalAngularOffsetDeg: 3.876
             verticalLinearOffsetMm: 0
-            ringId: 72
+            ringId: 71
             timeOffset: 0.034067
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: -3.159
             verticalAngularOffsetDeg: 4.001
             verticalLinearOffsetMm: 0
-            ringId: 73
+            ringId: 72
             timeOffset: 0.040356
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 1.326
             verticalAngularOffsetDeg: 4.126
             verticalLinearOffsetMm: 0
-            ringId: 74
+            ringId: 73
             timeOffset: 0.050616
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 4.578
             verticalAngularOffsetDeg: 4.25
             verticalLinearOffsetMm: 0
-            ringId: 75
+            ringId: 74
             timeOffset: 0.044327
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: -3.161
             verticalAngularOffsetDeg: 4.375
             verticalLinearOffsetMm: 0
-            ringId: 76
+            ringId: 75
             timeOffset: 0.034067
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 1.327
             verticalAngularOffsetDeg: 4.501
             verticalLinearOffsetMm: 0
-            ringId: 77
+            ringId: 76
             timeOffset: 0.027778
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 4.581
             verticalAngularOffsetDeg: 4.626
             verticalLinearOffsetMm: 0
-            ringId: 78
+            ringId: 77
             timeOffset: 0.038038
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: -3.163
             verticalAngularOffsetDeg: 4.751
             verticalLinearOffsetMm: 0
-            ringId: 79
+            ringId: 78
             timeOffset: 0.044327
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 1.328
             verticalAngularOffsetDeg: 4.876
             verticalLinearOffsetMm: 0
-            ringId: 80
+            ringId: 79
             timeOffset: 0.046645
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 4.583
             verticalAngularOffsetDeg: 5.001
             verticalLinearOffsetMm: 0
-            ringId: 81
+            ringId: 80
             timeOffset: 0.031749
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: -3.165
             verticalAngularOffsetDeg: 5.126
             verticalLinearOffsetMm: 0
-            ringId: 82
+            ringId: 81
             timeOffset: 0.038038
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 1.329
             verticalAngularOffsetDeg: 5.252
             verticalLinearOffsetMm: 0
-            ringId: 83
+            ringId: 82
             timeOffset: 0.040356
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 4.586
             verticalAngularOffsetDeg: 5.377
             verticalLinearOffsetMm: 0
-            ringId: 84
+            ringId: 83
             timeOffset: 0.050616
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: -3.167
             verticalAngularOffsetDeg: 5.502
             verticalLinearOffsetMm: 0
-            ringId: 85
+            ringId: 84
             timeOffset: 0.031749
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 1.329
             verticalAngularOffsetDeg: 5.626
             verticalLinearOffsetMm: 0
-            ringId: 86
+            ringId: 85
             timeOffset: 0.034067
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 4.588
             verticalAngularOffsetDeg: 5.752
             verticalLinearOffsetMm: 0
-            ringId: 87
+            ringId: 86
             timeOffset: 0.027778
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: -3.168
             verticalAngularOffsetDeg: 5.877
             verticalLinearOffsetMm: 0
-            ringId: 88
+            ringId: 87
             timeOffset: 0.050616
             minRange: 0.3
             maxRange: 140
           - horizontalAngularOffsetDeg: 0.102
             verticalAngularOffsetDeg: 6.002
             verticalLinearOffsetMm: 0
-            ringId: 89
+            ringId: 88
             timeOffset: 0.048963
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.103
             verticalAngularOffsetDeg: 6.378
             verticalLinearOffsetMm: 0
-            ringId: 90
+            ringId: 89
             timeOffset: 0.042674
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.103
             verticalAngularOffsetDeg: 6.754
             verticalLinearOffsetMm: 0
-            ringId: 91
+            ringId: 90
             timeOffset: 0.036385
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.103
             verticalAngularOffsetDeg: 7.13
             verticalLinearOffsetMm: 0
-            ringId: 92
+            ringId: 91
             timeOffset: 0.030096
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.104
             verticalAngularOffsetDeg: 7.507
             verticalLinearOffsetMm: 0
-            ringId: 93
+            ringId: 92
             timeOffset: 0.021185
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.104
             verticalAngularOffsetDeg: 7.882
             verticalLinearOffsetMm: 0
-            ringId: 94
+            ringId: 93
             timeOffset: 0.014896
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.104
             verticalAngularOffsetDeg: 8.257
             verticalLinearOffsetMm: 0
-            ringId: 95
+            ringId: 94
             timeOffset: 0.008607
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.104
             verticalAngularOffsetDeg: 8.632
             verticalLinearOffsetMm: 0
-            ringId: 96
+            ringId: 95
             timeOffset: 0.002318
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 1.337
             verticalAngularOffsetDeg: 9.003
             verticalLinearOffsetMm: 0
-            ringId: 97
+            ringId: 96
             timeOffset: 0.048963
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 1.337
             verticalAngularOffsetDeg: 9.376
             verticalLinearOffsetMm: 0
-            ringId: 98
+            ringId: 97
             timeOffset: 0.042674
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 1.338
             verticalAngularOffsetDeg: 9.749
             verticalLinearOffsetMm: 0
-            ringId: 99
+            ringId: 98
             timeOffset: 0.036385
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 1.339
             verticalAngularOffsetDeg: 10.121
             verticalLinearOffsetMm: 0
-            ringId: 100
+            ringId: 99
             timeOffset: 0.030096
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 1.34
             verticalAngularOffsetDeg: 10.493
             verticalLinearOffsetMm: 0
-            ringId: 101
+            ringId: 100
             timeOffset: 0.021185
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 1.341
             verticalAngularOffsetDeg: 10.864
             verticalLinearOffsetMm: 0
-            ringId: 102
+            ringId: 101
             timeOffset: 0.014896
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 1.341
             verticalAngularOffsetDeg: 11.234
             verticalLinearOffsetMm: 0
-            ringId: 103
+            ringId: 102
             timeOffset: 0.008607
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 1.342
             verticalAngularOffsetDeg: 11.603
             verticalLinearOffsetMm: 0
-            ringId: 104
+            ringId: 103
             timeOffset: 0.002318
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.108
             verticalAngularOffsetDeg: 11.975
             verticalLinearOffsetMm: 0
-            ringId: 105
+            ringId: 104
             timeOffset: 0.048963
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.108
             verticalAngularOffsetDeg: 12.343
             verticalLinearOffsetMm: 0
-            ringId: 106
+            ringId: 105
             timeOffset: 0.042674
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.109
             verticalAngularOffsetDeg: 12.709
             verticalLinearOffsetMm: 0
-            ringId: 107
+            ringId: 106
             timeOffset: 0.036385
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.109
             verticalAngularOffsetDeg: 13.075
             verticalLinearOffsetMm: 0
-            ringId: 108
+            ringId: 107
             timeOffset: 0.030096
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.13
             verticalAngularOffsetDeg: 13.439
             verticalLinearOffsetMm: 0
-            ringId: 109
+            ringId: 108
             timeOffset: 0.021185
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.131
             verticalAngularOffsetDeg: 13.803
             verticalLinearOffsetMm: 0
-            ringId: 110
+            ringId: 109
             timeOffset: 0.014896
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.131
             verticalAngularOffsetDeg: 14.164
             verticalLinearOffsetMm: 0
-            ringId: 111
+            ringId: 110
             timeOffset: 0.008607
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 0.132
             verticalAngularOffsetDeg: 14.525
             verticalLinearOffsetMm: 0
-            ringId: 112
+            ringId: 111
             timeOffset: 0.002318
             minRange: 0.3
             maxRange: 100
           - horizontalAngularOffsetDeg: 1.384
             verticalAngularOffsetDeg: 14.879
             verticalLinearOffsetMm: 0
-            ringId: 113
+            ringId: 112
             timeOffset: 0.048963
             minRange: 0.3
             maxRange: 80
           - horizontalAngularOffsetDeg: 1.384
             verticalAngularOffsetDeg: 15.237
             verticalLinearOffsetMm: 0
-            ringId: 114
+            ringId: 113
             timeOffset: 0.042674
             minRange: 0.3
             maxRange: 80
           - horizontalAngularOffsetDeg: 1.385
             verticalAngularOffsetDeg: 15.593
             verticalLinearOffsetMm: 0
-            ringId: 115
+            ringId: 114
             timeOffset: 0.036385
             minRange: 0.3
             maxRange: 80
           - horizontalAngularOffsetDeg: 1.385
             verticalAngularOffsetDeg: 15.948
             verticalLinearOffsetMm: 0
-            ringId: 116
+            ringId: 115
             timeOffset: 0.030096
             minRange: 0.3
             maxRange: 80
           - horizontalAngularOffsetDeg: 1.386
             verticalAngularOffsetDeg: 16.299
             verticalLinearOffsetMm: 0
-            ringId: 117
+            ringId: 116
             timeOffset: 0.021185
             minRange: 0.3
             maxRange: 80
           - horizontalAngularOffsetDeg: 1.386
             verticalAngularOffsetDeg: 16.651
             verticalLinearOffsetMm: 0
-            ringId: 118
+            ringId: 117
             timeOffset: 0.014896
             minRange: 0.3
             maxRange: 80
           - horizontalAngularOffsetDeg: 1.387
             verticalAngularOffsetDeg: 17
             verticalLinearOffsetMm: 0
-            ringId: 119
+            ringId: 118
             timeOffset: 0.008607
             minRange: 0.3
             maxRange: 80
           - horizontalAngularOffsetDeg: 1.387
             verticalAngularOffsetDeg: 17.347
             verticalLinearOffsetMm: 0
-            ringId: 120
+            ringId: 119
             timeOffset: 0.002318
             minRange: 0.3
             maxRange: 80
           - horizontalAngularOffsetDeg: 0.151
             verticalAngularOffsetDeg: 17.701
             verticalLinearOffsetMm: 0
-            ringId: 121
+            ringId: 120
             timeOffset: 0.048963
             minRange: 0.3
             maxRange: 80
           - horizontalAngularOffsetDeg: 0.153
             verticalAngularOffsetDeg: 18.386
             verticalLinearOffsetMm: 0
-            ringId: 122
+            ringId: 121
             timeOffset: 0.042674
             minRange: 0.3
             maxRange: 80
           - horizontalAngularOffsetDeg: 0.154
             verticalAngularOffsetDeg: 19.063
             verticalLinearOffsetMm: 0
-            ringId: 123
+            ringId: 122
             timeOffset: 0.036385
             minRange: 0.3
             maxRange: 80
           - horizontalAngularOffsetDeg: 0.156
             verticalAngularOffsetDeg: 19.73
             verticalLinearOffsetMm: 0
-            ringId: 124
+            ringId: 123
             timeOffset: 0.030096
             minRange: 0.3
             maxRange: 80
           - horizontalAngularOffsetDeg: 1.388
             verticalAngularOffsetDeg: 20.376
             verticalLinearOffsetMm: 0
-            ringId: 125
+            ringId: 124
             timeOffset: 0.021185
             minRange: 0.3
             maxRange: 80
           - horizontalAngularOffsetDeg: 1.408
             verticalAngularOffsetDeg: 21.653
             verticalLinearOffsetMm: 0
-            ringId: 126
+            ringId: 125
             timeOffset: 0.014896
             minRange: 0.3
             maxRange: 50
           - horizontalAngularOffsetDeg: 0.196
             verticalAngularOffsetDeg: 23.044
             verticalLinearOffsetMm: 0
-            ringId: 127
+            ringId: 126
             timeOffset: 0.008607
             minRange: 0.3
             maxRange: 40
           - horizontalAngularOffsetDeg: 0.286
             verticalAngularOffsetDeg: 24.765
             verticalLinearOffsetMm: 0
-            ringId: 128
+            ringId: 127
             timeOffset: 0.002318
             minRange: 0.3
             maxRange: 30
