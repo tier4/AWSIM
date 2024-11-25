@@ -171,11 +171,15 @@ namespace AWSIM
         // -MaxSteerAngleInput <= SteerAngleInput <= MaxSteerAngleInput.
         [Range(0.01f, 80)]
         public float MaxSteerAngleInput = 25f;
+        [SerializeField, Min(0.0f), Tooltip("Set 0 to disable the lag")]
+        private float steerAngleTimeConstant = 0.0f;
 
         // Set value to clamp AccelerationInput (m/s^2).
         // -MaxAccelerationInput <= AccelerationInput <= MaxAccelerationInput.
         [Range(0.01f, 50)]
         public float MaxAccelerationInput = 10;
+        [SerializeField, Min(0.0f), Tooltip("Set 0 to disable the lag")]
+        private float accelerationTimeConstant = 0.0f;
 
         [Header("Inputs")]
 
@@ -195,8 +199,6 @@ namespace AWSIM
             set => acceleration.DesiredValue = Mathf.Clamp(value, -MaxAccelerationInput, MaxAccelerationInput);
         }
         private FirstOrderLaggedFloat acceleration;
-        [SerializeField, Min(0.0f), Tooltip("Set 0 to disable the lag")]
-        private float accelerationTimeConstant = 0.0f;
 
         /// <summary>
         /// Vehicle steering input. Tire angle (degree)
@@ -208,8 +210,6 @@ namespace AWSIM
             set => steerAngle.DesiredValue = Mathf.Clamp(value, -MaxSteerAngleInput, MaxSteerAngleInput);
         }
         private FirstOrderLaggedFloat steerAngle;
-        [SerializeField, Min(0.0f), Tooltip("Set 0 to disable the lag")]
-        private float steerAngleTimeConstant = 0.0f;
 
         /// <summary>
         /// Vehicle turn signal input. NONE, LEFT, RIGHT, HAZARD.
