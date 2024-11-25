@@ -189,8 +189,14 @@ namespace AWSIM
         /// In the plane, output the force that will result in this acceleration.
         /// On a slope, it is affected by the slope resistance, so it does not match the input.
         /// </summary>
-        // TODO: Compute first order lag
-        public float AccelerationInput;
+        public float AccelerationInput
+        {
+            get => acceleration.DesiredValue;
+            set => acceleration.DesiredValue = Mathf.Clamp(value, -MaxAccelerationInput, MaxAccelerationInput);
+        }
+        private FirstOrderLaggedFloat acceleration;
+        [SerializeField, Min(0.0f), Tooltip("Set 0 to disable the lag")]
+        private float accelerationTimeConstant = 0.0f;
 
         /// <summary>
         /// Vehicle steering input. Tire angle (degree)
@@ -214,6 +220,11 @@ namespace AWSIM
         /// Acceleration(m/s^2) in the local coordinate system of the vehicle.
         /// </summary>
         public Vector3 LocalAcceleration { get; private set; }
+
+        /// <summary>
+        /// Vehicle acceleration (m/s^2)
+        /// </summary>
+        public float Acceleration => acceleration.Value;
 
         /// <summary>
         /// Vehicle speed (m/s)
@@ -303,6 +314,9 @@ namespace AWSIM
             ForwardSlipMultipler = 1f;
             SidewaySlipMultipler = 1f;
 
+            // Initialize acceleration
+            acceleration = new FirstOrderLaggedFloat(accelerationTimeConstant, 0.0f);
+
             // Initialize steer angle
             steerAngle = new FirstOrderLaggedFloat(steerAngleTimeConstant, 0.0f);
         }
@@ -331,9 +345,6 @@ namespace AWSIM
 
         void FixedUpdate()
         {
-            // Clamp input values.
-            AccelerationInput = Mathf.Clamp(AccelerationInput, -MaxAccelerationInput, MaxAccelerationInput);
-
             // Compute vehicle infomation.
             ComputeVehicleState();
 
@@ -347,8 +358,7 @@ namespace AWSIM
             if (sleep == false)
             {
                 // Update wheel force.
-                var acceleration = AccelerationInput;
-                UpdateWheelsForce(acceleration);
+                UpdateWheelsForce(Acceleration);
             }
 
             // cache value for next frame.
