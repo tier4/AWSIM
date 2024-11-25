@@ -196,8 +196,14 @@ namespace AWSIM
         /// Vehicle steering input. Tire angle (degree)
         /// Negative is left, positive is right turn tire angle.
         /// </summary>
-        // TODO: Compute first order lag
-        public float SteerAngleInput;
+        public float SteerAngleInput
+        {
+            get => steerAngle.DesiredValue;
+            set => steerAngle.DesiredValue = Mathf.Clamp(value, -MaxSteerAngleInput, MaxSteerAngleInput);
+        }
+        private FirstOrderLaggedFloat steerAngle;
+        [SerializeField, Min(0.0f), Tooltip("Set 0 to disable the lag")]
+        private float steerAngleTimeConstant = 0.0f;
 
         /// <summary>
         /// Vehicle turn signal input. NONE, LEFT, RIGHT, HAZARD.
@@ -217,7 +223,7 @@ namespace AWSIM
         /// <summary>
         /// Vehicle steering angle (degree)
         /// </summary>
-        public float SteerAngle => SteerAngleInput;
+        public float SteerAngle => steerAngle.Value;
 
         public float SteerAngleNormalized => SteerAngle / MaxSteerAngleInput;
 
@@ -296,6 +302,9 @@ namespace AWSIM
             // Initialize with non-slip value
             ForwardSlipMultipler = 1f;
             SidewaySlipMultipler = 1f;
+
+            // Initialize steer angle
+            steerAngle = new FirstOrderLaggedFloat(steerAngleTimeConstant, 0.0f);
         }
 
         // GroundSlipMultiplier changes the slip rate.
@@ -324,7 +333,6 @@ namespace AWSIM
         {
             // Clamp input values.
             AccelerationInput = Mathf.Clamp(AccelerationInput, -MaxAccelerationInput, MaxAccelerationInput);
-            SteerAngleInput = Mathf.Clamp(SteerAngleInput, -MaxSteerAngleInput, MaxSteerAngleInput);
 
             // Compute vehicle infomation.
             ComputeVehicleState();
