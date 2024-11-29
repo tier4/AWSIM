@@ -43,7 +43,7 @@ namespace AWSIM
 
         private void Start()
         {
-            if(!isInitialized)
+            if(!isInitialized && npcVehiclePrefab != null)
             {
                 Initialize(npcVehiclePrefab, spawnPoint.position, spawnPoint.rotation);
             }
