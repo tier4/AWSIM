@@ -171,11 +171,15 @@ namespace AWSIM
         // -MaxSteerAngleInput <= SteerAngleInput <= MaxSteerAngleInput.
         [Range(0.01f, 80)]
         public float MaxSteerAngleInput = 25f;
+        [SerializeField, Min(0.0f), Tooltip("Set 0 to disable the lag")]
+        private float steerAngleTimeConstant = 0.0f;
 
         // Set value to clamp AccelerationInput (m/s^2).
         // -MaxAccelerationInput <= AccelerationInput <= MaxAccelerationInput.
         [Range(0.01f, 50)]
         public float MaxAccelerationInput = 10;
+        [SerializeField, Min(0.0f), Tooltip("Set 0 to disable the lag")]
+        private float accelerationTimeConstant = 0.0f;
 
         [Header("Inputs")]
 
@@ -189,15 +193,23 @@ namespace AWSIM
         /// In the plane, output the force that will result in this acceleration.
         /// On a slope, it is affected by the slope resistance, so it does not match the input.
         /// </summary>
-        // TODO: Compute first order lag
-        public float AccelerationInput;
+        public float AccelerationInput
+        {
+            get => acceleration.DesiredValue;
+            set => acceleration.DesiredValue = Mathf.Clamp(value, -MaxAccelerationInput, MaxAccelerationInput);
+        }
+        private FirstOrderLaggedFloat acceleration;
 
         /// <summary>
         /// Vehicle steering input. Tire angle (degree)
         /// Negative is left, positive is right turn tire angle.
         /// </summary>
-        // TODO: Compute first order lag
-        public float SteerAngleInput;
+        public float SteerAngleInput
+        {
+            get => steerAngle.DesiredValue;
+            set => steerAngle.DesiredValue = Mathf.Clamp(value, -MaxSteerAngleInput, MaxSteerAngleInput);
+        }
+        private FirstOrderLaggedFloat steerAngle;
 
         /// <summary>
         /// Vehicle turn signal input. NONE, LEFT, RIGHT, HAZARD.
@@ -210,6 +222,11 @@ namespace AWSIM
         public Vector3 LocalAcceleration { get; private set; }
 
         /// <summary>
+        /// Vehicle acceleration (m/s^2)
+        /// </summary>
+        public float Acceleration => acceleration.Value;
+
+        /// <summary>
         /// Vehicle speed (m/s)
         /// </summary>
         public float Speed { get; private set; }
@@ -217,7 +234,7 @@ namespace AWSIM
         /// <summary>
         /// Vehicle steering angle (degree)
         /// </summary>
-        public float SteerAngle => SteerAngleInput;
+        public float SteerAngle => steerAngle.Value;
 
         public float SteerAngleNormalized => SteerAngle / MaxSteerAngleInput;
 
@@ -296,6 +313,12 @@ namespace AWSIM
             // Initialize with non-slip value
             ForwardSlipMultipler = 1f;
             SidewaySlipMultipler = 1f;
+
+            // Initialize acceleration
+            acceleration = new FirstOrderLaggedFloat(accelerationTimeConstant, 0.0f);
+
+            // Initialize steer angle
+            steerAngle = new FirstOrderLaggedFloat(steerAngleTimeConstant, 0.0f);
         }
 
         // GroundSlipMultiplier changes the slip rate.
@@ -322,10 +345,6 @@ namespace AWSIM
 
         void FixedUpdate()
         {
-            // Clamp input values.
-            AccelerationInput = Mathf.Clamp(AccelerationInput, -MaxAccelerationInput, MaxAccelerationInput);
-            SteerAngleInput = Mathf.Clamp(SteerAngleInput, -MaxSteerAngleInput, MaxSteerAngleInput);
-
             // Compute vehicle infomation.
             ComputeVehicleState();
 
@@ -339,8 +358,7 @@ namespace AWSIM
             if (sleep == false)
             {
                 // Update wheel force.
-                var acceleration = AccelerationInput;
-                UpdateWheelsForce(acceleration);
+                UpdateWheelsForce(Acceleration);
             }
 
             // cache value for next frame.
