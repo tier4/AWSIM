@@ -1,0 +1,3076 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../AddEnvironment/">
+      
+      
+        <link rel="next" href="../AddRandomTraffic/">
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
+    
+    
+      
+        <title>Load Items From Lanelet - AWSIM document</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#load-items-from-lanelet2" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="AWSIM document" class="md-header__button md-logo" aria-label="AWSIM document" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AWSIM document
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Load Items From Lanelet
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tier4/AWSIM" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="AWSIM document" class="md-nav__button md-logo" aria-label="AWSIM document" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AWSIM document
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tier4/AWSIM" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../GettingStarted/QuickStartDemo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Start Demo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../GettingStarted/SetupUnityProject/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup Unity Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../GettingStarted/UsingOpenSCENARIO/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using OpenSCENARIO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Introduction
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../Introduction/Autoware/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Autoware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../Introduction/AWSIM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AWSIM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../Introduction/CombinationWithAutoware/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CombinationWithAutoware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Project guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Project guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ProjectGuide/Directory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Directory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ProjectGuide/HotkeyList/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hotkey List
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ProjectGuide/Scenes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scenes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ProjectGuide/GitBranch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git Branch
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ProjectGuide/ExternalLibraries/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    External Libraries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ProjectGuide/Testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ProjectGuide/RunningHeadless/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running headless
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Components
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Clock
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Clock
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Clock/ClockPublisher/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clock Publisher
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Vehicle
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Vehicle
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Vehicle/EgoVehicle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ego Vehicle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Vehicle/VehicleInput/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vehicle Input
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Vehicle/URDFAndSensors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    URDF And Sensors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_4" id="__nav_5_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Add New Vehicle
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Add New Vehicle
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Vehicle/AddNewVehicle/AddAVehicle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Vehicle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Vehicle/AddNewVehicle/AddColliders/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Colliders
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Vehicle/AddNewVehicle/AddSensors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Sensors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Vehicle/AddNewVehicle/AddVisualElements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Visual Elements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Vehicle/CustomizeSlip/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Customize Slip
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Vehicle/FollowCamera/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FollowCamera
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Sensors
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Sensors
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3_1" id="__nav_5_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    LiDAR Sensor
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            LiDAR Sensor
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Sensors/LiDARSensor/LiDARSensor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LiDAR Sensor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Sensors/LiDARSensor/AddNewLiDAR/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add New LiDAR
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Sensors/LiDARSensor/ReadMaterialInformation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Read Material Information
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Sensors/LiDARSensor/RGLUnityPlugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RGLUnityPlugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Sensors/RadarSensor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Radar Sensor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Sensors/CameraSensor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Camera Sensor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Sensors/IMUSensor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IMU Sensor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Sensors/GNSSSensor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GNSS Sensor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Sensors/VehicleStatusSensor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vehicle Status Sensor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Environment
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            Environment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../AWSIMEnvironment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AWSIM Environment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_4_2" id="__nav_5_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Add New Environment
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Add New Environment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AddEnvironment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Environment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_4_2_2" id="__nav_5_4_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Add RandomTraffic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_5_4_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Add RandomTraffic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Load Items From Lanelet
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Load Items From Lanelet
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#complete-loaded-trafficlanes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete loaded TrafficLanes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to test
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-stopline-manually" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a StopLine manually
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Add a StopLine manually">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-add-a-gameobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Add a GameObject
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-add-a-stopline-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Add a StopLine Script
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-set-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Set points
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-has-stop-sign" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Has Stop Sign
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-select-a-traffic-light" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Select a Traffic Light
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-configure-the-traffic-lane" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Configure the Traffic Lane
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-trafficlane-manually" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a TrafficLane manually
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Add a TrafficLane manually">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-add-a-gameobject_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Add a GameObject
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-add-a-traffic-lane-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Add a Traffic Lane Script
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-configure-waypoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Configure Waypoints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-select-the-turn-direction" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Select the Turn Direction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-configure-next-lanes" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Configure Next Lanes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-configure-previous-lanes" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Configure Previous Lanes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-configure-right-of-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Configure Right Of Way
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-add-stop-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Add Stop Line
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-add-speed-limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Add Speed Limit.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-set-the-right-of-ways" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Set the Right of Ways
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AddRandomTraffic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Random Traffic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AddTrafficIntersection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Traffic Intersection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AddTrafficLights/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add TrafficLights
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CreatePCD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Create PCD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../LaneletBoundsVisualizer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LaneletBoundsVisualizer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../SmokeSimulator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SmokeSimulator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../V2I/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    V2I
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Traffic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            Traffic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Traffic/TrafficComponents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Traffic Components
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5_2" id="__nav_5_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Random Traffic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Random Traffic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Traffic/RandomTraffic/RandomTrafficSimulator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random Traffic Simulator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Traffic/RandomTraffic/YieldingRules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Yielding Rules
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Traffic/RandomTraffic/AddRandomTrafficEnvironment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Random Traffic Environment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5_3" id="__nav_5_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    NPCs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            NPCs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Traffic/NPCs/Pedestrian/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pedestrian
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Traffic/NPCs/Vehicle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vehicle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ROS2
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            ROS2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ROS2/ROS2TopicAndServiceList/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS2 topic & service list
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ROS2/AddACustomROS2Message/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add custom ROS2 msg
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ROS2/ROS2ForUnity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS2 For Unity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    OpenSCENARIO
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_7">
+            <span class="md-nav__icon md-icon"></span>
+            OpenSCENARIO
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ScenarioSimulation/SetupUnityProjectForScenarioSimulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup Unity project for scenario simulation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ScenarioSimulation/PreparingTheConnectionBetweenAWSIMAndScenarioSimulator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preparing the connection between AWSIM and scenario_simulator_v2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Developer guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Developer guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../DeveloperGuide/SetupVscode/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup VSCode
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../DeveloperGuide/HowToContribute/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Contribute
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../DeveloperGuide/TroubleShooting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trouble shooting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../DeveloperGuide/Documentation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../DeveloperGuide/License/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../DeveloperGuide/Contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#complete-loaded-trafficlanes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete loaded TrafficLanes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to test
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-stopline-manually" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a StopLine manually
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Add a StopLine manually">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-add-a-gameobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Add a GameObject
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-add-a-stopline-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Add a StopLine Script
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-set-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Set points
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-has-stop-sign" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Has Stop Sign
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-select-a-traffic-light" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Select a Traffic Light
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-configure-the-traffic-lane" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Configure the Traffic Lane
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-trafficlane-manually" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a TrafficLane manually
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Add a TrafficLane manually">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-add-a-gameobject_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Add a GameObject
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-add-a-traffic-lane-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Add a Traffic Lane Script
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-configure-waypoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Configure Waypoints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-select-the-turn-direction" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Select the Turn Direction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-configure-next-lanes" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Configure Next Lanes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-configure-previous-lanes" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Configure Previous Lanes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-configure-right-of-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Configure Right Of Way
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-add-stop-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Add Stop Line
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-add-speed-limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Add Speed Limit.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-set-the-right-of-ways" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Set the Right of Ways
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="load-items-from-lanelet2">Load items from lanelet2</h1>
+<p>To add <code>RandomTraffic</code> to the <code>Environment</code>, it is necessary to load elements from the <em>lanelet2</em>.
+As a result of loading, <code>TrafficLanes</code> and <code>StopLines</code> will be added to the scene. Details of these components can be found <a href="../../../../../Components/Traffic/TrafficComponents/">here</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Before following this tutorial make sure you have added an <a href="../../../../../Components/Environment/AddNewEnvironment/AddEnvironment/#2-add-an-environment-script">Environment Script</a> and set a proper <code>MGRS</code> offset position. This position is used when loading elements from the <em>lanelet2</em>!</p>
+</div>
+<ol>
+<li>
+<p>Click on the <code>AWSIM</code> button in the top menu of the Unity editor and navigate to <code>AWSIM -&gt; Random Traffic -&gt; Load Lanelet</code>.</p>
+<p><img alt="load lanelet gif" src="load_lanelet.gif" /></p>
+</li>
+<li>
+<p>In the window that pops-up select your osm file, change some Waypoint Settings to suit your needs and click <code>Load</code>.</p>
+<p><img alt="load lanelet gif" src="load_lanelet2.gif" /></p>
+<div class="admonition info">
+<p class="admonition-title">Waypoint Settings explanation</p>
+<ul>
+<li><em>Resolution</em> - resolution of resampling. Lower values provide better accuracy at the cost of processing time</li>
+<li><em>Min Delta Length</em> - minimum length(m) between adjacent points</li>
+<li><em>Min Delta Angle</em> - minimum angle(deg) between adjacent edges. Lowering this value produces a smoother curve</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Traffic Lanes and Stop Lanes should occur in the Hierarchy view.
+If they appear somewhere else in your Hierarchy tree, then move them into the <code>Environment</code> object.</p>
+</li>
+</ol>
+<h2 id="complete-loaded-trafficlanes">Complete loaded TrafficLanes</h2>
+<p>The Traffic Lanes that were loaded should be configures accordingly to the road situation.
+The aspects you can configure</p>
+<ul>
+<li>
+<p>Right of way</p>
+<p>The right of way has to be configured so that Vehicles know how ot behave in the traffic.
+To configure this please visit a <a href="#7-configure-right-of-way">dedicated section in Add a Traffic Lane</a>.
+After you have set right of way to all traffic lanes please follow <a href="#10-set-the-right-of-ways">this final step</a>.</p>
+</li>
+<li>
+<p>Stop Line</p>
+<p>Assuming you have all Stop Lines loaded from the lanelet you have to add them to the Traffic Lanes.
+For detailed instruction please visit a <a href="#8-add-stop-line">dedicated section in Add a Traffic Lane</a>.</p>
+<p>If - for any reason - you don't have all the Stop Lines added, please follow <a href="#add-a-stopline-manually">this dedicated section</a>.</p>
+</li>
+</ul>
+<h2 id="how-to-test">How to test</h2>
+<p>If you want to test your Traffic Lanes you have to try running a <a href="../../../../../Components/Environment/AddNewEnvironment/AddRandomTraffic/AddRandomTraffic/">Random Traffic</a>.
+To verify one particular Traffic Lane or Traffic Lane connection you can <a href="../../../../../Components/Environment/AddNewEnvironment/AddRandomTraffic/AddRandomTraffic/#add-spawnable-lanes">make a new spawnable lane</a> next to the Traffic Lane you want to test.
+This way you can be sure NPCVehicles will start driving on the Traffic Lane you are interested in at the beginning.</p>
+<h2 id="add-a-stopline-manually">Add a StopLine manually</h2>
+<p>When something goes wrong when loading data from <em>lanelet2</em> or you just want to add another StopLine manually please do the following</p>
+<h3 id="1-add-a-gameobject">1. Add a GameObject</h3>
+<p>Add a new GameObject <em>StopLine</em> in the <em>StopLines</em> parent object.</p>
+<p><img alt="add stop line object" src="add_stop_line.gif" /></p>
+<h3 id="2-add-a-stopline-script">2. Add a StopLine Script</h3>
+<p>Add a StopLine Script by clicking 'Add Component' and searching for <code>Stop Line</code>.</p>
+<p><img alt="add component" src="add_stop_line_add_script.gif" /></p>
+<p><img alt="search stop line" src="stop_line_search.png" /></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>So far your Stop Line should look like the following</p>
+<p><img alt="stop line inspector view" src="stop_line_inspector.png" /></p>
+</div>
+<h3 id="3-set-points">3. Set points</h3>
+<p>Set the position of points <code>Element 0</code> and <code>Element 1</code>.
+These Elements are the two end points of a Stop Line.
+The Stop Line will span between these points.</p>
+<p>You don't need to set any data in the 'Transform' section as it is not used anyway.</p>
+<div class="admonition warning">
+<p class="admonition-title">StopLine coordinate system</p>
+<p>Please note that the Stop Line Script operates in the global coordinate system.
+The transformations of StopLine <em>Object</em> and its parent <em>Objects</em> won't affect the Stop Line.</p>
+<details class="example">
+<summary>Example</summary>
+<p>In this example you can see that the Position of the <em>Game Object</em> does not affect the position and orientation of the Stop Line.</p>
+<p>For a Game Object in the center of the coordinate system.</p>
+<p><img alt="stop line in default position" src="stop_line_position11.png" /></p>
+<p>The stop Line is in the specified position.</p>
+<p><img alt="stop line in default position" src="stop_line_position12.png" /></p>
+<p>However with the <em>Game Object</em> shifted in X axis.</p>
+<p><img alt="stop line in new position" src="stop_line_position21.png" /></p>
+<p>The Stop Line stays in the same position as before, not affected by any transformations happening to the <em>Game Object</em>.</p>
+<p><img alt="stop line in new position" src="stop_line_position22.png" /></p>
+</details>
+</div>
+<h3 id="4-has-stop-sign">4. Has Stop Sign</h3>
+<p>Select whether there is a Stop Sign.</p>
+<p>Select the <code>Has Stop Sign</code> tick-box confirming that this Stop Line has a Stop Sign.
+The Stop Sign can be either vertical or horizontal.</p>
+<p><img alt="stop line has stop sigh" src="stop_line_has_stop_sign.gif" /></p>
+<h3 id="5-select-a-traffic-light">5. Select a Traffic Light</h3>
+<p>Select from the drop-down menu the Traffic Light that is on the <a href="../../../../../Components/Traffic/TrafficComponents/">Traffic Intersection</a> and is facing the vehicle that would be driving on the Traffic Lane connected with the Stop Line you are configuring.</p>
+<p>In other words select the right Traffic Light for the Lane on which your Stop Line is placed.</p>
+<p><img alt="stop line add traffic light" src="stop_line_add_traffic_light.gif" /></p>
+<div class="admonition tip">
+<p class="admonition-title">Select Traffic Lights visually</p>
+<p>If you have a lot of Traffic Lights it can be challenging to add them from the list.
+You can select them visually from the Scene the same as you had selected Traffic Lanes in the <a href="../../../../../Components/Environment/AddNewEnvironment/AddRandomTraffic/AddRandomTraffic/#add-spawnable-lanes">Random Traffic Simulator</a>.</p>
+</div>
+<h3 id="6-configure-the-traffic-lane">6. Configure the Traffic Lane</h3>
+<p>Every Stop Line has to be connected to a Traffic Lane.
+This is done in the Traffic Lane configuration.
+For this reason please check the <a href="#8-add-stop-line">Traffic Lane section</a> for more details.</p>
+<h2 id="add-a-trafficlane-manually">Add a TrafficLane manually</h2>
+<p>It is possible that something may go wring when reading a <em>lanelet2</em> and you need to add an additional Traffic Lane or you just want to add it.
+To add a Traffic Lane manually please follow the steps below.</p>
+<h3 id="1-add-a-gameobject_1">1. Add a GameObject</h3>
+<p>Add a new <em>Game Object</em> called <code>TrafficLane</code> into the <code>TrafficLanes</code> parent <em>Object</em>.</p>
+<p><img alt="traffic lane add object" src="traffic_lane_add_object.gif" /></p>
+<h3 id="2-add-a-traffic-lane-script">2. Add a Traffic Lane Script</h3>
+<p>Click the 'Add Component' button and search for the <code>Traffic lane</code> script and select it.</p>
+<p><img alt="traffic lane add component" src="traffic_lane_add_component.gif" /></p>
+<p><img alt="traffic lane search" src="traffic_lane_search.png" /></p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>So far your Traffic Lane should look like the following.</p>
+<p><img alt="traffic lane configuration" src="traffic_lane_configuration.png" /></p>
+</div>
+<h3 id="3-configure-waypoints">3. Configure Waypoints</h3>
+<p>Now we will configure the 'Waypoints' list.
+This list is an ordered list of nest points defining the Traffic Lane.
+When you want to add a waypoint to a Traffic Lane just click on the <code>+</code> button or specify the number of waypoints on the list in the field with number to the right from 'Waypoints' identifier.</p>
+<p>The order of elements on this list determines how waypoints are connected.</p>
+<p><img alt="traffic lane add waypoints" src="traffic_lane_add_waypoints.gif" /></p>
+<div class="admonition warning">
+<p class="admonition-title">Traffic Lane coordinate system</p>
+<p>Please note that the Traffic Lane waypoints are located in the global coordinate system, any transformations set to a <em>Game Object</em> or paren <em>Objects</em> will be ignored.</p>
+<p>This behavior is the same as with the Stop Line.
+You can see the example provided in the <a href="#add-a-stopline-manually">Stop Line tutorial</a>.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">General advice</p>
+<ul>
+<li>Two waypoints should not be too far away from each other.</li>
+<li>When creating a turn that is a curvature please keep in mind the angle that is created between two next waypoints connected.
+    The angles should be fairly small - this will translate to a smooth motion of vehicles.</li>
+</ul>
+</div>
+<h3 id="4-select-the-turn-direction">4. Select the Turn Direction</h3>
+<p>You also need to select the Turn Direction.
+This field describes what are the vehicles traveling on ths Traffic Lane doing in reference to other Traffic Lanes.
+You need to select whether the vehicles are</p>
+<ul>
+<li>Driving straight (<code>STRAIGHT</code>)</li>
+<li>Turning right (<code>RIGHT</code>)</li>
+<li>Turning left (<code>LEFT</code>)</li>
+</ul>
+<p><img alt="traffic lane select the turn direction" src="traffic_lane_select_turn_direction.gif" /></p>
+<h3 id="5-configure-next-lanes">5. Configure Next Lanes</h3>
+<p>You need to add all Traffic Lanes that have their beginning in the end of this Traffic Lane into the Next Lanes list.
+In other words if the vehicle can choose where he wants to drive (e.g. drive straight or drive left with choice of two different Traffic Lines).</p>
+<p>To do this click the <code>+</code> sign in the <em>Next Lanes</em> list and in the element that appeared select the correct Traffic Lane.</p>
+<p><img alt="traffic lane add next lane" src="traffic_lane_add_next_lane.gif" /></p>
+<details class="example">
+<summary>Next Lane example</summary>
+<p>Lets consider the following Traffic Intersection.</p>
+<p><img alt="traffic lane situation" src="traffic_lane_situation.png" /></p>
+<p>In this example we will consider the Traffic Lane driving from the bottom of the screen and turning right.
+After finishing driving in this Traffic Lane the vehicle has a choice of 4 different Traffic Lanes each turning into different lane on the parallel road.</p>
+<p>All 4 Traffic Lanes are connected to the considered Traffic Lane.
+This situation is reflected in the Traffic Lane configuration shown below.</p>
+<p><img alt="traffic lane description" src="traffic_lane_description.png" /></p>
+</details>
+<div class="admonition tip">
+<p class="admonition-title">Select Traffic Lanes visually</p>
+<p>If you have a lot of Traffic Lanes it can be challenging to add them from the list.
+You can select them visually from the Scene the same as you had selected Traffic Lanes in the <a href="../../../../../Components/Environment/AddNewEnvironment/AddRandomTraffic/AddRandomTraffic/#add-spawnable-lanes">Random Traffic Simulator</a>.</p>
+</div>
+<h3 id="6-configure-previous-lanes">6. Configure Previous Lanes</h3>
+<p>Traffic Lane has to have previous Traffic Lanes configured.
+This is done in the exact same way as <a href="#5-configure-next-lanes">configuring next lanes which was shown in the previous step</a>.
+Please do the same, but add Traffic Lanes that are before the configured one instead of the ones after into the <em>Prev Lanes</em> list.</p>
+<h3 id="7-configure-right-of-way">7. Configure Right Of Way</h3>
+<p>Now we will configure the Right Of Way Lanes.
+The Right Of Way Lanes is a list of Traffic Lanes that have a priority over the configured one.
+The process of adding the Right Of Way Lanes is the same as with adding Next Lanes.
+For this reason we ask you to <a href="#5-configure-next-lanes">see the aforementioned step</a> for detailed description on how to do this (the only difference is that you add Traffic Lanes to the <em>Right Of Way Lanes</em> list).</p>
+<details class="example">
+<summary>Right of way example</summary>
+<p>In this example lets consider the Traffic Lane highlighted in blue from the Traffic Intersection below.</p>
+<p><img alt="right of way situation" src="traffic_lane_right_of_way_situation.png" /></p>
+<p>This Traffic Lane has to give way to all Traffic Lanes highlighted on yellow.
+This means all of the yellow Traffic Lanes have to be added to the 'Right Of Way Lanes' list which is reflected on the configuration shown below.</p>
+<p><img alt="right of way configuration" src="traffic_lane_right_of_way_configuration.png" /></p>
+</details>
+<h3 id="8-add-stop-line">8. Add Stop Line</h3>
+<p>Adding a Stop Line is necessary only when at the end of the configured Traffic Lane the Stop Line is present.
+If so, please select the correct Stop Line from the drop-down list.</p>
+<p><img alt="traffic lane add stop line" src="traffic_lane_add_stop_line.gif" /></p>
+<div class="admonition tip">
+<p class="admonition-title">Select Stop Line visually</p>
+<p>If you have a lot of Stop Lines it can be challenging to add them from the list.
+You can select them visually from the Scene the same as you had selected Traffic Lanes in the <a href="../../../../../Components/Environment/AddNewEnvironment/AddRandomTraffic/AddRandomTraffic/#add-spawnable-lanes">Random Traffic Simulator</a>.</p>
+</div>
+<h3 id="9-add-speed-limit">9. Add Speed Limit.</h3>
+<p>In the field called <code>Speed Limit</code> simply write the speed limit that is in effect on the configured Traffic Lane.</p>
+<p><img alt="traffic lane set speed limit" src="traffic_lane_set_speed_limit.gif" /></p>
+<h3 id="10-set-the-right-of-ways">10. Set the Right of Ways</h3>
+<p>To make the Right Of Ways list you configured earlier take effect simply click the 'Set RightOfWays' button.</p>
+<p><img alt="traffic lane set right of ways" src="traffic_lane_set_right_of_ways.gif" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../AddEnvironment/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Add Environment">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Add Environment
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../AddRandomTraffic/" class="md-footer__link md-footer__link--next" aria-label="Next: Add Random Traffic">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Add Random Traffic
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.sections", "navigation.footer", "content.tabs.link"], "search": "../../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

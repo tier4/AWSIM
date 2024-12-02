@@ -1,0 +1,3103 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../Sensors/VehicleStatusSensor/">
+      
+      
+        <link rel="next" href="../AddNewEnvironment/AddEnvironment/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
+    
+    
+      
+        <title>AWSIM Environment - AWSIM document</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#awsim-environment" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="AWSIM document" class="md-header__button md-logo" aria-label="AWSIM document" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AWSIM document
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              AWSIM Environment
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tier4/AWSIM" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="AWSIM document" class="md-nav__button md-logo" aria-label="AWSIM document" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AWSIM document
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tier4/AWSIM" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../GettingStarted/QuickStartDemo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Start Demo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../GettingStarted/SetupUnityProject/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup Unity Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../GettingStarted/UsingOpenSCENARIO/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using OpenSCENARIO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Introduction
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Introduction/Autoware/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Autoware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Introduction/AWSIM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AWSIM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Introduction/CombinationWithAutoware/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CombinationWithAutoware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Project guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Project guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ProjectGuide/Directory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Directory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ProjectGuide/HotkeyList/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hotkey List
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ProjectGuide/Scenes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scenes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ProjectGuide/GitBranch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git Branch
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ProjectGuide/ExternalLibraries/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    External Libraries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ProjectGuide/Testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ProjectGuide/RunningHeadless/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running headless
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Components
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Clock
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Clock
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Clock/ClockPublisher/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clock Publisher
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Vehicle
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Vehicle
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vehicle/EgoVehicle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ego Vehicle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vehicle/VehicleInput/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vehicle Input
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vehicle/URDFAndSensors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    URDF And Sensors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_4" id="__nav_5_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Add New Vehicle
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Add New Vehicle
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vehicle/AddNewVehicle/AddAVehicle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Vehicle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vehicle/AddNewVehicle/AddColliders/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Colliders
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vehicle/AddNewVehicle/AddSensors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Sensors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vehicle/AddNewVehicle/AddVisualElements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Visual Elements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vehicle/CustomizeSlip/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Customize Slip
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vehicle/FollowCamera/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FollowCamera
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Sensors
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Sensors
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3_1" id="__nav_5_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    LiDAR Sensor
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            LiDAR Sensor
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Sensors/LiDARSensor/LiDARSensor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LiDAR Sensor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Sensors/LiDARSensor/AddNewLiDAR/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add New LiDAR
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Sensors/LiDARSensor/ReadMaterialInformation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Read Material Information
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Sensors/LiDARSensor/RGLUnityPlugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RGLUnityPlugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Sensors/RadarSensor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Radar Sensor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Sensors/CameraSensor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Camera Sensor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Sensors/IMUSensor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IMU Sensor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Sensors/GNSSSensor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GNSS Sensor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Sensors/VehicleStatusSensor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vehicle Status Sensor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Environment
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            Environment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    AWSIM Environment
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    AWSIM Environment
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prefabs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prefabs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visual-elements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visual elements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#link-in-the-default-scene" class="md-nav__link">
+    <span class="md-ellipsis">
+      Link in the default Scene
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Components
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Layers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traffic-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Traffic Components
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visual-elements-sjk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visual Elements (SJK)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visual Elements (SJK)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trafficlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      TrafficLights
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TrafficLights">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#classic-trafficlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      Classic TrafficLights
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Classic TrafficLights">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#materials" class="md-nav__link">
+    <span class="md-ellipsis">
+      Materials
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pedestrianlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      PedestrianLights
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PedestrianLights">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#materials_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Materials
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      Volume
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#directional-light" class="md-nav__link">
+    <span class="md-ellipsis">
+      Directional Light
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#npcpedestrians" class="md-nav__link">
+    <span class="md-ellipsis">
+      NPCPedestrians
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment (script)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4_2" id="__nav_5_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Add New Environment
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Add New Environment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AddNewEnvironment/AddEnvironment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Environment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4_2_2" id="__nav_5_4_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Add RandomTraffic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_5_4_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Add RandomTraffic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AddNewEnvironment/AddRandomTraffic/LoadItemsFromLanelet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Load Items From Lanelet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AddNewEnvironment/AddRandomTraffic/AddRandomTraffic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Random Traffic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AddNewEnvironment/AddRandomTraffic/AddTrafficIntersection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Traffic Intersection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AddNewEnvironment/AddTrafficLights/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add TrafficLights
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CreatePCD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Create PCD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LaneletBoundsVisualizer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LaneletBoundsVisualizer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SmokeSimulator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SmokeSimulator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../V2I/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    V2I
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Traffic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            Traffic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Traffic/TrafficComponents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Traffic Components
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5_2" id="__nav_5_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Random Traffic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Random Traffic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Traffic/RandomTraffic/RandomTrafficSimulator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random Traffic Simulator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Traffic/RandomTraffic/YieldingRules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Yielding Rules
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Traffic/RandomTraffic/AddRandomTrafficEnvironment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Random Traffic Environment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5_3" id="__nav_5_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    NPCs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            NPCs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Traffic/NPCs/Pedestrian/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pedestrian
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Traffic/NPCs/Vehicle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vehicle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ROS2
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            ROS2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ROS2/ROS2TopicAndServiceList/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS2 topic & service list
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ROS2/AddACustomROS2Message/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add custom ROS2 msg
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ROS2/ROS2ForUnity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS2 For Unity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    OpenSCENARIO
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_7">
+            <span class="md-nav__icon md-icon"></span>
+            OpenSCENARIO
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ScenarioSimulation/SetupUnityProjectForScenarioSimulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup Unity project for scenario simulation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ScenarioSimulation/PreparingTheConnectionBetweenAWSIMAndScenarioSimulator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preparing the connection between AWSIM and scenario_simulator_v2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Developer guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Developer guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DeveloperGuide/SetupVscode/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup VSCode
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DeveloperGuide/HowToContribute/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Contribute
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DeveloperGuide/TroubleShooting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trouble shooting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DeveloperGuide/Documentation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DeveloperGuide/License/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../DeveloperGuide/Contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prefabs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prefabs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visual-elements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visual elements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#link-in-the-default-scene" class="md-nav__link">
+    <span class="md-ellipsis">
+      Link in the default Scene
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Components
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Layers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traffic-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Traffic Components
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visual-elements-sjk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visual Elements (SJK)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visual Elements (SJK)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trafficlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      TrafficLights
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TrafficLights">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#classic-trafficlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      Classic TrafficLights
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Classic TrafficLights">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#materials" class="md-nav__link">
+    <span class="md-ellipsis">
+      Materials
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pedestrianlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      PedestrianLights
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PedestrianLights">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#materials_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Materials
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      Volume
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#directional-light" class="md-nav__link">
+    <span class="md-ellipsis">
+      Directional Light
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#npcpedestrians" class="md-nav__link">
+    <span class="md-ellipsis">
+      NPCPedestrians
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment (script)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="awsim-environment">AWSIM Environment</h1>
+<h2 id="introduction">Introduction</h2>
+<p><code>Environment</code> is an object that contains all the elements visible on the scene along with components that affect how they are rendered.
+It contains several objects aggregating static environment objects in terms of their type.
+Moreover, it contains elements responsible for controlling random traffic.</p>
+<p><img alt="environment" src="environment.png" /></p>
+<div class="admonition tip">
+<p class="admonition-title">Own Environment prefab</p>
+<p>If you would like to develop your own prefab <code>Environment</code> for <em>AWSIM</em>, we encourage you to read this <a href="../../Environment/AddNewEnvironment/AddEnvironment/">tutorial</a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">AutowareSimulation scene</p>
+<p>If you would like to see how <code>Environment</code> with random traffic works or run some tests, we encourage you to familiarize yourself with the <code>AutowareSimulation</code> scene described in this <a href="../../../ProjectGuide/Scenes/#autowaresimulation">section</a>.</p>
+</div>
+<p>Prefab <code>Environment</code> is also used to create a point cloud (<code>*.pcd</code> file) needed to locate the <code>EgoVehicle</code> in the simulated <em>AWSIM</em> scene.
+The point cloud is created using the <a href="https://github.com/RobotecAI/RobotecGPULidar"><code>RGL</code></a> plugin and then used in <em>Autoware</em>.
+We encourage you to familiarize yourself with an example scene of creating a point cloud - described <a href="../../../ProjectGuide/Scenes/#pointcloudmapping">here</a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Create PointCloud (*.pcd file)</p>
+<p>If you would like to learn how to create a point cloud in <em>AWSIM</em> using <code>Environment</code> prefab, we encourage you to read this <a href="../../Environment/CreatePCD/">tutorial</a>.</p>
+</div>
+<h3 id="architecture">Architecture</h3>
+<p>The architecture of an <code>Environment</code> - with dependencies between components - is presented on the following diagram.</p>
+<p><img alt="environment diagram" src="../../../Introduction/AWSIM/environment.png" /></p>
+<h3 id="prefabs">Prefabs</h3>
+<p>Prefabs can be found under the following path: </p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><em>Nishishinjuku</em></td>
+<td style="text-align: left;">Only stationary visual elements, no traffic</td>
+<td style="text-align: left;"><code>Assets/AWSIM/Prefabs/Environments/Nishishinjuku.prefab</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><em>Nishishinjuku RandomTraffic</em></td>
+<td style="text-align: left;">Stationary visual elements along with random traffic</td>
+<td style="text-align: left;"><code>Assets/AWSIM/Prefabs/Environments/Nishishinjuku RandomTraffic.prefab</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><em>Nishishinjuku Traffic</em></td>
+<td style="text-align: left;">Stationary visual elements along with non-random traffic</td>
+<td style="text-align: left;"><code>Assets/AWSIM/Prefabs/Environments/Nishishinjuku Traffic.prefab</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Environment prefab</p>
+<p>Due to the similarity of the above prefabs, this section focuses on prefab <code>Nishishinjuku RandomTraffic</code>.
+The exact differences between <code>Nishishinjuku RandomTraffic</code> and <code>Nishishinjuku Traffic</code> will be described in the future.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Environment name</p>
+<p>In order to standardize the documentation, the name <code>Environment</code> will be used in this section as the equivalent of the prefab named <code>Nishishinjuku RandomTraffic</code>.</p>
+</div>
+<p><code>Nishishinjuku RandomTraffic</code> prefab has the following content:</p>
+<p><img alt="environment_link" src="environment_link.png" /></p>
+<p>As you can see it contains:</p>
+<ul>
+<li><code>SJK*</code> objects - which are aggregators for visual models.</li>
+<li><code>RandomTrafficSimulator</code>, <code>TrafficIntersections</code>, <code>TrafficLanes</code>, <code>StopLines</code> - which are responsible for random traffic of <a href="../../Traffic/NPCs/Vehicle/"><code>NPCVehicles</code></a>.</li>
+<li><code>NPCPedestrians</code> - which is an aggregator of <a href="../../Traffic/NPCs/Pedestrian/"><code>NPCPedestrian</code></a> prefabs added to the scene.</li>
+<li><code>Volume</code>, <code>Directional Light</code> - which are components that affect the appearance of objects on the scene.</li>
+</ul>
+<p>All of these objects are described below in this section.</p>
+<h3 id="visual-elements">Visual elements</h3>
+<p><code>Nishishinjuku RandomTraffic</code> prefab contains many visual elements which are described <a href="#visual-elements-sjk">here</a>.</p>
+<h3 id="link-in-the-default-scene">Link in the default Scene</h3>
+<p><code>Nishishinjuku RandomTraffic</code> prefab is added to the <code>Environment</code> object - between which there is rotation about the <code>Oy</code> axis by 90 degrees.
+This rotation is added because of the differences in coordinate alignments between the <code>Nishishinjuku RandomTraffic</code> prefab objects (which have been modeled as <code>*.fbx</code> files) and the specifics of the <em>GridZone</em> definition (more on this is described <a href="#components">here</a>).</p>
+<p>Object <code>Environment</code> is added to <code>AutowareSimulation</code> which is added directly to the main parent of the scene - there are no transformations between these objects.</p>
+<p><img alt="environment_link_2" src="environment_link_2.png" /></p>
+<h3 id="components">Components</h3>
+<p><img alt="environment_prefab" src="environment_prefab.png" /></p>
+<p><code>Nishishinjuku RandomTraffic</code> (<code>Environment</code>) prefab contains only one component:</p>
+<ul>
+<li><a href="#environment-script"><em>Environment</em> (script)</a> - which is important for communicating with <em>Autoware</em> and loading elements from <em>Lanelet2</em>.
+Because it allows to define the location of the environment in relation to the world.</li>
+</ul>
+<h3 id="layers">Layers</h3>
+<p>In order to enable the movement of vehicles around the environment, additional layers have been added to the project: <code>Ground</code> and <code>Vehicle</code>.</p>
+<p><img alt="layers" src="layers.png" /></p>
+<p>All objects that are acting as a ground for <code>NPCVehicles</code> and <code>EgoVehicle</code> to move on have been added to <code>Ground</code> layer - they cannot pass through each other and should collide for the physics engine to calculate their interactions.</p>
+<p><img alt="model_layer" src="model_layer.png" /></p>
+<p>For this purpose, <code>NPCVehicles</code> and <code>EgoVehicle</code> have been added to the <code>Vehicle</code> layer.</p>
+<p><img alt="vehicle_layer" src="vehicle_layer.png" /></p>
+<p>In the project physics settings, it is ensured that collisions between objects in the <code>Vehicle</code> layer are disabled (this applies to <code>EgoVehicle</code> and <code>NPCVehicles</code> - they do not collide with each other):</p>
+<p><img alt="layers_physis" src="layers_physis.png" /></p>
+<h2 id="traffic-components">Traffic Components</h2>
+<p>Due to the specificity of the use of <code>RandomTrafficSimulator</code>, <code>TrafficIntersections</code>, <code>TrafficLanes</code>, <code>StopLines</code> objects, they have been described in a separate section <a href="../../Traffic/TrafficComponents/"><em>Traffic Components</em></a> - where all the elements necessary in simulated random traffic are presented.</p>
+<h2 id="visual-elements-sjk">Visual Elements (SJK)</h2>
+<p>The visuals elements have been loaded and organized using the <code>*.fbx</code> files which can be found under the path: </p>
+<div class="highlight"><pre><span></span><code>Assets/AWSIM/Externals/Nishishinjuku/Nishishinjuku_optimized/Models/*
+</code></pre></div>
+<p><code>Environment</code> prefab contains several objects aggregating stationary visual elements of space by their category:</p>
+<ul>
+<li>
+<p><code>SJK01_P01</code> - contains all objects constituting the ground of the environment, these are roads and green fields - each of them contains a <code>MeshColliders</code> and layer set as <code>Ground</code> to ensure collisions with <code>NPCVehicles</code> and <code>EgoVehicle</code>.</p>
+<p><img alt="sjk1" src="sjk1.png" /> </p>
+</li>
+<li>
+<p><code>SJK01_P02</code> - contains all road surface markings on roads added to the environment.
+The objects of this group do not have <code>MeshColliders</code> and their layer is <code>Default</code>.</p>
+<p><img alt="sjk2" src="sjk2.png" /></p>
+</li>
+<li>
+<p><code>SJK01_P03</code> - contains all the vertical poles added to the environment, such as lamp posts, road signs and traffic light poles.
+Only <code>TrafficLight</code> poles and <code>PedestrianLight</code> poles have <code>MeshCollider</code> added.
+The layer for all objects is <code>Default</code>.</p>
+<p><img alt="sjk3" src="sjk3.png" /></p>
+</li>
+<li>
+<p><code>SJK01_P04</code> - contains all barriers added to the environment, such as barriers by sidewalks.
+The objects of this group do not have <code>MeshColliders</code> and their layer is <code>Default</code>.</p>
+<p><img alt="sjk4" src="sjk4.png" /></p>
+</li>
+<li>
+<p><code>SJK01_P05</code> - contains all greenery added to the environment, such as trees, shrubs, fragments of greenery next to buildings.
+The objects of this group do not have <code>MeshColliders</code> and their layer is <code>Default</code>.</p>
+<p><img alt="sjk5" src="sjk5.png" /></p>
+</li>
+<li>
+<p><code>SJK01_P06</code> - contains all buildings added to the environment.
+Objects of this category also have a <code>MeshCollider</code> added, but their layer is <code>Default</code>.</p>
+<p><img alt="sjk6" src="sjk6.png" /></p>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Scene Manager</p>
+<p>For models (visual elements) added to the prefab to work properly with the <a href="../../Sensors/LiDARSensor/LiDARSensor/"><code>LidarSensor</code></a> sensor using <a href="../../Sensors/LiDARSensor/RGLUnityPlugin/"><code>RGL</code></a>, make sure that the <code>SceneManager</code> component is added to the scene - more about it is described in this <a href="../../Sensors/LiDARSensor/RGLUnityPlugin/#scenemanager">section</a>.</p>
+<p>In the scene containing <code>Nishishinjuku RandomTraffic</code>prefab <em>Scene Manager</em> (script) is added as a component to the <code>AutowareSimulation</code> object containing the <code>Environment</code>.</p>
+<p><img alt="scene_manager" src="scene_manager.png" /></p>
+</div>
+<h3 id="trafficlights">TrafficLights</h3>
+<p><code>TrafficLights</code> are a stationary visual element belonging to the <code>SJK01_P03</code> group.
+The lights are divided into two types, the classic <code>TrafficLights</code> used by vehicles at intersections and the <code>PedestrianLights</code> found at crosswalks.</p>
+<p><img alt="sjk_lights_link" src="lights/sjk_lights_link.png" /></p>
+<p>Classic traffic lights are aggregated at object <code>TrafficLightA01_Root01_ALL_GP01</code></p>
+<p><img alt="pedestrian_light_link" src="lights/lights_link.png" /></p>
+<p>while lights used by pedestrians are aggregated at object <code>TrafficLightB01_Root01_All_GP01</code>.</p>
+<p><img alt="pedestrian_light_link" src="lights/pedestian_lights_link.png" /></p>
+<p><code>TrafficLights</code> and <code>PedestrianLights</code> are developed using models available in the form of <code>*.fbx</code> files, which can be found under the following path:<br>
+<code>Assets/AWSIM/Externals/Nishishinjuku/Nishishinjuku_opimized/Models/TrafficLights/Models/*</code></p>
+<h4 id="classic-trafficlights">Classic TrafficLights</h4>
+<p><img alt="light" src="lights/light.png" /> </p>
+<p><code>TrafficLights</code> lights, outside their housing, always contain 3 signaling light sources of different colors  - from left to right: green, yellow, red.
+Optionally, they can have additional sources of signaling the ability to drive in a specific direction in the form of one or three signaling arrows.</p>
+<p><img alt="light_prefab" src="lights/light_prefab.png" /></p>
+<p>In the environment there are many classic lights with different signaling configurations.
+However, each contains:</p>
+<ul>
+<li><em>Transform</em> - defines the position of the lights in the environment relative to the main parent of the group (<code>SJK01_P03</code>).</li>
+<li><em>Mesh Filter</em> - contains a reference to the <code>Mesh</code> of the object.</li>
+<li><em>Mesh Renderer</em> - enables the rendering of <code>Mesh</code>, including its geometry, textures, and materials, giving it a visual appearance in the scene.</li>
+<li><em>Mesh Collider</em> - allows an object to have collision detection based on <code>Mesh</code>.</li>
+<li><a href="../../Traffic/TrafficComponents/#traffic-light-script"><em>Traffic Light</em> (script)</a> - provides an interface to control signaling by changing the emission of materials.
+This script is used for simulated traffic, so it is described.</li>
+</ul>
+<h5 id="materials">Materials</h5>
+<p>An important element that is configured in the <code>TrafficLights</code> object are the materials in the <code>Mesh Renderer</code> component.
+Material with index 0 always applies to the housing of the lights.
+Subsequent elements 1-6 correspond to successive slots of light sources (round luminous objects) - starting from the upper left corner of the object in the right direction, to the bottom and back to the left corner.
+These indexes are used in script <em>Traffic Light</em> (script) - described <a href="../../Traffic/TrafficComponents/#traffic-light-script">here</a>.</p>
+<p><img alt="lights_mesh" src="lights/lights_materials.png" /></p>
+<p>Materials for lighting slots that are assigned in <code>Mesh Renderer</code> can be found in the following path:
+<code>Assets/AWSIM/Externals/Nishishinjuku/Nishishinjuku_opimized/Models/TrafficLights/Materials/*</code></p>
+<h4 id="pedestrianlights">PedestrianLights</h4>
+<p><img alt="pedestrian_light" src="lights/pedestrian_light.png" /></p>
+<p><code>PedestrianLights</code> lights, outside their housing, always contain 2 signaling light sources of different colors - red on top and green on the bottom.</p>
+<p><img alt="pedestrian_lights_prefab" src="lights/pedestrian_lights_prefab.png" /></p>
+<p>In the environment there are many pedestrian lights - they have the same components as classic <code>TrafficLights</code>, but the main difference is the configuration of their materials.</p>
+<h5 id="materials_1">Materials</h5>
+<p>An important element that is configured in the <code>PedestrianLights</code> object are the materials in the <code>Mesh Renderer</code> component.
+Material with index 0 always applies to the housing of the lights.
+Subsequent elements 1-2 correspond to successive slots of light sources (round luminous objects) - starting from top to bottom.
+These indexes are used in script <em>Traffic Light</em> (script) - described <a href="../../Traffic/TrafficComponents/#traffic-light-script">here</a>.</p>
+<p><img alt="pedestrian_lights_mesh" src="lights/pedestrian_lights_materials.png" /><br>
+Materials for lighting slots that are assigned in <code>Mesh Renderer</code> can be found in the following path:
+<code>Assets/AWSIM/Externals/Nishishinjuku/Nishishinjuku_opimized/Models/TrafficLights/Materials/*</code></p>
+<h2 id="volume">Volume</h2>
+<p><img alt="volume" src="volume.png" /></p>
+<p><code>Volume</code> is <em>GameObject</em> with <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@11.0/manual/Volumes.html"><em>Volume</em></a> component which is used in the <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@10.2/manual/index.html"><em>High Definition Render Pipeline</em></a> (<em>HDRP</em>).
+It defines a set of scene settings and properties.
+It can be either global, affecting the entire scene, or local, influencing specific areas within the scene.
+<em>Volumes</em> are used to interpolate between different property values based on the Camera's position, allowing for dynamic changes to environment settings such as fog color, density, and other visual effects.</p>
+<p>In case of prefab <code>Nishishinjuku RandomTraffic</code> volume works in global mode and has loaded <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@11.0/manual/Volume-Profile.html"><em>Volume profile</em></a>.
+This volume profile has a structure that overrides the default properties of <em>Volume</em> related to the following components: <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@11.0/manual/Override-Fog.html">Fog</a>, <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@11.0/manual/Override-Shadows.html">Shadows</a>, <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@11.0/manual/Override-Ambient-Occlusion.html">Ambient Occlusion</a>, <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@11.0/manual/Override-Visual-Environment.html">Visual Environment</a>, <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@11.0/manual/Override-HDRI-Sky.html">HDRI Sky</a>.
+It can be found in the following path:<br>
+<code>Assets/AWSIM/Prefabs/Environments/Nishishinjuku/Volume Profile.asset</code></p>
+<h2 id="directional-light">Directional Light</h2>
+<p><img alt="directional_light_prefab" src="directional_light_prefab.png" /></p>
+<p><code>Directional Light</code> is <em>GameObject</em> with <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@12.0/manual/Light-Component.html"><code>Light</code></a> component which is used in the <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@10.2/manual/index.html"><em>High Definition Render Pipeline</em></a> (<em>HDRP</em>).
+It controls the shape, color, and intensity of the light.
+It also controls whether or not the light casts shadows in scene, as well as more advanced settings.</p>
+<p>In case of prefab <code>Nishishinjuku RandomTraffic</code> a <code>Directional</code> type light is added.
+It creates effects that are similar to sunlight in scene.
+This light illuminates all <em>GameObjects</em> in the scene as if the light rays are parallel and always from the same direction.
+<code>Directional</code> light disregards the distance between the Light itself and the target, so the light does not diminish with distance.
+The strength of the Light (<code>Intensity</code>) is set to <code>73123.09 Lux</code>.
+In addition, a <code>Shadow Map</code> with a resolution of <code>4096</code> is enabled, which is updated in <code>Every Frame</code> of the simulation.
+The transform of the <code>Directional Light</code> object is set in such a way that it shines on the environment almost vertically from above.</p>
+<p><img alt="directional_light" src="directional_light.png" /></p>
+<h2 id="npcpedestrians">NPCPedestrians</h2>
+<p><code>NPCPedestrians</code> is an aggregating object for <code>NPCPedestrian</code> objects placed in the environment.
+Prefab <code>Nishishinjuku RandomTraffic</code> has 7 <code>NPCPedestrian</code> (<code>humanElegant</code>) prefabs defined in selected places.
+More about this <code>NPCPedestrian</code> prefab you can read in this <a href="../../../Components/Traffic/NPCs/Pedestrian/">section</a>.</p>
+<h2 id="environment-script">Environment (script)</h2>
+<!-- reusable link to MGRS -->
+<p><img alt="environment_script" src="environment_script.png" /></p>
+<p><em>Environment</em> (script) contains the information about how a simulated <code>Environment</code> is positioned in real world.
+That means it describes what is the real world position of a simulated <code>Environment</code>.</p>
+<p><em>AWSIM</em> uses part of a <a href="https://www.maptools.com/tutorials/mgrs/quick_guide"><em>Military Grid Reference System</em></a> (<em>MGRS</em>).
+To understand this topic, you only need to know, that using <em>MGRS</em> you can specify distinct parts of the globe with different accuracy.
+For <em>AWSIM</em> the chosen accuracy is a 100x100 km square.
+Such a square is identified with a unique code like <code>54SUE</code> (for more information on <em>Grid Zone</em> please see <a href="https://www.maptools.com/tutorials/mgrs/quick_guide">this page</a>).</p>
+<p>Inside this <em>Grid Zone</em> the exact location is specified with the offset calculated from the bottom-left corner of the <em>Grid Zone</em>.
+You can interpret the <em>Grid Zone</em> as a local coordinate system in which you position the <code>Environment</code>.</p>
+<p>In the <code>Nishishinjuku RandomTraffic</code> prefab, the simulated <code>Environment</code> is positioned in the <em>Grid Zone</em> <code>54SUE</code>.
+The offset if equal to <code>81655.73</code> meters in the <code>Ox</code> axis, <code>50137.43</code> meters in the <code>Oy</code> axis and <code>42.49998</code> meters in the <code>Oz</code> axis.
+In addition to this shift, it is also necessary to rotate the Environment in the scene by <code>90</code> degrees about the <code>Oy</code> axis - this is ensured by the transform in the prefab object.</p>
+<p>This means that the <em>3D</em> models were created in reference to this exact point and because of that the <em>3D</em> models of <code>Environment</code> align perfectly with the data from <em>Lanelet2</em>.</p>
+<div class="admonition warning">
+<p class="admonition-title">The essence of Environment (script)</p>
+<p>The <em>Environment</em> (script) configuration is necessary at the moment of loading data from <em>Lanelet2</em>.</p>
+<p>Internally it shifts the elements from <em>Lanelet2</em> by the given offset so that they align with the <code>Environment</code> that is located at the local origin with no offset.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../Sensors/VehicleStatusSensor/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Vehicle Status Sensor">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Vehicle Status Sensor
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../AddNewEnvironment/AddEnvironment/" class="md-footer__link md-footer__link--next" aria-label="Next: Add Environment">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Add Environment
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.sections", "navigation.footer", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

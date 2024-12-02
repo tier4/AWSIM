@@ -1,0 +1,2977 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../URDFAndSensors/">
+      
+      
+        <link rel="next" href="../AddColliders/">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.47">
+    
+    
+      
+        <title>Add Vehicle - AWSIM document</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cerate-an-object" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="AWSIM document" class="md-header__button md-logo" aria-label="AWSIM document" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AWSIM document
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Add Vehicle
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tier4/AWSIM" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="AWSIM document" class="md-nav__button md-logo" aria-label="AWSIM document" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AWSIM document
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tier4/AWSIM" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../GettingStarted/QuickStartDemo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Start Demo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../GettingStarted/SetupUnityProject/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup Unity Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../GettingStarted/UsingOpenSCENARIO/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using OpenSCENARIO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Introduction
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Introduction/Autoware/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Autoware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Introduction/AWSIM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AWSIM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Introduction/CombinationWithAutoware/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CombinationWithAutoware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Project guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Project guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ProjectGuide/Directory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Directory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ProjectGuide/HotkeyList/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hotkey List
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ProjectGuide/Scenes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scenes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ProjectGuide/GitBranch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git Branch
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ProjectGuide/ExternalLibraries/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    External Libraries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ProjectGuide/Testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ProjectGuide/RunningHeadless/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running headless
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Components
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Clock
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Clock
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Clock/ClockPublisher/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clock Publisher
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Vehicle
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Vehicle
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../EgoVehicle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ego Vehicle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VehicleInput/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vehicle Input
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../URDFAndSensors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    URDF And Sensors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_2_4" id="__nav_5_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Add New Vehicle
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Add New Vehicle
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Add Vehicle
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Add Vehicle
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cerate-an-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cerate an Object
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-rigidbody" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a Rigidbody
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-visual-elements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add visual elements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-canter-of-mass" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a Canter of Mass
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-reflection-probe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a Reflection Probe
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-colliders" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add Colliders
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-base-for-sensors-urdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a base for sensors (URDF)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-vehicle-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a Vehicle Script
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-vehicle-keyboard-input-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a Vehicle Keyboard Input Script
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-vehicle-visual-effect-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a Vehicle Visual Effect Script
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Add a Vehicle Visual Effect Script">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to test
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-vehicle-ros-input-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a Vehicle Ros Input Script
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Add a Vehicle Ros Input Script">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-test_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to test
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-sensors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add Sensors
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-vehicle-to-scene" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a Vehicle to Scene
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AddColliders/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Colliders
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AddSensors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Sensors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AddVisualElements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Visual Elements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CustomizeSlip/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Customize Slip
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FollowCamera/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FollowCamera
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Sensors
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Sensors
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3_1" id="__nav_5_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    LiDAR Sensor
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            LiDAR Sensor
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Sensors/LiDARSensor/LiDARSensor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LiDAR Sensor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Sensors/LiDARSensor/AddNewLiDAR/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add New LiDAR
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Sensors/LiDARSensor/ReadMaterialInformation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Read Material Information
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Sensors/LiDARSensor/RGLUnityPlugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RGLUnityPlugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Sensors/RadarSensor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Radar Sensor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Sensors/CameraSensor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Camera Sensor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Sensors/IMUSensor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IMU Sensor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Sensors/GNSSSensor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GNSS Sensor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Sensors/VehicleStatusSensor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vehicle Status Sensor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Environment
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            Environment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environment/AWSIMEnvironment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AWSIM Environment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4_2" id="__nav_5_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Add New Environment
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Add New Environment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environment/AddNewEnvironment/AddEnvironment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Environment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4_2_2" id="__nav_5_4_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Add RandomTraffic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_5_4_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Add RandomTraffic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environment/AddNewEnvironment/AddRandomTraffic/LoadItemsFromLanelet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Load Items From Lanelet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environment/AddNewEnvironment/AddRandomTraffic/AddRandomTraffic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Random Traffic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environment/AddNewEnvironment/AddRandomTraffic/AddTrafficIntersection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Traffic Intersection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environment/AddNewEnvironment/AddTrafficLights/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add TrafficLights
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environment/CreatePCD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Create PCD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environment/LaneletBoundsVisualizer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LaneletBoundsVisualizer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environment/SmokeSimulator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SmokeSimulator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environment/V2I/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    V2I
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Traffic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            Traffic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Traffic/TrafficComponents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Traffic Components
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5_2" id="__nav_5_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Random Traffic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Random Traffic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Traffic/RandomTraffic/RandomTrafficSimulator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random Traffic Simulator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Traffic/RandomTraffic/YieldingRules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Yielding Rules
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Traffic/RandomTraffic/AddRandomTrafficEnvironment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add Random Traffic Environment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5_3" id="__nav_5_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    NPCs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            NPCs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Traffic/NPCs/Pedestrian/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pedestrian
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Traffic/NPCs/Vehicle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vehicle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ROS2
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            ROS2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ROS2/ROS2TopicAndServiceList/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS2 topic & service list
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ROS2/AddACustomROS2Message/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add custom ROS2 msg
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ROS2/ROS2ForUnity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS2 For Unity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    OpenSCENARIO
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_7">
+            <span class="md-nav__icon md-icon"></span>
+            OpenSCENARIO
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ScenarioSimulation/SetupUnityProjectForScenarioSimulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup Unity project for scenario simulation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ScenarioSimulation/PreparingTheConnectionBetweenAWSIMAndScenarioSimulator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preparing the connection between AWSIM and scenario_simulator_v2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Developer guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Developer guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DeveloperGuide/SetupVscode/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup VSCode
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DeveloperGuide/HowToContribute/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Contribute
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DeveloperGuide/TroubleShooting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trouble shooting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DeveloperGuide/Documentation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DeveloperGuide/License/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../DeveloperGuide/Contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cerate-an-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cerate an Object
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-rigidbody" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a Rigidbody
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-visual-elements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add visual elements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-canter-of-mass" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a Canter of Mass
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-reflection-probe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a Reflection Probe
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-colliders" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add Colliders
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-base-for-sensors-urdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a base for sensors (URDF)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-vehicle-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a Vehicle Script
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-vehicle-keyboard-input-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a Vehicle Keyboard Input Script
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-vehicle-visual-effect-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a Vehicle Visual Effect Script
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Add a Vehicle Visual Effect Script">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to test
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-vehicle-ros-input-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a Vehicle Ros Input Script
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Add a Vehicle Ros Input Script">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-test_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to test
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-sensors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add Sensors
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#add-a-vehicle-to-scene" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a Vehicle to Scene
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>Add Vehicle</h1>
+
+<div class="admonition info">
+<p class="admonition-title">Ego Vehicle Component</p>
+<p>In this tutorial we will create a new <code>EgoVehicle</code>.
+To learn more about what an <code>EgoVehicle</code> is in <em>AWSIM</em> please visit <a href="../../../../Components/Vehicle/EgoVehicle/">Ego Vehicle description page</a>.</p>
+</div>
+<h2 id="cerate-an-object">Cerate an Object</h2>
+<p>Add a child <em>Object</em> to the <em>Simulation</em> called <code>EgoVehicle</code>.</p>
+<p><img alt="ego vehicle add object" src="ego_vehicle_add_object.gif" /></p>
+<h2 id="add-a-rigidbody">Add a Rigidbody</h2>
+<ol>
+<li>
+<p>While having a newly created <code>EgoVehicle</code> <em>Object</em> selected, in the <em>Inspector</em> view click on the 'Add Component' button, search for <code>Rigidbody</code> and select it.</p>
+<p><img alt="rigidbody add component" src="rigidbody_add_component.gif" /></p>
+<p><img alt="rigidbody search" src="rigidbody_search.png" /></p>
+</li>
+<li>
+<p>Configure Mass and Drag with the correct values for your Vehicle.</p>
+<p><img alt="rigidbody configure 1" src="rigidbody_configure1.gif" /></p>
+</li>
+<li>
+<p>Configure Interpolation and Collision Detection.</p>
+<p><img alt="rigidbody configure 2" src="rigidbody_configure2.gif" /></p>
+</li>
+</ol>
+<h2 id="add-visual-elements">Add visual elements</h2>
+<p>For a detailed explanation hwo to add visual elements of your Vehicle check out this <a href="../AddVisualElements/">dedicated tutorial</a>.</p>
+<h2 id="add-a-canter-of-mass">Add a Canter of Mass</h2>
+<p>To add a center of mass to your vehicle you have to add a <code>CoM</code> child <em>Object</em> to the <code>EgoVehicle</code> <em>Object</em> (the same as in steps before).</p>
+<p>Then just set the <em>position</em> of the <code>CoM</code> <em>Object</em> in the <em>Inspector</em> view to represent real-world center of mass of the Vehicle.</p>
+<p><img alt="center of mass" src="com_all.gif" /></p>
+<details class="question">
+<summary>How do I know what is the Center of Mass of my Vehicle</summary>
+<p>The best way is to obtain a Center of Mass information from your Vehicle documentation.</p>
+<p>However, if this is not possible, you can try to estimate the Center of Mass of your vehicle.
+Best practice is to set the estimated Center of Mass as the following</p>
+<ul>
+<li>Evenly between the axles of the Vehicle</li>
+<li>Right in the middle of the Vehicles width</li>
+<li>Somewhere in the neighborhood of a quarter of the Vehicle height</li>
+</ul>
+<p><strong>Note</strong>: This will vary very much depending on your Vehicle construction.
+For the best possible result please follow the Vehicle specifications.</p>
+</details>
+<h2 id="add-a-reflection-probe">Add a Reflection Probe</h2>
+<ol>
+<li>
+<p>Add a new <em>Object</em> called <code>Reflection Probe</code> as a child to the <code>EgoVehicle</code> <em>Object</em>.</p>
+<p><img alt="reflection probe add object" src="reflection_probe_add_object.gif" /></p>
+</li>
+<li>
+<p>Click on the 'Add Component' button, in the windows that pops-up search for <code>Reflection Probe</code> and select it.</p>
+<p><img alt="reflection probe add component" src="reflection_probe_add_component.gif" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please note that with <code>Reflection Probe</code> there should also be automatically added a <code>`HD Additional Reflection Data</code> Script.</p>
+<p><img alt="reflection probe additional script" src="reflection_probe_additional_script.png" /></p>
+</div>
+</li>
+<li>
+<p>Configure the <code>Reflection Probe</code> as you wish.</p>
+<div class="admonition example">
+<p class="admonition-title">Example Configuration</p>
+<p>Below you can see an example configuration of the <code>Reflection Probe</code>.</p>
+<p><img alt="reflection probe configuration" src="reflection_probe_configuration.png" /></p>
+</div>
+</li>
+</ol>
+<h2 id="add-colliders">Add Colliders</h2>
+<p>For a detailed explanation how to add colliders to your Vehicle check out this <a href="../AddColliders/">dedicated tutorial</a>.</p>
+<h2 id="add-a-base-for-sensors-urdf">Add a base for sensors (URDF)</h2>
+<p>You will most certainly want to add some sensors to your <code>EgoVehicle</code>.
+First you need to create a parent <em>Object</em> for all those sensors called <code>URDF</code>.
+To do this we will add a child <em>Object</em> <code>URDF</code> to the <code>EgoVehicle</code> <em>Object</em>.</p>
+<p><img alt="urdf add object" src="urdf_add_object.gif" /></p>
+<p>This <em>Object</em> will be used as a base for all sensors we will add later.</p>
+<h2 id="add-a-vehicle-script">Add a Vehicle Script</h2>
+<p>To be able to control your <code>EgoVehicle</code> you need a <code>Vehicle</code> Script.</p>
+<ol>
+<li>
+<p>Add the <code>Vehicle</code> Script to the <code>EgoVehicle</code> <em>Object</em>.</p>
+<p><img alt="vehicle script add component" src="vehicle_script_add_component.gif" /></p>
+<p><img alt="vehicle script search" src="vehicle_script_search.png" /></p>
+</li>
+<li>
+<p>Configure the <code>Vehicle</code> Script <em>Axle Settings</em> and <em>Center Of Mass Transform</em>.</p>
+<p><img alt="vehicle script configure" src="vehicle_script_configure.gif" /></p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Testing</p>
+<p>It is not possible to test this Script alone, but you can test the following</p>
+<ul>
+<li><a href="#add-a-vehicle-keyboard-input-script">Vehicle Keyboard Input Script</a></li>
+<li><a href="#add-a-vehicle-visual-effect-script">Vehicle Visual Effects Script</a></li>
+<li><a href="#add-a-vehicle-ros-input-script">Vehicle Ros Input Script</a></li>
+</ul>
+<p>If components listed above work correctly this means the <code>Vehicle</code> Script works correctly too.</p>
+</div>
+<h2 id="add-a-vehicle-keyboard-input-script">Add a Vehicle Keyboard Input Script</h2>
+<p>You can control your <code>EgoVehicle</code> in the simulation manually with just one Script called <code>Vehicle Keyboard Input</code>.</p>
+<p>If you want to add it just click the 'Add Component' button on the <code>EgoVehicle</code> <em>Object</em> and search for <code>Vehicle Keyboard Input</code> Script and select it.</p>
+<p><img alt="vehicle keyboard input script add" src="vehicle_keyboard_input_script.gif" /></p>
+<h2 id="add-a-vehicle-visual-effect-script">Add a Vehicle Visual Effect Script</h2>
+<p>For a visual indication of a Vehicle status you will need a <code>Vehicle Visual Effect</code> Script.
+To add and configure it follow the steps below.</p>
+<ol>
+<li>
+<p>Add a <code>Vehicle Visual Effect</code> Script by clicking 'Add Component' button, searching for it and selecting it.</p>
+<p><img alt="vehicle visual effect script add component" src="vehicle_visual_effect_script_add_component.gif" /></p>
+</li>
+<li>
+<p>Configure the lights.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this step we will configure only <code>Brake Lights</code>, but should repeat this for every Light.
+The process is almost the same for all Lights - just change the mesh renderer and lighting settings according to your preference.</p>
+</div>
+<p><img alt="vehicle visual effect script configure" src="vehicle_visual_effect_script_configure.gif" /></p>
+</li>
+</ol>
+<h3 id="how-to-test">How to test</h3>
+<p>After configuring <code>Vehicle Visual Effect</code> Script it is advised to test whether everything works as expected.</p>
+<ol>
+<li>
+<p>Make sure you have a <a href="#add-a-vehicle-keyboard-input-script"><code>Vehicle Keyboard Input</code> Script</a> added and that it is enabled.</p>
+</li>
+<li>
+<p>If your scene does not have any models yet please turn the gravity off in <code>Rigidbody</code> configuration so that the Vehicle does not fall down into infinity.</p>
+<p><img alt="rigidbody turn gravity off" src="rigidbody_turn_gravity_off.gif" /></p>
+</li>
+<li>
+<p>Start the simulation.</p>
+<p><img alt="simulation start" src="simulation_start.gif" /></p>
+</li>
+<li>
+<p>Test the Turn Signals.</p>
+<p>You can control the Turn Signals with a <code>Vehicle Keyboard Input</code> Script.
+Activate the Turn Signals with one of the following keys</p>
+<ul>
+<li><code>1</code> - Left Turn Signal</li>
+<li><code>2</code> - Right Turn Signal</li>
+<li><code>3</code> - Hazard Lights</li>
+<li><code>4</code> - Turn Off all Signals</li>
+</ul>
+<p><img alt="turn signals check" src="turn_signals_check.gif" /></p>
+</li>
+<li>
+<p>Test the Lights.</p>
+<p>You can control the lights by "driving" the Vehicle using <code>Vehicle Keyboard Input</code> Script.
+Although if you have an empty Environment like in this tutorial the Vehicle won't actually drive.</p>
+<p>To test Brake Lights change the gear to Drive by pressing <code>D</code> on the keyboard and activate braking by holding <code>arrow down</code>.</p>
+<p>To test the Reverse Light change the gear to Reverse by pressing <code>R</code> on the keyboard.
+The Reverse Light should turn on right away.</p>
+<p><img alt="brake reverse lights check" src="brake_reverse_lights_check.gif" /></p>
+</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Camera tip</p>
+<p>If you have not configured a camera or configured it in such a way that you can't see the Vehicle well you can still test most of the lights by changing views.</p>
+<ul>
+<li>Turn the Light (or Signal) on by pressing the appropriate key</li>
+<li>Move to the Scene View by pressing <code>ctrl + 1</code> - now you can move the camera freely</li>
+<li>To change the Lights you need to go back to Game View by pressing <code>ctrl + 2</code></li>
+</ul>
+<p>Pleas note that this method <strong>won't</strong> work for testing Brake Lights, as for them to work you need to keep the <code>arrow down</code> button pressed all the time.</p>
+</div>
+<h2 id="add-a-vehicle-ros-input-script">Add a Vehicle Ros Input Script</h2>
+<p>For controlling your Vehicle with autonomous driving software (e.g. <a href="../../../../Introduction/Autoware/">Autoware</a>) you need a <code>Vehicle Ros Input</code> Script.</p>
+<div class="admonition warning">
+<p class="admonition-title">Disable <code>Vehicle Keyboard Input</code> Script</p>
+<p>If you have added a <code>Vehicle Keyboard Input</code> Script in your Vehicle please disable it when using the <code>Vehicle Ros Input</code> Script.</p>
+<p>Not doing so will lead to the vehicle receiving two different inputs which will cause many problems.</p>
+<p><img alt="vehicle keyboard input disable" src="vehicle_keyboard_input_disable.gif" /></p>
+</div>
+<p>Add it to the <code>EgoVehicle</code> <em>Object</em> by clicking on the 'Add Component' button, searching for it and selecting it.</p>
+<p><img alt="vehicle ros input add component" src="vehicle_ros_input_add_component.gif" /></p>
+<p>The Script is configured to work with <a href="../../../../Introduction/Autoware/">Autoware</a> by default, but you can change the topics and Quality of Service settings as you wish.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>Vehicle</code> should be configured correctly, but if you have many Vehicles or something goes wrong, please select the right Vehicle in the <code>Vehicle</code> field by clicking on the small arrow icon and choosing the right item from the list.</p>
+</div>
+<h3 id="how-to-test_1">How to test</h3>
+<p>The best way to test the Vehicle Ros Input Script is to run <em>Autoware</em>.</p>
+<ol>
+<li>Run the <em>Scene</em> same as on <a href="../../../../GettingStarted/SetupUnityProject/#run-the-demo-in-editor">this page</a>.</li>
+<li>Launch <strong>only</strong> the <em>Autoware</em> like on <a href="../../../../GettingStarted/QuickStartDemo/#launching-autoware">this page</a></li>
+<li>Plan a path in <em>Autoware</em> like <a href="../../../../GettingStarted/QuickStartDemo/#5-lets-run-the-self-driving-simulation">here</a>, if the Vehicle moves in <em>AWSIM</em> correctly then the Script is configured well.</li>
+</ol>
+<h2 id="add-sensors">Add Sensors</h2>
+<p>For a detailed explanation how to add sensors to your Vehicle check out this <a href="../AddSensors/">dedicated tutorial</a>.</p>
+<h2 id="add-a-vehicle-to-scene">Add a Vehicle to Scene</h2>
+<p>First you will have to save the Vehicle you created as a <em>prefab</em>, to easily add it later to different Scenes.</p>
+<ol>
+<li>Open the Vehicles directory in the <em>Project</em> view (<code>Assets/AWSIM/Prefabs/Vehicles</code>)</li>
+<li>Drag the Vehicle <em>Object</em> from the <em>Hierarchy</em> view to the Vehicles directory</li>
+</ol>
+<p><img alt="save vehicle as prefab" src="vehicle_save_prefab.gif" /></p>
+<p>After that, you can add the Vehicle you created to different Scenes by dragging it from Vehicles directory to the <em>Hierarchy</em> of different Scenes.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../URDFAndSensors/" class="md-footer__link md-footer__link--prev" aria-label="Previous: URDF And Sensors">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                URDF And Sensors
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../AddColliders/" class="md-footer__link md-footer__link--next" aria-label="Next: Add Colliders">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Add Colliders
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.sections", "navigation.footer", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
