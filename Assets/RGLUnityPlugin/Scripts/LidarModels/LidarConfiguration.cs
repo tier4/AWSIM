@@ -14,7 +14,6 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace RGLUnityPlugin
 {
@@ -81,19 +80,9 @@ namespace RGLUnityPlugin
         }
 
         /// <summary>
-        /// Returns ranges for the generated rays.
-        /// Ranges are retrieved from lasers description. May be overridden.
+        /// Returns ranges for the generated rays. Must be overridden.
         /// </summary>
-        public virtual Vector2[] GetRayRanges()
-        {
-            Vector2[] rayRanges = new Vector2[PointCloudSize];
-            Vector2[] laserRanges = laserArray.GetLaserRanges();
-            for (int i = 0; i < HorizontalSteps; i++)
-            {
-                Array.Copy(laserRanges, 0, rayRanges, i * laserRanges.Length, laserRanges.Length);
-            }
-            return rayRanges;
-        }
+        public abstract Vector2[] GetRayRanges();
 
         /// <summary>
         /// Returns time offsets for the generated rays.
@@ -160,7 +149,51 @@ namespace RGLUnityPlugin
     /// It allows the definition of the lidar with different ranges for each laser (channel).
     /// </summary>
     [Serializable]
-    public class LaserBasedRangeLidarConfiguration : BaseLidarConfiguration { }
+    public class LaserBasedRangeLidarConfiguration : BaseLidarConfiguration
+    {
+        [Serializable]
+        public class RangeOverride
+        {
+            [Tooltip("Flag to enable range overriding (single range (min, max) value for all LiDAR rays will be set)")]
+            public bool enable = false;
+
+            [Tooltip("Minimum range of the sensor")]
+            [Min(0)] public float minRange = 0.0f;
+
+            [Tooltip("Maximum range of the sensor")]
+            [Min(0)] public float maxRange = 0.0f;
+        }
+
+        public RangeOverride rangeOverride;
+
+        /// <summary>
+        /// Final form of GetRayRanges that handles range override (single range (min, max) value for all LiDAR rays).
+        /// If range override is disabled, GetRayLaserBasedRanges is called.
+        /// </summary>
+        public sealed override Vector2[] GetRayRanges()
+        {
+            if (rangeOverride.enable)
+            {
+                return new Vector2[1] {new Vector2(rangeOverride.minRange, rangeOverride.maxRange)};
+            }
+
+            return GetRayLaserBasedRanges();
+        }
+
+        /// <summary>
+        /// Ranges are retrieved from lasers description. May be overridden.
+        /// </summary>
+        public virtual Vector2[] GetRayLaserBasedRanges()
+        {
+            Vector2[] rayRanges = new Vector2[PointCloudSize];
+            Vector2[] laserRanges = laserArray.GetLaserRanges();
+            for (int i = 0; i < HorizontalSteps; i++)
+            {
+                Array.Copy(laserRanges, 0, rayRanges, i * laserRanges.Length, laserRanges.Length);
+            }
+            return rayRanges;
+        }
+    }
 
     /// <summary>
     /// Lidar configuration for uniformly distributed rays along the horizontal axis with a uniform range for all the rays.
@@ -175,7 +208,7 @@ namespace RGLUnityPlugin
         [Tooltip("Maximum range of the sensor")]
         [Min(0)] public float maxRange;
 
-        public override Vector2[] GetRayRanges()
+        public sealed override Vector2[] GetRayRanges()
         {
             return new Vector2[1] {new Vector2(minRange, maxRange)};
         }
@@ -195,9 +228,9 @@ namespace RGLUnityPlugin
     /// It contains properties and ray-generating methods specific to this lidar.
     /// </summary>
     [Serializable]
-    public class HesaiAT128LidarConfiguration : BaseLidarConfiguration
+    public class HesaiAT128LidarConfiguration : LaserBasedRangeLidarConfiguration
     {
-        public override Vector2[] GetRayRanges()
+        public override Vector2[] GetRayLaserBasedRanges()
         {
             // All channels fire laser pulses that measure the far field (＞ 7.2 m)
             // Additionally, the NF-enabled channels also fire laser pulses that measure only the near field (0.5 to 7.2 m), at a time other
@@ -234,7 +267,7 @@ namespace RGLUnityPlugin
     /// It contains properties and ray-generating methods specific to this lidar.
     /// </summary>
     [Serializable]
-    public class HesaiQT128C2XLidarConfiguration : BaseLidarConfiguration
+    public class HesaiQT128C2XLidarConfiguration : LaserBasedRangeLidarConfiguration
     {
         private static int hesaiQT128LasersBankLength = 32;
 
@@ -280,7 +313,7 @@ namespace RGLUnityPlugin
     /// It contains properties and ray-generating methods specific to this lidar.
     /// </summary>
     [Serializable]
-    public class HesaiPandar128E4XLidarConfiguration : BaseLidarConfiguration
+    public class HesaiPandar128E4XLidarConfiguration : LaserBasedRangeLidarConfiguration
     {
         // High resolution mode changes laser array
         public override LaserArray laserArray
