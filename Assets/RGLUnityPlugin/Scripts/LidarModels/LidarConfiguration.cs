@@ -164,7 +164,7 @@ namespace RGLUnityPlugin
             [Min(0)] public float maxRange = 0.0f;
         }
 
-        public RangeOverride rangeOverride;
+        public RangeOverride rangeOverride = new RangeOverride();
 
         /// <summary>
         /// Final form of GetRayRanges that handles range override (single range (min, max) value for all LiDAR rays).
