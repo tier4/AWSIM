@@ -111,7 +111,7 @@ namespace AWSIM.TrafficSimulation
 
         public float DistanceToIntersection
             => FirstLaneWithIntersection == null ? float.MaxValue
-            : SignedDistanceToPointOnLane(FirstLaneWithIntersection.StopLine?.CenterPoint ?? FirstLaneWithIntersection.Waypoints[0]);
+            : DistanceToClosestTrafficLane();
 
         public bool ObstructedByVehicleBehindIntersection => DistanceToIntersection > DistanceToFrontVehicle;
 
@@ -128,6 +128,56 @@ namespace AWSIM.TrafficSimulation
 
             var distance = Vector3.Distance(position, point);
             return hasPassedThePoint ? -distance : distance;
+        }
+        
+        public float DistanceToClosestTrafficLane()
+        {
+            if (TrafficLightLane is null && !FollowingLanes.Contains(TrafficLightLane))
+            {
+                return float.MaxValue;
+            }
+
+            var distance = 0f;
+            var vehiclePosition = FrontCenterPosition;
+            bool startAddingWholeLanesDistance = false;
+
+            for (var i = 0; i < FollowingLanes.Count; i++)
+            {
+                RandomTrafficUtils.GetLaneFollowingProgressAndLaneLength(
+                    vehiclePosition,
+                    FollowingLanes[i],
+                    out var laneFollowingProgress,
+                    out var laneLenght);
+                if (!startAddingWholeLanesDistance)
+                {
+                    //vehicle is before first not-skipped lane
+                    if (laneFollowingProgress <= 0f)
+                    {
+                        distance += laneLenght;
+                        startAddingWholeLanesDistance = true;
+                    }
+                    //vehicle is on lane
+                    else if (laneFollowingProgress < 1f)
+                    {
+                        var progressToLaneEnd = (1 - laneFollowingProgress);
+                        distance += laneLenght * progressToLaneEnd;
+                        startAddingWholeLanesDistance = true;
+                    }
+                }
+                else
+                {
+                    //when distance was calculated once partially/for whole lane it keeps calculating whole lanes
+                    //until meeting traffic light lane
+                    distance += laneLenght;
+                }
+
+                //if traffic lane, stop computing
+                if (FollowingLanes[i] == TrafficLightLane)
+                {
+                    break;
+                }
+            }
+            return distance;
         }
 
         public TrafficLane CurrentFollowingLane => FollowingLanes.FirstOrDefault();

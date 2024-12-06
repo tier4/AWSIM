@@ -91,7 +91,7 @@ namespace AWSIM.TrafficSimulation
             var distanceToStopPointByTrafficLight = float.MaxValue;
             if (state.TrafficLightLane != null)
             {
-                var distanceToStopLine = DistanceToClosestTrafficLane(state);
+                var distanceToStopLine = state.DistanceToClosestTrafficLane();
                 switch (state.TrafficLightPassability)
                 {
                     case TrafficLightPassability.GREEN:
@@ -106,56 +106,6 @@ namespace AWSIM.TrafficSimulation
                 }
             }
             return onlyGreaterThan(distanceToStopPointByTrafficLight, 0);
-        }
-
-        private static float DistanceToClosestTrafficLane(NPCVehicleInternalState state)
-        {
-            if (state.TrafficLightLane is null && !state.FollowingLanes.Contains(state.TrafficLightLane))
-            {
-                return float.MaxValue;
-            }
-
-            var distance = 0f;
-            var vehiclePosition = state.FrontCenterPosition;
-            bool startAddingWholeLanesDistance = false;
-
-            for (var i = 0; i < state.FollowingLanes.Count; i++)
-            {
-                RandomTrafficUtils.GetLaneFollowingProgressAndLaneLength(
-                    vehiclePosition,
-                    state.FollowingLanes[i],
-                    out var laneFollowingProgress,
-                    out var laneLenght);
-                if (!startAddingWholeLanesDistance)
-                {
-                    //vehicle is before first not-skipped lane
-                    if (laneFollowingProgress <= 0f)
-                    {
-                        distance += laneLenght;
-                        startAddingWholeLanesDistance = true;
-                    }
-                    //vehicle is on lane
-                    else if (laneFollowingProgress < 1f)
-                    {
-                        var progressToLaneEnd = (1 - laneFollowingProgress);
-                        distance += laneLenght * progressToLaneEnd;
-                        startAddingWholeLanesDistance = true;
-                    }
-                }
-                else
-                {
-                    //when distance was calculated once partially/for whole lane it keeps calculating whole lanes
-                    //until meeting traffic light lane
-                    distance += laneLenght;
-                }
-
-                //if traffic lane, stop computing
-                if (state.FollowingLanes[i] == state.TrafficLightLane)
-                {
-                    break;
-                }
-            }
-            return distance;
         }
 
         private static float CalculateYieldingDistance(NPCVehicleInternalState state)
