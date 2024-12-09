@@ -142,7 +142,7 @@ namespace AWSIM.TrafficSimulation
                 out var laneLenght);
             return (1f - laneFollowingProgress) * laneLenght;
         }
-        
+
         public float DistanceToClosestTrafficLane()
         {
             if (TrafficLightLane is null && !FollowingLanes.Contains(TrafficLightLane))

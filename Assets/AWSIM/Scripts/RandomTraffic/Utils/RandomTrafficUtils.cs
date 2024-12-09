@@ -79,7 +79,7 @@ namespace AWSIM.TrafficSimulation
                 ? source[Random.Range(0, source.Count)]
                 : default;
         }
-        
+
         /// <summary>
         /// Calculates where on the lane the position currently is.
         /// Helps to track progress of lane following functionality.
