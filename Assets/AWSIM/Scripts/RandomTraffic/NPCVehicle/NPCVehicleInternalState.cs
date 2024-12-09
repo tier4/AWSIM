@@ -115,7 +115,6 @@ namespace AWSIM.TrafficSimulation
 
         private int routeIndex = 0;
 
-        // TODO: Calculate distance along the lane
         public float SignedDistanceToPointOnLane(Vector3 point)
         {
             var position = FrontCenterPosition;
