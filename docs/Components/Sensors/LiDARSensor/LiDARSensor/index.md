@@ -139,9 +139,16 @@ horizontal and vertical beam divergence values (as they would be set to 0). Note
         - `Max Random Period` - upper bound of time period in seconds used in random mode
 
     - *Additional options (available for some Lidar Model Preset)*
-        - `Min Range` - minimum range of the sensor (if not avaiable, the range is different for each laser in `Laser Array`)
-        - `Max Range` - maximum range of the sensor (if not avaiable, the range is different for each laser in `Laser Array`)
-        - `High Resolution Mode Enabled` - whether to activate high resolution mode (available for `Hesai Pandar 128E4X` LiDAR model)
+        - Uniform range LiDARs
+            - `Min Range` - minimum range of the sensor
+            - `Max Range` - maximum range of the sensor
+        - Non-uniform range LiDARs
+            - *Range Override Params*:
+                - `Enable` - enable/disable range overriding (if disabled, ranges are determined based on the laser ranges described in `Laser Array`)
+                - `Min Range` - minimum range of the sensor
+                - `Max Range` - maximum range of the sensor
+        - Hesai Pandar 128E4X
+            - `High Resolution Mode Enabled` - whether to activate high resolution mode
 
 #### Output Data
 `LidarSensor` provides public methods to extend this pipeline with additional `RGL` nodes.
