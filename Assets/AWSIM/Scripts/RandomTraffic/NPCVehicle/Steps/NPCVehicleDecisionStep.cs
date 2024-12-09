@@ -91,7 +91,7 @@ namespace AWSIM.TrafficSimulation
             var distanceToStopPointByTrafficLight = float.MaxValue;
             if (state.TrafficLightLane != null)
             {
-                var distanceToStopLine = state.DistanceToClosestTrafficLane();
+                var distanceToStopLine = state.DistanceToClosestTrafficLightLane();
                 switch (state.TrafficLightPassability)
                 {
                     case TrafficLightPassability.GREEN:
