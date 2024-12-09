@@ -91,8 +91,7 @@ namespace AWSIM.TrafficSimulation
             var distanceToStopPointByTrafficLight = float.MaxValue;
             if (state.TrafficLightLane != null)
             {
-                var distanceToStopLine =
-                    state.SignedDistanceToPointOnLane(state.TrafficLightLane.StopLine.CenterPoint);
+                var distanceToStopLine = DistanceToClosestTrafficLane(state);
                 switch (state.TrafficLightPassability)
                 {
                     case TrafficLightPassability.GREEN:
@@ -107,6 +106,95 @@ namespace AWSIM.TrafficSimulation
                 }
             }
             return onlyGreaterThan(distanceToStopPointByTrafficLight, 0);
+        }
+
+        private static float DistanceToClosestTrafficLane(NPCVehicleInternalState state)
+        {
+            if (state.TrafficLightLane is null && !state.FollowingLanes.Contains(state.TrafficLightLane))
+            {
+                return float.MaxValue;
+            }
+
+            var distance = 0f;
+            var vehiclePosition = state.FrontCenterPosition;
+            bool startAddingWholeLanesDistance = false;
+
+            for (var i = 0; i < state.FollowingLanes.Count; i++)
+            {
+                (var laneFollowingProgress, var laneLenght) =
+                    GetLaneFollowingProgressAndLaneLength(vehiclePosition, state.FollowingLanes[i]);
+                if (!startAddingWholeLanesDistance)
+                {
+                    //vehicle is before first not-skipped lane
+                    if (laneFollowingProgress <= 0f)
+                    {
+                        distance += laneLenght;
+                        startAddingWholeLanesDistance = true;
+                    }
+                    //vehicle is on lane
+                    else if (laneFollowingProgress < 1f)
+                    {
+                        var progressToLaneEnd = (1 - laneFollowingProgress);
+                        distance += laneLenght * progressToLaneEnd;
+                        startAddingWholeLanesDistance = true;
+                    }
+                }
+                else
+                {
+                    //when distance was calculated once partially/for whole lane it keeps calculating whole lanes
+                    //until meeting traffic light lane
+                    distance += laneLenght;
+                }
+
+                //if traffic lane, stop computing
+                if (state.FollowingLanes[i] == state.TrafficLightLane)
+                {
+                    break;
+                }
+            }
+            return distance;
+        }
+
+        public static (float, float) GetLaneFollowingProgressAndLaneLength(Vector3 position, TrafficLane lane)
+        {
+            if (lane is null)
+            {
+                return (-1f, -1f);
+            }
+
+            float lengthToPointOnLane = 0.0f;
+            float wholeLaneLength = 0.0f;
+            float eps = 0.01f;
+            Vector2 positionXZ = new Vector2(position.x, position.z);
+            for (var i = 0; i < lane.Waypoints.Length - 1; i++)
+            {
+                Vector2 segmentStart = new Vector2(lane.Waypoints[i].x, lane.Waypoints[i].z);
+                Vector2 segmentEnd = new Vector2(lane.Waypoints[i + 1].x, lane.Waypoints[i + 1].z);
+                Vector2 pointOnSegment = ClosestPointOnSegment(segmentStart, segmentEnd, positionXZ);
+                float distanceFromStart = Vector2.Distance(segmentStart, pointOnSegment);
+                if (distanceFromStart > eps)
+                {
+                    lengthToPointOnLane += distanceFromStart;
+                }
+
+                wholeLaneLength += Vector2.Distance(segmentStart, segmentEnd);
+            }
+
+            return ((lengthToPointOnLane / wholeLaneLength), wholeLaneLength);
+        }
+
+        public static Vector2 ClosestPointOnSegment(Vector2 segmentStart, Vector2 segmentStop, Vector2 pointOfInterest)
+        {
+            Vector2 segmentVector = segmentStop - segmentStart;
+            Vector2 segmentStartToPoiVector = pointOfInterest - segmentStart;
+
+            float segmentMagnitude = segmentVector.sqrMagnitude;
+            float dotProduct = Vector2.Dot(segmentStartToPoiVector, segmentVector);
+            float argument = dotProduct / segmentMagnitude;
+
+            float t = Mathf.Clamp01(argument);
+
+            return segmentStart + t * segmentVector;
         }
 
         private static float CalculateYieldingDistance(NPCVehicleInternalState state)
