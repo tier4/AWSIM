@@ -106,9 +106,7 @@ namespace AWSIM.TrafficSimulation
             => SignedDistanceToPointOnLane(CurrentWaypoint);
 
         public float DistanceToNextLane
-            => CurrentFollowingLane?.Waypoints?.Any() != true ? float.MaxValue
-            : SignedDistanceToPointOnLane(CurrentFollowingLane.Waypoints.Last());
-
+            => CalculateDistanceToNextLane();
         public float DistanceToIntersection
             => FirstLaneWithIntersection == null ? float.MaxValue
             : DistanceToClosestTrafficLane();
@@ -128,6 +126,22 @@ namespace AWSIM.TrafficSimulation
 
             var distance = Vector3.Distance(position, point);
             return hasPassedThePoint ? -distance : distance;
+        }
+
+        private float CalculateDistanceToNextLane()
+        {
+            var nextLane = CurrentFollowingLane;
+            if (nextLane == null || nextLane.Waypoints == null || nextLane.Waypoints.Length == 0)
+            {
+                return float.MaxValue;
+            }
+            var vehiclePosition = FrontCenterPosition;
+            RandomTrafficUtils.GetLaneFollowingProgressAndLaneLength(
+                vehiclePosition,
+                nextLane,
+                out var laneFollowingProgress,
+                out var laneLenght);
+            return (1f - laneFollowingProgress) * laneLenght;
         }
         
         public float DistanceToClosestTrafficLane()
