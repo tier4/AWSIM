@@ -106,18 +106,15 @@ namespace AWSIM.TrafficSimulation
             => SignedDistanceToPointOnLane(CurrentWaypoint);
 
         public float DistanceToNextLane
-            => CurrentFollowingLane?.Waypoints?.Any() != true ? float.MaxValue
-            : SignedDistanceToPointOnLane(CurrentFollowingLane.Waypoints.Last());
-
+            => CalculateDistanceToNextLane();
         public float DistanceToIntersection
             => FirstLaneWithIntersection == null ? float.MaxValue
-            : SignedDistanceToPointOnLane(FirstLaneWithIntersection.StopLine?.CenterPoint ?? FirstLaneWithIntersection.Waypoints[0]);
+            : DistanceToClosestTrafficLightLane();
 
         public bool ObstructedByVehicleBehindIntersection => DistanceToIntersection > DistanceToFrontVehicle;
 
         private int routeIndex = 0;
 
-        // TODO: Calculate distance along the lane
         public float SignedDistanceToPointOnLane(Vector3 point)
         {
             var position = FrontCenterPosition;
@@ -128,6 +125,69 @@ namespace AWSIM.TrafficSimulation
 
             var distance = Vector3.Distance(position, point);
             return hasPassedThePoint ? -distance : distance;
+        }
+
+        private float CalculateDistanceToNextLane()
+        {
+            var nextLane = CurrentFollowingLane;
+            if (nextLane == null || nextLane.Waypoints == null || nextLane.Waypoints.Length == 0)
+            {
+                return float.MaxValue;
+            }
+            var vehiclePosition = FrontCenterPosition;
+            RandomTrafficUtils.GetLaneFollowingProgressAndLaneLength(
+                vehiclePosition,
+                nextLane,
+                out var laneFollowingProgress,
+                out var laneLenght);
+            return (1f - laneFollowingProgress) * laneLenght;
+        }
+
+        public float DistanceToClosestTrafficLightLane()
+        {
+            if (TrafficLightLane is null && !FollowingLanes.Contains(TrafficLightLane))
+            {
+                return float.MaxValue;
+            }
+
+            var distance = 0f;
+            var vehiclePosition = FrontCenterPosition;
+            bool startAddingWholeLanesDistance = false;
+
+            for (var i = 0; i < FollowingLanes.Count; i++)
+            {
+                RandomTrafficUtils.GetLaneFollowingProgressAndLaneLength(
+                    vehiclePosition,
+                    FollowingLanes[i],
+                    out var laneFollowingProgress,
+                    out var laneLenght);
+                if (!startAddingWholeLanesDistance)
+                {
+                    //vehicle is before first not-skipped lane
+                    if (laneFollowingProgress <= 0f)
+                    {
+                        distance += laneLenght;
+                        startAddingWholeLanesDistance = true;
+                    }
+                    //vehicle is on lane
+                    else if (laneFollowingProgress < 1f)
+                    {
+                        var progressToLaneEnd = (1 - laneFollowingProgress);
+                        distance += laneLenght * progressToLaneEnd;
+                        startAddingWholeLanesDistance = true;
+                    }
+                }
+                else
+                {
+                    distance += laneLenght;
+                }
+
+                if (FollowingLanes[i] == TrafficLightLane)
+                {
+                    break;
+                }
+            }
+            return distance;
         }
 
         public TrafficLane CurrentFollowingLane => FollowingLanes.FirstOrDefault();
