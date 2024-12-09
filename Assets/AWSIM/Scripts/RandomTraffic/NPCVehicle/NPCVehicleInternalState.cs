@@ -109,7 +109,7 @@ namespace AWSIM.TrafficSimulation
             => CalculateDistanceToNextLane();
         public float DistanceToIntersection
             => FirstLaneWithIntersection == null ? float.MaxValue
-            : DistanceToClosestTrafficLane();
+            : DistanceToClosestTrafficLightLane();
 
         public bool ObstructedByVehicleBehindIntersection => DistanceToIntersection > DistanceToFrontVehicle;
 
@@ -143,7 +143,7 @@ namespace AWSIM.TrafficSimulation
             return (1f - laneFollowingProgress) * laneLenght;
         }
 
-        public float DistanceToClosestTrafficLane()
+        public float DistanceToClosestTrafficLightLane()
         {
             if (TrafficLightLane is null && !FollowingLanes.Contains(TrafficLightLane))
             {
@@ -179,12 +179,9 @@ namespace AWSIM.TrafficSimulation
                 }
                 else
                 {
-                    //when distance was calculated once partially/for whole lane it keeps calculating whole lanes
-                    //until meeting traffic light lane
                     distance += laneLenght;
                 }
 
-                //if traffic lane, stop computing
                 if (FollowingLanes[i] == TrafficLightLane)
                 {
                     break;
