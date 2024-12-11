@@ -36,7 +36,10 @@ namespace AWSIM
             // Update new input for Autonomous and Manually Inputs.
             AutonomousInput.OnUpdate(inputArg);
             ManuallyInput.OnUpdate(inputArg);
+        }
 
+        private void FixedUpdate()
+        {
             // If override input is present, switch new ControlMode.
             if (ManuallyInput.Overridden)
             {
