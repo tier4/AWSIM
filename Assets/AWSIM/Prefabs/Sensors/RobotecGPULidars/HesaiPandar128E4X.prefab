@@ -143,7 +143,7 @@ MonoBehaviour:
   - topic: lidar/pointcloud_ex
     publish: 1
     fieldsPreset: 2
-    fields: 01000000030000000c0000000b0000000a00000009000000080000000e000000
+    fields: 01000000030000000c0000000b000000090000000a000000080000000e000000
   radarScanPublishers: []
 --- !u!114 &2398431948632788025
 MonoBehaviour:
@@ -1118,6 +1118,10 @@ MonoBehaviour:
           distanceNoiseStDevBase: 0.02
           distanceNoiseStDevRisePerMeter: 0
           distanceNoiseMean: 0
+        rangeOverride:
+          enable: 0
+          minRange: 0
+          maxRange: 0
         highResolutionModeEnabled: 0
 --- !u!1 &8835314765314878244
 GameObject:
