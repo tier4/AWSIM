@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AutomaticCaptureHz: 20
   modelPreset: 7
-  returnMode: 16777220
+  returnMode: 16777218
   applyDistanceGaussianNoise: 1
   applyAngularGaussianNoise: 1
   applyVelocityDistortion: 0

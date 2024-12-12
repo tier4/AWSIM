@@ -47,7 +47,7 @@ namespace RGLUnityPlugin
         public LidarModel modelPreset = LidarModel.RangeMeter;
 
         [Tooltip("Allows to select between LiDAR return modes")]
-        public RGLReturnMode returnMode = RGLReturnMode.SingleReturnFirst;
+        public RGLReturnMode returnMode = RGLReturnMode.SingleReturnLast;
 
         [Tooltip("Allows to quickly enable/disable distance gaussian noise")]
         public bool applyDistanceGaussianNoise = true;
