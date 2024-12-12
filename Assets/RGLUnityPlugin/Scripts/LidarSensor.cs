@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -228,6 +229,13 @@ namespace RGLUnityPlugin
             else
             {
                 rglGraphLidar.ConfigureNodeRaytraceBeamDivergence(lidarRaytraceNodeId, 0.0f, 0.0f);
+            }
+
+            if (!simulateBeamDivergence && IsDualReturnMode(returnMode))
+            {
+                Debug.LogWarning(
+                    $"Dual return mode without {nameof(simulateBeamDivergence)} enabled will not take effect." +
+                     "Please refer to documentation if the return mode is desired.");
             }
             
             rglGraphLidar.ConfigureNodeRaytraceReturnMode(lidarRaytraceNodeId, returnMode);
@@ -471,6 +479,11 @@ namespace RGLUnityPlugin
             Vector3 localAngularVelocity = (deltaRotation * Mathf.Deg2Rad) / Time.deltaTime;
 
             rglGraphLidar.ConfigureNodeRaytraceVelocity(lidarRaytraceNodeId, localLinearVelocity, localAngularVelocity);
+        }
+
+        private bool IsDualReturnMode(RGLReturnMode mode)
+        {
+            return ((Convert.ToInt32(mode) & (int)RGLReturnCount.DualReturn) == (int)RGLReturnCount.DualReturn);
         }
     }
 }
