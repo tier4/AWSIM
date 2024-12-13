@@ -240,7 +240,7 @@ MonoBehaviour:
   - topic: lidar/pointcloud_ex
     publish: 1
     fieldsPreset: 2
-    fields: 01000000030000000c0000000b0000000a00000009000000080000000e000000
+    fields: 01000000030000000c0000000b000000090000000a000000080000000e000000
   radarScanPublishers: []
 --- !u!114 &9115279251508973176
 MonoBehaviour:
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AutomaticCaptureHz: 10
   modelPreset: 8
-  returnMode: 16777220
+  returnMode: 16777218
   applyDistanceGaussianNoise: 1
   applyAngularGaussianNoise: 1
   applyVelocityDistortion: 0
