@@ -234,7 +234,7 @@ namespace RGLUnityPlugin
             if (!simulateBeamDivergence && IsDualReturnMode(returnMode))
             {
                 Debug.LogWarning(
-                    $"Dual return mode without {nameof(simulateBeamDivergence)} enabled will not take effect." +
+                    $"{name}: Dual return mode without {nameof(simulateBeamDivergence)} enabled may not take desired effect." +
                      "Please refer to documentation if the return mode is desired.");
             }
             
