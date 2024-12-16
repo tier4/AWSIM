@@ -27,6 +27,7 @@ namespace RGLUnityPlugin
         HesaiAT128E2X,
         HesaiPandarXT32,
         HesaiQT128C2X,
-        HesaiPandar128E4X
+        HesaiPandar128E4X,
+        HesaiPandar128E4XHighRes
     }
 }
