@@ -26,7 +26,9 @@ namespace RGLUnityPlugin
     [Serializable]
     public abstract class BaseLidarConfiguration
     {
-        [Tooltip("Geometry description of lidar array")]
+        [Tooltip("List of lasers constituting this LiDAR.\n" +
+                 "Note: For some (advanced) LiDARs, it may contain duplicates of lasers if one scan consist of multiple firing sequences.\n" +
+                 "Note2: Laser's range is considered for non-uniform range LiDARs only (if configuration has no global range setting).")]
         public LaserArray laserArray;
 
         [Tooltip("The horizontal resolution of laser array firings (in degrees)")]

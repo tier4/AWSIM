@@ -35,6 +35,7 @@ namespace RGLUnityPlugin
         //             |
         // Note: It is not always lay on the axis of symmetry of the device (e.g., hybrid solid-state LIDARs)
         // This offset is not considered when generating laser poses. To be applied manually when setting the pose of the lidar (in RGL).
+        [Tooltip("Offset from the game object origin to the sensor origin.")]
         public Vector3 centerOfMeasurementLinearOffsetMm;
 
         //             |           /
@@ -49,7 +50,7 @@ namespace RGLUnityPlugin
         //             .       .
         //             .<----->.
         //           this distance
-        // Distance from the sensor center to the focal point where all laser beams intersect.
+        [Tooltip("Distance from the sensor center to the focal point where all laser beams intersect.")]
         public float focalDistanceMm;
 
         /// <summary>
