@@ -56,10 +56,12 @@ namespace AWSIM
         float timer = 0;
         OutputData outputData = new OutputData();
         Transform m_transform;
+        Transform envTransform;
 
         void Start()
         {
             m_transform = transform;
+            envTransform = Environment.Instance.transform;
         }
 
         void FixedUpdate()
@@ -73,7 +75,7 @@ namespace AWSIM
             timer = 0;
 
             // update mgrs position.
-            var unityPosition = m_transform.position;
+            var unityPosition = envTransform.InverseTransformPoint(m_transform.position);
             var rosPosition = ROS2Utility.UnityToRosPosition(unityPosition);
             outputData.MgrsPosition = rosPosition + Environment.Instance.MgrsOffsetPosition;   // ros gnss sensor's pos + mgrs offset pos.
             outputData.GeoCoordinate = GeoCoordinateConverter.Cartesian2Geo(unityPosition, Environment.Instance.WorldOriginGeoCoordinate);
