@@ -531,7 +531,7 @@ MonoBehaviour:
     00000000:
       type: {class: UniformRangeLidarConfiguration, ns: RGLUnityPlugin, asm: AWSIM}
       data:
-        _laserArray:
+        laserArray:
           centerOfMeasurementLinearOffsetMm: {x: 0, y: 66.11, z: 0}
           focalDistanceMm: 58.63
           lasers:

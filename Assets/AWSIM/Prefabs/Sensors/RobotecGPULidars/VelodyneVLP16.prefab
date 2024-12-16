@@ -61,7 +61,7 @@ MonoBehaviour:
   - topic: lidar/pointcloud_ex
     publish: 1
     fieldsPreset: 2
-    fields: 01000000030000000c0000000b0000000a00000009000000080000000e000000
+    fields: 01000000030000000c0000000b000000090000000a000000080000000e000000
   radarScanPublishers: []
 --- !u!114 &4572956135196922574
 MonoBehaviour:
@@ -123,7 +123,7 @@ MonoBehaviour:
     00000000:
       type: {class: UniformRangeLidarConfiguration, ns: RGLUnityPlugin, asm: AWSIM}
       data:
-        _laserArray:
+        laserArray:
           centerOfMeasurementLinearOffsetMm: {x: 0, y: 37.7, z: 0}
           focalDistanceMm: 0
           lasers:
