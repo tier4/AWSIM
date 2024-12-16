@@ -160,7 +160,11 @@ namespace RGLUnityPlugin
     /// It allows the definition of the lidar with different ranges for each laser (channel).
     /// </summary>
     [Serializable]
-    public class LaserBasedRangeLidarConfiguration : BaseLidarConfiguration { }
+    public class LaserBasedRangeLidarConfiguration : BaseLidarConfiguration
+    {
+        [Tooltip("To modify LiDAR range, use LaserArray/Lasers")]
+        public EmptyStruct rangeModificationTooltip;
+    }
 
     /// <summary>
     /// Lidar configuration for uniformly distributed rays along the horizontal axis with a uniform range for all the rays.
@@ -195,7 +199,7 @@ namespace RGLUnityPlugin
     /// It contains properties and ray-generating methods specific to this lidar.
     /// </summary>
     [Serializable]
-    public class HesaiAT128LidarConfiguration : BaseLidarConfiguration
+    public class HesaiAT128LidarConfiguration : LaserBasedRangeLidarConfiguration
     {
         public override Vector2[] GetRayRanges()
         {
@@ -234,7 +238,7 @@ namespace RGLUnityPlugin
     /// It contains properties and ray-generating methods specific to this lidar.
     /// </summary>
     [Serializable]
-    public class HesaiQT128C2XLidarConfiguration : BaseLidarConfiguration
+    public class HesaiQT128C2XLidarConfiguration : LaserBasedRangeLidarConfiguration
     {
         private static int hesaiQT128LasersBankLength = 32;
 
@@ -280,7 +284,7 @@ namespace RGLUnityPlugin
     /// It contains properties and ray-generating methods specific to this lidar.
     /// </summary>
     [Serializable]
-    public class HesaiPandar128E4XLidarConfiguration : BaseLidarConfiguration
+    public class HesaiPandar128E4XLidarConfiguration : LaserBasedRangeLidarConfiguration
     {
         // High resolution mode changes laser array
         public override LaserArray laserArray
