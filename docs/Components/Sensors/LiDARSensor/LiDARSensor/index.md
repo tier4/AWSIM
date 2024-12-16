@@ -39,18 +39,19 @@ Assets/AWSIM/Prefabs/Sensors/RobotecGPULidars/*
 
 The table of available prefabs can be found below:
 
-| LiDAR                 | Path                       | Appearance                                          |
-| :-------------------- | :-----------------------   | :------------------------------------------------   |
-| *HESAI Pandar40P*     | `HesaiPandar40P.prefab`    | <img src=imgs_prefabs/pandar40p.png width=150px>    |
-| *HESAI PandarQT64*    | `HesaiPandarQT64.prefab`   | <img src=imgs_prefabs/pandarqt.png width=150px>     |
-| *HESAI PandarXT32*    | `HesaiPandarXT32.prefab`   | <img src=imgs_prefabs/pandarxt32.png width=150px>   |
-| *HESAI QT128C2X*      | `HesaiQT128C2X.prefab`     | <img src=imgs_prefabs/qt1238c2x.png width=150px>    |
-| *HESAI Pandar128E4X*  | `HesaiPandar128E4X.prefab` | <img src=imgs_prefabs/pandar128e4x.png width=150px> |
-| *HESAI AT128 E2X*     | `HesaiAT128E2X.prefab`     | <img src=imgs_prefabs/at128e2x.png width=150px>     |
-| *Ouster OS1-64*       | `OusterOS1-64.prefab`      | <img src=imgs_prefabs/os1-64.png width=150px>       |
-| *Velodyne VLP-16*     | `VelodyneVLP16.prefab`     | <img src=imgs_prefabs/vlp16.png width=150px>        |
-| *Velodyne VLC-32C*    | `VelodyneVLP32C.prefab`    | <img src=imgs_prefabs/vlp32.png width=150px>        |
-| *Velodyne VLS-128-AP* | `VelodyneVLS128.prefab`    | <img src=imgs_prefabs/vls128.png width=150px>       |
+| LiDAR                       | Path                              | Appearance                                          |
+| :--------------------       | :-----------------------          | :------------------------------------------------   |
+| *HESAI Pandar40P*           | `HesaiPandar40P.prefab`           | <img src=imgs_prefabs/pandar40p.png width=150px>    |
+| *HESAI PandarQT64*          | `HesaiPandarQT64.prefab`          | <img src=imgs_prefabs/pandarqt.png width=150px>     |
+| *HESAI PandarXT32*          | `HesaiPandarXT32.prefab`          | <img src=imgs_prefabs/pandarxt32.png width=150px>   |
+| *HESAI QT128C2X*            | `HesaiQT128C2X.prefab`            | <img src=imgs_prefabs/qt1238c2x.png width=150px>    |
+| *HESAI Pandar128E4X*        | `HesaiPandar128E4X.prefab`        | <img src=imgs_prefabs/pandar128e4x.png width=150px> |
+| *HESAI Pandar128E4XHighRes* | `HesaiPandar128E4XHighRes.prefab` | <img src=imgs_prefabs/pandar128e4x.png width=150px> |
+| *HESAI AT128 E2X*           | `HesaiAT128E2X.prefab`            | <img src=imgs_prefabs/at128e2x.png width=150px>     |
+| *Ouster OS1-64*             | `OusterOS1-64.prefab`             | <img src=imgs_prefabs/os1-64.png width=150px>       |
+| *Velodyne VLP-16*           | `VelodyneVLP16.prefab`            | <img src=imgs_prefabs/vlp16.png width=150px>        |
+| *Velodyne VLC-32C*          | `VelodyneVLP32C.prefab`           | <img src=imgs_prefabs/vlp32.png width=150px>        |
+| *Velodyne VLS-128-AP*       | `VelodyneVLS128.prefab`           | <img src=imgs_prefabs/vls128.png width=150px>       |
 
 ### Link in the default Scene
 ![link](link.png)
@@ -137,11 +138,12 @@ horizontal and vertical beam divergence values (as they would be set to 0). Note
         - `Enable Restriction Randomizer` - enable/disable random periodic mode (default: `false`)
         - `Min Random Period` - lower bound of time period in seconds used in random mode
         - `Max Random Period` - upper bound of time period in seconds used in random mode
-
     - *Additional options (available for some Lidar Model Preset)*
-        - `Min Range` - minimum range of the sensor (if not avaiable, the range is different for each laser in `Laser Array`)
-        - `Max Range` - maximum range of the sensor (if not avaiable, the range is different for each laser in `Laser Array`)
-        - `High Resolution Mode Enabled` - whether to activate high resolution mode (available for `Hesai Pandar 128E4X` LiDAR model)
+        - Uniform range LiDARs
+            - `Min Range` - minimum range of the sensor
+            - `Max Range` - maximum range of the sensor
+        - Non-uniform range LiDARs
+            - `Range Modification Tooltip` - empty object to inform how to modify range via Tooltip
 
 #### Output Data
 `LidarSensor` provides public methods to extend this pipeline with additional `RGL` nodes.
