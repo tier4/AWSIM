@@ -33,6 +33,12 @@ namespace RGLUnityPlugin
 
         public bool emitRawPackets = true;
 
+        [Header("General UDP Flags")]
+
+        [Tooltip("If enabled the timestamp for all packets will be the same (current scene time).\n" +
+                 "If disabled the time progression (based on LiDAR manuals) will be simulated and different timestamps for each packet will be assigned.")]
+        public bool useTheSameTimestampForAllPackets = true;
+
         [Header("Hesai LiDARs Flags")]
 
         [Tooltip("Enable labeling the sequence number of Point Cloud UDP packets. It increases the packet size by an additional field.")]
@@ -304,6 +310,7 @@ namespace RGLUnityPlugin
             udpOptions += enableHesaiUdpSequence ? (UInt32)RGLUdpOptions.RGL_UDP_ENABLE_HESAI_UDP_SEQUENCE : 0;
             udpOptions += enableHesaiUpCloseBlockageDetection ? (UInt32)RGLUdpOptions.RGL_UDP_UP_CLOSE_BLOCKAGE_DETECTION : 0;
             udpOptions += enableHesaiPandarDriverCompatibilityForQt ? (UInt32)RGLUdpOptions.RGL_UDP_FIT_QT64_TO_HESAI_PANDAR_DRIVER : 0;
+            udpOptions += useTheSameTimestampForAllPackets ? (UInt32)RGLUdpOptions.RGL_UDP_SAME_TIMESTAMP_FOR_PACKETS : 0;
 
             // Check if high resolution mode is enabled (available only on Hesai Pandar128E4X)
             if (currentLidarModel == LidarModel.HesaiPandar128E4X)
