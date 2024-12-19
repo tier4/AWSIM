@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 363693639}
   - component: {fileID: 8040224950600877943}
   - component: {fileID: 3022889354728284749}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: WheelColliderRR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 415111904}
   - component: {fileID: 8040224950600877944}
   - component: {fileID: 2711886053235376057}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: WheelColliderRL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 992171809}
   - component: {fileID: 8040224950600877945}
   - component: {fileID: 8273716782502372453}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: WheelColliderFR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 1268770693}
   - component: {fileID: 8040224950600877946}
   - component: {fileID: 2119847507772587383}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: WheelColliderFL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -373,7 +373,7 @@ GameObject:
   - component: {fileID: 2341095701154388223}
   - component: {fileID: 8437439471554835314}
   - component: {fileID: 1661035746822137295}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: ControllableTaxi
   m_TagString: Vehicle
   m_Icon: {fileID: 0}
@@ -511,7 +511,7 @@ GameObject:
   - component: {fileID: 5208157476666588617}
   - component: {fileID: 8708601595339694198}
   - component: {fileID: 1278396641009862623}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WheelBL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -591,7 +591,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7668926766838308460}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -626,7 +626,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2667810441227822049}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: CoM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -658,7 +658,7 @@ GameObject:
   - component: {fileID: 6854075899715956931}
   - component: {fileID: 1580777108637075578}
   - component: {fileID: 710351781115776529}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Steering wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -741,7 +741,7 @@ GameObject:
   - component: {fileID: 6279914080150034482}
   - component: {fileID: 1981653715869169180}
   - component: {fileID: 5373766832628438124}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: BodyCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -837,7 +837,7 @@ GameObject:
   - component: {fileID: 2630385847269448782}
   - component: {fileID: 5555446719837500599}
   - component: {fileID: 686299252130461335}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Windows
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -919,7 +919,7 @@ GameObject:
   - component: {fileID: 8932647564651674671}
   - component: {fileID: 5976537841465237411}
   - component: {fileID: 8945103949901504873}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WheelFL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1001,7 +1001,7 @@ GameObject:
   - component: {fileID: 2763638326992542744}
   - component: {fileID: 8133215695465963897}
   - component: {fileID: 7374133359232160141}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WheelFR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1083,7 +1083,7 @@ GameObject:
   - component: {fileID: 8425935924446635017}
   - component: {fileID: 2145687836407972305}
   - component: {fileID: 7968858620365396245}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1167,7 +1167,7 @@ GameObject:
   - component: {fileID: 6027864414791331752}
   - component: {fileID: 161430255864307548}
   - component: {fileID: 161430255864307549}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: InputManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1503,7 +1503,7 @@ GameObject:
   - component: {fileID: 2703614650707894821}
   - component: {fileID: 5932584323691392826}
   - component: {fileID: 4875589591980664353}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DynamicLights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1589,7 +1589,7 @@ GameObject:
   - component: {fileID: 7386451643425077554}
   - component: {fileID: 7434520444643571185}
   - component: {fileID: 1460232164989378086}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WheelBR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1669,7 +1669,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7570586877236010488}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1709,6 +1709,10 @@ PrefabInstance:
     - target: {fileID: 1482480517981954625, guid: 1eb5530d366f5e94d850febaabe8b26b, type: 3}
       propertyPath: m_Name
       value: Driver
+      objectReference: {fileID: 0}
+    - target: {fileID: 1482480517981954625, guid: 1eb5530d366f5e94d850febaabe8b26b, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2294870440145860859, guid: 1eb5530d366f5e94d850febaabe8b26b, type: 3}
       propertyPath: m_RootOrder
