@@ -1163,7 +1163,7 @@ GameObject:
   - component: {fileID: 9169155327439453874}
   m_Layer: 6
   m_Name: ControllableHatchback
-  m_TagString: Untagged
+  m_TagString: Vehicle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
