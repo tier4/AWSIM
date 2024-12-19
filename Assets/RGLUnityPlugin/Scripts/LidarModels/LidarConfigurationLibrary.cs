@@ -176,18 +176,29 @@ namespace RGLUnityPlugin
                     verticalBeamDivergence = 0.13f, // Not specified in manual
                 }},
 
-                {LidarModel.HesaiPandar128E4X, () => new HesaiPandar128E4XLidarConfiguration()
+                {LidarModel.HesaiPandar128E4X, () => new LaserBasedRangeLidarConfiguration()
                 {
                     laserArray = LaserArrayLibrary.HesaiPandar128E4X,
-                    horizontalResolution = 0.2f,  // resolution for standard mode
-                                                  // if high resolution enabled, high-res channels will have half of this resolution
-                    laserArrayCycleTime = 0.055556f,  // time for standard mode
+                    horizontalResolution = 0.2f,
+                    laserArrayCycleTime = 0.055556f,
                     minHAngle = 0.0f,
                     maxHAngle = 360.0f,
                     noiseParams = LidarNoiseParams.TypicalNoiseParams,
                     horizontalBeamDivergence = 0.13f, // Not specified in manual
                     verticalBeamDivergence = 0.13f, // Not specified in manual
-                    highResolutionModeEnabled = false,
+                }},
+
+                {LidarModel.HesaiPandar128E4XHighRes, () => new HesaiPandar128E4XHighResLidarConfiguration()
+                {
+                    laserArray = LaserArrayLibrary.HesaiPandar128E4XHighRes,
+                    horizontalResolution = 0.2f,  // same as for standard mode but
+                                                  // high-res channels will have half of this resolution
+                    laserArrayCycleTime = 0.055556f,
+                    minHAngle = 0.0f,
+                    maxHAngle = 360.0f,
+                    noiseParams = LidarNoiseParams.TypicalNoiseParams,
+                    horizontalBeamDivergence = 0.13f, // Not specified in manual
+                    verticalBeamDivergence = 0.13f, // Not specified in manual
                 }},
             };
     }

@@ -12,22 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
+
 namespace RGLUnityPlugin
 {
-    public enum LidarModel
+    /// <summary>
+    /// An empty struct that can be used as ToolTip attachment object.
+    /// Useful when you want to provide instructions in the Inspector.
+    /// </summary>
+    [Serializable]
+    public struct EmptyStruct
     {
-        RangeMeter,
-        SickMRS6000,
-        VelodyneVLP16,
-        VelodyneVLP32C,
-        VelodyneVLS128,
-        HesaiPandarQT,
-        HesaiPandar40P,
-        OusterOS1_64,
-        HesaiAT128E2X,
-        HesaiPandarXT32,
-        HesaiQT128C2X,
-        HesaiPandar128E4X,
-        HesaiPandar128E4XHighRes
     }
 }

@@ -26,15 +26,10 @@ namespace RGLUnityPlugin
     [Serializable]
     public abstract class BaseLidarConfiguration
     {
-        // This is a workaround against serializing properties with custom getter/setter.
-        // Laser array property may be overridden to handle custom cases (change by flag).
-        [SerializeField, Tooltip("Geometry description of lidar array")]
-        protected LaserArray _laserArray;
-        public virtual LaserArray laserArray
-        {
-            get => _laserArray;
-            set => _laserArray = value;
-        }
+        [Tooltip("List of lasers constituting this LiDAR.\n" +
+                 "Note: For some (advanced) LiDARs, it may contain duplicates of lasers if one scan consist of multiple firing sequences.\n" +
+                 "Note2: Laser's range is considered for non-uniform range LiDARs only (if configuration has no global range setting).")]
+        public LaserArray laserArray;
 
         [Tooltip("The horizontal resolution of laser array firings (in degrees)")]
         [Min(0)] public float horizontalResolution;
@@ -160,7 +155,11 @@ namespace RGLUnityPlugin
     /// It allows the definition of the lidar with different ranges for each laser (channel).
     /// </summary>
     [Serializable]
-    public class LaserBasedRangeLidarConfiguration : BaseLidarConfiguration { }
+    public class LaserBasedRangeLidarConfiguration : BaseLidarConfiguration
+    {
+        [Tooltip("To modify LiDAR range, use LaserArray/Lasers")]
+        public EmptyStruct rangeModificationTooltip;
+    }
 
     /// <summary>
     /// Lidar configuration for uniformly distributed rays along the horizontal axis with a uniform range for all the rays.
@@ -195,7 +194,7 @@ namespace RGLUnityPlugin
     /// It contains properties and ray-generating methods specific to this lidar.
     /// </summary>
     [Serializable]
-    public class HesaiAT128LidarConfiguration : BaseLidarConfiguration
+    public class HesaiAT128LidarConfiguration : LaserBasedRangeLidarConfiguration
     {
         public override Vector2[] GetRayRanges()
         {
@@ -234,7 +233,7 @@ namespace RGLUnityPlugin
     /// It contains properties and ray-generating methods specific to this lidar.
     /// </summary>
     [Serializable]
-    public class HesaiQT128C2XLidarConfiguration : BaseLidarConfiguration
+    public class HesaiQT128C2XLidarConfiguration : LaserBasedRangeLidarConfiguration
     {
         private static int hesaiQT128LasersBankLength = 32;
 
@@ -276,43 +275,17 @@ namespace RGLUnityPlugin
     }
 
     /// <summary>
-    /// Lidar configuration for HesaiPandar128E4X lidar.
+    /// Lidar configuration for HesaiPandar128E4X lidar working in high resolution mode.
     /// It contains properties and ray-generating methods specific to this lidar.
     /// </summary>
     [Serializable]
-    public class HesaiPandar128E4XLidarConfiguration : BaseLidarConfiguration
+    public class HesaiPandar128E4XHighResLidarConfiguration : LaserBasedRangeLidarConfiguration
     {
-        // High resolution mode changes laser array
-        public override LaserArray laserArray
-        {
-            get
-            {
-                if (highResolutionModeEnabledPrev == null || highResolutionModeEnabledPrev != highResolutionModeEnabled)
-                {
-                    _laserArray = highResolutionModeEnabled
-                                  ? LaserArrayLibrary.HesaiPandar128E4XHighRes
-                                  : LaserArrayLibrary.HesaiPandar128E4X;
-                    highResolutionModeEnabledPrev = highResolutionModeEnabled;
-                }
-                return _laserArray;
-            }
-            set => _laserArray = value;
-        }
-
-        public bool highResolutionModeEnabled;
-        private bool? highResolutionModeEnabledPrev = null;
-
-        // In standard mode, rays are generated uniformly.
-        // In high resolution mode, first half of the rays are generated on standard horizontal angle
+        // In high resolution mode, first half of the rays are generated on standard horizontal resolution
         // Second half of the rays are shifted by half of the horizontal resolution
         // Some lasers fire on both horizontal states. This is taken into account in the order of the lasers in `laserArray.lasers`.
         public override Matrix4x4[] GetRayPoses()
         {
-            if (!highResolutionModeEnabled)
-            {
-                return base.GetRayPoses();
-            }
-
             Matrix4x4[] rayPoses = new Matrix4x4[PointCloudSize];
             Matrix4x4[] laserPoses = laserArray.GetLaserPoses();
             for (int hStep = 0; hStep < HorizontalSteps; hStep++)
@@ -335,16 +308,11 @@ namespace RGLUnityPlugin
 
         public override bool ValidateWithModel(LidarModel model)
         {
-            var gold = LidarConfigurationLibrary.ByModel[model]() as HesaiPandar128E4XLidarConfiguration;
+            var gold = LidarConfigurationLibrary.ByModel[model]() as HesaiPandar128E4XHighResLidarConfiguration;
             if (gold == null)
             {
                 return false;
             }
-
-            // Set the same high resolution mode flag to the gold config
-            // Laser array changes for standard and high resolution mode
-            gold.highResolutionModeEnabled = highResolutionModeEnabled;
-
             return base.ValidateWithModel(gold);
         }
     }

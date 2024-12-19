@@ -66,6 +66,7 @@ namespace RGLUnityPlugin
             { LidarModel.HesaiPandarQT, RGLLidarModel.RGL_HESAI_PANDAR_QT64 },
             { LidarModel.HesaiQT128C2X, RGLLidarModel.RGL_HESAI_QT128C2X },
             { LidarModel.HesaiPandar128E4X, RGLLidarModel.RGL_HESAI_PANDAR_128E4X },
+            { LidarModel.HesaiPandar128E4XHighRes, RGLLidarModel.RGL_HESAI_PANDAR_128E4X },
             { LidarModel.HesaiPandarXT32, RGLLidarModel.RGL_HESAI_PANDAR_XT32 }
         };
 
@@ -90,6 +91,9 @@ namespace RGLUnityPlugin
             { LidarModel.HesaiPandar128E4X, new List<RGLReturnMode>()
                 { RGLReturnMode.SingleReturnFirst, RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast,
                   RGLReturnMode.DualReturnLastStrongest, RGLReturnMode.DualReturnFirstLast, RGLReturnMode.DualReturnFirstStrongest } },
+            { LidarModel.HesaiPandar128E4XHighRes, new List<RGLReturnMode>() // same as for HesaiPandar128E4X
+                { RGLReturnMode.SingleReturnFirst, RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast,
+                  RGLReturnMode.DualReturnLastStrongest, RGLReturnMode.DualReturnFirstLast, RGLReturnMode.DualReturnFirstStrongest } },
             { LidarModel.HesaiPandarXT32, new List<RGLReturnMode>()
                 { RGLReturnMode.SingleReturnStrongest, RGLReturnMode.SingleReturnLast, RGLReturnMode.DualReturnLastStrongest } },
         };
@@ -107,7 +111,8 @@ namespace RGLUnityPlugin
                    model == LidarModel.HesaiPandarQT ||
                    model == LidarModel.HesaiPandarXT32 ||
                    model == LidarModel.HesaiQT128C2X ||
-                   model == LidarModel.HesaiPandar128E4X;
+                   model == LidarModel.HesaiPandar128E4X ||
+                   model == LidarModel.HesaiPandar128E4XHighRes;
         }
 
         // To be called when adding this component
@@ -305,13 +310,9 @@ namespace RGLUnityPlugin
             udpOptions += enableHesaiUpCloseBlockageDetection ? (UInt32)RGLUdpOptions.RGL_UDP_UP_CLOSE_BLOCKAGE_DETECTION : 0;
             udpOptions += enableHesaiPandarDriverCompatibilityForQt ? (UInt32)RGLUdpOptions.RGL_UDP_FIT_QT64_TO_HESAI_PANDAR_DRIVER : 0;
 
-            // Check if high resolution mode is enabled (available only on Hesai Pandar128E4X)
-            if (currentLidarModel == LidarModel.HesaiPandar128E4X)
+            if (currentLidarModel == LidarModel.HesaiPandar128E4XHighRes)
             {
-                if (((HesaiPandar128E4XLidarConfiguration)lidarSensor.configuration).highResolutionModeEnabled)
-                {
-                    udpOptions += (UInt32)RGLUdpOptions.RGL_UDP_HIGH_RESOLUTION_MODE;
-                }
+                udpOptions += (UInt32)RGLUdpOptions.RGL_UDP_HIGH_RESOLUTION_MODE;
             }
 
             return (RGLUdpOptions)udpOptions;
