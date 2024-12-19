@@ -29,17 +29,20 @@ namespace AWSIM
 
         [SerializeField] Vehicle vehicle;
 
-        void Update()
+        private void FixedUpdate()
+        {
+            ApplyInput();
+        }
+
+        void ApplyInput()
         {
             VehicleInputBase.InputArg inputArg = new VehicleInputBase.InputArg(ControlMode, AutonomousInput.SteeringInput);
 
             // Update new input for Autonomous and Manually Inputs.
             AutonomousInput.OnUpdate(inputArg);
             ManuallyInput.OnUpdate(inputArg);
-        }
 
-        private void FixedUpdate()
-        {
+
             // If override input is present, switch new ControlMode.
             if (ManuallyInput.Overridden)
             {
@@ -61,8 +64,6 @@ namespace AWSIM
                 vehicle.AutomaticShiftInput = ManuallyInput.ShiftInput;
                 vehicle.SignalInput = ManuallyInput.TurnSignalInput;
             }
-
-            // TODO: Implement inputs to the vehicle in the case of other control modes.
         }
     }
 }
