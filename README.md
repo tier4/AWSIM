@@ -6,6 +6,7 @@ AWSIM is the best scene simulator for [Autoware](https://github.com/autowarefoun
 
 ## Features
 
+- Connection to the latest main branch of Autoware
 - Simulator components included (Vehicle, Sensor, Environment, ROS2, etc.)
 - Support for Ubuntu 22.04 and windows10/11
 - ROS2 native communication

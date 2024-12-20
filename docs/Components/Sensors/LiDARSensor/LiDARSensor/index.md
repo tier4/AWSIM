@@ -26,6 +26,10 @@ The ones mounted on the top of autonomous vehicles are primarily used
     You can read about how to do it [here](../AddNewLiDAR/).
     *MEMS-based LiDARs* due to their different design are not yet fully supported.
 
+!!! note "Comparing with Unity Raycaster"
+    By default, the Unity Raycaster ([Physics.Raycast](https://docs.unity3d.com/2021.1/Documentation/ScriptReference/Physics.Raycast.html)) does not hit in the backside of the triangles. In contrast, RGL prevents the triangles to be culled due to their orientation and rays hit them even if rays back-facing mesh triangles. Be aware of it when comparing point clouds. To achieve Unity Raycaster back-facing hits, the [Physics.queriesHitBackfaces](https://docs.unity3d.com/2021.1/Documentation/ScriptReference/Physics-queriesHitBackfaces.html) property must be enabled. On the image below the red point is captured by Unity Raycaster (default configuration) and the blue point is captured by RGL.
+    <img src=rgl-unity-raycaster-comparison.png>
+
 ### Prefabs
 Prefabs can be found under the following path:
 
