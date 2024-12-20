@@ -156,14 +156,17 @@ namespace AWSIM
                 if(collisionType == ControllableNPCVehicleCollisionDetector.CollisionType.VEHICLE)
                 {
                     uiView.SetCollisionInfo("Collision Detected: Vehicle");
+                    Debug.Log("[ControllableNPC] Collision Detected with Vehicle");
                 }
                 else if(collisionType == ControllableNPCVehicleCollisionDetector.CollisionType.ENVIRONMENT)
                 {
                     uiView.SetCollisionInfo("Collision Detected: Environment");
+                    Debug.Log("[ControllableNPC] Collision Detected with Environment");
                 }
                 else
                 {
                     uiView.SetCollisionInfo("Collision Detected");
+                    Debug.Log("[ControllableNPC] Collision Detected with Unknown");
                 }
             }
         }
