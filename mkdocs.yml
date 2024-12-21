@@ -106,6 +106,9 @@ nav:
       - NPCs:
         - Pedestrian: Components/Traffic/NPCs/Pedestrian/index.md
         - Vehicle: Components/Traffic/NPCs/Vehicle/index.md
+    - ControllableNPC:
+      - ControllableNPC Components: Components/ControllableNPC/ControllableNPCComponents/index.md
+      - Vehicles: Components/ControllableNPC/Vehicles/index.md
     - ROS2:
       - ROS2 topic & service list: Components/ROS2/ROS2TopicAndServiceList/index.md
       - Add custom ROS2 msg: Components/ROS2/AddACustomROS2Message/index.md
