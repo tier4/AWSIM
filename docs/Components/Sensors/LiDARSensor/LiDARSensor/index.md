@@ -30,6 +30,11 @@ The ones mounted on the top of autonomous vehicles are primarily used
     By default, the Unity Raycaster ([Physics.Raycast](https://docs.unity3d.com/2021.1/Documentation/ScriptReference/Physics.Raycast.html)) does not hit in the backside of the triangles. In contrast, RGL prevents the triangles to be culled due to their orientation and rays hit them even if rays back-facing mesh triangles. Be aware of it when comparing point clouds. To achieve Unity Raycaster back-facing hits, the [Physics.queriesHitBackfaces](https://docs.unity3d.com/2021.1/Documentation/ScriptReference/Physics-queriesHitBackfaces.html) property must be enabled. On the image below the red point is captured by Unity Raycaster (default configuration) and the blue point is captured by RGL.
     <img src=rgl-unity-raycaster-comparison.png>
 
+!!! note "RGL distance measurement errors"
+    According to tests conducted by the *Robotec* team, the distance measurement error of the *RGL* library in most cases is of the order of 32-bit machine epsilon and thus unnoticeable in Unity.
+    The only case when distance measured by RGL has any noticeable error (i.e. greater than machine epsilon) is combination of extreme translation and rotation of the sensor.
+    When sensor with its target are translated by 90 kilometers from world origin, and rotated very slightly, then relative distance from sensor to target was measured as 1,000257 meters comparing to 1 meter in reality. Those gives 0,0257% error.
+
 ### Prefabs
 Prefabs can be found under the following path:
 
