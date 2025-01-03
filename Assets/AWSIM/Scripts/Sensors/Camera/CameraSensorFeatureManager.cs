@@ -26,6 +26,12 @@ namespace AWSIM
             MANUAL = 1,
         }
 
+        private enum RenderingType
+        {
+            HDRP = 0,
+            URP = 1
+        }
+
         #region [Components]
 
         [Header("Components")]
@@ -33,6 +39,14 @@ namespace AWSIM
         [SerializeField] private CameraSensor cameraSensor = default;
         [SerializeField] private Volume volume = default;
         [SerializeField] private VolumeProfile profile = null;
+
+        #endregion
+
+        #region [Settings]
+
+        [Header("Prefab Settings")]
+        [Tooltip("The rendering pipeline for which the prefab is intended to be used.")]
+        [SerializeField] private RenderingType prefabTargetRenderer = RenderingType.HDRP;
 
         #endregion
 
@@ -317,6 +331,12 @@ namespace AWSIM
                 depthOfFieldComponent.active = depthOfField;
                 depthOfFieldComponent.focusDistance.overrideState = depthOfField;
                 depthOfFieldComponent.focusDistance.value = focusDistance;
+
+#if USE_URP
+                depthOfFieldComponent.aperture.overrideState = depthOfField;
+                depthOfFieldComponent.aperture.value = aperture;
+#endif
+
             }
         }
 
@@ -328,7 +348,7 @@ namespace AWSIM
                 motionBlurComponent.intensity.overrideState = motionBlur;
 
 #if USE_URP
-                motionBlurComponent.intensity.value = 1f;
+                motionBlurComponent.intensity.value = (2f / shutterSpeed) / Time.fixedDeltaTime;
 #else
                 float shutterSpeed = camera.GetComponent<HDAdditionalCameraData>().physicalParameters.shutterSpeed;
                 motionBlurComponent.intensity.value = 2f * shutterSpeed / Time.fixedDeltaTime;

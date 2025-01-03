@@ -10,6 +10,7 @@ namespace AWSIM
     public class CameraSensorFeatureManagerEditor : Editor
     {
         private bool debugMode = false;
+        private bool prefabSettings = false;
 
         private SerializedProperty hueProperty;
         private SerializedProperty saturationProperty;
@@ -22,7 +23,9 @@ namespace AWSIM
         private SerializedProperty bloomEffectProperty;
         private SerializedProperty chromaticAberrationProperty;
         private SerializedProperty depthOfFieldProperty;
+        private SerializedProperty motionBlurProperty;
 
+        private SerializedProperty targetRendererProperty;
 
         private void OnEnable() 
         {
@@ -37,6 +40,9 @@ namespace AWSIM
             bloomEffectProperty = serializedObject.FindProperty("bloomEffect");
             chromaticAberrationProperty = serializedObject.FindProperty("chromaticAberration");
             depthOfFieldProperty = serializedObject.FindProperty("depthOfField");
+            motionBlurProperty = serializedObject.FindProperty("motionBlur");
+
+            targetRendererProperty = serializedObject.FindProperty("prefabTargetRenderer");
         }
 
         public override void OnInspectorGUI()
@@ -53,6 +59,16 @@ namespace AWSIM
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("profile"), true);
             }
         
+            // ------    Prefab Settings    ------- //
+            prefabSettings = GUILayout.Toggle(prefabSettings, new GUIContent("Show Prefab Settings", "Section with prefab settings"), "Button");
+            
+            if(prefabSettings)
+            {
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("prefabTargetRenderer"), true);
+            }
+
+            EditorGUILayout.Space(10f);
+
             // ------    Image Adjustment    ------- //
             EditorGUILayout.PropertyField(serializedObject.FindProperty("hue"), true);
             if(hueProperty.boolValue)
@@ -84,13 +100,17 @@ namespace AWSIM
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("sharpnessValue"), true);
             }
 
-            // ------    Exposure Settings    ------- //
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("exposureMode"), true);   
-            if(exposureModeProperty.enumValueIndex != 0)
+            // Show exposure settings only if the prefab is intended for HDRP. 
+            if(targetRendererProperty.enumValueIndex == 0)
             {
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("ISO"), true);
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("shutterSpeed"), true);
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("aperture"), true);
+                // ------    Exposure Settings    ------- //
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("exposureMode"), true);   
+                if(exposureModeProperty.enumValueIndex != 0)
+                {
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("ISO"), true);
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("shutterSpeed"), true);
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("aperture"), true);
+                }
             }
 
             // ------   Distortion Correction    ------- //
@@ -113,10 +133,23 @@ namespace AWSIM
             if(depthOfFieldProperty.boolValue)
             {
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("focusDistance"), true);
+            
+                // Show additional parameters only if the prefab is intended for URP. 
+                if(targetRendererProperty.enumValueIndex == 1)
+                {
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("aperture"), true);
+                }
             }
 
             EditorGUILayout.PropertyField(serializedObject.FindProperty("motionBlur"), true);
-
+            if(motionBlurProperty.boolValue)
+            {
+                // Show additional parameters only if the prefab is intended for URP. 
+                if(targetRendererProperty.enumValueIndex == 1)
+                {
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("shutterSpeed"), true);
+                }
+            }
 
             serializedObject.ApplyModifiedProperties();
         }
