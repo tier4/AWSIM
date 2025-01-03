@@ -1,6 +1,11 @@
 using UnityEngine;
 using UnityEngine.Rendering;
+
+#if USE_URP
+using UnityEngine.Rendering.Universal;
+#else
 using UnityEngine.Rendering.HighDefinition;
+#endif
 
 namespace AWSIM
 {
@@ -115,7 +120,11 @@ namespace AWSIM
         #region [Effects Component]
 
         private ColorAdjustments colorAdjustmentsComponent = default;
+
+#if !USE_URP // Exposure effect is only supported by HDRP
         private Exposure exposureComponent = default;
+#endif
+
         private Bloom bloomComponent = default;
         private ChromaticAberration chromaticAberrationComponent = default;
         private DepthOfField depthOfFieldComponent = default;
@@ -132,10 +141,12 @@ namespace AWSIM
                 Debug.LogWarning("The required Color Adjustment property is not found in camera volume profile.");
             }
 
+#if !USE_URP // Exposure effect is only supported by HDRP
             if(!profile.TryGet<Exposure>(out exposureComponent))
             {
                 Debug.LogWarning("The required Exposure property is not found in camera volume profile.");
             }
+#endif
 
             if(!profile.TryGet<Bloom>(out bloomComponent))
             {
@@ -172,6 +183,7 @@ namespace AWSIM
 
             camera.gameObject.SetActive(cameraObjectActive);
 
+#if !USE_URP
             // exposure mode
             if(exposureComponent != null)
             {
@@ -184,9 +196,12 @@ namespace AWSIM
                     exposureComponent.mode = new ExposureModeParameter(ExposureMode.UsePhysicalCamera, true);
                 }
             }
+#endif
 
+#if !USE_URP
             // exposure settings
             ApplyExposureSettings();
+#endif
 
             // image adjustments
             ApplyImageAdjustments();
@@ -210,12 +225,14 @@ namespace AWSIM
             ApplyMotionBlur();
         }
 
+#if !USE_URP
         private void ApplyExposureSettings()
         {
             camera.GetComponent<HDAdditionalCameraData>().physicalParameters.iso = ISO;
             camera.GetComponent<HDAdditionalCameraData>().physicalParameters.shutterSpeed = 1f/shutterSpeed;
             camera.GetComponent<HDAdditionalCameraData>().physicalParameters.aperture = aperture;
         }
+#endif
     
         private void ApplyImageAdjustments()
         {
@@ -310,8 +327,12 @@ namespace AWSIM
                 motionBlurComponent.active = motionBlur;
                 motionBlurComponent.intensity.overrideState = motionBlur;
 
+#if USE_URP
+                motionBlurComponent.intensity.value = 1f;
+#else
                 float shutterSpeed = camera.GetComponent<HDAdditionalCameraData>().physicalParameters.shutterSpeed;
                 motionBlurComponent.intensity.value = 2f * shutterSpeed / Time.fixedDeltaTime;
+#endif
             }
         }
     }
