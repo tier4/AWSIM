@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ROS2;
+using System.Threading.Tasks;
 
 namespace AWSIM
 {
@@ -84,9 +85,12 @@ namespace AWSIM
             imageMsg.Header.Stamp = timeMsg;
             cameraInfoMsg.Header.Stamp = timeMsg;
 
+
             // Publish to ROS2
-            imagePublisher.Publish(imageMsg);
-            cameraInfoPublisher.Publish(cameraInfoMsg);
+            var taskBoth = Task.Run(() => {
+                imagePublisher.Publish(imageMsg);
+                cameraInfoPublisher.Publish(cameraInfoMsg);
+            });
         }
 
         private void UpdateImageMsg(CameraSensor.OutputData data)
