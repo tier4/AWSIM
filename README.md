@@ -1,4 +1,7 @@
 # AWSIM
+
+> [!NOTE]  
+> **Please check out v2.0.0 announcement! https://github.com/tier4/AWSIM/issues/383**
  
 ![](/README_img/AWSIM.png)
 
