@@ -10,7 +10,6 @@ namespace AWSIM
     /// that inherit from this class, you can reproduce actual vehicle input overrides.
     /// Actual vehicle input is performed by VehicleOverrideInputManager. 
     /// </summary>
-    [RequireComponent(typeof(VehicleOverrideInputManager))]
     public class VehicleInputBase : MonoBehaviour
     {
         public struct InputArg
