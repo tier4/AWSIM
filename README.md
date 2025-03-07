@@ -1,4 +1,6 @@
-# AWSIM
+# eHMI-AWSIM
+
+This is a fork of [tier4/AWSIM](https://tier4.github.io/AWSIM/GettingStarted/QuickStartDemo/) that is updated for VR-based external-HMI (eHMI) research.
 
 > [!NOTE]  
 > **Please check out v2.0.0 announcement! https://github.com/tier4/AWSIM/issues/383**
