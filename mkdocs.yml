@@ -49,6 +49,9 @@ nav:
     - Autoware: Introduction/Autoware/index.md
     - AWSIM: Introduction/AWSIM/index.md
     - CombinationWithAutoware: Introduction/CombinationWithAutoware/index.md
+    - Features Showcase:
+      - Public Features: Introduction/FeaturesShowcase/index.md
+      - Private Features: Introduction/FeaturesShowcase/Features/Private/index.md
 
   - Project guide:
     - Directory: ProjectGuide/Directory/index.md
