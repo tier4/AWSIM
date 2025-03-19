@@ -16,14 +16,14 @@ Follow [Setup Unity Project tutorial](https://tier4.github.io/AWSIM/GettingStart
 
 In order to configure the Autoware software with the AWSIM demo, please:
 
-1. Clone RobotecAI's [Autoware](https://github.com/RobotecAI/autoware-1/tree/awsim-ss2-stable) and move to the directory.
+1. Clone [Autoware](https://github.com/autowarefoundation/autoware) and move to the directory.
    ```
-   git clone git@github.com:RobotecAI/autoware-1.git
+   git clone git@github.com:autowarefoundation/autoware.git
    cd autoware
    ```
-2. Check out to the `awsim-ss2-stable` branch
+2. Check out to the `2025.02` tag
    ```
-   git checkout awsim-ss2-stable
+   git checkout 2025.02
    ```
 3. Configure the environment. (Skip if Autoware environment has been configured before)
    ```
@@ -55,7 +55,7 @@ In order to configure the Autoware software with the AWSIM demo, please:
 
 ## Running the demo
 
-1. Download `AWSIM_v1.2.2_ss2.zip` & Run  
+1. Download `AWSIM_v1.3.1_ss2.zip` & Run  
    [archive](https://github.com/tier4/AWSIM/releases/download/v1.2.2/AWSIM_v1.2.2_ss2.zip){.md-button .md-button--primary} 
 
 2. Launch `scenario_test_runner`.
