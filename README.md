@@ -1,48 +1,74 @@
-# eHMI-AWSIM
+# Smartpole-VR-AWSIM
 
-This is a fork of [tier4/AWSIM](https://tier4.github.io/AWSIM/GettingStarted/QuickStartDemo/) that is updated for VR-based external-HMI (eHMI) research.
+This is a fork of [tier4/AWSIM](https://tier4.github.io/AWSIM/GettingStarted/QuickStartDemo/) adapted to support **VR-based simulations of Smartpole Interaction Units (SPIUs)**.  
+The goal is to simulate infrastructure-to-human interaction experiences and evaluate **perceived safety, clarity, and timing of eHMIs** (external Human-Machine Interfaces) provided by SPIUs in urban environments.
 
 > [!NOTE]  
-> **Please check out v2.0.0 announcement! https://github.com/tier4/AWSIM/issues/383**
- 
-![](/README_img/AWSIM.png)
+> Check out the [v2.0.0 announcement](https://github.com/tier4/AWSIM/issues/383) for major AWSIM updates!
 
-AWSIM is the best scene simulator for [Autoware](https://github.com/autowarefoundation/autoware).
+![AWSIM Screenshot](/README_img/AWSIM.png)
 
-## Features
+---
 
-- Connection to the latest main branch of Autoware
-- Simulator components included (Vehicle, Sensor, Environment, ROS2, etc.)
-- Support for Ubuntu 22.04 and windows10/11
-- ROS2 native communication
-- Open source software
-- Made with Unity Game Engine
+## 🔍 Purpose
 
-## Tutorial
+This project extends AWSIM to enable:
+- **Immersive first-person VR experiences** of smartpole-based external HMI signals.
+- **Human-in-the-loop evaluations** for safety perception and usability testing.
+- **Scenario experimentation** using ROS 2-based simulation, Autoware compatibility, and Unity rendering.
 
-First, try the tutorial !  
-[AWSIM Document - Quick Start Demo](https://tier4.github.io/AWSIM/GettingStarted/QuickStartDemo/)
+Ideal for researchers and developers working on:
+- Infrastructure-based eHMI interactions with pedestrians using VR
+- Collective perception with different road participants
+- Smart city and V2X deployment studies
+- Safety evaluation of infrastructure HMI systems
 
-## Documentation
+---
 
-https://tier4.github.io/AWSIM/
+## 🌟 Features
 
-## License
+- Forked and compatible with the latest [Autoware](https://github.com/autowarefoundation/autoware)
+- Fully integrated with ROS 2 communication
+- Unity-based 3D simulation with VR support
+- Scenarios involving **smartpole interactions**, traffic lights, and vulnerable road users
+- Runs on Ubuntu 22.04 and Windows 10/11
 
-AWSIM License
-Applies to `tier4/AWSIM` repositories and all content contained in the [Releases](https://github.com/tier4/AWSIM/releases).
+---
 
-- code : Apache 2.0
-- assets : CC BY-NC
+## 🚀 Getting Started
 
-See also [LICENSE](./LICENSE)
+Start with the base AWSIM tutorial:
 
-## Contact
+👉 [Quick Start Demo](https://tier4.github.io/AWSIM/GettingStarted/QuickStartDemo/)
 
-日本語/English OK
+Then, check out the SPIU-specific VR simulation guide (coming soon).
 
-e-mail : takatoki.makino@tier4.jp  
-discord : mackie#6141  
-twitter : https&#58;//twitter.com/mackierx111
+---
 
-(c) 2022 TIER IV, inc
+## 📚 Documentation
+
+- [AWSIM Docs](https://tier4.github.io/AWSIM/)
+- SPIU-VR Extensions (TBD)
+
+---
+
+## 📄 License
+
+This repository inherits the AWSIM license:
+- **Code**: Apache 2.0
+- **Assets**: CC BY-NC
+
+See [LICENSE](./LICENSE) for details.
+
+---
+
+## 📬 Contact
+
+日本語/English OK  
+Email: TBD  
+Discord: TBD  
+Twitter: TBD
+
+---
+
+*Smartpole-VR-AWSIM is an experimental extension for human-centered smart infrastructure research. Contributions welcome!*
