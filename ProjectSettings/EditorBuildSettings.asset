@@ -11,4 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/AWSIM/Scenes/Main/BlindSpotVRScenario.unity
     guid: 0dbfd07ac848da5458246e76b06f21ee
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 378510d4b40d8ed43bda439f38763287, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 45451872995f66e45be2939131d27b34, type: 2}
