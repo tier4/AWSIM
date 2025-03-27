@@ -130,7 +130,11 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleVersion: 1.3.1
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -597,7 +601,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    1: UNITY_CCU;ALLOW_AUTHORING;ROS2
+    1: UNITY_CCU;ALLOW_AUTHORING;ROS2;ENABLE_RAYTRACING
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
