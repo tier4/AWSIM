@@ -64,8 +64,8 @@ namespace AWSIM.Geographic
             }
             S = S * (SCALE_FACTOR * EARTH_SEMI_MAJOR_AXIS) / (1 + n);
 
-            double xi = (cartesian.z + S) / A_b;
-            double eta = cartesian.x / (A_b);
+            double xi = (-cartesian.x + S) / A_b;
+            double eta = cartesian.z / (A_b);
 
             double xi_d = xi;
             double eta_d = eta;
