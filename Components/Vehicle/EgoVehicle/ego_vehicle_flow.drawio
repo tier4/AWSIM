@@ -1,0 +1,127 @@
+<mxfile host="app.diagrams.net" modified="2023-07-05T12:18:53.471Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0" etag="s45wUIg3xyKL54ioOlSW" version="21.5.2" type="device">
+  <diagram name="Page-1" id="76b4M0QgZQrLfhVKCind">
+    <mxGraphModel dx="963" dy="1293" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="93EZlEJ8D1wQY5efGZ4A-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=1;endArrow=open;endFill=0;" parent="1" source="9Rqsm60U1uIzQuZiU_9V-5" target="9Rqsm60U1uIzQuZiU_9V-7" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="150" y="410" />
+            </Array>
+            <mxPoint x="170" y="277" as="sourcePoint" />
+            <mxPoint x="381" y="417" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="93EZlEJ8D1wQY5efGZ4A-17" value="Steering angle and acceleration" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontSize=12;" parent="93EZlEJ8D1wQY5efGZ4A-16" vertex="1" connectable="0">
+          <mxGeometry x="0.3481" y="-34" relative="1" as="geometry">
+            <mxPoint x="-86" y="-34" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="93EZlEJ8D1wQY5efGZ4A-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=1;endArrow=open;endFill=0;" parent="1" source="9Rqsm60U1uIzQuZiU_9V-5" target="9Rqsm60U1uIzQuZiU_9V-6" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="223" y="260" as="sourcePoint" />
+            <mxPoint x="380" y="260.02857142857147" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="93EZlEJ8D1wQY5efGZ4A-26" value="Lights and indicators status" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontSize=12;" parent="93EZlEJ8D1wQY5efGZ4A-25" vertex="1" connectable="0">
+          <mxGeometry x="-0.1612" relative="1" as="geometry">
+            <mxPoint x="11" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="93EZlEJ8D1wQY5efGZ4A-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=1;endArrow=open;endFill=0;labelBackgroundColor=none;" parent="1" source="9Rqsm60U1uIzQuZiU_9V-4" target="9Rqsm60U1uIzQuZiU_9V-5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="150" y="130" />
+            </Array>
+            <mxPoint x="381" y="127" as="sourcePoint" />
+            <mxPoint x="170" y="243" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="93EZlEJ8D1wQY5efGZ4A-12" value="&lt;div style=&quot;font-size: 12px;&quot;&gt;Indicator status, acceleration, steering,&lt;/div&gt;&lt;div style=&quot;font-size: 12px;&quot;&gt;gear and emergency status&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontSize=12;" parent="93EZlEJ8D1wQY5efGZ4A-11" vertex="1" connectable="0">
+          <mxGeometry x="0.3666" y="-18" relative="1" as="geometry">
+            <mxPoint x="48" y="-9" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="93EZlEJ8D1wQY5efGZ4A-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=1;endArrow=open;endFill=0;" parent="1" source="9Rqsm60U1uIzQuZiU_9V-6" target="93EZlEJ8D1wQY5efGZ4A-20" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="494" y="260" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="93EZlEJ8D1wQY5efGZ4A-32" value="Material emission" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontSize=12;" parent="93EZlEJ8D1wQY5efGZ4A-21" vertex="1" connectable="0">
+          <mxGeometry x="-0.2012" y="-2" relative="1" as="geometry">
+            <mxPoint x="14" y="-12" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="93EZlEJ8D1wQY5efGZ4A-23" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;" parent="1" source="9Rqsm60U1uIzQuZiU_9V-7" target="93EZlEJ8D1wQY5efGZ4A-28" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="494" y="417" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="93EZlEJ8D1wQY5efGZ4A-24" value="Transformation" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontSize=12;" parent="93EZlEJ8D1wQY5efGZ4A-23" vertex="1" connectable="0">
+          <mxGeometry x="-0.1176" y="-6" relative="1" as="geometry">
+            <mxPoint x="4" y="-17" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="93EZlEJ8D1wQY5efGZ4A-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=1;endArrow=open;endFill=0;" parent="1" source="9Rqsm60U1uIzQuZiU_9V-7" target="93EZlEJ8D1wQY5efGZ4A-29" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="440" y="350" />
+            </Array>
+            <mxPoint x="440" y="400" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="93EZlEJ8D1wQY5efGZ4A-31" value="Position" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontSize=12;" parent="93EZlEJ8D1wQY5efGZ4A-30" vertex="1" connectable="0">
+          <mxGeometry x="0.713" y="4" relative="1" as="geometry">
+            <mxPoint x="-71" y="-3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="93EZlEJ8D1wQY5efGZ4A-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=1;endArrow=open;endFill=0;" parent="1" source="9Rqsm60U1uIzQuZiU_9V-7" target="93EZlEJ8D1wQY5efGZ4A-33" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="440" y="470" />
+            </Array>
+            <mxPoint x="440" y="434" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="93EZlEJ8D1wQY5efGZ4A-35" value="Force" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontSize=12;" parent="93EZlEJ8D1wQY5efGZ4A-34" vertex="1" connectable="0">
+          <mxGeometry x="0.1074" y="12" relative="1" as="geometry">
+            <mxPoint x="1" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="93EZlEJ8D1wQY5efGZ4A-18" value="Autoware message" style="html=1;verticalAlign=bottom;startArrow=circle;startFill=1;endArrow=open;startSize=6;endSize=8;elbow=vertical;rounded=0;labelBackgroundColor=none;fontSize=12;" parent="1" target="9Rqsm60U1uIzQuZiU_9V-4" edge="1">
+          <mxGeometry x="0.4286" y="60" width="80" relative="1" as="geometry">
+            <mxPoint x="440" y="40" as="sourcePoint" />
+            <mxPoint x="437.5977011494256" y="110" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="93EZlEJ8D1wQY5efGZ4A-20" value="Light 3D model" style="whiteSpace=wrap;strokeWidth=1;" parent="1" vertex="1">
+          <mxGeometry x="650" y="250" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="93EZlEJ8D1wQY5efGZ4A-28" value="Wheel 3D model" style="whiteSpace=wrap;strokeWidth=1;" parent="1" vertex="1">
+          <mxGeometry x="650" y="390" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="93EZlEJ8D1wQY5efGZ4A-29" value="Wheel Collider" style="whiteSpace=wrap;strokeWidth=1;" parent="1" vertex="1">
+          <mxGeometry x="650" y="330" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="93EZlEJ8D1wQY5efGZ4A-33" value="Vehicle Rigidbody" style="whiteSpace=wrap;strokeWidth=1;" parent="1" vertex="1">
+          <mxGeometry x="650" y="450" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="9Rqsm60U1uIzQuZiU_9V-4" value="VehicleRosInput" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="110" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="9Rqsm60U1uIzQuZiU_9V-5" value="Vehicle" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="250" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="9Rqsm60U1uIzQuZiU_9V-6" value="VehicleVisualEffect" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="250" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="9Rqsm60U1uIzQuZiU_9V-7" value="Wheel" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="391" width="120" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
