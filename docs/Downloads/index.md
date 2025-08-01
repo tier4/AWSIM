@@ -1,0 +1,7 @@
+|Download link|Note|
+|:--|:--|
+|[AWSIM-Demo.zip](https://github.com/tier4/AWSIM/releases/download/v2.0.0/AWSIM-Demo.zip)|AWSIM demo simulation ([HDRP](https://unity.com/features/srp/high-definition-render-pipeline)). Lexus RX450h will be driven autonomously using [Autoware](https://github.com/autowarefoundation/autoware) under random traffic conditions in Shinjuku. see also [here](../GettingStarted/QuickStartDemo/index.md).|
+|[AWSIM-Demo-Lightweight.zip](https://github.com/tier4/AWSIM/releases/download/v2.0.0/AWSIM-Demo-Lightweight.zip)|[URP](https://unity.com/features/srp/universal-render-pipeline) version of `AWSIM-Demo`. Enables lightweight AWSIM demo simulation. The content is the same as `AWSIM-Demo`. |
+|[AWSIM-Demo-OpenSCENARIO.zip](https://github.com/tier4/AWSIM/releases/download/v2.0.0/AWSIM-Demo-OpenSCENARIO.zip)|Demo simulation using OpenSCENARIO with AWSIM. Connect AWSIM, Autoware, and [Scenario Simulator v2.](https://github.com/tier4/scenario_simulator_v2). see also [here](../DeveloperGuide/Experimental/UsingOpenScenario/index.md).|
+|[Shinjuku.unitypackage](https://github.com/tier4/AWSIM/releases/download/v2.0.0/Shinjuku.unitypackage)|`.unitypackage` for Shinjuku to import into UnityEditor. see also [here](../DeveloperGuide/SetupUnityProject/index.md).|
+|[Shinjuku-Map.zip](https://github.com/tier4/AWSIM/releases/download/v2.0.0/Shinjuku-Map.zip)|Map files used in Autoware. `.osm` and `.pcd` files for Shinjuku.|.

@@ -66,8 +66,8 @@ crashlytics-build.properties
 .vscode/
 
 # Externals directory
-[Aa]ssets/AWSIM/Externals/*
-![Aa]ssets/AWSIM/Externals/.gitkeep
+[Aa]ssets/Awsim/Externals/*
+![Aa]ssets/Awsim/Externals/.gitkeep
 
 # JetBrains
 /.idea/

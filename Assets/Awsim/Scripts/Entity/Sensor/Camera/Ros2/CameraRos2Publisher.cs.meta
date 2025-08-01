@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: c0079a528b20481f19da29bc8bdc90ee
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _cameraSensor: {instanceID: 0}
+  - _rosImageShader: {fileID: 7200000, guid: 5a602ca55a5a415468b0127fa60c1a77, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

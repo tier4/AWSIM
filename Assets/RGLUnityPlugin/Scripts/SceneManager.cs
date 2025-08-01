@@ -21,6 +21,7 @@ using UnityEngine.Assertions;
 using UnityEngine.Profiling;
 using ROS2;
 using YamlDotNet.Serialization;
+using Awsim.Common;
 
 namespace RGLUnityPlugin
 {
@@ -182,14 +183,14 @@ namespace RGLUnityPlugin
                 uploadedRGLObjects.Remove(rglObject.RepresentedGO);
             }
             Profiler.EndSample();
-            
+
             Profiler.BeginSample("Mark spawned objects as updated");
             foreach (var rglObject in toAdd)
             {
                 // Game Objects must not have duplicate representations.
                 // Occasionally, this assertion may fail due to disabled Read/Write setting of the prefab's mesh.
                 Assert.IsFalse(uploadedRGLObjects.ContainsKey(rglObject.RepresentedGO));
-                
+
                 uploadedRGLObjects.Add(rglObject.RepresentedGO, rglObject);
             }
             Profiler.EndSample();
@@ -207,9 +208,15 @@ namespace RGLUnityPlugin
 
         private void SynchronizeSceneTime()
         {
+            // int seconds;
+            // uint nanoseconds;
+            // AWSIM.SimulatorROS2Node.TimeSource.GetTime(out seconds, out nanoseconds);
+            // UInt64 timeNs = (UInt64)(seconds * 1e9) + nanoseconds;
+            // RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_scene_set_time(IntPtr.Zero, timeNs));
+
             int seconds;
             uint nanoseconds;
-            AWSIM.SimulatorROS2Node.TimeSource.GetTime(out seconds, out nanoseconds);
+            AwsimRos2Node.GetTime(out seconds, out nanoseconds);
             UInt64 timeNs = (UInt64)(seconds * 1e9) + nanoseconds;
             RGLNativeAPI.CheckErr(RGLNativeAPI.rgl_scene_set_time(IntPtr.Zero, timeNs));
         }
@@ -222,7 +229,7 @@ namespace RGLUnityPlugin
             {
                 rglObject.Value.DestroyInRGL();
             }
-            
+
             RGLMeshSharingManager.Clear();
             RGLTextureSharingManager.Clear();
             BonesPoseCacheManager.Clear();
@@ -256,7 +263,7 @@ namespace RGLUnityPlugin
             var serializer = new SerializerBuilder().Build();
             var yaml = serializer.Serialize(semanticDict);
             File.WriteAllText(semanticCategoryDictionaryFile, yaml);
-                Debug.Log($"Saved semantic category dictionary with {semanticDict.Count} objects at {semanticCategoryDictionaryFile}");
+            Debug.Log($"Saved semantic category dictionary with {semanticDict.Count} objects at {semanticCategoryDictionaryFile}");
         }
 
         /// <summary>

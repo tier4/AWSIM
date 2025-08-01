@@ -1,0 +1,875 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1743379296747465402
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5148660814787066833}
+  m_Layer: 0
+  m_Name: Colliders
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5148660814787066833
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743379296747465402}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1009219314075410404}
+  - {fileID: 6806846108152048309}
+  - {fileID: 247044143926682103}
+  m_Father: {fileID: 8980102000641479971}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6524473658097988016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1009219314075410404}
+  - component: {fileID: 4485074540675801324}
+  - component: {fileID: 8744591324103316020}
+  - component: {fileID: 8868997573558399730}
+  m_Layer: 0
+  m_Name: SensorPandar40P_colliderSolidDown
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1009219314075410404
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6524473658097988016}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5148660814787066833}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &4485074540675801324
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6524473658097988016}
+  m_Mesh: {fileID: -4865087185505287995, guid: 456502729877cc8468a14cbd14b2f0d9, type: 3}
+--- !u!23 &8744591324103316020
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6524473658097988016}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8868997573558399730
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6524473658097988016}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4865087185505287995, guid: 456502729877cc8468a14cbd14b2f0d9, type: 3}
+--- !u!1 &7657609816789538522
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6806846108152048309}
+  - component: {fileID: 4311981129889444528}
+  - component: {fileID: 193223076606066806}
+  - component: {fileID: 8868997573558399731}
+  m_Layer: 0
+  m_Name: SensorPandar40P_colliderSolidTop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6806846108152048309
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7657609816789538522}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5148660814787066833}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &4311981129889444528
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7657609816789538522}
+  m_Mesh: {fileID: 6196747465395140536, guid: 456502729877cc8468a14cbd14b2f0d9, type: 3}
+--- !u!23 &193223076606066806
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7657609816789538522}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8868997573558399731
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7657609816789538522}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6196747465395140536, guid: 456502729877cc8468a14cbd14b2f0d9, type: 3}
+--- !u!1 &7848994132742887793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 247044143926682103}
+  - component: {fileID: 2687553592195881953}
+  - component: {fileID: 5337682806286540645}
+  - component: {fileID: 8868997573558399692}
+  m_Layer: 0
+  m_Name: SensorPandar40P_colliderTransparent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &247044143926682103
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7848994132742887793}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5148660814787066833}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &2687553592195881953
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7848994132742887793}
+  m_Mesh: {fileID: 1987095256127312640, guid: 456502729877cc8468a14cbd14b2f0d9, type: 3}
+--- !u!23 &5337682806286540645
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7848994132742887793}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8868997573558399692
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7848994132742887793}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1987095256127312640, guid: 456502729877cc8468a14cbd14b2f0d9, type: 3}
+--- !u!1 &8164441558762745267
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7169624091389836902}
+  - component: {fileID: 8418600664510973644}
+  - component: {fileID: 4225219778186736123}
+  m_Layer: 0
+  m_Name: SensorPandar40P
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7169624091389836902
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8164441558762745267}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8980102000641479971}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8418600664510973644
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8164441558762745267}
+  m_Mesh: {fileID: 90627065518240431, guid: 456502729877cc8468a14cbd14b2f0d9, type: 3}
+--- !u!23 &4225219778186736123
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8164441558762745267}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 320ef6c50b53fce4c894b6b380635b74, type: 2}
+  - {fileID: 2100000, guid: 93e6656a2f530c449b1842848ea91d1e, type: 2}
+  - {fileID: 2100000, guid: 416d2097ccdb334448040c5b13a0be20, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &8634644705376915353
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8980102000641479971}
+  - component: {fileID: 2894774254024423138}
+  - component: {fileID: 9044078963423197529}
+  - component: {fileID: 8411518212082663276}
+  m_Layer: 0
+  m_Name: HesaiPandar40P
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8980102000641479971
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8634644705376915353}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5148660814787066833}
+  - {fileID: 7169624091389836902}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2894774254024423138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8634644705376915353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 035f2ff864bc3fc40974fa5919d7d387, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frameId: world
+  qos:
+    reliabilityPolicy: 2
+    durabilityPolicy: 2
+    historyPolicy: 1
+    historyDepth: 5
+  pointCloud2Publishers:
+  - topic: lidar/pointcloud
+    publish: 1
+    fieldsPreset: 0
+    fields: 0100000002040000020000000b00000001040000
+  - topic: lidar/pointcloud_ex
+    publish: 1
+    fieldsPreset: 2
+    fields: 01000000030000000c0000000b000000090000000a000000080000000e000000
+  radarScanPublishers: []
+--- !u!114 &9044078963423197529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8634644705376915353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b09121ab5f04a5dae5e27fd15e97c53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointShape: 1
+  pointSize: 0.05
+  colors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: 0.5, b: 0, a: 1}
+  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 0.5, g: 0, b: 1, a: 1}
+  autoComputeColoringHeights: 0
+  minColoringHeight: 0
+  maxColoringHeight: 20
+--- !u!114 &8411518212082663276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8634644705376915353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62277ad5b6d1cfd2984db58dc79535a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AutomaticCaptureHz: 10
+  modelPreset: 6
+  returnMode: 16777220
+  applyDistanceGaussianNoise: 1
+  applyAngularGaussianNoise: 1
+  applyVelocityDistortion: 0
+  simulateBeamDivergence: 0
+  doValidateConfigurationOnStartup: 1
+  configuration:
+    rid: 2316871188729561163
+  outputRestriction:
+    applyRestriction: 0
+    rectangularRestrictionMasks: []
+    enablePeriodicRestriction: 0
+    restrictionPeriod: 1
+    restrictionDutyRate: 0.5
+    enableRestrictionRandomizer: 0
+    minRandomPerdiod: 0
+    maxRandomPerdiod: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 2316871188729561163
+      type: {class: UniformRangeLidarConfiguration, ns: RGLUnityPlugin, asm: Assembly-CSharp}
+      data:
+        _laserArray:
+          centerOfMeasurementLinearOffsetMm: {x: 0, y: 47.7, z: 0}
+          focalDistanceMm: 0
+          lasers:
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: -15
+            verticalLinearOffsetMm: 0
+            ringId: 40
+            timeOffset: 0.01334
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: -11
+            verticalLinearOffsetMm: 0
+            ringId: 39
+            timeOffset: 0.02709
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: -8
+            verticalLinearOffsetMm: 0
+            ringId: 38
+            timeOffset: 0.03952
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: -5
+            verticalLinearOffsetMm: 0
+            ringId: 37
+            timeOffset: 0.05194
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: -3
+            verticalLinearOffsetMm: 0
+            ringId: 36
+            timeOffset: 0.01007
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: -2
+            verticalLinearOffsetMm: 0
+            ringId: 35
+            timeOffset: 0.02382
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: 3.125
+            verticalAngularOffsetDeg: -1.67
+            verticalLinearOffsetMm: 0
+            ringId: 34
+            timeOffset: 0.0081
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -5.208
+            verticalAngularOffsetDeg: -1.33
+            verticalLinearOffsetMm: 0
+            ringId: 33
+            timeOffset: 0.00089
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: -1
+            verticalLinearOffsetMm: 0
+            ringId: 32
+            timeOffset: 0.03494
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: 3.125
+            verticalAngularOffsetDeg: -0.67
+            verticalLinearOffsetMm: 0
+            ringId: 31
+            timeOffset: 0.02185
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -5.208
+            verticalAngularOffsetDeg: -0.33
+            verticalLinearOffsetMm: 0
+            ringId: 30
+            timeOffset: 0.01465
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: -0
+            verticalLinearOffsetMm: 0
+            ringId: 29
+            timeOffset: 0.04737
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: 3.125
+            verticalAngularOffsetDeg: 0.33
+            verticalLinearOffsetMm: 0
+            ringId: 28
+            timeOffset: 0.03494
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -5.208
+            verticalAngularOffsetDeg: 0.67
+            verticalLinearOffsetMm: 0
+            ringId: 27
+            timeOffset: 0.0284
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: 1
+            verticalLinearOffsetMm: 0
+            ringId: 26
+            timeOffset: 0.00483
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: 3.125
+            verticalAngularOffsetDeg: 1.33
+            verticalLinearOffsetMm: 0
+            ringId: 25
+            timeOffset: 0.04737
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -5.208
+            verticalAngularOffsetDeg: 1.67
+            verticalLinearOffsetMm: 0
+            ringId: 24
+            timeOffset: 0.04082
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: 2
+            verticalLinearOffsetMm: 0
+            ringId: 23
+            timeOffset: 0.01858
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: 3.125
+            verticalAngularOffsetDeg: 2.33
+            verticalLinearOffsetMm: 0
+            ringId: 22
+            timeOffset: 0.01007
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -5.208
+            verticalAngularOffsetDeg: 2.67
+            verticalLinearOffsetMm: 0
+            ringId: 21
+            timeOffset: 0.00286
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: 3
+            verticalLinearOffsetMm: 0
+            ringId: 20
+            timeOffset: 0.03167
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: 3.125
+            verticalAngularOffsetDeg: 3.33
+            verticalLinearOffsetMm: 0
+            ringId: 19
+            timeOffset: 0.02382
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -5.208
+            verticalAngularOffsetDeg: 3.67
+            verticalLinearOffsetMm: 0
+            ringId: 18
+            timeOffset: 0.01661
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: 4
+            verticalLinearOffsetMm: 0
+            ringId: 17
+            timeOffset: 0.04409
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: 3.125
+            verticalAngularOffsetDeg: 4.33
+            verticalLinearOffsetMm: 0
+            ringId: 16
+            timeOffset: 0.03691
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -5.208
+            verticalAngularOffsetDeg: 4.67
+            verticalLinearOffsetMm: 0
+            ringId: 15
+            timeOffset: 0.03037
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: 5
+            verticalLinearOffsetMm: 0
+            ringId: 14
+            timeOffset: 0.0068
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: 3.125
+            verticalAngularOffsetDeg: 5.33
+            verticalLinearOffsetMm: 0
+            ringId: 13
+            timeOffset: 0.0493
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -5.208
+            verticalAngularOffsetDeg: 5.67
+            verticalLinearOffsetMm: 0
+            ringId: 12
+            timeOffset: 0.04279
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: 6
+            verticalLinearOffsetMm: 0
+            ringId: 11
+            timeOffset: 0.02055
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: 7
+            verticalLinearOffsetMm: 0
+            ringId: 10
+            timeOffset: 0.03364
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: 8
+            verticalLinearOffsetMm: 0
+            ringId: 9
+            timeOffset: 0.04606
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: 9
+            verticalLinearOffsetMm: 0
+            ringId: 8
+            timeOffset: 0.01204
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: 10
+            verticalLinearOffsetMm: 0
+            ringId: 7
+            timeOffset: 0.02579
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: 11
+            verticalLinearOffsetMm: 0
+            ringId: 6
+            timeOffset: 0.03821
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: 12
+            verticalLinearOffsetMm: 0
+            ringId: 5
+            timeOffset: 0.05064
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: 13
+            verticalLinearOffsetMm: 0
+            ringId: 4
+            timeOffset: 0.01334
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: 14
+            verticalLinearOffsetMm: 0
+            ringId: 3
+            timeOffset: 0.02709
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: 19
+            verticalLinearOffsetMm: 0
+            ringId: 2
+            timeOffset: 0.03952
+            minRange: 0
+            maxRange: 0
+          - horizontalAngularOffsetDeg: -1.042
+            verticalAngularOffsetDeg: 25
+            verticalLinearOffsetMm: 0
+            ringId: 1
+            timeOffset: 0.05194
+            minRange: 0
+            maxRange: 0
+        horizontalResolution: 0.2
+        minHAngle: 0
+        maxHAngle: 360
+        laserArrayCycleTime: 0.05556
+        horizontalBeamDivergence: 0.13
+        verticalBeamDivergence: 0.13
+        noiseParams:
+          angularNoiseType: 0
+          angularNoiseStDev: 0.057295784
+          angularNoiseMean: 0
+          distanceNoiseStDevBase: 0.02
+          distanceNoiseStDevRisePerMeter: 0
+          distanceNoiseMean: 0
+        minRange: 0.3
+        maxRange: 200

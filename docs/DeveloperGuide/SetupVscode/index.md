@@ -1,5 +1,3 @@
-# Setup VSCode
-
 ## Install Visual Studio Code
 
 Follow the steps in:
@@ -51,11 +49,11 @@ Follow the steps in:
 - [https://marketplace.visualstudio.com/items?itemName=VisualStudioToolsForUnity.vstuc](https://marketplace.visualstudio.com/items?itemName=VisualStudioToolsForUnity.vstuc)
 - [https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
 
-> Launch VS Code Quick Open (Ctrl+P), paste the following command, and press enter.
-> - `ext install ms-dotnettools.csdevkit`
-> Repeat for:
-> - `ext install VisualStudioToolsForUnity.vstuc`
-> - `ext install ms-dotnettools.csharp`
+> Launch VS Code Quick Open (Ctrl+P), paste the following command, and press enter.  
+  - `ext install ms-dotnettools.csdevkit`    
+  Repeat for:  
+  - `ext install VisualStudioToolsForUnity.vstuc`  
+  - `ext install ms-dotnettools.csharp`  
 
 ## Configure the Unity
 
