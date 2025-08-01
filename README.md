@@ -1,7 +1,8 @@
 # AWSIM
 
 > [!NOTE]  
-> **v2.0.0 has been released!**
+> **v2.0.0 has been released!**  
+> **Please check [v2.0.0 release note](https://github.com/tier4/AWSIM/releases/tag/v2.0.0)**
  
 ![](/README_img/AWSIM-Autoware.png)
 
