@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+/**
+ * Protobuf package to define [geometry_msgs in ROS 2.](https://github.com/ros2/common_interfaces/tree/master/geometry_msgs)
+ */
+package geometry_msgs;
+
+/**
+ * Protobuf definition of [geometry_msgs/msg/Point type in ROS 2.](https://github.com/ros2/common_interfaces/blob/master/geometry_msgs/msg/Point.msg)
+ **/
+message Point {
+  double x = 1; // X value in a cartesian coordinate.
+  double y = 2; // Y value in a cartesian coordinate.
+  double z = 3; // Z value in a cartesian coordinate.
+}
+
+/**
+ * Protobuf definition of [geometry_msgs/msg/Quaternion type in ROS 2.](https://github.com/ros2/common_interfaces/blob/master/geometry_msgs/msg/Quaternion.msg)
+ **/
+message Quaternion {
+  double x = 1; // X value in a quaternion. (0 <= x <= 1)
+  double y = 2; // Y value in a quaternion. (0 <= y <= 1)
+  double z = 3; // Z value in a quaternion. (0 <= z <= 1)
+  double w = 4; // W value in a quaternion. (0 <= w <= 1)
+}
+
+/**
+ * Protobuf definition of [geometry_msgs/msg/Pose type in ROS 2.](https://github.com/ros2/common_interfaces/blob/master/geometry_msgs/msg/Pose.msg)
+ **/
+message Pose {
+  Point position = 1;         // Position of the pose.
+  Quaternion orientation = 2; // Orientation of the pose.
+}
+
+/**
+ * Protobuf definition of [geometry_msgs/msg/Vector3 type in ROS 2.](https://github.com/ros2/common_interfaces/blob/master/geometry_msgs/msg/Vector3.msg)
+ **/
+message Vector3 {
+  double x = 1; // First variable in vector
+  double y = 2; // Second variable in vector
+  double z = 3; // Third variable in vector
+}
+
+/**
+ * Protobuf definition of [geometry_msgs/msg/Twist type in ROS 2.](https://github.com/ros2/common_interfaces/blob/master/geometry_msgs/msg/Twist.msg)
+ **/
+message Twist {
+  Vector3 linear = 1;  // Linear velocity
+  Vector3 angular = 2; // Angular velocity
+}
+
+/**
+ * Protobuf definition of [geometry_msgs/msg/Accel type in ROS 2.](https://github.com/ros2/common_interfaces/blob/master/geometry_msgs/msg/Accel.msg)
+ **/
+message Accel {
+  Vector3 linear = 1;  // Linear acceleration
+  Vector3 angular = 2; // Angular acceleration
+}

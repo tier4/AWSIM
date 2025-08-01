@@ -1,0 +1,295 @@
+{
+    "name": "Awsim",
+    "maps": [
+        {
+            "name": "Vehicle",
+            "id": "4055cd52-14ff-44c6-a27c-952fd410b5e1",
+            "actions": [
+                {
+                    "name": "Throttle",
+                    "type": "Value",
+                    "id": "4ac7e49c-6b37-4592-9b33-f10f8f450b9c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Brake",
+                    "type": "Value",
+                    "id": "30c6e82b-05a9-4042-9c9b-a469159fac26",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "DriveGear",
+                    "type": "Button",
+                    "id": "c145d04b-4155-4f8a-bd9e-abf93ba7273a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ReverseGear",
+                    "type": "Button",
+                    "id": "8b4630de-cae2-4cdb-b3d8-f04174e7e119",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ParkingGear",
+                    "type": "Button",
+                    "id": "34123ce8-b7c4-4883-b2e8-431a0a1066ec",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NeutralGear",
+                    "type": "Button",
+                    "id": "d0233732-badf-4b15-85a6-5acbf2fe7e0e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "HazardSignal",
+                    "type": "Value",
+                    "id": "689033d2-50f2-4bf0-8f6c-27c6f1ed0f5c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "LeftTurnSignal",
+                    "type": "Button",
+                    "id": "7266166e-5a65-4ff6-beb9-e8cd4c0b32bf",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightTurnSignal",
+                    "type": "Button",
+                    "id": "4a33f38f-fe21-440b-ae90-ed2f63c3f4de",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NoneTurnSignal",
+                    "type": "Button",
+                    "id": "bc7b8ee8-91fe-4138-b83c-9080d2904847",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OverrideSteering",
+                    "type": "Button",
+                    "id": "c62302a3-1cde-4005-9c97-e21e9e62ad2f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "cd60d085-9e30-4a52-a202-851614c912c3",
+                    "path": "<Linux::LogitechInc::LogitechG29DrivingForceRacingWheel>/Z",
+                    "interactions": "",
+                    "processors": "Invert,Normalize(min=-1,max=1,zero=-1)",
+                    "groups": "",
+                    "action": "Throttle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e68316e3-f552-44b8-aae7-37846729573a",
+                    "path": "<Linux::LogitechInc::LogitechG29DrivingForceRacingWheel>/RotateZ",
+                    "interactions": "",
+                    "processors": "Invert,Normalize(min=-1,max=1,zero=-1)",
+                    "groups": "",
+                    "action": "Brake",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d9c6af36-b642-4e34-88a5-c6c2ecccd512",
+                    "path": "<Linux::LogitechInc::LogitechG29DrivingForceRacingWheel>/Top",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DriveGear",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "066d1298-6358-404c-bdae-34fe833b8d2d",
+                    "path": "<Linux::LogitechInc::LogitechG29DrivingForceRacingWheel>/Thumb",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReverseGear",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "419bdd44-f883-4729-94bd-697feb4725fa",
+                    "path": "<Linux::LogitechInc::LogitechG29DrivingForceRacingWheel>/Trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ParkingGear",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1aabd6d9-98ee-44de-bc7e-f8214ebd21e1",
+                    "path": "<Linux::LogitechInc::LogitechG29DrivingForceRacingWheel>/Thumb2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NeutralGear",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2b15ce26-fa31-4229-998e-f3c56195cfdd",
+                    "path": "<Linux::LogitechInc::LogitechG29DrivingForceRacingWheel>/Pinkie",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftTurnSignal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bed9b167-73ab-4097-9a20-b3f7243a216f",
+                    "path": "<Linux::LogitechInc::LogitechG29DrivingForceRacingWheel>/Top2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightTurnSignal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e3b81702-efa3-4ba3-83f7-b3b46121ef93",
+                    "path": "<Linux::LogitechInc::LogitechG29DrivingForceRacingWheel>/Base5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NoneTurnSignal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "98b37843-ebdc-4103-8a75-d20b206eedcc",
+                    "path": "<Linux::LogitechInc::LogitechG29DrivingForceRacingWheel>/Base",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Joystick",
+                    "action": "HazardSignal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "04b0bc74-bf60-4cc8-a20e-a82ddb10af27",
+                    "path": "<Linux::LogitechInc::LogitechG29DrivingForceRacingWheel>/Base2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OverrideSteering",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Keyboard&Mouse",
+            "bindingGroup": "Keyboard&Mouse",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Gamepad",
+            "bindingGroup": "Gamepad",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Touch",
+            "bindingGroup": "Touch",
+            "devices": [
+                {
+                    "devicePath": "<Touchscreen>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Joystick",
+            "bindingGroup": "Joystick",
+            "devices": [
+                {
+                    "devicePath": "<Joystick>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "XR",
+            "bindingGroup": "XR",
+            "devices": [
+                {
+                    "devicePath": "<XRController>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}

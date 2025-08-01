@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import "builtin_interfaces.proto";
+package std_msgs;
+
+/**
+ * Protobuf definition of [std_msgs::msgs::Header type in ROS 2.](https://github.com/ros2/common_interfaces/blob/master/std_msgs/msg/Header.msg)
+ **/
+message Header {
+  /**
+   * Two-integer timestamp that is expressed as seconds and nanoseconds.
+   **/
+  builtin_interfaces.Time stamp = 1;
+
+  /**
+   * Transform frame with which this data is associated.
+   **/
+  string frame_id = 2;
+}

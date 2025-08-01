@@ -1,0 +1,19 @@
+{
+    "TimeScale": 0.5,
+    "TimeSourceType": 4,
+    "RandomTrafficSeed": 33,
+    "MaxVehicleCount": 10,
+    "LogitechG29DevicePath": "/dev/input/event21",
+    "EgoPose": {
+        "Position": {
+            "x": 81381.7265625,
+            "y": 49920.1890625,
+            "z": 41.57674865722656
+        },
+        "EulerAngles": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 35.0
+        }
+    }
+}

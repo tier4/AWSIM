@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+import "builtin_interfaces.proto";
+package rosgraph_msgs;
+
+/**
+ * Protobuf definition of the rosgraph_msgs/msg/Clock type in ROS 2.
+ **/
+message Clock {
+  builtin_interfaces.Time clock = 1; // Describe current ros time.
+}

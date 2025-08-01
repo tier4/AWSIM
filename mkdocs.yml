@@ -1,0 +1,111 @@
+site_name: AWSIM
+
+theme:
+  name: material
+  font:
+    text: Roboto
+  features:
+    - toc.follow
+    - navigation.sections
+    - content.tabs.link
+    - content.code.copy
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    # - navigation.expand
+  palette:
+    scheme: slate
+  icon:
+    repo: fontawesome/brands/github
+    
+  logo:
+  custom_dir: docs/Home/overrides
+
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  generator: false
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+markdown_extensions:
+  - tables
+  - admonition
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.highlight :  
+      anchor_linenums: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.details
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.caption
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.arithmatex:
+      generic: true
+
+repo_url: https://github.com/tier4/AWSIM
+repo_name: tier4/AWSIM
+
+nav:
+  - Home: index.md
+  - Getting started:
+    - Quick start demo: GettingStarted/QuickStartDemo/index.md
+    - Demo details: GettingStarted/DemoDetails/index.md
+    - AWSIM concept: GettingStarted/AWSIMConcept/index.md
+  - Developer guide:
+    - Prerequisites: DeveloperGuide/Prerequisites/index.md
+    - Setup unity project: DeveloperGuide/SetupUnityProject/index.md
+    - Setup vscode: DeveloperGuide/SetupVscode/index.md
+    - Architecture: DeveloperGuide/Architecture/index.md
+    - Demo scenes: DeveloperGuide/DemoScenes/index.md    
+    - Coding standards: DeveloperGuide/CodingStandards/index.md
+    - Git: DeveloperGuide/Git/index.md
+    - External libraries: DeveloperGuide/ExternalLibraries/index.md
+    - Directory: DeveloperGuide/Directory/index.md
+    - Change SRP: DeveloperGuide/ChangeSrp/index.md
+    - Fork repository: DeveloperGuide/ForkRepository/index.md
+    - Documentation: DeveloperGuide/Documentation/index.md
+    - Trouble shooting: DeveloperGuide/TroubleShooting/index.md
+    - How to contribute: DeveloperGuide/HowToContribute/index.md
+    - Layer:
+      - UI: DeveloperGuide/Layer/UI/index.md
+      - Usecase:
+        - Awsim Rviz Plugins:
+          - Abstract and Installation: DeveloperGuide/Layer/Usecase/AwsimRvizPlugins/AbstractAndInstallation/index.md
+          - 2D Pose Teleport: DeveloperGuide/Layer/Usecase/AwsimRvizPlugins/2dPoseTeleport/index.md
+          - Npc Spawner: DeveloperGuide/Layer/Usecase/AwsimRvizPlugins/NpcSpawner/index.md
+        - Pcd generation:
+          - Create pcd map: DeveloperGuide/Layer/Usecase/CreatePcd/index.md
+      - Entity:
+        - Vehicle:
+          - Accel vehicle: DeveloperGuide/Layer/Entity/Vehicle/AccelVehicle/index.md
+          - Pose vehicle: DeveloperGuide/Layer/Entity/Vehicle/PoseVehicle/index.md
+        - Sensors:
+          - LiDAR & Radar sensor: DeveloperGuide/Layer/Entity/Sensor/LidarAndSensor/index.md
+          - Camera sensor: DeveloperGuide/Layer/Entity/Sensor/CameraSensor/index.md
+          - IMU sensor: DeveloperGuide/Layer/Entity/Sensor/ImuSensor/index.md
+          - GNSS sensor: DeveloperGuide/Layer/Entity/Sensor/GnssSensor/index.md
+        - Infra:
+          - Traffic light: DeveloperGuide/Layer/Entity/Infra/TrafficLight/index.md
+      - Common:
+        - ROS2:
+          - ROS2: DeveloperGuide/Layer/Common/Ros2/Ros2CoreComponents/index.md
+          - Add custom ROS2 message: DeveloperGuide/Layer/Common/Ros2/AddCustomRos2Message/index.md
+    - Experimental:
+      - Running headless: DeveloperGuide/Experimental/RunningHeadless/index.md
+      - Using OpenSCENARIO: DeveloperGuide/Experimental/UsingOpenScenario/index.md
+  - Downloads: Downloads/index.md
+  - License: License/index.md
+  - Contact: Contact/index.md

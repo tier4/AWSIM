@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: ef1f932bb6ba7d84f8e4c895da70fbf7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _camera: {instanceID: 0}
+  - _distortionShader: {fileID: 7200000, guid: 62fa3e8d2ef7b9b47b3717b5c717d63f, type: 3}
+  - _distortionCorrectionShader: {fileID: 7200000, guid: 851cc8fd180a1a7488c76ee3d342336d, type: 3}
+  - _rosImageShader: {fileID: 7200000, guid: 5a602ca55a5a415468b0127fa60c1a77, type: 3}
+  - _sharpenShader: {fileID: 7200000, guid: 4387cc68efb196d4d8bef66635783277, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

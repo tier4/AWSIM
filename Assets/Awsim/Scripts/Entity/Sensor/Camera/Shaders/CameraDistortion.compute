@@ -1,0 +1,63 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#include "UnityCG.cginc"
+#pragma kernel DistortTexture
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+Texture2D<float4> _InputTexture;
+SamplerState sampler_InputTexture;
+RWTexture2D<float4> _DistortedTexture;
+
+RWStructuredBuffer<uint> _dstBGR8Buffer;
+
+uint _width;
+uint _height;
+float _fx;
+float _fy;
+float _cx;
+float _cy;
+float _k1;
+float _k2;
+float _p1;
+float _p2;
+float _k3;
+
+float2 GetLensDistortionUV(float2 uv)
+{
+    float2 centerNormalized = float2(_cx/_width, _cy/_height);
+    float2 rVec = (uv - centerNormalized);
+
+    float asp = _width / _height;
+    float r2 = dot(rVec, rVec);
+    float r4 = r2 * r2;
+    float r6 = r4 * r2;
+    float C = 2.0f * rVec.x * rVec.y;
+    float2 V = 2.0f * rVec * rVec;
+
+    float2 distortionRadial = (1.0f + _k1 * r2 + _k2 * r4 + _k3 * r6) * rVec;
+    float2 distortionTangenial = float2(_p1 * C + _p2 * (r2 + V.x), _p2 * C + _p1 * (r2 + V.y));
+    float2 distortion = distortionRadial + distortionTangenial;
+
+    return distortion * float2(1.0f, 1.0f) + centerNormalized;
+}
+
+[numthreads(8, 4, 1)]
+void DistortTexture(uint3 id : SV_DispatchThreadID)
+{
+    if (_width <= id.x || _height <= id.y)
+    {
+        return;
+    }
+
+    float2 normalizedUv = id.xy / float2(_width, _height);
+    float2 distortedUV = GetLensDistortionUV(normalizedUv);
+    float3 color = _InputTexture.SampleLevel(sampler_InputTexture, distortedUV, 0).rgb;
+
+    // Since _DistortedTexture is bound to RWTexture2D,
+    // the value written into it is always linear.
+    // But the texture is created as sRGB, so we need to do gamma correction here.
+    color = LinearToGammaSpace(color);
+
+    // Texture used for visualization in GUI
+    _DistortedTexture[id.xy] = float4(color, 1);
+}

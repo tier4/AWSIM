@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+import "builtin_interfaces.proto";
+
+package autoware_control_msgs;
+
+message Lateral {
+  builtin_interfaces.Time stamp = 1;
+  builtin_interfaces.Time cotrol_time = 2;
+  float steering_tire_angle = 3;
+  float steering_tire_rotation_rate = 4;
+  bool is_defined_steering_tire_rotation_rate = 5;
+}
+
+message Longitudinal {
+  builtin_interfaces.Time stamp = 1;
+  builtin_interfaces.Time cotrol_time = 2;
+  float velocity = 3;
+  float acceleration = 4;
+  float jerk = 5;
+  bool is_defined_acceleration = 6;
+  bool is_defined_jerk = 7;
+}
+
+message Control {
+  builtin_interfaces.Time stamp = 1;
+  builtin_interfaces.Time cotrol_time = 2;
+  Lateral lateral = 3;
+  Longitudinal longitudinal = 4;
+}

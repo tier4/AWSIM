@@ -1,0 +1,178 @@
+syntax = "proto3";
+
+import "autoware_control_msgs.proto";
+import "autoware_vehicle_msgs.proto";
+import "geometry_msgs.proto";
+
+package traffic_simulator_msgs;
+
+/**
+ * Protobuf definition of traffic_simulator_msgs/msg/ActionStatus type in ROS 2.
+ **/
+message ActionStatus {
+  string current_action = 1;     // Current action of the entity.
+  geometry_msgs.Twist twist = 2; // Velocity of the entity.
+  geometry_msgs.Accel accel = 3; // Acceleration of the entity.
+  double linear_jerk = 4;        // Linear jerk of the entity.
+}
+
+/**
+ * Protobuf definition of traffic_simulator_msgs/msg/BoundingBox type in ROS 2.
+ **/
+message BoundingBox {
+  geometry_msgs.Point center = 1;       // Center point of the bounding box.
+  geometry_msgs.Vector3 dimensions = 2; // Size of the bounding box.
+}
+
+/**
+ * Protobuf definition of traffic_simulator_msgs/msg/LaneletPose type in ROS 2.
+ **/
+message LaneletPose {
+  int64 lanelet_id = 1;           // Lanelet id of the entity exists.
+  double s = 2;                  // S value in the lane coordinate.
+  double offset = 3;             // Offset value in the lane coordinate.
+  geometry_msgs.Vector3 rpy = 4; // RPY(roll/pitch/yaw) value in the lane coordinate.
+}
+
+/**
+ * Protobuf definition of traffic_simulator_msgs/msg/EntityType type in ROS 2.
+ **/
+
+message EntityType {
+  enum Enum {
+    EGO = 0;         // Ego Vehicle (Autoware Vehicle)
+    VEHICLE = 1;     // Vehicle Entity (NPC Vehicle)
+    PEDESTRIAN = 2;  // Pedestrian Entity (NPC Pedestrian)
+    MISC_OBJECT = 3; // Misc Object Entity (Static Objects in environment like cones)
+  }
+  Enum type = 1;
+}
+
+/**
+ * Protobuf definition of traffic_simulator_msgs/msg/EntitySubtype type in ROS 2.
+ **/
+message EntitySubtype {
+  enum Enum {
+    UNKNOWN = 0;    // The entity is unknown object
+    CAR = 1;        // The entity is car like a passenger vehicle
+    TRUCK = 2;      // The entity is truck
+    BUS = 3;        // The entity is bus
+    TRAILER = 4;    // The entity is trailer
+    MOTORCYCLE = 5; // The entity is motorcycle
+    BICYCLE = 6;    // THe entity is bicycle
+    PEDESTRIAN = 7; // The entity is pedestrian
+  }
+  Enum value = 1;
+}
+
+/**
+ * Protobuf definition of traffic_simulator_msgs/msg/EntityStatus type in ROS 2.
+ **/
+message EntityStatus {
+  EntityType type = 1;            // Type of the entity.
+  EntitySubtype subtype = 2;      // subtype of the entity.
+  double time = 3;                // Current simulation time.
+  string name = 4;                // Name of the entity.
+  BoundingBox bounding_box = 5;   // Bounding box of the entity.
+  ActionStatus action_status = 6; // Action status of the entity.
+  geometry_msgs.Pose pose = 7;    // Pose in map coordinate of the entity.
+  LaneletPose lanelet_pose = 8;   // Pose in lane coordinate of the entity.
+  bool lanelet_pose_valid = 9;    // If true, the lane matching of the entity is succeeded.
+}
+
+/**
+ * Protobuf definition of traffic_simulator_msgs/msg/Performance type in ROS 2.
+ **/
+message Performance {
+  double max_speed = 1;             // Max speed of the entity.
+  double max_acceleration = 2;      // Max acceleration of the entity.
+  double max_acceleration_rate = 3; // Max acceleration rate of the entity.
+  double max_deceleration = 4;      // Max deceleration of the entity.
+  double max_deceleration_rate = 5; // Max deceleration rate of the entity.
+}
+
+/**
+ * Protobuf definition of traffic_simulator_msgs/msg/Axle type in ROS 2.
+ **/
+message Axle {
+  double max_steering = 1;   // Max steering of the entity axle.
+  double wheel_diameter = 2; // Wheel diameter of the entity axle.
+  double track_width = 3;    // Track width of the entity axle.
+  double position_x = 4;     // Position x of the entity axle.(longitudinal)
+  double position_z = 5;     // Position z of the entity axle.(lateral)
+}
+
+/**
+ * Protobuf definition of traffic_simulator_msgs/msg/Axles type in ROS 2.
+ **/
+message Axles {
+  Axle front_axle = 1; // Parameters of the front axle of the entity.
+  Axle rear_axle = 2;  // Parameters of rear axle of the entity.
+}
+
+/**
+ * Protobuf definition of traffic_simulator_msgs/msg/Property type in ROS 2.
+ **/
+message Property {}
+
+/**
+ * Protobuf definition of traffic_simulator_msgs/msg/VehicleParameters type in ROS 2.
+ **/
+message VehicleParameters {
+  string name = 1;              // Name of the vehicle entity
+  Performance performance = 2;  // Performance parameter of vehicle entity.
+  BoundingBox bounding_box = 3; // Bounding box of the vehicle entity.
+  Axles axles = 4;              // Axles of the vehicle entity.
+  Property property = 5;        // Other parameters of the vehicle entity.
+}
+
+/**
+ * Protobuf definition of traffic_simulator_msgs/msg/PedestrianParameters type in ROS 2.
+ **/
+message PedestrianParameters {
+  string name = 1;                // Name of the pedestrian entity.
+  BoundingBox bounding_box = 2;   // Bounding box of the pedestrian entity.
+}
+
+message MiscObjectParameters {
+  string name = 1;                 // Name of the pedestrian entity.
+  BoundingBox bounding_box = 2;    // Bounding box of the pedestrian entity.
+}
+
+/**
+ * Protobuf definition of traffic_simulator_msgs/msg/Waypoints type in ROS 2.
+ **/
+message Waypoints {
+  repeated geometry_msgs.Point waypoints = 1; // Waypoints of the entity.
+}
+
+message VehicleCommand {
+  autoware_control_msgs.Control control = 1;
+  autoware_vehicle_msgs.GearCommand gear_command = 2;
+}
+
+/**
+ * Protobuf definition of traffic_simulator_msgs/msg/Vertex type in ROS 2.
+ **/
+message Vertex {
+  double time = 1;
+  geometry_msgs.Pose position = 2;
+}
+
+/**
+ * Protobuf definition of traffic_simulator_msgs/msg/Polyline type in ROS 2.
+ **/
+message Polyline {
+  repeated Vertex vertices = 1;
+}
+
+/**
+ * Protobuf definition of traffic_simulator_msgs/msg/PolylineTrajectory type in ROS 2.
+ **/
+message PolylineTrajectory {
+  double initial_distance_offset = 1;
+  bool dynamic_constraints_ignorable = 2;
+  double base_time = 3;
+  bool closed = 4;
+  Polyline shape = 5;
+}
