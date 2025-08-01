@@ -5,7 +5,7 @@
  
 ![](/README_img/AWSIM.png)
 
-AWSIM is the best scene simulator for [Autoware](https://github.com/autowarefoundation/autoware).
+AWSIM is the best digital twin simulator for [Autoware](https://github.com/autowarefoundation/autoware).
 
 ## Features
 
@@ -53,9 +53,9 @@ See also [LICENSE](./LICENSE)
 
 日本語/English OK
 
-GitHub issue : [https://github.com/tier4/AWSIM/issues](https://github.com/tier4/AWSIM/issues)
+GitHub issue : [https://github.com/tier4/AWSIM/issues](https://github.com/tier4/AWSIM/issues)  
 e-mail : takatoki.makino@tier4.jp  
-discord : mackierx111
-twitter : [@mackierx111](https://x.com/mackierx111)
+discord : mackierx111  
+twitter : [@mackierx111](https://x.com/mackierx111)  
 
-(c) 2022 TIER IV, inc
+(c) 2025 TIER IV, inc
