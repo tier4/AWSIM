@@ -3,7 +3,7 @@
 > [!NOTE]  
 > **v2.0.0 has been released!**
  
-![](/README_img/AWSIM.png)
+![](/README_img/AWSIM-Autoware.png)
 
 AWSIM is the best digital twin simulator for [Autoware](https://github.com/autowarefoundation/autoware).
 
