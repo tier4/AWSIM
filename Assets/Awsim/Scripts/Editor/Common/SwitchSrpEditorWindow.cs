@@ -22,7 +22,7 @@ public class SwitchSrpEditorWindow : EditorWindow
     [MenuItem("AWSIM/Switch SRP")]
     public static void ShowWindow()
     {
-        GetWindow<SwitchSrpEditorWindow>("Switch Srp");
+        GetWindow<SwitchSrpEditorWindow>("Switch SRP");
     }
 
     void OnGUI()
