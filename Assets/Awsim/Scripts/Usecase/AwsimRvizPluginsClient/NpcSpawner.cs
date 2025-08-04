@@ -203,14 +203,11 @@ namespace Awsim.Usecase.AwsimRvizPlugins
 
         void Spawn()
         {
-            Vector3 rayOrigin = new Vector3(_position.x, 1000.0f, _position.z);
-            Vector3 rayDirection = Vector3.down;
-
-            if (Physics.Raycast(rayOrigin, rayDirection, out RaycastHit hit, Mathf.Infinity))
+            if (CalcSpawnCoordinate(_position, _rotation, out Vector3 position, out Quaternion rotation))
             {
                 if (_npcVehiclePrefabDict.ContainsKey(_spawnPrefabName))
                 {
-                    PoseVehicle npc = PoseVehicle.Instantiate(_npcVehiclePrefabDict[_spawnPrefabName], new Vector3(_position.x, hit.point.y + 1.33f, _position.z), _rotation, _parent);
+                    PoseVehicle npc = PoseVehicle.Instantiate(_npcVehiclePrefabDict[_spawnPrefabName], position, rotation, _parent);
                     npc.Initialize();
                     npc.OnCollisionEnterAction += (Collision collision) =>
                         {
@@ -222,7 +219,7 @@ namespace Awsim.Usecase.AwsimRvizPlugins
                 }
                 if (_npcPedestrianPrefabDict.ContainsKey(_spawnPrefabName))
                 {
-                    Pedestrian npc = Pedestrian.Instantiate(_npcPedestrianPrefabDict[_spawnPrefabName], new Vector3(_position.x, hit.point.y + 1.33f, _position.z), _rotation, _parent);
+                    Pedestrian npc = Pedestrian.Instantiate(_npcPedestrianPrefabDict[_spawnPrefabName], position, rotation, _parent);
                     npc.Initialize();
                     npc.OnTriggerEnterAction += (Collider collider) =>
                         {
@@ -242,6 +239,43 @@ namespace Awsim.Usecase.AwsimRvizPlugins
             else
             {
                 Debug.LogWarning("No mesh or collider detected on target location. Please ensure that the target location is on a mesh or collider.");
+            }
+
+            // --- inner methods ---
+            static bool CalcSpawnCoordinate(Vector3 centerPosition, Quaternion inputRotation, out Vector3 destPosition, out Quaternion destRotation)
+            {
+                Vector3 rayDirection = Vector3.down;
+                destPosition = new Vector3();
+                destRotation = new Quaternion();
+
+                Vector3 rayOriginForward = new Vector3(centerPosition.x, 1000.0f, centerPosition.z) + inputRotation * Vector3.forward;
+                if (!Physics.Raycast(rayOriginForward, rayDirection, out RaycastHit hitForward, Mathf.Infinity))
+                    return false;
+
+                Vector3 rayOriginBack = new Vector3(centerPosition.x, 1000.0f, centerPosition.z) + inputRotation * Vector3.back;
+                if (!Physics.Raycast(rayOriginBack, rayDirection, out RaycastHit hitBack, Mathf.Infinity))
+                    return false;
+
+                Vector3 rayOriginLeft = new Vector3(centerPosition.x, 1000.0f, centerPosition.z) + inputRotation * Vector3.left;
+                if (!Physics.Raycast(rayOriginLeft, rayDirection, out RaycastHit hitLeft, Mathf.Infinity))
+                    return false;
+
+                Vector3 rayOriginRight = new Vector3(centerPosition.x, 1000.0f, centerPosition.z) + inputRotation * Vector3.right;
+                if (!Physics.Raycast(rayOriginRight, rayDirection, out RaycastHit hitRight, Mathf.Infinity))
+                    return false;
+
+                float frontBackDist = Vector3.Distance(rayOriginBack, rayOriginForward);
+                float frontBackYOffset = hitForward.point.y - hitBack.point.y;
+                float pitch = Mathf.Rad2Deg * Mathf.Atan(frontBackYOffset / frontBackDist);
+
+                float leftRightDist = Vector3.Distance(rayOriginRight, rayOriginLeft);
+                float leftRightYOffset = hitRight.point.y - hitLeft.point.y;
+                float roll = Mathf.Rad2Deg * Mathf.Atan(leftRightYOffset / leftRightDist);
+
+                destPosition = (hitForward.point + hitBack.point) / 2 + new Vector3(0.0f, 0.82f, 0.0f);
+                // NOTE: Unity uses a left-handed coordinate.
+                destRotation = Quaternion.Euler(-pitch, inputRotation.eulerAngles.y, roll);
+                return true;
             }
         }
     }
