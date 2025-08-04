@@ -203,11 +203,12 @@ namespace Awsim.Usecase.AwsimRvizPlugins
 
         void Spawn()
         {
-            if (CalcSpawnCoordinate(_position, _rotation, out Vector3 position, out Quaternion rotation))
+            if (_npcVehiclePrefabDict.ContainsKey(_spawnPrefabName))
             {
-                if (_npcVehiclePrefabDict.ContainsKey(_spawnPrefabName))
+                PoseVehicle prefab = _npcVehiclePrefabDict[_spawnPrefabName];
+                if (CalcSpawnCoordinate(_position, _rotation, prefab.Bounds.extents, out Vector3 position, out Quaternion rotation))
                 {
-                    PoseVehicle npc = PoseVehicle.Instantiate(_npcVehiclePrefabDict[_spawnPrefabName], position, rotation, _parent);
+                    PoseVehicle npc = PoseVehicle.Instantiate(prefab, position, rotation, _parent);
                     npc.Initialize();
                     npc.OnCollisionEnterAction += (Collision collision) =>
                         {
@@ -217,9 +218,18 @@ namespace Awsim.Usecase.AwsimRvizPlugins
                         };
                     _npcVehicleList.Add(npc);
                 }
-                if (_npcPedestrianPrefabDict.ContainsKey(_spawnPrefabName))
+                else
                 {
-                    Pedestrian npc = Pedestrian.Instantiate(_npcPedestrianPrefabDict[_spawnPrefabName], position, rotation, _parent);
+                    Debug.LogWarning("No mesh or collider detected on target location. Please ensure that the target location is on a mesh or collider.");
+                }
+            }
+            if (_npcPedestrianPrefabDict.ContainsKey(_spawnPrefabName))
+            {
+                Pedestrian prefab = _npcPedestrianPrefabDict[_spawnPrefabName];
+                Vector3 extents = new Vector3(0.125f, 0.5f, 0.125f);
+                if (CalcSpawnCoordinate(_position, _rotation, extents, out Vector3 position, out Quaternion rotation))
+                {
+                    Pedestrian npc = Pedestrian.Instantiate(prefab, position, rotation, _parent);
                     npc.Initialize();
                     npc.OnTriggerEnterAction += (Collider collider) =>
                         {
@@ -230,37 +240,37 @@ namespace Awsim.Usecase.AwsimRvizPlugins
 
                     BoxCollider collider = npc.AddComponent<BoxCollider>();
                     collider.center = new Vector3(0, 1, -0.1f);
-                    collider.size = new Vector3(0.25f, 1, 0.25f);
+                    collider.size = extents * 2;
                     collider.isTrigger = true;
 
                     _npcPedestrianList.Add(npc);
                 }
-            }
-            else
-            {
-                Debug.LogWarning("No mesh or collider detected on target location. Please ensure that the target location is on a mesh or collider.");
+                else
+                {
+                    Debug.LogWarning("No mesh or collider detected on target location. Please ensure that the target location is on a mesh or collider.");
+                }
             }
 
             // --- inner methods ---
-            static bool CalcSpawnCoordinate(Vector3 centerPosition, Quaternion inputRotation, out Vector3 destPosition, out Quaternion destRotation)
+            static bool CalcSpawnCoordinate(Vector3 centerPosition, Quaternion inputRotation, Vector3 extents, out Vector3 destPosition, out Quaternion destRotation)
             {
                 Vector3 rayDirection = Vector3.down;
                 destPosition = new Vector3();
                 destRotation = new Quaternion();
 
-                Vector3 rayOriginForward = new Vector3(centerPosition.x, 1000.0f, centerPosition.z) + inputRotation * Vector3.forward;
+                Vector3 rayOriginForward = new Vector3(centerPosition.x, 1000.0f, centerPosition.z) + inputRotation * Vector3.forward * extents.z;
                 if (!Physics.Raycast(rayOriginForward, rayDirection, out RaycastHit hitForward, Mathf.Infinity))
                     return false;
 
-                Vector3 rayOriginBack = new Vector3(centerPosition.x, 1000.0f, centerPosition.z) + inputRotation * Vector3.back;
+                Vector3 rayOriginBack = new Vector3(centerPosition.x, 1000.0f, centerPosition.z) + inputRotation * Vector3.back * extents.z;
                 if (!Physics.Raycast(rayOriginBack, rayDirection, out RaycastHit hitBack, Mathf.Infinity))
                     return false;
 
-                Vector3 rayOriginLeft = new Vector3(centerPosition.x, 1000.0f, centerPosition.z) + inputRotation * Vector3.left;
+                Vector3 rayOriginLeft = new Vector3(centerPosition.x, 1000.0f, centerPosition.z) + inputRotation * Vector3.left * extents.x;
                 if (!Physics.Raycast(rayOriginLeft, rayDirection, out RaycastHit hitLeft, Mathf.Infinity))
                     return false;
 
-                Vector3 rayOriginRight = new Vector3(centerPosition.x, 1000.0f, centerPosition.z) + inputRotation * Vector3.right;
+                Vector3 rayOriginRight = new Vector3(centerPosition.x, 1000.0f, centerPosition.z) + inputRotation * Vector3.right * extents.x;
                 if (!Physics.Raycast(rayOriginRight, rayDirection, out RaycastHit hitRight, Mathf.Infinity))
                     return false;
 
@@ -272,7 +282,7 @@ namespace Awsim.Usecase.AwsimRvizPlugins
                 float leftRightYOffset = hitRight.point.y - hitLeft.point.y;
                 float roll = Mathf.Rad2Deg * Mathf.Atan(leftRightYOffset / leftRightDist);
 
-                destPosition = (hitForward.point + hitBack.point) / 2 + new Vector3(0.0f, 0.82f, 0.0f);
+                destPosition = (hitForward.point + hitBack.point) / 2 + new Vector3(0.0f, 0.1f, 0.0f);
                 // NOTE: Unity uses a left-handed coordinate.
                 destRotation = Quaternion.Euler(-pitch, inputRotation.eulerAngles.y, roll);
                 return true;
