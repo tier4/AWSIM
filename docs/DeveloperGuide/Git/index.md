@@ -7,8 +7,42 @@ AWSIM is managed by [git](https://git-scm.com/) and [GitHub](https://github.com/
 - All git commit history is not modified
 - Disallow `git rebase`
 - Disallow `git push --force`
+- Fast forward recommended
 
 ## Branch
+
+```mermaid
+---
+config:
+  logLevel: 'debug'
+  theme: 'default'
+  themeVariables:
+      'git0': '#000000'
+      'git1': '#000000'
+      'git2': '#000000'
+      'git3': '#000000'
+      'gitBranchLabel0': '#ffffff'
+      'gitBranchLabel1': '#ffffff'
+      'gitBranchLabel2': '#ffffff'
+      'gitBranchLabel3': '#ffffff'
+---
+  gitGraph
+    checkout main
+    commit
+    branch feature/xxx
+    commit
+    checkout main
+    merge feature/xxx
+    checkout main
+    branch release/xxx
+    checkout release/xxx
+    commit
+    checkout main
+    merge release/xxx
+    checkout main
+    commit
+
+```
 
 |Branch|Explain|
 |:--|:--|
