@@ -1,21 +1,28 @@
 using UnityEditor;
+using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.Rendering;
 using System.Diagnostics;
 using System.IO;
 
-public class ChangeSrp : EditorWindow
+/// <summary>
+/// Unity Editor window for switching between URP and HDRP render pipelines.
+/// This tool updates the RenderPipelineAsset, scripting define symbols,
+/// and optionally prompts for restarting the Unity Editor to apply changes.
+/// </summary>
+
+public class SwitchSrpEditorWindow : EditorWindow
 {
-    private static readonly string _urpSymbl = "URP";
+    private static readonly string _urpSymbol = "URP";
     private static readonly string _hdrpSymbol = "HDRP";
 
-    private static readonly string _urpAssetPath = "Assets/Awsim/Graphics/URP/New Universal Render Pipeline Asset.asset";
-    private static readonly string _hdrpAssetPath = "Assets/Awsim/Graphics/HDRP/HDRenderPipelineAsset.asset";
+    private static readonly string _urpAssetPath = "Assets/Awsim/Graphics/URP/DefaultUrpAsset.asset";
+    private static readonly string _hdrpAssetPath = "Assets/Awsim/Graphics/HDRP/DefaultHdrpAsset.asset";
 
-    [MenuItem("AWSIM/Change Srp")]
+    [MenuItem("AWSIM/Switch SRP")]
     public static void ShowWindow()
     {
-        GetWindow<ChangeSrp>("Change Srp");
+        GetWindow<SwitchSrpEditorWindow>("Switch Srp");
     }
 
     void OnGUI()
@@ -31,7 +38,7 @@ public class ChangeSrp : EditorWindow
         {
             if (GUILayout.Button("Switch to URP"))
             {
-                Switch(_urpAssetPath, _urpSymbl);
+                Switch(_urpAssetPath, _urpSymbol);
             }
         }
         else
@@ -57,13 +64,16 @@ public class ChangeSrp : EditorWindow
         var asset = AssetDatabase.LoadAssetAtPath<RenderPipelineAsset>(pipelineAssetPath);
         if (asset == null)
         {
+            UnityEngine.Debug.LogError($"RenderPipelineAsset not found at: {pipelineAssetPath}");
             return;
         }
 
         GraphicsSettings.defaultRenderPipeline = asset;
 
-        string currentDefines = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
-        var defineList = new System.Collections.Generic.List<string>(currentDefines.Split(';'));
+        var target = NamedBuildTarget.FromBuildTargetGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
+
+        PlayerSettings.GetScriptingDefineSymbols(target, out string[] defines);
+        var defineList = new System.Collections.Generic.List<string>(defines);
 
         defineList.RemoveAll(d => d == "URP" || d == "HDRP");
 
@@ -72,12 +82,11 @@ public class ChangeSrp : EditorWindow
             defineList.Add(defineSymbol);
         }
 
-        string newDefines = string.Join(";", defineList);
-        PlayerSettings.SetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup, newDefines);
+        PlayerSettings.SetScriptingDefineSymbols(target, defineList.ToArray());
 
         bool restart = EditorUtility.DisplayDialog(
             "Restart Unity",
-            "Render pipeline has been switched to " + defineSymbol + ".\nWould you like to restart the Unity Editor now?",
+            $"Render pipeline has been switched to {defineSymbol}.\nWould you like to restart the Unity Editor now?",
             "Yes", "No"
         );
 
@@ -86,5 +95,5 @@ public class ChangeSrp : EditorWindow
             EditorApplication.OpenProject(System.IO.Directory.GetCurrentDirectory());
         }
     }
-    
+
 }
