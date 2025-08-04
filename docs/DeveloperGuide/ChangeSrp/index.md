@@ -6,26 +6,40 @@ SRP (Scriptable Render Pipeline) is a programmable rendering architecture provid
 - URP (Universal Render Pipeline): Optimized for cross-platform performance, suitable for most projects.
 - HDRP (High Definition Render Pipeline): Prioritizes high visual fidelity, ideal for high-end platforms and photorealistic projects.
 
-## How to Check the Current Render Pipeline
-You can check which render pipeline your project is currently using by following these steps:
+## Switch SRP (Use editor extension)
+To simplify the SRP switching process, we provide an Editor extension named "Switch SRP", available in the Unity Editor menu.
 
-1. Open the Unity Editor and go to Edit > Project Settings > Graphics
+- This tool automates the following steps:
+    - Switching the default render pipeline asset (Graphics settings)
 
-![Graphics Settings](image_0.png)
+    - Updating scripting define symbols (Player settings)
 
-1. Look at the Set Default Render Pipeline Asset field:
+    - Prompting for Unity Editor restart to avoid rendering glitches
 
-    - If it shows a HDRenderPipelineAsset, the project is using HDRP
+1. In the Unity Editor, go to AWSIM -> Switch SRP from the top menu.
+<img src="image_10.png" alt="Graphics Settings" width="600">
 
-    ![Graphics Settings](image_2.png)
-    
-    - If it shows a UniversalRenderPipelineAsset, the project is using URP
-    ![Graphics Settings](image_1.png)
+1. A window will appear, showing the currently active render pipeline.
+<img src="image_11.png" alt="Graphics Settings" width="300">
 
-## Switch rendering pipeline
+1. Based on the current state, the button will display one of the following:
+    - If the current pipeline is HDRP, the button will say HDRP → URP
+        - Click to switch to URP.
+    - If the current pipeline is URP, the button will say URP → HDRP
+        - Click to switch to HDRP.  
+
+1. After clicking the button, a confirmation dialog will appear asking whether to restart the Unity Editor immediately.  
+![Graphics Settings](image_12.png)
+
+1. Click Yes, and Unity will automatically restart to ensure the changes take effect and to prevent rendering issues.  
+
+## Switch SRP (Manually)
 In this project, both HDRP and URP scenes are preconfigured separately.
 
 === "URP to HDRP"
+    1. Open the Unity Editor and go to Edit > Project Settings > Graphics
+    ![Graphics Settings](image_0.png)
+
     1. Switch the `Default Render Pipeline` in Edit -> ProjectSettings -> Graphics, and set it to `HDRenderPipelineAsset`.
     ![Graphics Settings](image_7.png)
 
@@ -55,6 +69,9 @@ In this project, both HDRP and URP scenes are preconfigured separately.
         - Restarting Unity Editor helps avoid unknown issues and ensures proper scene rendering.
 
 === "HDRP to URP"
+    1. Open the Unity Editor and go to Edit > Project Settings > Graphics
+    ![Graphics Settings](image_0.png)
+
     1. Switch the `Default Render Pipeline` in Edit -> ProjectSettings -> Graphics, and set it to `UniversalRenderPipelineAsset`.
     ![Graphics Settings](image_3.png)
 
@@ -85,32 +102,4 @@ In this project, both HDRP and URP scenes are preconfigured separately.
 
     1. Check the lighting configuration:
     ![Graphics Settings](image_5.png)
-
-## Use the Editor Extension to Switch SRP Automatically
-To simplify the SRP switching process, we provide an Editor extension named "Switch SRP", available in the Unity Editor menu.
-
-- This tool automates the following steps:
-    - Switching the default render pipeline asset (Graphics settings)
-
-    - Updating scripting define symbols (Player settings)
-
-    - Prompting for Unity Editor restart to avoid rendering glitches
-
-
-## How to Use
-1. In the Unity Editor, go to AWSIM > Switch SRP from the top menu.
-<img src="image_10.png" alt="Graphics Settings" width="600">
-
-1. A window will appear, showing the currently active render pipeline.
-<img src="image_11.png" alt="Graphics Settings" width="300">
-
-1. Based on the current state, the button will display one of the following:
-    - If the current pipeline is HDRP, the button will say HDRP → URP
-        - Click to switch to URP.
-    - If the current pipeline is URP, the button will say URP → HDRP
-        - Click to switch to HDRP.  
-
-1. After clicking the button, a confirmation dialog will appear asking whether to restart the Unity Editor immediately.  
-![Graphics Settings](image_12.png)
-
-1. Click Yes, and Unity will automatically restart to ensure the changes take effect and to prevent rendering issues.  
+    
