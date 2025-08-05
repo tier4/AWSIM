@@ -75,7 +75,7 @@ namespace Awsim.Usecase.AwsimRvizPlugins
         ISubscription<std_msgs.msg.Float32> _velocitySubscriber;
         IPublisher<std_msgs.msg.String> _nameListPublisher;
 
-        List<PoseVehicle> _npcVehicleList = new List<PoseVehicle>();
+        List<(PoseVehicle vehicle, bool hasGrounded)> _npcVehicleAndPoseFlagList = new List<(PoseVehicle vehicle, bool hasGrounded)>();
         List<Pedestrian> _npcPedestrianList = new List<Pedestrian>();
 
         Transform _parent;
@@ -163,7 +163,7 @@ namespace Awsim.Usecase.AwsimRvizPlugins
         {
             if (_npcVehicleDespawnedFlag == true)
             {
-                _npcVehicleList.RemoveAll(n => n == null);
+                _npcVehicleAndPoseFlagList.RemoveAll(n => n.vehicle == null);
                 _npcVehicleDespawnedFlag = false;
             }
 
@@ -173,11 +173,17 @@ namespace Awsim.Usecase.AwsimRvizPlugins
                 _npcPedestrianDespawnedFlag = false;
             }
 
-            foreach (PoseVehicle npc in _npcVehicleList)
+            for (int i = 0; i < _npcVehicleAndPoseFlagList.Count; i++)
             {
-                if (npc.IsGrounded)
-                    npc.PoseInput = new Pose(npc.transform.position + npc.transform.rotation * new Vector3(0, 0, _velocity), npc.transform.rotation);
-                npc.OnFixedUpdate();
+                (PoseVehicle vehicle, bool hasGrounded) npc = _npcVehicleAndPoseFlagList[i];
+                if (npc.hasGrounded)
+                    npc.vehicle.PoseInput = new Pose(npc.vehicle.transform.position + npc.vehicle.transform.rotation * new Vector3(0, 0, _velocity), npc.vehicle.transform.rotation);
+                else
+                {
+                    if (npc.vehicle.IsGrounded)
+                        _npcVehicleAndPoseFlagList[i] = (npc.vehicle, true);
+                }
+                npc.vehicle.OnFixedUpdate();
             }
 
             foreach (Pedestrian npc in _npcPedestrianList)
@@ -217,7 +223,7 @@ namespace Awsim.Usecase.AwsimRvizPlugins
                             UnityObject.DestroySafe<GameObject>(ref obj);
                             _npcVehicleDespawnedFlag = true;
                         };
-                    _npcVehicleList.Add(npc);
+                    _npcVehicleAndPoseFlagList.Add((npc, false));
                 }
                 else
                 {
@@ -283,7 +289,7 @@ namespace Awsim.Usecase.AwsimRvizPlugins
                 float leftRightYOffset = hitRight.point.y - hitLeft.point.y;
                 float roll = Mathf.Rad2Deg * Mathf.Atan(leftRightYOffset / leftRightDist);
 
-                destPosition = (hitForward.point + hitBack.point) / 2 + new Vector3(0.0f, 0.1f, 0.0f);
+                destPosition = (hitForward.point + hitBack.point) / 2 + new Vector3(0.0f, 1.0f, 0.0f);
                 // NOTE: Unity uses a left-handed coordinate.
                 destRotation = Quaternion.Euler(-pitch, inputRotation.eulerAngles.y, roll);
                 return true;
