@@ -18,10 +18,10 @@ namespace Awsim.Entity
 		
         public void Initialize()
 		{
-		    this.CreateCube();
-		    this._lifeTime = _parentComp.GetLifetime();
+		    CreateCube();
+		    _lifeTime = _parentComp.GetLifetime();
 
-		    Material mat = this._parentComp.GetComponent<MeshRenderer>().material;
+		    Material mat = _parentComp.GetComponent<MeshRenderer>().material;
 		    MeshRenderer rend = GetComponent<MeshRenderer>();
 		    if (rend != null)
 		        rend.material = mat;
@@ -29,18 +29,18 @@ namespace Awsim.Entity
 
 		public void OnUpdate()
 		{
-		    this._velocity += this._acceleration * Time.deltaTime;
-			Vector3 displacement = this._velocity * Time.deltaTime;
-		    this.transform.position += displacement;
+		    _velocity += _acceleration * Time.deltaTime;
+			Vector3 displacement = _velocity * Time.deltaTime;
+		    transform.position += displacement;
 
-		    this._lifeTime -= Time.deltaTime;
+		    _lifeTime -= Time.deltaTime;
 		    if (_lifeTime <= 0.0)
 		        Destroy(gameObject);
 		}
 
 		private void CreateCube()
 		{
-			float size = this._parentComp.GetParticleSize();
+			float size = _parentComp.ParticleSize;
 
 			Vector3[] vertices = {
 				new Vector3 (0, 0, 0),
@@ -80,18 +80,18 @@ namespace Awsim.Entity
 		/// Gets and sets the SmokeGenerator component of the parent GameObject.
 		/// </summary>
 		/// <param name="gameObject">Parent GameObject of the Smoke Particle.</param>
-		public void SetParentComp(GameObject gameObject)
+		private void SetParentComp(GameObject gameObject)
 		{
-			this._parentComp = gameObject.GetComponentInParent<SmokeGenerator>();
+			_parentComp = gameObject.GetComponentInParent<SmokeGenerator>();
 		}
 
 		/// <summary>
 		/// Sets the initial velocity and acceleration of Smoke Particle.
 		/// </summary>
 		/// <param name="angleRad">Angular location of Smoke Particle in radians.</param>
-		public void SetVelAcc(float angleRad)
+		private void SetVelAcc(float angleRad)
 		{
-			float[] velAcc = this._parentComp.GetVelAcc();
+			float[] velAcc = _parentComp.GetVelAcc();
 			float velPlane = velAcc[0];
 			float velY = velAcc[1];
 			float accPlane = velAcc[2];
@@ -99,21 +99,20 @@ namespace Awsim.Entity
 
 			float velX = velPlane * (float)System.Math.Cos(angleRad);
 			float velZ = velPlane * (float)System.Math.Sin(angleRad);
-			this._velocity = new Vector3(velX, velY, velZ);
+			_velocity = new Vector3(velX, velY, velZ);
 
 			float accX = accPlane * (float)System.Math.Cos(angleRad);
 			float accZ = accPlane * (float)System.Math.Sin(angleRad);
-			this._acceleration = new Vector3(accX, accY, accZ);
+			_acceleration = new Vector3(accX, accY, accZ);
 		}
 
 		/// <summary>
 		/// Creates a new Smoke Particle GameObject of specified properties.
 		/// </summary>
 		/// <param name="gameObject">Parent GameObject of the Smoke Particle.</param>
-		/// <param name="particle_size">Edge length of the Smoke Particle in [m].</param>
 		/// <param name="radius">Radius of a circle which defines the region where the Smoke Particle is generated in.</param>
 		/// <param name="angleRad">Angular location of the Smoke Particle to be generated at.</param>
-		public static void Create(GameObject gameObject, float particle_size, float radius, float angleRad)
+		public static void Create(GameObject gameObject, float radius, float angleRad)
 		{
 			GameObject particle = new GameObject("Particle");
 			particle.transform.parent = gameObject.transform;
