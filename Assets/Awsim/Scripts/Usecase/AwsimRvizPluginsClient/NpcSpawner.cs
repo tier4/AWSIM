@@ -75,7 +75,8 @@ namespace Awsim.Usecase.AwsimRvizPlugins
         ISubscription<std_msgs.msg.Float32> _velocitySubscriber;
         IPublisher<std_msgs.msg.String> _nameListPublisher;
 
-        List<(PoseVehicle vehicle, bool hasGrounded)> _npcVehicleAndPoseFlagList = new List<(PoseVehicle vehicle, bool hasGrounded)>();
+        List<PoseVehicle> _npcVehicleList = new List<PoseVehicle>();
+        List<PoseVehicle> _readyVehicleList = new List<PoseVehicle>();
         List<Pedestrian> _npcPedestrianList = new List<Pedestrian>();
 
         Transform _parent;
@@ -163,7 +164,8 @@ namespace Awsim.Usecase.AwsimRvizPlugins
         {
             if (_npcVehicleDespawnedFlag == true)
             {
-                _npcVehicleAndPoseFlagList.RemoveAll(n => n.vehicle == null);
+                _npcVehicleList.RemoveAll(n => n == null);
+                _readyVehicleList.RemoveAll(n => n == null);
                 _npcVehicleDespawnedFlag = false;
             }
 
@@ -173,17 +175,25 @@ namespace Awsim.Usecase.AwsimRvizPlugins
                 _npcPedestrianDespawnedFlag = false;
             }
 
-            for (int i = 0; i < _npcVehicleAndPoseFlagList.Count; i++)
+            bool anyVehicleGrounded = false;
+            foreach (PoseVehicle npc in _readyVehicleList)
             {
-                (PoseVehicle vehicle, bool hasGrounded) npc = _npcVehicleAndPoseFlagList[i];
-                if (npc.hasGrounded)
-                    npc.vehicle.PoseInput = new Pose(npc.vehicle.transform.position + npc.vehicle.transform.rotation * new Vector3(0, 0, _velocity), npc.vehicle.transform.rotation);
-                else
+                if (npc.IsGrounded)
                 {
-                    if (npc.vehicle.IsGrounded)
-                        _npcVehicleAndPoseFlagList[i] = (npc.vehicle, true);
+                    _npcVehicleList.Add(npc);
+                    anyVehicleGrounded = true;
                 }
-                npc.vehicle.OnFixedUpdate();
+                npc.OnFixedUpdate();
+            }
+            if (anyVehicleGrounded)
+                _readyVehicleList.RemoveAll(n => n.IsGrounded);
+
+            foreach (PoseVehicle npc in _npcVehicleList)
+            {
+                if (!npc.IsGrounded)
+                    Debug.Log("Not Be Grounded!");
+                npc.PoseInput = new Pose(npc.transform.position + npc.transform.rotation * new Vector3(0, 0, _velocity), npc.transform.rotation);
+                npc.OnFixedUpdate();
             }
 
             foreach (Pedestrian npc in _npcPedestrianList)
@@ -223,7 +233,7 @@ namespace Awsim.Usecase.AwsimRvizPlugins
                             UnityObject.DestroySafe<GameObject>(ref obj);
                             _npcVehicleDespawnedFlag = true;
                         };
-                    _npcVehicleAndPoseFlagList.Add((npc, false));
+                    _readyVehicleList.Add(npc);
                 }
                 else
                 {
