@@ -190,8 +190,6 @@ namespace Awsim.Usecase.AwsimRvizPlugins
 
             foreach (PoseVehicle npc in _npcVehicleList)
             {
-                if (!npc.IsGrounded)
-                    Debug.Log("Not Be Grounded!");
                 npc.PoseInput = new Pose(npc.transform.position + npc.transform.rotation * new Vector3(0, 0, _velocity), npc.transform.rotation);
                 npc.OnFixedUpdate();
             }
