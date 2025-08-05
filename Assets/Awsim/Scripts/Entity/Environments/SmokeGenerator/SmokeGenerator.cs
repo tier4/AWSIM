@@ -19,63 +19,104 @@ namespace Awsim.Entity
         [Serializable]
         public struct SmokeParticlePhysics
         {
+            /// <summary>
+            /// Specifies the initial velocity of a smoke particle in the x-z plane in [m/s].
+            /// </summary>
+            public float InitialPlaneVelocity => _initialPlaneVelocity;
+
+            /// <summary>
+            /// Specifies the vertical velocity of a smoke particle in [m/s].
+            /// </summary>
+            public float InitialVerticalVelocity => _initialVerticalVelocity;
+
+            /// <summary>
+            /// Specifies the acceleration of a smoke particle in the x-z plane in [m/s^2].
+            /// </summary>
+            public float PlaneAcceleration => _planeAcceleration;
+
+            /// <summary>
+            /// Specifies the vertical acceleration of a smoke particle in [m/s^2].
+            /// </summary>
+            public float VerticalAcceleration => _verticalAcceleration;
+
             [Tooltip("Specifies the initial velocity of a smoke particle in the x-z plane in [m/s].")]
             [SerializeField]
             [Range(0.0f, 0.5f)]
-            private float _initialPlaneVelocity;
-            public float InitialPlaneVelocity => _initialPlaneVelocity;
-
+            float _initialPlaneVelocity;
+            
+            
             [Tooltip("Specifies the vertical velocity of a smoke particle in [m/s].")]
             [SerializeField]
             [Range(-0.5f, 3.0f)]
-            private float _initialVerticalVelocity;
-            public float InitialVerticalVelocity => _initialVerticalVelocity;
+            float _initialVerticalVelocity;
+            
 
             [Tooltip("Specifies the acceleration of a smoke particle in the x-z plane in [m/s^2].")]
             [SerializeField]
             [Range(-0.1f, 0.1f)]
-            private float _planeAcceleration;
-            public float PlaneAcceleration => _planeAcceleration;
+            float _planeAcceleration;
             
+
             [Tooltip("Specifies the vertical acceleration of a smoke particle in [m/s^2].")]
             [SerializeField]
             [Range(-0.1f, 0.1f)]
-            private float _verticalAcceleration;
-            public float VerticalAcceleration => _verticalAcceleration;
+            float _verticalAcceleration;
+            
         }
+
+        /// <summary>
+        /// Specifies the maximum number of smoke particles in a scene.
+        /// </summary>
+        public int MaxParticle => _maxParticle;
+        /// <summary>
+        /// Specifies the radius of a circular region where particles are randomly generated in [m].
+        /// </summary>
+        public float ParticleRangeRadius => _particleRangeRadius;
+        /// <summary>
+        /// Specifies the size of a smoke particle in [m].
+        /// </summary>
+        public float ParticleSize => _particleSize;
+        /// <summary>
+        /// Specifies the average lifetime of a particle in [s].
+        /// </summary>
+        public float AverageLifetime => _averageLifetime;
+        /// <summary>
+        /// Specifies the variation range of lifetime of a particle in [s].
+        /// </summary>
+        public float VariationLifetime => _variationLifetime;
+
 
         [Tooltip("Specifies the maximum number of smoke particles in a scene.")]
         [SerializeField]
         [Range(1, 1000)]
-        private int _maxParticle = 250;
-        public int MaxParticle => _maxParticle;
+        int _maxParticle = 250;
 
         [Tooltip("Specifies the radius of a circular region where particles are randomly generated in [m].")]
         [SerializeField]
         [Range(0.01f, 3.0f)]
-        private float _particleRangeRadius = 2.0f;
-        public float ParticleRangeRadius => _particleRangeRadius;
+        float _particleRangeRadius = 2.0f;
+        
 
         [Tooltip("Specifies the size of a smoke particle in [m].")]
         [SerializeField]
         [Range(0.005f, 0.1f)]
-        private float _particleSize = 0.07f;
-        public float ParticleSize => _particleSize;
+        float _particleSize = 0.07f;
+        
 
         [Tooltip("Specifies the average lifetime of a particle in [s].")]
         [SerializeField]
         [Range(5.0f, 15.0f)]
-        private float _averageLifetime = 7.5f;
-        public float AverageLifetime => _averageLifetime;
+        float _averageLifetime = 7.5f;
+        
 
         [Tooltip("Specifies the variation range of lifetime of a particle in [s].")]
         [SerializeField]
         [Range(0.0f, 5.0f)]
-        private float _variationLifetime = 2.5f;
-        public float VariationLifetime => _variationLifetime;
+        float _variationLifetime = 2.5f;
+        
 
         [SerializeField]
-        private SmokeParticlePhysics _physics;
+        SmokeParticlePhysics _physics;
 
         public void Initialize()
         {
@@ -103,19 +144,12 @@ namespace Awsim.Entity
             }
         }
         
-        private void CreateSmokeParticle()
-        {
-            float angleRad = UnityEngine.Random.Range(0.0f, (float)System.Math.PI * 2.0f);
-            float radius = UnityEngine.Random.Range(0.0f, ParticleRangeRadius);
-            SmokeParticle.Create(gameObject, radius, angleRad);
-        }
-
         /// <summary>
         /// Returns initial velocity and acceleration of particle.
         /// </summary>
         public float[] GetVelAcc()
         {
-            return new float[4] {_physics.InitialPlaneVelocity, _physics.InitialVerticalVelocity, _physics.PlaneAcceleration, _physics.VerticalAcceleration};
+            return new float[4] { _physics.InitialPlaneVelocity, _physics.InitialVerticalVelocity, _physics.PlaneAcceleration, _physics.VerticalAcceleration };
         }
 
         /// <summary>
@@ -124,6 +158,13 @@ namespace Awsim.Entity
         public double GetLifetime()
         {
             return (double)(AverageLifetime + UnityEngine.Random.Range(-VariationLifetime, VariationLifetime));
+        }
+
+        void CreateSmokeParticle()
+        {
+            float angleRad = UnityEngine.Random.Range(0.0f, (float)System.Math.PI * 2.0f);
+            float radius = UnityEngine.Random.Range(0.0f, ParticleRangeRadius);
+            SmokeParticle.Create(gameObject, radius, angleRad);
         }
     }
 }
