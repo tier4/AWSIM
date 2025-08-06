@@ -7,4 +7,5 @@ Everyone is welcome to contribute to AWSIM. We want to develop efficiently, so p
     - Check that there are no unnecessary comments or `Debug.Log()` statements remaining.
     - Run UnityEditor to check if the implemented functions work properly.
     - Check that the implemented functions do not affect existing scenes, etc. In particular, check that the `AutowareSimulationDemo.unity` scene is working properly.
+    - Merge the latest version of the `main` branch into the work branch.
 1. Create a pull request and submit it to `@mackierx111` for review.
