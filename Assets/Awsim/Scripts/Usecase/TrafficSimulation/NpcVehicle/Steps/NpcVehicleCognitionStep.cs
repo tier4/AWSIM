@@ -417,7 +417,6 @@ namespace Awsim.Usecase.TrafficSimulation
                             break;
                         default:
                             throw new Exception($"Unattended NPCVehicleYieldPhase case: {refState.YieldPhase}");
-                            break;
                     }
                 }
             }
