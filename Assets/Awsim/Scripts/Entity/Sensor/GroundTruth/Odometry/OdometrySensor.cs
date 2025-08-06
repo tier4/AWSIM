@@ -14,7 +14,6 @@
 
 using System;
 using Awsim.Common;
-using Awsim.Common;
 using UnityEngine;
 
 namespace Awsim.Entity
