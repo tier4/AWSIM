@@ -6,7 +6,7 @@ The following are the recommended operational practices when AWSIM is forked or 
 ## Recommended rules
 - Avoid making changes to existing AWSIM assets in order to merge updates from the original AWSIM into your custom AWSIM.
 - If you want to make changes to the original AWSIM, please refer to the [How to contribute](../HowToContribute//index.md) documentation.
-- Decide whether to use the HDRP or URP rendering pipeline.
+- Decide whether to use the HDRP or URP rendering pipeline. see also [Switch SRP](../SwitchSrp/index.md) documentation.
 - Create a directory for the newly added assets and include the additional assets there. For example, this directory structure.
     ```{.yml .no-copy}
     Awsim       //  root directory.
