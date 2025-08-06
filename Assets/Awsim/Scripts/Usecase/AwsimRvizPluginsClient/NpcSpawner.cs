@@ -149,6 +149,18 @@ namespace Awsim.Usecase.AwsimRvizPlugins
 
         public void OnUpdate()
         {
+            foreach (PoseVehicle npc in _readyVehicleList)
+            {
+                if (npc != null)
+                    npc.OnUpdate();
+            }
+
+            foreach (PoseVehicle npc in _npcVehicleList)
+            {
+                if (npc != null)
+                    npc.OnUpdate();
+            }
+
             foreach (Pedestrian npc in _npcPedestrianList)
             {
                 if (npc != null)
