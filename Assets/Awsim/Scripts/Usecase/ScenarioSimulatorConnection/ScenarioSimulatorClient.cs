@@ -237,7 +237,7 @@ namespace Awsim.Usecase.ScenarioSimulatorConnection
         {
             modifiedTrafficLights = new List<long>();
             trafficLights = new Dictionary<long, Entity.TrafficLight>();
-            var trafficLightObjects = FindObjectsOfType<TrafficLightLaneletID>();
+            var trafficLightObjects = FindObjectsByType<TrafficLightLaneletID>(FindObjectsSortMode.InstanceID);
             for (int i = 0; i < trafficLightObjects.Length; i++)
             {
                 TrafficLightLaneletID laneletId = trafficLightObjects[i];
