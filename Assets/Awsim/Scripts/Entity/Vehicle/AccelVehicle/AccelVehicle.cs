@@ -299,16 +299,12 @@ namespace Awsim.Entity
         [SerializeField] float _sidewaySlipMultiplier = 1f;
 
 
-        float _defaultForwardSlipMultiplier = 0f;
-        float _defaultSidewaySlipMultiplier = 0f;
-
         // Cache components.
         Transform _transform = null;
         Wheel[] _wheels = null;
 
         // Cache previous frame values.
         Vector3 _lastVelocity = Vector3.zero;
-        Vector3 _lastPosition = Vector3.zero;
         Quaternion _lastRotation = new Quaternion();
         Vector3 _lastAngularVelocity = Vector3.zero;
         bool _lastSleep = false;

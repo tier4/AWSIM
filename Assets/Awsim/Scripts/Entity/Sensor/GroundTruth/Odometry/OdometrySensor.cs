@@ -42,7 +42,6 @@ namespace Awsim.Entity
         OutputData _outputData = null;
         Transform _transform = null;
         Vector3 _lastPosition;
-        Vector3 _lastLocalVelocity;
         QuaternionD _lastRotation;
 
         public void Initialize()
