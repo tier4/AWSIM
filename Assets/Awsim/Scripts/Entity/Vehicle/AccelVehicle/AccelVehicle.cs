@@ -307,7 +307,6 @@ namespace Awsim.Entity
         Vector3 _lastVelocity = Vector3.zero;
         Quaternion _lastRotation = new Quaternion();
         Vector3 _lastAngularVelocity = Vector3.zero;
-        bool _lastSleep = false;
 
         /// <summary>
         /// Initialize vehicle.
@@ -435,16 +434,12 @@ namespace Awsim.Entity
                 _rigidbody.angularVelocity = Vector3.zero;
                 _rigidbody.Sleep();
                 _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-
-                _lastSleep = true;
             }
 
             void WakeUp()
             {
                 _rigidbody.constraints = RigidbodyConstraints.None;
                 _rigidbody.WakeUp();
-
-                _lastSleep = false;
             }
 
             void ApplyWheelForce(float acceleration)

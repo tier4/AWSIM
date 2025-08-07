@@ -63,7 +63,6 @@ namespace Awsim.Usecase.ScenarioSimulatorConnection
 
         float realtimeFactor = 0f;
         float stepTime = 0f;
-        bool _isInitialized = false;
 
         public void Initialize()
         {
@@ -391,7 +390,6 @@ namespace Awsim.Usecase.ScenarioSimulatorConnection
                 }
             };
 
-            _isInitialized = true;
             return initializeResponse;
         }
 
