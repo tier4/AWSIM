@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-﻿using System.Linq;
+using System.Linq;
 using System.Xml;
 
 namespace Awsim.Common
