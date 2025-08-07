@@ -67,7 +67,7 @@ namespace Awsim.Usecase.TrafficSimulation
         public TrafficLightPassability TrafficLightPassability { get; set; }
 
         // Output from Cognition (Right of Way)
-        public TrafficLane? YieldLane { get; set; }
+        public TrafficLane YieldLane { get; set; }
         public NpcVehicleYieldPhase YieldPhase { get; set; }
         public Vector3 YieldPoint { get; set; }
 
