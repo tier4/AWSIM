@@ -38,7 +38,6 @@ namespace Awsim.Entity
 
         public Action<OutputData> OnOutput { get; set; } = null;
 
-        [SerializeField] int _outputHz = 1;
         OutputData _outputData = null;
         Transform _transform = null;
         Vector3 _lastPosition;
