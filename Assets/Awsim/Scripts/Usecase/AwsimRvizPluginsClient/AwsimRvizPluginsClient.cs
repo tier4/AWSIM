@@ -15,7 +15,6 @@
 using ROS2;
 using UnityEngine;
 using Awsim.Common;
-using System.Collections.Generic;
 
 namespace Awsim.Usecase.AwsimRvizPlugins
 {

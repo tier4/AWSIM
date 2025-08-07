@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System.Threading;
-
 namespace Awsim.Usecase.TrafficSimulation
 {
     public static class SpawnIdGenerator

@@ -16,7 +16,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Awsim.Common;
-using NUnit.Framework;
 
 namespace Awsim.UI
 {

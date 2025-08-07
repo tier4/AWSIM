@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using UnityEngine;
 
 namespace Awsim.Entity
 {

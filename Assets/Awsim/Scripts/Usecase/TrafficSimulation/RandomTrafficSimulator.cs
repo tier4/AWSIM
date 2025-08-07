@@ -14,7 +14,6 @@
 
 using UnityEngine;
 using System;
-using Awsim.Common;
 
 namespace Awsim.Usecase.TrafficSimulation
 {

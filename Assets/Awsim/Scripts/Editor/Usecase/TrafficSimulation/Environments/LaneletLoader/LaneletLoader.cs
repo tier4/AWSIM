@@ -274,7 +274,7 @@ namespace Awsim.Usecase.TrafficSimulation
 
         void SetTrafficLightsOfStopLines()
         {
-            var trafficLights = GameObject.FindObjectsOfType<TrafficLight>();
+            var trafficLights = GameObject.FindObjectsByType<TrafficLight>(FindObjectsSortMode.InstanceID);
 
             var regElems =
                 laneletMap.RegulatoryElements.Values
@@ -306,7 +306,7 @@ namespace Awsim.Usecase.TrafficSimulation
 
         void AssignLaneletElementIdToTrafficSignalGameObjects()
         {
-            TrafficLight[] trafficLights = GameObject.FindObjectsOfType<TrafficLight>();
+            TrafficLight[] trafficLights = GameObject.FindObjectsByType<TrafficLight>(FindObjectsSortMode.InstanceID);
             Dictionary<string, List<long>> verifiedTrafficLights = new Dictionary<string, List<long>>();
             var regElems = laneletMap.RegulatoryElements.Values
                     .Where(regElem => regElem.Type == LaneletRegulatoryElementType.TrafficLight);

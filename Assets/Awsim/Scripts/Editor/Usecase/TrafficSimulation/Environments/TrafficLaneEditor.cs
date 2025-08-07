@@ -32,7 +32,7 @@ namespace Awsim.Usecase.TrafficSimulation
         /// <param name="lane">Target <see cref="TrafficLane"/> component</param>
         public static void FindAndSetRightOfWays(TrafficLane lane)
         {
-            var lanes = GameObject.FindObjectsOfType<TrafficLane>();
+            var lanes = GameObject.FindObjectsByType<TrafficLane>(FindObjectsSortMode.InstanceID);
             FindAndSetRightOfWays(lane, lanes);
         }
 

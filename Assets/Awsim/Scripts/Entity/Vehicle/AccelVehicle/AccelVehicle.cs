@@ -15,7 +15,6 @@
 using System;
 using UnityEngine;
 using Awsim.Common;
-using System.Security.Cryptography;
 
 namespace Awsim.Entity
 {
@@ -299,19 +298,14 @@ namespace Awsim.Entity
         [SerializeField] float _sidewaySlipMultiplier = 1f;
 
 
-        float _defaultForwardSlipMultiplier = 0f;
-        float _defaultSidewaySlipMultiplier = 0f;
-
         // Cache components.
         Transform _transform = null;
         Wheel[] _wheels = null;
 
         // Cache previous frame values.
         Vector3 _lastVelocity = Vector3.zero;
-        Vector3 _lastPosition = Vector3.zero;
         Quaternion _lastRotation = new Quaternion();
         Vector3 _lastAngularVelocity = Vector3.zero;
-        bool _lastSleep = false;
 
         /// <summary>
         /// Initialize vehicle.
@@ -439,16 +433,12 @@ namespace Awsim.Entity
                 _rigidbody.angularVelocity = Vector3.zero;
                 _rigidbody.Sleep();
                 _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-
-                _lastSleep = true;
             }
 
             void WakeUp()
             {
                 _rigidbody.constraints = RigidbodyConstraints.None;
                 _rigidbody.WakeUp();
-
-                _lastSleep = false;
             }
 
             void ApplyWheelForce(float acceleration)

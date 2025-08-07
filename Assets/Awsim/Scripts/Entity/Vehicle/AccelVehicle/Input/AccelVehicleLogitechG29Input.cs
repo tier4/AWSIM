@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System.IO.IsolatedStorage;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Awsim.Common;
@@ -66,8 +65,6 @@ namespace Awsim.Entity
         [SerializeField] float _ki = 0.2f;
         [SerializeField] float _kd = 0.05f;
         [SerializeField] float _minNormalizedSteeringTorque = 0.17f;
-        [SerializeField] float _minThrottlePedalInput = 0.06f;
-        [SerializeField] float _minBrakePedalInput = 0.06f;
 
         [Header("Vehicle settings")]
         [SerializeField] Component _readonlyVehicleComponent = null;

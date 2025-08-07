@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using System.IO.IsolatedStorage;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

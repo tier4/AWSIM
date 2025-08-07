@@ -210,8 +210,8 @@ namespace Awsim.Usecase.TrafficSimulation
                     boxCastExtents,
                     rotation,
                     direction,
-                    distance,
-                    ObstacleLayerMask
+                    new QueryParameters(ObstacleLayerMask),
+                    distance
                 );
             }
         }
@@ -417,7 +417,6 @@ namespace Awsim.Usecase.TrafficSimulation
                             break;
                         default:
                             throw new Exception($"Unattended NPCVehicleYieldPhase case: {refState.YieldPhase}");
-                            break;
                     }
                 }
             }

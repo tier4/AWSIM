@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System.Runtime.InteropServices;
-using UnityEngine;
 
 namespace Awsim.Common
 {

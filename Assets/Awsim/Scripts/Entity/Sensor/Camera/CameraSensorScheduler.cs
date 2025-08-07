@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 
 namespace Awsim.Entity

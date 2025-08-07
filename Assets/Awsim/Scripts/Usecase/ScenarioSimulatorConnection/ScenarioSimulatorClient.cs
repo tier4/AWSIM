@@ -63,7 +63,6 @@ namespace Awsim.Usecase.ScenarioSimulatorConnection
 
         float realtimeFactor = 0f;
         float stepTime = 0f;
-        bool _isInitialized = false;
 
         public void Initialize()
         {
@@ -237,7 +236,7 @@ namespace Awsim.Usecase.ScenarioSimulatorConnection
         {
             modifiedTrafficLights = new List<long>();
             trafficLights = new Dictionary<long, Entity.TrafficLight>();
-            var trafficLightObjects = FindObjectsOfType<TrafficLightLaneletID>();
+            var trafficLightObjects = FindObjectsByType<TrafficLightLaneletID>(FindObjectsSortMode.InstanceID);
             for (int i = 0; i < trafficLightObjects.Length; i++)
             {
                 TrafficLightLaneletID laneletId = trafficLightObjects[i];
@@ -391,7 +390,6 @@ namespace Awsim.Usecase.ScenarioSimulatorConnection
                 }
             };
 
-            _isInitialized = true;
             return initializeResponse;
         }
 
