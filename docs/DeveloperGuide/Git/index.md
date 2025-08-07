@@ -8,6 +8,7 @@ AWSIM is managed by [git](https://git-scm.com/) and [GitHub](https://github.com/
 - Disallow `git rebase`
 - Disallow `git push --force`
 - Fast forward recommended
+- Include `.meta` files
 
 ## Branch
 
