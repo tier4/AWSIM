@@ -210,8 +210,8 @@ namespace Awsim.Usecase.TrafficSimulation
                     boxCastExtents,
                     rotation,
                     direction,
-                    distance,
-                    ObstacleLayerMask
+                    new QueryParameters(ObstacleLayerMask),
+                    distance
                 );
             }
         }
