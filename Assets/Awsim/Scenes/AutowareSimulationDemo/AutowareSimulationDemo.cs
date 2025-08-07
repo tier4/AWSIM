@@ -63,7 +63,9 @@ namespace Awsim.Scene.AutowareSimulationDemo
         [Header("Common")]
         [SerializeField] ClockRos2Publisher _clockPublisher;
         [SerializeField] FollowCamera _followCamera;
+        #pragma warning disable CS0414 // Remove unused private members warning disabled. Warns when built for not UNITY_EDITOR
         [SerializeField] string _commandLineConfigParam = "--json_path";
+        #pragma warning restore CS0414
 
         [Header("Editor debug")]
         [SerializeField] bool _useJsonConfig;
