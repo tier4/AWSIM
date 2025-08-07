@@ -36,14 +36,26 @@ namespace Awsim.Entity
         [Serializable]
         public class Wheel
         {
+            /// <summary>
+            /// Wheel contact with ground? Updated by UpdateGroundHit().
+            /// </summary>
+            public bool IsGrounded { get; private set; } = false;
+
             public WheelCollider WheelCollider => _wheelCollider;
             public Transform VisualTransform => _visualTransform;
 
             [SerializeField] WheelCollider _wheelCollider;
             [SerializeField] Transform _visualTransform;
 
+            WheelHit _wheelHit;
+
             float _wheelPitchAngle = 0;
             float _lastSteerAngle = 0;
+
+            public void UpdateWheelHit()
+            {
+                IsGrounded = _wheelCollider.GetGroundHit(out _wheelHit);
+            }
 
             public void UpdateVisual(float speed, float steerAngle)
             {
@@ -86,6 +98,8 @@ namespace Awsim.Entity
         [Serializable]
         public class AxleSettings
         {
+            public bool IsGrounded { get; private set; } = false;
+
             [SerializeField] Axle _frontAxle;
             [SerializeField] Axle _rearAxle;
 
@@ -95,6 +109,16 @@ namespace Awsim.Entity
                 var rearPos = _rearAxle.LeftWheel.WheelCollider.transform.localPosition;
 
                 return Mathf.Abs(frontPos.z - rearPos.z);
+            }
+
+            public void UpdateIsGrounded()
+            {
+                _frontAxle.LeftWheel.UpdateWheelHit();
+                _frontAxle.RightWheel.UpdateWheelHit();
+                _rearAxle.LeftWheel.UpdateWheelHit();
+                _rearAxle.RightWheel.UpdateWheelHit();
+
+                IsGrounded = _frontAxle.LeftWheel.IsGrounded && _frontAxle.RightWheel.IsGrounded && _rearAxle.LeftWheel.IsGrounded && _rearAxle.RightWheel.IsGrounded;
             }
 
             public void UpdateVisual(float speed, float steerAngle)
@@ -223,6 +247,7 @@ namespace Awsim.Entity
         public Transform RigidBodyTransform => _rigidbody.transform;
         public Transform TrailerTransform => trailer?.transform;
         public Pose PoseInput { get; set; }
+        public bool IsGrounded { get => axleSettings.IsGrounded; }
 
         public event Action<Collision> OnCollisionEnterAction;
 
@@ -364,6 +389,8 @@ namespace Awsim.Entity
             _yawAngularSpeed = (_rigidbody.rotation.eulerAngles.y - _lastEulerAnguleY) / Time.deltaTime;
 
             // TODO: set WheelCollider steer angle?
+
+            axleSettings.UpdateIsGrounded();
 
             // Cache current frame values.
             _lastPosition = _rigidbody.position;
