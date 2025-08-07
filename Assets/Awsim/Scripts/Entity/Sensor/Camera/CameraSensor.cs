@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using NUnit.Framework.Internal.Execution;
 using System;
 using UnityEngine;
 using UnityEngine.Rendering;

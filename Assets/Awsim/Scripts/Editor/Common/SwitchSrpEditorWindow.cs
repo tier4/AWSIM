@@ -2,8 +2,6 @@ using UnityEditor;
 using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.Rendering;
-using System.Diagnostics;
-using System.IO;
 
 /// <summary>
 /// Unity Editor window for switching between URP and HDRP render pipelines.

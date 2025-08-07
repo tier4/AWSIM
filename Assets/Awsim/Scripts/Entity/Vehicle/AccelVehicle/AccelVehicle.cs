@@ -15,7 +15,6 @@
 using System;
 using UnityEngine;
 using Awsim.Common;
-using System.Security.Cryptography;
 
 namespace Awsim.Entity
 {

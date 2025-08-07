@@ -15,7 +15,6 @@
 using UnityEngine;
 using System;
 using Awsim.Common;
-using System.Collections;
 
 namespace Awsim.Entity
 {

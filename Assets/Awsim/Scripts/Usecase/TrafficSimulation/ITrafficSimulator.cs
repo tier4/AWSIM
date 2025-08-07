@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using UnityEngine;
-using Awsim.Common;
 
 namespace Awsim.Usecase.TrafficSimulation
 {

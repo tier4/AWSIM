@@ -15,7 +15,6 @@
 using UnityEngine;
 using Awsim.Usecase.ScenarioSimulatorConnection;
 using Awsim.Common;
-using Awsim.UI;
 
 namespace Awsim.Scene.IntegrateScenarioSimulatorDemo
 {

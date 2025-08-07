@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System.Linq;
-using Awsim.Common;
 using UnityEngine;
 
 namespace Awsim.Common
