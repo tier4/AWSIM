@@ -236,11 +236,11 @@ namespace Awsim.Usecase.ScenarioSimulatorConnection
         {
             modifiedTrafficLights = new List<long>();
             trafficLights = new Dictionary<long, Entity.TrafficLight>();
-            var trafficLightObjects = FindObjectsByType<TrafficLightLaneletID>(FindObjectsSortMode.InstanceID);
+            var trafficLightObjects = FindObjectsByType<LaneletTrafficLight>(FindObjectsSortMode.InstanceID);
             for (int i = 0; i < trafficLightObjects.Length; i++)
             {
-                TrafficLightLaneletID laneletId = trafficLightObjects[i];
-                GameObject obj = laneletId.gameObject;
+                LaneletTrafficLight.TrafficLightLaneletID laneletId = trafficLightObjects[i].LaneletID;
+                GameObject obj = trafficLightObjects[i].gameObject;
                 Entity.TrafficLight tl = obj.GetComponent<Entity.TrafficLight>();
                 if (tl != null && laneletId != null)
                 {
