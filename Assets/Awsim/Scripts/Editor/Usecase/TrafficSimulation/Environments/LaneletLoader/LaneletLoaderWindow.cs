@@ -22,6 +22,7 @@ namespace Awsim.Usecase.TrafficSimulation
     {
         [SerializeField] OsmDataContainer _osm;
         [SerializeField] LaneletLoader.WaypointSettings _waypointSettings = LaneletLoader.WaypointSettings.Default();
+        [SerializeField] GameObject _rootObject;
         SerializedObject _serializedObject;
 
         [MenuItem("AWSIM/Usecase/TrafficSimulation/Load Lanelet")]
@@ -47,6 +48,8 @@ namespace Awsim.Usecase.TrafficSimulation
             var settingsProperty = _serializedObject.FindProperty("_waypointSettings");
             settingsProperty.isExpanded = true;
             EditorGUILayout.PropertyField(settingsProperty, true);
+            var rootObject = _serializedObject.FindProperty("_rootObject");
+            EditorGUILayout.PropertyField(rootObject, true);
 
             _serializedObject.ApplyModifiedProperties();
 
@@ -55,7 +58,7 @@ namespace Awsim.Usecase.TrafficSimulation
                 var referencePoint = MgrsPosition.Instance.Mgrs.Position;
                 var loader = new LaneletLoader();
                 loader.SetWaypointSettings(_waypointSettings);
-                loader.Load(_osm.Data, referencePoint, null);        // TODO:
+                loader.Load(_osm.Data, referencePoint, _rootObject);        // TODO:
             }
         }
     }
