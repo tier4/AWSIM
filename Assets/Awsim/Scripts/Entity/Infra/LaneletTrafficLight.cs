@@ -21,14 +21,14 @@ namespace Awsim.Entity
     public class LaneletTrafficLight : TrafficLight
     {
         [Serializable]
-        public class TrafficLightLaneletID
+        public class TrafficLightLaneletId
         {
-            public const int InitWayID = 0;
-            public long wayID = InitWayID;
-            public List<long> relationID = new List<long>();
+            public const int InitWayId = 0;
+            public long wayId = InitWayId;
+            public List<long> relationId = new List<long>();
         }
 
-        [Header("Lanelet ID Settings")]
-        public TrafficLightLaneletID LaneletID;
+        [Header("Lanelet Id Settings")]
+        public TrafficLightLaneletId LaneletId;
     }
 }

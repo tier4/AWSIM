@@ -355,16 +355,16 @@ namespace Awsim.Usecase.TrafficSimulation
         {
             EditorUtility.SetDirty(trafficLight);
             Undo.RecordObject(trafficLight, "Assigning lanelet id");
-            var trafficLightLaneletID = trafficLight.LaneletID;
-            if (trafficLightLaneletID.wayID != LaneletTrafficLight.TrafficLightLaneletID.InitWayID && trafficLightLaneletID.wayID != wayID)
+            var trafficLightLaneletID = trafficLight.LaneletId;
+            if (trafficLightLaneletID.wayId != LaneletTrafficLight.TrafficLightLaneletId.InitWayId && trafficLightLaneletID.wayId != wayID)
             {
-                trafficLightLaneletID.relationID.Clear();
+                trafficLightLaneletID.relationId.Clear();
             }
-            if (!trafficLightLaneletID.relationID.Contains(relationId))
+            if (!trafficLightLaneletID.relationId.Contains(relationId))
             {
-                trafficLightLaneletID.relationID.Add(relationId);
+                trafficLightLaneletID.relationId.Add(relationId);
             }
-            trafficLightLaneletID.wayID = wayID;
+            trafficLightLaneletID.wayId = wayID;
             PrefabUtility.RecordPrefabInstancePropertyModifications(trafficLight);
         }
     }

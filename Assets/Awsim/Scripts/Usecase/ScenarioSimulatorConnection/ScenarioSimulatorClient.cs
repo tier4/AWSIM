@@ -239,12 +239,12 @@ namespace Awsim.Usecase.ScenarioSimulatorConnection
             var trafficLightObjects = FindObjectsByType<LaneletTrafficLight>(FindObjectsSortMode.InstanceID);
             for (int i = 0; i < trafficLightObjects.Length; i++)
             {
-                LaneletTrafficLight.TrafficLightLaneletID laneletId = trafficLightObjects[i].LaneletID;
+                LaneletTrafficLight.TrafficLightLaneletId laneletId = trafficLightObjects[i].LaneletId;
                 GameObject obj = trafficLightObjects[i].gameObject;
                 Entity.TrafficLight tl = obj.GetComponent<Entity.TrafficLight>();
                 if (tl != null && laneletId != null)
                 {
-                    trafficLights.Add(laneletId.wayID, tl);
+                    trafficLights.Add(laneletId.wayId, tl);
                 }
             }
         }

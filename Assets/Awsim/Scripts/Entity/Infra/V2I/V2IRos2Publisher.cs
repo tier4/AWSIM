@@ -63,24 +63,24 @@ namespace Awsim.Entity
         void UpdateTrafficLightGroupMsg(V2I.OutputData data)
         {
             var trafficLightGroup = new List<autoware_perception_msgs.msg.TrafficLightGroup>();
-            var allRelationID = new List<long>();
+            var allRelationId = new List<long>();
             foreach (var trafficLight in data.trafficLights)
             {
-                var trafficLightLaneletID = trafficLight.LaneletID;
+                var trafficLightLaneletId = trafficLight.LaneletId;
 
                 var ids = new List<long>();
                 if (trafficSignalID == TrafficSignalID.RelationID)
                 {
-                    ids = trafficLightLaneletID.relationID;
+                    ids = trafficLightLaneletId.relationId;
                 }
                 else if (trafficSignalID == TrafficSignalID.WayID)
                 {
-                    ids.Add(trafficLightLaneletID.wayID);
+                    ids.Add(trafficLightLaneletId.wayId);
                 }
                 foreach (var relationID in ids)
                 {
                     var trafficLightGroupMsg = new autoware_perception_msgs.msg.TrafficLightGroup();
-                    if (allRelationID.Contains(relationID))
+                    if (allRelationId.Contains(relationID))
                     {
                         continue;
                     }
@@ -104,7 +104,7 @@ namespace Awsim.Entity
                     //Add TrafficLight signal to list
                     trafficLightGroupMsg.Elements = trafficLightElementList.ToArray();
                     trafficLightGroup.Add(trafficLightGroupMsg);
-                    allRelationID.Add(relationID);
+                    allRelationId.Add(relationID);
                 }
             }
             AwsimRos2Node.UpdateROSClockTime(trafficLightGroupMsg.Stamp);

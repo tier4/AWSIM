@@ -79,9 +79,9 @@ namespace Awsim.Entity
                     var distance2D = LaneletGeometryUtility.Distance2D(trafficLights[i].transform.position, position);
 
                     // TODO: Maybe it would be better if GetComponent is not done on FixedUpdate and the ID is also retrieved on initialization.
-                    var trafficLightLaneletID = trafficLights[i].LaneletID;
+                    var trafficLightLaneletId = trafficLights[i].LaneletId;
 
-                    if (distance2D <= radius && trafficLightLaneletID != null && trafficLightLaneletID.relationID != null && trafficLightLaneletID.relationID.Count != 0)
+                    if (distance2D <= radius && trafficLightLaneletId != null && trafficLightLaneletId.relationId != null && trafficLightLaneletId.relationId.Count != 0)
                     {
                         filteredLights.Add(trafficLights[i]);
                     }
