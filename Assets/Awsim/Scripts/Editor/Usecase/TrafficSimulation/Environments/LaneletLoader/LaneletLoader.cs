@@ -87,7 +87,7 @@ namespace Awsim.Usecase.TrafficSimulation
                 .ToList();
         }
 
-        static TrafficLight FindClosestTrafficLight(TrafficLight[] trafficLights, Vector3 position, float radius = 3f)
+        static LaneletTrafficLight FindClosestTrafficLight(LaneletTrafficLight[] trafficLights, Vector3 position, float radius = 3f)
         {
             var candidates = trafficLights
                 .Where(trafficLight =>
@@ -275,7 +275,7 @@ namespace Awsim.Usecase.TrafficSimulation
 
         void SetTrafficLightsOfStopLines()
         {
-            var trafficLights = GameObject.FindObjectsByType<TrafficLight>(FindObjectsSortMode.InstanceID);
+            LaneletTrafficLight[] trafficLights = GameObject.FindObjectsByType<LaneletTrafficLight>(FindObjectsSortMode.InstanceID);
 
             var regElems =
                 laneletMap.RegulatoryElements.Values
@@ -307,7 +307,7 @@ namespace Awsim.Usecase.TrafficSimulation
 
         void AssignLaneletElementIdToTrafficSignalGameObjects()
         {
-            TrafficLight[] trafficLights = GameObject.FindObjectsByType<TrafficLight>(FindObjectsSortMode.InstanceID);
+            LaneletTrafficLight[] trafficLights = GameObject.FindObjectsByType<LaneletTrafficLight>(FindObjectsSortMode.InstanceID);
             Dictionary<string, List<long>> verifiedTrafficLights = new Dictionary<string, List<long>>();
             var regElems = laneletMap.RegulatoryElements.Values
                     .Where(regElem => regElem.Type == LaneletRegulatoryElementType.TrafficLight);
@@ -352,25 +352,20 @@ namespace Awsim.Usecase.TrafficSimulation
             }
         }
 
-        void FillTrafficLightRelationIDWayID(TrafficLight trafficLight, long relationId, long wayID)
+        void FillTrafficLightRelationIDWayID(LaneletTrafficLight trafficLight, long relationId, long wayID)
         {
             EditorUtility.SetDirty(trafficLight);
             Undo.RecordObject(trafficLight, "Assigning lanelet id");
-            var trafficLightLaneletID = trafficLight.GetComponentInParent<TrafficLightLaneletID>();
-            if (trafficLightLaneletID == null)
+            var trafficLightLaneletID = trafficLight.LaneletId;
+            if (trafficLightLaneletID.wayId != LaneletTrafficLight.TrafficLightLaneletId.InitWayId && trafficLightLaneletID.wayId != wayID)
             {
-                trafficLight.gameObject.AddComponent<TrafficLightLaneletID>();
-                trafficLightLaneletID = trafficLight.GetComponentInParent<TrafficLightLaneletID>();
+                trafficLightLaneletID.relationId.Clear();
             }
-            if (trafficLightLaneletID.wayID != TrafficLightLaneletID.InitWayID && trafficLightLaneletID.wayID != wayID)
+            if (!trafficLightLaneletID.relationId.Contains(relationId))
             {
-                trafficLightLaneletID.relationID.Clear();
+                trafficLightLaneletID.relationId.Add(relationId);
             }
-            if (!trafficLightLaneletID.relationID.Contains(relationId))
-            {
-                trafficLightLaneletID.relationID.Add(relationId);
-            }
-            trafficLightLaneletID.wayID = wayID;
+            trafficLightLaneletID.wayId = wayID;
             PrefabUtility.RecordPrefabInstancePropertyModifications(trafficLight);
         }
     }
