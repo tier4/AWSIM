@@ -41,12 +41,12 @@ namespace Awsim.Entity
         IPublisher<autoware_perception_msgs.msg.TrafficLightGroupArray> trafficLightGroupPublisher;
         autoware_perception_msgs.msg.TrafficLightGroupArray trafficLightGroupMsg;
 
-        V2I v2iComponent;
+        V2I _v2iComponent;
 
-        public void Initialize()
+        public void Initialize(V2I v2iComponent)
         {
-            v2iComponent = GetComponent<V2I>();
-            v2iComponent.OnOutput += UpdateMessageAndPublish;
+            _v2iComponent = v2iComponent;
+            _v2iComponent.OnOutput += UpdateMessageAndPublish;
 
             trafficLightGroupMsg = new autoware_perception_msgs.msg.TrafficLightGroupArray();
 
