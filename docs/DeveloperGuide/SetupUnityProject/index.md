@@ -59,19 +59,8 @@ Ubuntu OS is required.
     ```
 
 1. Install [git](https://git-scm.com/) (Skip if already installed).
-1. Set the ROS 2 middleware and the localhost only mode in `~/.profile` (or, in `~/.bash_profile` or `~/bash_login` if either of those exists) file:
-    ``` bash
-    export ROS_LOCALHOST_ONLY=1
-    export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-    ```
-1. Set the system optimizations by adding this code to the very bottom of your `~/.bashrc` file:
-    ```
-    if [ ! -e /tmp/cycloneDDS_configured ]; then
-    sudo sysctl -w net.core.rmem_max=2147483647
-    sudo ip link set lo multicast on
-    touch /tmp/cycloneDDS_configured
-    fi
-    ```
+1. Set the ROS 2 middleware and the localhost only mode as described in the official Autoware documentation:  
+   [Autoware Documentation – DDS settings for ROS 2 and Autoware](https://autowarefoundation.github.io/autoware-documentation/main/installation/additional-settings-for-developers/network-configuration/dds-settings/)
 1. Restart PC.
 
 
@@ -104,12 +93,32 @@ AWSIM comes with a *standalone* flavor of [`Ros2ForUnity`](../../Components/ROS2
     ```
 
 1. Open AWSIM project.
-    1. Open Unity Hub.
-    1. Add -> Add project from disk.
-    1. Add and Open AWSIM unity project.
+    Open a terminal and launch Unity Editor with the following command (adjust the path if necessary):  
+    ```bash  
+    ~/Unity/Hub/Editor/6000.0.34f1/Editor/Unity -projectPath "/home/user/AWSIM/"
+    ```
+    This ensures that the environment variables set in `~/.bashrc` are applied correctly.
 
     !!! info
-        If you are launching the Unity Hub from the Ubuntu applications menu (without the terminal), make sure that system optimizations are set. To be sure, run the terminal at least once before running the Unity Hub. This will apply the OS settings.
+        If you launch Unity Hub directly from the Ubuntu applications menu (without using the terminal), the environment variables from `~/.bashrc` will not be applied, and AWSIM may not work correctly. Always start Unity from the terminal as shown above.
+
+        Alternatively, you can permanently fix this by wrapping the Unity binary with a small script.  
+        Run the following commands (adjust the Unity version and paths as necessary):
+
+        ```bash
+        cd ~/Unity/Hub/Editor/6000.0.34f1/Editor/
+        mv Unity Unity.bin
+
+        tee Unity >/dev/null <<'SH'
+        #!/usr/bin/env bash
+        export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+        export CYCLONEDDS_URI=file:///home/user/cyclonedds.xml
+        exec "$(dirname "$0")/Unity.bin" "$@"
+        SH
+        chmod +x Unity
+        ```
+
+        With this change, Unity will always start with the required environment variables, even when launched from Unity Hub.
 
 
     !!! warning

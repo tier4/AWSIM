@@ -31,23 +31,10 @@ Please make sure that your computer meets the following requirements in order to
 
 **Localhost settings**
 
-The simulation is based on the appropriate network setting, which allows for trouble-free communication of the AWSIM simulation with the Autoware software.
-To apply required localhost settings please add the following lines to `~/.bashrc` file:
+The simulation requires appropriate network settings in order to communicate correctly between AWSIM and Autoware.  
+Please follow the official Autoware documentation for configuring localhost:
 
-``` bash
-if [ ! -e /tmp/cycloneDDS_configured ]; then
-	sudo sysctl -w net.core.rmem_max=2147483647
-	sudo ip link set lo multicast on
-	touch /tmp/cycloneDDS_configured
-fi
-```
-
-and these lines to `~/.profile` **or in either of files:** `~/.bash_profile` *or* `~/.bash_login`:
-
-``` bash
-export ROS_LOCALHOST_ONLY=1
-export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-```
+[Autoware Documentation – DDS settings for ROS 2 and Autoware](https://autowarefoundation.github.io/autoware-documentation/main/installation/additional-settings-for-developers/network-configuration/dds-settings/)
 
 !!! info
     A system restart is required for these changes to work.
