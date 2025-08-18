@@ -39,7 +39,6 @@ namespace Awsim.Entity
         [SerializeField]
         double _egoDistanceToTrafficSignals = 150.0;
 
-        [SerializeField]
         LaneletTrafficLight[] _allTrafficLights;
 
         OutputData _outputData = new OutputData();
@@ -49,6 +48,7 @@ namespace Awsim.Entity
         public void Initialize()
         {
             _outputData.trafficLights = new List<LaneletTrafficLight>().ToArray();
+            _allTrafficLights = GameObject.FindObjectsByType<LaneletTrafficLight>(FindObjectsSortMode.InstanceID);
         }
 
         public void OnFixedUpdate()

@@ -19,7 +19,6 @@ using Awsim.Common;
 
 namespace Awsim.Entity
 {
-    [RequireComponent(typeof(V2I))]
     public class V2IRos2Publisher : MonoBehaviour
     {
         public enum TrafficSignalID
