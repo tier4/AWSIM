@@ -165,6 +165,7 @@ namespace Awsim.Usecase.TrafficSimulation
                     : TrafficLane.TurnDirectionType.Straight;
                 var trafficLane = TrafficLane.Create(waypoints, turnDirection, speedLimitMps);
                 trafficLane.transform.parent = trafficLaneHolder.transform;
+                trafficLane.name = "TrafficLane." + (int)lanelet.ID;
                 trafficLanes.Add(lanelet.ID, trafficLane);
             }
         }
