@@ -292,6 +292,7 @@ namespace Awsim.Entity
         [SerializeField] float _maxAcceleration = 2f;
         float _steerTireAngle = 0f;
 
+        [SerializeField] AnimationCurve _decelerationCurve;
 
         // Slip multiplier
         [SerializeField] float _forwardSlipMultiplier = 1f;
@@ -444,6 +445,7 @@ namespace Awsim.Entity
             void ApplyWheelForce(float acceleration)
             {
                 var eachWheelAcceleration = acceleration / Wheels.Length;
+                var eachWheelDeceleration = _decelerationCurve.Evaluate(Speed) / Wheels.Length;
 
                 foreach (var wheel in Wheels)
                 {
@@ -469,6 +471,10 @@ namespace Awsim.Entity
                     // Apply a force that will result in the commanded acceleration.
                     var driveForce = eachWheelAcceleration * wheel.WheelHit.forwardDir * ForwardSlipMultiplier;
                     _rigidbody.AddForceAtPosition(driveForce, wheel.WheelHit.point, ForceMode.Acceleration);
+
+                    // Apply resistance force.
+                    var resistForce = eachWheelDeceleration * wheel.WheelHit.forwardDir;
+                    _rigidbody.AddForceAtPosition(resistForce, wheel.WheelHit.point, ForceMode.Acceleration);
                 }
             }
         }
