@@ -19,6 +19,7 @@ using Awsim.UI;
 using Awsim.Usecase;
 using Awsim.Usecase.AwsimRvizPlugins;
 using Awsim.Usecase.TrafficSimulation;
+using Awsim.Entity;
 
 namespace Awsim.Scene.AutowareSimulationDemo
 {
@@ -59,6 +60,11 @@ namespace Awsim.Scene.AutowareSimulationDemo
 
         [Header("Ego Vehicle")]
         [SerializeField] EgoVehicle _egoVehicle;
+
+        [Header("V2I")]
+        [SerializeField] bool _useV2i;
+        [SerializeField] V2I _v2i;
+        [SerializeField] V2IRos2Publisher _v2iRosPublisher;
 
         [Header("Common")]
         [SerializeField] ClockRos2Publisher _clockPublisher;
@@ -118,6 +124,12 @@ namespace Awsim.Scene.AutowareSimulationDemo
             else
                 _trafficSimulator.Initialize();
 
+            if (_useV2i)
+            {
+                _v2i.Initialize();
+                _v2iRosPublisher.Initialize(_v2i);
+            }
+
             // Initialize UI.
             _vehicleInfomationUIWindow.Vehicle = _egoVehicle.Vehicle;
             _vehicleInfomationUIWindow.ControlModeBasedInputter = _egoVehicle.ControlModeBasedInputProvider;
@@ -168,6 +180,9 @@ namespace Awsim.Scene.AutowareSimulationDemo
             // Fixed update ego vehicle.
             if (_egoVehicle != null)
                 _egoVehicle.OnFixedUpdate();
+
+            if (_useV2i)
+                _v2i.OnFixedUpdate();
         }
     }
 }

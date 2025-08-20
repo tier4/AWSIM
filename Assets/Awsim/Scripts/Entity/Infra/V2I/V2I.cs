@@ -23,7 +23,7 @@ namespace Awsim.Entity
     {
         public class OutputData
         {
-            public TrafficLight[] trafficLights;
+            public LaneletTrafficLight[] trafficLights;
         }
 
         public Action<OutputData> OnOutput { get; set; } = null;
@@ -39,8 +39,7 @@ namespace Awsim.Entity
         [SerializeField]
         double _egoDistanceToTrafficSignals = 150.0;
 
-        [SerializeField]
-        TrafficLight[] _allTrafficLights;
+        LaneletTrafficLight[] _allTrafficLights;
 
         OutputData _outputData = new OutputData();
 
@@ -48,7 +47,8 @@ namespace Awsim.Entity
 
         public void Initialize()
         {
-            _outputData.trafficLights = new List<TrafficLight>().ToArray();
+            _outputData.trafficLights = new List<LaneletTrafficLight>().ToArray();
+            _allTrafficLights = GameObject.FindObjectsByType<LaneletTrafficLight>(FindObjectsSortMode.InstanceID);
         }
 
         public void OnFixedUpdate()
@@ -70,18 +70,18 @@ namespace Awsim.Entity
             }
             OnOutput?.Invoke(_outputData);
 
-            TrafficLight[] FindClosestTrafficLights(TrafficLight[] trafficLights, Vector3 position, double radius = 10.0)
+            LaneletTrafficLight[] FindClosestTrafficLights(LaneletTrafficLight[] trafficLights, Vector3 position, double radius = 10.0)
             {
-                List<TrafficLight> filteredLights = new List<TrafficLight>();
+                List<LaneletTrafficLight> filteredLights = new List<LaneletTrafficLight>();
 
                 for (int i = 0; i < trafficLights.Length; i++)
                 {
                     var distance2D = LaneletGeometryUtility.Distance2D(trafficLights[i].transform.position, position);
 
                     // TODO: Maybe it would be better if GetComponent is not done on FixedUpdate and the ID is also retrieved on initialization.
-                    var trafficLightLaneletID = trafficLights[i].GetComponentInParent<TrafficLightLaneletID>();
+                    var trafficLightLaneletId = trafficLights[i].LaneletId;
 
-                    if (distance2D <= radius && trafficLightLaneletID != null && trafficLightLaneletID.relationID != null && trafficLightLaneletID.relationID.Count != 0)
+                    if (distance2D <= radius && trafficLightLaneletId != null && trafficLightLaneletId.relationId != null && trafficLightLaneletId.relationId.Count != 0)
                     {
                         filteredLights.Add(trafficLights[i]);
                     }
