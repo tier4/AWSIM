@@ -19,7 +19,6 @@ using Awsim.Common;
 
 namespace Awsim.Entity
 {
-    [RequireComponent(typeof(V2I))]
     public class V2IRos2Publisher : MonoBehaviour
     {
         public enum TrafficSignalID
@@ -41,12 +40,12 @@ namespace Awsim.Entity
         IPublisher<autoware_perception_msgs.msg.TrafficLightGroupArray> trafficLightGroupPublisher;
         autoware_perception_msgs.msg.TrafficLightGroupArray trafficLightGroupMsg;
 
-        V2I v2iComponent;
+        V2I _v2iComponent;
 
-        public void Initialize()
+        public void Initialize(V2I v2iComponent)
         {
-            v2iComponent = GetComponent<V2I>();
-            v2iComponent.OnOutput += UpdateMessageAndPublish;
+            _v2iComponent = v2iComponent;
+            _v2iComponent.OnOutput += UpdateMessageAndPublish;
 
             trafficLightGroupMsg = new autoware_perception_msgs.msg.TrafficLightGroupArray();
 
@@ -63,50 +62,48 @@ namespace Awsim.Entity
         void UpdateTrafficLightGroupMsg(V2I.OutputData data)
         {
             var trafficLightGroup = new List<autoware_perception_msgs.msg.TrafficLightGroup>();
-            var allRelationID = new List<long>();
+            var allRelationId = new List<long>();
             foreach (var trafficLight in data.trafficLights)
             {
-                var trafficLightLaneletID = trafficLight.GetComponentInParent<TrafficLightLaneletID>();
-                if (trafficLightLaneletID != null)
+                var trafficLightLaneletId = trafficLight.LaneletId;
+
+                var ids = new List<long>();
+                if (trafficSignalID == TrafficSignalID.RelationID)
                 {
-                    var ids = new List<long>();
-                    if (trafficSignalID == TrafficSignalID.RelationID)
+                    ids = trafficLightLaneletId.relationId;
+                }
+                else if (trafficSignalID == TrafficSignalID.WayID)
+                {
+                    ids.Add(trafficLightLaneletId.wayId);
+                }
+                foreach (var relationID in ids)
+                {
+                    var trafficLightGroupMsg = new autoware_perception_msgs.msg.TrafficLightGroup();
+                    if (allRelationId.Contains(relationID))
                     {
-                        ids = trafficLightLaneletID.relationID;
+                        continue;
                     }
-                    else if (trafficSignalID == TrafficSignalID.WayID)
+                    trafficLightGroupMsg.Traffic_light_group_id = relationID;
+                    //Get bulbData
+                    var trafficLightBulbData = trafficLight.GetBulbData();
+                    //Fill TrafficSignal with bulbData
+                    var trafficLightElementList = new List<autoware_perception_msgs.msg.TrafficLightElement>();
+                    foreach (var bulbData in trafficLightBulbData)
                     {
-                        ids.Add(trafficLightLaneletID.wayID);
-                    }
-                    foreach (var relationID in ids)
-                    {
-                        var trafficLightGroupMsg = new autoware_perception_msgs.msg.TrafficLightGroup();
-                        if (allRelationID.Contains(relationID))
+                        if (IsBulbTurnOn(bulbData.Status))
                         {
-                            continue;
+                            var trafficLightElementMsg = new autoware_perception_msgs.msg.TrafficLightElement();
+                            trafficLightElementMsg.Color = V2IRos2Converter.UnityToRosBulbColor(bulbData.Color);
+                            trafficLightElementMsg.Shape = V2IRos2Converter.UnityToRosBulbShape(bulbData.Type);
+                            trafficLightElementMsg.Status = V2IRos2Converter.UnityToRosBulbStatus(bulbData.Status);
+                            trafficLightElementMsg.Confidence = 1.0f;
+                            trafficLightElementList.Add(trafficLightElementMsg);
                         }
-                        trafficLightGroupMsg.Traffic_light_group_id = relationID;
-                        //Get bulbData
-                        var trafficLightBulbData = trafficLight.GetBulbData();
-                        //Fill TrafficSignal with bulbData
-                        var trafficLightElementList = new List<autoware_perception_msgs.msg.TrafficLightElement>();
-                        foreach (var bulbData in trafficLightBulbData)
-                        {
-                            if (IsBulbTurnOn(bulbData.Status))
-                            {
-                                var trafficLightElementMsg = new autoware_perception_msgs.msg.TrafficLightElement();
-                                trafficLightElementMsg.Color = V2IRos2Converter.UnityToRosBulbColor(bulbData.Color);
-                                trafficLightElementMsg.Shape = V2IRos2Converter.UnityToRosBulbShape(bulbData.Type);
-                                trafficLightElementMsg.Status = V2IRos2Converter.UnityToRosBulbStatus(bulbData.Status);
-                                trafficLightElementMsg.Confidence = 1.0f;
-                                trafficLightElementList.Add(trafficLightElementMsg);
-                            }
-                        }
-                        //Add TrafficLight signal to list
-                        trafficLightGroupMsg.Elements = trafficLightElementList.ToArray();
-                        trafficLightGroup.Add(trafficLightGroupMsg);
-                        allRelationID.Add(relationID);
                     }
+                    //Add TrafficLight signal to list
+                    trafficLightGroupMsg.Elements = trafficLightElementList.ToArray();
+                    trafficLightGroup.Add(trafficLightGroupMsg);
+                    allRelationId.Add(relationID);
                 }
             }
             AwsimRos2Node.UpdateROSClockTime(trafficLightGroupMsg.Stamp);
