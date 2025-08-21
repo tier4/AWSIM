@@ -263,7 +263,7 @@ It is possible to do some configurations by specifying the json path when starti
     |params|type|feature|
     |:--|:--|:--|
     |TimeScale|float|The timescale of the simulation progress time. 0.5 simulates the simulation at 0.5x speed. (Range : 0.0 ~ 1.0)|
-    |TimeSourceType|int|Time source to be used in the simulation.|
+    |TimeSourceType|int|Time source to be used in the simulation. <br/>`0`: Unity<br/>`1`: External<br/>`2`: DotnetSystem<br/>`3`: DotnetSimulation<br/>`4`: Ros2|
     |RandomTrafficSeed|int|Seed value used in random numbers for random traffic.|
     |MaxVehicleCount|int|Maximum number of NPC vehicles present in traffic at the same time.|
     |LogitechG29DevicePath|string|Device path for Logitech G29 Steering wheel.|

@@ -68,6 +68,8 @@ namespace Awsim.Scene.AutowareSimulationDemo
 
         [Header("Common")]
         [SerializeField] ClockRos2Publisher _clockPublisher;
+        [SerializeField] string _nodeName = "AWSIM";
+        [SerializeField] TimeSourceType _timeSourceType;
         [SerializeField] FollowCamera _followCamera;
         #pragma warning disable CS0414 // Remove unused private members warning disabled. Warns when built for not UNITY_EDITOR
         [SerializeField] string _commandLineConfigParam = "--json_path";
@@ -95,10 +97,11 @@ namespace Awsim.Scene.AutowareSimulationDemo
                 jsonConfig = CommandLineUtility.LoadJsonFromPath<JsonConfiguration>(_jsonPath);
                 Time.timeScale = jsonConfig.TimeScale;
                 ThreadSafeTime.SyncTimeScale();
+                _timeSourceType = jsonConfig.TimeSourceType;
             }
 
             // Initialize common.
-            AwsimRos2Node.Initialize();
+            AwsimRos2Node.Initialize(_nodeName, _timeSourceType);
             _clockPublisher.Initialize();
             _followCamera.Initialize();
 

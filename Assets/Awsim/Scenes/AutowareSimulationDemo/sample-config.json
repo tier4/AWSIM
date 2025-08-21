@@ -1,6 +1,6 @@
 {
     "TimeScale": 0.5,
-    "TimeSourceType": 4,
+    "TimeSourceType": 0,
     "RandomTrafficSeed": 33,
     "MaxVehicleCount": 10,
     "LogitechG29DevicePath": "/dev/input/event21",
