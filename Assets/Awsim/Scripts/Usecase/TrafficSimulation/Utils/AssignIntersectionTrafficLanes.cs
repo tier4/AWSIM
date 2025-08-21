@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
 using UnityEngine;
 
 namespace Awsim.Usecase.TrafficSimulation
@@ -21,6 +22,7 @@ namespace Awsim.Usecase.TrafficSimulation
     /// The ones that belong to an intersection have the IntersectionLane variable set to true.
     /// To automate the assignment of the corresponding IntersectionLane to each TrafficLane, this script can be used. 
     /// </summary>
+    [Obsolete("This feature has been transported to `LaneletLoader`", false)]
     [ExecuteInEditMode]
     public class AssignIntersectionTrafficLanes : MonoBehaviour
     {
