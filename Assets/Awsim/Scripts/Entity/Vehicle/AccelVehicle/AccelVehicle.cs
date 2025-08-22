@@ -473,7 +473,7 @@ namespace Awsim.Entity
                     _rigidbody.AddForceAtPosition(driveForce, wheel.WheelHit.point, ForceMode.Acceleration);
 
                     // Apply resistance force.
-                    var resistForce = -eachWheelDeceleration * wheel.WheelHit.forwardDir;
+                    var resistForce = -eachWheelDeceleration * wheel.WheelHit.forwardDir * ForwardSlipMultiplier;
                     _rigidbody.AddForceAtPosition(resistForce, wheel.WheelHit.point, ForceMode.Acceleration);
                 }
             }
