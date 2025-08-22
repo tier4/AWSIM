@@ -134,6 +134,7 @@ namespace Awsim.Usecase.TrafficSimulation
             CreateTrafficLanes();
             SetTrafficLaneConnections();
             SetRightOfWays();
+            SetIntersectionLane();
 
             CreateStopLines();
             SetStopSigns();
@@ -197,6 +198,54 @@ namespace Awsim.Usecase.TrafficSimulation
             {
                 if (lane.TurnDirection != TrafficLane.TurnDirectionType.Straight)
                     TrafficLaneEditor.FindAndSetRightOfWays(lane, lanes);
+            }
+        }
+
+        void SetIntersectionLane()
+        {
+            foreach (TrafficLane lane in trafficLanes.Values)
+            {
+                if (lane == null)
+                {
+                    Debug.LogWarning($"Found GameObject ${lane.name} without TrafficLane script.");
+                    continue;
+                }
+                // If refTrafficLane is already an intersectionLane, skip this TrafficLane
+                else if (lane._intersectionLane == true)
+                {
+                    continue;
+                }
+                // If TrafficLane has RightOfWayLanes, set it as an intersectionLane and skip this TrafficLane
+                else if (lane.RightOfWayLanes != null && lane.RightOfWayLanes.Count > 0)
+                {
+                    lane._intersectionLane = true;
+                    continue;
+                }
+                // Else search for otherTrafficLane that has refTrafficLane in RightOfWayLanes, if found, assign intersectionLane as true and break
+                else
+                {
+                    foreach (TrafficLane otherLane in trafficLanes.Values)
+                    {
+                        if (otherLane == null)
+                        {
+                            Debug.LogWarning($"Found GameObject ${otherLane.name} without TrafficLane script.");
+                            continue;
+                        }
+
+                        foreach (TrafficLane otherRightOfLane in otherLane.RightOfWayLanes)
+                        {
+                            if (otherRightOfLane != null && otherRightOfLane.name == lane.name)
+                            {
+                                lane._intersectionLane = true;
+                                otherLane._intersectionLane = true;
+                                break;
+                            }
+                        }
+                        // If refTrafficLane is already an intersectionLane -> interrupt further search
+                        if (lane._intersectionLane == true)
+                            break;
+                    }
+                }
             }
         }
 
