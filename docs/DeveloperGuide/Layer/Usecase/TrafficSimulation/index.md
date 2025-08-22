@@ -9,28 +9,47 @@ Spawn point (Spawnable Lanes) and spawnable vehicle can be configured in `Unity 
 ## Configulations
 `Traffic Simulation` can be configured from `Unity Editor` component (`TrafficSimulator.cs`).
 
-![Configulations](./config.png)
-
 The configurable elements are listed in the following table:
+
+### General Settings
+
+![Configulations0](./config0.png)
 
 | Parameter | Description |
 |---|---|
-| **General Settings** | |
 | Ego Vehicle | Ego vehicle handler. If not set, the manager creates a dummy ego. This reference is also set automatically when the Ego spawns via the traffic simulator |
 | Seed | Seed value for random generator |
 | Traffic Intersections | The field that is set `TrafficIntersection` objects. `TrafficIntersection` to be set is controlled by `Traffic Simulation` |
-| **NPC Vehicle Settings** | |
+
+### NPC Vehicle Settings
+
+![Configulations1](./config1.png)
+
+| Parameter | Description |
+|---|---|
 | Vehicle Config | Parameters for NPC vehicle control<br/>`Sudden Deceleration` is a deceleration related to emergency braking |
 | Obstacle Layer Mask | Obstacle layer for raytracing the collision distances |
 | Ground Layer Mask | Ground layer for raytracing the collision distances |
 | Max Vehicle Count | A maximum number of vehicles that can simultaneously live in the scene. Lowering this value results in less dense traffic but improves the simulator's performance |
 | Spawn Distance To Ego | A minimal distance between the EGO and the NPC to spawn |
-| **Debug** | |
+
+### Debug
+
+![Configulations2](./config2.png)
+
+| Parameter | Description |
+|---|---|
 | Show Gizmos | Enable the checkbox to show all visualization using editor gizmos |
 | Show Yielding Phase | Enable the checkbox to show editor gizmos that visualize `Yielding Phase` (to the other NPCs) of NPCs |
 | Show Obstacle Checking | Enable the checkbox to show editor gizmos that visualize `Obstacle Checking` phase of NPCs |
 | Show Spawn Points | Enable the checkbox to show editor gizmos that visualize `Spawn Points` where NPCs is generated |
-| **Random Traffic Sims** | |
+
+### Random Traffic Sims
+
+![Configulations3](./config3.png)
+
+| Parameter | Description |
+|---|---|
 | Enable Simulation | Prefabs representing controlled vehicles.<br/> They must have `NPCVehicle` component attached |
 | TrafficSim Npc Vehicle Prefabs| Prefabs representing controlled vehicles.<br/> They must have `NPCVehicle` component attached |
 | Spawnable TrafficLanes | `TrafficLane` components where NPC vehicles can be spawned during traffic simulation |
