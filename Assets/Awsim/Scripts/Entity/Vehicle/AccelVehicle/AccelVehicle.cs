@@ -445,7 +445,12 @@ namespace Awsim.Entity
             void ApplyWheelForce(float acceleration)
             {
                 var eachWheelAcceleration = acceleration / Wheels.Length;
-                var eachWheelDeceleration = -1 * _decelerationCurve.Evaluate(Speed) / Wheels.Length;
+
+                var eachWheelDeceleration = -1 * Mathf.Sign(Speed) * _decelerationCurve.Evaluate(Mathf.Abs(Speed)) / Wheels.Length;
+                if (Mathf.Abs(AccelerationInput) > 0)
+                {
+                    eachWheelDeceleration = 0;
+                }
 
                 foreach (var wheel in Wheels)
                 {
@@ -473,7 +478,7 @@ namespace Awsim.Entity
                     _rigidbody.AddForceAtPosition(driveForce, wheel.WheelHit.point, ForceMode.Acceleration);
 
                     // Apply resistance force.
-                    var resistForce = -eachWheelDeceleration * wheel.WheelHit.forwardDir * ForwardSlipMultiplier;
+                    var resistForce = eachWheelDeceleration * wheel.WheelHit.forwardDir * ForwardSlipMultiplier;
                     _rigidbody.AddForceAtPosition(resistForce, wheel.WheelHit.point, ForceMode.Acceleration);
                 }
             }
