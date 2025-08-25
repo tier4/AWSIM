@@ -1,5 +1,5 @@
 # Traffic Simulation
-The `Traffic Simulation` simulates traffic situation follow traffic rules. <br>
+The `Traffic Simulation` simulates traffic situation follow traffic rules.<br>
 Spawn point (Spawnable Lanes) and spawnable vehicle can be configured in `Unity Editor` component and `Traffic Simulation` simulates traffic situation following configuration.
 
 ![Traffic Simulation](./top.png)
@@ -57,7 +57,7 @@ The configurable elements are listed in the following table:
 | Spawn Count Limit | `TrafficLane` components where NPC vehicles can be spawned during traffic simulation |
 
 ## Gizmos
-Gizmos are useful for checking current behavior of NPCs and its causes. <br>
+Gizmos are useful for checking current behavior of NPCs and its causes.<br>
 Gizmos have a high computational load so please disable them if the simulation is laggy.
 
 The visualizable elements are listed in the following table:
@@ -77,15 +77,44 @@ The visualizable elements are listed in the following table:
 ### Lanelet
 
 ## TrafficLight setting
+Please attach `LaneletTrafficLight` component to all traffic light GameObjects placed on scene.
 
 ## Locate Pedestrian (optional)
 
-## Lanelet setting
+## Load lanelet
+`LaneletLoader` can load lanelet and set parameter of traffic rules to `TrafficLane`, `StopLine` and `TrafficLight`.<br>
+`LaneletLoader` can be performed by opening `AWSIM -> Random Traffic -> Load Lanelet` at the toolbar of Unity Editor.
 
-## TrafficSimulator setting
+[img]
+
+Please fill in `a` field with lanelet map (`.osm`) you prepared, in `a` field with `b` object.<br>
+Please adjust the parameters for the loading process if needed.<br>
+To load lanelet map, please click `Load` button.
+
+[img]
+
+The `Waypoint settings` parameters are described in the following table:
+
+| Parameter | Description |
+|---|---|
+| Resolution | Resolution of resampling. Lower values provide better accuracy at the cost of processing time |
+| Min Delta Length | Minimum length(m) between adjacent points |
+| Min Delta Angle | minimum angle(deg) between adjacent edges. Lowering this value produces a smoother curve |
+
+Environment components should be generated and placed as child objects of the Environment GameObject.<br>
+You can check their visual representation by clicking consecutive elements in the scene hierarchy.
 
 ## TrafficIntersection setting
 
+## TrafficSimulator setting
+
 ## Reference Components
+To enable `Traffic Simulation`, please fill in following fields in `AutowareSimulationDemo.cs`.
+
+[img]
+
 ### TrafficSimulator
+Please fill in `a` field in `AutowareSimulationDemo.cs` with a object which is attached `TrafficSimulator.cs`.
+
 ### NPCPedestrians (optional)
+Please fill in `a` list in  `AutowareSimulationDemo.cs` with `Pedestrian` if you located.
