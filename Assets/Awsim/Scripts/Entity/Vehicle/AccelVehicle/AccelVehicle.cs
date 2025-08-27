@@ -292,6 +292,8 @@ namespace Awsim.Entity
         [SerializeField] float _maxAcceleration = 2f;
         float _steerTireAngle = 0f;
 
+        [Tooltip("Deceleration curve when throttle is off (like engine braking). Time axis represents velocity (m/s), Value axis represents deceleration (m/s^2).")]
+        [SerializeField] AnimationCurve _decelerationCurve;
 
         // Slip multiplier
         [SerializeField] float _forwardSlipMultiplier = 1f;
@@ -445,6 +447,12 @@ namespace Awsim.Entity
             {
                 var eachWheelAcceleration = acceleration / Wheels.Length;
 
+                var eachWheelDeceleration = -1 * Mathf.Sign(Speed) * _decelerationCurve.Evaluate(Mathf.Abs(Speed)) / Wheels.Length;
+                if (Mathf.Abs(AccelerationInput) > 0)
+                {
+                    eachWheelDeceleration = 0;
+                }
+
                 foreach (var wheel in Wheels)
                 {
                     if (wheel.IsGrounded == false)
@@ -469,6 +477,10 @@ namespace Awsim.Entity
                     // Apply a force that will result in the commanded acceleration.
                     var driveForce = eachWheelAcceleration * wheel.WheelHit.forwardDir * ForwardSlipMultiplier;
                     _rigidbody.AddForceAtPosition(driveForce, wheel.WheelHit.point, ForceMode.Acceleration);
+
+                    // Apply resistance force.
+                    var resistForce = eachWheelDeceleration * wheel.WheelHit.forwardDir * ForwardSlipMultiplier;
+                    _rigidbody.AddForceAtPosition(resistForce, wheel.WheelHit.point, ForceMode.Acceleration);
                 }
             }
         }
