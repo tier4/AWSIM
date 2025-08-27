@@ -292,6 +292,7 @@ namespace Awsim.Entity
         [SerializeField] float _maxAcceleration = 2f;
         float _steerTireAngle = 0f;
 
+        [Tooltip("Deceleration curve when throttle is off (like engine braking). Time axis represents velocity (m/s), Value axis represents deceleration (m/s^2).")]
         [SerializeField] AnimationCurve _decelerationCurve;
 
         // Slip multiplier
