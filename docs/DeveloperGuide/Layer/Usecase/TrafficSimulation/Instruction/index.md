@@ -1,5 +1,5 @@
 # Instruction
-To enable `Traffic Simulation`, please follow the steps below.
+To use `Traffic Simulation`, please follow the steps below.
 
 For the preparation, the following must be prepared:
 
@@ -20,7 +20,7 @@ Please attach `LaneletTrafficLight` component to all traffic light included in `
 ![Tool Bar](./load_lanelet_tool_bar.png)
 
 Please fill in `Osm` field with lanelet map (`.osm`) you prepared, in `Root Object` field with `TrafficSimulator` object.<br>
-Please adjust the parameters for the loading process if needed.<br>
+Please adjust the `Waypoint settings` parameters for the loading process if needed.<br>
 To load lanelet map, please click `Load` button.
 
 ![Load Lanelet](./load_lanelet.png)
@@ -33,7 +33,7 @@ The `Waypoint settings` parameters are listed in the following table:
 | Min Delta Length | Minimum length(m) between adjacent points |
 | Min Delta Angle | minimum angle(deg) between adjacent edges. Lowering this value produces a smoother curve |
 
-Environment components should be generated and placed as child objects of the Environment GameObject.<br>
+Environment components should be generated and placed as child objects of the `Root Object`.<br>
 You can check their visual representation by clicking consecutive elements in the scene hierarchy.
 
 ## TrafficIntersection setting
@@ -41,14 +41,14 @@ Please locate intersection object and set traffic lights to it.
 
 ![Traffic Intersection](./traffic_intersection.png)
 
-Please configure `TrafficIntersection` component sas the following:
+Please configure `TrafficIntersection` components as the following:
 
 1. Add a `GameObject` as a child object of the `TrafficIntersections`
-    1. the `GameObject` should be named `TrafficIntersection.x`
-    2. the `Transform` of `GameObject` should be set on target intersection
+    1. The `GameObject` should be named `TrafficIntersection.x`
+    2. The `Transform` of `GameObject` should be set on target intersection
 2. Attach a `TrafficIntersection` component to the `GameObject`
 3. Set `TrafficLightGroups` to object attached `LaneletTrafficLight` component replaced on target intersection
-    1. traffic lights which should light same sequences should be set on same `TrafficLightGroups`
+    1. Traffic lights which should light same sequences should be set on same `TrafficLightGroups`
 4. (optional) Modify the signal control pattern in `Lighting Sequences`
 
 ## TrafficSimulator setting
@@ -74,7 +74,7 @@ Direction which pedestrian start to walking can be set in `Transform` of it.
 Please configure Pedestrian NPCs component as the following:
 
 1. Locate pedestrian prefab on scene
-    1. Prefab is in `Assets/Awsim/Prefabs/Entity/Npc/Pedestrian/`
+    1. Prefabs is in `Assets/Awsim/Prefabs/Entity/Npc/Pedestrian/`
     2. Pedestrian should be child object of `NPCPedestrians` hierarchy
 2. Attach `SimplePedestrianWalkerController` component to pedestrian
 3. (optional) Configure parameters of `SimplePedestrianWalkerController`
