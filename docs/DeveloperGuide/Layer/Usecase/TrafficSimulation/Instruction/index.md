@@ -11,19 +11,19 @@ For the preparation, the following must be prepared:
 ## TrafficLight setting
 Please attach `LaneletTrafficLight` component to all traffic light included in `3D Map`.
 
-[img]
+![Traffic Light](./traffic_light.png)
 
 ## Load lanelet
 `LaneletLoader` can load lanelet and set parameter of traffic rules to `TrafficLane`, `StopLine` and `TrafficLight`.<br>
 `LaneletLoader` can be performed by opening `AWSIM -> Random Traffic -> Load Lanelet` at the toolbar of Unity Editor.
 
-[img]
+![Tool Bar](./load_lanelet_tool_bar.png)
 
 Please fill in `Osm` field with lanelet map (`.osm`) you prepared, in `Root Object` field with `TrafficSimulator` object.<br>
 Please adjust the parameters for the loading process if needed.<br>
 To load lanelet map, please click `Load` button.
 
-[img]
+![Load Lanelet](./load_lanelet.png)
 
 The `Waypoint settings` parameters are listed in the following table:
 
@@ -39,7 +39,7 @@ You can check their visual representation by clicking consecutive elements in th
 ## TrafficIntersection setting
 Please locate intersection object and set traffic lights to it.
 
-[img]
+![Traffic Intersection](./traffic_intersection.png)
 
 Please configure `TrafficIntersection` component sas the following:
 
@@ -53,7 +53,7 @@ Please configure `TrafficIntersection` component sas the following:
 
 ## TrafficSimulator setting
 
-[img]
+![Traffic Simulator](./traffic_simulator.png)
 
 Please configure the `TrafficSimulator` component as the following:
 
@@ -69,7 +69,7 @@ You can locate pedestrian NPC if you need.<br>
 Pedestrian can animated and walk around where they are located.<br>
 Direction which pedestrian start to walking can be set in `Transform` of it.
 
-[img]
+![Pedestrian](./pedestrian.png)
 
 Please configure Pedestrian NPCs component as the following:
 
@@ -89,7 +89,7 @@ The parameters of `SimplePedestrianWalkerController` are listed in the following
 ## Reference Components
 To enable `Traffic Simulation`, please fill in following fields in `AutowareSimulationDemo.cs`.
 
-[img]
+![Autoware Simulation](./autoware_simulation.png)
 
 ### TrafficSimulator
 Please fill in `Traffic Simulator` field in `AutowareSimulationDemo.cs` with a object which is attached `TrafficSimulator.cs`.
