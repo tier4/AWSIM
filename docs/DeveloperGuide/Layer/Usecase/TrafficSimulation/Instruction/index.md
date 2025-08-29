@@ -9,19 +9,19 @@ For the preparation, the following must be prepared:
 ## Environment (3D Map) setting
 
 ## TrafficLight setting
-Please attach `LaneletTrafficLight` component to all traffic light included in `3D Map`.
+Please attach `LaneletTrafficLight` component to all traffic lights included in `3D Map`.
 
 ![Traffic Light](./traffic_light.png)
 
 ## Load lanelet
-`LaneletLoader` can load lanelet and set parameter of traffic rules to `TrafficLane`, `StopLine` and `TrafficLight`.<br>
+`LaneletLoader` can load a lanelet map and set parameter of traffic rules to `TrafficLane`, `StopLine` and `TrafficLight`.<br>
 `LaneletLoader` can be performed by opening `AWSIM -> Random Traffic -> Load Lanelet` at the toolbar of Unity Editor.
 
 ![Tool Bar](./load_lanelet_tool_bar.png)
 
-Please fill in `Osm` field with lanelet map (`.osm`) you prepared, in `Root Object` field with `TrafficSimulator` object.<br>
+Please fill in the `Osm` field with a lanelet map (`.osm`) you prepared, in the `Root Object` field with a `TrafficSimulator` object.<br>
 Please adjust the `Waypoint settings` parameters for the loading process if needed.<br>
-To load lanelet map, please click `Load` button.
+To load the lanelet map, please click `Load` button.
 
 ![Load Lanelet](./load_lanelet.png)
 
@@ -33,11 +33,11 @@ The `Waypoint settings` parameters are listed in the following table:
 | Min Delta Length | Minimum length(m) between adjacent points |
 | Min Delta Angle | minimum angle(deg) between adjacent edges. Lowering this value produces a smoother curve |
 
-Environment components should be generated and placed as child objects of the `Root Object`.<br>
+`TrafficLane`, `StopLine` and `TrafficLight` will be generated and placed as child objects of the `Root Object`.<br>
 You can check their visual representation by clicking consecutive elements in the scene hierarchy.
 
 ## TrafficIntersection setting
-Please locate intersection object and set traffic lights to it.
+Please locate intersection objects and set traffic lights to it.
 
 ![Traffic Intersection](./traffic_intersection.png)
 
@@ -45,9 +45,9 @@ Please configure `TrafficIntersection` components as the following:
 
 1. Add a `GameObject` as a child object of the `TrafficIntersections`
     1. The `GameObject` should be named `TrafficIntersection.x`
-    2. The `Transform` of `GameObject` should be set on target intersection
+    2. The `Transform` of `GameObject` should be set on the target intersection
 2. Attach a `TrafficIntersection` component to the `GameObject`
-3. Set `TrafficLightGroups` to object attached `LaneletTrafficLight` component replaced on target intersection
+3. Set `TrafficLightGroups` to objects attached `LaneletTrafficLight` component replaced on the target intersection
     1. Traffic lights which should light same sequences should be set on same `TrafficLightGroups`
 4. (optional) Modify the signal control pattern in `Lighting Sequences`
 
@@ -58,25 +58,25 @@ Please configure `TrafficIntersection` components as the following:
 Please configure the `TrafficSimulator` component as the following:
 
 1. Fill in the `Traffic Intersections` field with `TrafficIntersection` objects
-2. Fill in `Random Traffic Sims` field
-    1. Fill in `Traffic Sim Npc Vehicle Prefab` field with vehicle prefab what you want to spawn
-    2. Fill in `Spawnable Traffic Lanes` field with `TrafficLane` where you want to spawn vehicles
+2. Fill in the `Random Traffic Sims` field
+    1. Fill in the `Traffic Sim Npc Vehicle Prefab` field with vehicle prefabs what you want to spawn
+    2. Fill in the `Spawnable Traffic Lanes` field with `TrafficLane` where you want to spawn vehicles
 
 For detailed settings, see [here](../Abstract/index.md#configulations)
 
 ## Locate Pedestrian (optional)
-You can locate pedestrian NPC if you need.<br>
-Pedestrian can animated and walk around where they are located.<br>
+You can locate pedestrian NPCs if needed.<br>
+Pedestrians can animated and walk around where they are located.<br>
 Direction which pedestrian start to walking can be set in `Transform` of it.
 
 ![Pedestrian](./pedestrian.png)
 
-Please configure Pedestrian NPCs component as the following:
+Please configure pedestrian NPCs as the following:
 
-1. Locate pedestrian prefab on scene
+1. Locate pedestrian prefabs on a scene
     1. Prefabs is in `Assets/Awsim/Prefabs/Entity/Npc/Pedestrian/`
-    2. Pedestrian should be child object of `NPCPedestrians` hierarchy
-2. Attach `SimplePedestrianWalkerController` component to pedestrian
+    2. Pedestrians should be child object of `NPCPedestrians` hierarchy
+2. Attach `SimplePedestrianWalkerController` component to pedestrians
 3. (optional) Configure parameters of `SimplePedestrianWalkerController`
 
 The parameters of `SimplePedestrianWalkerController` are listed in the following table:
