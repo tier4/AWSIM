@@ -20,9 +20,9 @@ The configurable elements are listed in the following table:
 
 | Parameter | Description |
 |---|---|
-| Ego Vehicle | Ego vehicle handler. If not set, the manager creates a dummy ego. This reference is also set automatically when the Ego spawns via the traffic simulator |
+| Ego Vehicle | Ego vehicle handler. If not set, the manager creates a dummy ego<br>This reference is also set automatically when the Ego spawns via the traffic simulator |
 | Seed | Seed value for random generator |
-| Traffic Intersections | The field that is set `TrafficIntersection` objects. `TrafficIntersection` to be set is controlled by `Traffic Simulation` |
+| Traffic Intersections | The field that is set `TrafficIntersection` objects<br>`TrafficIntersection` to be set is controlled by `Traffic Simulation` |
 
 ### NPC Vehicle Settings
 
@@ -33,7 +33,7 @@ The configurable elements are listed in the following table:
 | Vehicle Config | Parameters for NPC vehicle control<br/>`Sudden Deceleration` is a deceleration related to emergency braking |
 | Obstacle Layer Mask | The obstacle layer for raytracing the collision distances |
 | Ground Layer Mask | The Ground layer for raytracing the collision distances |
-| Max Vehicle Count | The maximum number of vehicles that can simultaneously live in the scene. Lowering this value results in less dense traffic but improves the simulator's performance |
+| Max Vehicle Count | The maximum number of vehicles that can simultaneously live in the scene<br>Lowering this value results in less dense traffic but improves the simulator's performance |
 | Spawn Distance To Ego | The minimal distance between the EGO and the NPC to spawn |
 
 ### Debug
@@ -54,7 +54,7 @@ The configurable elements are listed in the following table:
 | Parameter | Description |
 |---|---|
 | Enable Simulation | Enable the checkbox to `Random Traffic Sims` which spawn NPC vehicles randomly |
-| TrafficSim Npc Vehicle Prefabs| Prefabs representing controlled vehicles.<br/> They must have `NPCVehicle` component attached |
+| TrafficSim Npc Vehicle Prefabs| Prefabs representing controlled vehicles<br/>They must have `NPCVehicle` component attached |
 | Spawnable TrafficLanes | `TrafficLane` components where NPC vehicles can be spawned during traffic simulation |
 | Enable Spawn Count Limit | Enable the checkbox to limit of vehicle spawning |
 | Spawn Count Limit | The number of limit of vehicles spawning |

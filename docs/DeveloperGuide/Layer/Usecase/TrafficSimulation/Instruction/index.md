@@ -31,7 +31,7 @@ The `Waypoint settings` parameters are listed in the following table:
 |---|---|
 | Resolution | Resolution of resampling. Lower values provide better accuracy at the cost of processing time |
 | Min Delta Length | Minimum length(m) between adjacent points |
-| Min Delta Angle | minimum angle(deg) between adjacent edges. Lowering this value produces a smoother curve |
+| Min Delta Angle | Minimum angle(deg) between adjacent edges<br>Lowering this value produces a smoother curve |
 
 `TrafficLane`, `StopLine` and `TrafficLight` will be generated and placed as child objects of the `Root Object`.<br>
 You can check their visual representation by clicking consecutive elements in the scene hierarchy.
