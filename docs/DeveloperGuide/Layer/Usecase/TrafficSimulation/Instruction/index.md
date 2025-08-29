@@ -12,15 +12,37 @@ Attach this object to `TrafficSimulator` component.
 
 (optional) To locate objects to be generated later, you may creat empty objects named `TrafficIntersections` and `NPCPedestrians`.
 
-![Locate Traffic Simulator](./h)
+![Locate Traffic Simulator](./hierarchy.png)
 
 ## Environment (3D Map) setting
 
-## TrafficLight setting
-Please attach `LaneletTrafficLight` component to all traffic lights included in `3D Map`.
-Bulb
 
+## TrafficIntersection and LaneletTrafficLight settings
+Please locate intersection objects and attach `LaneletTrafficLight` script.<br>
+Then, please you set traffic lights to intersection.
+
+![Traffic Intersection](./traffic_intersection.png)
+
+Please configure `TrafficIntersection` and `LaneletTrafficLight` components as the following:
+
+1. Add a `GameObject` as a child object of `TrafficIntersections` hierarchy
+    1. The `GameObject` should be named `TrafficIntersection.x`
+    2. The `Transform` of `GameObject` should be set on the target intersection
+2. Attach a `TrafficIntersection` component to the intersection game object
+3. Attach `LaneletTrafficLight` to traffic light objects replaced on the target intersection
 ![Traffic Light](./traffic_light.png)
+4. Modify `Bulb Material Config` as follow images
+    1. If there are wrong order of bulb, modify each `Bulb Material Config`
+vehicle raffic light<br>
+![Bulb Vehicle](./bulb_vehicle.png)<br>
+pedestrian traffic light<br>
+![Bulb Pedestrian](./bulb_pedestrian.png)
+5. Set `TrafficLightGroups` to traffic light objects attached `LaneletTrafficLight` in step. 3
+    1. Traffic lights which should light same sequences should be set on same `TrafficLightGroups`
+6. (optional) Modify the signal control pattern in `Lighting Sequences`
+
+!!! warning
+    To attach `TrafficIntersection` to traffic lights which is not set to `TrafficIntersection` causes errors, so please avoid it.
 
 ## Load lanelet
 `LaneletLoader` can load a lanelet map and set parameter of traffic rules to `TrafficLane`, `StopLine` and `TrafficLight`.<br>
@@ -28,8 +50,8 @@ Bulb
 
 ![Tool Bar](./load_lanelet_tool_bar.png)
 
-Please fill in the `Osm` field with a lanelet map (`.osm`) you prepared, in the `Root Object` field with a `TrafficSimulator` object.<br>
-Please adjust the `Waypoint settings` parameters for the loading process if needed.<br>
+Please fill in `Osm` field with a lanelet map (`.osm`) you prepared, in `Root Object` field with a `TrafficSimulator` object.<br>
+Please adjust `Waypoint settings` parameters for the loading process if needed.<br>
 To load the lanelet map, please click `Load` button.
 
 ![Load Lanelet](./load_lanelet.png)
@@ -45,33 +67,22 @@ The `Waypoint settings` parameters are listed in the following table:
 `TrafficLane`, `StopLine` and `TrafficLight` will be generated and placed as child objects of the `Root Object`.<br>
 You can check their visual representation by clicking consecutive elements in the scene hierarchy.
 
-## TrafficIntersection setting
-Please locate intersection objects and set traffic lights to it.
-
-![Traffic Intersection](./traffic_intersection.png)
-
-Please configure `TrafficIntersection` components as the following:
-
-1. Add a `GameObject` as a child object of the `TrafficIntersections`
-    1. The `GameObject` should be named `TrafficIntersection.x`
-    2. The `Transform` of `GameObject` should be set on the target intersection
-2. Attach a `TrafficIntersection` component to the `GameObject`
-3. Set `TrafficLightGroups` to objects attached `LaneletTrafficLight` component replaced on the target intersection
-    1. Traffic lights which should light same sequences should be set on same `TrafficLightGroups`
-4. (optional) Modify the signal control pattern in `Lighting Sequences`
+![Hierarchy](./hierarchy2.png)
 
 ## TrafficSimulator setting
 
 ![Traffic Simulator](./traffic_simulator.png)
 
-Please configure the `TrafficSimulator` component as the following:
+Please configure `TrafficSimulator` component as the following:
 
-1. Ego
-2. EveryThing
-3. Fill in the `Traffic Intersections` field with `TrafficIntersection` objects
-4. Fill in the `Random Traffic Sims` field
-    1. Fill in the `Traffic Sim Npc Vehicle Prefab` field with vehicle prefabs what you want to spawn
-    2. Fill in the `Spawnable Traffic Lanes` field with `TrafficLane` where you want to spawn vehicles
+1. Fill in `Ego Vehicle` field with EGO vehicle
+    1. Example: `EgoVehicle/Lexus RX450h 2015`
+2. Change `Obstacle Layer Mask` and `Ground Layer Mask` field to `everything`
+3. Fill in `Traffic Intersections` field with `TrafficIntersection` objects
+4. Fill in `Random Traffic Sims` field
+    1. Fill in `Traffic Sim Npc Vehicle Prefab` field with vehicle prefabs what you want to spawn
+        1. Prefabs is in `Assets/Awsim/Prefabs/Usecase/TrafficSimulation/`
+    2. Fill in `Spawnable Traffic Lanes` field with `TrafficLane` where you want to spawn vehicles
 
 For detailed settings, see [here](../Abstract/index.md#configulations)
 
@@ -94,7 +105,7 @@ The parameters of `SimplePedestrianWalkerController` are listed in the following
 
 | Parameter | Description |
 |---|---|
-| Duration | Duration in which the pedestrian animate |
+| Duration | Duration at which the pedestrian walk |
 | Speed | Speed at which the pedestian walk |
 
 ## Reference Components
