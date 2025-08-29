@@ -6,10 +6,19 @@ For the preparation, the following must be prepared:
 - 3D map
 - lanelet map (.osm)
 
+## Locate Traffic Simulator
+Create empty object (should be named `TrafficSimulator`).<br>
+Attach this object to `TrafficSimulator` component.
+
+(optional) To locate objects to be generated later, you may creat empty objects named `TrafficIntersections` and `NPCPedestrians`.
+
+![Locate Traffic Simulator](./h)
+
 ## Environment (3D Map) setting
 
 ## TrafficLight setting
 Please attach `LaneletTrafficLight` component to all traffic lights included in `3D Map`.
+Bulb
 
 ![Traffic Light](./traffic_light.png)
 
@@ -57,8 +66,10 @@ Please configure `TrafficIntersection` components as the following:
 
 Please configure the `TrafficSimulator` component as the following:
 
-1. Fill in the `Traffic Intersections` field with `TrafficIntersection` objects
-2. Fill in the `Random Traffic Sims` field
+1. Ego
+2. EveryThing
+3. Fill in the `Traffic Intersections` field with `TrafficIntersection` objects
+4. Fill in the `Random Traffic Sims` field
     1. Fill in the `Traffic Sim Npc Vehicle Prefab` field with vehicle prefabs what you want to spawn
     2. Fill in the `Spawnable Traffic Lanes` field with `TrafficLane` where you want to spawn vehicles
 
