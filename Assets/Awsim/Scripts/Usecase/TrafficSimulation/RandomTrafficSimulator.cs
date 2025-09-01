@@ -22,7 +22,7 @@ namespace Awsim.Usecase.TrafficSimulation
     {
         public bool EnableSimulation => _enableSimulation;
 
-        public GameObject[] TrafficSimNpcVehiclePrefabs => _trafficSimNpcVehiclePrefabs;
+        public TrafficSimNpcVehicle[] TrafficSimNpcVehiclePrefabs => _trafficSimNpcVehiclePrefabs;
 
         public TrafficLane[] SpawnableTrafficLanes => _spawnableTrafficLanes;
 
@@ -36,7 +36,7 @@ namespace Awsim.Usecase.TrafficSimulation
 
         [Tooltip("NPCs to be spawned.")]
         [SerializeField]
-        GameObject[] _trafficSimNpcVehiclePrefabs;
+        TrafficSimNpcVehicle[] _trafficSimNpcVehiclePrefabs;
 
         [Tooltip("TrafficLanes where NPC vehicles can spawn.")]
         [SerializeField]
@@ -71,7 +71,7 @@ namespace Awsim.Usecase.TrafficSimulation
 
         private int spawnPriority = 0;
 
-        private GameObject nextPrefabToSpawn = null;
+        private TrafficSimNpcVehicle nextPrefabToSpawn = null;
 
         public void IncreasePriority(int priority)
         {
@@ -95,7 +95,7 @@ namespace Awsim.Usecase.TrafficSimulation
         }
 
         public RandomTrafficSimulator(GameObject parent,
-            GameObject[]
+            TrafficSimNpcVehicle[]
             prefabs,
             TrafficLane[]
             spawnableLanes,
@@ -108,7 +108,7 @@ namespace Awsim.Usecase.TrafficSimulation
             npcVehicleSpawner = new NpcVehicleSpawner(parent, prefabs, spawnableLanes);
         }
 
-        public void GetRandomSpawnInfo(out NpcVehicleSpawnPoint spawnPoint, out GameObject prefab)
+        public void GetRandomSpawnInfo(out NpcVehicleSpawnPoint spawnPoint, out TrafficSimNpcVehicle prefab)
         {
             // NPC prefab is randomly chosen and is fixed until it is spawned. This is due to avoid prefab "bound" race conditions
             // when smaller cars will always be chosen over larger ones while the spawning process checks if the given prefab can be 
@@ -124,7 +124,7 @@ namespace Awsim.Usecase.TrafficSimulation
             spawnPoint = npcVehicleSpawner.GetRandomSpawnPoint();
         }
 
-        public bool Spawn(GameObject prefab, NpcVehicleSpawnPoint spawnPoint, out TrafficSimNpcVehicle spawnedVehicle)
+        public bool Spawn(TrafficSimNpcVehicle prefab, NpcVehicleSpawnPoint spawnPoint, out TrafficSimNpcVehicle spawnedVehicle)
         {
             if (IsMaximumSpawnsNumberReached())
             {
