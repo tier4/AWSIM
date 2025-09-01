@@ -8,7 +8,7 @@ Spawn points (Spawnable Lanes) and spawnable vehicles can be configured using co
     To enable `Traffic Simulation` for new scene, please see [here](../Instruction/index.md)
 
 ## Overview
-The random traffic system consists of the following components:
+`Traffic Simulation` consists of the following components:
 
 | Component | Description |
 |---|---|
