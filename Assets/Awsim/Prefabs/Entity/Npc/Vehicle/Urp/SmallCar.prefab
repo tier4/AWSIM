@@ -640,7 +640,6 @@ GameObject:
   - component: {fileID: 6605346722063636966}
   - component: {fileID: 7765238334399633992}
   - component: {fileID: 1549662261250670017}
-  - component: {fileID: -2738266875521181682}
   m_Layer: 0
   m_Name: SmallCar
   m_TagString: Untagged
@@ -778,19 +777,6 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers: []
   m_Enabled: 1
---- !u!114 &-2738266875521181682
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6165415753350049284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34a0ba0fb7eb1f4a7bc3b7685942c6ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _npcVehicle: {fileID: 7765238334399633992}
 --- !u!1 &6508675063401718395
 GameObject:
   m_ObjectHideFlags: 0

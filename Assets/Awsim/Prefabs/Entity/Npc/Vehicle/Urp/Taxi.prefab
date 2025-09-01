@@ -920,7 +920,6 @@ GameObject:
   - component: {fileID: 8989983277991510647}
   - component: {fileID: 5524679716262691289}
   - component: {fileID: 6042073911868280212}
-  - component: {fileID: 6508327500362848844}
   m_Layer: 0
   m_Name: Taxi
   m_TagString: Untagged
@@ -1057,19 +1056,6 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers: []
   m_Enabled: 1
---- !u!114 &6508327500362848844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8279803077700154773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34a0ba0fb7eb1f4a7bc3b7685942c6ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _npcVehicle: {fileID: 5524679716262691289}
 --- !u!1 &8437872048417972284
 GameObject:
   m_ObjectHideFlags: 0
