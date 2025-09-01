@@ -18,25 +18,25 @@ The random traffic system consists of the following components:
 
 ``` mermaid
 classDiagram
-    Ramdom Traffic Simulator "1" <-- "1" NPC Vehicle Spawner
-    Ramdom Traffic Simulator "1" <-- "1" NPC Vehicle Simulator
+    Ramdom Traffic Simulator "1" o-- "1" NPC Vehicle Spawner
+    Ramdom Traffic Simulator "1" o-- "1" NPC Vehicle Simulator
     NPC Vehicle Simulator --> Ego Vehicle:Get Transform
     NPC Vehicle Spawner --> NPC Vehicles:Spawn/Despawn
     NPC Vehicle Simulator --> NPC Vehicles:Set Position and Rotation
     Ramdom Traffic Simulator --> Environment Components:Get Data
     class Ramdom Traffic Simulator{
-        + NPC Vehicle Spawner
-        + NPC Vehicle Simulator
+        - NPC Vehicle Spawner
+        - NPC Vehicle Simulator
         + Get Data()
     }
     class NPC Vehicle Spawner{
         + Spawn/Despawn()
     }
     class NPC Vehicle Simulator{
-        + Cognition Step
-        + Decision Step
-        + Control Step
-        + Visualization Step
+        - Cognition Step
+        - Decision Step
+        - Control Step
+        - Visualization Step
         + Get Transform()
         + Set Position and Rotation()
     }
