@@ -45,6 +45,20 @@ pedestrian traffic light<br>
     Do not attach `LaneletTrafficLight` to traffic lights which are not set to `TrafficIntersection`.<br>
     It causes errors.
 
+### Set right of ways on uncontrolled intersections
+On intersections without traffic lights, it is needed to set the right of way of TrafficLane manually for the vehicles to operate properly.
+
+Please configure `TrafficLane` components as the following:
+
+1. Select a straight lane that should be right of way in the intersection
+![Right of Ways Before](./right_of_ways_before.png)
+    1. The selected lane should be highlighted
+2. Click the `Set RightOfWays` button to give the lane priority over other lanes
+![Right of Ways Before](./right_of_ways_after.png)
+
+Please check if all lanes that intersect with the selected lane are highlighted yellow.<br>
+This means that the right of way was applied correctly.
+
 ## Load lanelet
 `LaneletLoader` can load a lanelet map and create `TrafficLane` and `StopLine`.
 In addition, `LaneletLoader` set parameter of traffic rules to `TrafficLane`, `StopLine` and traffic lights.<br>
