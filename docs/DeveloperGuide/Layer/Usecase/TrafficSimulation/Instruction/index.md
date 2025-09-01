@@ -14,9 +14,6 @@ Attach this object to `TrafficSimulator` component.
 
 ![Locate Traffic Simulator](./hierarchy.png)
 
-## Environment (3D Map) setting
-
-
 ## TrafficIntersection and LaneletTrafficLight settings
 Please place intersection objects and attach `LaneletTrafficLight` script.<br>
 Then, please you set traffic lights to intersection.
