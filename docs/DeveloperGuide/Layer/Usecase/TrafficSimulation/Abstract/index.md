@@ -8,6 +8,52 @@ Spawn points (Spawnable Lanes) and spawnable vehicles can be configured using co
     To enable `Traffic Simulation` for new scene, please see [here](../Instruction/index.md)
 
 ## Overview
+The random traffic system consists of the following components:
+
+| Component | Description |
+|---|---|
+| RandomTrafficSimulator | Managing lifecycle of NPCs and simulating NPC behaviours |
+| TrafficLane<br>TrafficIntersection<br>StopLine | Traffic entities |
+| NPCVehicle | Vehicle models (NPCs) controlled by `RandomTrafficSimulator` |
+
+``` mermaid
+classDiagram
+    Ramdom Traffic Simulator "1" <-- "1" NPC Vehicle Spawner
+    Ramdom Traffic Simulator "1" <-- "1" NPC Vehicle Simulator
+    NPC Vehicle Simulator --> Ego Vehicle:Get Transform
+    NPC Vehicle Spawner --> NPC Vehicles:Spawn/Despawn
+    NPC Vehicle Simulator --> NPC Vehicles:Set Position and Rotation
+    Ramdom Traffic Simulator --> Environment Components:Get Data
+    class Ramdom Traffic Simulator{
+        + NPC Vehicle Spawner
+        + NPC Vehicle Simulator
+        + Get Data()
+    }
+    class NPC Vehicle Spawner{
+        + Spawn/Despawn()
+    }
+    class NPC Vehicle Simulator{
+        + Cognition Step
+        + Decision Step
+        + Control Step
+        + Visualization Step
+        + Get Transform()
+        + Set Position and Rotation()
+    }
+    class Ego Vehicle{
+    }
+    class NPC Vehicles{
+        + NPC 1
+        + NPC 2
+        ...
+    }
+    class Environment Components{
+        + Traffic Light
+        + Traffic Lane
+        + Traffic Intersection
+        + Stop Line
+    }
+```
 
 ## Configuration
 `Traffic Simulation` can be configured from `TrafficSimulator` component.
