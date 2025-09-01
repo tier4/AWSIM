@@ -6,13 +6,13 @@ For the preparation, the following must be prepared:
 - 3D map
 - lanelet map (.osm)
 
-## Locate Traffic Simulator
+## Place Traffic Simulator
 Create empty `GameObject` (should be named `TrafficSimulator`).<br>
 Attach this object to `TrafficSimulator` component.
 
 (optional) To place objects which is generated later, you may creat empty objects named `TrafficIntersections` and `NPCPedestrians`.
 
-![Locate Traffic Simulator](./hierarchy.png)
+![Place Traffic Simulator](./hierarchy.png)
 
 ## TrafficIntersection and LaneletTrafficLight settings
 Please place intersection objects and attach `LaneletTrafficLight` script.<br>
@@ -100,7 +100,7 @@ Please configure `TrafficSimulator` component as the following:
 
 For detailed settings, see [here](../Abstract/index.md#configulations)
 
-## Locate Pedestrian (optional)
+## Place Pedestrian (optional)
 You can place pedestrian NPCs if needed.<br>
 Pedestrians can animated and walk around where they are placed.<br>
 Direction which pedestrian start to walking can be set in `Transform` of it.
@@ -109,7 +109,7 @@ Direction which pedestrian start to walking can be set in `Transform` of it.
 
 Please configure pedestrian NPCs as the following:
 
-1. Locate pedestrian prefabs on a scene
+1. Place pedestrian prefabs on a scene
     1. Prefabs is in `Assets/Awsim/Prefabs/Entity/Npc/Pedestrian/`
     2. Pedestrians should be child object of `NPCPedestrians` hierarchy
 2. Attach `SimplePedestrianWalkerController` component to pedestrians
