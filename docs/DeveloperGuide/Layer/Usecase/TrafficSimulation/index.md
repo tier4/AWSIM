@@ -148,7 +148,7 @@ Please configure `TrafficIntersection` and `LaneletTrafficLight` components as t
 2. Attach a `TrafficIntersection` component to the intersection game object
 3. Attach `LaneletTrafficLight` to traffic light objects placed on the target intersection
 ![Traffic Light](./traffic_light.png)
-4. Modify `Bulb Material Config` as follow images
+4. Modify `Bulb Material Config` as follow images<br>
 vehicle raffic light<br>
 ![Bulb Vehicle](./bulb_vehicle.png)<br>
 pedestrian traffic light<br>
@@ -156,11 +156,46 @@ pedestrian traffic light<br>
     1. If there are wrong order of bulb, modify each `Bulb Material Config`
 5. Set traffic light objects attached `LaneletTrafficLight` in step. 3 to `TrafficLightGroups` in `TrafficIntersection`
     1. Traffic lights which should light same sequences should be set on same `TrafficLightGroups`
-6. (optional) Modify the signal control pattern in `Lighting Sequences`
 
 !!! warning
     Do not attach `LaneletTrafficLight` to traffic lights which are not set to `TrafficIntersection`.<br>
     It causes errors.
+
+!!! info
+    For detailed settings of `Bulb Material Config`, see [here](../../Entity/Infra/TrafficLight/index.md).
+
+#### Modify `Lighting Sequences`
+If you need to set an arbitrary signal control pattern, you can modify it in `Lighting Sequences` field.
+
+Create any number of of lements of `Lighting Sequences` and set parameters for each one.<br>
+When the scene plays, the `Lighting Sequences` will execute sequentially from `Element 0`.<br>
+In addition, when the last element completes, the sequence will loop back to `Element 0`.
+
+![Lighting Sequences](./lighting_sequences.png)
+
+The `Waypoint settings` parameters are listed in the following table:
+
+Lighting Sequences
+
+| Parameter | Description |
+|---|---|
+| Interval Sec | Duration for which this sequence continues. |
+| Group Lighting Orders | Settings for lighting each `TrafficLightGroups`. |
+
+Group Lighting Orders
+
+| Parameter | Description |
+|---|---|
+| Group | Target `TrafficLightGroups`. |
+| Bulb Data | Setting for lighting each bulb in traffic lights within `TrafficLightGroups`. |
+
+Bulb Data
+
+| Parameter | Description |
+|---|---|
+| Type | Target bulb. |
+| Color | Color of lighting on target bulb. |
+| Status | Type of lighting. (Solid On, Solid Off and Flashing) |
 
 #### Set right of ways on uncontrolled intersections
 On intersections without traffic lights, it is needed to set the right of way of TrafficLane manually for the vehicles to operate properly.
@@ -218,7 +253,8 @@ Please configure `TrafficSimulator` component as the following:
         1. Prefabs is in `Assets/Awsim/Prefabs/Usecase/TrafficSimulation/`
     2. Fill in `Spawnable Traffic Lanes` field with `TrafficLane` where you want to spawn vehicles
 
-For detailed settings, see [here](../Abstract/index.md#configulations)
+!!! info
+    For detailed settings of `TrafficSimulator`, see [here](#configulations).
 
 ### 5. Place Pedestrian (optional)
 You can place pedestrian NPCs if needed.<br>
