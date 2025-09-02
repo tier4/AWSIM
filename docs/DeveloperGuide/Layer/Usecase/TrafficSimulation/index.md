@@ -126,7 +126,7 @@ For the preparation, the following must be prepared:
 - 3D map
 - lanelet map (.osm)
 
-### Place Traffic Simulator
+### 1. Place Traffic Simulator
 Create empty `GameObject` (should be named `TrafficSimulator`).<br>
 Attach this object to `TrafficSimulator` component.
 
@@ -134,7 +134,7 @@ Attach this object to `TrafficSimulator` component.
 
 ![Place Traffic Simulator](./hierarchy.png)
 
-### TrafficIntersection and LaneletTrafficLight settings
+### 2. TrafficIntersection and LaneletTrafficLight settings
 Please place intersection objects and attach `LaneletTrafficLight` script.<br>
 Then, please you set traffic lights to intersection.
 
@@ -176,7 +176,7 @@ Please configure `TrafficLane` components as the following:
 Please check if all lanes that intersect with the selected lane are highlighted yellow.<br>
 This means that the right of way was applied correctly.
 
-### Load lanelet
+### 3. Load lanelet
 `LaneletLoader` can load a lanelet map and create `TrafficLane` and `StopLine`.
 In addition, `LaneletLoader` set parameter of traffic rules to `TrafficLane`, `StopLine` and traffic lights.<br>
 `LaneletLoader` can be performed by opening `AWSIM -> Random Traffic -> Load Lanelet` at the toolbar of Unity Editor.
@@ -203,7 +203,7 @@ You can check their visual representation by clicking consecutive elements in th
 
 ![Hierarchy](./hierarchy2.png)
 
-### TrafficSimulator setting
+### 4. TrafficSimulator setting
 
 ![Traffic Simulator](./traffic_simulator.png)
 
@@ -220,7 +220,7 @@ Please configure `TrafficSimulator` component as the following:
 
 For detailed settings, see [here](../Abstract/index.md#configulations)
 
-### Place Pedestrian (optional)
+### 5. Place Pedestrian (optional)
 You can place pedestrian NPCs if needed.<br>
 Pedestrians can animated and walk around where they are placed.<br>
 Direction which pedestrian start to walking can be set in `Transform` of it.
@@ -242,7 +242,7 @@ The parameters of `SimplePedestrianWalkerController` are listed in the following
 | Duration | Duration at which the pedestrian walk. |
 | Speed | Speed at which the pedestian walk. |
 
-### Reference Components
+### 6. Reference Components
 To enable `Traffic Simulation`, please fill in following fields in `AutowareSimulationDemo.cs`.
 
 ![Autoware Simulation](./autoware_simulation.png)
