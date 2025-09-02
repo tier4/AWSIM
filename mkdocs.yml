@@ -93,9 +93,7 @@ nav:
           - Npc Spawner: DeveloperGuide/Layer/Usecase/AwsimRvizPlugins/NpcSpawner/index.md
         - Pcd generation:
           - Create pcd map: DeveloperGuide/Layer/Usecase/CreatePcd/index.md
-        - Traffic Simulation:
-          - Abstract: DeveloperGuide/Layer/Usecase/TrafficSimulation/Abstract/index.md
-          - Instruction: DeveloperGuide/Layer/Usecase/TrafficSimulation/Instruction/index.md
+        - Traffic Simulation: DeveloperGuide/Layer/Usecase/TrafficSimulation/index.md
       - Entity:
         - Vehicle:
           - Accel vehicle: DeveloperGuide/Layer/Entity/Vehicle/AccelVehicle/index.md
