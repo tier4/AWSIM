@@ -123,7 +123,7 @@ To use `Traffic Simulation`, please follow the steps below.
 
 For the preparation, the following must be prepared:
 
-- 3D map
+- 3D map (.fbx)
 - lanelet map (.osm)
 
 ### 1. Place Traffic Simulator
