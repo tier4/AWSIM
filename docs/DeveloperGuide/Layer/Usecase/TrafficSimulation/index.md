@@ -278,11 +278,36 @@ The parameters of `SimplePedestrianWalkerController` are listed in the following
 | Duration | Duration at which the pedestrian walk. |
 | Speed | Speed at which the pedestian walk. |
 
-### 6. Reference Components
-To enable `Traffic Simulation`, please fill in following fields in `AutowareSimulationDemo.cs`.
+### 6. Call methods of `TrafficSimulator`
+To enable `Traffic Simulation`, some methods of `TrafficSimulator` should be called from callback of `MonoBehaviour`.
 
-![Autoware Simulation](./autoware_simulation.png)
+Please create or open class which is inherit `MonoBehaviour` and make field of `TrafficSimulator`.<br>
+Then, add description of calling method of `TrafficSimulator`.
 
-Please fill in `Traffic Simulator` field in `AutowareSimulationDemo.cs` with a object which is attached `TrafficSimulator.cs`.
+The method should be called are listed in the following table:
 
-Please fill in `Simple Pedestrian Walker Controller` list in  `AutowareSimulationDemo.cs` with `Pedestrian` if you placed.
+| Method | Description |
+|---|---|
+| Initialize() | Should be called Start() callback. |
+| OnUpdate() | Should be called Update() callback. |
+| OnFixedUpdate() | Should be called FixedUpdate() callback. |
+
+!!! info
+    AWSIM includes `AutowareSimulationDemo` scene.<br>
+    Please refer to:<br>
+    * `Assets/Awsim/Scenes/AutowareSimulationDemo/AutowareSimulationDemo.cs`<br>
+    * `Assets/Awsim/Scenes/AutowareSimulationDemo.unity` scene
+
+#### Call methods of Pedestrian (optional)
+To move Pedestrian, some methods of `SimplePedestrianWalkerController` should be called same as `TrafficSimulator`.
+
+Please create or open class which is inherit `MonoBehaviour` and make field of `SimplePedestrianWalkerController[]`.<br>
+Then, add description of calling method of each element of `SimplePedestrianWalkerController[]` using for loop.
+
+The method should be called are listed in the following table:
+
+| Method | Description |
+|---|---|
+| Initialize() | Should be called Start() callback. |
+| OnUpdate() | Should be called Update() callback. |
+| OnFixedUpdate() | Should be called FixedUpdate() callback. |
