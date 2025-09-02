@@ -11,9 +11,9 @@ Spawn points (Spawnable Lanes) and spawnable vehicles can be configured using co
 
 | Component | Description |
 |---|---|
-| RandomTrafficSimulator | Managing lifecycle of NPCs and simulating NPC behaviours |
-| TrafficLane<br>TrafficIntersection<br>StopLine | Traffic entities |
-| NPCVehicle | Vehicle models (NPCs) controlled by `RandomTrafficSimulator` |
+| RandomTrafficSimulator | Managing lifecycle of NPCs and simulating NPC behaviours. |
+| TrafficLane<br>TrafficIntersection<br>StopLine | Traffic entities. |
+| NPCVehicle | Vehicle models (NPCs) controlled by `RandomTrafficSimulator`. |
 
 ``` mermaid
 classDiagram
@@ -65,9 +65,9 @@ The configurable elements are listed in the following table:
 
 | Parameter | Description |
 |---|---|
-| Ego Vehicle | Ego vehicle handler. If not set, the manager creates a dummy ego<br>This reference is also set automatically when the Ego spawns via the traffic simulator |
-| Seed | Seed value for random generator |
-| Traffic Intersections | The field that is set `TrafficIntersection` objects<br>`TrafficIntersection` to be set is controlled by `Traffic Simulation` |
+| Ego Vehicle | Ego vehicle handler. If not set, the manager creates a dummy ego.<br>This reference is also set automatically when the Ego spawns via the traffic simulator. |
+| Seed | Seed value for random generator. |
+| Traffic Intersections | The field that is set `TrafficIntersection` objects.<br>`TrafficIntersection` to be set is controlled by `Traffic Simulation`. |
 
 #### NPC Vehicle Settings
 
@@ -75,11 +75,11 @@ The configurable elements are listed in the following table:
 
 | Parameter | Description |
 |---|---|
-| Vehicle Config | Parameters for NPC vehicle control<br/>`Sudden Deceleration` is a deceleration related to emergency braking |
-| Obstacle Layer Mask | The obstacle layer for raytracing the collision distances |
-| Ground Layer Mask | The Ground layer for raytracing the collision distances |
-| Max Vehicle Count | The maximum number of vehicles that can simultaneously live in the scene<br>Lowering this value results in less dense traffic but improves the simulator's performance |
-| Spawn Distance To Ego | The minimal distance between the EGO and the NPC to spawn |
+| Vehicle Config | Parameters for NPC vehicle control.<br/>`Sudden Deceleration` is a deceleration related to emergency braking. |
+| Obstacle Layer Mask | The obstacle layer for raytracing the collision distances. |
+| Ground Layer Mask | The Ground layer for raytracing the collision distances. |
+| Max Vehicle Count | The maximum number of vehicles that can simultaneously live in the scene.<br>Lowering this value results in less dense traffic but improves the simulator's performance. |
+| Spawn Distance To Ego | The minimal distance between the EGO and the NPC to spawn. |
 
 #### Debug
 
@@ -87,10 +87,10 @@ The configurable elements are listed in the following table:
 
 | Parameter | Description |
 |---|---|
-| Show Gizmos | Enable the checkbox to show all visualization using editor gizmos |
-| Show Yielding Phase | Enable the checkbox to show editor gizmos that visualize `Yielding Phase` of NPCs |
-| Show Obstacle Checking | Enable the checkbox to show editor gizmos that visualize `Obstacle Checking` phase of NPCs |
-| Show Spawn Points | Enable the checkbox to show editor gizmos that visualize `Spawn Points` where NPCs is generated |
+| Show Gizmos | Enable the checkbox to show all visualization using editor gizmos. |
+| Show Yielding Phase | Enable the checkbox to show editor gizmos that visualize `Yielding Phase` of NPCs. |
+| Show Obstacle Checking | Enable the checkbox to show editor gizmos that visualize `Obstacle Checking` phase of NPCs. |
+| Show Spawn Points | Enable the checkbox to show editor gizmos that visualize `Spawn Points` where NPCs is generated. |
 
 #### Random Traffic Sims
 
@@ -98,11 +98,11 @@ The configurable elements are listed in the following table:
 
 | Parameter | Description |
 |---|---|
-| Enable Simulation | Enable the checkbox to `Random Traffic Sims` which spawn NPC vehicles randomly |
-| TrafficSim Npc Vehicle Prefabs| Prefabs representing controlled vehicles<br/>They must have `NPCVehicle` component attached |
-| Spawnable TrafficLanes | `TrafficLane` components where NPC vehicles can be spawned during traffic simulation |
-| Enable Spawn Count Limit | Enable the checkbox to limit of vehicle spawning |
-| Spawn Count Limit | The number of limit of vehicles spawning |
+| Enable Simulation | Enable the checkbox to `Random Traffic Sims` which spawn NPC vehicles randomly. |
+| TrafficSim Npc Vehicle Prefabs| Prefabs representing controlled vehicles.<br/>They must have `NPCVehicle` component attached. |
+| Spawnable TrafficLanes | `TrafficLane` components where NPC vehicles can be spawned during traffic simulation. |
+| Enable Spawn Count Limit | Enable the checkbox to limit of vehicle spawning. |
+| Spawn Count Limit | The number of limit of vehicles spawning. |
 
 ### Gizmos
 Gizmos are useful for checking current behavior of NPCs and its causes.<br>
@@ -112,9 +112,9 @@ The visualizable elements are listed in the following table:
 
 | Shape | Description |
 |---|---|
-| Rectangle | `Yielding Phase` of each NPCs to avoid colliding with the other NPCs |
-| Arrow | `Obstacle Checking` of each NPCs to stop in front of the obstacle |
-| Diamond | `Spawn Points` where NPCs is generated by `Random Traffic Sims` |
+| Rectangle | `Yielding Phase` of each NPCs to avoid colliding with the other NPCs. |
+| Arrow | `Obstacle Checking` of each NPCs to stop in front of the obstacle. |
+| Diamond | `Spawn Points` where NPCs is generated by `Random Traffic Sims`. |
 
 ![Gizmo](./gizmo.png)
 
@@ -194,9 +194,9 @@ The `Waypoint settings` parameters are listed in the following table:
 
 | Parameter | Description |
 |---|---|
-| Resolution | Resolution of resampling. Lower values provide better accuracy at the cost of processing time |
-| Min Delta Length | Minimum length(m) between adjacent points |
-| Min Delta Angle | Minimum angle(deg) between adjacent edges<br>Lowering this value produces a smoother curve |
+| Resolution | Resolution of resampling. Lower values provide better accuracy at the cost of processing time. |
+| Min Delta Length | Minimum length(m) between adjacent points. |
+| Min Delta Angle | Minimum angle(deg) between adjacent edges.<br>Lowering this value produces a smoother curve. |
 
 `TrafficLane`, `StopLine` and `TrafficLight` will be generated and placed as child objects of the `Root Object`.<br>
 You can check their visual representation by clicking consecutive elements in the scene hierarchy.
@@ -239,8 +239,8 @@ The parameters of `SimplePedestrianWalkerController` are listed in the following
 
 | Parameter | Description |
 |---|---|
-| Duration | Duration at which the pedestrian walk |
-| Speed | Speed at which the pedestian walk |
+| Duration | Duration at which the pedestrian walk. |
+| Speed | Speed at which the pedestian walk. |
 
 ### Reference Components
 To enable `Traffic Simulation`, please fill in following fields in `AutowareSimulationDemo.cs`.
