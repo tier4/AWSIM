@@ -15,6 +15,7 @@
 using System;
 using UnityEngine;
 using Awsim.Common;
+using GeographicLib;
 
 namespace Awsim.Entity
 {
@@ -85,12 +86,15 @@ namespace Awsim.Entity
         {
             var unityPosition = _transform.position;
             var rosPosition = Ros2Utility.UnityToRos2Position(unityPosition);
-            var outputMgrsPosition = rosPosition + MgrsPosition.Instance.Mgrs.Position;
-            var gridZone = MgrsPosition.Instance.Mgrs.GridZone;
+            var mgrsBase      = MgrsPosition.Instance.Mgrs;
+            var mgrsPosition  = rosPosition + mgrsBase.Position;
 
-            // TODO: Avoid doing new Mgrs and GeoCoodinate instance.
-            _outputData.Mgrs = new Mgrs(outputMgrsPosition, gridZone);
-            _outputData.GeoCoordinate = GeoCoordinateConverter.Cartesian2Geo(unityPosition, GeoCoordinatePosition.Instance.GeoCoordinate);
+            string mgrsString = mgrsBase.GridZone + string.Format("{0:D9}", (int)(mgrsPosition.x * 10000)) + string.Format("{0:D9}", (int)(mgrsPosition.y * 10000)); 
+            (int utmZone, bool utmNorthp, double utmX, double utmY, int utmPrec) = GeographicLib.Geocodes.MGRS.Reverse(mgrsString.AsSpan());
+            (double latDeg, double lonDeg) = GeographicLib.UTMUPS.Reverse(utmZone, utmNorthp, utmX, utmY);
+
+            double height = mgrsPosition.z; 
+            _outputData.GeoCoordinate = new GeoCoordinate(latDeg, lonDeg, height);
 
             // Calls registered callbacks.
             OnOutput?.Invoke(_outputData);
