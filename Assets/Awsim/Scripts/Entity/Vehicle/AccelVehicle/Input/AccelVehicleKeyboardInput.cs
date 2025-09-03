@@ -53,11 +53,22 @@ namespace Awsim.Entity
         [SerializeField] KeyCode _hazardSignalKey = KeyCode.Alpha3;
         [SerializeField] KeyCode _noneSignalKey = KeyCode.Alpha4;
         [SerializeField] Component _readonlyVehicleComponent = null;
+        [SerializeField] float _fullThrottleAcceleration = 1;   // (m/s^2).
+        [SerializeField] float _fullBrakeDeceleration = 1;      // (m/s^2).
+
         IReadOnlyAccelVehicle _readonlyVehicle = null;
 
         public void Initialize()
         {
             _readonlyVehicle = _readonlyVehicleComponent as IReadOnlyAccelVehicle;
+        }
+
+        public void Initialize(float fullThrottleAcceleration, float fullBrakeDeceleration)
+        {
+            _fullThrottleAcceleration = fullThrottleAcceleration;
+            _fullBrakeDeceleration = Mathf.Abs(fullBrakeDeceleration);
+
+            Initialize();
         }
 
         public bool UpdateInputs()
@@ -67,12 +78,12 @@ namespace Awsim.Entity
             // Get acceleration.
             if (Input.GetKey(_accelerationKey))
             {
-                AccelerationInput = 1f;                           // TODO: Adjusting input value.
+                AccelerationInput = _fullThrottleAcceleration;                           // TODO: Adjusting input value.
                 isOverridden = true;
             }
             else if (Input.GetKey(_decelerationKey))
             {
-                AccelerationInput = -1f;                          // TODO: Adjusting input value.
+                AccelerationInput = -_fullBrakeDeceleration;                              // TODO: Adjusting input value.
                 isOverridden = true;
             }
             else

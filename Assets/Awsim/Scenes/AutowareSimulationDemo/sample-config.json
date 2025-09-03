@@ -3,17 +3,21 @@
     "TimeSourceType": 0,
     "RandomTrafficSeed": 33,
     "MaxVehicleCount": 10,
-    "LogitechG29DevicePath": "/dev/input/event21",
-    "EgoPose": {
-        "Position": {
-            "x": 81381.7265625,
-            "y": 49920.1890625,
-            "z": 41.57674865722656
+    "EgoVehicleSettings": {
+        "LogitechG29DevicePath": "/dev/input/event21",
+        "EgoPose": {
+            "Position": {
+                "x": 81381.7265625,
+                "y": 49920.1890625,
+                "z": 41.57674865722656
+            },
+            "EulerAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 35.0
+            }
         },
-        "EulerAngles": {
-            "x": 0.0,
-            "y": 0.0,
-            "z": 35.0
-        }
+        "FullThrottleAcceleration": 3,
+        "FullBrakeDeceleration": 12
     }
 }

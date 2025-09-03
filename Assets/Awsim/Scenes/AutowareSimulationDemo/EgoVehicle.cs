@@ -14,11 +14,29 @@
 
 using UnityEngine;
 using Awsim.Entity;
+using System;
+using Awsim.Common;
 
 namespace Awsim.Scene.AutowareSimulationDemo
 {
     public class EgoVehicle : MonoBehaviour
     {
+        [Serializable]
+        public class Settings
+        {
+            public string LogitechG29DevicePath;
+            public EgoPose EgoPose;
+            public float FullThrottleAcceleration;  // (m/s^2)
+            public float FullBrakeDeceleration;     // (m/s^2)
+        }
+
+        [Serializable]
+        public class EgoPose
+        {
+            public Vector3 MgrsPosition;
+            public Vector3 EulerAngles;
+        }
+
         public AccelVehicle Vehicle => _vehicle;
         public AccelVehicleControlModeBasedInputter ControlModeBasedInputProvider => _controlModeBasedVehicleInputter;
         public CameraSensor CameraSensor => _cameraSensor;
@@ -43,7 +61,7 @@ namespace Awsim.Scene.AutowareSimulationDemo
         [SerializeField] GnssSensor _gnssSensor;
         [SerializeField] GnssRos2Publisher _gnssRos2Publisher;
 
-        public void Initialize(string logitechG29DevicePath, Vector3 initialVehiclePosition, Quaternion initialVehicleRotation)
+        public void Initialize(Settings settings)
         {
             // Vehicle.
             _vehicle.Initialize();
@@ -51,11 +69,11 @@ namespace Awsim.Scene.AutowareSimulationDemo
             _controlModeSrvServer.Initialize();
             _vehicleReportRos2Publisher.Initialize();
             _vehicleVisualEffect.Initialize();
-            _keyboardVehicleInput.Initialize();
+            _keyboardVehicleInput.Initialize(settings.FullThrottleAcceleration, settings.FullBrakeDeceleration);
             _ros2VehicleInput.Initialize();
-            _logitechG29VehicleInput.Initialize(logitechG29DevicePath);
-            _vehicleTransform.position = initialVehiclePosition;
-            _vehicleTransform.rotation = initialVehicleRotation;
+            _logitechG29VehicleInput.Initialize(settings.LogitechG29DevicePath);
+            _vehicleTransform.position = settings.EgoPose.MgrsPosition - MgrsPosition.Instance.Mgrs.Position;   // MGRS to Unity.
+            _vehicleTransform.rotation = Quaternion.Euler(settings.EgoPose.EulerAngles);
 
             // Sensor.
             _imuSensor.Initialize();

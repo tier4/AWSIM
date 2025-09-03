@@ -32,15 +32,7 @@ namespace Awsim.Scene.AutowareSimulationDemo
             public TimeSourceType TimeSourceType;
             public int RandomTrafficSeed;
             public int MaxVehicleCount;
-            public string LogitechG29DevicePath;
-            public EgoPose EgoPose;
-        }
-
-        [Serializable]
-        public class EgoPose
-        {
-            public Vector3 Position;
-            public Vector3 EulerAngles;
+            public EgoVehicle.Settings EgoVehicleSettings;
         }
 
         [Header("UI")]
@@ -71,9 +63,9 @@ namespace Awsim.Scene.AutowareSimulationDemo
         [SerializeField] string _nodeName = "AWSIM";
         [SerializeField] TimeSourceType _timeSourceType;
         [SerializeField] FollowCamera _followCamera;
-        #pragma warning disable CS0414 // Remove unused private members warning disabled. Warns when built for not UNITY_EDITOR
+#pragma warning disable CS0414 // Remove unused private members warning disabled. Warns when built for not UNITY_EDITOR
         [SerializeField] string _commandLineConfigParam = "--json_path";
-        #pragma warning restore CS0414
+#pragma warning restore CS0414
 
         [Header("Editor debug")]
         [SerializeField] bool _useJsonConfig;
@@ -110,9 +102,7 @@ namespace Awsim.Scene.AutowareSimulationDemo
             // Initialize ego vehicle.
             if (_useJsonConfig)
             {
-                var position = jsonConfig.EgoPose.Position - MgrsPosition.Instance.Mgrs.Position;
-                var rotation = Quaternion.Euler(jsonConfig.EgoPose.EulerAngles);
-                _egoVehicle.Initialize(jsonConfig.LogitechG29DevicePath, position, rotation);
+                _egoVehicle.Initialize(jsonConfig.EgoVehicleSettings);
 
             }
             else
