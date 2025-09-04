@@ -15,10 +15,6 @@
 using UnityEngine;
 using ROS2;
 using Awsim.Common;
-
-using UnityEngine;
-using ROS2;
-using Awsim.Common;
 using std_msgs.msg;
 using sensor_msgs.msg;
 
