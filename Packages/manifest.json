@@ -16,6 +16,7 @@
     "com.unity.toolchain.win-x86_64-linux-x86_64": "2.0.10",
     "com.unity.ugui": "2.0.0",
     "com.unity.visualscripting": "1.9.5",
+    "com.valvesoftware.unity.openvr": "file:../Assets/SteamVR/OpenVRUnityXRPackage/Editor/com.valvesoftware.unity.openvr-1.2.3.tgz",
     "com.unity.modules.accessibility": "1.0.0",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
