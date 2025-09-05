@@ -65,6 +65,9 @@ namespace Awsim.Entity
         [SerializeField] float _ki = 0.2f;
         [SerializeField] float _kd = 0.05f;
         [SerializeField] float _minNormalizedSteeringTorque = 0.17f;
+        [SerializeField] float _fullThrottleAcceleration = 1f;   // (m/s^2).
+        [SerializeField] float _fullBrakeDeceleration = 1f;      // (m/s^2).
+
 
         [Header("Vehicle settings")]
         [SerializeField] Component _readonlyVehicleComponent = null;
@@ -82,17 +85,27 @@ namespace Awsim.Entity
         {
             // Linux only.
             if (!IsLinux())
+            {
+                Debug.LogWarning("AccelVehicleLogitechG29Input is supported only on Linux.");
                 return;
+            }
 
             _readonlyVehicle = _readonlyVehicleComponent as IReadOnlyAccelVehicle;
             _pidController = new PidController(_kp, _ki, _kd);
 
             var connected = LogitechG29Linux.InitDevice(_devicePath);
             Connected = connected;
+
+            if (!Connected)
+            {
+                Debug.LogWarning("Failed to connect to the Logitech G29 steering wheel.");
+            }
         }
 
-        public void Initialize(string devicePath)
+        public void Initialize(float fullThrottleAcceleration, float fullBrakeDeceleration, string devicePath)
         {
+            _fullThrottleAcceleration = fullThrottleAcceleration;
+            _fullBrakeDeceleration = Mathf.Abs(fullBrakeDeceleration);
             _devicePath = devicePath;
 
             Initialize();
@@ -146,8 +159,8 @@ namespace Awsim.Entity
                 SteerAngleInput = _readonlyVehicle.MaxSteerTireAngle * currentPos;
 
                 // Pedal.
-                AccelerationInput = _readonlyVehicle.MaxAcceleration * _throttlePedalInput;
-                AccelerationInput += _readonlyVehicle.MaxAcceleration * _brakePedalInput * -1;
+                AccelerationInput = _readonlyVehicle.MaxAcceleration * _throttlePedalInput * Mathf.Abs(_fullThrottleAcceleration);
+                AccelerationInput += _readonlyVehicle.MaxAcceleration * _brakePedalInput * Mathf.Abs(_fullBrakeDeceleration) * -1;
 
                 LogitechG29Linux.UploadEffect(0, 0);
             }

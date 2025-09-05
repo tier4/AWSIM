@@ -71,7 +71,7 @@ namespace Awsim.Scene.AutowareSimulationDemo
             _vehicleVisualEffect.Initialize();
             _keyboardVehicleInput.Initialize(settings.FullThrottleAcceleration, settings.FullBrakeDeceleration);
             _ros2VehicleInput.Initialize();
-            _logitechG29VehicleInput.Initialize(settings.LogitechG29DevicePath);
+            _logitechG29VehicleInput.Initialize(settings.FullThrottleAcceleration, settings.FullBrakeDeceleration, settings.LogitechG29DevicePath);
             _vehicleTransform.position = settings.EgoPose.MgrsPosition - MgrsPosition.Instance.Mgrs.Position;   // MGRS to Unity.
             _vehicleTransform.rotation = Quaternion.Euler(settings.EgoPose.EulerAngles);
 
