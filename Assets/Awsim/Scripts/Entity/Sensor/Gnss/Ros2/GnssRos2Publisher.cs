@@ -15,92 +15,79 @@
 using UnityEngine;
 using ROS2;
 using Awsim.Common;
+using std_msgs.msg;
+using sensor_msgs.msg;
 
 namespace Awsim.Entity
 {
     public class GnssRos2Publisher : MonoBehaviour
     {
-        [SerializeField] string _poseTopic = "/sensing/gnss/pose";
-        [SerializeField] string _poseWithCovarianceStampedTopic = "/sensing/gnss/pose_with_covariance";
-        [SerializeField] string _frameID = "/gnss_link";
-
+        [SerializeField] string _navSatFixTopic = "/sensing/gnss/ublox/nav_sat_fix";
+        [SerializeField] string _frameID = "map"; 
         [SerializeField]
         QosSettings _qosSettings = new QosSettings(ReliabilityPolicy.QOS_POLICY_RELIABILITY_RELIABLE,
                                                    DurabilityPolicy.QOS_POLICY_DURABILITY_VOLATILE,
                                                    HistoryPolicy.QOS_POLICY_HISTORY_KEEP_LAST,
                                                    1000);
+
         [SerializeField] GnssSensor _gnssSensor;
 
-        IPublisher<geometry_msgs.msg.PoseStamped> _posePublisher;
-        IPublisher<geometry_msgs.msg.PoseWithCovarianceStamped> _poseWithCovarianceStampedPublisher;
-        geometry_msgs.msg.PoseStamped _poseMsg;
-        geometry_msgs.msg.PoseWithCovarianceStamped _poseWithCovarianceStampedMsg;
-
-        void Reset()
-        {
-            var instance = GetComponent<GnssSensor>();
-            if (instance != null)
-                _gnssSensor = instance;
-        }
+        IPublisher<NavSatFix> _navSatFixPublisher;
+        NavSatFix _navSatFixMsg;
 
         public void Initialize()
         {
-            // Set callbacks.
+            if (_gnssSensor == null)
+            {
+                Debug.LogError("[GnssRos2Publisher] GnssSensor not assigned!");
+                return;
+            }
+
             _gnssSensor.OnOutput += Publish;
 
-            // Create msgs.
-            _poseMsg = new geometry_msgs.msg.PoseStamped()
-            {
-                Header = new std_msgs.msg.Header()
-                {
-                    Frame_id = _frameID,
-                },
-                Pose = new geometry_msgs.msg.Pose(),
-            };
-
-            _poseWithCovarianceStampedMsg = new geometry_msgs.msg.PoseWithCovarianceStamped()
-            {
-                Header = new std_msgs.msg.Header()
-                {
-                    Frame_id = _frameID,
-                },
-                Pose = new geometry_msgs.msg.PoseWithCovariance(),
-            };
-            for (int i = 0; i < _poseWithCovarianceStampedMsg.Pose.Covariance.Length; i++)
-                _poseWithCovarianceStampedMsg.Pose.Covariance[i] = 0;
-
-            // Create publishers.
             var qos = _qosSettings.GetQosProfile();
-            _posePublisher = AwsimRos2Node.CreatePublisher<geometry_msgs.msg.PoseStamped>(_poseTopic, qos);
-            _poseWithCovarianceStampedPublisher
-                = AwsimRos2Node.CreatePublisher<geometry_msgs.msg.PoseWithCovarianceStamped>(_poseWithCovarianceStampedTopic, qos);
+            _navSatFixPublisher = AwsimRos2Node.CreatePublisher<NavSatFix>(_navSatFixTopic, qos);
+
+            _navSatFixMsg = new NavSatFix
+            {
+                Header = new Header { Frame_id = _frameID },
+                Status = new NavSatStatus
+                {
+                    Status = NavSatStatus.STATUS_FIX, 
+                    Service = NavSatStatus.SERVICE_GPS
+                },
+                Position_covariance_type = NavSatFix.COVARIANCE_TYPE_DIAGONAL_KNOWN
+            };
+
+            for (int i = 0; i < _navSatFixMsg.Position_covariance.Length; i++)
+                _navSatFixMsg.Position_covariance[i] = 0;
         }
 
-
-        void Publish(GnssSensor.IReadOnlyOutputData outputData)
+        void Publish(GnssSensor.IReadOnlyOutputData data)
         {
-            // Converts data output from GnssSensor to ROS2 msgs.
-            _poseMsg.Pose.Position.X = outputData.Mgrs.Position.x;
-            _poseMsg.Pose.Position.Y = outputData.Mgrs.Position.y;
-            _poseMsg.Pose.Position.Z = outputData.Mgrs.Position.z;
-            _poseWithCovarianceStampedMsg.Pose.Pose.Position.X = outputData.Mgrs.Position.x;
-            _poseWithCovarianceStampedMsg.Pose.Pose.Position.Y = outputData.Mgrs.Position.y;
-            _poseWithCovarianceStampedMsg.Pose.Pose.Position.Z = outputData.Mgrs.Position.z;
+            if (_navSatFixPublisher == null || data?.GeoCoordinate == null) return;
+            _navSatFixMsg.Latitude = data.GeoCoordinate.Latitude;
+            _navSatFixMsg.Longitude = data.GeoCoordinate.Longitude;
+            _navSatFixMsg.Altitude  = data.GeoCoordinate.Altitude;
 
-            // Update msg header.
-            var poseWithCovarianceStampedHeader = _poseWithCovarianceStampedMsg as MessageWithHeader;
-            var poseHeader = _poseMsg as MessageWithHeader;
-            AwsimRos2Node.UpdateROSTimestamps(poseHeader, poseWithCovarianceStampedHeader);
-
-            // Publish to ROS2.
-            _posePublisher.Publish(_poseMsg);
-            _poseWithCovarianceStampedPublisher.Publish(_poseWithCovarianceStampedMsg);
+            var headered = _navSatFixMsg as MessageWithHeader;
+            if (headered != null)
+            {
+                AwsimRos2Node.UpdateROSTimestamps(headered);
+            }
+            _navSatFixPublisher.Publish(_navSatFixMsg);
         }
 
         void OnDestroy()
         {
-            AwsimRos2Node.RemovePublisher<geometry_msgs.msg.PoseStamped>(_posePublisher);
-            AwsimRos2Node.RemovePublisher<geometry_msgs.msg.PoseWithCovarianceStamped>(_poseWithCovarianceStampedPublisher);
+            if (_gnssSensor != null)
+                _gnssSensor.OnOutput -= Publish;
+
+            if (_navSatFixPublisher != null)
+            {
+                AwsimRos2Node.RemovePublisher<NavSatFix>(_navSatFixPublisher);
+                _navSatFixPublisher = null;
+            }
         }
     }
 }
