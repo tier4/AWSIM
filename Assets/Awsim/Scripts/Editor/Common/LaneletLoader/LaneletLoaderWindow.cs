@@ -24,7 +24,7 @@ namespace Awsim.Common
         [SerializeField] GameObject _rootObject;
         SerializedObject _serializedObject;
 
-        [MenuItem("AWSIM/Usecase/TrafficSimulation/Load Lanelet")]
+        [MenuItem("AWSIM/Common/Load Lanelet")]
         static void ShowWindow()
         {
             var window = GetWindow(typeof(LaneletLoaderWindow), true, "LaneletLoader");
