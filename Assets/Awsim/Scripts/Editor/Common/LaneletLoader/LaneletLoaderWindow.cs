@@ -14,9 +14,8 @@
 
 using UnityEditor;
 using UnityEngine;
-using Awsim.Common;
 
-namespace Awsim.Usecase.TrafficSimulation
+namespace Awsim.Common
 {
     public class LaneletLoaderWindow : EditorWindow
     {
