@@ -1,13 +1,13 @@
 # ScenarioSimulatorConnection
 
 ## Abstract
-`Traffic Simulation` simulates traffic situation follow traffic rules.<br>
+`Scenario Simulator Connection` is a scene setting for connecting `Scenario simulator v2`.<br>
 Spawn points (Spawnable Lanes) and spawnable vehicles can be configured using components and `Traffic Simulation` simulates traffic situation following configuration.
 
 ![Traffic Simulation](./top.png)
 
 ### Overview
-`Traffic Simulation` consists of the following components:
+`Scenario Simulator Connection` consists of the following components:
 
 | Component | Description |
 |---|---|
@@ -19,7 +19,7 @@ Spawn points (Spawnable Lanes) and spawnable vehicles can be configured using co
 | NpcVehicle | Vehicle models (NPCs) controlled by `RandomTrafficSimulator`. |
 
 ### Configuration
-`Traffic Simulation` can be configured from `TrafficSimulator` component.
+`Scenario Simulator Connection` can be configured from `TrafficSimulator` component.
 
 The configurable elements are listed in the following table:
 
@@ -30,7 +30,7 @@ The configurable elements are listed in the following table:
 | Traffic Intersections | The field that is set `TrafficIntersection` objects.<br>`TrafficIntersection` to be set is controlled by `Traffic Simulation`. |
 
 ## Instruction
-To use `Traffic Simulation`, please follow the steps below.
+To use `Scenario Simulator Connection`, please follow the steps below.
 
 For the preparation, the following must be prepared:
 
@@ -38,70 +38,64 @@ For the preparation, the following must be prepared:
 - lanelet map (.osm)
 
 ### 1. Placement and settings of `ScenarioSimulatorClient`
-Create empty `GameObject` (should be named `TrafficSimulator`).<br>
-Attach this object to `TrafficSimulator` component.
+Please create and configure `ScenarioSimulatorClient` component.
 
-(optional) To place objects which is generated later, you may creat empty objects named `TrafficIntersections` and `NPCPedestrians`.
+![Configure ss2](./ss2_client.png)
 
-![Place Traffic Simulator](./hierarchy.png)
+Please create and configure `ScenarioSimulatorClient` component as the following:
 
-![Traffic Simulator](./traffic_simulator.png)
+1. Create empty `GameObject` (should be `Function/ScenarioSimulatorClient`)
+![Hierarchy](./hierarchy.png)
+2. Attach this object to `ScenarioSimulatorClient` component
+3. Fill in `Entities Root` field with `ScenarioSimulatorClient` object itself
 
-Please configure `TrafficSimulator` component as the following:
+#### Configuration of `Entity Prefabs`
+Please configure `Entity Prefabs` field as the following:
 
-1. Fill in `Ego Vehicle` field with EGO vehicle
-    1. Example: `EgoVehicle/Lexus RX450h 2015`
-2. Change `Obstacle Layer Mask` and `Ground Layer Mask` field to `Everything`
-3. Fill in `Traffic Intersections` field with `TrafficIntersection` objects
-4. Fill in `Random Traffic Sims` field
-    1. Fill in `Traffic Sim Npc Vehicle Prefab` field with vehicle prefabs what you want to spawn
-        1. Prefabs is in `Assets/Awsim/Prefabs/Usecase/TrafficSimulation/`
-    2. Fill in `Spawnable Traffic Lanes` field with `TrafficLane` where you want to spawn vehicles
+1. Fill in `Entity Prefabs` field of `ScenarioSimulatorClient` with vehicle prefabs what you want to use
+    1. Fill `Asset Key` field with name for identifying prefab
+    2. Fill `Prefab` field with Ego and Npc prefab
+        1. Ego prefabs is in `Assets/Awsim/Prefabs/Entity/Npc/Vehicle/`
+        2. Npc prefabs is in `Assets/Awsim/Scenes/IntegrateScenarioSimulatorDemo/`
 
-!!! info
-    For detailed settings of `TrafficSimulator`, see [here](#configulations).
+#### Camera setting of `ScenarioSimulatorClient`
+Please create and configure `FollowCamera` component as the following:
+
+![Camera](./camera.png)
+
+1. Create `Camera` object (should place on `Function/`)
+2. Attach this object to `FollowCamera` component
+3. Fill in `Ego FollowCamera` field of `ScenarioSimulatorClient` with this `Camera` object
 
 ### 2. `LaneletTrafficLight` settings
-Please place intersection objects and attach `LaneletTrafficLight` script.<br>
-Then, please you set traffic lights to intersection.
+Please attach and configure `LaneletTrafficLight` script to all traffic light in the scene.
 
-![Traffic Intersection](./traffic_intersection.png)
+![Traffic Light](../TrafficSimulation/traffic_light.png)
 
-Please configure `TrafficIntersection` and `LaneletTrafficLight` components as the following:
+Please configure `LaneletTrafficLight` components as the following:
 
-1. Add a empty `GameObject` as a child object of `TrafficIntersections` hierarchy
-    1. The `GameObject` should be named `TrafficIntersection.x`
-    2. The `Transform` of `GameObject` should be set on the target intersection
-2. Attach a `TrafficIntersection` component to the intersection game object
-3. Attach `LaneletTrafficLight` to traffic light objects placed on the target intersection
-![Traffic Light](./traffic_light.png)
-4. Modify `Bulb Material Config` as follow images<br>
+1. Attach `LaneletTrafficLight` to traffic light objects of all traffic light object in the scene
+2. Modify `Bulb Material Config` as follow images<br>
 vehicle raffic light<br>
-![Bulb Vehicle](./bulb_vehicle.png)<br>
+![Bulb Vehicle](../TrafficSimulation/bulb_vehicle.png)<br>
 pedestrian traffic light<br>
-![Bulb Pedestrian](./bulb_pedestrian.png)
+![Bulb Pedestrian](../TrafficSimulation/bulb_pedestrian.png)
     1. If there are wrong order of bulb, modify each `Bulb Material Config`
-5. Set traffic light objects attached `LaneletTrafficLight` in step. 3 to `TrafficLightGroups` in `TrafficIntersection`
-    1. Traffic lights which should light same sequences should be set on same `TrafficLightGroups`
-
-!!! warning
-    Do not attach `LaneletTrafficLight` to traffic lights which are not set to `TrafficIntersection`.<br>
-    It causes errors.
 
 !!! info
     For detailed settings of `Bulb Material Config`, see [here](../../Entity/Infra/TrafficLight/index.md).
 
 ### 3. Load lanelet
-`LaneletLoader` can load a lanelet map and create `TrafficLane` and `StopLine`.
-In addition, `LaneletLoader` set parameter of traffic rules to `TrafficLane`, `StopLine` and traffic lights.<br>
-`LaneletLoader` can be performed by opening `AWSIM -> Random Traffic -> Load Lanelet` at the toolbar of Unity Editor.
+`LaneletLoader` can load a lanelet map and set parameter of traffic rules to traffic lights.<br>
+`LaneletLoader` can be performed by opening `AWSIM -> Common -> Load Lanelet` at the toolbar of Unity Editor.
 
-![Tool Bar](./load_lanelet_tool_bar.png)
+![Tool Bar](../TrafficSimulation/load_lanelet_tool_bar.png)
 
 Please use `LaneletLoader` as the following:
-1. Fill in `Osm` field with a lanelet map (`.osm`) you prepared, `Root Object` field with a `TrafficSimulator` object.<br>
-2. Adjust `Waypoint settings` parameters for the loading process if needed.<br>
-3. To load the lanelet map, please click `Load` button.
+
+1. Fill in `Osm` field with a lanelet map (`.osm`) you prepared
+2. Adjust `Waypoint settings` parameters for the loading process if needed
+3. To load the lanelet map, please click `Load` button
 
 ![Load Lanelet](./load_lanelet.png)
 
@@ -113,24 +107,37 @@ The `Waypoint settings` parameters are listed in the following table:
 | Min Delta Length | Minimum length(m) between adjacent points. |
 | Min Delta Angle | Minimum angle(deg) between adjacent edges.<br>Lowering this value produces a smoother curve. |
 
-`TrafficLane`, `StopLine` and `TrafficLight` will be generated and placed as child objects of the `Root Object`.<br>
-You can check their visual representation by clicking consecutive elements in the scene hierarchy.
-
-![Hierarchy](./hierarchy2.png)
-
 ### 4. Call methods of `ScenarioSimulatorClient` and `ClockRos2Publisher`
-To enable `Traffic Simulation`, some methods of `TrafficSimulator` should be called from callback of `MonoBehaviour`.
+To enable `Scenario Simulator Client`, some methods of `ScenarioSimulatorClient` and `ClockRos2Publisher` should be called from callback of `MonoBehaviour`.
 
-Please create or open class which is inherit `MonoBehaviour` and make field of `TrafficSimulator`.<br>
-Then, add description of calling method of `TrafficSimulator`.
+#### Placement of `ClockRos2Publisher`
+Please create and configure `ScenarioSimulatorClient` component as the following:
+
+![Clock Publisher](./clock_publisher.png)
+
+1. Create empty `GameObject` (should be `Common/ClockRos2Publisher`)
+2. Attach this object to `ClockRos2Publisher` component
+
+#### Call methods
+Please create or open class which is inherit `MonoBehaviour` and make field of `ScenarioSimulatorClient` and `ClockRos2Publisher`.<br>
+Then, add description of calling method of `ScenarioSimulatorClient` and `ClockRos2Publisher`.
 
 The method should be called are listed in the following table:
+
+`ScenarioSimulatorClient`
 
 | Method | Description |
 |---|---|
 | Initialize() | Should be called Start() callback. |
 | OnUpdate() | Should be called Update() callback. |
 | OnFixedUpdate() | Should be called FixedUpdate() callback. |
+
+ `ClockRos2Publisher`
+
+| Method | Description |
+|---|---|
+| Initialize() | Should be called Start() callback. |
+| OnUpdate() | Should be called Update() callback. |
 
 !!! info
     AWSIM includes `AutowareSimulationDemo` scene.<br>
