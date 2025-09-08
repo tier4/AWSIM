@@ -19,15 +19,19 @@ Spawn points (Spawnable Lanes) and spawnable vehicles can be configured using co
 | NpcVehicle | Vehicle models (NPCs) controlled by `RandomTrafficSimulator`. |
 
 ### Configuration
-`Scenario Simulator Connection` can be configured from `TrafficSimulator` component.
+`Scenario Simulator Connection` can be configured from `ScenarioSimulatorConnection` component.
 
 The configurable elements are listed in the following table:
 
 | Parameter | Description |
 |---|---|
-| Ego Vehicle | Ego vehicle handler. If not set, the manager creates a dummy ego.<br>This reference is also set automatically when the Ego spawns via the traffic simulator. |
-| Seed | Seed value for random generator. |
-| Traffic Intersections | The field that is set `TrafficIntersection` objects.<br>`TrafficIntersection` to be set is controlled by `Traffic Simulation`. |
+| Server Response Address | Tcp address to connect `Scenario simulator v2`. |
+| Traffic Lights In Scene | Traffic lights which is controlled. |
+| Entity Prefabs | List of Ego and Npc prefabs.<br>Each element have identifier (`Asset Key`) and reference (`Prefab`). |
+| Entites Root | Hierarchy where Npc is spawn. |
+| Ego Follow Camera | Reference of `Follow Camera` object. |
+| Step Execution | Enable the checkbox to perform step execution. |
+| Step Duration In Percentage | On step execution, frames between each step. |
 
 ## Instruction
 To use `Scenario Simulator Connection`, please follow the steps below.
@@ -81,6 +85,7 @@ vehicle raffic light<br>
 pedestrian traffic light<br>
 ![Bulb Pedestrian](../TrafficSimulation/bulb_pedestrian.png)
     1. If there are wrong order of bulb, modify each `Bulb Material Config`
+3. Fill in `Traffic Lights In Scene` field of `ScenarioSimulatorClient` with all traffic light object in the scene
 
 !!! info
     For detailed settings of `Bulb Material Config`, see [here](../../Entity/Infra/TrafficLight/index.md).
@@ -142,6 +147,6 @@ The method should be called are listed in the following table:
 !!! info
     AWSIM includes `AutowareSimulationDemo` scene.<br>
     Please refer to:<br>
-    * `Assets/Awsim/Scenes/AutowareSimulationDemo/AutowareSimulationDemo.cs`<br>
-    * `Assets/Awsim/Scenes/AutowareSimulationDemo.unity` scene
+    * `Assets/Awsim/Scenes/IntegrateScenarioSimulatorDemo/IntegrateScenarioSimulatorDemo.cs`<br>
+    * `Assets/Awsim/Scenes/IntegrateScenarioSimulatorDemo.unity` scene
 
