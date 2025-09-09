@@ -94,6 +94,7 @@ nav:
         - Pcd generation:
           - Create pcd map: DeveloperGuide/Layer/Usecase/CreatePcd/index.md
         - Traffic Simulation: DeveloperGuide/Layer/Usecase/TrafficSimulation/index.md
+        - Scenario Simulator Connection: DeveloperGuide/Layer/Usecase/ScenarioSimulatorConnection/index.md
       - Entity:
         - Vehicle:
           - Accel vehicle: DeveloperGuide/Layer/Entity/Vehicle/AccelVehicle/index.md
