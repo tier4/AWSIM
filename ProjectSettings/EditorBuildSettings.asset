@@ -9,6 +9,8 @@ EditorBuildSettings:
     path: Assets/Awsim/Scenes/AutowareSimulationDemo.unity
     guid: 8c2837b332cce6549b98f4033e089732
   m_configObjects:
+    Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: f7695377780879324a62ac7cfbf81724, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: ca627ac19ad5994d0860efda11846e96, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: a517c54a8079546208f4dbd2039fb53c, type: 3}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 26e24b461d5997b20b4561ea022eb7f7, type: 2}
   m_UseUCBPForAssetBundles: 0

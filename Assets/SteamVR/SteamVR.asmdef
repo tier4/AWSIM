@@ -1,0 +1,41 @@
+{
+    "name": "SteamVR",
+    "rootNamespace": "",
+    "references": [
+        "SteamVR_Windows_EditorHelper",
+        "Unity.XR.OpenVR",
+        "UnityEngine.SpatialTracking"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [
+        "Android"
+    ],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.valvesoftware.unity.openvr",
+            "expression": "",
+            "define": "OPENVR_XR_API"
+        },
+        {
+            "name": "com.unity.xr.legacyinputhelpers",
+            "expression": "",
+            "define": "UNITY_LEGACY_INPUT_HELPERS"
+        },
+        {
+            "name": "com.unity.render-pipelines.universal",
+            "expression": "",
+            "define": "UNITY_URP"
+        },
+        {
+            "name": "com.unity.ugui",
+            "expression": "",
+            "define": "UNITY_UGUI_UI"
+        }
+    ],
+    "noEngineReferences": false
+}
