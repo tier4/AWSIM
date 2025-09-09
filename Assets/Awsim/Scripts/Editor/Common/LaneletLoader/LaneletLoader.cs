@@ -16,10 +16,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using Awsim.Common;
 using Awsim.Entity;
+using Awsim.Usecase.TrafficSimulation;
 
-namespace Awsim.Usecase.TrafficSimulation
+namespace Awsim.Common
 {
     /// <summary>
     /// A class that provides capability to convert Lanelet2 data into environment components.

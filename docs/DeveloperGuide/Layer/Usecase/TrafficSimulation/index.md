@@ -178,7 +178,7 @@ This means that the right of way was applied correctly.
 ### 3. Load lanelet
 `LaneletLoader` can load a lanelet map and create `TrafficLane` and `StopLine`.
 In addition, `LaneletLoader` set parameter of traffic rules to `TrafficLane`, `StopLine` and traffic lights.<br>
-`LaneletLoader` can be performed by opening `AWSIM -> Random Traffic -> Load Lanelet` at the toolbar of Unity Editor.
+`LaneletLoader` can be performed by opening `AWSIM -> Common -> Load Lanelet` at the toolbar of Unity Editor.
 
 ![Tool Bar](./load_lanelet_tool_bar.png)
 
