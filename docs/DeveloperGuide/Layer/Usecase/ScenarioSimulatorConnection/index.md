@@ -1,22 +1,110 @@
 # ScenarioSimulatorConnection
-
-## Abstract
-`Scenario Simulator Connection` is a scene setting for connecting `Scenario simulator v2`.<br>
-Spawn points (Spawnable Lanes) and spawnable vehicles can be configured using components and `Traffic Simulation` simulates traffic situation following configuration.
+`Scenario Simulator Connection` is a scene setting for connecting `Scenario Simulator v2`.<br>
+This page provides an overview of connecting to `Scenario Simulator v2` and instruction of the scene.
 
 ![Traffic Simulation](./top.png)
 
-### Overview
-`Scenario Simulator Connection` consists of the following components:
+!!!info
+    If you want to **use** `OpenSCENARIO` with `AWSIM`, see [here](../../../Experimental/UsingOpenScenario/index.md).
 
-| Component | Description |
-|---|---|
-| TrafficSimulator | Collecting all traffic simulators and managing the spawning and simulating process. |
-| NpcVehicleSpawner | Get Npc vehicle states and updating simulation steps. |
-| NpcVehicleSimulator | Spawning random Npc vehicle in spawning lanes. |
-| RandomTrafficSimulator | Managing lifecycle of NPCs and simulating NPC behaviours. |
-| TrafficLane<br>TrafficLight<br>TrafficIntersection<br>StopLine | Traffic entities. |
-| NpcVehicle | Vehicle models (NPCs) controlled by `RandomTrafficSimulator`. |
+## Abstract
+[`Scenario Simulator v2`](https://tier4.github.io/scenario_simulator_v2-docs/) (`SS2`) is a scenario testing framework specifically developed for `Autoware`.<br>
+It serves as a tool for `Autoware` developers to conveniently create and execute scenarios across different simulators. 
+
+`Scenario Simulator Connection` uses [`ZeroMQ`](https://tier4.github.io/scenario_simulator_v2-docs/developer_guide/ZeroMQ/) Inter-Process communication for seamless interaction between the `AWSIM` and the `SS2`.<br>
+To ensure synchronous operation of the `SS2`, `Scenario Simulator Connection` utilizes the `Request/Reply` sockets provided by `ZeroMQ` and exchanges binarized data through `Protocol Buffers`.<br>
+This enables the `SS2` to run in a synchronized manner, enhancing the accuracy and reliability of scenario testing.
+
+!!!note
+    If you would like to see how `SS2` works with `Autoware` using default build-in simulator - [`simple_sensor_simulator`](https://tier4.github.io/scenario_simulator_v2-docs/developer_guide/SimpleSensorSimulator/) (without running AWSIM) - we encourage you to read this [tutorial](https://autowarefoundation.github.io/autoware-documentation/main/tutorials/scenario-simulation/planning-simulation/scenario-test-simulation/).
+
+### Overview
+In the following sequence diagram describes responsible and communication of `SS2`, `AWSIM` and `Autoware`.<br>
+Communication between `SS2` and `AWSIM` takes place via `Request-Response` messages, and is as follows:
+
+1. `Launch` - `Autoware` is started and initialized
+2. `Initialize` - the environment in `AWSIM` is initialized, basic parameters are set
+3. `opt Ego spawn` - optional, `EgoEntity` (with sensors) is spawned in the configuration defined in the scenario
+4. `opt NPC spawn loop` - optional, all `Entities` (`NPCs`) defined in the scenario are spawned, the scenario may contain any number of each `Entity` type
+5. `update loop` - this is the main loop where scenario commands are executed. It include updating `EgoEntity`, `SS2` status, `Entities`, simulation frame and traffic light state
+6. `despawn loop` - after the end of the scenario, all `Entities` spawned on the scene are despawned (including `EgoEnity`) 
+7. `Terminate` - *Autoware* is terminated.
+
+Documentation of the commands used in the sequence is available [here](https://tier4.github.io/scenario_simulator_v2-docs/proto_doc/protobuf/).
+
+```mermaid
+sequenceDiagram
+participant ss2 as Scenario Simulator v2
+participant awsim as AWSIM
+participant aw as Autoware
+    ss2 ->> aw: Launch
+
+    ss2 ->>+ awsim: InitializeRequest
+    awsim -->>- ss2: InitializeResponse
+
+    opt Ego spawn
+        ss2 ->>+ awsim: SpawnVehicleEntityRequest
+        awsim -->>- ss2: SpawnVehicleEntityResponse
+
+        ss2 ->>+ awsim: AttachLidarSensorRequest
+        awsim -->>- ss2: AttachLidarSensorResponse
+
+        ss2 ->>+ awsim: AttachDetectionSensorRequest
+        awsim -->>- ss2: AttachDetectionSensorResponse
+
+        ss2 ->>+ awsim: AttachOccupancyGridSensorRequest
+        awsim -->>- ss2: AttachOccupancyGridSensorResponse
+    end
+
+    loop NPC spawn
+        opt Vehicle spawn
+            ss2 ->>+ awsim: SpawnVehicleEntityRequest
+            awsim -->>- ss2: SpawnVehicleEntityResponse
+        end
+
+        opt Pedestrian spawn
+            ss2 ->>+ awsim: SpawnPedestrianEntityRequest
+            awsim -->>- ss2: SpawnPedestrianEntityResponse
+        end
+
+        opt Misc Object spawn
+            ss2 ->>+ awsim: SpawnMiscObjectEntityRequest
+            awsim -->>- ss2: SpawnMiscObjectEntityResponse
+        end
+    end
+
+    loop update
+        opt Ego update
+            ss2 ->>+ awsim: UpdateEntityStatusRequest
+            awsim -->>- ss2: UpdateEntityStatusResponse
+            Note right of awsim: Request Ego status
+        end
+
+        opt Npc update
+            ss2 ->>+ awsim: UpdateEntityStatusRequest
+            awsim -->>- ss2: UpdateEntityStatusResponse
+            Note right of awsim: Request Npcs status
+        end
+
+        ss2 ->>+ awsim: UpdateFrameRequest
+
+        awsim ->>+ aw:
+        aw ->>- awsim: ROS2 Communication
+
+        awsim -->>- ss2: UpdateFrameResponse
+
+        ss2 ->>+ awsim: UpdateTrafficLightsRequest
+        awsim -->>- ss2: UpdateTrafficLightsResponse
+    end
+
+    loop despawn
+        ss2 ->>+ awsim: DespawnEntityRequest
+        awsim -->>- ss2: DespawnEntityResponse
+    end
+
+    ss2 ->> aw: Terminate
+
+```
 
 ### Configuration
 `Scenario Simulator Connection` can be configured from `ScenarioSimulatorClient` component.
@@ -25,7 +113,7 @@ The configurable elements are listed in the following table:
 
 | Parameter | Description |
 |---|---|
-| Server Response Address | Tcp address to connect `Scenario simulator v2`. |
+| Server Response Address | Tcp address to connect `Scenario Simulator v2`. |
 | Traffic Lights In Scene | Traffic lights which is controlled. |
 | Entity Prefabs | List of Ego and Npc prefabs.<br>Each element have identifier (`Asset Key`) and reference (`Prefab`). |
 | Entites Root | Hierarchy where Npc spawn. |
@@ -119,7 +207,7 @@ The `Waypoint settings` parameters are listed in the following table:
 | Min Delta Angle | Minimum angle(deg) between adjacent edges.<br>Lowering this value produces a smoother curve. |
 
 ### 6. Placement of `ClockRos2Publisher`
-Add `ClockRos2Publisher` component to synchronize the ROS2 clock of `AWSIM` and `Scenario simulator v2`.
+Add `ClockRos2Publisher` component to synchronize the ROS2 clock of `AWSIM` and `Scenario Simulator v2`.
 
 ![Clock Publisher](./clock_publisher.png)
 
@@ -161,8 +249,8 @@ The method should be called are listed in the following table:
     * `Assets/Awsim/Scenes/IntegrateScenarioSimulatorDemo.unity` scene
 
 ## Scenario preparation
-Scenario file should be modified to work `Scenario simulator v2` with `AWSIM`.<br>
-Note that scenario file must be YAML file that follows [TIER IV Scenario Format](https://tier4.github.io/scenario_simulator_v2-docs/developer_guide/TIERIVScenarioFormatVersion2/).
+Scenario file should be modified to work `Scenario Simulator v2` with `AWSIM`.<br>
+Note that scenario file must be YAML file that follows [`TIER IV Scenario Format version 2.0`](https://tier4.github.io/scenario_simulator_v2-docs/developer_guide/TIERIVScenarioFormatVersion2/).
 
 ### 1. `model3d` parameter
 `model3d` parameter must be added to `Vehicle` parameter of scenario file to link prefabs in `AWSIM`.<br>
