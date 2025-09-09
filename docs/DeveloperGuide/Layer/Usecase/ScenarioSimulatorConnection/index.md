@@ -54,7 +54,7 @@ Please create and configure `ScenarioSimulatorClient` component as the following
 3. Fill in `Entities Root` field with `ScenarioSimulatorClient` object itself
 
 ### 2. Configuration of `Entity Prefabs`
-To be able to use entity in Unity, you can configure `ScenarioSimulatorClient`.
+Configure `ScenarioSimulatorClient` to be able to use entity in Unity.
 
 ![Entity Prefabs](./entity_prefabs.png)
 
@@ -67,7 +67,7 @@ Please configure `Entity Prefabs` field of `ScenarioSimulatorClient` as the foll
         2. Npc prefabs is in `Assets/Awsim/Scenes/IntegrateScenarioSimulatorDemo/`
 
 ### 3. Camera setting of `ScenarioSimulatorClient`
-To visualize scenario simulation in `AWSIM`, you can use `Camera` component in Unity.
+Add `Camera` component in Unity scene to visualize scenario simulation in `AWSIM`.
 
 ![Camera](./camera.png)
 
@@ -78,7 +78,7 @@ Please create and configure `FollowCamera` component as the following:
 3. Fill in `Ego FollowCamera` field of `ScenarioSimulatorClient` with this `Camera` object
 
 ### 4. `LaneletTrafficLight` settings
-Please attach and configure `LaneletTrafficLight` script to all traffic light in the scene.
+Attach and configure `LaneletTrafficLight` script to all traffic light in the scene.
 
 ![Traffic Light](../TrafficSimulation/traffic_light.png)
 
@@ -119,7 +119,7 @@ The `Waypoint settings` parameters are listed in the following table:
 | Min Delta Angle | Minimum angle(deg) between adjacent edges.<br>Lowering this value produces a smoother curve. |
 
 ### 6. Placement of `ClockRos2Publisher`
-To synchronize the ROS2 clock of `AWSIM` and `Scenario simulator v2`, you can use the `ClockRos2Publisher` component.
+Add `ClockRos2Publisher` component to synchronize the ROS2 clock of `AWSIM` and `Scenario simulator v2`.
 
 ![Clock Publisher](./clock_publisher.png)
 
@@ -129,7 +129,7 @@ Please create and configure `ScenarioSimulatorClient` component as the following
 2. Attach this object to `ClockRos2Publisher` component
 
 ### 7. Call methods of `ScenarioSimulatorClient` and `ClockRos2Publisher`
-To enable `Scenario Simulator Client`, some methods of `ScenarioSimulatorClient` and `ClockRos2Publisher` should be called from callback of `MonoBehaviour`.
+Some methods of `ScenarioSimulatorClient` and `ClockRos2Publisher` should be called from callback of `MonoBehaviour` to enable `Scenario Simulator Client`.
 
 Please implement as the following:
 
@@ -161,10 +161,11 @@ The method should be called are listed in the following table:
     * `Assets/Awsim/Scenes/IntegrateScenarioSimulatorDemo.unity` scene
 
 ## Scenario preparation
-To work `Scenario simulator v2` with `AWSIM`, [TIER IV Scenario Format](https://tier4.github.io/scenario_simulator_v2-docs/developer_guide/TIERIVScenarioFormatVersion2/) file should be modified.
+Scenario file should be modified to work `Scenario simulator v2` with `AWSIM`.<br>
+Note that scenario file must be YAML file that follows [TIER IV Scenario Format](https://tier4.github.io/scenario_simulator_v2-docs/developer_guide/TIERIVScenarioFormatVersion2/).
 
 ### 1. `model3d` parameter
-You must add `model3d` parameter to `Vehicle` parameter of scenario file to link prefabs in `AWSIM`.<br>
+`model3d` parameter must be added to `Vehicle` parameter of scenario file to link prefabs in `AWSIM`.<br>
 If value of `model3d` corresponds to `Asset Key` of `ScenarioSimulatorClient`, the prefab is spawned in `AWSIM` when scenario running.
 
 The description example is as follows:
