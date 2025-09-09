@@ -80,6 +80,7 @@ nav:
     - External libraries: DeveloperGuide/ExternalLibraries/index.md
     - Directory: DeveloperGuide/Directory/index.md
     - Switch SRP: DeveloperGuide/SwitchSrp/index.md
+    - Using VR: DeveloperGuide/UsingVR/index.md
     - Fork repository: DeveloperGuide/ForkRepository/index.md
     - Documentation: DeveloperGuide/Documentation/index.md
     - Trouble shooting: DeveloperGuide/TroubleShooting/index.md
