@@ -34,6 +34,7 @@ namespace Awsim.Entity
         IAccelVehicleInput _autonomousInput = null;
         IAccelVehicleInput[] _manuallyInputs = null;
         bool _isOverridden;
+        bool _isSwitchAutonomous;
 
         public void SetActiveManuallyInputIndex(int index)
         {
@@ -43,7 +44,6 @@ namespace Awsim.Entity
         public void Initialize()
         {
             _autonomousInput = _autonomousInputComponent as IAccelVehicleInput;
-            Debug.Log(_autonomousInput);
             _manuallyInputs = _manuallyInputComponents.Select(x => x as IAccelVehicleInput).ToArray();
         }
 
@@ -55,6 +55,7 @@ namespace Awsim.Entity
             {
                 var manuallyInput = ManuallyInputs[_activeManuallyInputIndex];
                 _isOverridden = manuallyInput.UpdateInputs();
+                _isSwitchAutonomous = manuallyInput.UpdateInputs();
             }
         }
 
@@ -79,6 +80,9 @@ namespace Awsim.Entity
                     return;
 
                 var manuallyInput = ManuallyInputs[_activeManuallyInputIndex];
+
+                if (manuallyInput.SwitchAutonomous)
+                    ControlMode = ControlMode.Autonomous;
 
                 _vehicle.AccelerationInput = manuallyInput.AccelerationInput;
                 _vehicle.SteerTireAngleInput = manuallyInput.SteerAngleInput;

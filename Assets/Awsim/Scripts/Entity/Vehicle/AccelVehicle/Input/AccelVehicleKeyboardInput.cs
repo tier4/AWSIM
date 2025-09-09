@@ -39,6 +39,7 @@ namespace Awsim.Entity
         public Gear GearInput { get; private set; }
         public TurnIndicators TurnIndicatorsInput { get; private set; }
         public HazardLights HazardLightsInput { get; private set; }
+        public bool SwitchAutonomous { get; private set; }
 
         [SerializeField] KeyCode _accelerationKey = KeyCode.UpArrow;
         [SerializeField] KeyCode _decelerationKey = KeyCode.DownArrow;
@@ -52,6 +53,7 @@ namespace Awsim.Entity
         [SerializeField] KeyCode _rightTurnSignalKey = KeyCode.Alpha2;
         [SerializeField] KeyCode _hazardSignalKey = KeyCode.Alpha3;
         [SerializeField] KeyCode _noneSignalKey = KeyCode.Alpha4;
+        [SerializeField] KeyCode _switchAutonomousKey = KeyCode.C;
         [SerializeField] Component _readonlyVehicleComponent = null;
         IReadOnlyAccelVehicle _readonlyVehicle = null;
 
@@ -63,6 +65,12 @@ namespace Awsim.Entity
         public bool UpdateInputs()
         {
             bool isOverridden = false;
+
+
+            // Get switch autonomous.
+            SwitchAutonomous = false;
+            if (Input.GetKey(_switchAutonomousKey))
+                SwitchAutonomous = true;
 
             // Get acceleration.
             if (Input.GetKey(_accelerationKey))
