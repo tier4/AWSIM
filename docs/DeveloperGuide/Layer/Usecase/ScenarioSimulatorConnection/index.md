@@ -19,7 +19,8 @@ This enables the `SS2` to run in a synchronized manner, enhancing the accuracy a
     If you would like to see how `SS2` works with `Autoware` using default build-in simulator - [`simple_sensor_simulator`](https://tier4.github.io/scenario_simulator_v2-docs/developer_guide/SimpleSensorSimulator/) (without running AWSIM) - we encourage you to read this [tutorial](https://autowarefoundation.github.io/autoware-documentation/main/tutorials/scenario-simulation/planning-simulation/scenario-test-simulation/).
 
 ### Overview
-In the following sequence diagram describes responsible and communication of `SS2`, `AWSIM` and `Autoware`.<br>
+In the following sequence diagram describes responsible and communication of `SS2`, `AWSIM` and `Autoware`.
+
 Communication between `SS2` and `AWSIM` takes place via `Request-Response` messages, and is as follows:
 
 1. `Launch` - `Autoware` is started and initialized
@@ -28,7 +29,7 @@ Communication between `SS2` and `AWSIM` takes place via `Request-Response` messa
 4. `opt NPC spawn loop` - optional, all `Entities` (`NPCs`) defined in the scenario are spawned, the scenario may contain any number of each `Entity` type
 5. `update loop` - this is the main loop where scenario commands are executed. It include updating `EgoEntity`, `SS2` status, `Entities`, simulation frame and traffic light state
 6. `despawn loop` - after the end of the scenario, all `Entities` spawned on the scene are despawned (including `EgoEnity`) 
-7. `Terminate` - *Autoware* is terminated.
+7. `Terminate` - *Autoware* is terminated
 
 Documentation of the commands used in the sequence is available [here](https://tier4.github.io/scenario_simulator_v2-docs/proto_doc/protobuf/).
 
