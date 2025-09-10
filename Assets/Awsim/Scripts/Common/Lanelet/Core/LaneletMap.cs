@@ -46,13 +46,13 @@ namespace Awsim.Common
         /// <param name="lanelet"></param>
         public void Add(LaneletData lanelet)
         {
-            if (this.Lanelets.Exists(lanelet.ID))
+            if (this.Lanelets.Exists(lanelet.Id))
             {
                 return;
             }
             Add(lanelet.LeftBound);
             Add(lanelet.RightBound);
-            this.Lanelets.Add(lanelet.ID, lanelet);
+            this.Lanelets.Add(lanelet.Id, lanelet);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Awsim.Common
         /// <param name="lanelet"></param>
         public void Add(LaneletLineStringData line)
         {
-            if (this.Lines.Exists(line.ID))
+            if (this.Lines.Exists(line.Id))
             {
                 return;
             }
@@ -69,7 +69,7 @@ namespace Awsim.Common
             {
                 Add(point);
             }
-            this.Lines.Add(line.ID, line);
+            this.Lines.Add(line.Id, line);
         }
 
         /// <summary>
@@ -78,11 +78,11 @@ namespace Awsim.Common
         /// <param name="lanelet"></param>
         public void Add(LaneletPointData point)
         {
-            if (this.Points.Exists(point.ID))
+            if (this.Points.Exists(point.Id))
             {
                 return;
             }
-            this.Points.Add(point.ID, point);
+            this.Points.Add(point.Id, point);
         }
 
         /// <summary>
@@ -91,11 +91,11 @@ namespace Awsim.Common
         /// <param name="regElem"></param>
         public void Add(LaneletRegulatoryElement regElem)
         {
-            if (this.RegulatoryElements.Exists(regElem.ID))
+            if (this.RegulatoryElements.Exists(regElem.Id))
             {
                 return;
             }
-            this.RegulatoryElements.Add(regElem.ID, regElem);
+            this.RegulatoryElements.Add(regElem.Id, regElem);
         }
     }
 }

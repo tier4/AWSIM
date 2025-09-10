@@ -83,7 +83,7 @@ namespace Awsim.Common
                 (from ll1 in lanelets
                  from ll2 in lanelets
                  where ll2.IsNextTo(ll1)
-                 select (ll1.ID, ll2.ID))
+                 select (ll1.Id, ll2.Id))
                 .ToList();
         }
 
@@ -166,8 +166,8 @@ namespace Awsim.Common
                     : TrafficLane.TurnDirectionType.Straight;
                 var trafficLane = TrafficLane.Create(waypoints, turnDirection, speedLimitMps);
                 trafficLane.transform.parent = trafficLaneHolder.transform;
-                trafficLane.name = "TrafficLane." + (int)lanelet.ID;
-                trafficLanes.Add(lanelet.ID, trafficLane);
+                trafficLane.name = "TrafficLane." + (int)lanelet.Id;
+                trafficLanes.Add(lanelet.Id, trafficLane);
             }
         }
 
@@ -262,7 +262,7 @@ namespace Awsim.Common
                     if (regElem.RefLines == null || regElem.RefLines.Length == 0)
                         continue;
 
-                    var stopLineID = regElem.RefLines[0].ID;
+                    var stopLineID = regElem.RefLines[0].Id;
                     if (stopLines.ContainsKey(stopLineID))
                     {
                         var stopLine = stopLines[stopLineID];
@@ -318,7 +318,7 @@ namespace Awsim.Common
                 .SelectMany(regElem => regElem.RefLines);
             foreach (var line in lines)
             {
-                stopLines[line.ID].HasStopSign = true;
+                stopLines[line.Id].HasStopSign = true;
             }
         }
 
@@ -341,13 +341,13 @@ namespace Awsim.Common
                         var trafficLight = FindClosestTrafficLight(trafficLights, trafficLightPosition);
                         if (trafficLight == null)
                             continue;
-                        stopLines[line.ID].TrafficLight = trafficLight;
+                        stopLines[line.Id].TrafficLight = trafficLight;
                         break;
                     }
 
-                    if (stopLines[line.ID].TrafficLight == null)
+                    if (stopLines[line.Id].TrafficLight == null)
                     {
-                        Debug.Log($"No TrafficLight components exist in the scene for the stop line(ID = {line.ID}).");
+                        Debug.Log($"No TrafficLight components exist in the scene for the stop line(ID = {line.Id}).");
                     }
                 }
             }
@@ -371,17 +371,17 @@ namespace Awsim.Common
                     {
                         continue;
                     }
-                    FillTrafficLightRelationIDWayID(closestTrafficLight, regElem.ID, line.ID);
+                    FillTrafficLightRelationIDWayID(closestTrafficLight, regElem.Id, line.Id);
                     if (verifiedTrafficLights.ContainsKey(closestTrafficLight.name))
                     {
-                        if (!verifiedTrafficLights[closestTrafficLight.name].Contains(line.ID))
+                        if (!verifiedTrafficLights[closestTrafficLight.name].Contains(line.Id))
                         {
-                            verifiedTrafficLights[closestTrafficLight.name].Add(line.ID);
+                            verifiedTrafficLights[closestTrafficLight.name].Add(line.Id);
                         }
                     }
                     else
                     {
-                        verifiedTrafficLights.Add(closestTrafficLight.name, new List<long> { line.ID });
+                        verifiedTrafficLights.Add(closestTrafficLight.name, new List<long> { line.Id });
                     }
 
                 }
