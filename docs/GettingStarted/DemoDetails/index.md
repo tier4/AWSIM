@@ -2,13 +2,13 @@ Detail of the [Quick start demo](../QuickStartDemo/index.md) `AWSIM-demo.x86_64`
 
 ## Overview
 AWSIM simulates sensors, vehicles, driving environments, and traffic instead of reality. AWSIM and Autoware are connected by [ROS2](https://www.ros.org/) only. Each message that is also used in real vehicles is used. Therefore, Autoware can operate without being aware of whether it is a real or simulator.
-![](image_0.png)
+<a href="image_0.png" data-lightbox="image_0" data-title="image_0" data-alt="image_0"><img src="image_0.png"></a>
 
 <br>
 
 ## UI
 
-![](image_1.png)
+<a href="image_1.png" data-lightbox="image_1" data-title="image_1" data-alt="image_1"><img src="image_1.png"></a>
 
 |UI|Feature|
 |:--|:--|
@@ -89,7 +89,7 @@ UI allows checking and switching the current control mode.
 
 |AUTONOMOUS|MANUAL|
 |:--|:--|
-|![](image_3.png)|![](image_4.png)|
+|<a href="image_3.png" data-lightbox="image_3" data-title="image_3" data-alt="image_3"><img src="image_3.png"></a>|<a href="image_4.png" data-lightbox="image_4" data-title="image_4" data-alt="image_4"><img src="image_4.png"></a>|
 
 !!! info
     
@@ -128,7 +128,7 @@ Publish ROS2 topics.
 
 ### Camera sensor
 
-![](camera.png)
+<a href="camera.png" data-lightbox="camera" data-title="camera" data-alt="camera"><img src="camera.png"></a>
 
 Camera sensor is a component that simulates an RGB camera. Autonomous vehicles can be equipped with many cameras used for various purposes. In the current version of AWSIM, the camera is used primarily to provide the image to the traffic light recognition module in Autoware.
 

@@ -1,6 +1,6 @@
 Below you can find instructions on how to setup the self-driving demo of AWSIM simulation controlled by Autoware. The instruction assumes using the Ubuntu OS.
 
-![](image_0.png)
+<a href="image_0.png" data-lightbox="image_0" data-title="image_0" data-alt="image_0"><img src="image_0.png"></a>
 AWSIM on the left, Autoware on the right.
 
 ## Demo contents 
@@ -134,7 +134,7 @@ Please follow the official Autoware documentation for configuring localhost:
 
     1. Unzip the downloaded file.
     1. Make the `AWSIM-Demo.x86_64` file executable. Rightclick the `AWSIM-Demo.x86_64` file and check the `Execute` checkbox.
-    ![](image_1.png)
+    <a href="image_1.png" data-lightbox="image_1" data-title="image_1" data-alt="image_1"><img src="image_1.png"></a>
         
         or execute the command below.
     ```
@@ -151,7 +151,7 @@ It is recommended to launch in the order of `1.AWSIM -> 2.Autoware`. Same proced
 
 1. Launch AWSIM demo
     1. Double-click `AWSIM-Demo.x86_64` to start it.
-    ![](image_2.png)
+    <a href="image_2.png" data-lightbox="image_2" data-title="image_2" data-alt="image_2"><img src="image_2.png"></a>
 
     1. Check ros2 topic list (optional)
     ```
@@ -203,25 +203,25 @@ It is recommended to launch in the order of `1.AWSIM -> 2.Autoware`. Same proced
 
             `<your mapfile location>` must be changed arbitrarily. When specifying the path the `~` operator cannot be used - please specify absolute full path.
 
-        ![](image_3.png)
+        <a href="image_3.png" data-lightbox="image_3" data-title="image_3" data-alt="image_3"><img src="image_3.png"></a>
 
 1. Start autonomous driving !
 
     1. With both AWSIM and Autoware activated, check if the vehicle's self-position estimation is normal.
 
-        ![](image_4_text.png)
+        <a href="image_4_text.png" data-lightbox="image_4_text" data-title="image_4_text" data-alt="image_4_text"><img src="image_4_text.png"></a>
 
     1. Set the navigation goal for the vehicle.
     
-        ![](image_5_text.png)
+        <a href="image_5_text.png" data-lightbox="image_5_text" data-title="image_5_text" data-alt="image_5_text"><img src="image_5_text.png"></a>
 
     1. Check generate path and press "Auto" button.
 
-        ![](image_6_text.png)
+        <a href="image_6_text.png" data-lightbox="image_6_text" data-title="image_6_text" data-alt="image_6_text"><img src="image_6_text.png"></a>
 
     1. Enable self-driving.
 
-        ![](image_7.png)
+        <a href="image_7.png" data-lightbox="image_7" data-title="image_7" data-alt="image_7"><img src="image_7.png"></a>
 
         !!! info
             The default value of Autoware's maximum speed is 15 km/h. If you want more speed, you can modify it by entering the following command in the `autoware` directory.
