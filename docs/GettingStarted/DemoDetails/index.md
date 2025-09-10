@@ -2,13 +2,13 @@ Detail of the [Quick start demo](../QuickStartDemo/index.md) `AWSIM-demo.x86_64`
 
 ## Overview
 AWSIM simulates sensors, vehicles, driving environments, and traffic instead of reality. AWSIM and Autoware are connected by [ROS2](https://www.ros.org/) only. Each message that is also used in real vehicles is used. Therefore, Autoware can operate without being aware of whether it is a real or simulator.
-<a href="image_0.png" data-lightbox="image_0" data-title="image_0" data-alt="image_0"><img src="image_0.png"></a>
+<a href="image_0.png" data-lightbox="image_0" data-title="" data-alt="image_0"><img src="image_0.png"></a>
 
 <br>
 
 ## UI
 
-<a href="image_1.png" data-lightbox="image_1" data-title="image_1" data-alt="image_1"><img src="image_1.png"></a>
+<a href="image_1.png" data-lightbox="image_1" data-title="" data-alt="image_1"><img src="image_1.png"></a>
 
 |UI|Feature|
 |:--|:--|
@@ -25,7 +25,7 @@ AWSIM simulates sensors, vehicles, driving environments, and traffic instead of 
 
 ## Vehicle
 
-<a href="image_2.png" data-lightbox="image_2" data-title="image_2" data-alt="image_2"><img src="image_2.png" width="500"></a>
+<a href="image_2.png" data-lightbox="image_2" data-title="" width="500"></a>
 
 This vehicle dynamics model was created for Autoware simulation, and assuming that Autoware has already created a gas pedal map, **this vehicle dynamics model uses acceleration as an input value**. It has the following features.
 
@@ -113,7 +113,7 @@ Demo simulation has a total of four sensors.
 
 ### LiDAR sensor
 
-<a href="image_5.png" data-lightbox="image_5" data-title="image_5" data-alt="image_5"><img src="image_5.png" width="500"></a>
+<a href="image_5.png" data-lightbox="image_5" data-title="" width="500"></a>
 
 Lidar sensor is the component that simulates the *LiDAR* (*Light Detection and Ranging*) sensor.
 *LiDAR* works by emitting laser beams that bounce off objects in the environment, and then measuring the time it takes for the reflected beams to return, allowing the sensor to create a *3D* map of the surroundings.
@@ -128,7 +128,7 @@ Publish ROS2 topics.
 
 ### Camera sensor
 
-<a href="camera.png" data-lightbox="camera" data-title="camera" data-alt="camera"><img src="camera.png"></a>
+<a href="camera.png" data-lightbox="camera" data-title="" data-alt="camera"><img src="camera.png"></a>
 
 Camera sensor is a component that simulates an RGB camera. Autonomous vehicles can be equipped with many cameras used for various purposes. In the current version of AWSIM, the camera is used primarily to provide the image to the traffic light recognition module in Autoware.
 
@@ -167,8 +167,8 @@ Publish ROS2 topics.
 
 ## Traffic
 
-<a href="traffic.png" data-lightbox="traffic" data-title="traffic" data-alt="traffic"><img src="traffic.png" width="500"></a>
-<a href="traffic_ui.png" data-lightbox="traffic_ui" data-title="traffic_ui" data-alt="traffic_ui"><img src="traffic_ui.png" width="300"></a>
+<a href="traffic.png" data-lightbox="traffic" data-title="" width="500"></a>
+<a href="traffic_ui.png" data-lightbox="traffic_ui" data-title="" width="300"></a>
 
 Demo simulation simulates random traffic with NPCs driving according to traffic rules.
 The Traffic settings UI allows you to change the content of the traffic.
@@ -180,7 +180,7 @@ The Traffic settings UI allows you to change the content of the traffic.
 
 ## Environment
 
-<a href="environment.png" data-lightbox="environment" data-title="environment" data-alt="environment"><img src="environment.png" width="500"></a>
+<a href="environment.png" data-lightbox="environment" data-title="" width="500"></a>
 
 Map for the demo simulation is [West Shinjuku Tokyo Japan](https://maps.app.goo.gl/rXxhvdEm9L7WSAgH6). Road surfaces, lanes, traffic signals, signs, etc. are reproduced as in reality. For performance, the building is simplified. 
 

@@ -2,7 +2,7 @@
 `Scenario Simulator Connection` is a scene setting for connecting `Scenario Simulator v2`.<br>
 This page provides an overview of connecting to `Scenario Simulator v2` and instruction of the scene.
 
-<a href="./top.png" data-lightbox="Traffic Simulation" data-title="Traffic Simulation" data-alt="Traffic Simulation"><img src="./top.png"></a>
+<a href="./top.png" data-lightbox="Traffic Simulation" data-title="" data-alt="Traffic Simulation"><img src="./top.png"></a>
 
 !!!info
     If you want to **use** `OpenSCENARIO` with `AWSIM`, see [here](../../../Experimental/UsingOpenScenario/index.md).
@@ -133,19 +133,19 @@ For the preparation, the following must be prepared:
 ### 1. Placement and settings of `ScenarioSimulatorClient`
 `ScenarioSimulatorClient` component can mange and connect scenario simulation.
 
-<a href="./ss2_client.png" data-lightbox="Configure ss2" data-title="Configure ss2" data-alt="Configure ss2"><img src="./ss2_client.png"></a>
+<a href="./ss2_client.png" data-lightbox="Configure ss2" data-title="" data-alt="Configure ss2"><img src="./ss2_client.png"></a>
 
 Please create and configure `ScenarioSimulatorClient` component as the following:
 
 1. Create empty `GameObject` (should be `Function/ScenarioSimulatorClient`)
-<a href="./hierarchy.png" data-lightbox="Hierarchy" data-title="Hierarchy" data-alt="Hierarchy"><img src="./hierarchy.png"></a>
+<a href="./hierarchy.png" data-lightbox="Hierarchy" data-title="" data-alt="Hierarchy"><img src="./hierarchy.png"></a>
 2. Attach this object to `ScenarioSimulatorClient` component
 3. Fill in `Entities Root` field with `ScenarioSimulatorClient` object itself
 
 ### 2. Configuration of `Entity Prefabs`
 Configure `ScenarioSimulatorClient` to be able to use entity in Unity.
 
-<a href="./entity_prefabs.png" data-lightbox="Entity Prefabs" data-title="Entity Prefabs" data-alt="Entity Prefabs"><img src="./entity_prefabs.png"></a>
+<a href="./entity_prefabs.png" data-lightbox="Entity Prefabs" data-title="" data-alt="Entity Prefabs"><img src="./entity_prefabs.png"></a>
 
 Please configure `Entity Prefabs` field of `ScenarioSimulatorClient` as the following:
 
@@ -158,7 +158,7 @@ Please configure `Entity Prefabs` field of `ScenarioSimulatorClient` as the foll
 ### 3. Camera setting of `ScenarioSimulatorClient`
 Add `Camera` component in Unity scene to visualize scenario simulation in `AWSIM`.
 
-<a href="./camera.png" data-lightbox="Camera" data-title="Camera" data-alt="Camera"><img src="./camera.png"></a>
+<a href="./camera.png" data-lightbox="Camera" data-title="" data-alt="Camera"><img src="./camera.png"></a>
 
 Please create and configure `FollowCamera` component as the following:
 
@@ -169,16 +169,16 @@ Please create and configure `FollowCamera` component as the following:
 ### 4. `LaneletTrafficLight` settings
 Attach and configure `LaneletTrafficLight` script to all traffic light in the scene.
 
-<a href="../TrafficSimulation/traffic_light.png" data-lightbox="Traffic Light" data-title="Traffic Light" data-alt="Traffic Light"><img src="../TrafficSimulation/traffic_light.png"></a>
+<a href="../TrafficSimulation/traffic_light.png" data-lightbox="Traffic Light" data-title="" data-alt="Traffic Light"><img src="../TrafficSimulation/traffic_light.png"></a>
 
 Please configure `LaneletTrafficLight` components as the following:
 
 1. Attach `LaneletTrafficLight` to traffic light objects of all traffic light object in the scene
 2. Modify `Bulb Material Config` as follow images<br>
 vehicle raffic light<br>
-<a href="../TrafficSimulation/bulb_vehicle.png" data-lightbox="Bulb Vehicle" data-title="Bulb Vehicle" data-alt="Bulb Vehicle"><img src="../TrafficSimulation/bulb_vehicle.png"></a><br>
+<a href="../TrafficSimulation/bulb_vehicle.png" data-lightbox="Bulb Vehicle" data-title="" data-alt="Bulb Vehicle"><img src="../TrafficSimulation/bulb_vehicle.png"></a><br>
 pedestrian traffic light<br>
-<a href="../TrafficSimulation/bulb_pedestrian.png" data-lightbox="Bulb Pedestrian" data-title="Bulb Pedestrian" data-alt="Bulb Pedestrian"><img src="../TrafficSimulation/bulb_pedestrian.png"></a>
+<a href="../TrafficSimulation/bulb_pedestrian.png" data-lightbox="Bulb Pedestrian" data-title="" data-alt="Bulb Pedestrian"><img src="../TrafficSimulation/bulb_pedestrian.png"></a>
     1. If there are wrong order of bulb, modify each `Bulb Material Config`
 3. Fill in `Traffic Lights In Scene` field of `ScenarioSimulatorClient` with all traffic light object in the scene
 
@@ -189,14 +189,14 @@ pedestrian traffic light<br>
 `LaneletLoader` can load a lanelet map and set parameter of traffic rules to traffic lights.<br>
 `LaneletLoader` can be performed by opening `AWSIM -> Common -> Load Lanelet` at the toolbar of Unity Editor.
 
-<a href="../TrafficSimulation/load_lanelet_tool_bar.png" data-lightbox="Tool Bar" data-title="Tool Bar" data-alt="Tool Bar"><img src="../TrafficSimulation/load_lanelet_tool_bar.png"></a>
+<a href="../TrafficSimulation/load_lanelet_tool_bar.png" data-lightbox="Tool Bar" data-title="" data-alt="Tool Bar"><img src="../TrafficSimulation/load_lanelet_tool_bar.png"></a>
 
 Please use `LaneletLoader` as the following:
 
 1. Fill in `Osm` field with a lanelet map (`.osm`) you prepared
 2. Adjust `Waypoint settings` parameters for the loading process if needed
 3. To load the lanelet map, please click `Load` button<br>
-<a href="./load_lanelet.png" data-lightbox="Load Lanelet" data-title="Load Lanelet" data-alt="Load Lanelet"><img src="./load_lanelet.png"></a>
+<a href="./load_lanelet.png" data-lightbox="Load Lanelet" data-title="" data-alt="Load Lanelet"><img src="./load_lanelet.png"></a>
 4. Delete `TrafficLanes` and `StopLines` object what is generated by `LaneletLoader`
 
 The `Waypoint settings` parameters are listed in the following table:
@@ -210,7 +210,7 @@ The `Waypoint settings` parameters are listed in the following table:
 ### 6. Placement of `ClockRos2Publisher`
 Add `ClockRos2Publisher` component to synchronize the ROS2 clock of `AWSIM` and `Scenario Simulator v2`.
 
-<a href="./clock_publisher.png" data-lightbox="Clock Publisher" data-title="Clock Publisher" data-alt="Clock Publisher"><img src="./clock_publisher.png"></a>
+<a href="./clock_publisher.png" data-lightbox="Clock Publisher" data-title="" data-alt="Clock Publisher"><img src="./clock_publisher.png"></a>
 
 Please create and configure `ScenarioSimulatorClient` component as the following:
 

@@ -27,7 +27,7 @@ INFO     -  [03:13:22] Serving on http://127.0.0.1:8000/
 ```
 
 1. Access `http://127.0.0.1:8000/` with a web browser.
-<a href="image_0.png" data-lightbox="image_0" data-title="image_0" data-alt="image_0"><img src="image_0.png"></a>
+<a href="image_0.png" data-lightbox="image_0" data-title="" data-alt="image_0"><img src="image_0.png"></a>
 
 For further reference see [Material for MkDocs - Getting started](https://squidfunk.github.io/mkdocs-material/getting-started/).
 

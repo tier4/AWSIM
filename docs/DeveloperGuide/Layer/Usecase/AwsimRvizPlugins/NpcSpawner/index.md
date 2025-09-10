@@ -2,7 +2,7 @@
 Spawn AWSIM Npc using Rviz GUI tool.
 Type and velocity of spawned Npc is specified from Rviz display.
 
-<a href="./npc_spawner.png" data-lightbox="Npc Spawner" data-title="Npc Spawner" data-alt="Npc Spawner"><img src="./npc_spawner.png"></a>
+<a href="./npc_spawner.png" data-lightbox="Npc Spawner" data-title="" data-alt="Npc Spawner"><img src="./npc_spawner.png"></a>
 
 `awsim_rviz_plugins/NpsSpawner` tool gets position and orientation by dragging on the map displayed in Rviz, and publishes those as a `/awsim/awsim_rviz_plugins/npc_spawner/pose_with_covariance` topic.
 
@@ -22,7 +22,7 @@ AWSIM publishes name of spawnable Npc as `/awsim/awsim_rviz_plugins/npc_spawner/
 ## How to use
 1. On Rviz, Click the plus button on the toolbar and select `awsim_rviz_plugins/NpcSpawner` from the list.
 
-<a href="./tool_bar.png" data-lightbox="Tool Bar" data-title="Tool Bar" data-alt="Tool Bar"><img src="./tool_bar.png"></a>
+<a href="./tool_bar.png" data-lightbox="Tool Bar" data-title="" data-alt="Tool Bar"><img src="./tool_bar.png"></a>
 
 2. On Rviz, Click on `Npc Spawner` button from the toolbar and select it.
 3. On AWSIM, Play binary or Play scene.
@@ -32,6 +32,6 @@ If you want to change type and velocity of spawned Npc, do the following:
 
 1. On Rviz, Click the `Add` button on the `Display` panel and select `awsim_rviz_plugins/NpcSpawnerStatus` from the list.
 
-<a href="./status_panel.png" data-lightbox="Status Panel" data-title="Status Panel" data-alt="Status Panel"><img src="./status_panel.png"></a>
+<a href="./status_panel.png" data-lightbox="Status Panel" data-title="" data-alt="Status Panel"><img src="./status_panel.png"></a>
 
 2. On Rviz, Change the value of `Npc Type` and `Velocity [km/h]`.
