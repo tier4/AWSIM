@@ -25,7 +25,7 @@ AWSIM simulates sensors, vehicles, driving environments, and traffic instead of 
 
 ## Vehicle
 
-<img src="image_2.png" width="500">
+<a href="image_2.png" data-lightbox="image_2" data-title="image_2" data-alt="image_2"><img src="image_2.png" width="500"></a>
 
 This vehicle dynamics model was created for Autoware simulation, and assuming that Autoware has already created a gas pedal map, **this vehicle dynamics model uses acceleration as an input value**. It has the following features.
 
@@ -113,7 +113,7 @@ Demo simulation has a total of four sensors.
 
 ### LiDAR sensor
 
-<img src="image_5.png" width="500">
+<a href="image_5.png" data-lightbox="image_5" data-title="image_5" data-alt="image_5"><img src="image_5.png" width="500"></a>
 
 Lidar sensor is the component that simulates the *LiDAR* (*Light Detection and Ranging*) sensor.
 *LiDAR* works by emitting laser beams that bounce off objects in the environment, and then measuring the time it takes for the reflected beams to return, allowing the sensor to create a *3D* map of the surroundings.
@@ -167,8 +167,8 @@ Publish ROS2 topics.
 
 ## Traffic
 
-<img src="traffic.png" width="500">
-<img src="traffic_ui.png" width="300">
+<a href="traffic.png" data-lightbox="traffic" data-title="traffic" data-alt="traffic"><img src="traffic.png" width="500"></a>
+<a href="traffic_ui.png" data-lightbox="traffic_ui" data-title="traffic_ui" data-alt="traffic_ui"><img src="traffic_ui.png" width="300"></a>
 
 Demo simulation simulates random traffic with NPCs driving according to traffic rules.
 The Traffic settings UI allows you to change the content of the traffic.
@@ -180,7 +180,7 @@ The Traffic settings UI allows you to change the content of the traffic.
 
 ## Environment
 
-<img src="environment.png" width="500">
+<a href="environment.png" data-lightbox="environment" data-title="environment" data-alt="environment"><img src="environment.png" width="500"></a>
 
 Map for the demo simulation is [West Shinjuku Tokyo Japan](https://maps.app.goo.gl/rXxhvdEm9L7WSAgH6). Road surfaces, lanes, traffic signals, signs, etc. are reproduced as in reality. For performance, the building is simplified. 
 

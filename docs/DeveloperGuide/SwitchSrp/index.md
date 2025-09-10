@@ -17,10 +17,10 @@ To simplify the SRP switching process, we provide an Editor extension named "Swi
     - Prompting for Unity Editor restart to avoid rendering glitches
 
 1. In the Unity Editor, go to AWSIM -> Switch SRP from the top menu.
-<img src="image_10.png" alt="Graphics Settings" width="600">
+<a href="image_10.png" data-lightbox="Graphics Settings 0" data-title="Graphics Settings 0" data-alt="Graphics Settings 0"><img src="image_10.png" alt="Graphics Settings 0" width="600"></a>
 
 1. A window will appear, showing the currently active render pipeline.
-<img src="image_11.png" alt="Graphics Settings" width="300">
+<a href="image_11.png" data-lightbox="Graphics Settings 1" data-title="Graphics Settings 1" data-alt="Graphics Settings 1"><img src="image_11.png" alt="Graphics Settings" width="300"></a>
 
 1. Based on the current state, the button will display one of the following:
     - If the current pipeline is HDRP, the button will say HDRP → URP

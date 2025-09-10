@@ -2,16 +2,16 @@ AWSIM supports traffic light control in accordance with the [Vienna Convention](
 
 - Vehicle traffic light
 
-    <img src="light.png" width="400">
+    <a href="light.png" data-lightbox="light" data-title="light" data-alt="light"><img src="light.png" width="400"></a>
 
 - Pedestiran traffic light
 
-    <img src="pedestrian_light.png" width="400">
+    <a href="pedestrian_light.png" data-lightbox="pedestrian_light" data-title="pedestrian_light" data-alt="pedestrian_light"><img src="pedestrian_light.png" width="400"></a>
 
 
 ## Bulb
 
-<img src="traffclight_inspector.png" width="500">
+<a href="traffclight_inspector.png" data-lightbox="traffclight_inspector" data-title="traffclight_inspector" data-alt="traffclight_inspector"><img src="traffclight_inspector.png" width="500"></a>
 
 *Traffic Light* (script) is a component added to every `TrafficLight` on the scene.
 It is responsible for configuring the `TrafficLight` behavior - the bulbs and their colors.
@@ -36,6 +36,6 @@ Every bulb has the following aspects configured
 
 ## Material
 
-<img src="lights_materials.png" width="540">
+<a href="lights_materials.png" data-lightbox="lights_materials" data-title="lights_materials" data-alt="lights_materials"><img src="lights_materials.png" width="540"></a>
 
 An important element set in the TrafficLights object is the material of the mesh renderer component. The material at index 0 always applies to the housing of the light. Subsequent elements correspond to successive slots of the light source (round luminous object). They start at the upper left corner of the object, go to the right, down, and back to the left corner. These indices are used in the script “Traffic Light” (script).
