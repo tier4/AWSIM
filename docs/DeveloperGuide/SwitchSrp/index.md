@@ -29,7 +29,7 @@ To simplify the SRP switching process, we provide an Editor extension named "Swi
         - Click to switch to HDRP.  
 
 1. After clicking the button, a confirmation dialog will appear asking whether to restart the Unity Editor immediately.  
-![Graphics Settings](image_12.png)
+<a href="image_12.png" data-lightbox="Graphics Settings" data-title="Graphics Settings" data-alt="Graphics Settings"><img src="image_12.png"></a>
 
 1. Click Yes, and Unity will automatically restart to ensure the changes take effect and to prevent rendering issues.  
 
@@ -38,13 +38,13 @@ In this project, both HDRP and URP scenes are preconfigured separately.
 
 === "URP to HDRP"
     1. Open the Unity Editor and go to Edit > Project Settings > Graphics
-    ![Graphics Settings](image_0.png)
+    <a href="image_0.png" data-lightbox="Graphics Settings" data-title="Graphics Settings" data-alt="Graphics Settings"><img src="image_0.png"></a>
 
     1. Switch the `Default Render Pipeline` in Edit -> ProjectSettings -> Graphics, and set it to `HDRenderPipelineAsset`.
-    ![Graphics Settings](image_7.png)
+    <a href="image_7.png" data-lightbox="Graphics Settings" data-title="Graphics Settings" data-alt="Graphics Settings"><img src="image_7.png"></a>
 
     1. Open the AutowareSimulationDemo scene.
-    ![Graphics Settings](image_6.png)
+    <a href="image_6.png" data-lightbox="Graphics Settings" data-title="Graphics Settings" data-alt="Graphics Settings"><img src="image_6.png"></a>
 
     1. Add Scripting Define Symbols  
     After switching the render pipeline, you need to update the scripting define symbol from URP to HDRP to enable HDRP-specific conditional compilation.  
@@ -55,7 +55,7 @@ In this project, both HDRP and URP scenes are preconfigured separately.
         - Find the Scripting Define Symbols field under the Script Compilation section
 
         - Remove URP and add HDRP
-        ![Graphics Settings](image_9.png)
+        <a href="image_9.png" data-lightbox="Graphics Settings" data-title="Graphics Settings" data-alt="Graphics Settings"><img src="image_9.png"></a>
 
     1. Restart the Unity Editor after switching the render pipeline.
         - Especially when switching from URP to HDRP, the following error may occur:
@@ -70,13 +70,13 @@ In this project, both HDRP and URP scenes are preconfigured separately.
 
 === "HDRP to URP"
     1. Open the Unity Editor and go to Edit > Project Settings > Graphics
-    ![Graphics Settings](image_0.png)
+    <a href="image_0.png" data-lightbox="Graphics Settings" data-title="Graphics Settings" data-alt="Graphics Settings"><img src="image_0.png"></a>
 
     1. Switch the `Default Render Pipeline` in Edit -> ProjectSettings -> Graphics, and set it to `UniversalRenderPipelineAsset`.
-    ![Graphics Settings](image_3.png)
+    <a href="image_3.png" data-lightbox="Graphics Settings" data-title="Graphics Settings" data-alt="Graphics Settings"><img src="image_3.png"></a>
 
     1. Open the AutowareSimulationURPDemo scene.
-    ![Graphics Settings](image_4.png)
+    <a href="image_4.png" data-lightbox="Graphics Settings" data-title="Graphics Settings" data-alt="Graphics Settings"><img src="image_4.png"></a>
     
     1. Add Scripting Define Symbols  
     After switching the render pipeline, you need to switch the scripting define symbol from HDRP to URP to enable URP-specific conditional compilation.  
@@ -87,7 +87,7 @@ In this project, both HDRP and URP scenes are preconfigured separately.
         - Find the Scripting Define Symbols field under the Script Compilation section
 
         - Remove HDRP and add URP
-        ![Graphics Settings](image_8.png)
+        <a href="image_8.png" data-lightbox="Graphics Settings" data-title="Graphics Settings" data-alt="Graphics Settings"><img src="image_8.png"></a>
     
     1. Restart the Unity Editor after switching the render pipeline.
         - Especially when switching from URP to HDRP, the following error may occur:
@@ -101,5 +101,5 @@ In this project, both HDRP and URP scenes are preconfigured separately.
         - Restarting Unity Editor helps avoid unknown issues and ensures proper scene rendering.
 
     1. Check the lighting configuration:
-    ![Graphics Settings](image_5.png)
+    <a href="image_5.png" data-lightbox="Graphics Settings" data-title="Graphics Settings" data-alt="Graphics Settings"><img src="image_5.png"></a>
     

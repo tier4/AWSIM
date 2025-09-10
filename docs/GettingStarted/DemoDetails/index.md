@@ -89,7 +89,7 @@ UI allows checking and switching the current control mode.
 
 |AUTONOMOUS|MANUAL|
 |:--|:--|
-|<a href="image_3.png" data-lightbox="image_3" data-title="image_3" data-alt="image_3"><img src="image_3.png"></a>|<a href="image_4.png" data-lightbox="image_4" data-title="image_4" data-alt="image_4"><img src="image_4.png"></a>|
+|![](image_3.png)|![](image_4.png)|
 
 !!! info
     
