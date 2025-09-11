@@ -82,6 +82,18 @@ namespace Awsim.Entity
             Initialize();
         }
 
+        /// <summary>
+        // We intentionally use MGRS as an intermediate coordinate system.
+        //
+        // Reason:
+        // - Directly using latitude/longitude in Unity/ROS often causes floating-point
+        //   precision issues. 
+        // - MGRS/UTM provides meter-based local coordinates, which avoids this precision loss
+        //   and ensures consistent initialization near the target area.
+        //
+        // Therefore, the conversion pipeline is:
+        // Unity (meters) → ROS (meters) → MGRS (grid-based) → UTM → Latitude/Longitude.
+        /// </summary>
         void Output()
         {
             var unityPosition = _transform.position;
