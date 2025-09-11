@@ -72,7 +72,7 @@ namespace Awsim.Scene.AutowareSimulationDemo
         [SerializeField] string _nodeName = "AWSIM";
         [SerializeField] TimeSourceType _timeSourceType;
         [SerializeField] FollowCamera _followCamera;
-        [SerializeField] GameObject _vrCameraPrefab;
+        [SerializeField] GameObject _vrCamera;
         #pragma warning disable CS0414 // Remove unused private members warning disabled. Warns when built for not UNITY_EDITOR
         [SerializeField] string _commandLineConfigParam = "--json_path";
         #pragma warning restore CS0414
@@ -118,8 +118,7 @@ namespace Awsim.Scene.AutowareSimulationDemo
 
                 if (jsonConfig.UseVR)
                 {
-                    var vrCamera = Instantiate(_vrCameraPrefab, _egoVehicle.transform);
-                    vrCamera.transform.localPosition = new Vector3(-0.473f, 0.21f, 1.245f);
+                    _vrCamera.gameObject.SetActive(true);
                     _followCamera.gameObject.SetActive(false);
                 }                
             }
