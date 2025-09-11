@@ -14,6 +14,7 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.XR.Management;
 using Awsim.Common;
 using Awsim.UI;
 using Awsim.Usecase;
@@ -118,6 +119,9 @@ namespace Awsim.Scene.AutowareSimulationDemo
 
                 if (jsonConfig.UseVR)
                 {
+                    var xrSettings = XRGeneralSettings.Instance;
+                    xrSettings.Manager.InitializeLoaderSync();
+                    xrSettings.Manager.StartSubsystems();
                     _vrCamera.gameObject.SetActive(true);
                     _followCamera.gameObject.SetActive(false);
                 }                
