@@ -4,7 +4,7 @@
 `Pcd Generation` is a tool for a vehicle based point cloud mapping in a simulation environment.<br>
 It is useful when you need a point cloud based on some location, but are not able to conduct physically mapping on the real place.<br>
 
-<a href="./top.png" data-lightbox="Traffic Simulation" data-title="" data-alt="Traffic Simulation"><img src="./top.png"></a>
+<a href="./top.png" data-lightbox="Pcd Generation" data-title="" data-alt="Pcd Generation"><img src="./top.png"></a>
 
 When `Pcd Generation` is conducted, `Vehicle` object (carring `LiDAR`) is warped along all centerlines of lanelets in the imported `OSM` map.
 Point cloud map is generated to record points by `LiDAR` on `Vehicle` object on each centerlines of lanelets.
@@ -33,6 +33,34 @@ RGLMappingAdapter
 |---|---|
 | Enable Downsampling | Enable/disable point cloud data downsampling. |
 | Leaf Size | Resolution of point cloud data downsampling. |
+
+## Execution and Parameters
+
+### Execution
+
+
+### Parameters
+Following parameters are useful to point cloud map of quality and file size you want to.
+
+#### Leaf Size
+Downsampling aims to reduce PCD size which for large point clouds may achieve gigabytes in exchange for map details. It is essential to find the best balance between the size and acceptable details level.
+
+`Leaf Size` can be configured by `RGLMappingAdapter` component.
+
+A small Leaf Size results in a more detailed PCD, while a large Leaf Size could result in excessive filtering such that objects like buildings are not recorded in the PCD.
+
+| Leaf Size = 1.0 | Leaf Size = 10.0 | Leaf Size = 100.0 |
+|---|---|---|
+| ![Leaf Size 1](./leaf_size_1.png) | ![Leaf Size 10](./leaf_size_10.png) | ![Leaf Size 100](./leaf_size_100.png) \
+
+#### Capture Location Interval
+If the Capture Location Interval is too small, it could result in a sparse PCD where some region of the map is captured well but the other regions aren't captured at all.
+
+`Capture Location Interval` can be configured by `PcdGeneration` component.
+
+| Capture Location Interval = 6 | Capture Location Interval = 20 | Capture Location Interval = 100 |
+|---|---|---|
+| ![Interval 6](./interval_6.png) | ![Interval 20](./interval_20.png) | ![Interval 100](./interval_100.png) |
 
 ## Instruction
 To use `Scenario Simulator Connection`, please follow the steps below.
