@@ -37,7 +37,14 @@ RGLMappingAdapter
 ## Execution and Parameters
 
 ### Execution
+If you play simulation with a scene prepared with the steps above, PointCloudMapper will automatically start mapping.<br>
+PCD file will be written when you stop your scene or all locations in the route are captured.
 
+If the Vehicle stops moving for longer and you see the following message in the bottom left corner - you can safely stop the scene.
+
+```pcd save success```
+
+The Point cloud (`*.pcd`) file is saved to the location you specified in the `Output Pcd File Path` of `PcdGenerator`.
 
 ### Parameters
 Following parameters are useful to point cloud map of quality and file size you want to.
