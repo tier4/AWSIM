@@ -70,7 +70,7 @@ If the Capture Location Interval is too small, it could result in a sparse PCD w
 | ![Interval 6](./interval_6.png) | ![Interval 20](./interval_20.png) | ![Interval 100](./interval_100.png) |
 
 ## Instruction
-To use `Scenario Simulator Connection`, please follow the steps below.
+To use `Pcd Generation`, please follow the steps below.
 
 For the preparation, the following must be prepared:
 
@@ -160,7 +160,7 @@ Please implement as the following:
 
 The method should be called are listed in the following table:
 
-`ScenarioSimulatorClient`
+`Pcd Generation`
 
 | Method | Description |
 |---|---|
