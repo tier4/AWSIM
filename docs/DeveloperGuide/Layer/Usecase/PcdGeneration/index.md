@@ -180,4 +180,65 @@ The method should be called are listed in the following table:
     * `Assets/Awsim/Scenes/PcdGenerationDemo/PcdGenerationDemo.cs`<br>
     * `Assets/Awsim/Scenes/PcdGenerationDemo.unity` scene
 
-## Verify and modify `PCD` files
+## Modify and Verify `PCD` files
+
+### Modify `PCD`
+Generated `PCD` files should be downsample because they are typically too large.<br>
+In addition, they should be converted to ASCII format because `Autoware` accepts only this format. (`Pcd Generation` returns PCD in binary format)
+
+The tool (`DownsampleLargePCD`) can realize downsampling and convering `PCD` files.
+Please clone and build `DownsampleLargePCD` tool following [Github repository](https://github.com/RobotecAI/downsample-large-pcd).
+
+Please use `DownsampleLargePCD` tool as the following:
+
+1. Change the working directory to the location with `DownsampleLargePCD` tool.
+1. Use `DownsampleLargePCD` tool to downsample and save `PCD` in `ASCII` format.
+    ```
+    ./DownsampleLargePCD -in <PATH_TO_INPUT_PCD> -out <PATH_TO_OUTPUT_PCD> -leaf 0.2,0.2,0.2
+    ```
+    - You can also save `PCD` in binary format by adding `-binary 1` option.
+
+!!!note
+    If you don't want to downsample but want to convert `PCD` file to `ASCII`, you should use `pcl_convert_pcd_ascii_binary` tool.<br>
+    This tool is available in the `pcl-tools` package and can be installed on Ubuntu with the following command:
+    ```
+    sudo apt install pcl-tools
+    ```
+    To convert your PCD use command:
+    ```
+    pcl_convert_pcd_ascii_binary <PATH_TO_INPUT_PCD> <PATH_TO_OUTPUT_PCD> 0
+    ```
+
+### Verify `PCD`
+To verify your `PCD` you can launch the `Autoware*`(https://github.com/autowarefoundation/autoware).
+
+Please verify `PCD` as the following:
+
+1. Copy your `PCD` from the `AWSIM` project directory to the `Autoware` map directory
+    ```
+    cp <PATH_TO_PCD_FILE> <PATH_TO_AUTOWARE_MAP>/
+    ```
+
+1. Source the `ROS` and `Autoware`
+    ```
+    source /opt/ros/humble/setup.bash
+    source <PATH_TO_AUTOWARE>/install/setup.bash
+    ```
+
+1. Launch the `planning simulation` with the map directory path (`map_path`) and PCD file (`pointcloud_map_file`) specified
+    ```
+    ros2 launch autoware_launch planning_simulator.launch.xml \
+    vehicle_model:=sample_vehicle \
+    sensor_model:=sample_sensor_kit \
+    map_path:=<ABSOLUTE_PATH_TO_AUTOWARE_MAP> \
+    pointcloud_map_file:=<PCD_FILE_NAME>
+    ```
+
+    !!! note "PCD file location"
+        The PCD file needs to be located in the Autoware map directory and as a `pointcloud_map_file` parameter you only supply the file name, not the path.
+
+    !!! warning "Absolute path"
+        When launching `Autoware` never use `~/` to specify the home directory.
+        Either write the full absolute path or use `$HOME` environmental variable.
+
+1. Wait for the `Autoware` to finish loading and inspect the `PCD` visually given the effect of `Leaf Size` and effect of `Capture Location Interval`.
