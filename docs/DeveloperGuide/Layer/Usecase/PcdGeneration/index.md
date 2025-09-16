@@ -10,6 +10,23 @@ When `Pcd Generation` is conducted, `Vehicle` object (carring `LiDAR`) is warped
 Point cloud map is generated to record points by `LiDAR` on `Vehicle` object on each centerlines of lanelets.
 
 ### Overview
+`Traffic Simulation` consists of the following flow:
+
+``` mermaid
+graph TB
+    subgraph A["PcdGeneration::"]
+        direction TB
+        AA("Load LaneletMap")~~~AB("Create `Capture Pose Queue`")
+    end
+
+    AB-->BA
+
+    subgraph B["PcdGeneration::Initialize()"]
+        direction TB
+        BA--"yes"-->BE("PcdGeneration::SavePcd()")
+        BA{`Capture Pose Queue` is empty}--"no"-->BB("Dequeue `Capture Pose Queue`")-->BC("Move pose")-->BD("Capture by LiDAR")-->BA
+    end
+```
 
 ### Configuration
 `PcdGeneration` can be configured from `PcdGenerator` and `RGLMappingAdapter` components.
