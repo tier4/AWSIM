@@ -14,14 +14,14 @@ Point cloud map is generated to record points by `LiDAR` on `Vehicle` object on 
 
 ``` mermaid
 graph TB
-    subgraph A["PcdGeneration::"]
+    subgraph A["PcdGeneration::Initialize()"]
         direction TB
         AA("Load LaneletMap")~~~AB("Create `Capture Pose Queue`")
     end
 
     AB-->BA
 
-    subgraph B["PcdGeneration::Initialize()"]
+    subgraph B["PcdGeneration::OnUpdate()"]
         direction TB
         BA--"yes"-->BE("PcdGeneration::SavePcd()")
         BA{`Capture Pose Queue` is empty}--"no"-->BB("Dequeue `Capture Pose Queue`")-->BC("Move pose")-->BD("Capture by LiDAR")-->BA
