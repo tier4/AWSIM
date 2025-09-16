@@ -5,8 +5,8 @@ Feature to operate AWSIM environment from the Rviz plugins.
 
 The following features are implemented:
 
-- [2D Pose Teleport](../2dPoseTeleport/index.md): Teleport AWSIM EGO pose from Rviz GUI tool
-- [Npc Spawner](../NpcSpawner/index.md): Spawn AWSIM Npc using Rviz GUI tool
+- `2D Pose Teleport`: Teleport AWSIM EGO pose from Rviz GUI tool
+- `Npc Spawner`: Spawn AWSIM Npc using Rviz GUI tool
 
 Rviz plugins are implemented in the following repositories:
 
@@ -60,9 +60,7 @@ The highest object at the specified x-z coordinates is considered the ground.
 
 ### How to use
 1. On Rviz, Click the plus button on the toolbar and select `awsim_rviz_plugins/2dPoseTeleport` from the list.
-
 <a href="./tool_bar_ego.png" data-lightbox="2D Pose Teleport Setup" data-title="" data-alt="2D Pose Teleport Setup"><img src="./tool_bar_ego.png"></a>
-
 2. On Rviz, Click on `2D Pose Teleport` button from the toolbar and select it.
 3. On AWSIM, Play binary or Play scene.
 4. On the map displayed in Rviz, drag the cursor to the location and orientation where you want to move the EGO.
@@ -92,9 +90,7 @@ AWSIM publishes name of spawnable Npc as `/awsim/awsim_rviz_plugins/npc_spawner/
 
 ### How to use
 1. On Rviz, Click the plus button on the toolbar and select `awsim_rviz_plugins/NpcSpawner` from the list.
-
 <a href="./tool_bar_npc.png" data-lightbox="Tool Bar" data-title="" data-alt="Tool Bar"><img src="./tool_bar_npc.png"></a>
-
 2. On Rviz, Click on `Npc Spawner` button from the toolbar and select it.
 3. On AWSIM, Play binary or Play scene.
 4. On the map displayed in Rviz, drag the cursor to the location and orientation where you want to move the EGO.
@@ -102,7 +98,5 @@ AWSIM publishes name of spawnable Npc as `/awsim/awsim_rviz_plugins/npc_spawner/
 If you want to change type and velocity of spawned Npc, do the following:
 
 1. On Rviz, Click the `Add` button on the `Display` panel and select `awsim_rviz_plugins/NpcSpawnerStatus` from the list.
-
 <a href="./status_panel.png" data-lightbox="Status Panel" data-title="" data-alt="Status Panel"><img src="./status_panel.png"></a>
-
 2. On Rviz, Change the value of `Npc Type` and `Velocity [km/h]`.
