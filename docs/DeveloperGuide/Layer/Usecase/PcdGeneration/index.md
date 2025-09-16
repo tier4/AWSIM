@@ -37,10 +37,10 @@ RGLMappingAdapter
 ## Execution and Parameters
 
 ### Execution
-If you play simulation with a scene prepared with the steps above, PointCloudMapper will automatically start mapping.<br>
-PCD file will be written when you stop your scene or all locations in the route are captured.
+If you play prepared scene, `PcdGenerator` will automatically start mapping.<br>
+`PCD` file will be written when you stop scene or all lanelets in the route are captured.
 
-If the Vehicle stops moving for longer and you see the following message in the bottom left corner - you can safely stop the scene.
+If the `Vehicle` stops moving and you see the following message in the bottom left corner, you can safely stop the scene.
 
 ```pcd save success```
 
@@ -50,18 +50,19 @@ The Point cloud (`*.pcd`) file is saved to the location you specified in the `Ou
 Following parameters are useful to point cloud map of quality and file size you want to.
 
 #### Leaf Size
-Downsampling aims to reduce PCD size which for large point clouds may achieve gigabytes in exchange for map details. It is essential to find the best balance between the size and acceptable details level.
+Downsampling aims to reduce `PCD` size which for large point clouds may achieve gigabytes in exchange for map details.<br>
+It is essential to find the acceptable balance between the file size and details level.
 
 `Leaf Size` can be configured by `RGLMappingAdapter` component.
 
-A small Leaf Size results in a more detailed PCD, while a large Leaf Size could result in excessive filtering such that objects like buildings are not recorded in the PCD.
+A small `Leaf Size` results in a more detailed `PCD`, while a large `Leaf Size` could result in excessive filtering such that objects like buildings are not recorded in the `PCD`.
 
 | Leaf Size = 1.0 | Leaf Size = 10.0 | Leaf Size = 100.0 |
 |---|---|---|
 | ![Leaf Size 1](./leaf_size_1.png) | ![Leaf Size 10](./leaf_size_10.png) | ![Leaf Size 100](./leaf_size_100.png) \
 
 #### Capture Location Interval
-If the Capture Location Interval is too small, it could result in a sparse PCD where some region of the map is captured well but the other regions aren't captured at all.
+If the `Capture Location Interval` is too small, it could result in a sparse `PCD` where some region of the map is captured well but the other regions aren't captured at all.
 
 `Capture Location Interval` can be configured by `PcdGeneration` component.
 
@@ -76,7 +77,7 @@ For the preparation, the following must be prepared:
 
 - 3D map (.fbx)
 - lanelet map (.osm)
-- LiDAR sensor
+- LiDAR sensor (.fbx)
 
 !!! info
     AWSIM includes `AutowareSimulationDemo` scene.<br>
@@ -149,7 +150,7 @@ Add `PcdGenerator` component to manage above objects and create point cloud map.
 6. (optional) Fill in `World Origin ROS` field if your map has `Mgrs Position` component
 <a href="./mgrs_position.png" data-lightbox="Mgrs Position" data-title="" data-alt="Mgrs Position"><img src="./mgrs_position.png"></a>
 
-### 7. Call methods of `PcdGenerator` and `FollowCamera`
+### 5. Call methods of `PcdGenerator` and `FollowCamera`
 Some methods of `PcdGenerator` and `FollowCamera` should be called from callback of `MonoBehaviour` to enable `Pcd Generation`.
 
 Please implement as the following:
