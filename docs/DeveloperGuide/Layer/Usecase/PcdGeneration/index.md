@@ -6,7 +6,7 @@ It is useful when you need a point cloud based on some location, but are not abl
 
 <a href="./top.png" data-lightbox="Pcd Generation" data-title="" data-alt="Pcd Generation"><img src="./top.png"></a>
 
-When `Pcd Generation` is conducted, `Vehicle` object (carring `LiDAR`) is warped along all centerlines of lanelets in the imported `OSM` map.
+When `Pcd Generation` is conducted, `Vehicle` object (carrying `LiDAR`) is warped along all centerlines of lanelets in the imported `OSM` map.
 Point cloud map is generated to record points by `LiDAR` on `Vehicle` object on each centerlines of lanelets.
 
 ### Overview
@@ -101,7 +101,7 @@ For the preparation, the following must be prepared:
     Please refer to:<br>
     * `Assets/Awsim/Scenes/PcdGenerationDemo.unity`
 
-### 1. Add a `Vehicle` objecr
+### 1. Add a `Vehicle` object
 Add `Vehicle` object to carry LiDAR and capture points.<br>
 In addition, visual elements of `Vehicle` if needed.
 
@@ -204,7 +204,7 @@ The method should be called are listed in the following table:
 Generated `PCD` files should be downsample because they are typically too large.<br>
 In addition, they should be converted to ASCII format because `Autoware` accepts only this format. (`Pcd Generation` returns PCD in binary format)
 
-The tool (`DownsampleLargePCD`) can realize downsampling and convering `PCD` files.
+The tool (`DownsampleLargePCD`) can realize downsampling and converting `PCD` files.
 Please clone and build `DownsampleLargePCD` tool following [Github repository](https://github.com/RobotecAI/downsample-large-pcd).
 
 Please use `DownsampleLargePCD` tool as the following:
