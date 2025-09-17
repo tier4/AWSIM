@@ -23,6 +23,7 @@ theme:
 
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/lightbox.min.css
 
 extra:
   generator: false
@@ -30,6 +31,8 @@ extra:
 extra_javascript:
   - javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - javascripts/lightbox-plus-jquery.min.js
+  - javascripts/lightbox-settings.js
 
 markdown_extensions:
   - tables
@@ -87,12 +90,8 @@ nav:
     - Layer:
       - UI: DeveloperGuide/Layer/UI/index.md
       - Usecase:
-        - Awsim Rviz Plugins:
-          - Abstract and Installation: DeveloperGuide/Layer/Usecase/AwsimRvizPlugins/AbstractAndInstallation/index.md
-          - 2D Pose Teleport: DeveloperGuide/Layer/Usecase/AwsimRvizPlugins/2dPoseTeleport/index.md
-          - Npc Spawner: DeveloperGuide/Layer/Usecase/AwsimRvizPlugins/NpcSpawner/index.md
-        - Pcd generation:
-          - Create pcd map: DeveloperGuide/Layer/Usecase/CreatePcd/index.md
+        - Awsim Rviz Plugins: DeveloperGuide/Layer/Usecase/AwsimRvizPlugins/index.md
+        - Pcd generation: DeveloperGuide/Layer/Usecase/PcdGeneration/index.md
         - Traffic Simulation: DeveloperGuide/Layer/Usecase/TrafficSimulation/index.md
         - Scenario Simulator Connection: DeveloperGuide/Layer/Usecase/ScenarioSimulatorConnection/index.md
       - Entity:
