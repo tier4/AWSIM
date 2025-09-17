@@ -36,7 +36,7 @@ namespace Awsim.Common
             };
         }
 
-        private static long ReadID(XmlNode xmlNode) =>
+        private static long ReadId(XmlNode xmlNode) =>
             long.Parse(xmlNode.Attributes["id"].Value);
 
         private static Tag[] ReadTags(XmlNode xmlNode) =>
@@ -67,13 +67,13 @@ namespace Awsim.Common
 
         private static Node ReadNode(XmlNode xmlNode) => new Node
         {
-            Id = ReadID(xmlNode),
+            Id = ReadId(xmlNode),
             Tags = ReadTags(xmlNode)
         };
 
         private static Way ReadWay(XmlNode xmlNode) => new Way
         {
-            Id = ReadID(xmlNode),
+            Id = ReadId(xmlNode),
             Tags = ReadTags(xmlNode),
             NodeIds = xmlNode.SelectNodes("nd").Cast<XmlNode>()
                 .Select(node => long.Parse(node.Attributes["ref"].Value))
@@ -89,7 +89,7 @@ namespace Awsim.Common
 
         private static Relation ReadRelation(XmlNode xmlNode) => new Relation
         {
-            Id = ReadID(xmlNode),
+            Id = ReadId(xmlNode),
             Tags = ReadTags(xmlNode),
             Members = xmlNode.SelectNodes("member").Cast<XmlNode>()
                 .Select(node => ReadMember(node)).ToArray()
