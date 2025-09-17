@@ -67,29 +67,29 @@ namespace Awsim.Common
 
         private static Node ReadNode(XmlNode xmlNode) => new Node
         {
-            ID = ReadID(xmlNode),
+            Id = ReadID(xmlNode),
             Tags = ReadTags(xmlNode)
         };
 
         private static Way ReadWay(XmlNode xmlNode) => new Way
         {
-            ID = ReadID(xmlNode),
+            Id = ReadID(xmlNode),
             Tags = ReadTags(xmlNode),
-            NodeIDs = xmlNode.SelectNodes("nd").Cast<XmlNode>()
+            NodeIds = xmlNode.SelectNodes("nd").Cast<XmlNode>()
                 .Select(node => long.Parse(node.Attributes["ref"].Value))
                 .ToArray()
         };
 
         private static RelationMember ReadMember(XmlNode xmlNode) => new RelationMember
         {
-            RefID = long.Parse(xmlNode.Attributes["ref"].Value),
+            RefId = long.Parse(xmlNode.Attributes["ref"].Value),
             Role = xmlNode.Attributes["role"].Value,
             TypeName = xmlNode.Attributes["type"].Value
         };
 
         private static Relation ReadRelation(XmlNode xmlNode) => new Relation
         {
-            ID = ReadID(xmlNode),
+            Id = ReadID(xmlNode),
             Tags = ReadTags(xmlNode),
             Members = xmlNode.SelectNodes("member").Cast<XmlNode>()
                 .Select(node => ReadMember(node)).ToArray()
