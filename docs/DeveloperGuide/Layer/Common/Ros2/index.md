@@ -22,7 +22,7 @@ Try to stop it forcefully (`pkill -9 ros2_daemon`) and restart (`ros2 daemon sta
 
 ## Awsim ROS2 node
 
-[AwsimRos2Node](https://github.com/tier4/AWSIM-v2.0.0-draft/blob/main/Assets/Awsim/Scripts/Common/Ros2/AwsimRos2Node.cs) static class is a ROS2 node that can be commonly used in AWSIM. The design of AwsimRos2Node provides the following advantages.
+[AwsimRos2Node](https://github.com/tier4/AWSIM/blob/docs/ROS2_modify/Assets/Awsim/Scripts/Common/Ros2/AwsimRos2Node.cs) static class is a ROS2 node that can be commonly used in AWSIM. The design of AwsimRos2Node provides the following advantages.
 
 - Time sources used in ROS2 can be centrally managed, modified, and reflected.
 - A single node can be used to aggregate topics to be Pub/Subbed in AWSIM.
@@ -35,7 +35,7 @@ AwsimRos2Node.Initialize("AWSIM", TimeSourceType.Ros2);
 
 ## Clock
 
-[ClockRos2Publisher](https://github.com/tier4/AWSIM-v2.0.0-draft/blob/main/Assets/Awsim/Scripts/Common/Ros2/ClockRos2Publisher.cs) allows the publication of the simulation time from the clock operating within AWSIM. The current time is retrived from a `TimeSource` object via the `AwsimRos2Node`. The AWSIM provides convenient method for selecting the appropriate time source type as well as the flexibility to implement custom `TimeSources` tailored to specific user requirements.
+[ClockRos2Publisher](https://github.com/tier4/AWSIM/blob/main/Assets/Awsim/Scripts/Common/Ros2/ClockRos2Publisher.cs) allows the publication of the simulation time from the clock operating within AWSIM. The current time is retrived from a `TimeSource` object via the `AwsimRos2Node`. The AWSIM provides convenient method for selecting the appropriate time source type as well as the flexibility to implement custom `TimeSources` tailored to specific user requirements.
 
 ## Timesource
 
