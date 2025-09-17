@@ -21,13 +21,13 @@ namespace Awsim.Entity
 {
     public class V2IRos2Publisher : MonoBehaviour
     {
-        public enum TrafficSignalID
+        public enum TrafficSignalId
         {
-            RelationID,
-            WayID
+            RelationId,
+            WayId
         }
 
-        public TrafficSignalID trafficSignalID;
+        public TrafficSignalId trafficSignalId;
 
         [SerializeField, Tooltip("On this topic, the traffic_signals are published (as a ")]
         string trafficSignalsTopic = "/v2x/traffic_signals";
@@ -68,22 +68,22 @@ namespace Awsim.Entity
                 var trafficLightLaneletId = trafficLight.LaneletId;
 
                 var ids = new List<long>();
-                if (trafficSignalID == TrafficSignalID.RelationID)
+                if (trafficSignalId == TrafficSignalId.RelationId)
                 {
                     ids = trafficLightLaneletId.relationId;
                 }
-                else if (trafficSignalID == TrafficSignalID.WayID)
+                else if (trafficSignalId == TrafficSignalId.WayId)
                 {
                     ids.Add(trafficLightLaneletId.wayId);
                 }
-                foreach (var relationID in ids)
+                foreach (var relationId in ids)
                 {
                     var trafficLightGroupMsg = new autoware_perception_msgs.msg.TrafficLightGroup();
-                    if (allRelationId.Contains(relationID))
+                    if (allRelationId.Contains(relationId))
                     {
                         continue;
                     }
-                    trafficLightGroupMsg.Traffic_light_group_id = relationID;
+                    trafficLightGroupMsg.Traffic_light_group_id = relationId;
                     //Get bulbData
                     var trafficLightBulbData = trafficLight.GetBulbData();
                     //Fill TrafficSignal with bulbData
@@ -103,7 +103,7 @@ namespace Awsim.Entity
                     //Add TrafficLight signal to list
                     trafficLightGroupMsg.Elements = trafficLightElementList.ToArray();
                     trafficLightGroup.Add(trafficLightGroupMsg);
-                    allRelationId.Add(relationID);
+                    allRelationId.Add(relationId);
                 }
             }
             AwsimRos2Node.UpdateROSClockTime(trafficLightGroupMsg.Stamp);
