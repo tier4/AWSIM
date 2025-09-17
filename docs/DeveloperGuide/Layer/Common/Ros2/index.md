@@ -16,7 +16,7 @@ For a detailed description, please see [*README*](https://github.com/RobotecAI/r
 !!! question "Can't see topics"
     There are no errors but I can't see topics published by `R2FU`
 
-    - Make sure your DDS ([Localhost settings](../../../GettingStarted/QuickStartDemo/#localhost-settings)) config is correct.
+    - Make sure your DDS ([Localhost settings](../../../../GettingStarted/QuickStartDemo/#localhost-settings)) config is correct.
     - Sometimes *ROS2* daemon brakes up when changing network interfaces or *ROS2* version.
 Try to stop it forcefully (`pkill -9 ros2_daemon`) and restart (`ros2 daemon start`).
 
@@ -44,7 +44,7 @@ List of Time Sources
 | Type | TimeSouceType enum value | Driven by | Start Value | Affected by Time Scale | Remarks |
 |:-|:-|:-|:-|:-|:-|
 | Unity | 0 | UnityEngine.Time | 0 | yes | |
-| External | 1 | externally | depends on external source | no | used by the [scenario simulator v2](../../ScenarioSimulation/PreparingTheConnectionBetweenAWSIMAndScenarioSimulator/) |
+| External | 1 | externally | depends on external source | no | used by the [scenario simulator v2](../../Usecase/ScenarioSimulatorConnection/) |
 | DotnetSystem | 2 | System.DateTime | UNIX epoch| yes| starts with UNIX epoch time and progresses with System.DateTime scaled by AWSIM time scale |
 | DotnetSimulation | 3 | System.DateTime | 0 | yes | starts with zero value and progresses with System.DateTime scaled by AWSIM time scale |
 | Ros2 | 4 | ROS2.Clock | UNIX epoch (by default)| no | uses ROS 2 time |
@@ -54,17 +54,17 @@ List of Time Sources
 ## Default message types
 The basic *ROS2* msgs types that are supported in *AWSIM* by default include:
 
-- [common_interfaces](https://index.ros.org/r/common_interfaces/github-ros2-common_interfaces/):
-    - [`std_msgs`](https://index.ros.org/p/std_msgs/github-ros2-common_interfaces/#humble).
-    - [`geometry_msgs`](https://index.ros.org/p/geometry_msgs/github-ros2-common_interfaces/#humble),
-    - [`sensor_msgs`](https://index.ros.org/p/sensor_msgs/github-ros2-common_interfaces/#humble),
-    - [`nav_msgs`](https://index.ros.org/p/nav_msgs/github-ros2-common_interfaces/#humble),
-    - [`diagnostic_msgs`](https://index.ros.org/p/diagnostic_msgs/github-ros2-common_interfaces/#humble),
-- [rcl_interfaces](https://index.ros.org/r/rcl_interfaces/github-ros2-rcl_interfaces/):
-    - [`builtin_interfaces`](https://index.ros.org/p/builtin_interfaces/github-ros2-rcl_interfaces/#humble),
-    - [`action_msgs`](https://index.ros.org/p/action_msgs/github-ros2-rcl_interfaces/#humble),
-    - [`rosgraph_msgs`](https://index.ros.org/p/rosgraph_msgs/github-ros2-rcl_interfaces/#humble),
-    - [`test_msgs`](https://index.ros.org/p/test_msgs/github-ros2-rcl_interfaces/#humble).
+- [common_interfaces](https://index.ros.org/r/common_interfaces/):
+    - [`std_msgs`](https://index.ros.org/p/std_msgs/).
+    - [`geometry_msgs`](https://index.ros.org/p/geometry_msgs/),
+    - [`sensor_msgs`](https://index.ros.org/p/sensor_msgs/),
+    - [`nav_msgs`](https://index.ros.org/p/nav_msgs/),
+    - [`diagnostic_msgs`](https://index.ros.org/p/diagnostic_msgs/),
+- [rcl_interfaces](https://index.ros.org/r/rcl_interfaces/):
+    - [`builtin_interfaces`](https://index.ros.org/p/builtin_interfaces/),
+    - [`action_msgs`](https://index.ros.org/p/action_msgs/),
+    - [`rosgraph_msgs`](https://index.ros.org/p/rosgraph_msgs/),
+    - [`test_msgs`](https://index.ros.org/p/test_msgs/).
 - [autoware_msgs](https://github.com/autowarefoundation/autoware):
     - [`autoware_common_msgs`](https://github.com/autowarefoundation/autoware_msgs/tree/main/autoware_common_msgs),
     - [`autoware_control_msgs`](https://github.com/autowarefoundation/autoware_msgs/tree/main/autoware_control_msgs),
@@ -79,8 +79,8 @@ The basic *ROS2* msgs types that are supported in *AWSIM* by default include:
     - [`tier4_control_msgs`](https://github.com/tier4/tier4_autoware_msgs/tree/tier4/universe/tier4_control_msgs),
     - [`tier4_vehicle_msgs`](https://github.com/tier4/tier4_autoware_msgs/tree/tier4/universe/tier4_vehicle_msgs).
 - Others:
-    - [`tf2_msgs`](https://index.ros.org/p/tf2_msgs/github-ros2-geometry2/#humble),
-    - [`unique_identifier_msgs`](https://index.ros.org/p/unique_identifier_msgs/github-ros2-unique_identifier_msgs/#humble).
+    - [`tf2_msgs`](https://index.ros.org/p/tf2_msgs/),
+    - [`unique_identifier_msgs`](https://index.ros.org/p/unique_identifier_msgs/).
 
 In order for the message package to be used in *Unity*, its `*.dll` and `*.so` libraries must be generated using `R2FU`.
 
