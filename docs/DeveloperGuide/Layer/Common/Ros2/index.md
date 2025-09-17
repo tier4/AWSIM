@@ -84,16 +84,12 @@ The basic *ROS2* msgs types that are supported in *AWSIM* by default include:
 
 In order for the message package to be used in *Unity*, its `*.dll` and `*.so` libraries must be generated using `R2FU`.
 
-!!! tip "Custom message"
-    If you want to generate a custom message to allow it to be used in *AWSIM* please read [this tutorial](../AddCustomRos2Message/index.md).
-
 ## AddCustomRos2Message
 If you want to use custom message in *AWSIM*, you need to generate the appropriate files, to do this you have to build `ROS2ForUnity` yourself - please follow the steps below. Remember to start with [prerequisities](#prerequisites) though.
 
-!!! tip "ROS2ForUnity role"
-    For a better understanding of the role of `ROS2ForUnity` and the messages used, we encourage you to read this [section](../ROS2ForUnity/).
 !!! warning "custom_msgs"
     In order to simplify this tutorial, the name of the package containing the custom message is assumed to be `custom_msgs` - remember to replace it with the name of your package.
+
 ### Prerequisites
 
 `ROS2ForUnity` depends on a [ros2cs](https://github.com/RobotecAI/ros2cs) - a *C# .NET* library for *ROS2*.<br>
@@ -300,5 +296,18 @@ You can find them in following directories and simply copy to the analogous dire
         ``` -->
 
 ### 5. Test
-Make sure that the package files `custom_msgs` have been properly copied to the `AWSIM/Assets/Ros2ForUnity`.
-Then try to create a message object as described in [this section](../ROS2ForUnity/) and check in the console of *Unity Editor* if it compiles without errors.
+Make sure that the package files `custom_msgs` have been properly copied to the `AWSIM/Assets/Ros2ForUnity`.<br>
+Then try to create a message object and check in the console of `Unity Editor` if it compiles without errors.
+
+Taking `Header` as an example, the simplest way to create an object is:
+```
+var topic = new std_msgs.msg.Header();
+topic.Frame_id = "map";
+topic.Stamp.Sec = 1234567;
+```
+
+`ROS2` messages in Unity are just a structure containing the same fields - keep the same names and types.<br>
+It is same as `C#` structure to access its fields for reading and filling.
+
+!!!warning
+    The first letter of each message field in `Unity` is always uppercase - even if it is described with lowercase in `ROS2` message.
