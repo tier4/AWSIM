@@ -262,10 +262,10 @@ namespace Awsim.Common
                     if (regElem.RefLines == null || regElem.RefLines.Length == 0)
                         continue;
 
-                    var stopLineID = regElem.RefLines[0].Id;
-                    if (stopLines.ContainsKey(stopLineID))
+                    var stopLineId = regElem.RefLines[0].Id;
+                    if (stopLines.ContainsKey(stopLineId))
                     {
-                        var stopLine = stopLines[stopLineID];
+                        var stopLine = stopLines[stopLineId];
                         // If the stop line is at the first waypoint, it is associated with the previous lane.
                         var distanceToStopLine =
                             HandleUtility.DistancePointLine(
@@ -371,7 +371,7 @@ namespace Awsim.Common
                     {
                         continue;
                     }
-                    FillTrafficLightRelationIDWayID(closestTrafficLight, regElem.Id, line.Id);
+                    FillTrafficLightRelationIdWayId(closestTrafficLight, regElem.Id, line.Id);
                     if (verifiedTrafficLights.ContainsKey(closestTrafficLight.name))
                     {
                         if (!verifiedTrafficLights[closestTrafficLight.name].Contains(line.Id))
@@ -391,30 +391,30 @@ namespace Awsim.Common
             {
                 if (entry.Value.Count >= 2)
                 {
-                    string wayIDs = "";
-                    foreach (var wayID in entry.Value)
+                    string wayIds = "";
+                    foreach (var wayId in entry.Value)
                     {
-                        wayIDs += $"{wayID}, ";
+                        wayIds += $"{wayId}, ";
                     }
-                    Debug.LogWarning($"Verify '{entry.Key}' manually because may include wrong WayID and RelationID. Possible Way IDs [{wayIDs}]");
+                    Debug.LogWarning($"Verify '{entry.Key}' manually because may include wrong WayId and RelationId. Possible Way Ids [{wayIds}]");
                 }
             }
         }
 
-        void FillTrafficLightRelationIDWayID(LaneletTrafficLight trafficLight, long relationId, long wayID)
+        void FillTrafficLightRelationIdWayId(LaneletTrafficLight trafficLight, long relationId, long wayId)
         {
             EditorUtility.SetDirty(trafficLight);
             Undo.RecordObject(trafficLight, "Assigning lanelet id");
-            var trafficLightLaneletID = trafficLight.LaneletId;
-            if (trafficLightLaneletID.wayId != LaneletTrafficLight.TrafficLightLaneletId.InitWayId && trafficLightLaneletID.wayId != wayID)
+            var trafficLightLaneletId = trafficLight.LaneletId;
+            if (trafficLightLaneletId.wayId != LaneletTrafficLight.TrafficLightLaneletId.InitWayId && trafficLightLaneletId.wayId != wayId)
             {
-                trafficLightLaneletID.relationId.Clear();
+                trafficLightLaneletId.relationId.Clear();
             }
-            if (!trafficLightLaneletID.relationId.Contains(relationId))
+            if (!trafficLightLaneletId.relationId.Contains(relationId))
             {
-                trafficLightLaneletID.relationId.Add(relationId);
+                trafficLightLaneletId.relationId.Add(relationId);
             }
-            trafficLightLaneletID.wayId = wayID;
+            trafficLightLaneletId.wayId = wayId;
             PrefabUtility.RecordPrefabInstancePropertyModifications(trafficLight);
         }
     }
