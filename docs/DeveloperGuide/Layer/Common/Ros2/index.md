@@ -1,10 +1,96 @@
+# Ros2
+
+## ROS2 for unity
+[*Ros2ForUnity*](https://github.com/RobotecAI/ros2-for-unity) (`R2FU`) module is a communication solution that effectively connects *Unity* and the *ROS2* ecosystem, maintaining a strong integration.
+Unlike other solutions, it doesn't rely on bridging communication but rather utilizes the *ROS2* middleware stack (specifically the `rcl` layer and below), enabling the inclusion of *ROS2* nodes within *Unity* simulations.
+
+`R2FU` is used in *AWSIM* for many reasons.
+First of all, because it offers high-performance integration between *Unity* and *ROS2*, with improved throughput and lower latencies compared to bridging solutions.
+It provides real *ROS2* functionality for simulation entities in *Unity*, supports standard and custom messages, and includes convenient abstractions and tools, all wrapped as a *Unity* asset.
+For a detailed description, please see [*README*](https://github.com/RobotecAI/ros2-for-unity/blob/master/README.md).
+
+!!! warning
+
+    To avoid internal conflicts between the standalone libraries, and sourced ones, *ROS2* instance shouldn't be sourced before running AWSIM or the *Unity* Editor.
+
+!!! question "Can't see topics"
+    There are no errors but I can't see topics published by `R2FU`
+
+    - Make sure your DDS ([Localhost settings](../../../../GettingStarted/QuickStartDemo/#localhost-settings)) config is correct.
+    - Sometimes *ROS2* daemon brakes up when changing network interfaces or *ROS2* version.
+Try to stop it forcefully (`pkill -9 ros2_daemon`) and restart (`ros2 daemon start`).
+
+## Awsim ROS2 node
+
+[AwsimRos2Node](https://github.com/tier4/AWSIM/blob/docs/ROS2_modify/Assets/Awsim/Scripts/Common/Ros2/AwsimRos2Node.cs) static class is a ROS2 node that can be commonly used in AWSIM. The design of AwsimRos2Node provides the following advantages.
+
+- Time sources used in ROS2 can be centrally managed, modified, and reflected.
+- A single node can be used to aggregate topics to be Pub/Subbed in AWSIM.
+- Ability to add and delete pub/subs on topics and services and retrieve times.
+
+ROS2 node name and time source can be specified at initialization.
+```
+AwsimRos2Node.Initialize("AWSIM", TimeSourceType.Ros2);
+```
+
+## Clock
+
+[ClockRos2Publisher](https://github.com/tier4/AWSIM/blob/main/Assets/Awsim/Scripts/Common/Ros2/ClockRos2Publisher.cs) allows the publication of the simulation time from the clock operating within AWSIM. The current time is retrived from a `TimeSource` object via the `AwsimRos2Node`. The AWSIM provides convenient method for selecting the appropriate time source type as well as the flexibility to implement custom `TimeSources` tailored to specific user requirements.
+
+## Timesource
+
+List of Time Sources
+
+| Type | TimeSouceType enum value | Driven by | Start Value | Affected by Time Scale | Remarks |
+|:-|:-|:-|:-|:-|:-|
+| Unity | 0 | UnityEngine.Time | 0 | yes | |
+| External | 1 | externally | depends on external source | no | used by the [scenario simulator v2](../../Usecase/ScenarioSimulatorConnection/) |
+| DotnetSystem | 2 | System.DateTime | UNIX epoch| yes| starts with UNIX epoch time and progresses with System.DateTime scaled by AWSIM time scale |
+| DotnetSimulation | 3 | System.DateTime | 0 | yes | starts with zero value and progresses with System.DateTime scaled by AWSIM time scale |
+| Ros2 | 4 | ROS2.Clock | UNIX epoch (by default)| no | uses ROS 2 time |
+
+<br>
+
+## Default message types
+The basic *ROS2* msgs types that are supported in *AWSIM* by default include:
+
+- [common_interfaces](https://index.ros.org/r/common_interfaces/):
+    - [`std_msgs`](https://index.ros.org/p/std_msgs/).
+    - [`geometry_msgs`](https://index.ros.org/p/geometry_msgs/),
+    - [`sensor_msgs`](https://index.ros.org/p/sensor_msgs/),
+    - [`nav_msgs`](https://index.ros.org/p/nav_msgs/),
+    - [`diagnostic_msgs`](https://index.ros.org/p/diagnostic_msgs/),
+- [rcl_interfaces](https://index.ros.org/r/rcl_interfaces/):
+    - [`builtin_interfaces`](https://index.ros.org/p/builtin_interfaces/),
+    - [`action_msgs`](https://index.ros.org/p/action_msgs/),
+    - [`rosgraph_msgs`](https://index.ros.org/p/rosgraph_msgs/),
+    - [`test_msgs`](https://index.ros.org/p/test_msgs/).
+- [autoware_msgs](https://github.com/autowarefoundation/autoware):
+    - [`autoware_common_msgs`](https://github.com/autowarefoundation/autoware_msgs/tree/main/autoware_common_msgs),
+    - [`autoware_control_msgs`](https://github.com/autowarefoundation/autoware_msgs/tree/main/autoware_control_msgs),
+    - [`autoware_localization_msgs`](https://github.com/autowarefoundation/autoware_msgs/tree/main/autoware_localization_msgs),
+    - [`autoware_map_msgs`](https://github.com/autowarefoundation/autoware_msgs/tree/main/autoware_map_msgs),
+    - [`autoware_perception_msgs`](https://github.com/autowarefoundation/autoware_msgs/tree/main/autoware_perception_msgs),
+    - [`autoware_planning_msgs`](https://github.com/autowarefoundation/autoware_msgs/tree/main/autoware_planning_msgs),
+    - [`autoware_sensing_msgs`](https://github.com/autowarefoundation/autoware_msgs/tree/main/autoware_sensing_msgs),
+    - [`autoware_system_msgs`](https://github.com/autowarefoundation/autoware_msgs/tree/main/autoware_system_msgs),
+    - [`autoware_vehicle_msgs`](https://github.com/autowarefoundation/autoware_msgs/tree/main/autoware_vehicle_msgs).
+- [tier4_autoware_msgs](https://github.com/tier4/tier4_autoware_msgs):
+    - [`tier4_control_msgs`](https://github.com/tier4/tier4_autoware_msgs/tree/tier4/universe/tier4_control_msgs),
+    - [`tier4_vehicle_msgs`](https://github.com/tier4/tier4_autoware_msgs/tree/tier4/universe/tier4_vehicle_msgs).
+- Others:
+    - [`tf2_msgs`](https://index.ros.org/p/tf2_msgs/),
+    - [`unique_identifier_msgs`](https://index.ros.org/p/unique_identifier_msgs/).
+
+In order for the message package to be used in *Unity*, its `*.dll` and `*.so` libraries must be generated using `R2FU`.
+
+## AddCustomRos2Message
 If you want to use custom message in *AWSIM*, you need to generate the appropriate files, to do this you have to build `ROS2ForUnity` yourself - please follow the steps below. Remember to start with [prerequisities](#prerequisites) though.
 
-!!! tip "ROS2ForUnity role"
-    For a better understanding of the role of `ROS2ForUnity` and the messages used, we encourage you to read this [section](../ROS2ForUnity/).
 !!! warning "custom_msgs"
     In order to simplify this tutorial, the name of the package containing the custom message is assumed to be `custom_msgs` - remember to replace it with the name of your package.
-## Prerequisites
+
+### Prerequisites
 
 `ROS2ForUnity` depends on a [ros2cs](https://github.com/RobotecAI/ros2cs) - a *C# .NET* library for *ROS2*.<br>
 This library is already included so you don't need to install it, but there are a few prerequisites that must be resolved first.
@@ -26,7 +112,7 @@ Please select your system and resolve all prerequisites:
     - Your package with custom message package is located in the home directory `C:\custom_msgs` or is hosted on *git* repository.
     - *Shell* - commands should be executed from the `powershell` shell
 
-## 1. Workspace preparation
+### 1. Workspace preparation
 
 1. Clone `ROS2ForUnity` repository by execute command:
 
@@ -61,14 +147,14 @@ Please select your system and resolve all prerequisites:
         ``` -->
         
 
-## 2. Setup `custom_msgs` package
+### 2. Setup `custom_msgs` package
 The method to add a custom package to build depends on where it is located. The package can be on your local machine or just be hosted on a *git* repository.<br>
 Please, choose the appropriate option and follow the instructions.
 
   <!-- 1. Package hosted on *git* repository - listing them in `ros2_for_unity_custom_messages.repos` file,
   2. Package contained on local machine - manually inserting them in `src/ros2cs` directory. -->
 
-### 2.1. Package contained on local machine
+#### 2.1. Package contained on local machine
 
 1. Copy the `custom_msgs` package with custom message to the folder to `src/ros2cs/custom_messages` directory
     
@@ -82,7 +168,7 @@ Please, choose the appropriate option and follow the instructions.
         Copy-Item 'C:\custom_msgs' -Destination 'C:\ros2-for-unity\src\custom_messages'
         ``` -->
 
-### 2.2. Package hosted on git repository
+#### 2.2. Package hosted on git repository
 
 1. Open `ros2-for-unity/ros2_for_unity_custom_messages.repos` file in editor.
 2. Modify the contents of the file shown below, **uncomment** and **set**:
@@ -132,7 +218,7 @@ Please, choose the appropriate option and follow the instructions.
 
 
 
-## 3. Build ROS 2 For Unity
+### 3. Build ROS 2 For Unity
 
 
 Build `ROS2ForUnity` with custom message packages using the following commands:
@@ -149,7 +235,7 @@ Build `ROS2ForUnity` with custom message packages using the following commands:
     .\build.ps1 -standalone
     ``` -->
 
-## 4. Install `custom_msgs` to AWSIM
+### 4. Install `custom_msgs` to AWSIM
 
 New `ROS2ForUnity` build, which you just made in step [3](#3-build-ros-2-for-unity), contains multiple libraries that already exist in the *AWSIM*.<br>
 To install `custom_msgs` and not copy all other unnecessary files, you should get the `custom_msgs` related libraries only.
@@ -165,7 +251,7 @@ You can find them in following directories and simply copy to the analogous dire
       - `ros2-for-unity/install/asset/Ros2ForUnity/Plugins/Windows/x86_64/` which names matches `custom_msgs_*` -->
 
 
-### Automation of copying message files
+#### Automation of copying message files
 === "Ubuntu"
     To automate the process, you can use a script that copies all files related to your `custom_msgs` package.
 
@@ -209,6 +295,19 @@ You can find them in following directories and simply copy to the analogous dire
         Get-ChildItem C:\ros2-for-unity\install\asset\Ros2ForUnity\Plugins\Windows\x86_64\* -Include @('custom_msgs*') | Copy-Item -Destination C:\unity\AWSIM\Assets\Ros2ForUnity\Plugins\Windows\x86_64
         ``` -->
 
-## 5. Test
-Make sure that the package files `custom_msgs` have been properly copied to the `AWSIM/Assets/Ros2ForUnity`.
-Then try to create a message object as described in [this section](../ROS2ForUnity/) and check in the console of *Unity Editor* if it compiles without errors.
+### 5. Test
+Make sure that the package files `custom_msgs` have been properly copied to the `AWSIM/Assets/Ros2ForUnity`.<br>
+Then try to create a message object and check in the console of `Unity Editor` if it compiles without errors.
+
+Taking `Header` as an example, the simplest way to create an object is:
+```
+var topic = new std_msgs.msg.Header();
+topic.Frame_id = "map";
+topic.Stamp.Sec = 1234567;
+```
+
+`ROS2` messages in Unity are just a structure containing the same fields - keep the same names and types.<br>
+It is same as `C#` structure to access its fields for reading and filling.
+
+!!!warning
+    The first letter of each message field in `Unity` is always uppercase - even if it is described with lowercase in `ROS2` message.

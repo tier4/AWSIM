@@ -106,9 +106,7 @@ nav:
         - Infra:
           - Traffic light: DeveloperGuide/Layer/Entity/Infra/TrafficLight/index.md
       - Common:
-        - ROS2:
-          - ROS2: DeveloperGuide/Layer/Common/Ros2/Ros2CoreComponents/index.md
-          - Add custom ROS2 message: DeveloperGuide/Layer/Common/Ros2/AddCustomRos2Message/index.md
+        - ROS2: DeveloperGuide/Layer/Common/Ros2/index.md
     - Experimental:
       - Running headless: DeveloperGuide/Experimental/RunningHeadless/index.md
       - Using OpenSCENARIO: DeveloperGuide/Experimental/UsingOpenScenario/index.md

@@ -1,4 +1,4 @@
-# Abstract and installation
+# AwsimRvizPlugins
 Feature to operate AWSIM environment from the Rviz plugins.
 
 <a href="./npc_spawner.png" data-lightbox="AwsimRvizPlugins" data-title="" data-alt="AwsimRvizPlugins"><img src="./npc_spawner.png"></a>
