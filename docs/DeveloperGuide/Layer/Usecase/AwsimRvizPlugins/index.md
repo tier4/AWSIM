@@ -15,42 +15,9 @@ Rviz plugins are implemented in the following repositories:
 !!!info
     If you want to **use** `AwsimRvizPlugins` with `AWSIM`, see [here](../../../../GettingStarted/Advanced/AwsimRvizPlugins/index.md).
 
-## Installation
-### Install only this plugins to Rviz
-1. clone this repository
-```
-git clone git@github.com:tier4/AwsimRvizPlugins.git
-```
-2. build package
-```
-cd AwsimRvizPlugins
-source /opt/ros/humble/setup.bash
-colcon build
-```
-3. source package
-You must `source` each time you launch a terminal.
-```
-source install/setup.sh
-```
-4. launch Rviz application and use tools
-```
-# rviz2
-# ros2 launch ...
-```
+## Abstract
 
-### Install with Autoware (pilot-auto)
-1. clone Autoware repository
-2. add description of AwsimRvizPlugins to autoware.repos
-```
-repositories:
-  # please add the following statement to autoware.repos to use AwsimRvizPlugins
-  simulator/awsim_rviz_plugins:
-    type: git
-    url: git@github.com:tier4/AwsimRvizPlugins.git
-```
-3. Introduce `Autoware (pilot-auto)` according to [Autoware Documentation](https://autowarefoundation.github.io/autoware-documentation/main/installation/autoware/source-installation/).
-
-## 2D Pose Teleport
+### 2D Pose Teleport
 Teleport AWSIM EGO using Rviz GUI tool.
 <a href="./2d_pose_teleport.png" data-lightbox="2D Pose Teleport" data-title="" data-alt="2D Pose Teleport"><img src="./2d_pose_teleport.png"></a>
 
@@ -61,16 +28,7 @@ AWSIM subscribes this topic and updates the coordinates of the EGO.
 y-axis of destination position of teleport is calculated using ray-casting.  
 The highest object at the specified x-z coordinates is considered the ground.
 
-### How to use
-1. On Rviz, Click the plus button on the toolbar and select `awsim_rviz_plugins/2dPoseTeleport` from the list.
-<a href="./tool_bar_ego.png" data-lightbox="2D Pose Teleport Setup" data-title="" data-alt="2D Pose Teleport Setup"><img src="./tool_bar_ego.png"></a>
-2. On Rviz, Click on `2D Pose Teleport` button from the toolbar and select it.
-3. On AWSIM, Play binary or Play scene.
-4. On the map displayed in Rviz, drag the cursor to the location and orientation where you want to move the EGO.
-
-If `Autoware (pilot-auto)` is running with, press the `Initialize with GNSS` button to perform localilization again.
-
-## Nps Spawner
+### Nps Spawner
 Spawn AWSIM Npc using Rviz GUI tool.
 Type and velocity of spawned Npc is specified from Rviz display.
 
@@ -91,15 +49,8 @@ Spawnable Npc is listed in `AutowreSimulationDemo/Function/AwsimRvizPluginsClien
 AWSIM publishes name of spawnable Npc as `/awsim/awsim_rviz_plugins/npc_spawner/npc_name_list` topic.  
 `awsim_rviz_plugins/NpsSpawnerStatus` display subscribes this topic and update drop down list of Npc type.  
 
-### How to use
-1. On Rviz, Click the plus button on the toolbar and select `awsim_rviz_plugins/NpcSpawner` from the list.
-<a href="./tool_bar_npc.png" data-lightbox="Tool Bar" data-title="" data-alt="Tool Bar"><img src="./tool_bar_npc.png"></a>
-2. On Rviz, Click on `Npc Spawner` button from the toolbar and select it.
-3. On AWSIM, Play binary or Play scene.
-4. On the map displayed in Rviz, drag the cursor to the location and orientation where you want to move the EGO.
+### Overview
 
-If you want to change type and velocity of spawned Npc, do the following:
+### Configuration
 
-1. On Rviz, Click the `Add` button on the `Display` panel and select `awsim_rviz_plugins/NpcSpawnerStatus` from the list.
-<a href="./status_panel.png" data-lightbox="Status Panel" data-title="" data-alt="Status Panel"><img src="./status_panel.png"></a>
-2. On Rviz, Change the value of `Npc Type` and `Velocity [km/h]`.
+## Instruction
