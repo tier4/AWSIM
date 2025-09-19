@@ -270,7 +270,7 @@ Vehicle:
 `Vehicle` parameter of scenario file should be match that of prefab in `AWSIM`.<br>
 Especially, `BoundingBox` parameter is crucial to validate the collisions correctly.
 
-The entitiy parameters of default `AWSIM` assets are listed in the following table:
+The entity parameters of default `AWSIM` assets are listed in the following table:
 
 Ego Vehicle Entity
 

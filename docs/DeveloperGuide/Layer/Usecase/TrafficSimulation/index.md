@@ -113,7 +113,7 @@ Please configure `TrafficIntersection` and `LaneletTrafficLight` components as t
 3. Attach `LaneletTrafficLight` to traffic light objects placed on the target intersection
 <a href="./traffic_light.png" data-lightbox="Traffic Light" data-title="" data-alt="Traffic Light"><img src="./traffic_light.png"></a>
 4. Modify `Bulb Material Config` as follow images<br>
-vehicle raffic light<br>
+vehicle traffic light<br>
 <a href="./bulb_vehicle.png" data-lightbox="Bulb Vehicle" data-title="" data-alt="Bulb Vehicle"><img src="./bulb_vehicle.png"></a><br>
 pedestrian traffic light<br>
 <a href="./bulb_pedestrian.png" data-lightbox="Bulb Pedestrian" data-title="" data-alt="Bulb Pedestrian"><img src="./bulb_pedestrian.png"></a>
@@ -131,7 +131,7 @@ pedestrian traffic light<br>
 #### Modify `Lighting Sequences`
 If you need to set an arbitrary signal control pattern, you can modify it in `Lighting Sequences` field.
 
-Create any number of of lements of `Lighting Sequences` and set parameters for each one.<br>
+Create any number of elements of `Lighting Sequences` and set parameters for each one.<br>
 When the scene plays, the `Lighting Sequences` will execute sequentially from `Element 0`.<br>
 In addition, when the last element completes, the sequence will loop back to `Element 0`.
 
