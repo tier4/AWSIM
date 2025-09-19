@@ -347,7 +347,7 @@ namespace Awsim.Common
 
                     if (stopLines[line.Id].TrafficLight == null)
                     {
-                        Debug.Log($"No TrafficLight components exist in the scene for the stop line(ID = {line.Id}).");
+                        Debug.Log($"No TrafficLight components exist in the scene for the stop line(Id = {line.Id}).");
                     }
                 }
             }

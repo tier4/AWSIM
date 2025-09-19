@@ -25,7 +25,7 @@ namespace Awsim.Common
     public class LaneletPrimitiveData
     {
         /// <summary>
-        /// Get or set the unique ID of the primitive.
+        /// Get or set the unique Id of the primitive.
         /// </summary>
         public long Id { get; set; }
 
