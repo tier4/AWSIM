@@ -23,7 +23,7 @@ namespace Awsim.Entity
     public class GnssRos2Publisher : MonoBehaviour
     {
         [SerializeField] string _navSatFixTopic = "/sensing/gnss/ublox/nav_sat_fix";
-        [SerializeField] string _frameID = "map"; 
+        [SerializeField] string _frameId = "map"; 
         [SerializeField]
         QosSettings _qosSettings = new QosSettings(ReliabilityPolicy.QOS_POLICY_RELIABILITY_RELIABLE,
                                                    DurabilityPolicy.QOS_POLICY_DURABILITY_VOLATILE,
@@ -50,7 +50,7 @@ namespace Awsim.Entity
 
             _navSatFixMsg = new NavSatFix
             {
-                Header = new Header { Frame_id = _frameID },
+                Header = new Header { Frame_id = _frameId },
                 Status = new NavSatStatus
                 {
                     Status = NavSatStatus.STATUS_FIX, 

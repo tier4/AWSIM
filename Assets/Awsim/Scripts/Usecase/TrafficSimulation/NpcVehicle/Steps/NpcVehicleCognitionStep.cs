@@ -488,7 +488,7 @@ namespace Awsim.Usecase.TrafficSimulation
             /// </summary>
             static private bool shouldBeConsideredForYielding(NpcVehicleInternalState refState, NpcVehicleInternalState otherState)
             {
-                return refState.Vehicle.ID != otherState.Vehicle.ID && isEnteringIntersection(otherState);
+                return refState.Vehicle.Id != otherState.Vehicle.Id && isEnteringIntersection(otherState);
             }
 
             /// <summary>

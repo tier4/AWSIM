@@ -20,7 +20,7 @@ using UnityEngine;
 public class OdometryRos2Publisher : MonoBehaviour
 {
     [SerializeField] string _topic = "/awsim/ground_truth/localization/kinematic_state";
-    [SerializeField] string _frameID = "base_link";
+    [SerializeField] string _frameId = "base_link";
     [SerializeField] OdometrySensor _odometrySensor;
 
     [SerializeField]
@@ -33,7 +33,7 @@ public class OdometryRos2Publisher : MonoBehaviour
     nav_msgs.msg.Odometry _msg;
     geometry_msgs.msg.PoseWithCovariance _poseMsg;
     geometry_msgs.msg.TwistWithCovariance _twistMsg;
-    std_msgs.msg.String _frameIDMsg;
+    std_msgs.msg.String _frameIdMsg;
 
     public void Initialize()
     {
@@ -43,7 +43,7 @@ public class OdometryRos2Publisher : MonoBehaviour
         {
             Header = new std_msgs.msg.Header()
             {
-                Frame_id = _frameID,
+                Frame_id = _frameId,
             },
             Child_frame_id = "",
             Pose = new geometry_msgs.msg.PoseWithCovariance(),

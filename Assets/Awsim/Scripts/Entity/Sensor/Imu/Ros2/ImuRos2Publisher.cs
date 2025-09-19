@@ -21,11 +21,11 @@ namespace Awsim.Entity
     public class ImuRos2Publisher : MonoBehaviour
     {
         public string Topic { get => _topic; }
-        public string FrameID { get => _frameID; }
+        public string FrameId { get => _frameId; }
         public QosSettings QosSettings { get => _qosSettings; }
 
         [SerializeField] string _topic = "/sensing/imu/tamagawa/imu_raw";
-        [SerializeField] string _frameID = "tamagawa/imu_link";
+        [SerializeField] string _frameId = "tamagawa/imu_link";
         [SerializeField]
         QosSettings _qosSettings = new QosSettings(ReliabilityPolicy.QOS_POLICY_RELIABILITY_RELIABLE,
                                                                     DurabilityPolicy.QOS_POLICY_DURABILITY_VOLATILE,
@@ -60,7 +60,7 @@ namespace Awsim.Entity
                 },
                 Header = new std_msgs.msg.Header()
                 {
-                    Frame_id = _frameID,
+                    Frame_id = _frameId,
                 }
             };
 
@@ -76,10 +76,10 @@ namespace Awsim.Entity
             _imuPublisher = AwsimRos2Node.CreatePublisher<sensor_msgs.msg.Imu>(_topic, _qosSettings.GetQosProfile());
         }
 
-        public void Initialize(string topic, string frameID, QosSettings qosSettings)
+        public void Initialize(string topic, string frameIs, QosSettings qosSettings)
         {
             _topic = topic;
-            _frameID = frameID;
+            _frameId = frameIs;
             _qosSettings = qosSettings;
 
             Initialize();

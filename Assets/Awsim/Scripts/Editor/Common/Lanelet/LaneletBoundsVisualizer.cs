@@ -118,8 +118,8 @@ namespace Awsim.Common.Editor
                 var laneletBoundRight = LaneletGameObject.Create(waypointsRight);
                 laneletBoundLeft.transform.parent = laneletBoundsHolder.transform;
                 laneletBoundRight.transform.parent = laneletBoundsHolder.transform;
-                laneletBoundsLeft.Add(lanelet.ID, laneletBoundLeft);
-                laneletBoundsRight.Add(lanelet.ID, laneletBoundRight);
+                laneletBoundsLeft.Add(lanelet.Id, laneletBoundLeft);
+                laneletBoundsRight.Add(lanelet.Id, laneletBoundRight);
             }
         }
 

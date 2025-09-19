@@ -44,7 +44,7 @@ namespace Awsim.Common
                 var attributes = new LaneletAttribute(node.Tags);
                 attributes.TryGetLocalPosition(out Vector3 localPosition);
                 var position = Ros2Utility.Ros2ToUnityPosition(localPosition - _origin);
-                _map.Add(new LaneletPointData(node.ID, attributes, position));
+                _map.Add(new LaneletPointData(node.Id, attributes, position));
             }
         }
 
@@ -72,7 +72,7 @@ namespace Awsim.Common
                 {
                     continue;
                 }
-                var id = relation.ID;
+                var id = relation.Id;
                 var leftBorder = GetLine(relation, "left");
                 var rightBorder = GetLine(relation, "right");
                 var lanelet = new LaneletData(id, attributes, leftBorder, rightBorder);
@@ -88,7 +88,7 @@ namespace Awsim.Common
                 if (attributes[LaneletAttributeKey.Type] != LaneletAttributeValue.RegulatoryElement)
                     continue;
 
-                var id = relation.ID;
+                var id = relation.Id;
                 var subtype = attributes[LaneletAttributeKey.Subtype];
 
                 switch (subtype)
@@ -124,7 +124,7 @@ namespace Awsim.Common
                 if (attributes[LaneletAttributeKey.Type] != LaneletAttributeValue.Lanelet)
                     continue;
 
-                var id = relation.ID;
+                var id = relation.Id;
                 var regulatoryElements = GetRegulatoryElements(relation);
                 _map.Lanelets[id].RegulatoryElements = regulatoryElements;
             }
@@ -132,12 +132,12 @@ namespace Awsim.Common
 
         LaneletLineStringData ExtractLineStringData(Way way)
         {
-            return new LaneletLineStringData(way.ID, new LaneletAttribute(way.Tags), way.NodeIDs.Select(id => _map.Points[id]).ToArray());
+            return new LaneletLineStringData(way.Id, new LaneletAttribute(way.Tags), way.NodeIds.Select(id => _map.Points[id]).ToArray());
         }
 
         LaneletLineStringData GetLine(Relation relation, string role)
         {
-            var id = relation.Members.FirstOrDefault(member => member.Role == role).RefID;
+            var id = relation.Members.FirstOrDefault(member => member.Role == role).RefId;
             if (id == 0)
             {
                 return null;
@@ -149,7 +149,7 @@ namespace Awsim.Common
         {
             return relation.Members
                 .Where(member => member.Role == role)
-                .Select(member => _map.Lines[member.RefID])
+                .Select(member => _map.Lines[member.RefId])
                 .ToArray();
         }
 
@@ -157,8 +157,8 @@ namespace Awsim.Common
         {
             return relation.Members
                 .Where(member => member.Role == "regulatory_element")
-                .Where(member => _map.RegulatoryElements.ContainsKey(member.RefID))
-                .Select(member => _map.RegulatoryElements[member.RefID])
+                .Where(member => _map.RegulatoryElements.ContainsKey(member.RefId))
+                .Select(member => _map.RegulatoryElements[member.RefId])
                 .ToArray();
         }
 
@@ -166,7 +166,7 @@ namespace Awsim.Common
         {
             return relation.Members
                 .Where(member => member.Role == role)
-                .Select(member => _map.Lanelets[member.RefID])
+                .Select(member => _map.Lanelets[member.RefId])
                 .ToArray();
         }
     }

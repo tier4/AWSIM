@@ -83,7 +83,7 @@ namespace Awsim.Common
                 (from ll1 in lanelets
                  from ll2 in lanelets
                  where ll2.IsNextTo(ll1)
-                 select (ll1.ID, ll2.ID))
+                 select (ll1.Id, ll2.Id))
                 .ToList();
         }
 
@@ -166,8 +166,8 @@ namespace Awsim.Common
                     : TrafficLane.TurnDirectionType.Straight;
                 var trafficLane = TrafficLane.Create(waypoints, turnDirection, speedLimitMps);
                 trafficLane.transform.parent = trafficLaneHolder.transform;
-                trafficLane.name = "TrafficLane." + (int)lanelet.ID;
-                trafficLanes.Add(lanelet.ID, trafficLane);
+                trafficLane.name = "TrafficLane." + (int)lanelet.Id;
+                trafficLanes.Add(lanelet.Id, trafficLane);
             }
         }
 
@@ -262,10 +262,10 @@ namespace Awsim.Common
                     if (regElem.RefLines == null || regElem.RefLines.Length == 0)
                         continue;
 
-                    var stopLineID = regElem.RefLines[0].ID;
-                    if (stopLines.ContainsKey(stopLineID))
+                    var stopLineId = regElem.RefLines[0].Id;
+                    if (stopLines.ContainsKey(stopLineId))
                     {
-                        var stopLine = stopLines[stopLineID];
+                        var stopLine = stopLines[stopLineId];
                         // If the stop line is at the first waypoint, it is associated with the previous lane.
                         var distanceToStopLine =
                             HandleUtility.DistancePointLine(
@@ -318,7 +318,7 @@ namespace Awsim.Common
                 .SelectMany(regElem => regElem.RefLines);
             foreach (var line in lines)
             {
-                stopLines[line.ID].HasStopSign = true;
+                stopLines[line.Id].HasStopSign = true;
             }
         }
 
@@ -341,13 +341,13 @@ namespace Awsim.Common
                         var trafficLight = FindClosestTrafficLight(trafficLights, trafficLightPosition);
                         if (trafficLight == null)
                             continue;
-                        stopLines[line.ID].TrafficLight = trafficLight;
+                        stopLines[line.Id].TrafficLight = trafficLight;
                         break;
                     }
 
-                    if (stopLines[line.ID].TrafficLight == null)
+                    if (stopLines[line.Id].TrafficLight == null)
                     {
-                        Debug.Log($"No TrafficLight components exist in the scene for the stop line(ID = {line.ID}).");
+                        Debug.Log($"No TrafficLight components exist in the scene for the stop line(Id = {line.Id}).");
                     }
                 }
             }
@@ -371,17 +371,17 @@ namespace Awsim.Common
                     {
                         continue;
                     }
-                    FillTrafficLightRelationIDWayID(closestTrafficLight, regElem.ID, line.ID);
+                    FillTrafficLightRelationIdWayId(closestTrafficLight, regElem.Id, line.Id);
                     if (verifiedTrafficLights.ContainsKey(closestTrafficLight.name))
                     {
-                        if (!verifiedTrafficLights[closestTrafficLight.name].Contains(line.ID))
+                        if (!verifiedTrafficLights[closestTrafficLight.name].Contains(line.Id))
                         {
-                            verifiedTrafficLights[closestTrafficLight.name].Add(line.ID);
+                            verifiedTrafficLights[closestTrafficLight.name].Add(line.Id);
                         }
                     }
                     else
                     {
-                        verifiedTrafficLights.Add(closestTrafficLight.name, new List<long> { line.ID });
+                        verifiedTrafficLights.Add(closestTrafficLight.name, new List<long> { line.Id });
                     }
 
                 }
@@ -391,30 +391,30 @@ namespace Awsim.Common
             {
                 if (entry.Value.Count >= 2)
                 {
-                    string wayIDs = "";
-                    foreach (var wayID in entry.Value)
+                    string wayIds = "";
+                    foreach (var wayId in entry.Value)
                     {
-                        wayIDs += $"{wayID}, ";
+                        wayIds += $"{wayId}, ";
                     }
-                    Debug.LogWarning($"Verify '{entry.Key}' manually because may include wrong WayID and RelationID. Possible Way IDs [{wayIDs}]");
+                    Debug.LogWarning($"Verify '{entry.Key}' manually because may include wrong WayId and RelationId. Possible Way Ids [{wayIds}]");
                 }
             }
         }
 
-        void FillTrafficLightRelationIDWayID(LaneletTrafficLight trafficLight, long relationId, long wayID)
+        void FillTrafficLightRelationIdWayId(LaneletTrafficLight trafficLight, long relationId, long wayId)
         {
             EditorUtility.SetDirty(trafficLight);
             Undo.RecordObject(trafficLight, "Assigning lanelet id");
-            var trafficLightLaneletID = trafficLight.LaneletId;
-            if (trafficLightLaneletID.wayId != LaneletTrafficLight.TrafficLightLaneletId.InitWayId && trafficLightLaneletID.wayId != wayID)
+            var trafficLightLaneletId = trafficLight.LaneletId;
+            if (trafficLightLaneletId.wayId != LaneletTrafficLight.TrafficLightLaneletId.InitWayId && trafficLightLaneletId.wayId != wayId)
             {
-                trafficLightLaneletID.relationId.Clear();
+                trafficLightLaneletId.relationId.Clear();
             }
-            if (!trafficLightLaneletID.relationId.Contains(relationId))
+            if (!trafficLightLaneletId.relationId.Contains(relationId))
             {
-                trafficLightLaneletID.relationId.Add(relationId);
+                trafficLightLaneletId.relationId.Add(relationId);
             }
-            trafficLightLaneletID.wayId = wayID;
+            trafficLightLaneletId.wayId = wayId;
             PrefabUtility.RecordPrefabInstancePropertyModifications(trafficLight);
         }
     }

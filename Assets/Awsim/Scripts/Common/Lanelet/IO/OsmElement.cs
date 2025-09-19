@@ -37,7 +37,7 @@ namespace Awsim.Common
     {
         public string Role;
         public OsmElementType Type;
-        public long RefID;
+        public long RefId;
 
         public string TypeName
         {
@@ -71,7 +71,7 @@ namespace Awsim.Common
     [Serializable]
     public struct Node
     {
-        public long ID;
+        public long Id;
         public Tag[] Tags;
     }
 
@@ -82,9 +82,9 @@ namespace Awsim.Common
     [Serializable]
     public struct Way
     {
-        public long ID;
+        public long Id;
         public Tag[] Tags;
-        public long[] NodeIDs;
+        public long[] NodeIds;
     }
 
     /// <summary>
@@ -94,7 +94,7 @@ namespace Awsim.Common
     [Serializable]
     public struct Relation
     {
-        public long ID;
+        public long Id;
         public Tag[] Tags;
         public RelationMember[] Members;
     }
