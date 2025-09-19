@@ -5,7 +5,7 @@ This page provides an overview of connecting to `Scenario Simulator v2` and inst
 <a href="./top.png" data-lightbox="Traffic Simulation" data-title="" data-alt="Traffic Simulation"><img src="./top.png"></a>
 
 !!!info
-    If you want to **use** `OpenSCENARIO` with `AWSIM`, see [here](../../../Experimental/UsingOpenScenario/index.md).
+    If you want to **use** `OpenSCENARIO` with `AWSIM`, see [here](../../../../GettingStarted/Advanced/UsingOpenScenario/index.md).
 
 ## Abstract
 [`Scenario Simulator v2`](https://tier4.github.io/scenario_simulator_v2-docs/) (`SS2`) is a scenario testing framework specifically developed for `Autoware`.<br>

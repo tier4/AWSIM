@@ -12,6 +12,9 @@ Rviz plugins are implemented in the following repositories:
 
 - [https://github.com/tier4/AwsimRvizPlugins](https://github.com/tier4/AwsimRvizPlugins)
 
+!!!info
+    If you want to **use** `AwsimRvizPlugins` with `AWSIM`, see [here](../../../../GettingStarted/Advanced/AwsimRvizPlugins/index.md).
+
 ## Installation
 ### Install only this plugins to Rviz
 1. clone this repository
