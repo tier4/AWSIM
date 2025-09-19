@@ -96,10 +96,11 @@ For the preparation, the following must be prepared:
     * `Assets/Awsim/Scenes/AutowareSimulationDemo.unity`
 
 ### 1. Place Traffic Simulator
-Create empty `GameObject` (should be named `TrafficSimulator`).<br>
-Attach this object to `TrafficSimulator` component.
+Please create `TrafficSimulator` component as the following:
 
-(optional) To place objects which is generated later, you may creat empty objects named `TrafficIntersections` and `NPCPedestrians`.
+1. Create empty `GameObject` (should be named `TrafficSimulator`).<br>
+2. Attach this object to `TrafficSimulator` component.
+3. (optional) To place objects which is generated later, you may create empty objects named `TrafficIntersections` and `NPCPedestrians`.
 
 <a href="./hierarchy.png" data-lightbox="Place Traffic Simulator" data-title="" data-alt="Place Traffic Simulator"><img src="./hierarchy.png"></a>
 
@@ -188,6 +189,7 @@ In addition, `LaneletLoader` set parameter of traffic rules to `TrafficLane`, `S
 <a href="./load_lanelet_tool_bar.png" data-lightbox="Tool Bar" data-title="" data-alt="Tool Bar"><img src="./load_lanelet_tool_bar.png"></a>
 
 Please use `LaneletLoader` as the following:
+
 1. Fill in `Osm` field with a lanelet map (`.osm`) you prepared, `Root Object` field with a `TrafficSimulator` object.<br>
 2. Adjust `Waypoint settings` parameters for the loading process if needed.<br>
 3. To load the lanelet map, please click `Load` button.
@@ -250,8 +252,9 @@ The parameters of `SimplePedestrianWalkerController` are listed in the following
 ### 6. Call methods of `TrafficSimulator`
 To enable `Traffic Simulation`, some methods of `TrafficSimulator` should be called from callback of `MonoBehaviour`.
 
-Please create or open class which is inherit `MonoBehaviour` and make field of `TrafficSimulator`.<br>
-Then, add description of calling method of `TrafficSimulator`.
+1. Create or open class which is inherit `MonoBehaviour`
+2. Make field of `TrafficSimulator`
+3. Add description of calling method of `TrafficSimulator`
 
 The method should be called are listed in the following table:
 
@@ -270,8 +273,9 @@ The method should be called are listed in the following table:
 #### Call methods of Pedestrian (optional)
 To move Pedestrian, some methods of `SimplePedestrianWalkerController` should be called same as `TrafficSimulator`.
 
-Please create or open class which is inherit `MonoBehaviour` and make field of `SimplePedestrianWalkerController[]`.<br>
-Then, add description of calling method of each element of `SimplePedestrianWalkerController[]` using for loop.
+1. Create or open class which is inherit `MonoBehaviour`
+2. Make field of `SimplePedestrianWalkerController[]`
+3. Add description of calling method of each element of `SimplePedestrianWalkerController[]` using for loop
 
 The method should be called are listed in the following table:
 
