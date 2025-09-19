@@ -41,7 +41,7 @@ namespace Awsim.Common
 
 
         /// <summary>
-        /// Add lanelet if the same ID does not exist.
+        /// Add lanelet if the same Id does not exist.
         /// </summary>
         /// <param name="lanelet"></param>
         public void Add(LaneletData lanelet)
@@ -56,7 +56,7 @@ namespace Awsim.Common
         }
 
         /// <summary>
-        /// Add line if the same ID does not exist.
+        /// Add line if the same Id does not exist.
         /// </summary>
         /// <param name="lanelet"></param>
         public void Add(LaneletLineStringData line)
@@ -73,7 +73,7 @@ namespace Awsim.Common
         }
 
         /// <summary>
-        /// Add point if the same ID does not exist.
+        /// Add point if the same Id does not exist.
         /// </summary>
         /// <param name="lanelet"></param>
         public void Add(LaneletPointData point)
@@ -86,7 +86,7 @@ namespace Awsim.Common
         }
 
         /// <summary>
-        /// Add regulatory element if the same ID does not exist.
+        /// Add regulatory element if the same Id does not exist.
         /// </summary>
         /// <param name="regElem"></param>
         public void Add(LaneletRegulatoryElement regElem)
