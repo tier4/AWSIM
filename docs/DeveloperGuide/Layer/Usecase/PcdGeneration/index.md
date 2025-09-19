@@ -97,7 +97,7 @@ For the preparation, the following must be prepared:
 - LiDAR sensor (.fbx)
 
 !!! info
-    AWSIM includes `AutowareSimulationDemo` scene.<br>
+    AWSIM includes `PcdGenerationDemo` scene.<br>
     Please refer to:<br>
     * `Assets/Awsim/Scenes/PcdGenerationDemo.unity`
 

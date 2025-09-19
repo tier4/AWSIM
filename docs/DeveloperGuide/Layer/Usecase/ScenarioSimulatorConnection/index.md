@@ -23,13 +23,15 @@ In the following sequence diagram describes responsible and communication of `SS
 
 Communication between `SS2` and `AWSIM` takes place via `Request-Response` messages, and is as follows:
 
-1. `Launch` - `Autoware` is started and initialized
-2. `Initialize` - the environment in `AWSIM` is initialized, basic parameters are set
-3. `opt Ego spawn` - optional, `EgoEntity` (with sensors) is spawned in the configuration defined in the scenario
-4. `opt NPC spawn loop` - optional, all `Entities` (`NPCs`) defined in the scenario are spawned, the scenario may contain any number of each `Entity` type
-5. `update loop` - this is the main loop where scenario commands are executed. It include updating `EgoEntity`, `SS2` status, `Entities`, simulation frame and traffic light state
-6. `despawn loop` - after the end of the scenario, all `Entities` spawned on the scene are despawned (including `EgoEnity`) 
-7. `Terminate` - *Autoware* is terminated
+| Sequence | Description |
+|---|---|
+| Launch | `Autoware` is started and initialized. |
+| Initialize | the environment in `AWSIM` is initialized, basic parameters are set. |
+| opt Ego spawn | optional, `EgoEntity` (with sensors) is spawned in the configuration defined in the scenario. |
+| opt NPC spawn loop | optional, all `Entities` (`NPCs`) defined in the scenario are spawned, the scenario may contain any number of each `Entity` type. |
+| update loop | this is the main loop where scenario commands are executed. It include updating `EgoEntity`, `SS2` status, `Entities`, simulation frame and traffic light state. |
+| despawn loop | after the end of the scenario, all `Entities` spawned on the scene are despawned (including `EgoEnity`). |
+| Terminate | *Autoware* is terminated. |
 
 Documentation of the commands used in the sequence is available [here](https://tier4.github.io/scenario_simulator_v2-docs/proto_doc/protobuf/).
 
@@ -129,6 +131,11 @@ For the preparation, the following must be prepared:
 
 - 3D map (.fbx)
 - lanelet map (.osm)
+
+!!! info
+    AWSIM includes `IntegrateScenarioSimulatorDemo` scene.<br>
+    Please refer to:<br>
+    * `Assets/Awsim/Scenes/IntegrateScenarioSimulatorDemo.unity`
 
 ### 1. Placement and settings of `ScenarioSimulatorClient`
 `ScenarioSimulatorClient` component can mange and connect scenario simulation.

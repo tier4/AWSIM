@@ -90,6 +90,11 @@ For the preparation, the following must be prepared:
 - 3D map (.fbx)
 - lanelet map (.osm)
 
+!!! info
+    AWSIM includes `AutowareSimulationDemo` scene.<br>
+    Please refer to:<br>
+    * `Assets/Awsim/Scenes/AutowareSimulationDemo.unity`
+
 ### 1. Place Traffic Simulator
 Create empty `GameObject` (should be named `TrafficSimulator`).<br>
 Attach this object to `TrafficSimulator` component.
