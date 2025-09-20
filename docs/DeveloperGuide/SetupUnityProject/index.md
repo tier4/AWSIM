@@ -129,6 +129,13 @@ AWSIM comes with a *standalone* flavor of [`Ros2ForUnity`](../../Components/ROS2
         `$ wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb`
         2. install  
         `sudo dpkg -i libssl1.0.0_1.0.2n-1ubuntu5.13_amd64.deb`
+
+    !!! info
+        When opening the AWSIM project in Unity, SteamVR may display a popup asking whether to apply the Recommended project settings for SteamVR. These recommended settings are mainly intended for Windows platforms (such as Build Target, D3D11 fullscreen mode, etc.) and have no impact in a Linux environment.  
+        <p align="center">
+            <img src="image_2.png" alt="Graphics Settings" width="300">
+        </p>
+        Therefore, you can simply choose “Ignore All” to skip these recommended settings. This will not affect the execution of the project.
         
 ## 4. Import external packages
 
