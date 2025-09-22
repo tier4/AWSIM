@@ -77,3 +77,23 @@ Npc Spawner Settings
 | Npc Name List Topic | Name of topic about list of vehicle names in `Rviz`. |
 
 ## Instruction
+To use `Awsim Rviz Plugins`, please follow the steps below.
+
+<a href="./instruction.png" data-lightbox="Instruction" data-title="" data-alt="Instruction"><img src="./instruction.png"></a>
+
+### 1. Place `AwsimRvizPluginsClient`
+Please create `AwsimRvizPluginsClient` component as the following:
+
+1. Create empty `GameObject` (should be named `AwsimRvizPluginsClient`)
+2. Attach this object to `AwsimRvizPluginsClient` component
+3. Fill in `Ego Transform` field with EGO vehicle
+
+### 2. Fill in `Npc Spawner Settings`
+Please configure `Npc Spawner Settings` component as the following:
+
+1. Add and fill list element of `Npc Vehicle Prefabs`
+    1. Fill in `Name` field with any name (prefab name recommended)
+    2. Fill in `Prefab` field with vehicle prefab which is attached `PoseVehicle` component
+2. Add and fill list element of `Npc Pedestrian Prefabs`
+    1. Fill in `Name` field with any name (prefab name recommended)
+    2. Fill in `Prefab` field with vehicle prefab which is attached `Pedestrian` component
