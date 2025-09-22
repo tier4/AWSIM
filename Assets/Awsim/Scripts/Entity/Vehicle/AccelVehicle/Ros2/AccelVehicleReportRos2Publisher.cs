@@ -102,7 +102,7 @@ namespace Awsim.Entity
                             string turnIndicatorsReportTopic,
                             string hazardLightsReportTopic,
                             string velocityReportTopic,
-                            string frameID,
+                            string frameId,
                             int publishHz,
                             QosSettings qosSettings)
         {
@@ -112,7 +112,7 @@ namespace Awsim.Entity
             _turnIndicatorsReportTopic = turnIndicatorsReportTopic;
             _hazardLightsReportTopic = hazardLightsReportTopic;
             _velocityReportTopic = velocityReportTopic;
-            _frameId = frameID;
+            _frameId = frameId;
             _publishHz = publishHz;
             _qosSettings = qosSettings;
 
