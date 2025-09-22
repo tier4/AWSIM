@@ -50,6 +50,33 @@ AWSIM publishes name of spawnable Npc as `/awsim/awsim_rviz_plugins/npc_spawner/
 `awsim_rviz_plugins/NpsSpawnerStatus` display subscribes this topic and update drop down list of Npc type.  
 
 ### Overview
+`Awsim Rviz Plugins` consists of the following flow:
+
+``` mermaid
+graph LR
+    subgraph A["2D Pose Teleport::OnFixedUpdate()"]
+        direction TB
+        AA{Topic is Subscribed}--"yes"-->ABA
+        subgraph AB["2D Pose Teleport::Spawn()"]
+            direction TB
+            ABA("Ray cast to get floor y-axis")-->ABB("Update Ego position")-->ABC("Update Ego rotation")
+        end
+        ABC-->AC("End")
+        AA--"no"-->AC
+    end
+
+    A~~~B
+
+    subgraph B["Nps Spawner::OnFixedUpdate()"]
+        direction TB
+        BA{ReadyVehicle is on Ground}--"yes"-->BB("ReadyVehicle add NpcVehicleList")-->BC("ReadyVehicle::OnFixedUpdate()")-->BD("NpcVehicleList::OnFixedUpdate()")-->BE("NpcPedestrianList::OnFixedUpdate()")-->BF{Topic is Subscribed}--"yes"-->BG{Type of spawning Npc}--"Vehicle"-->BH("Spawn and add ReadyVehicle")-->BJ("End")
+
+        BG--"Pedestrian"-->BI("Spawn and add NpcPedestrianList")-->BJ
+
+        BA--"no"-->BC
+        BF--"no"-->BJ
+    end
+```
 
 ### Configuration
 `Awsim Rviz Plugins` can be configured from `AwsimRvizPluginsClient` component.
