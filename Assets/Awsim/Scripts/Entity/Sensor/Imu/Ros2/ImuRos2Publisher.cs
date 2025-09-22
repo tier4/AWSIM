@@ -76,10 +76,10 @@ namespace Awsim.Entity
             _imuPublisher = AwsimRos2Node.CreatePublisher<sensor_msgs.msg.Imu>(_topic, _qosSettings.GetQosProfile());
         }
 
-        public void Initialize(string topic, string frameIs, QosSettings qosSettings)
+        public void Initialize(string topic, string frameId, QosSettings qosSettings)
         {
             _topic = topic;
-            _frameId = frameIs;
+            _frameId = frameId;
             _qosSettings = qosSettings;
 
             Initialize();
