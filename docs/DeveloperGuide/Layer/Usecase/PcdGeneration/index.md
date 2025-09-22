@@ -97,7 +97,7 @@ For the preparation, the following must be prepared:
 - LiDAR sensor (.fbx)
 
 !!! info
-    AWSIM includes `AutowareSimulationDemo` scene.<br>
+    AWSIM includes `PcdGenerationDemo` scene.<br>
     Please refer to:<br>
     * `Assets/Awsim/Scenes/PcdGenerationDemo.unity`
 
@@ -150,8 +150,8 @@ Please create and configure `LiDAR` object as the following:
 
 Please create `SceneManager` object as the following:
 
-5. Create empty `GameObject` (should be `RGLSceneManager`)
-6. Attach `SceneManager` component to `RGLSceneManager`
+1. Create empty `GameObject` (should be `RGLSceneManager`)
+2. Attach `SceneManager` component to `RGLSceneManager`
 
 ### 4. Setup `PcdGenerator`
 Add `PcdGenerator` component to manage above objects and create point cloud map.
@@ -210,7 +210,7 @@ Please clone and build `DownsampleLargePCD` tool following [Github repository](h
 Please use `DownsampleLargePCD` tool as the following:
 
 1. Change the working directory to the location with `DownsampleLargePCD` tool.
-1. Use `DownsampleLargePCD` tool to downsample and save `PCD` in `ASCII` format.
+2. Use `DownsampleLargePCD` tool to downsample and save `PCD` in `ASCII` format.
     ```
     ./DownsampleLargePCD -in <PATH_TO_INPUT_PCD> -out <PATH_TO_OUTPUT_PCD> -leaf 0.2,0.2,0.2
     ```
@@ -237,13 +237,13 @@ Please verify `PCD` as the following:
     cp <PATH_TO_PCD_FILE> <PATH_TO_AUTOWARE_MAP>/
     ```
 
-1. Source the `ROS` and `Autoware`
+2. Source the `ROS` and `Autoware`
     ```
     source /opt/ros/humble/setup.bash
     source <PATH_TO_AUTOWARE>/install/setup.bash
     ```
 
-1. Launch the `planning simulation` with the map directory path (`map_path`) and PCD file (`pointcloud_map_file`) specified
+3. Launch the `planning simulation` with the map directory path (`map_path`) and PCD file (`pointcloud_map_file`) specified
     ```
     ros2 launch autoware_launch planning_simulator.launch.xml \
     vehicle_model:=sample_vehicle \
@@ -259,4 +259,4 @@ Please verify `PCD` as the following:
         When launching `Autoware` never use `~/` to specify the home directory.
         Either write the full absolute path or use `$HOME` environmental variable.
 
-1. Wait for the `Autoware` to finish loading and inspect the `PCD` visually given the effect of `Leaf Size` and effect of `Capture Location Interval`.
+4. Wait for the `Autoware` to finish loading and inspect the `PCD` visually given the effect of `Leaf Size` and effect of `Capture Location Interval`.
