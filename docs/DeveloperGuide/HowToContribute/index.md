@@ -8,4 +8,9 @@ Everyone is welcome to contribute to AWSIM. We want to develop efficiently, so p
     - Run UnityEditor to check if the implemented functions work properly.
     - Check that the implemented functions do not affect existing scenes, etc. In particular, check that the `AutowareSimulationDemo.unity` scene is working properly.
     - Merge the latest version of the `main` branch into the work branch.
+    - Understand [AWSIM License](https://github.com/tier4/AWSIM/blob/main/LICENSE) and agree that it applies to your contribution.
 1. Create a pull request and submit it to `@mackierx111` for review.
+
+## License applicability during contributions
+[AWSIM License](https://github.com/tier4/AWSIM/blob/main/LICENSE) applies to all contributions to `AWSIM`.<br>
+Before contributing, please read [LICENSE](https://github.com/tier4/AWSIM/blob/main/LICENSE) and understand that it applies to your contribution.
