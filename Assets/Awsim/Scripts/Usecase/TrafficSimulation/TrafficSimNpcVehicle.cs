@@ -20,7 +20,7 @@ namespace Awsim.Usecase.TrafficSimulation
     public class TrafficSimNpcVehicle : MonoBehaviour
     {
         public PoseVehicle NpcVehicle => _npcVehicle;
-        public uint ID => _id;
+        public uint Id => _id;
 
         [SerializeField] PoseVehicle _npcVehicle;
         uint _id;
