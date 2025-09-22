@@ -64,7 +64,7 @@ Teleport AWSIM EGO using Rviz GUI tool.
 If `Autoware (pilot-auto)` is running with, press the `Initialize with GNSS` button to perform localilization again.
 
 ## Nps Spawner
-Spawn AWSIM Npc using Rviz GUI tool.
+Spawn AWSIM Npc using Rviz GUI tool.<br>
 Type and velocity of spawned Npc is specified from Rviz display.
 
 <a href="./npc_spawner.png" data-lightbox="Npc Spawner" data-title="" data-alt="Npc Spawner"><img src="./npc_spawner.png"></a>
@@ -74,7 +74,7 @@ Type and velocity of spawned Npc is specified from Rviz display.
 <a href="./tool_bar_npc.png" data-lightbox="Tool Bar" data-title="" data-alt="Tool Bar"><img src="./tool_bar_npc.png"></a>
 2. On Rviz, Click on `Npc Spawner` button from the toolbar and select it.
 3. On AWSIM, Play binary or Play scene.
-4. On the map displayed in Rviz, drag the cursor to the location and orientation where you want to move the EGO.
+4. On the map displayed in Rviz, drag the cursor to the location and orientation where you want to spawn the Npc.
 
 If you want to change type and velocity of spawned Npc, do the following:
 
