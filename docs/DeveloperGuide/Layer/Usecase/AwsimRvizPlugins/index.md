@@ -52,5 +52,28 @@ AWSIM publishes name of spawnable Npc as `/awsim/awsim_rviz_plugins/npc_spawner/
 ### Overview
 
 ### Configuration
+`Awsim Rviz Plugins` can be configured from `AwsimRvizPluginsClient` component.
+
+<a href="./config.png" data-lightbox="Configulations" data-title="" data-alt="Configulations"><img src="./config.png"></a>
+
+The configurable elements are listed in the following table:
+
+2D Pose Teleport
+
+| Parameter | Description |
+|---|---|
+| Ego Transform | Ego vehicle which is controlled by this plugin. |
+| Ego Position Topic | Name of topic about position which Ego teleport. |
+
+Npc Spawner Settings
+
+| Parameter | Description |
+|---|---|
+| Npc Vehicle Prefabs | List of Npc vehicle.<br>Each element have identifier (`Name`) and reference (`Prefab`). |
+| Npc Pedestrian Prefabs | List of Npc pedestrian.<br>Each element have identifier (`Name`) and reference (`Prefab`). |
+| Npc Position Topic | Name of topic about position which Npc spawn. |
+| Npc Name Topic | Name of topic about type of spawned Npc. |
+| Npc Velocity Topic |Name of topic about velocity of spawned Npc. |
+| Npc Name List Topic | Name of topic about list of vehicle names in `Rviz`. |
 
 ## Instruction
