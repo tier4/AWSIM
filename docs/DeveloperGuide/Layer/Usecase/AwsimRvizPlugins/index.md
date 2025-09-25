@@ -12,42 +12,12 @@ Rviz plugins are implemented in the following repositories:
 
 - [https://github.com/tier4/AwsimRvizPlugins](https://github.com/tier4/AwsimRvizPlugins)
 
-## Installation
-### Install only this plugins to Rviz
-1. clone this repository
-```
-git clone git@github.com:tier4/AwsimRvizPlugins.git
-```
-2. build package
-```
-cd AwsimRvizPlugins
-source /opt/ros/humble/setup.bash
-colcon build
-```
-3. source package
-You must `source` each time you launch a terminal.
-```
-source install/setup.sh
-```
-4. launch Rviz application and use tools
-```
-# rviz2
-# ros2 launch ...
-```
+!!!info
+    If you want to **use** `AwsimRvizPlugins` with `AWSIM`, see [here](../../../../GettingStarted/Advanced/AwsimRvizPlugins/index.md).
 
-### Install with Autoware (pilot-auto)
-1. clone Autoware repository
-2. add description of AwsimRvizPlugins to autoware.repos
-```
-repositories:
-  # please add the following statement to autoware.repos to use AwsimRvizPlugins
-  simulator/awsim_rviz_plugins:
-    type: git
-    url: git@github.com:tier4/AwsimRvizPlugins.git
-```
-3. Introduce `Autoware (pilot-auto)` according to [Autoware Documentation](https://autowarefoundation.github.io/autoware-documentation/main/installation/autoware/source-installation/).
+## Abstract
 
-## 2D Pose Teleport
+### 2D Pose Teleport
 Teleport AWSIM EGO using Rviz GUI tool.
 <a href="./2d_pose_teleport.png" data-lightbox="2D Pose Teleport" data-title="" data-alt="2D Pose Teleport"><img src="./2d_pose_teleport.png"></a>
 
@@ -58,16 +28,7 @@ AWSIM subscribes this topic and updates the coordinates of the EGO.
 y-axis of destination position of teleport is calculated using ray-casting.  
 The highest object at the specified x-z coordinates is considered the ground.
 
-### How to use
-1. On Rviz, Click the plus button on the toolbar and select `awsim_rviz_plugins/2dPoseTeleport` from the list.
-<a href="./tool_bar_ego.png" data-lightbox="2D Pose Teleport Setup" data-title="" data-alt="2D Pose Teleport Setup"><img src="./tool_bar_ego.png"></a>
-2. On Rviz, Click on `2D Pose Teleport` button from the toolbar and select it.
-3. On AWSIM, Play binary or Play scene.
-4. On the map displayed in Rviz, drag the cursor to the location and orientation where you want to move the EGO.
-
-If `Autoware (pilot-auto)` is running with, press the `Initialize with GNSS` button to perform localilization again.
-
-## Nps Spawner
+### Nps Spawner
 Spawn AWSIM Npc using Rviz GUI tool.
 Type and velocity of spawned Npc is specified from Rviz display.
 
@@ -88,15 +49,78 @@ Spawnable Npc is listed in `AutowreSimulationDemo/Function/AwsimRvizPluginsClien
 AWSIM publishes name of spawnable Npc as `/awsim/awsim_rviz_plugins/npc_spawner/npc_name_list` topic.  
 `awsim_rviz_plugins/NpsSpawnerStatus` display subscribes this topic and update drop down list of Npc type.  
 
-### How to use
-1. On Rviz, Click the plus button on the toolbar and select `awsim_rviz_plugins/NpcSpawner` from the list.
-<a href="./tool_bar_npc.png" data-lightbox="Tool Bar" data-title="" data-alt="Tool Bar"><img src="./tool_bar_npc.png"></a>
-2. On Rviz, Click on `Npc Spawner` button from the toolbar and select it.
-3. On AWSIM, Play binary or Play scene.
-4. On the map displayed in Rviz, drag the cursor to the location and orientation where you want to move the EGO.
+### Overview
+`Awsim Rviz Plugins` consists of the following flow:
 
-If you want to change type and velocity of spawned Npc, do the following:
+``` mermaid
+graph LR
+    subgraph A["2D Pose Teleport::OnFixedUpdate()"]
+        direction TB
+        AA{Topic is Subscribed}--"yes"-->ABA
+        subgraph AB["2D Pose Teleport::Spawn()"]
+            direction TB
+            ABA("Ray cast to get floor y-axis")-->ABB("Update Ego position")-->ABC("Update Ego rotation")
+        end
+        ABC-->AC("End")
+        AA--"no"-->AC
+    end
 
-1. On Rviz, Click the `Add` button on the `Display` panel and select `awsim_rviz_plugins/NpcSpawnerStatus` from the list.
-<a href="./status_panel.png" data-lightbox="Status Panel" data-title="" data-alt="Status Panel"><img src="./status_panel.png"></a>
-2. On Rviz, Change the value of `Npc Type` and `Velocity [km/h]`.
+    A~~~B
+
+    subgraph B["Nps Spawner::OnFixedUpdate()"]
+        direction TB
+        BA{ReadyVehicle is on Ground}--"yes"-->BB("ReadyVehicle add NpcVehicleList")-->BC("ReadyVehicle::OnFixedUpdate()")-->BD("NpcVehicleList::OnFixedUpdate()")-->BE("NpcPedestrianList::OnFixedUpdate()")-->BF{Topic is Subscribed}--"yes"-->BG{Type of spawning Npc}--"Vehicle"-->BH("Spawn and add ReadyVehicle")-->BJ("End")
+
+        BG--"Pedestrian"-->BI("Spawn and add NpcPedestrianList")-->BJ
+
+        BA--"no"-->BC
+        BF--"no"-->BJ
+    end
+```
+
+### Configuration
+`Awsim Rviz Plugins` can be configured from `AwsimRvizPluginsClient` component.
+
+<a href="./config.png" data-lightbox="Configulations" data-title="" data-alt="Configulations"><img src="./config.png"></a>
+
+The configurable elements are listed in the following table:
+
+2D Pose Teleport
+
+| Parameter | Description |
+|---|---|
+| Ego Transform | Ego vehicle which is controlled by this plugin. |
+| Ego Position Topic | Name of topic about position which Ego teleport. |
+
+Npc Spawner Settings
+
+| Parameter | Description |
+|---|---|
+| Npc Vehicle Prefabs | List of Npc vehicle.<br>Each element have identifier (`Name`) and reference (`Prefab`). |
+| Npc Pedestrian Prefabs | List of Npc pedestrian.<br>Each element have identifier (`Name`) and reference (`Prefab`). |
+| Npc Position Topic | Name of topic about position which Npc spawn. |
+| Npc Name Topic | Name of topic about type of spawned Npc. |
+| Npc Velocity Topic |Name of topic about velocity of spawned Npc. |
+| Npc Name List Topic | Name of topic about list of vehicle names in `Rviz`. |
+
+## Instruction
+To use `Awsim Rviz Plugins`, please follow the steps below.
+
+<a href="./instruction.png" data-lightbox="Instruction" data-title="" data-alt="Instruction"><img src="./instruction.png"></a>
+
+### 1. Place `AwsimRvizPluginsClient`
+Please create `AwsimRvizPluginsClient` component as the following:
+
+1. Create empty `GameObject` (should be named `AwsimRvizPluginsClient`)
+2. Attach this object to `AwsimRvizPluginsClient` component
+3. Fill in `Ego Transform` field with EGO vehicle
+
+### 2. Fill in `Npc Spawner Settings`
+Please configure `Npc Spawner Settings` component as the following:
+
+1. Add and fill list element of `Npc Vehicle Prefabs`
+    1. Fill in `Name` field with any name (prefab name recommended)
+    2. Fill in `Prefab` field with vehicle prefab which is attached `PoseVehicle` component
+2. Add and fill list element of `Npc Pedestrian Prefabs`
+    1. Fill in `Name` field with any name (prefab name recommended)
+    2. Fill in `Prefab` field with vehicle prefab which is attached `Pedestrian` component

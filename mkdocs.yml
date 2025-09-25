@@ -67,6 +67,9 @@ nav:
     - Quick start demo: GettingStarted/QuickStartDemo/index.md
     - Demo details: GettingStarted/DemoDetails/index.md
     - AWSIM concept: GettingStarted/AWSIMConcept/index.md
+    - Advanced:
+      - UsingOpenScenario: GettingStarted/Advanced/UsingOpenScenario/index.md
+      - AwsimRvizPlugins: GettingStarted/Advanced/AwsimRvizPlugins/index.md
   - Developer guide:
     - Prerequisites: DeveloperGuide/Prerequisites/index.md
     - Setup unity project: DeveloperGuide/SetupUnityProject/index.md
@@ -104,7 +107,6 @@ nav:
         - ROS2: DeveloperGuide/Layer/Common/Ros2/index.md
     - Experimental:
       - Running headless: DeveloperGuide/Experimental/RunningHeadless/index.md
-      - Using OpenSCENARIO: DeveloperGuide/Experimental/UsingOpenScenario/index.md
   - Downloads: Downloads/index.md
   - License: License/index.md
   - Contact: Contact/index.md
