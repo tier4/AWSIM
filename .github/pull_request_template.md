@@ -4,3 +4,4 @@
 - [ ] No unnecessary comments or `Debug.Log()` remain.
 - [ ] The latest `main` branch has been merged into the work branch.
 - [ ] The expected behavior is achieved after implementation. Furthermore, existing functions are not affected.
+- [ ] Understand [AWSIM License](https://github.com/tier4/AWSIM/blob/main/LICENSE) and agree that it applies to this contribution.
