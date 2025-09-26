@@ -4,7 +4,7 @@
 `Pcd Generation` is a tool for a vehicle based point cloud mapping in a simulation environment.<br>
 It is useful when you need a point cloud based on some location, but are not able to conduct physically mapping on the real place.<br>
 
-<a href="./top.png" data-lightbox="Pcd Generation" data-title="" data-alt="Pcd Generation"><img src="./top.png"></a>
+<popup-img src="./top.png" alt="Pcd Generation"></popup-img>
 
 When `Pcd Generation` is conducted, `Vehicle` object (carrying `LiDAR`) is warped along all centerlines of lanelets in the imported `OSM` map.
 Point cloud map is generated to record points by `LiDAR` on `Vehicle` object on each centerlines of lanelets.
@@ -76,7 +76,7 @@ A small `Leaf Size` results in a more detailed `PCD`, while a large `Leaf Size` 
 
 | Leaf Size = 1.0 | Leaf Size = 10.0 | Leaf Size = 100.0 |
 |---|---|---|
-| ![Leaf Size 1](./leaf_size_1.png) | ![Leaf Size 10](./leaf_size_10.png) | ![Leaf Size 100](./leaf_size_100.png) \
+| <popup-img src="./leaf_size_1.png" alt="Leaf Size 1"></popup-img> | <popup-img src="./leaf_size_10.png" alt="Leaf Size 10"></popup-img> | <popup-img src="./leaf_size_100.png" alt="Leaf Size 100"></popup-img> |
 
 #### Capture Location Interval
 If the `Capture Location Interval` is too small, it could result in a sparse `PCD` where some region of the map is captured well but the other regions aren't captured at all.
@@ -85,7 +85,7 @@ If the `Capture Location Interval` is too small, it could result in a sparse `PC
 
 | Capture Location Interval = 6 | Capture Location Interval = 20 | Capture Location Interval = 100 |
 |---|---|---|
-| ![Interval 6](./interval_6.png) | ![Interval 20](./interval_20.png) | ![Interval 100](./interval_100.png) |
+| <popup-img src="./interval_6.png" alt="Interval 6"></popup-img> | <popup-img src="./interval_20.png" alt="Interval 20"></popup-img> | <popup-img src="./interval_100.png" alt="Interval 100"></popup-img> |
 
 ## Instruction
 To use `Pcd Generation`, please follow the steps below.
@@ -105,7 +105,7 @@ For the preparation, the following must be prepared:
 Add `Vehicle` object to carry LiDAR and capture points.<br>
 In addition, visual elements of `Vehicle` if needed.
 
-<a href="./vehicle.png" data-lightbox="Vehicle" data-title="" data-alt="Vehicle"><img src="./vehicle.png"></a>
+<popup-img src="./vehicle.png" alt="Vehicle"></popup-img>
 
 Please create `Vehicle` object as the following:
 
@@ -117,7 +117,7 @@ Please create `Vehicle` object as the following:
 ### 2. Add a `Camera`
 Add Unity `Camera` to visualize recording process.
 
-<a href="./camera.png" data-lightbox="Camera" data-title="" data-alt="Camera"><img src="./camera.png"></a>
+<popup-img src="./camera.png" alt="Camera"></popup-img>
 
 Please create Unity `Camera` as the following:
 
@@ -130,7 +130,7 @@ Please create Unity `Camera` as the following:
 ### 3. Add a `LiDAR` related objects
 Add `LiDAR` object and configure components to record points.
 
-<a href="./lidar.png" data-lightbox="LiDAR" data-title="" data-alt="LiDAR"><img src="./lidar.png"></a>
+<popup-img src="./lidar.png" alt="LiDAR"></popup-img>
 
 #### LiDAR object
 
@@ -156,7 +156,7 @@ Please create `SceneManager` object as the following:
 ### 4. Setup `PcdGenerator`
 Add `PcdGenerator` component to manage above objects and create point cloud map.
 
-<a href="./pcd_generator.png" data-lightbox="PcdGenerator" data-title="" data-alt="PcdGenerator"><img src="./pcd_generator.png"></a>
+<popup-img src="./pcd_generator.png" alt="PcdGenerator"></popup-img>
 
 1. Create empty `GameObject` (should be `PcdGenerator`)
 2. Attach `PcdGenerator` component to `PcdGenerator`
@@ -165,7 +165,7 @@ Add `PcdGenerator` component to manage above objects and create point cloud map.
 4. Fill in `Vehicle Transform` field with `Vehicle`
 5. Fill in `Rgl Mapping Adapter` field with `LiDAR`
 6. (optional) Fill in `World Origin ROS` field if your map has `Mgrs Position` component
-<a href="./mgrs_position.png" data-lightbox="Mgrs Position" data-title="" data-alt="Mgrs Position"><img src="./mgrs_position.png"></a>
+<popup-img src="./mgrs_position.png" alt="Mgrs Position"></popup-img>
 
 ### 5. Call methods of `PcdGenerator` and `FollowCamera`
 Some methods of `PcdGenerator` and `FollowCamera` should be called from callback of `MonoBehaviour` to enable `Pcd Generation`.
