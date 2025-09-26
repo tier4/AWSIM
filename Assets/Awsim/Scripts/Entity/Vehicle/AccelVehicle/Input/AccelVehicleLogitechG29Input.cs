@@ -52,11 +52,12 @@ namespace Awsim.Entity
         }
 
         public string Name => "Logitech G29";
-        public float AccelerationInput { get; private set; }
-        public float SteerAngleInput { get; private set; }
-        public Gear GearInput { get; private set; }
-        public TurnIndicators TurnIndicatorsInput { get; private set; }
-        public HazardLights HazardLightsInput { get; private set; }
+        public float AccelerationInput { get; private set; } = 0;
+        public float SteerAngleInput { get; private set; } = 0;
+        public Gear GearInput { get; private set; } = Gear.Parking;
+        public TurnIndicators TurnIndicatorsInput { get; private set; } = TurnIndicators.None;
+        public HazardLights HazardLightsInput { get; private set; } = HazardLights.Disable;
+        public bool SwitchAutonomous { get; private set; } = false;
         public bool Connected { get; private set; }
 
         [Header("Logitech G29 settings")]
@@ -155,6 +156,10 @@ namespace Awsim.Entity
             return isOverridden;
         }
 
+        public void OnSwitchAutonomous(InputAction.CallbackContext context)
+        {
+            SwitchAutonomous = true;
+        }
 
         // Fuctions called from player input event.
         public void OnThrottle(InputAction.CallbackContext context)

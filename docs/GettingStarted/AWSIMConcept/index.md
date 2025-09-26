@@ -1,5 +1,5 @@
 
-![](image_1.png)
+<a href="image_1.png" data-lightbox="image_1" data-title="" data-alt="image_1"><img src="image_1.png"></a>
 [*AWSIM*](https://github.com/tier4/AWSIM) is an open-source simulator made with [*Unity*](https://unity.com/) for autonomous driving research and development. It is developed for self-driving software like [*Autoware*](../Autoware/). This simulator aims to bridge the gap between the virtual and real worlds, enabling users to train and evaluate their autonomous systems in a safe and controlled environment before deploying them on real vehicles. It provides a realistic virtual environment for training, testing, and evaluating various aspects of autonomous driving systems.
 
 AWSIM simulates a variety of real-world scenarios, with accurate physics and sensor models. It offers a wide range of sensors, such as: Cameras, GNSS, IMU and LiDARs, allowing developers to simulate their autonomous vehicle's interactions with the environment accurately. The simulator also models dynamic objects, such as pedestrians, other vehicles, and traffic lights, making it possible to study interactions and decision-making in complex traffic scenarios. This enables the testing and evaluation of perception, planning, and control algorithms under different sensor configurations and scenarios.

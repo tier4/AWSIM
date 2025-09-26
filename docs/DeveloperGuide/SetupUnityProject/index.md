@@ -83,7 +83,7 @@ AWSIM comes with a *standalone* flavor of [`Ros2ForUnity`](../../Components/ROS2
 
 1. Install [UnityHub](https://docs.unity3d.com/hub/manual/InstallHub.html).
 1. Download Unity 6000.0.34f1 from the [download archive](https://unity.com/releases/editor/archive).
-   ![](image_0.png)
+   <a href="image_0.png" data-lightbox="image_0" data-title="" data-alt="image_0"><img src="image_0.png"></a>
 
 ## 3. Open AWSIM project
 
@@ -148,4 +148,4 @@ The following steps describe how to run the demo in Unity Editor:
 
 1. Open the `AutowareSimulationDemo.unity` scene placed under `Assets/AWSIM/Scenes/` directory.
 1. Run the simulation by clicking `Play` button placed at the top section of Edtior.
-    ![](image_1.png)
+    <a href="image_1.png" data-lightbox="image_1" data-title="" data-alt="image_1"><img src="image_1.png"></a>

@@ -30,6 +30,8 @@ namespace Awsim.Entity
 
         public HazardLights HazardLightsInput { get; }
 
+        public bool SwitchAutonomous { get; }
+
         public bool UpdateInputs();     // TODO: It might be better to return overridden controls with enum instead of bool.
     }
 }

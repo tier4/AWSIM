@@ -38,7 +38,7 @@ namespace Awsim.Entity
         /// <summary>
         /// Ros2 frame id of image and camra info topics. (using same frame id)
         /// </summary>
-        public string FrameID { get => _frameID; }
+        public string FrameId { get => _frameId; }
 
         /// <summary>
         /// Ros2 quality of service settings of image and camera info. (using same qos)
@@ -47,7 +47,7 @@ namespace Awsim.Entity
 
         [SerializeField] string _imageTopic = "/sensing/camera/traffic_light/image_raw";
         [SerializeField] string _cameraInfoTopic = "/sensing/camera/traffic_light/camera_info";
-        [SerializeField] string _frameID = "traffic_light_left_camera/camera_link";
+        [SerializeField] string _frameId = "traffic_light_left_camera/camera_link";
         [SerializeField]
         QosSettings _qosSettings = new QosSettings(ReliabilityPolicy.QOS_POLICY_RELIABILITY_BEST_EFFORT,
                                                    DurabilityPolicy.QOS_POLICY_DURABILITY_VOLATILE,
@@ -80,7 +80,7 @@ namespace Awsim.Entity
             {
                 Header = new std_msgs.msg.Header()
                 {
-                    Frame_id = _frameID
+                    Frame_id = _frameId
                 },
                 Encoding = _bgr8,
                 Is_bigendian = 0,
@@ -91,7 +91,7 @@ namespace Awsim.Entity
             {
                 Header = new std_msgs.msg.Header()
                 {
-                    Frame_id = _frameID
+                    Frame_id = _frameId
                 },
                 Distortion_model = _plumb_bob,
                 Binning_x = 0,
@@ -133,13 +133,13 @@ namespace Awsim.Entity
         /// </summary>
         /// <param name="imageTopic">Ros2 topic name of image.</param>
         /// <param name="cameraInfoTopic">Ros2 topic name of camera info.</param>
-        /// <param name="frameID">Ros2 frame id of image and camera info topics. (using same frame id)</param>
+        /// <param name="frameId">Ros2 frame id of image and camera info topics. (using same frame id)</param>
         /// <param name="qosSettings">Ros2 quality of service settings of image and camera info. (using same qos)</param>
-        public void Initialize(string imageTopic, string cameraInfoTopic, string frameID, QosSettings qosSettings)
+        public void Initialize(string imageTopic, string cameraInfoTopic, string frameId, QosSettings qosSettings)
         {
             _imageTopic = imageTopic;
             _cameraInfoTopic = cameraInfoTopic;
-            _frameID = frameID;
+            _frameId = frameId;
             _qosSettings = qosSettings;
 
             Initialize();

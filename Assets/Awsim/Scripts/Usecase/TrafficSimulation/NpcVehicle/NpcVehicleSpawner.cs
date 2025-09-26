@@ -123,14 +123,14 @@ namespace Awsim.Usecase.TrafficSimulation
         /// <param name="prefab">NPC vehicle prefab</param>
         /// <param name="npcVehicleSpawnPoint">Spawn point</param>
         /// <returns>Spawned NPC vehicle.</returns>
-        public TrafficSimNpcVehicle Spawn(TrafficSimNpcVehicle prefab, uint vehicleID, NpcVehicleSpawnPoint npcVehicleSpawnPoint)
+        public TrafficSimNpcVehicle Spawn(TrafficSimNpcVehicle prefab, uint vehicleId, NpcVehicleSpawnPoint npcVehicleSpawnPoint)
         {
             var obj = Object.Instantiate(prefab, npcVehicleSpawnPoint.Position, Quaternion.identity);
-            obj.name = obj.name + "_" + vehicleID.ToString();
+            obj.name = obj.name + "_" + vehicleId.ToString();
             obj.transform.forward = npcVehicleSpawnPoint.Forward;
             obj.transform.parent = _NpcVehicleParentsObj.transform;
             var vehicle = obj.GetComponent<TrafficSimNpcVehicle>();
-            vehicle.Initialize(vehicleID);
+            vehicle.Initialize(vehicleId);
 
             return vehicle;
         }

@@ -32,6 +32,8 @@ namespace Awsim.Entity
 
         public HazardLights HazardLightsInput { get; private set; }
 
+        public bool SwitchAutonomous { get; private set; } = false;
+
         [SerializeField] string _turnIndicatorsCommandTopic = "/control/command/turn_indicators_cmd";
         [SerializeField] string _hazardLightsCommandTopic = "/control/command/hazard_lights_cmd";
         [SerializeField] string _ackermannControlCommandTopic = "/control/command/control_cmd";

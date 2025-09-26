@@ -23,6 +23,7 @@ theme:
 
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/lightbox.min.css
 
 extra:
   generator: false
@@ -30,6 +31,8 @@ extra:
 extra_javascript:
   - javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - javascripts/lightbox-plus-jquery.min.js
+  - javascripts/lightbox-settings.js
 
 markdown_extensions:
   - tables
@@ -64,6 +67,9 @@ nav:
     - Quick start demo: GettingStarted/QuickStartDemo/index.md
     - Demo details: GettingStarted/DemoDetails/index.md
     - AWSIM concept: GettingStarted/AWSIMConcept/index.md
+    - Advanced:
+      - UsingOpenScenario: GettingStarted/Advanced/UsingOpenScenario/index.md
+      - AwsimRvizPlugins: GettingStarted/Advanced/AwsimRvizPlugins/index.md
   - Developer guide:
     - Prerequisites: DeveloperGuide/Prerequisites/index.md
     - Setup unity project: DeveloperGuide/SetupUnityProject/index.md
@@ -82,12 +88,10 @@ nav:
     - Layer:
       - UI: DeveloperGuide/Layer/UI/index.md
       - Usecase:
-        - Awsim Rviz Plugins:
-          - Abstract and Installation: DeveloperGuide/Layer/Usecase/AwsimRvizPlugins/AbstractAndInstallation/index.md
-          - 2D Pose Teleport: DeveloperGuide/Layer/Usecase/AwsimRvizPlugins/2dPoseTeleport/index.md
-          - Npc Spawner: DeveloperGuide/Layer/Usecase/AwsimRvizPlugins/NpcSpawner/index.md
-        - Pcd generation:
-          - Create pcd map: DeveloperGuide/Layer/Usecase/CreatePcd/index.md
+        - Awsim Rviz Plugins: DeveloperGuide/Layer/Usecase/AwsimRvizPlugins/index.md
+        - Pcd generation: DeveloperGuide/Layer/Usecase/PcdGeneration/index.md
+        - Traffic Simulation: DeveloperGuide/Layer/Usecase/TrafficSimulation/index.md
+        - Scenario Simulator Connection: DeveloperGuide/Layer/Usecase/ScenarioSimulatorConnection/index.md
       - Entity:
         - Vehicle:
           - Accel vehicle: DeveloperGuide/Layer/Entity/Vehicle/AccelVehicle/index.md
@@ -100,12 +104,9 @@ nav:
         - Infra:
           - Traffic light: DeveloperGuide/Layer/Entity/Infra/TrafficLight/index.md
       - Common:
-        - ROS2:
-          - ROS2: DeveloperGuide/Layer/Common/Ros2/Ros2CoreComponents/index.md
-          - Add custom ROS2 message: DeveloperGuide/Layer/Common/Ros2/AddCustomRos2Message/index.md
+        - ROS2: DeveloperGuide/Layer/Common/Ros2/index.md
     - Experimental:
       - Running headless: DeveloperGuide/Experimental/RunningHeadless/index.md
-      - Using OpenSCENARIO: DeveloperGuide/Experimental/UsingOpenScenario/index.md
   - Downloads: Downloads/index.md
   - License: License/index.md
   - Contact: Contact/index.md
