@@ -10,7 +10,7 @@ Path : `Assets\Awsim\Prefabs\Entity\Npc\Vehicle\*`
 
 |              |        Hatchback         |         SmallCar         |           Taxi           |          Truck           |           Van            |
 | :----------: | :----------------------: | :----------------------: | :----------------------: | :----------------------: | :----------------------: |
-| *Appearance* | ![vehicles](image_1.png) | ![vehicles](image_2.png) | ![vehicles](image_3.png) | ![vehicles](image_4.png) | ![vehicles](image_5.png) |
+| *Appearance* | <popup-img src="image_1.png" alt="Hatchback"></popup-img> | <popup-img src="image_2.png" alt="SmallCar"></popup-img> | <popup-img src="image_3.png" alt="Taxi"></popup-img> | <popup-img src="image_4.png" alt="Truck"></popup-img> | <popup-img src="image_5.png" alt="Van"></popup-img> |
 |   *Prefab*   |    `Hatchback.prefab`    |    `SmallCar.prefab`     |     `Taxi-64.prefab`     |    `Truck_2t.prefab`     |       `Van.prefab`       |
 
 ## Physics engine effect

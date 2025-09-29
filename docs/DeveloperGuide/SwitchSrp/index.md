@@ -17,10 +17,10 @@ To simplify the SRP switching process, we provide an Editor extension named "Swi
     - Prompting for Unity Editor restart to avoid rendering glitches
 
 1. In the Unity Editor, go to AWSIM -> Switch SRP from the top menu.
-<a href="image_10.png" data-lightbox="Graphics Settings 0" data-title="" width="600"></a>
+<popup-img src="image_10.png" width="600" alt="Graphics Settings 0"></popup-img>
 
 1. A window will appear, showing the currently active render pipeline.
-<a href="image_11.png" data-lightbox="Graphics Settings 1" data-title="" width="300"></a>
+<popup-img src="image_11.png" width="300" alt="Graphics Settings 1"></popup-img>
 
 1. Based on the current state, the button will display one of the following:
     - If the current pipeline is HDRP, the button will say HDRP → URP
@@ -29,7 +29,7 @@ To simplify the SRP switching process, we provide an Editor extension named "Swi
         - Click to switch to HDRP.  
 
 1. After clicking the button, a confirmation dialog will appear asking whether to restart the Unity Editor immediately.  
-<a href="image_12.png" data-lightbox="Graphics Settings" data-title="" data-alt="Graphics Settings"><img src="image_12.png"></a>
+<popup-img src="image_12.png" alt="Graphics Settings"></popup-img>
 
 1. Click Yes, and Unity will automatically restart to ensure the changes take effect and to prevent rendering issues.  
 
@@ -38,13 +38,13 @@ In this project, both HDRP and URP scenes are preconfigured separately.
 
 === "URP to HDRP"
     1. Open the Unity Editor and go to Edit > Project Settings > Graphics
-    <a href="image_0.png" data-lightbox="Graphics Settings" data-title="" data-alt="Graphics Settings"><img src="image_0.png"></a>
+    <popup-img src="image_0.png" alt="Graphics Settings"></popup-img>
 
     1. Switch the `Default Render Pipeline` in Edit -> ProjectSettings -> Graphics, and set it to `HDRenderPipelineAsset`.
-    <a href="image_7.png" data-lightbox="Graphics Settings" data-title="" data-alt="Graphics Settings"><img src="image_7.png"></a>
+    <popup-img src="image_7.png" alt="Graphics Settings"></popup-img>
 
     1. Open the AutowareSimulationDemo scene.
-    <a href="image_6.png" data-lightbox="Graphics Settings" data-title="" data-alt="Graphics Settings"><img src="image_6.png"></a>
+    <popup-img src="image_6.png" alt="Graphics Settings"></popup-img>
 
     1. Add Scripting Define Symbols  
     After switching the render pipeline, you need to update the scripting define symbol from URP to HDRP to enable HDRP-specific conditional compilation.  
@@ -55,7 +55,7 @@ In this project, both HDRP and URP scenes are preconfigured separately.
         - Find the Scripting Define Symbols field under the Script Compilation section
 
         - Remove URP and add HDRP
-        <a href="image_9.png" data-lightbox="Graphics Settings" data-title="" data-alt="Graphics Settings"><img src="image_9.png"></a>
+        <popup-img src="image_9.png" alt="Graphics Settings"></popup-img>
 
     1. Restart the Unity Editor after switching the render pipeline.
         - Especially when switching from URP to HDRP, the following error may occur:
@@ -70,13 +70,13 @@ In this project, both HDRP and URP scenes are preconfigured separately.
 
 === "HDRP to URP"
     1. Open the Unity Editor and go to Edit > Project Settings > Graphics
-    <a href="image_0.png" data-lightbox="Graphics Settings" data-title="" data-alt="Graphics Settings"><img src="image_0.png"></a>
+    <popup-img src="image_0.png" alt="Graphics Settings"></popup-img>
 
     1. Switch the `Default Render Pipeline` in Edit -> ProjectSettings -> Graphics, and set it to `UniversalRenderPipelineAsset`.
-    <a href="image_3.png" data-lightbox="Graphics Settings" data-title="" data-alt="Graphics Settings"><img src="image_3.png"></a>
+    <popup-img src="image_3.png" alt="Graphics Settings"></popup-img>
 
     1. Open the AutowareSimulationURPDemo scene.
-    <a href="image_4.png" data-lightbox="Graphics Settings" data-title="" data-alt="Graphics Settings"><img src="image_4.png"></a>
+    <popup-img src="image_4.png" alt="Graphics Settings"></popup-img>
     
     1. Add Scripting Define Symbols  
     After switching the render pipeline, you need to switch the scripting define symbol from HDRP to URP to enable URP-specific conditional compilation.  
@@ -87,7 +87,7 @@ In this project, both HDRP and URP scenes are preconfigured separately.
         - Find the Scripting Define Symbols field under the Script Compilation section
 
         - Remove HDRP and add URP
-        <a href="image_8.png" data-lightbox="Graphics Settings" data-title="" data-alt="Graphics Settings"><img src="image_8.png"></a>
+        <popup-img src="image_8.png" alt="Graphics Settings"></popup-img>
     
     1. Restart the Unity Editor after switching the render pipeline.
         - Especially when switching from URP to HDRP, the following error may occur:
@@ -101,5 +101,5 @@ In this project, both HDRP and URP scenes are preconfigured separately.
         - Restarting Unity Editor helps avoid unknown issues and ensures proper scene rendering.
 
     1. Check the lighting configuration:
-    <a href="image_5.png" data-lightbox="Graphics Settings" data-title="" data-alt="Graphics Settings"><img src="image_5.png"></a>
+    <popup-img src="image_5.png" alt="Graphics Settings"></popup-img>
     
