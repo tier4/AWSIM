@@ -79,6 +79,8 @@ namespace Awsim.Entity
         bool _steeringOverride = false;
 
 
+        [SerializeField] float _damper;
+
         public void Initialize()
         {
             // Linux only.
@@ -90,6 +92,8 @@ namespace Awsim.Entity
 
             var connected = LogitechG29Linux.InitDevice(_devicePath);
             Connected = connected;
+
+
         }
 
         public void Initialize(string devicePath)
@@ -103,6 +107,10 @@ namespace Awsim.Entity
         {
             if (!Connected)
                 return false;
+
+                        //debug
+            LogitechG29Linux.SetDamper(_damper);
+
 
             var isOverridden = false;
             var currentControlMode = _controlModeBasedInputProvider.ControlMode;

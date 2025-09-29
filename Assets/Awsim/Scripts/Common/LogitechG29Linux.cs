@@ -26,5 +26,8 @@ namespace Awsim.Common
 
         [DllImport("libG29Linux")]
         public static extern double GetPos();
+
+        [DllImport("libG29Linux")]
+        public static extern void SetDamper(double strength);
     }
 }
