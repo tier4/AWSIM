@@ -47,7 +47,7 @@ namespace Awsim.Usecase.TrafficSimulation
         /// Get random NPC vehicle prefab.
         /// </summary>
         /// <returns>NPC vehicle prefab</returns>
-        public GameObject GetRandomPrefab()
+        public TrafficSimNpcVehicle GetRandomPrefab()
             => _prefabs[Random.Range(0, _prefabs.Length)];
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Awsim.Usecase.TrafficSimulation
         public NpcVehicleSpawnPoint GetRandomSpawnPoint()
             => _spawnPoints[Random.Range(0, _spawnPoints.Length)];
 
-        GameObject[] _prefabs;
+        TrafficSimNpcVehicle[] _prefabs;
         NpcVehicleSpawnPoint[] _spawnPoints;
         GameObject _NpcVehicleParentsObj;
 
@@ -66,7 +66,7 @@ namespace Awsim.Usecase.TrafficSimulation
         /// </summary>
         /// <param name="prefabs">NPC vehicle prefabs to be spawned.</param>
         /// <param name="spawnableLanes">Lanes where vehicles can spawn.</param>
-        public NpcVehicleSpawner(GameObject parentsObj, GameObject[] prefabs, TrafficLane[] spawnableLanes)
+        public NpcVehicleSpawner(GameObject parentsObj, TrafficSimNpcVehicle[] prefabs, TrafficLane[] spawnableLanes)
         {
             this._NpcVehicleParentsObj = parentsObj;
             this._prefabs = prefabs;
@@ -123,7 +123,7 @@ namespace Awsim.Usecase.TrafficSimulation
         /// <param name="prefab">NPC vehicle prefab</param>
         /// <param name="npcVehicleSpawnPoint">Spawn point</param>
         /// <returns>Spawned NPC vehicle.</returns>
-        public TrafficSimNpcVehicle Spawn(GameObject prefab, uint vehicleId, NpcVehicleSpawnPoint npcVehicleSpawnPoint)
+        public TrafficSimNpcVehicle Spawn(TrafficSimNpcVehicle prefab, uint vehicleId, NpcVehicleSpawnPoint npcVehicleSpawnPoint)
         {
             var obj = Object.Instantiate(prefab, npcVehicleSpawnPoint.Position, Quaternion.identity);
             obj.name = obj.name + "_" + vehicleId.ToString();

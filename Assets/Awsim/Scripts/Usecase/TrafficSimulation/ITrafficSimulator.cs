@@ -29,12 +29,12 @@ namespace Awsim.Usecase.TrafficSimulation
         /// <param name="spawnPoint"></param>
         /// <param name="spawnedVehicle"></param>
         /// <returns>True if spawned, False is failed to spawn.</returns>
-        public bool Spawn(GameObject prefab, NpcVehicleSpawnPoint spawnPoint, out TrafficSimNpcVehicle spawnedVehicle);
+        public bool Spawn(TrafficSimNpcVehicle prefab, NpcVehicleSpawnPoint spawnPoint, out TrafficSimNpcVehicle spawnedVehicle);
 
         /// <summary>
         /// Gets random spawn point and NPC prefab.
         /// </summary>
-        public void GetRandomSpawnInfo(out NpcVehicleSpawnPoint spawnPoint, out GameObject prefab);
+        public void GetRandomSpawnInfo(out NpcVehicleSpawnPoint spawnPoint, out TrafficSimNpcVehicle prefab);
 
         /// <summary>
         /// Increase the traffic simulator spawn priority.
