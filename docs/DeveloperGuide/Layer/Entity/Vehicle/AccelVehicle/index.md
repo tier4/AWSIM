@@ -59,7 +59,8 @@ By default, each key is assigned to the following classes.
 |Square|Switch to move reverse gear.|
 |Circle|Switch to neutral gear.|
 |Cross|Switch to parking gear.|
-|L2|Switch control mode to AUTONOMOUS.|
+|L2|Swtich control mode to MANUAL.|
+|L3|Switch control mode to AUTONOMOUS.|
 |Throttle pedal|Forward acceleration.|
 |Brake pedal|Reverse acceleration.|
 |Steering wheel|Turning.|

@@ -105,6 +105,7 @@ namespace Awsim.Entity
                 return false;
 
             var isOverridden = false;
+            SwitchAutonomous = false;
             var currentControlMode = _controlModeBasedInputProvider.ControlMode;
 
             // ControlMode is manual.
@@ -142,6 +143,12 @@ namespace Awsim.Entity
 
             void ManuallyInput()
             {
+                if (_isOnSwitchAutonomous)
+                {
+                    SwitchAutonomous = true;
+                    _isOnSwitchAutonomous = false; 
+                }
+
                 // Steering.
                 var currentPos = (float)LogitechG29Linux.GetPos();
                 SteerAngleInput = _readonlyVehicle.MaxSteerTireAngle * currentPos;
@@ -156,9 +163,11 @@ namespace Awsim.Entity
             return isOverridden;
         }
 
+        bool _isOnSwitchAutonomous = false;     // TODO: better name
+
         public void OnSwitchAutonomous(InputAction.CallbackContext context)
         {
-            SwitchAutonomous = true;
+            _isOnSwitchAutonomous = true;            
         }
 
         // Fuctions called from player input event.

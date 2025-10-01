@@ -103,6 +103,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OnSwitchAutonomous",
+                    "type": "Button",
+                    "id": "7e213b94-be27-45c6-a1b8-b1c481019402",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -224,6 +233,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "OverrideSteering",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0657169b-6bcc-4361-959b-bffeecb1f6dd",
+                    "path": "<Linux::LogitechInc::LogitechG29DrivingForceRacingWheel>/Base6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OnSwitchAutonomous",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
