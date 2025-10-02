@@ -14,6 +14,7 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.XR.Management;
 using Awsim.Common;
 using Awsim.UI;
 using Awsim.Usecase;
@@ -34,6 +35,7 @@ namespace Awsim.Scene.AutowareSimulationDemo
             public int MaxVehicleCount;
             public string LogitechG29DevicePath;
             public EgoPose EgoPose;
+            public bool UseVR;
         }
 
         [Serializable]
@@ -71,6 +73,7 @@ namespace Awsim.Scene.AutowareSimulationDemo
         [SerializeField] string _nodeName = "AWSIM";
         [SerializeField] TimeSourceType _timeSourceType;
         [SerializeField] FollowCamera _followCamera;
+        [SerializeField] GameObject _vrCamera;
         #pragma warning disable CS0414 // Remove unused private members warning disabled. Warns when built for not UNITY_EDITOR
         [SerializeField] string _commandLineConfigParam = "--json_path";
         #pragma warning restore CS0414
@@ -114,6 +117,14 @@ namespace Awsim.Scene.AutowareSimulationDemo
                 var rotation = Quaternion.Euler(jsonConfig.EgoPose.EulerAngles);
                 _egoVehicle.Initialize(jsonConfig.LogitechG29DevicePath, position, rotation);
 
+                if (jsonConfig.UseVR)
+                {
+                    var xrSettings = XRGeneralSettings.Instance;
+                    xrSettings.Manager.InitializeLoaderSync();
+                    xrSettings.Manager.StartSubsystems();
+                    _vrCamera.gameObject.SetActive(true);
+                    _followCamera.gameObject.SetActive(false);
+                }                
             }
             else
                 _egoVehicle.Initialize();
