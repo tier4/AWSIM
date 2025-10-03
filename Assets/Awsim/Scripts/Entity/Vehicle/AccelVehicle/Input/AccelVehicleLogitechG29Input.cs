@@ -15,6 +15,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Awsim.Common;
+using Unity.Mathematics;
 
 namespace Awsim.Entity
 {
@@ -146,7 +147,7 @@ namespace Awsim.Entity
                 if (_isOnSwitchAutonomous)
                 {
                     SwitchAutonomous = true;
-                    _isOnSwitchAutonomous = false; 
+                    _isOnSwitchAutonomous = false;
                 }
 
                 // Steering.
@@ -157,17 +158,56 @@ namespace Awsim.Entity
                 AccelerationInput = _readonlyVehicle.MaxAcceleration * _throttlePedalInput;
                 AccelerationInput += _readonlyVehicle.MaxAcceleration * _brakePedalInput * -1;
 
-                LogitechG29Linux.UploadEffect(0, 0);
+                // Steering is controlled by FFB.
+
+                if (Mathf.Abs(_readonlyVehicle.Speed) > 0)
+                {
+                    // Return steering to center based on vehicle speed
+                    var targetPos = 0f; // Target center position
+                    currentPos = (float)LogitechG29Linux.GetPos();
+
+                    // Get absolute value of steering angle
+                    var steeringAngleAbs = Mathf.Abs(currentPos);
+
+                    // Get absolute value of speed (assuming km/h units)
+                    var speedAbs = Mathf.Abs(_readonlyVehicle.Speed);
+
+                    // Calculate return factor based on speed and steering angle
+                    // Higher speed and larger steering angle result in faster return to center
+                    var speedFactor = Mathf.Clamp01(speedAbs / _speedCoeff); // Maximum coefficient 1.0 at specified speed
+                    var steeringFactor = Mathf.Clamp01(steeringAngleAbs / 1f); // Maximum coefficient 1.0 at specified angle
+
+                    // Combine return factors (considering both factors)
+                    var returnFactor = Mathf.Lerp(0.1f, 1.0f, speedFactor * steeringFactor);
+
+                    // PID control for center return
+                    var pidResultRate = _pidController.Compute(targetPos, currentPos, Time.deltaTime);
+                    var sign = Mathf.Sign(pidResultRate);
+                    var clamped = Mathf.Clamp(Mathf.Abs(pidResultRate), _minNormalizedSteeringTorque, 1f);
+
+                    // Apply return factor to adjust torque
+                    var adjustedTorque = clamped * returnFactor;
+                    var finalNormalaizedTorque = sign * adjustedTorque;
+
+                    LogitechG29Linux.UploadEffect(finalNormalaizedTorque, Time.deltaTime);
+                }
+                else
+                {
+                    // Keep steering position when speed is 0
+                    LogitechG29Linux.UploadEffect(0, Time.deltaTime);
+                }
             }
 
             return isOverridden;
         }
 
+        [SerializeField] float _speedCoeff = 5;
+
         bool _isOnSwitchAutonomous = false;     // TODO: better name
 
         public void OnSwitchAutonomous(InputAction.CallbackContext context)
         {
-            _isOnSwitchAutonomous = true;            
+            _isOnSwitchAutonomous = true;
         }
 
         // Fuctions called from player input event.
