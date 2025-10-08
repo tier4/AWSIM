@@ -67,6 +67,7 @@ namespace Awsim.Entity
         [SerializeField] float _ki = 0.2f;
         [SerializeField] float _kd = 0.05f;
         [SerializeField] float _minNormalizedSteeringTorque = 0.17f;
+        [SerializeField] float _speedCoeff = 10;
 
         [Header("Vehicle settings")]
         [SerializeField] Component _readonlyVehicleComponent = null;
@@ -201,7 +202,6 @@ namespace Awsim.Entity
             return isOverridden;
         }
 
-        [SerializeField] float _speedCoeff = 5;
 
         bool _isOnSwitchAutonomous = false;     // TODO: better name
 
