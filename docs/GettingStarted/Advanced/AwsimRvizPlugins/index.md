@@ -1,7 +1,7 @@
 # AwsimRvizPlugins
 Feature to operate AWSIM environment from the Rviz plugins.
 
-<a href="./npc_spawner.png" data-lightbox="AwsimRvizPlugins" data-title="" data-alt="AwsimRvizPlugins"><img src="./npc_spawner.png"></a>
+<popup-img src="./npc_spawner.png" alt="AwsimRvizPlugins"></popup-img>
 
 The following features are implemented:
 
@@ -52,11 +52,11 @@ repositories:
 
 ## 2D Pose Teleport
 Teleport AWSIM EGO using Rviz GUI tool.
-<a href="./2d_pose_teleport.png" data-lightbox="2D Pose Teleport" data-title="" data-alt="2D Pose Teleport"><img src="./2d_pose_teleport.png"></a>
+<popup-img src="./2d_pose_teleport.png" alt="2D Pose Teleport"></popup-img>
 
 ### How to use
 1. On Rviz, Click the plus button on the toolbar and select `awsim_rviz_plugins/2dPoseTeleport` from the list.
-<a href="./tool_bar_ego.png" data-lightbox="2D Pose Teleport Setup" data-title="" data-alt="2D Pose Teleport Setup"><img src="./tool_bar_ego.png"></a>
+<popup-img src="./tool_bar_ego.png" alt="2D Pose Teleport Setup"></popup-img>
 2. On Rviz, Click on `2D Pose Teleport` button from the toolbar and select it.
 3. On AWSIM, Play binary or Play scene.
 4. On the map displayed in Rviz, drag the cursor to the location and orientation where you want to move the EGO.
@@ -67,11 +67,11 @@ If `Autoware (pilot-auto)` is running with, press the `Initialize with GNSS` but
 Spawn AWSIM Npc using Rviz GUI tool.<br>
 Type and velocity of spawned Npc is specified from Rviz display.
 
-<a href="./npc_spawner.png" data-lightbox="Npc Spawner" data-title="" data-alt="Npc Spawner"><img src="./npc_spawner.png"></a>
+<popup-img src="./npc_spawner.png" alt="Npc Spawner"></popup-img>
 
 ### How to use
 1. On Rviz, Click the plus button on the toolbar and select `awsim_rviz_plugins/NpcSpawner` from the list.
-<a href="./tool_bar_npc.png" data-lightbox="Tool Bar" data-title="" data-alt="Tool Bar"><img src="./tool_bar_npc.png"></a>
+<popup-img src="./tool_bar_npc.png" alt="Tool Bar"></popup-img>
 2. On Rviz, Click on `Npc Spawner` button from the toolbar and select it.
 3. On AWSIM, Play binary or Play scene.
 4. On the map displayed in Rviz, drag the cursor to the location and orientation where you want to spawn the Npc.
@@ -79,5 +79,5 @@ Type and velocity of spawned Npc is specified from Rviz display.
 If you want to change type and velocity of spawned Npc, do the following:
 
 1. On Rviz, Click the `Add` button on the `Display` panel and select `awsim_rviz_plugins/NpcSpawnerStatus` from the list.
-<a href="./status_panel.png" data-lightbox="Status Panel" data-title="" data-alt="Status Panel"><img src="./status_panel.png"></a>
+<popup-img src="./status_panel.png" alt="Status Panel"></popup-img>
 2. On Rviz, Change the value of `Npc Type` and `Velocity [km/h]`.
