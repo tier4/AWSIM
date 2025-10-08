@@ -62,7 +62,7 @@ namespace Awsim.Usecase.TrafficSimulation
         [SerializeField] RouteTrafficSimulatorConfiguration[] _routeTrafficSims;
         [SerializeField] NpcVehicleSimulator _npcVehicleSimulator;
         List<ITrafficSimulator> _trafficSimulatorNodes;
-        Dictionary<NpcVehicleSpawnPoint, Dictionary<ITrafficSimulator, GameObject>> _spawnLanes;
+        Dictionary<NpcVehicleSpawnPoint, Dictionary<ITrafficSimulator, TrafficSimNpcVehicle>> _spawnLanes;
         List<TrafficSimNpcVehicle> _trafficSimNpcVehicleList;
 
         bool _isTrafficIntersectionInitialized = false;     // TODO: Consider how to reset the traffic simulator without having flags.
@@ -97,7 +97,7 @@ namespace Awsim.Usecase.TrafficSimulation
 
             Random.InitState(_seed);
 
-            _spawnLanes = new Dictionary<NpcVehicleSpawnPoint, Dictionary<ITrafficSimulator, GameObject>>();
+            _spawnLanes = new Dictionary<NpcVehicleSpawnPoint, Dictionary<ITrafficSimulator, TrafficSimNpcVehicle>>();
 
             _npcVehicleSimulator = new NpcVehicleSimulator(_vehicleConfig, _obstacleLayerMask, _groundLayerMask, _maxVehicleCount, _egoVehicle);
 
@@ -169,7 +169,7 @@ namespace Awsim.Usecase.TrafficSimulation
                 }
                 else
                 {
-                    var tsims = new Dictionary<ITrafficSimulator, GameObject>();
+                    var tsims = new Dictionary<ITrafficSimulator, TrafficSimNpcVehicle>();
                     tsims.Add(trafficSimulator, prefab);
                     _spawnLanes.Add(spawnPoint, tsims);
                 }
@@ -192,7 +192,7 @@ namespace Awsim.Usecase.TrafficSimulation
                     var tsimAndPrefab = spawnLoc.Value.First();
                     var trafficSim = tsimAndPrefab.Key;
                     var prefab = tsimAndPrefab.Value;
-                    if (!NpcVehicleSpawner.IsSpawnable(prefab.GetComponent<TrafficSimNpcVehicle>().NpcVehicle.Bounds, spawnLoc.Key))
+                    if (!NpcVehicleSpawner.IsSpawnable(prefab.NpcVehicle.Bounds, spawnLoc.Key))
                         continue;
                     var spawned = trafficSim.Spawn(prefab, spawnLoc.Key, out spawnedVehicle);
                 }
@@ -201,7 +201,7 @@ namespace Awsim.Usecase.TrafficSimulation
                     var priorityTrafficSimList = spawnLoc.Value.OrderByDescending(x => x.Key.GetCurrentPriority());
                     var priorityTrafficSimGo = priorityTrafficSimList.First();
                     var prefab = priorityTrafficSimGo.Value;
-                    if (!NpcVehicleSpawner.IsSpawnable(prefab.GetComponent<TrafficSimNpcVehicle>().NpcVehicle.Bounds, spawnLoc.Key))
+                    if (!NpcVehicleSpawner.IsSpawnable(prefab.NpcVehicle.Bounds, spawnLoc.Key))
                     {
                         continue;
                     }
