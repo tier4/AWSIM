@@ -21,34 +21,25 @@ namespace Awsim.Entity
 {
     public class AccelVehicleLogitechG29Input : MonoBehaviour, IAccelVehicleInput
     {
-        class PidController
+        [System.Serializable]
+        public class Settings
         {
-            public float Kp { get; set; }
-            public float Ki { get; set; }
-            public float Kd { get; set; }
-            float previousError = 0f;
-            float integral = 0f;
+            [SerializeField] string _devicePath;
+            [SerializeField] float _selfAligningTorqueCoeff;
 
-            public PidController(float kp, float ki, float kd)
+            public string DevicePath => _devicePath;
+            public float SelfAligningTorqueCoeff => _selfAligningTorqueCoeff;
+
+            // Default constructor for JsonUtility
+            public Settings()
             {
-                Kp = kp;
-                Ki = ki;
-                Kd = kd;
-                previousError = 0f;
-                integral = 0f;
             }
 
-            public float Compute(float setpoint, float actualValue, float deltaTime)
+            // Constructor for manual instantiation
+            public Settings(string devicePath, float selfAligningTorqueCoeff)
             {
-                float error = setpoint - actualValue;
-                integral += error * deltaTime;
-                float derivative = (error - previousError) / deltaTime;
-                previousError = error;
-                float direction = error < 0.0 ? -1.0f : 1.0f;
-                var result = Kp * error + Ki * integral + Kd * derivative;
-                result = Mathf.Clamp(Mathf.Abs(result), 0, 1) * direction;
-
-                return result;
+                this._devicePath = devicePath;
+                this._selfAligningTorqueCoeff = selfAligningTorqueCoeff;
             }
         }
 
@@ -67,7 +58,8 @@ namespace Awsim.Entity
         [SerializeField] float _ki = 0.2f;
         [SerializeField] float _kd = 0.05f;
         [SerializeField] float _minNormalizedSteeringTorque = 0.17f;
-        [SerializeField] float _speedCoeff = 10;
+        [SerializeField] float _selfAligningTorqueSpeedCoeff = 10;
+        [SerializeField] float _selfAligningTorqueSteerCoeff = 1f;
 
         [Header("Vehicle settings")]
         [SerializeField] Component _readonlyVehicleComponent = null;
@@ -94,9 +86,25 @@ namespace Awsim.Entity
             Connected = connected;
         }
 
-        public void Initialize(string devicePath)
+        public void Initialize(Settings settings)
         {
-            _devicePath = devicePath;
+            _devicePath = settings.DevicePath;
+
+            // Linear interpolation based on selfAligningTorqueCoeff
+            // When coeff = 1: speedCoeff = 4, steerCoeff = 1
+            // When coeff = 0: speedCoeff = 20, steerCoeff = 10
+            var coeff = Mathf.Clamp01(settings.SelfAligningTorqueCoeff);
+            if (coeff == 0)
+            {
+                _selfAligningTorqueSpeedCoeff = 0;
+                _selfAligningTorqueSteerCoeff = 0;
+            }
+            else
+            {
+                _selfAligningTorqueSpeedCoeff = Mathf.Lerp(10f, 4f, coeff);
+                _selfAligningTorqueSteerCoeff = Mathf.Lerp(5f, 1f, coeff);
+            }
+
 
             Initialize();
         }
@@ -175,8 +183,8 @@ namespace Awsim.Entity
 
                     // Calculate return factor based on speed and steering angle
                     // Higher speed and larger steering angle result in faster return to center
-                    var speedFactor = Mathf.Clamp01(speedAbs / _speedCoeff); // Maximum coefficient 1.0 at specified speed
-                    var steeringFactor = Mathf.Clamp01(steeringAngleAbs / 1f); // Maximum coefficient 1.0 at specified angle
+                    var speedFactor = Mathf.Clamp01(speedAbs / _selfAligningTorqueSpeedCoeff); // Maximum coefficient 1.0 at specified speed
+                    var steeringFactor = Mathf.Clamp01(steeringAngleAbs / _selfAligningTorqueSteerCoeff); // Maximum coefficient 1.0 at specified angle
 
                     // Combine return factors (considering both factors)
                     var returnFactor = Mathf.Lerp(0.1f, 1.0f, speedFactor * steeringFactor);
