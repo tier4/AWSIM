@@ -42,6 +42,7 @@ namespace Awsim.Scene.AutowareSimulationDemo
         [SerializeField] CameraRos2Publisher _cameraRos2Publisher;
         [SerializeField] GnssSensor _gnssSensor;
         [SerializeField] GnssRos2Publisher _gnssRos2Publisher;
+        [SerializeField] RtcAutoResponder _rtcAutoResponder; 
 
         public void Initialize(string logitechG29DevicePath, Vector3 initialVehiclePosition, Quaternion initialVehicleRotation)
         {
@@ -85,6 +86,7 @@ namespace Awsim.Scene.AutowareSimulationDemo
             _cameraRos2Publisher.Initialize();
             _gnssSensor.Initialize();
             _gnssRos2Publisher.Initialize();
+            _rtcAutoResponder.Initialize();
         }
 
         public void OnUpdate()
@@ -103,6 +105,7 @@ namespace Awsim.Scene.AutowareSimulationDemo
 
             // Sensor.
             _imuSensor.OnFixedUpdate();
+            _rtcAutoResponder.OnFixedUpdate();
         }
     }
 }
