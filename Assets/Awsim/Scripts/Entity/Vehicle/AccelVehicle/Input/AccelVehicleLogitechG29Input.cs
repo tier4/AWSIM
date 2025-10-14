@@ -28,7 +28,7 @@ namespace Awsim.Entity
             [SerializeField] float _selfAligningTorqueCoeff;
 
             public string DevicePath => _devicePath;
-            public float SelfAligningTorqueCoeff => _selfAligningTorqueCoeff;
+            public float SteeringTorqueCoeff => _selfAligningTorqueCoeff;
 
             // Default constructor for JsonUtility
             public Settings()
@@ -60,6 +60,7 @@ namespace Awsim.Entity
         [SerializeField] float _minNormalizedSteeringTorque = 0.17f;
         [SerializeField] float _selfAligningTorqueSpeedCoeff = 5.2f;
         [SerializeField] float _selfAligningTorqueSteerCoeff = 1.8f;
+        [SerializeField, Range(0f, 0.15f)] float _stationarySteeringResistance = 0.15f;  // Steering resistance when stationary (0-1)
 
         [Header("Vehicle settings")]
         [SerializeField] Component _readonlyVehicleComponent = null;
@@ -71,6 +72,11 @@ namespace Awsim.Entity
         float _throttlePedalInput = 0;
         float _brakePedalInput = 0;
         bool _steeringOverride = false;
+
+        // For steering control when stationary
+        float _previousSteeringPos = 0;
+        float _steeringVelocity = 0;
+        const float _steeringVelocityThreshold = 0.01f;  // Velocity threshold to consider the steering wheel is moving
 
 
         public void Initialize()
@@ -93,7 +99,7 @@ namespace Awsim.Entity
             // Linear interpolation based on selfAligningTorqueCoeff
             // When coeff = 1: speedCoeff = 4, steerCoeff = 1
             // When coeff = 0: speedCoeff = 20, steerCoeff = 10
-            var coeff = Mathf.Clamp01(settings.SelfAligningTorqueCoeff);
+            var coeff = Mathf.Clamp01(settings.SteeringTorqueCoeff);
             if (coeff == 0)
             {
                 _selfAligningTorqueSpeedCoeff = 0;
@@ -202,8 +208,31 @@ namespace Awsim.Entity
                 }
                 else
                 {
-                    // Keep steering position when speed is 0
-                    LogitechG29Linux.UploadEffect(0, Time.deltaTime);
+                    // When stationary: Apply resistance force only when steering wheel is moving
+                    currentPos = (float)LogitechG29Linux.GetPos();
+
+                    // Calculate steering velocity
+                    if (Time.deltaTime > 0)
+                    {
+                        _steeringVelocity = (currentPos - _previousSteeringPos) / Time.deltaTime;
+                    }
+                    _previousSteeringPos = currentPos;
+
+                    // Apply resistance force only when steering wheel is moving
+                    if (Mathf.Abs(_steeringVelocity) > _steeringVelocityThreshold && _stationarySteeringResistance > 0)
+                    {
+                        // Apply resistance force in opposite direction of movement (damping effect)
+                        var sign = -Mathf.Sign(_steeringVelocity);
+                        var resistanceTorque = _stationarySteeringResistance;
+                        var finalTorque = sign * resistanceTorque;
+
+                        LogitechG29Linux.UploadEffect(finalTorque, Time.deltaTime);
+                    }
+                    else
+                    {
+                        // Do not apply force when steering wheel is stationary (maintain position)
+                        LogitechG29Linux.UploadEffect(0, Time.deltaTime);
+                    }
                 }
             }
 
