@@ -56,6 +56,7 @@ namespace Awsim.Entity
         [SerializeField]
         float _rtcStartDistanceThreshold = 10f;
 
+        [SerializeField]
         Rigidbody _egoRigidbody;
         float _currentEgoVelocity;
 
@@ -80,12 +81,6 @@ namespace Awsim.Entity
             _cooperateCommandsClient = AwsimRos2Node.CreateClient<CooperateCommands_Request, CooperateCommands_Response>(
                 _rtcCommandService
             );
-            
-            _egoRigidbody = GetComponent<Rigidbody>();
-            if (_egoRigidbody == null)
-            {
-                Debug.LogWarning("[RtcAutoResponder] Rigidbody not found on Ego object.");
-            }
         }
 
         public void OnFixedUpdate()
