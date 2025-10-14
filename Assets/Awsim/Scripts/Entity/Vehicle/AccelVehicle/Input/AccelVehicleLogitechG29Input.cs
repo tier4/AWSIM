@@ -58,8 +58,8 @@ namespace Awsim.Entity
         [SerializeField] float _ki = 0.2f;
         [SerializeField] float _kd = 0.05f;
         [SerializeField] float _minNormalizedSteeringTorque = 0.17f;
-        [SerializeField] float _selfAligningTorqueSpeedCoeff = 10;
-        [SerializeField] float _selfAligningTorqueSteerCoeff = 1f;
+        [SerializeField] float _selfAligningTorqueSpeedCoeff = 5.2f;
+        [SerializeField] float _selfAligningTorqueSteerCoeff = 1.8f;
 
         [Header("Vehicle settings")]
         [SerializeField] Component _readonlyVehicleComponent = null;
