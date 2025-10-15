@@ -44,7 +44,7 @@ namespace Awsim.Scene.AutowareSimulationDemo
         [SerializeField] GnssRos2Publisher _gnssRos2Publisher;
         [SerializeField] RtcAutoResponder _rtcAutoResponder; 
 
-        public void Initialize(string logitechG29DevicePath, Vector3 initialVehiclePosition, Quaternion initialVehicleRotation)
+        public void Initialize(AccelVehicleLogitechG29Input.Settings logitechG29Settings, Vector3 initialVehiclePosition, Quaternion initialVehicleRotation)
         {
             // Vehicle.
             _vehicle.Initialize();
@@ -54,7 +54,7 @@ namespace Awsim.Scene.AutowareSimulationDemo
             _vehicleVisualEffect.Initialize();
             _keyboardVehicleInput.Initialize();
             _ros2VehicleInput.Initialize();
-            _logitechG29VehicleInput.Initialize(logitechG29DevicePath);
+            _logitechG29VehicleInput.Initialize(logitechG29Settings);
             _vehicleTransform.position = initialVehiclePosition;
             _vehicleTransform.rotation = initialVehicleRotation;
 
