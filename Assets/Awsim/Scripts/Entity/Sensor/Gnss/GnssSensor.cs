@@ -19,6 +19,12 @@ using GeographicLib;
 
 namespace Awsim.Entity
 {
+    public enum GnssOutputMode
+    {
+        Mgrs,
+        NavSatFix
+    }
+
     /// <summary>
     /// Global Navigation Satellite System (GNSS) sensor.
     /// Mgrs and GeoCoordinate values are output according to OutputHz.
@@ -57,6 +63,8 @@ namespace Awsim.Entity
         public int OutputHz { get => _outputHz; }
 
         [SerializeField] int _outputHz = 1;      // Autoware gnss sensor basically output at 1hz.
+        [SerializeField] GnssOutputMode _outputMode = GnssOutputMode.Mgrs;
+        public GnssOutputMode OutputMode => _outputMode;
         OutputData _outputData = null;
         Transform _transform = null;
 
@@ -99,7 +107,9 @@ namespace Awsim.Entity
             var unityPosition = _transform.position;
             var rosPosition = Ros2Utility.UnityToRos2Position(unityPosition);
             var mgrsBase      = MgrsPosition.Instance.Mgrs;
-            var mgrsPosition  = rosPosition + mgrsBase.Position;
+            var mgrsPosition = rosPosition + mgrsBase.Position;
+
+            _outputData.Mgrs = new Mgrs(mgrsPosition, mgrsBase.GridZone);
 
             string mgrsString = mgrsBase.GridZone + string.Format("{0:D9}", (int)(mgrsPosition.x * 10000)) + string.Format("{0:D9}", (int)(mgrsPosition.y * 10000)); 
             (int utmZone, bool utmNorthp, double utmX, double utmY, int utmPrec) = GeographicLib.Geocodes.MGRS.Reverse(mgrsString.AsSpan());
