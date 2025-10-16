@@ -5,7 +5,12 @@
     "MaxVehicleCount": 10,
     "LogitechG29Settings": {
         "_devicePath": "/dev/input/event3",
-        "_selfAligningTorqueCoeff": 0.8
+        "_selfAligningTorqueCoeff": 1.0
+    },
+    "AccelVehicleSettings": {
+        "_maxSteerTireAngleInput": 35,
+        "_maxAccelerationInput": 2,
+        "_maxDecelerationInput": 2
     },
     "EgoPose": {
         "Position": {

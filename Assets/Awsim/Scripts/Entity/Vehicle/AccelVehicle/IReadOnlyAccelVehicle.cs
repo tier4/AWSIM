@@ -35,7 +35,8 @@ namespace Awsim.Entity
         public Vector3 AngularAcceleration { get; }
         public AccelVehicle.Wheel[] Wheels { get; }
         public float SteerTireAngleNormalized { get; }
-        public float MaxSteerTireAngle { get; }
-        public float MaxAcceleration { get; }
+        public float MaxSteerTireAngleInput { get; }
+        public float MaxAccelerationInput { get; }
+        public float MaxDecelerationInput { get; }
     }
 }

@@ -142,6 +142,32 @@ namespace Awsim.Entity
             public Wheel RightWheel => _rightWheel;
         }
 
+        [Serializable]
+        public class Settings
+        {
+            [SerializeField] float _maxSteerTireAngleInput;
+            [SerializeField] float _maxAccelerationInput;
+            [SerializeField] float _maxDecelerationInput;
+
+            public float MaxSteerTireAngle => _maxSteerTireAngleInput;
+            public float MaxAccelerationInput => _maxAccelerationInput;
+            public float MaxDecelerationInput => _maxDecelerationInput;
+
+            // Default constructor for JsonUtility
+            public Settings()
+            {
+
+            }
+
+            public Settings(float maxSteerTireAngleInput, float maxAccelerationInput, float maxDecelerationInput)
+            {
+                this._maxSteerTireAngleInput = maxSteerTireAngleInput;
+                this._maxAccelerationInput = maxAccelerationInput;
+                this._maxDecelerationInput = maxDecelerationInput;
+            }
+        }
+
+
         // ----- Vehicle input properties -----
 
         /// <summary>
@@ -161,7 +187,7 @@ namespace Awsim.Entity
 
             set
             {
-                _steerTireAngle = Mathf.Clamp(value, _maxSteerTireAngle * -1.0f, _maxSteerTireAngle);
+                _steerTireAngle = Mathf.Clamp(value, _maxSteerTireAngleInput * -1.0f, _maxSteerTireAngleInput);
             }
         }
 
@@ -273,11 +299,22 @@ namespace Awsim.Entity
 
         public Wheel[] Wheels => _wheels;
 
-        public float MaxSteerTireAngle => _maxSteerTireAngle;
+        /// <summary>
+        /// Maximum steer angle that can be input (used for device input, etc.)
+        /// </summary>
+        public float MaxSteerTireAngleInput => _maxSteerTireAngleInput;
 
-        public float MaxAcceleration => _maxAcceleration;
+        /// <summary>
+        /// Maximum input acceleration value (used for device inputs, etc.)
+        /// </summary>
+        public float MaxAccelerationInput => _maxAccelerationInput;
 
-        public float SteerTireAngleNormalized => SteerTireAngle / _maxSteerTireAngle;
+        /// <summary>
+        /// Maximum deceleration value that can be input (used for device inputs, etc.)
+        /// </summary>
+        public float MaxDecelerationInput => _maxDecelerationInput;
+
+        public float SteerTireAngleNormalized => SteerTireAngle / _maxSteerTireAngleInput;
 
         [SerializeField] Rigidbody _rigidbody;
         [SerializeField] float _skiddingCancelRate = 0.1f;
@@ -288,8 +325,9 @@ namespace Awsim.Entity
         [SerializeField] float _steerTireAngleTimeConstant = 0f;
         FirstOrderLaggedFloat _firstOrderLaggedAcceleration = null;
         FirstOrderLaggedFloat _firstOrderLaggedSteerTireAngle = null;
-        [SerializeField] float _maxSteerTireAngle = 35f;
-        [SerializeField] float _maxAcceleration = 2f;
+        [SerializeField] float _maxSteerTireAngleInput = 35f;
+        [SerializeField] float _maxAccelerationInput = 2f;
+        [SerializeField] float _maxDecelerationInput = 2f;
         float _steerTireAngle = 0f;
 
         [Tooltip("Deceleration curve when throttle is off (like engine braking). Time axis represents velocity (m/s), Value axis represents deceleration (m/s^2).")]
@@ -321,6 +359,15 @@ namespace Awsim.Entity
 
             _firstOrderLaggedAcceleration = new FirstOrderLaggedFloat(_accelerationTimeConstant, AccelerationInput);
             _firstOrderLaggedSteerTireAngle = new FirstOrderLaggedFloat(_steerTireAngleTimeConstant, SteerTireAngleInput);
+        }
+
+        public void Initialize(Settings settings)
+        {
+            _maxSteerTireAngleInput = settings.MaxSteerTireAngle;
+            _maxAccelerationInput = settings.MaxAccelerationInput;
+            _maxDecelerationInput = settings.MaxDecelerationInput;
+
+            Initialize();
         }
 
         /// <summary>
