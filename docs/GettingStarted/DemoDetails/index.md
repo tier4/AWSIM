@@ -240,11 +240,19 @@ It is possible to do some configurations by specifying the json path when starti
 - Sample json.
     ```json
     {
-        "TimeScale": 1.0,
-        "TimeSourceType": 4,
+        "TimeScale": 1,
+        "TimeSourceType": 0,
         "RandomTrafficSeed": 33,
         "MaxVehicleCount": 10,
-        "LogitechG29DevicePath": "/dev/input/event10",
+        "LogitechG29Settings": {
+            "_devicePath": "/dev/input/event3",
+            "_selfAligningTorqueCoeff": 1.0
+        },
+        "EgoVehicleSettings": {
+            "_maxSteerTireAngleInput": 35,
+            "_maxAccelerationInput": 2,
+            "_maxDecelerationInput": 2
+        },
         "EgoPose": {
             "Position": {
                 "x": 81381.7265625,
@@ -266,7 +274,11 @@ It is possible to do some configurations by specifying the json path when starti
     |TimeSourceType|int|Time source to be used in the simulation. <br/>`0`: Unity<br/>`1`: External<br/>`2`: DotnetSystem<br/>`3`: DotnetSimulation<br/>`4`: Ros2|
     |RandomTrafficSeed|int|Seed value used in random numbers for random traffic.|
     |MaxVehicleCount|int|Maximum number of NPC vehicles present in traffic at the same time.|
-    |LogitechG29DevicePath|string|Device path for Logitech G29 Steering wheel.|
+    |LogitechG29Settings.<br>_devicePath|string|Device path for Logitech G29 Steering wheel.|
+    |LogitechG29Settings.<br>_selfAligningTorqueCoeff|float|Self-aligning torque coefficient for g29. (Range : 0.0 ~ 1.0)|
+    |EgoVehicleSettings.<br>_maxSteerTireAngleInput|float|Maximum steering angle of steerable tires on a vehicle. (degree.)|
+    |EgoVehicleSettings.<br>_maxAccelerationInput|float|Maximum acceleration of the vehicle. (m/s^s)|
+    |EgoVehicleSettings.<br>_maxDecelerationInput|float|Maximum deceleration of the vehicle. (m/s^s) No minus sign is needed.|
     |EgoPose.Position|vector3|Initial position of ego vehicle.|
     |EgoPose.EulerAngles|vector3|Initial rotation of ego vehicle.|
 

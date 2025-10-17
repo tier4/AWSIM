@@ -33,7 +33,7 @@ namespace Awsim.Scene.AutowareSimulationDemo
             public int RandomTrafficSeed;
             public int MaxVehicleCount;
             public AccelVehicleLogitechG29Input.Settings LogitechG29Settings;
-            public AccelVehicle.Settings AccelVehicleSettings;
+            public AccelVehicle.Settings EgoVehicleSettings;
             public EgoPose EgoPose;
         }
 
@@ -113,7 +113,7 @@ namespace Awsim.Scene.AutowareSimulationDemo
             {
                 var position = jsonConfig.EgoPose.Position - MgrsPosition.Instance.Mgrs.Position;
                 var rotation = Quaternion.Euler(jsonConfig.EgoPose.EulerAngles);
-                _egoVehicle.Initialize(jsonConfig.LogitechG29Settings, jsonConfig.AccelVehicleSettings, position, rotation);
+                _egoVehicle.Initialize(jsonConfig.LogitechG29Settings, jsonConfig.EgoVehicleSettings, position, rotation);
 
             }
             else

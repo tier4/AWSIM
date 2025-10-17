@@ -7,7 +7,7 @@
         "_devicePath": "/dev/input/event3",
         "_selfAligningTorqueCoeff": 1.0
     },
-    "AccelVehicleSettings": {
+    "EgoVehicleSettings": {
         "_maxSteerTireAngleInput": 35,
         "_maxAccelerationInput": 2,
         "_maxDecelerationInput": 2
