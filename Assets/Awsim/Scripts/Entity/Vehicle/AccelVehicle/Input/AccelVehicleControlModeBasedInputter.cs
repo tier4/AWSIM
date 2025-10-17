@@ -81,8 +81,6 @@ namespace Awsim.Entity
 
                 var manuallyInput = ManuallyInputs[_activeManuallyInputIndex];
 
-                Debug.Log(manuallyInput.SwitchAutonomous);
-
                 if (manuallyInput.SwitchAutonomous)
                     ControlMode = ControlMode.Autonomous;
 

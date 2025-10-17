@@ -167,11 +167,11 @@ namespace Awsim.Entity
 
                 // Steering.
                 var currentPos = (float)LogitechG29Linux.GetPos();
-                SteerAngleInput = _readonlyVehicle.MaxSteerTireAngle * currentPos;
+                SteerAngleInput = _readonlyVehicle.MaxSteerTireAngleInput * currentPos;
 
                 // Pedal.
-                AccelerationInput = _readonlyVehicle.MaxAcceleration * _throttlePedalInput;
-                AccelerationInput += _readonlyVehicle.MaxAcceleration * _brakePedalInput * -1;
+                AccelerationInput = _readonlyVehicle.MaxAccelerationInput * _throttlePedalInput;
+                AccelerationInput += _readonlyVehicle.MaxDecelerationInput * _brakePedalInput * -1;
 
                 // Steering is controlled by FFB.
 
