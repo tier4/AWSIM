@@ -765,7 +765,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _imageTopic: /sensing/camera/traffic_light/image_raw
   _cameraInfoTopic: /sensing/camera/traffic_light/camera_info
-  _frameId: traffic_light_left_camera/camera_link
+  _frameId: traffic_light_left_camera/camera_optical_link
   _qosSettings:
     _reliabilityPolicy: 2
     _durabilityPolicy: 2
@@ -1021,8 +1021,9 @@ MonoBehaviour:
   sleepVelocityThreshold: 0.02
   _accelerationTimeConstant: 0
   _steerTireAngleTimeConstant: 0.05
-  _maxSteerTireAngle: 35
-  _maxAcceleration: 2
+  _maxSteerTireAngleInput: 35
+  _maxAccelerationInput: 2
+  _maxDecelerationInput: 2
   _decelerationCurve:
     serializedVersion: 2
     m_Curve: []
