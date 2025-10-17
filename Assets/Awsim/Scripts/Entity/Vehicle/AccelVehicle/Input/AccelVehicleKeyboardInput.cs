@@ -75,12 +75,12 @@ namespace Awsim.Entity
             // Get acceleration.
             if (Input.GetKey(_accelerationKey))
             {
-                AccelerationInput = 1f;                           // TODO: Adjusting input value.
+                AccelerationInput = _readonlyVehicle.MaxAccelerationInput;
                 isOverridden = true;
             }
             else if (Input.GetKey(_decelerationKey))
             {
-                AccelerationInput = -1f;                          // TODO: Adjusting input value.
+                AccelerationInput = _readonlyVehicle.MaxDecelerationInput * -1;
                 isOverridden = true;
             }
             else
@@ -89,12 +89,12 @@ namespace Awsim.Entity
             // Get steering.
             if (Input.GetKey(_leftSteeringKey))
             {
-                SteerAngleInput = -35f;                             // TODO: Adjusting input value.
+                SteerAngleInput = _readonlyVehicle.MaxSteerTireAngleInput * -1;
                 isOverridden = true;
             }
             else if (Input.GetKey(_rightSteeringKey))
             {
-                SteerAngleInput = 35f;                              // TODO: Adjusting input value.
+                SteerAngleInput = _readonlyVehicle.MaxSteerTireAngleInput;
                 isOverridden = true;
             }
             else

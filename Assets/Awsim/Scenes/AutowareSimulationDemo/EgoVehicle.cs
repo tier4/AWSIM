@@ -42,12 +42,12 @@ namespace Awsim.Scene.AutowareSimulationDemo
         [SerializeField] CameraRos2Publisher _cameraRos2Publisher;
         [SerializeField] GnssSensor _gnssSensor;
         [SerializeField] GnssRos2Publisher _gnssRos2Publisher;
-        [SerializeField] RtcAutoResponder _rtcAutoResponder; 
+        [SerializeField] RtcAutoResponder _rtcAutoResponder;
 
-        public void Initialize(AccelVehicleLogitechG29Input.Settings logitechG29Settings, Vector3 initialVehiclePosition, Quaternion initialVehicleRotation)
+        public void Initialize(AccelVehicleLogitechG29Input.Settings logitechG29Settings, AccelVehicle.Settings accelVehicleSettings, Vector3 initialVehiclePosition, Quaternion initialVehicleRotation)
         {
             // Vehicle.
-            _vehicle.Initialize();
+            _vehicle.Initialize(accelVehicleSettings);
             _controlModeBasedVehicleInputter.Initialize();
             _controlModeSrvServer.Initialize();
             _vehicleReportRos2Publisher.Initialize();
