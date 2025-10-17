@@ -765,7 +765,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _imageTopic: /sensing/camera/traffic_light/image_raw
   _cameraInfoTopic: /sensing/camera/traffic_light/camera_info
-  _frameID: traffic_light_left_camera/camera_optical_link
+  _frameId: traffic_light_left_camera/camera_optical_link
   _qosSettings:
     _reliabilityPolicy: 2
     _durabilityPolicy: 2
@@ -1021,8 +1021,15 @@ MonoBehaviour:
   sleepVelocityThreshold: 0.02
   _accelerationTimeConstant: 0
   _steerTireAngleTimeConstant: 0.05
-  _maxSteerTireAngle: 35
-  _maxAcceleration: 2
+  _maxSteerTireAngleInput: 35
+  _maxAccelerationInput: 2
+  _maxDecelerationInput: 2
+  _decelerationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _forwardSlipMultiplier: 1
   _sidewaySlipMultiplier: 1
 --- !u!114 &9012386562896983
@@ -1851,7 +1858,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _topic: /sensing/imu/tamagawa/imu_raw
-  _frameID: tamagawa/imu_link
+  _frameId: tamagawa/imu_link
   _qosSettings:
     _reliabilityPolicy: 1
     _durabilityPolicy: 2
@@ -3249,6 +3256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _outputHz: 1
+  _outputMode: 0
 --- !u!114 &4295912752792191720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3262,8 +3270,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _poseTopic: /sensing/gnss/pose
-  _poseWithCovarianceStampedTopic: /sensing/gnss/pose_with_covariance
-  _frameID: map
+  _poseWithCovTopic: /sensing/gnss/pose_with_covariance
+  _mgrsFrame: map
+  _navSatFixTopic: /sensing/gnss/ublox/nav_sat_fix
+  _frameId: map
   _qosSettings:
     _reliabilityPolicy: 1
     _durabilityPolicy: 2
