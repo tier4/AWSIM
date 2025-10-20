@@ -326,8 +326,8 @@ namespace Awsim.Entity
         FirstOrderLaggedFloat _firstOrderLaggedAcceleration = null;
         FirstOrderLaggedFloat _firstOrderLaggedSteerTireAngle = null;
         [SerializeField] float _maxSteerTireAngleInput = 35f;
-        [SerializeField] float _maxAccelerationInput = 2f;
-        [SerializeField] float _maxDecelerationInput = 2f;
+        [SerializeField] float _maxAccelerationInput = 1.5f;
+        [SerializeField] float _maxDecelerationInput = 3.5f;
         float _steerTireAngle = 0f;
 
         [Tooltip("Deceleration curve when throttle is off (like engine braking). Time axis represents velocity (m/s), Value axis represents deceleration (m/s^2).")]
