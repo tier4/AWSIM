@@ -60,7 +60,7 @@ namespace Awsim.Entity
         [SerializeField] float _minNormalizedSteeringTorque = 0.17f;
         [SerializeField] float _selfAligningTorqueSpeedCoeff = 5.2f;
         [SerializeField] float _selfAligningTorqueSteerCoeff = 1.8f;
-        [SerializeField, Range(0f, 0.15f)] float _stationarySteeringResistance = 0.15f;  // Steering resistance when stationary (0-1)
+        [SerializeField, Range(0f, 0.1f)] float _stationarySteeringResistance = 0.1f;  // Steering resistance when stationary (0 - 0.1)
 
         [Header("Vehicle settings")]
         [SerializeField] Component _readonlyVehicleComponent = null;
