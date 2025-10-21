@@ -26,6 +26,7 @@ namespace Awsim.Scene.AutowareSimulationDemo
         [Header("Ego Vehicle")]
         [SerializeField] Transform _vehicleTransform;
         [SerializeField] AccelVehicle _vehicle;
+        [SerializeField] Rigidbody _vehicleRigidbody;
         [SerializeField] AccelVehicleReportRos2Publisher _vehicleReportRos2Publisher;
         [SerializeField] AccelVehicleControlModeSrvServer _controlModeSrvServer;
         [SerializeField] AccelVehicleControlModeBasedInputter _controlModeBasedVehicleInputter;
@@ -55,9 +56,7 @@ namespace Awsim.Scene.AutowareSimulationDemo
             _keyboardVehicleInput.Initialize();
             _ros2VehicleInput.Initialize();
             _logitechG29VehicleInput.Initialize(logitechG29Settings);
-            _vehicleTransform.position = initialVehiclePosition;
-            _vehicleTransform.rotation = initialVehicleRotation;
-
+            SetPositionAndRotation(initialVehiclePosition, initialVehicleRotation);
             // Sensor.
             _imuSensor.Initialize();
             _imuRos2Publisher.Initialize();
@@ -106,6 +105,25 @@ namespace Awsim.Scene.AutowareSimulationDemo
             // Sensor.
             _imuSensor.OnFixedUpdate();
             _rtcAutoResponder.OnFixedUpdate();
+        }
+
+        void SetPositionAndRotation(Vector3 rosPosition, Quaternion rosRotation)
+        {
+            Vector3 unityPos = new Vector3(
+                -rosPosition.y,  
+                rosPosition.z,   
+                rosPosition.x    
+            );
+
+            Quaternion unityRot = new Quaternion(
+                rosRotation.y,
+                -rosRotation.z,
+                rosRotation.x,
+                rosRotation.w
+            );
+
+            _vehicleRigidbody.position = unityPos;
+            _vehicleRigidbody.rotation = unityRot;
         }
     }
 }
