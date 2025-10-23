@@ -79,10 +79,10 @@ AWSIM comes with a *standalone* flavor of [`Ros2ForUnity`](../../Components/ROS2
 
 !!! info
 
-    AWSIM's Unity version is currently **6000.0.34f1**
+    AWSIM's Unity version is currently **6000.0.58f2**
 
 1. Install [UnityHub](https://docs.unity3d.com/hub/manual/InstallHub.html).
-1. Download Unity 6000.0.34f1 from the [download archive](https://unity.com/releases/editor/archive).
+1. Download Unity 6000.0.58f2 from the [download archive](https://unity.com/releases/editor/archive).
    <popup-img src="image_0.png" alt="image_0"></popup-img>
 
 ## 3. Open AWSIM project
@@ -95,7 +95,7 @@ AWSIM comes with a *standalone* flavor of [`Ros2ForUnity`](../../Components/ROS2
 1. Open AWSIM project.
     Open a terminal and launch Unity Editor with the following command (adjust the path if necessary):  
     ```bash  
-    ~/Unity/Hub/Editor/6000.0.34f1/Editor/Unity -projectPath "/home/user/AWSIM/"
+    ~/Unity/Hub/Editor/6000.0.58f2/Editor/Unity -projectPath "/home/user/AWSIM/"
     ```
     This ensures that the environment variables set in `~/.bashrc` are applied correctly.
 
@@ -106,7 +106,7 @@ AWSIM comes with a *standalone* flavor of [`Ros2ForUnity`](../../Components/ROS2
         Run the following commands (adjust the Unity version and paths as necessary):
 
         ```bash
-        cd ~/Unity/Hub/Editor/6000.0.34f1/Editor/
+        cd ~/Unity/Hub/Editor/6000.0.58f2/Editor/
         mv Unity Unity.bin
 
         tee Unity >/dev/null <<'SH'
