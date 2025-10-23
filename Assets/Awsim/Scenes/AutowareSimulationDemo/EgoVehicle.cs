@@ -64,6 +64,7 @@ namespace Awsim.Scene.AutowareSimulationDemo
             _cameraRos2Publisher.Initialize();
             _gnssSensor.Initialize();
             _gnssRos2Publisher.Initialize();
+            _rtcAutoResponder.Initialize();
         }
 
         public void Initialize()
