@@ -58,6 +58,7 @@ markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
 
+
 repo_url: https://github.com/tier4/AWSIM
 repo_name: tier4/AWSIM
 
@@ -68,8 +69,9 @@ nav:
     - Demo details: GettingStarted/DemoDetails/index.md
     - AWSIM concept: GettingStarted/AWSIMConcept/index.md
     - Advanced:
+      - Awsim rviz plugins: GettingStarted/Advanced/AwsimRvizPlugins/index.md
+      - Logitech G29: GettingStarted/Advanced/LogitechG29/index.md
       - UsingOpenScenario: GettingStarted/Advanced/UsingOpenScenario/index.md
-      - AwsimRvizPlugins: GettingStarted/Advanced/AwsimRvizPlugins/index.md
   - Developer guide:
     - Prerequisites: DeveloperGuide/Prerequisites/index.md
     - Setup unity project: DeveloperGuide/SetupUnityProject/index.md
