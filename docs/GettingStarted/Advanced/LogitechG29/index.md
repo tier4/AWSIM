@@ -50,7 +50,7 @@ The `AWSIM-demo.x86-64` simulation (included in [AWSIM-demo.zip](../../../Downlo
 
 1. Launch `AWSIM-demo.x86-64` with `sample-config.json`
     ```
-    ./AWSIM-demo.x86_64 --json-path <direcotry path>/<config json name>.json
+    ./AWSIM-demo.x86_64 --json_path <direcotry path>/<config json name>.json
     ```
 1. Select Logitech G29 from the UI's Vehicle input device.
 

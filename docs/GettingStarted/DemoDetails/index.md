@@ -285,7 +285,7 @@ It is possible to do some configurations by specifying the json path when starti
 
 - Launch command with json path.
     ```
-    ./AWSIM-demo.x86_64 --json-path <direcotry path>/<config json name>.json
+    ./AWSIM-demo.x86_64 --json_path <direcotry path>/<config json name>.json
     ```
 
     !!! info
