@@ -130,7 +130,7 @@ Please follow the official Autoware documentation for configuring localhost:
 1. Download AWSIM demo.
     1. Download `AWSIM-Demo.zip`. 
     
-        [Download AWSIM-Demo.zip](https://github.com/tier4/AWSIM/releases/download/v2.0.0/AWSIM-Demo.zip){ .md-button }
+        [Download AWSIM-Demo.zip](https://github.com/tier4/AWSIM/releases/download/v2.0.1/AWSIM-Demo.zip){ .md-button }
 
     1. Unzip the downloaded file.
     1. Make the `AWSIM-Demo.x86_64` file executable. Rightclick the `AWSIM-Demo.x86_64` file and check the `Execute` checkbox.
@@ -142,7 +142,7 @@ Please follow the official Autoware documentation for configuring localhost:
     ```
     
         !!! info
-            If `AWSIM-Demo` is hefty, try [AWSIM-Demo-LightWeight](https://github.com/tier4/AWSIM/releases/download/v2.0.0/AWSIM-Demo-Lightweight.zip), a lightweight version.
+            If `AWSIM-Demo` is hefty, try [AWSIM-Demo-LightWeight](https://github.com/tier4/AWSIM/releases/download/v2.0.1/AWSIM-Demo-Lightweight.zip), a lightweight version.
 
 
 ## 4. Run AWSIM and Autoware
