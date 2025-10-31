@@ -44,6 +44,9 @@ This vehicle dynamics model was created for Autoware simulation, and assuming th
 
 - Keyboard
 
+!!! info
+    Keyboard input for throttle and steering instantly switches the control mode from `AUTONOMOUS` to `MANUAL`.
+
 |Key|Feature|
 |:--|:--|
 |D|Switch to move drive gear.|
@@ -58,6 +61,7 @@ This vehicle dynamics model was created for Autoware simulation, and assuming th
 |2|Turn right blinker on.|
 |3|Turn on hazard lights.|
 |4|Turn off blinker or hazard lights.|
+|C|Switch control mode `MANUAL` to `AUTONOMOUS`|
 
 - Logitech G29 steering wheel
 
@@ -74,6 +78,8 @@ This vehicle dynamics model was created for Autoware simulation, and assuming th
 |Right paddle|Turn right blinker on.|
 |R2|Turn on hazard lights.|
 |R3|Turn off blinker or hazard lights.|
+|L2|Switch control mode `AUTONOMOUS` to `MANUAL`|
+|L3|Switch control mode `MANUAL` to `AUTONOMOUS`|
 
 ### Control mode
 
@@ -116,7 +122,7 @@ Demo simulation has a total of four sensors.
 <popup-img src="image_5.png" width="500" alt="image_5"></popup-img>
 
 Lidar sensor is the component that simulates the *LiDAR* (*Light Detection and Ranging*) sensor.
-*LiDAR* works by emitting laser beams that bounce off objects in the environment, and then measuring the time it takes for the reflected beams to return, allowing the sensor to create a *3D* map of the surroundings.
+*LiDAR* works by emitting laser beams that bounc                e off objects in the environment, and then measuring the time it takes for the reflected beams to return, allowing the sensor to create a *3D* map of the surroundings.
 This data is used for object detection, localization, and mapping.
 
 Publish ROS2 topics.
@@ -330,7 +336,7 @@ For performance, the pointcloud topic output from the LiDAR sensor is published 
 | Topic                                       | Message type                                                                                                                                                     | `frame_id`                              | `Hz`  | `QoS`                                                               |
 |--:------------------------------------------|--:---------------------------------------------------------------------------------------------------------------------------------------------------------------|--:--------------------------------------|--:-:--|--:------------------------------------------------------------------|
 | `/clock`                                    | [`rosgraph_msgs/Clock`](https://docs.ros.org/en/api/rosgraph_msgs/html/msg/Clock.html)                                                                           | -                                       | `100` | <ul><li>`Best effort`</li><li>`Volatile`</li><li>`Keep last/1`</li> |
-| `/sensing/camera/traffic_light/camera_info` | [`sensor_msgs/CameraInfo`](https://docs.ros.org/en/api/sensor_msgs/html/msg/CameraInfo.html)                                                                     | `traffic_light_left_camera/camera_link` | `10`  | <ul><li>`Best effort`</li><li>`Volatile`</li><li>`Keep last/1`</li> |
+| `/sensing/camera/traffic_light/camera_info` | [`sensor_msgs/C                ameraInfo`](https://docs.ros.org/en/api/sensor_msgs/html/msg/CameraInfo.html)                                                                     | `traffic_light_left_camera/camera_link` | `10`  | <ul><li>`Best effort`</li><li>`Volatile`</li><li>`Keep last/1`</li> |
 | `/sensing/camera/traffic_light/image_raw`   | [`sensor_msgs/Image`](https://docs.ros.org/en/api/sensor_msgs/html/msg/Image.html)                                                                               | `traffic_light_left_camera/camera_link` | `10`  | <ul><li>`Best effort`</li><li>`Volatile`</li><li>`Keep last/1`</li> |
 | `/sensing/gnss/pose`                        | [`geometry_msgs/Pose`](https://docs.ros.org/en/api/geometry_msgs/html/msg/Pose.html)                                                                             | `gnss_link`                             | `1`   | <ul><li>`Reliable`</li><li>`Volatile`</li><li>`Keep last/1`</li>    |
 | `/sensing/gnss/pose_with_covariance`        | [`geometry_msgs/PoseWithCovarianceStamped`](https://docs.ros.org/en/api/geometry_msgs/html/msg/PoseWithCovarianceStamped.html)                                   | `gnss_link`                             | `1`   | <ul><li>`Reliable`</li><li>`Volatile`</li><li>`Keep last/1`</li>    |

@@ -53,9 +53,13 @@ namespace Awsim.Entity
 
             if (_hasManuallyInputs)
             {
-                var manuallyInput = ManuallyInputs[_activeManuallyInputIndex];
-                _isOverridden = manuallyInput.UpdateInputs();
-                _isSwitchAutonomous = manuallyInput.UpdateInputs();
+                for (int i = 0; i < ManuallyInputs.Length; i++)
+                {
+
+                    var tempOverriden = ManuallyInputs[i].UpdateInputs();
+                    if (i == _activeManuallyInputIndex)
+                        _isOverridden = tempOverriden;
+                }
             }
         }
 
