@@ -46,7 +46,7 @@ namespace Awsim.Entity
         public string Name => "Logitech G29";
         public float AccelerationInput { get; private set; } = 0;
         public float SteerAngleInput { get; private set; } = 0;
-        public Gear GearInput { get; private set; } = Gear.Parking;
+        public Gear GearInput { get; private set; } = Gear.Drive;
         public TurnIndicators TurnIndicatorsInput { get; private set; } = TurnIndicators.None;
         public HazardLights HazardLightsInput { get; private set; } = HazardLights.Disable;
         public bool SwitchAutonomous { get; private set; } = false;

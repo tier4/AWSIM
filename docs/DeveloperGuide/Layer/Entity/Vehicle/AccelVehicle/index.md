@@ -41,7 +41,6 @@ By default, each key is assigned to the following classes.
 |R|Switch to move reverse gear.|
 |N|Switch to neutral gear.|
 |P|Switch to parking gear.|
-|C|Switch control mode to AUTONOMOUS.|
 |Up arrow|Forward acceleration.|
 |Down arrow|Reverse acceleration.|
 |Left arrow|Left turning.|
@@ -50,6 +49,7 @@ By default, each key is assigned to the following classes.
 |2|Turn right blinker on.|
 |3|Turn on hazard lights.|
 |4|Turn off blinker or hazard lights.|
+|C|Switch control mode `MANUAL` to `AUTONOMOUS`|
 
 - AccelVehicleLogitechG29Input
 
@@ -59,8 +59,6 @@ By default, each key is assigned to the following classes.
 |Square|Switch to move reverse gear.|
 |Circle|Switch to neutral gear.|
 |Cross|Switch to parking gear.|
-|L2|Swtich control mode to MANUAL.|
-|L3|Switch control mode to AUTONOMOUS.|
 |Throttle pedal|Forward acceleration.|
 |Brake pedal|Reverse acceleration.|
 |Steering wheel|Turning.|
@@ -68,6 +66,8 @@ By default, each key is assigned to the following classes.
 |Right paddle|Turn right blinker on.|
 |R2|Turn on hazard lights.|
 |R3|Turn off blinker or hazard lights.|
+|L2|Switch control mode `AUTONOMOUS` to `MANUAL`|
+|L3|Switch control mode `MANUAL` to `AUTONOMOUS`|
 
 ## Create custom vehicle
 

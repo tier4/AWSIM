@@ -36,7 +36,7 @@ namespace Awsim.Entity
         public string Name => "Keyboard";
         public float AccelerationInput { get; private set; }
         public float SteerAngleInput { get; private set; }
-        public Gear GearInput { get; private set; }
+        public Gear GearInput { get; private set; } = Gear.Drive;
         public TurnIndicators TurnIndicatorsInput { get; private set; }
         public HazardLights HazardLightsInput { get; private set; }
         public bool SwitchAutonomous { get; private set; }

@@ -72,4 +72,5 @@ The `AWSIM-demo.x86-64` simulation (included in [AWSIM-demo.zip](../../../Downlo
 |Right paddle|Turn right blinker on.|
 |R2|Turn on hazard lights.|
 |R3|Turn off blinker or hazard lights.|
-|L2|Switch control mode `MANUAL` to `AUTONOMOUS`|
+|L2|Switch control mode `AUTONOMOUS` to `MANUAL`|
+|L3|Switch control mode `MANUAL` to `AUTONOMOUS`|
