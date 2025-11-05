@@ -47,7 +47,7 @@ flowchart LR
 
     - Install Unity Editor  
        Use Unity Hub to install the following version of Unity:
-       - **Unity 6000.0.34f1**
+       - **Unity 6000.0.61f1**
 
 1. To improve the performance and stability of DDS-based communication, it's recommended to apply the following optimizations.
 

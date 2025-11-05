@@ -25,6 +25,7 @@ AWSIM is the best digital twin simulator for [Autoware](https://github.com/autow
 - Support ASAM OpenSCENARIO (connecting scenario simulator v2)
 - Simple and highly expandable layered architecture
 - Controlling the execution order of C# code independent of Unity's script execution order
+- Unity version 6000.0.61f1
 
 ## Tutorial
 
