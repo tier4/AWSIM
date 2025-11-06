@@ -36,6 +36,9 @@ The `AWSIM-demo.x86-64` simulation (included in [AWSIM-demo.zip](../../../Downlo
 
     In this case, the device path for G29 is `/dev/input/event22`.
 
+    !!! info
+        By default, the numbers at the end of the device path may change when connecting a device or starting up the PC. You can fix the event path by configuring [Udev Rules](https://docs.oracle.com/en/operating-systems/oracle-linux/6/admin/about-udev-rules.html?utm_source=chatgpt.com) as needed.
+
 1. Enter the g29 device path in `sample-config.json`. Please replace `<device path number>` as appropriate.
 
     !!! info 
