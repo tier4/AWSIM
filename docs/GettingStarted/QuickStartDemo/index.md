@@ -227,7 +227,7 @@ It is recommended to launch in the order of `1.AWSIM -> 2.Autoware`. Same proced
             The default value of Autoware's maximum speed is 15 km/h. If you want more speed, you can modify it by entering the following command in the `autoware` directory.
             ```
             sed -i 's/max_vel: 4.17/max_vel: 22.2/' \
-            ./src/launcher/autoware_launch/autoware_launch/config/planning/scenario_planning/common/common.paramyaml
+            ./src/launcher/autoware_launch/autoware_launch/config/planning/scenario_planning/common/common.param.yaml
             ```
 
         Learn more about demo simulation.
