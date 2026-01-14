@@ -32,21 +32,35 @@ namespace Awsim.Entity
     /// </summary>
     public class GnssSensor : MonoBehaviour
     {
+        public class AttEuler
+        {
+            public float heading; //deg
+            public float pitch;
+            public float roll;
+            public float heading_dot; // deg/s
+            public float pitch_dot;
+            public float roll_dot;
+
+        }
         public interface IReadOnlyOutputData
         {
             public Mgrs Mgrs { get; }
             public GeoCoordinate GeoCoordinate { get; }
+            public AttEuler AttEuler { get; }
         }
+
 
         public class OutputData : IReadOnlyOutputData
         {
             public Mgrs Mgrs { get; set; }
             public GeoCoordinate GeoCoordinate { get; set; }
+            public AttEuler AttEuler { get; set; }
 
             public OutputData()
             {
                 Mgrs = null;                // TODO: Create an instance once with this constructor.
                 GeoCoordinate = null;       // TODO: Create an instance once with this constructor.
+                AttEuler = null;
             }
         }
 
@@ -106,17 +120,29 @@ namespace Awsim.Entity
         {
             var unityPosition = _transform.position;
             var rosPosition = Ros2Utility.UnityToRos2Position(unityPosition);
-            var mgrsBase      = MgrsPosition.Instance.Mgrs;
+            var mgrsBase = MgrsPosition.Instance.Mgrs;
             var mgrsPosition = rosPosition + mgrsBase.Position;
 
             _outputData.Mgrs = new Mgrs(mgrsPosition, mgrsBase.GridZone);
 
-            string mgrsString = mgrsBase.GridZone + string.Format("{0:D9}", (int)(mgrsPosition.x * 10000)) + string.Format("{0:D9}", (int)(mgrsPosition.y * 10000)); 
+            string mgrsString = mgrsBase.GridZone + string.Format("{0:D9}", (int)(mgrsPosition.x * 10000)) + string.Format("{0:D9}", (int)(mgrsPosition.y * 10000));
             (int utmZone, bool utmNorthp, double utmX, double utmY, int utmPrec) = GeographicLib.Geocodes.MGRS.Reverse(mgrsString.AsSpan());
             (double latDeg, double lonDeg) = GeographicLib.UTMUPS.Reverse(utmZone, utmNorthp, utmX, utmY);
 
-            double height = mgrsPosition.z; 
+            double height = mgrsPosition.z;
             _outputData.GeoCoordinate = new GeoCoordinate(latDeg, lonDeg, height);
+
+            _outputData.AttEuler = new AttEuler
+            {
+                heading = _transform.eulerAngles.y, // 0~360deg
+                pitch = float.NaN, // todo fill correct value
+                roll = float.NaN,
+                heading_dot = float.NaN,
+                pitch_dot = float.NaN,
+                roll_dot = float.NaN
+            };
+
+
 
             // Calls registered callbacks.
             OnOutput?.Invoke(_outputData);
