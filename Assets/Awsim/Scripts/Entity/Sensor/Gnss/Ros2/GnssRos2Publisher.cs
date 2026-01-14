@@ -82,8 +82,6 @@ namespace Awsim.Entity
         [SerializeField] float _gammaDelayMinMs = 0;
         [SerializeField] float _gammaDelayMaxMs = 10000;
 
-        int _pqmsg_size = 0;
-
         void Reset()
         {
             var instance = GetComponent<GnssSensor>();
@@ -196,12 +194,6 @@ namespace Awsim.Entity
             // Update msg timestamps
             AwsimRos2Node.UpdateROSTimestamps(_tmpData.Pose as MessageWithHeader, _tmpData.PoseWithCovariance as MessageWithHeader, _tmpData.NavSatFix as MessageWithHeader, _tmpData.Orientation as MessageWithHeader);
 
-            //Debug logs for delay measurement
-            //Debug.Log($"[GnssRos2Publisher] Total Delay: {_totalMeasuredDelayMs} ms");
-            //Debug.Log($"[GnssRos2Publisher] Total Delay Min: {_totalMeasuredDelayMsMin} ms");
-            //Debug.Log($"[GnssRos2Publisher] Publish Delay: {_publishMeasuredDelayMs} ms");
-            //Debug.Log($"[GnssRos2Publisher] Publish Delay Max: {_publishMeasuredDelayMsMax} ms");
-
             //Setting Delay
             double delay_sec = 0.0f;
             if (_gammaDelay)
@@ -210,12 +202,10 @@ namespace Awsim.Entity
                 delay_ms = Mathf.Clamp(delay_ms, _gammaDelayMinMs, _gammaDelayMaxMs);
                 delay_sec = (double)(delay_ms / 1000.0f);
             }
-            // Debug.Log($"[GnssRos2Publisher] Delay Sec: {delay_sec} s");
 
             int now_sec = _tmpData.NavSatFix.Header.Stamp.Sec;
             uint now_nanosec = _tmpData.NavSatFix.Header.Stamp.Nanosec; // time stamp
 
-            // Debug.Log($"[GnssRos2Publisher] NowSec: {now_sec} s");
 
             _tmpData.DataSec = now_sec;
             _tmpData.DataNanoSec = now_nanosec;
@@ -223,7 +213,6 @@ namespace Awsim.Entity
             _tmpData.PublishNanoSec = (_tmpData.DataNanoSec + (uint)(delay_sec * 1e9)) % 1_000_000_000;
 
             _dataReady = true;
-            //Debug.Log($"[GnssRos2Publisher] pqmsg size: {_pqmsg_size}");
         }
 
 
@@ -279,7 +268,6 @@ namespace Awsim.Entity
             while (!_stopHighFreqUpdate)
             {
                 Thread.Sleep(period);
-                _pqmsg_size = pqMsg.Count;
 
                 if (_dataReady)
                 {
