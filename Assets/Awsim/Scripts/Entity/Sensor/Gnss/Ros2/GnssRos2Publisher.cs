@@ -20,7 +20,7 @@ using sensor_msgs.msg;
 using autoware_sensing_msgs.msg;
 using System.Threading;
 using System.Collections.Generic;
-using System.Linq; 
+using System.Linq;
 using Unity.Mathematics;
 
 namespace Awsim.Entity
@@ -112,10 +112,10 @@ namespace Awsim.Entity
                 Pose = new geometry_msgs.msg.PoseWithCovariance()
             };
             for (int i = 0; i < _tmpData.PoseWithCovariance.Pose.Covariance.Length; i++)
-                        _tmpData.PoseWithCovariance.Pose.Covariance[i] = 0;
+                _tmpData.PoseWithCovariance.Pose.Covariance[i] = 0;
 
             // Initialize temporary NavSatFix message
-             _tmpData.NavSatFix = new NavSatFix
+            _tmpData.NavSatFix = new NavSatFix
             {
                 Header = new Header { Frame_id = _frameId },
                 Status = new NavSatStatus
@@ -149,7 +149,7 @@ namespace Awsim.Entity
             _gnssSensor.OnOutput += DataUpdate;
             _highFreqUpdateThread = new Thread(HighFrequencyUpdate);
             _highFreqUpdateThread.Start();
-            
+
             // publisher
         }
 
@@ -180,7 +180,7 @@ namespace Awsim.Entity
             _tmpData.NavSatFix.Latitude = data.GeoCoordinate.Latitude;
             _tmpData.NavSatFix.Longitude = data.GeoCoordinate.Longitude;
             _tmpData.NavSatFix.Altitude = data.GeoCoordinate.Altitude;
-            
+
             // septentrio heading converter
             // https://github.com/tier4/aip_launcher/blob/tier4/universe/aip_common_sensor_launch/scripts/septentrio_heading_converter.py
             _tmpData.Orientation.Orientation.Orientation.X = 0.0;
@@ -194,8 +194,8 @@ namespace Awsim.Entity
             _tmpData.Orientation.Orientation.Rmse_rotation_z = 1.0f;
 
             //タイムスタンプ押下
-            AwsimRos2Node.UpdateROSTimestamps(_tmpData.Pose as MessageWithHeader, _tmpData.PoseWithCovariance as MessageWithHeader,_tmpData.NavSatFix as MessageWithHeader, _tmpData.Orientation as MessageWithHeader);
-            
+            AwsimRos2Node.UpdateROSTimestamps(_tmpData.Pose as MessageWithHeader, _tmpData.PoseWithCovariance as MessageWithHeader, _tmpData.NavSatFix as MessageWithHeader, _tmpData.Orientation as MessageWithHeader);
+
             //Debug logs for delay measurement
             //Debug.Log($"[GnssRos2Publisher] Total Delay: {_totalMeasuredDelayMs} ms");
             //Debug.Log($"[GnssRos2Publisher] Total Delay Min: {_totalMeasuredDelayMsMin} ms");
@@ -235,16 +235,46 @@ namespace Awsim.Entity
             int period = (int)((1000.0f / _highFreqUpdateHz) + 0.5f);
 
             var qos = _qosSettings.GetQosProfile();
-            IPublisher<geometry_msgs.msg.PoseStamped> posePublisher = AwsimRos2Node.CreatePublisher<geometry_msgs.msg.PoseStamped>(_poseTopic, qos);
-            IPublisher<geometry_msgs.msg.PoseWithCovarianceStamped> poseWithCovarianceStampedPublisher = AwsimRos2Node.CreatePublisher<geometry_msgs.msg.PoseWithCovarianceStamped>(_poseWithCovTopic, qos);
-            IPublisher<NavSatFix> navSatFixPublisher = AwsimRos2Node.CreatePublisher<NavSatFix>(_navSatFixTopic, qos);
-            IPublisher<GnssInsOrientationStamped> orientationPublisher = AwsimRos2Node.CreatePublisher<GnssInsOrientationStamped>(_orientationTopic, qos);
+            bool attitudeOutput = _gnssSensor.AttitudeOutput;
+            var outputMode = _gnssSensor.OutputMode;
+
+            IPublisher<geometry_msgs.msg.PoseStamped> posePublisher = null;
+            IPublisher<geometry_msgs.msg.PoseWithCovarianceStamped> poseWithCovarianceStampedPublisher = null;
+            IPublisher<NavSatFix> navSatFixPublisher = null;
+            IPublisher<GnssInsOrientationStamped> orientationPublisher = null;
+
+            //Initialize publishers
+            switch (outputMode)
+            {
+                case GnssOutputMode.Mgrs:
+                    posePublisher = AwsimRos2Node.CreatePublisher<geometry_msgs.msg.PoseStamped>(_poseTopic, qos);
+                    poseWithCovarianceStampedPublisher = AwsimRos2Node.CreatePublisher<geometry_msgs.msg.PoseWithCovarianceStamped>(_poseWithCovTopic, qos);
+                    break;
+                case GnssOutputMode.NavSatFix:
+                    navSatFixPublisher = AwsimRos2Node.CreatePublisher<NavSatFix>(_navSatFixTopic, qos);
+                    break;
+                default:
+                    return;
+            }
+            if (attitudeOutput)
+            {
+                orientationPublisher = AwsimRos2Node.CreatePublisher<GnssInsOrientationStamped>(_orientationTopic, qos);
+            }
 
             //準備が整うまで待機
 
-            while (_gnssSensor == null || navSatFixPublisher == null || orientationPublisher == null) // || attEulerPublisher == null)
+            while (_gnssSensor == null || navSatFixPublisher == null || orientationPublisher == null)
             {
                 Thread.Sleep(period);
+                if (_gnssSensor == null)
+                    continue;
+                if (outputMode == GnssOutputMode.NavSatFix && navSatFixPublisher == null)
+                    continue;
+                if (outputMode == GnssOutputMode.Mgrs && (posePublisher == null || poseWithCovarianceStampedPublisher == null))
+                    continue;
+                if (attitudeOutput && orientationPublisher == null)
+                    continue;
+                break;
             }
 
             while (!_stopHighFreqUpdate)
@@ -280,10 +310,20 @@ namespace Awsim.Entity
                        ((pqMsg.First().Key.Item1 == now_sec) && (pqMsg.First().Key.Item2 <= now_nanosec))))
                 {
                     var first_item = pqMsg.First();
-                    posePublisher.Publish(first_item.Value.Pose);
-                    poseWithCovarianceStampedPublisher.Publish(first_item.Value.PoseWithCovariance);
-                    navSatFixPublisher.Publish(first_item.Value.NavSatFix);
-                    orientationPublisher.Publish(first_item.Value.Orientation);
+                    switch (outputMode)
+                    {
+                        case GnssOutputMode.Mgrs:
+                            posePublisher.Publish(first_item.Value.Pose);
+                            poseWithCovarianceStampedPublisher.Publish(first_item.Value.PoseWithCovariance);
+                            break;
+                        case GnssOutputMode.NavSatFix:
+                            navSatFixPublisher.Publish(first_item.Value.NavSatFix);
+                            break;
+                    }
+                    if (attitudeOutput)
+                    {
+                        orientationPublisher.Publish(first_item.Value.Orientation);
+                    }
 
                     _totalMeasuredDelayMs = (float)(now_sec - first_item.Value.DataSec) * 1000.0f +
                                             (float)(now_nanosec - first_item.Value.DataNanoSec) / 1e6f;
@@ -340,7 +380,7 @@ namespace Awsim.Entity
             };
             return newPose;
         }
-        
+
         private static geometry_msgs.msg.PoseWithCovarianceStamped CreateDeepCopyPoseWithCovariance(geometry_msgs.msg.PoseWithCovarianceStamped original)
         {
             var newPoseWithCov = new geometry_msgs.msg.PoseWithCovarianceStamped

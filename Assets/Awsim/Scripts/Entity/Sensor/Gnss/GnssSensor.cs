@@ -78,7 +78,9 @@ namespace Awsim.Entity
 
         [SerializeField] int _outputHz = 1;      // Autoware gnss sensor basically output at 1hz.
         [SerializeField] GnssOutputMode _outputMode = GnssOutputMode.Mgrs;
+        [SerializeField] bool _attitudeOutput = false;
         public GnssOutputMode OutputMode => _outputMode;
+        public bool AttitudeOutput => _attitudeOutput;
         OutputData _outputData = null;
         Transform _transform = null;
 
