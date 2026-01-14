@@ -67,10 +67,10 @@ namespace Awsim.Entity
         private Thread _highFreqUpdateThread;
 
         //mesurement delay variables
-        private volatile float _totalMeasuredDelayMs = 0.0f; // 設定した遅延+システムの遅延
-        private volatile float _totalMeasuredDelayMsMin = 1e6f; // 設定した遅延+システムの遅延
-        private volatile float _publishMeasuredDelayMs = 0.0f; // 設定した遅延を抜いたシステムの遅延
-        private volatile float _publishMeasuredDelayMsMax = 0.0f; // 設定した遅延を抜いたシステムの遅延
+        private volatile float _totalMeasuredDelayMs = 0.0f; // setting delay + system delay
+        private volatile float _totalMeasuredDelayMsMin = 1e6f;
+        private volatile float _publishMeasuredDelayMs = 0.0f; // system delay excluding setting delay
+        private volatile float _publishMeasuredDelayMsMax = 0.0f;
 
         private int counter = 0;
 
@@ -193,7 +193,7 @@ namespace Awsim.Entity
             _tmpData.Orientation.Orientation.Rmse_rotation_y = 1.0f;
             _tmpData.Orientation.Orientation.Rmse_rotation_z = 1.0f;
 
-            //タイムスタンプ押下
+            // Update msg timestamps
             AwsimRos2Node.UpdateROSTimestamps(_tmpData.Pose as MessageWithHeader, _tmpData.PoseWithCovariance as MessageWithHeader, _tmpData.NavSatFix as MessageWithHeader, _tmpData.Orientation as MessageWithHeader);
 
             //Debug logs for delay measurement
@@ -230,8 +230,8 @@ namespace Awsim.Entity
 
         void HighFrequencyUpdate()
         {
-            int indexCounter = 0;//辞書を重複させないためのカウンター
-            var pqMsg = new SortedDictionary<(int, uint, int), GnssDatas>(); // priority queue(SortedDictionaryで代用)
+            int indexCounter = 0;// A counter to avoid duplicate items in priority queue
+            var pqMsg = new SortedDictionary<(int, uint, int), GnssDatas>(); // priority queue(Substitute with SortedDictionary)
             int period = (int)((1000.0f / _highFreqUpdateHz) + 0.5f);
 
             var qos = _qosSettings.GetQosProfile();
@@ -261,9 +261,8 @@ namespace Awsim.Entity
                 orientationPublisher = AwsimRos2Node.CreatePublisher<GnssInsOrientationStamped>(_orientationTopic, qos);
             }
 
-            //準備が整うまで待機
-
-            while (_gnssSensor == null || navSatFixPublisher == null || orientationPublisher == null)
+            // Wait until GnssSensor and publishers are ready
+            while (true)
             {
                 Thread.Sleep(period);
                 if (_gnssSensor == null)
@@ -302,7 +301,7 @@ namespace Awsim.Entity
                     _dataReady = false;
                 }
 
-                //time sourceから時刻を取得(Ros2ClockPublisherによればスレッドセーフなはず)
+                //get current time from time source
                 AwsimRos2Node.GetTime(out var now_sec, out var now_nanosec);
 
                 // publish ready message
@@ -497,7 +496,6 @@ namespace Awsim.Entity
 
         public static float GenerateGamma(float mean, float variance)
         {
-            // https://github.com/mathnet/mathnet-numerics/blob/master/src/Numerics/Distributions/Gamma.cs
             if (variance <= 0.0)
             {
                 return mean;
