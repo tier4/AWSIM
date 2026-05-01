@@ -49,13 +49,4 @@ Applies to `tier4/AWSIM` repositories and all content contained in the [Releases
 
 See also [LICENSE](./LICENSE)
 
-## Contact
-
-日本語/English OK
-
-GitHub issue : [https://github.com/tier4/AWSIM/issues](https://github.com/tier4/AWSIM/issues)  
-e-mail : takatoki.makino@tier4.jp  
-discord : mackierx111  
-twitter : [@mackierx111](https://x.com/mackierx111)  
-
 (c) 2025 TIER IV, inc
