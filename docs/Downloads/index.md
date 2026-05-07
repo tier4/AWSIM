@@ -5,3 +5,6 @@
 |[AWSIM-Demo-OpenSCENARIO.zip](https://github.com/tier4/AWSIM/releases/download/v2.0.0/AWSIM-Demo-OpenSCENARIO.zip)|Demo simulation using OpenSCENARIO with AWSIM. Connect AWSIM, Autoware, and [Scenario Simulator v2.](https://github.com/tier4/scenario_simulator_v2). see also [here](../DeveloperGuide/Experimental/UsingOpenScenario/index.md).|
 |[Shinjuku.unitypackage](https://github.com/tier4/AWSIM/releases/download/v2.0.0/Shinjuku.unitypackage)|`.unitypackage` for Shinjuku to import into UnityEditor. see also [here](../DeveloperGuide/SetupUnityProject/index.md).|
 |[Shinjuku-Map.zip](https://github.com/tier4/AWSIM/releases/download/v2.0.0/Shinjuku-Map.zip)|Map files used in Autoware. `.osm` and `.pcd` files for Shinjuku.|.
+
+!!! warning "Shinjuku 3D models — non-commercial use only"
+    The Shinjuku 3D models (`Shinjuku.unitypackage` and the Shinjuku scene shipped in the demo builds) are licensed under [CC BY-NC 4.0](../License/index.md) and **must not be used for business or other commercial purposes**.
