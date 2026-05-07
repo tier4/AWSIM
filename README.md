@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> AWSIM has been transferred from [TIER IV](https://github.com/tier4) to [Autoware Foundation](https://github.com/autowarefoundation/) GitHub Organization at 2026-05-07.
+
 > [!NOTE]
 > AWSIM won the Grand Prize in the Innovation Award category of the Industry at the 17th Unity Awards. Click [here](https://unity.com/blog/17th-unity-awards-wrap-up-2025-winners-revealed) for more details.
 
