@@ -59,8 +59,8 @@ markdown_extensions:
       generic: true
 
 
-repo_url: https://github.com/tier4/AWSIM
-repo_name: tier4/AWSIM
+repo_url: https://github.com/autowarefoundation/AWSIM
+repo_name: autowarefoundation/AWSIM
 
 nav:
   - Home: index.md

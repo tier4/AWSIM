@@ -35,16 +35,16 @@ AWSIM is the best digital twin simulator for [Autoware](https://github.com/autow
 ## Tutorial
 
 First, try the tutorial !  
-[AWSIM Document - Quick Start Demo](https://tier4.github.io/AWSIM/GettingStarted/QuickStartDemo/)
+[AWSIM Document - Quick Start Demo](https://autowarefoundation.github.io/AWSIM/GettingStarted/QuickStartDemo/)
 
 ## Documentation
 
-https://tier4.github.io/AWSIM/
+https://autowarefoundation.github.io/AWSIM/
 
 ## License
 
 AWSIM License
-Applies to `tier4/AWSIM` repositories and all content contained in the [Releases](https://github.com/tier4/AWSIM/releases).
+Applies to `autowarefoundation/AWSIM` repositories and all content contained in the [Releases](https://github.com/autowarefoundation/AWSIM/releases).
 
 - code : Apache 2.0
 - assets : CC BY-NC

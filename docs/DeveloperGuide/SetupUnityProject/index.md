@@ -89,7 +89,7 @@ AWSIM comes with a *standalone* flavor of [`Ros2ForUnity`](../../Components/ROS2
 
 1. Git clone AWSIM repository.
     ```
-    git clone git@github.com:tier4/AWSIM.git
+    git clone git@github.com:autowarefoundation/AWSIM.git
     ```
 
 1. Open AWSIM project.
@@ -137,7 +137,7 @@ AWSIM comes with a *standalone* flavor of [`Ros2ForUnity`](../../Components/ROS2
 
 1. Download `Shinjuku.unitypackage`
 
-    [Download Shinjuku.unitypackage](https://github.com/tier4/AWSIM/releases/download/v2.0.0/Shinjuku.unitypackage){ .md-button }
+    [Download Shinjuku.unitypackage](https://github.com/autowarefoundation/AWSIM/releases/download/v2.0.0/Shinjuku.unitypackage){ .md-button }
 
 1. In Unity Editor, from the menu bar at the top, select `Assets -> Import Package -> Custom Package...` and navigate the `Shinjuku.unitypackage` file.
 1. `Shinjuku.unitypackage` package has been successfully imported under `Assets\AWSIM\Externals` directory.
