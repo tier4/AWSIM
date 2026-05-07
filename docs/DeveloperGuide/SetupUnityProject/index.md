@@ -132,6 +132,9 @@ AWSIM comes with a *standalone* flavor of [`Ros2ForUnity`](../../Components/ROS2
         
 ## 4. Import external packages
 
+!!! warning "Shinjuku 3D models — non-commercial use only"
+    The Shinjuku 3D models in `Shinjuku.unitypackage` are licensed under [CC BY-NC 4.0](../../License/index.md) and **must not be used for business or other commercial purposes**.
+
 1. Download `Shinjuku.unitypackage`
 
     [Download Shinjuku.unitypackage](https://github.com/tier4/AWSIM/releases/download/v2.0.0/Shinjuku.unitypackage){ .md-button }
