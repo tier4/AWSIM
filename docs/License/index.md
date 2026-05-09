@@ -1,7 +1,7 @@
 ## AWSIM Licenses
 
 
-AWSIM License Applies to tier4/AWSIM repositories and all content contained in the Releases [https://github.com/tier4/AWSIM/releases](https://github.com/tier4/AWSIM/releases).
+AWSIM License Applies to autowarefoundation/AWSIM repositories and all content contained in the Releases [https://github.com/autowarefoundation/AWSIM/releases](https://github.com/autowarefoundation/AWSIM/releases).
 
 * AWSIM specific code is distributed under **Apache2.0 License**.  
 The following extensions are included (`.cs` `.compute` `.xml`)

@@ -27,7 +27,7 @@ AWSIM is the best scene simulator for [Autoware](https://github.com/autowarefoun
     - ROS2 communication, etc
 - Support for Ubuntu 22.04
 - ROS2 native communication (humble)
-- [Open sourced](https://github.com/tier4/AWSIM)
+- [Open sourced](https://github.com/autowarefoundation/AWSIM)
 - Made with [Unity](https://unity.com/)
 
 

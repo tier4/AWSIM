@@ -109,7 +109,7 @@ At the time of writing, the latest version is `16.6.1`.
     vcs import src < simulator.repos
     ```
 
-1. Download [shinjuku_map.zip](https://github.com/tier4/AWSIM/releases/download/v1.3.0/shinjuku_map.zip)
+1. Download [shinjuku_map.zip](https://github.com/autowarefoundation/AWSIM/releases/download/v1.3.0/shinjuku_map.zip)
 
 1. Unzip it to `src/simulator` directory.
     ```

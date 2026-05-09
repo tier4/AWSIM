@@ -130,7 +130,7 @@ Please follow the official Autoware documentation for configuring localhost:
 1. Download AWSIM demo.
     1. Download `AWSIM-Demo.zip`. 
     
-        [Download AWSIM-Demo.zip](https://github.com/tier4/AWSIM/releases/download/v2.0.1/AWSIM-Demo.zip){ .md-button }
+        [Download AWSIM-Demo.zip](https://github.com/autowarefoundation/AWSIM/releases/download/v2.0.1/AWSIM-Demo.zip){ .md-button }
 
     1. Unzip the downloaded file.
     1. Make the `AWSIM-Demo.x86_64` file executable. Rightclick the `AWSIM-Demo.x86_64` file and check the `Execute` checkbox.
@@ -142,7 +142,7 @@ Please follow the official Autoware documentation for configuring localhost:
     ```
     
         !!! info
-            If `AWSIM-Demo` is hefty, try [AWSIM-Demo-LightWeight](https://github.com/tier4/AWSIM/releases/download/v2.0.1/AWSIM-Demo-Lightweight.zip), a lightweight version.
+            If `AWSIM-Demo` is hefty, try [AWSIM-Demo-LightWeight](https://github.com/autowarefoundation/AWSIM/releases/download/v2.0.1/AWSIM-Demo-Lightweight.zip), a lightweight version.
 
 
 ## 4. Run AWSIM and Autoware
@@ -187,7 +187,7 @@ It is recommended to launch in the order of `1.AWSIM -> 2.Autoware`. Same proced
 1. Launch Autoware
 
     1. Download `Shinjuku-Map.zip` and unzip them.  
-        [Download Shinjuku-Map.zip](https://github.com/tier4/AWSIM/releases/download/v2.0.0/Shinjuku-Map.zip){ .md-button }
+        [Download Shinjuku-Map.zip](https://github.com/autowarefoundation/AWSIM/releases/download/v2.0.0/Shinjuku-Map.zip){ .md-button }
         
         !!! info
             Autoware-shinjuku-map.zip file contains map files for `pcd` and `osm`.
