@@ -281,13 +281,13 @@ The entity parameters of default `AWSIM` assets are listed in the following tabl
 
 Ego Vehicle Entity
 
-| model name    | boundingbox size (m)                                  | wheel base(m) | front tread(m) | rear tread(m) | tier diameter(m) | max steer(deg) |
+| model name    | boundingbox size (m)                                  | wheel base(m) | front tread(m) | rear tread(m) | tire diameter(m) | max steer(deg) |
 |---------------|-------------------------------------------------------|---------------|----------------|---------------|------------------|----------------|
 | lexus_rx450h  | width : 1.920 <br> height : 1.700 <br> length : 4.890 | 2.105         | 1.640          | 1.630         | 0.766            | 35             |
 
 NPC Vehicle Entity
 
-| model name | boundingbox size (m)                                  | wheel base(m) | front tread(m) | rear tread(m) | tier diameter(m) | max steer(deg) |
+| model name | boundingbox size (m)                                  | wheel base(m) | front tread(m) | rear tread(m) | tire diameter(m) | max steer(deg) |
 |------------|-------------------------------------------------------|---------------|----------------|---------------|------------------|----------------|
 | taxi       | width : 1.695 <br> height : 1.515 <br> length : 4.590 | 2.680         | 1.460          | 1.400         |  0.635           | 35             |
 | truck_2t   | width : 1.695 <br> height : 1.960 <br> length : 4.685 | 2.490         | 1.395          | 1.240         | 0.673            | 40             |
